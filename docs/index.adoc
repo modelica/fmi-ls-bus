@@ -1,4 +1,6 @@
 = Network Communication and FMI 3.0, v1.0
+:doctype: book
+:imagesdir: images
 :sectnums:
 :sectnumlevels: 5
 :toc: left
@@ -6,14 +8,11 @@
 :toclevels: 5
 :xrefstyle: short
 :docinfo: shared
-:docinfodir: docs
-:stylesheet: docs/fmi-spec.css
+:stylesheet: fmi-spec.css
 :stem: latexmath
 :source-highlighter: highlightjs
 :nofooter:
 :favicon: images/favicon.ico
-:revdate: unreleased
-:revnumber: 3.0
 :icons: font
 
 This layered standard on top of FMI 3.0, defines how to describe and simulate network signals as input and output variables of an FMU.
@@ -242,7 +241,7 @@ The `modelDescription.xml` excerpt listed below shows which variables would exis
 [#modelDescription.xml]
 [source, XML]
 ----
-include::docs/examples/X_network4FMI_modelDescription.xml[]
+include::examples/X_network4FMI_modelDescription.xml[]
 ----
 
 The following file shows the `<Terminal>` definition representing the network and frame structure defined with `Powertrain.dbc` above.
@@ -251,7 +250,7 @@ The following file shows the `<Terminal>` definition representing the network an
 [#terminalsAndIcon.xml]
 [source, XML]
 ----
-include::docs/examples/X_network4FMI_terminalsAndIcons.xml[]
+include::examples/X_network4FMI_terminalsAndIcons.xml[]
 ----
 
 === Known Limitations of this Standard
