@@ -100,7 +100,7 @@ To define the signal abstraction layer (or "high cut"), signal variables are def
 A signal variable carries the physical value of a network signal normally packaged inside a PDU or frame.
 The unit definition of the variable must match the one defined in the <<NetworkDescriptionFile>>.
 
-Each network signal must be listed as <<TerminalMemberVariable>> of its corresponding <<PDUTerminal>>.
+Each network signal must be listed as <<TerminalMemberVariable>> of its corresponding <<PDUTerminal>> [<<rule_2.2.1a, 2.2.1a>>][[apply_2.2.1a_1]]..
 
 In case multiplexed signals are present in a frame/PDU: all signals are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values _[those values could even be outside their specified min-max range without fault]_.
 
