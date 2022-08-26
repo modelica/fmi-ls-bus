@@ -1,0 +1,91 @@
+//*********************************************************************************
+//
+//	Copyright (c) 2017-2022, INTO-CPS Association,
+//	c/o Professor Peter Gorm Larsen, Department of Engineering
+//	Finlandsgade 22, 8200 Aarhus N.
+//
+//	MIT Licence:
+//
+//	Permission is hereby granted, free of charge, to any person obtaining a copy of
+//	this software and associated documentation files (the "Software"), to deal in
+//	the Software without restriction, including without limitation the rights to use,
+//	copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+//	Software, and to permit persons to whom the Software is furnished to do so,
+//	subject to the following conditions:
+//
+//	The above copyright notice and this permission notice shall be included in all
+//	copies or substantial portions of the Software.
+//
+//	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+//	INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+//	PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//	HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+//	OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+//	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//
+//	SPDX-License-Identifier: MIT
+//
+//********************************************************************************/
+
+=== Introduction
+
+This Network Communication Standard contains a complete description of how to define network signals as input and output variables within an FMU.
+
+This appendix contains formally specified rules that clarify the textual description in the Standard. The formal rules can be used to automatically test the compliance of an FMU with the Standard, and rules link to the Standard where the issue is discussed. Similarly, links in the Standard refer to the rules given in this appendix.
+
+The rules only cover the _static_ semantics of the Standard. That is, they describe the rules for correctly configured XML files.
+
+=== VDM-SL Specifications
+
+The rules are defined in VDM-SL, the specification language of the https://en.wikipedia.org/wiki/Vienna_Development_Method[Vienna Development Method].  The language has a formal semantics, enabling proof of the properties of models to a high level of assurance. It also has an executable subset, so that real world data can be processed.
+
+Free https://github.com/overturetool/vdm-vscode[open source tools] are available to process the VDM-SL rules.
+
+=== Structure of the Rules
+
+Rules are named functions that return a boolean success/fail result. They are passed the XML schema record(s) that contains the data to check.
+
+Rules contain _@OnFail_ comments, which define error messages associated with clauses in the rule. The comments themselves are not part of the rules and do not affect whether the rule succeeds or fails. The _%NAME_ placeholder is expanded to the rule name. All XML types have a _location_ field which contains the filename and line number of the data in the original XML. The _loc2str_ function turns locations into useful strings.
+
+Rules sometimes use a function called _allOf_, which is passed a comma-separated list of boolean values in square brackets, all of which must be true for the overall rule to be met.
+
+=== Rules
+
+// This adds the "functions" section header for VDM
+ifdef::hidden[]
+// {vdm}
+functions
+// {vdm}
+endif::[]
+
+==== Rule 2.2.2a [[rule_2.2.2a]]
+Both frame variables must be listed as <<Terminal Member Variable>> of its corresponding <<BUSTerminal>>. Generally, frame variables are optional, but they must either both be missing or present to clearly indicate support for the frame abstraction layer.
+// {vdm}
+----
+rule_2_2_2_a: Terminals +> bool
+rule_2_2_2_a(terminals) ==
+	forall terminal in seq terminals &
+		terminal.terminalKind = "bus" =>
+			terminal.terminalMemberVariable = nil or	-- None defined
+			let busName = terminal.name,
+				frameVariables = { tvm | tvm in seq terminal.terminalMemberVariable &
+					tvm.variableKind = "signal"
+					and tvm.variableName(1, ..., len busName + 2) = busName ^ "::" }
+			in
+				-- @OnFail("%NAME: Bus must define all frame variables, or none at %s",
+				-- loc2str(terminal.location))
+				( card frameVariables in set {0, 4} );
+----
+// {vdm}
+See [<<apply_2.2.2a_1, Both must be listed>>], [<<apply_2.2.2a_2, Variables are optional>>]
+
+// This adds the document references that the tools use to report links in errors.
+ifdef::hidden[]
+// {vdm}
+values
+docReferences : ReferenceMap =
+{
+	"2.2.2a" |-> [ "<LS_BUS_STANDARD>#apply_2.2.2a_1", "<LS_BUS_STANDARD>#apply_2.2.2a_2" ]
+}
+// {vdm}
+endif::[]
