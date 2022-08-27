@@ -101,3 +101,13 @@ functions
 			then [d]
 			else nat2str(n div 10) ^ [d]
 	measure n;
+
+	/**
+	 * Lookup a variable name in the modelDescrition.
+	 */
+	lookup: FmiModelDescription * seq1 of char +> [fmi3Variable]
+	lookup(md, name) ==
+		let found = { v | v in seq md.modelVariables & v.name = name } in
+			if found = {}
+			then nil
+			else let v in set found in v;	-- Pick one

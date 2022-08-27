@@ -100,7 +100,7 @@ To define the signal abstraction layer (or "high cut"), signal variables are def
 A signal variable carries the physical value of a network signal normally packaged inside a PDU or frame.
 The unit definition of the variable must match the one defined in the <<NetworkDescriptionFile>>.
 
-Each network signal must be listed as <<TerminalMemberVariable>> of its corresponding <<PDUTerminal>> [<<rule_2.2.1a, 2.2.1a>>][[apply_2.2.1a_1]]..
+Each network signal must be listed as <<TerminalMemberVariable>> of its corresponding <<PDUTerminal>>.
 
 In case multiplexed signals are present in a frame/PDU: all signals are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values _[those values could even be outside their specified min-max range without fault]_.
 
@@ -116,9 +116,9 @@ Frames and inter-frame padding are build according to the network definitions.
 There are two such frame variables per bus: an input and an output.
 The names of these frame variables are defined as `BusName::FRAMES_in` and `BusName::FRAMES_out`, e.g. `Powertrain::FRAMES_in` and `Powertrain::FRAMES_out` (see <<Example>>).
 
-Both frame variables must be listed as a <<TerminalMemberVariable>> of its corresponding <<BUSTerminal>> [<<rule_2.2.2a, 2.2.2a>>][[apply_2.2.2a_1]].
+Both frame variables must be listed as a <<TerminalMemberVariable>> of its corresponding <<BUSTerminal>>.
 
-Generally, frame variables are optional, but they must either both be missing or present to clearly indicate support for the frame abstraction layer [<<rule_2.2.2a, 2.2.2a>>][[apply_2.2.2a_2]].
+Generally, frame variables are optional, but they must either both be missing or present to clearly indicate support for the frame abstraction layer.
 
 The senders of network frames can chose how many frames are buffered and/or for how long frames are buffered before activating an output clock to trigger the actual sending of these frames.
 This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the bus communication.
@@ -142,15 +142,15 @@ Each frame variable `BusName::FRAMES_in` and `BusName::FRAMES_out` have their ow
 ==== Bus Terminal [[BUSTerminal,bus terminal]]
 
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<FrameTerminal,frame terminals>>.
-The attribute `name` of the `<Terminal>` must match the root name of its <<NetworkDescriptionFile>>
+The attribute `name` of the `<Terminal>` must match the root name of its <<NetworkDescriptionFile>> [<<rule_1, rule 1>>][[apply_rule_1]].
 _[e.g. `Powertrain`, if the file is `/extra/org.modelica.fmi.layered_BUS/Powertrain.dbc`]_.
 
-Attribute definitions::
+Attribute definitions [<<rule_2, rule 2>>][[apply_rule_2]]::
  * `terminalKind` must be set to `bus`.
  * `matchingRule` must be set to `bus`.
  * `name` is the network name, e.g. `Powertrain`, see <<Example>> and constraints above.
 
-Element definitions::
+Element definitions [<<rule_3, rule 3>>][[apply_rule_3]]::
  * If frame variables (`BusName::FRAMES_in` and `BusName::FRAMES_out`) and their clocks (`BusName::FRAMES_in_CLOCK` and `BusName::FRAMES_out_CLOCK`) are exposed in the `modelDescription.xml`, they must be listed as `<TerminalMemberVariable>` elements here.
  These variables represent the frame abstraction layer ("low cut").
  * There must be no `<TerminalStreamMemberVariable>` element.
