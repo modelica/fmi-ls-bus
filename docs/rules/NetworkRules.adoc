@@ -47,22 +47,23 @@ In order to define rules for a correctly configured XML files, the various forma
 
 ----
 types
-	NetworkDescription = seq1 of Bus;
+	Name = seq1 of char
+	NetworkDescription = set1 of Bus;
 
 	Bus ::
-		name	: seq1 of char
+		name	: Name
 		frames	: set1 of Frame;
 
 	Frame ::
-		name	: seq1 of char
+		name	: Name
 		pdus	: set1 of PDU;
 
 	PDU ::
-		name	: seq1 of char
+		name	: Name
 		signals	: set1 of Signal;
 
 	Signal ::
-		name	: seq1 of char
+		name	: Name
 		unit	: [Unit];
 ----
 
@@ -75,12 +76,12 @@ functions
 // {vdm}
 endif::[]
 
-==== Rule 1 [[rule_1]]
+==== Rule 2.3.1a [[rule_2.3.1a]]
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<FrameTerminal,frame terminals>>. The attribute `name` of the `<Terminal>` must match the root name of its <<NetworkDescriptionFile>>.
 // {vdm}
 ----
-rule_1: NetworkDescription * FmiTerminalsAndIcons +> bool
-rule_1(nd, ti) == allOf
+rule_231a: NetworkDescription * FmiTerminalsAndIcons +> bool
+rule_231a(nd, ti) == allOf
 ([
 	-- @OnFail("Missing 'bus' Terminal for %s", bus.name)
 	( exists terminal in seq ti.terminals & terminal.name = bus.name )
@@ -89,14 +90,14 @@ rule_1(nd, ti) == allOf
 ]);
 ----
 // {vdm}
-See [<<apply_rule_1, Bus terminal>>] _[In general, this can be a list of places where the rule is relevant]_
+See [<<apply_2.3.1a, Bus terminal>>] _[In general, this can be a list of places where the rule is relevant]_
 
-==== Rule 2 [[rule_2]]
+==== Rule 2.3.1b [[rule_2.3.1b]]
 A bus terminal `terminalKind` must be set to `bus`, the `matchingRule` must be set to `bus` and the `name` is the network name, e.g. `Powertrain`.
 // {vdm}
 ----
-rule_2: Bus * Terminal +> bool
-rule_2(busDescription, busTerminal) == allOf
+rule_231b: Bus * Terminal +> bool
+rule_231b(busDescription, busTerminal) == allOf
 ([
 	-- @OnFail("Bus terminal must be terminalKind 'bus' at %s",
 	-- loc2str(busTerminal.location))
@@ -113,18 +114,18 @@ rule_2(busDescription, busTerminal) == allOf
 	-- @OnFail("Bus has wrong number of frames at %s",
 	-- loc2str(busTerminal.location))
 	( busTerminal.terminal <> nil
-		and len busTerminal.terminal = card busDescription.frames )
+		and len busTerminal.terminal = len busDescription.frames )
 ]);
 ----
 // {vdm}
-See [<<apply_rule_2, Bus attributes>>]
+See [<<apply_2.3.1b, Bus attributes>>]
 
-==== Rule 3 [[rule_3]]
+==== Rule 2.3.1c [[rule_2.3.1c]]
 If frame variables (`BusName::FRAMES_in` and `BusName::FRAMES_out`) and their clocks (`BusName::FRAMES_in_CLOCK` and `BusName::FRAMES_out_CLOCK`) are exposed in the `modelDescription.xml`, they must be listed as `<TerminalMemberVariable>` elements here. There must be no `<TerminalStreamMemberVariable>` element.
 // {vdm}
 ----
-rule_3: Bus * FmiModelDescription * Terminal +> bool
-rule_3(busDescription, modelDescription, busTerminal) == allOf
+rule_231c: Bus * FmiModelDescription * Terminal +> bool
+rule_231c(busDescription, modelDescription, busTerminal) == allOf
 ([
 	let variableName = busDescription.name ^ "::" ^ varName in
 		-- @OnFail("Missing TerminalMemberVariable for %s", variableName)
@@ -143,7 +144,18 @@ rule_3(busDescription, modelDescription, busTerminal) == allOf
 ]);
 ----
 // {vdm}
-See [<<apply_rule_3, Bus elements>>]
+See [<<apply_2.3.1c, Bus elements>>]
+
+==== Rule <section><number>
+_[Similarly, rules defined for each section and occurrence within that.]_
+
+==== Network Description Validation
+This section defines the complete validation of a <<network description file>> against a TerminalsAndIcons XML structure.
+
+// {vdm}
+----
+----
+// {vdm}
 
 
 // This adds the document references that the tools use to report links in errors.
@@ -152,9 +164,9 @@ ifdef::hidden[]
 values
 docReferences : ReferenceMap =
 {
-	"rule_1"		|-> [ "<LS_BUS_STANDARD>#apply_rule_1" ],
-	"applyRule_2"	|-> [ "<LS_BUS_STANDARD>#apply_rule_2" ],
-	"applyRule_3"	|-> [ "<LS_BUS_STANDARD>#apply_rule_3" ]
+	"rule_2.3.1a"	|-> [ "<LS_BUS_STANDARD>#apply_2.3.1a" ],
+	"applyRule_2"	|-> [ "<LS_BUS_STANDARD>#apply_2.3.1b" ],
+	"applyRule_3"	|-> [ "<LS_BUS_STANDARD>#apply_2.3.1c" ]
 }
 // {vdm}
 endif::[]

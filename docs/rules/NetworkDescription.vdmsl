@@ -27,21 +27,22 @@
  *
  *********************************************************************************/
 types
+	Name = seq1 of char;
 	NetworkDescription = seq1 of Bus;
 
 	Bus ::
-		name	: seq1 of char
-		frames	: set1 of Frame;
+		name	: Name
+		frames	: seq1 of Frame;
 
 	Frame ::
-		name	: seq1 of char
-		pdus	: set1 of PDU;
+		name	: Name
+		pdus	: seq1 of PDU;
 
 	PDU ::
-		name	: seq1 of char
-		signals	: set1 of Signal;
+		name	: Name
+		signals	: seq1 of Signal;
 
 	Signal ::
-		name	: seq1 of char
+		name	: Name
 		unit	: [Unit];
 

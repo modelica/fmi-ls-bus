@@ -142,15 +142,15 @@ Each frame variable `BusName::FRAMES_in` and `BusName::FRAMES_out` have their ow
 ==== Bus Terminal [[BUSTerminal,bus terminal]]
 
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<FrameTerminal,frame terminals>>.
-The attribute `name` of the `<Terminal>` must match the root name of its <<NetworkDescriptionFile>> [<<rule_1, rule 1>>][[apply_rule_1]].
+The attribute `name` of the `<Terminal>` must match the root name of its <<NetworkDescriptionFile>> [<<rule_2.3.1a, rule 2.3.1a>>][[apply_2.3.1a]].
 _[e.g. `Powertrain`, if the file is `/extra/org.modelica.fmi.layered_BUS/Powertrain.dbc`]_.
 
-Attribute definitions [<<rule_2, rule 2>>][[apply_rule_2]]::
+Attribute definitions [<<rule_2.3.1b, rule 2.3.1b>>][[apply_2.3.1b]]::
  * `terminalKind` must be set to `bus`.
  * `matchingRule` must be set to `bus`.
  * `name` is the network name, e.g. `Powertrain`, see <<Example>> and constraints above.
 
-Element definitions [<<rule_3, rule 3>>][[apply_rule_3]]::
+Element definitions [<<rule_2.3.1c, rule 2.3.1c>>][[apply_2.3.1c]]::
  * If frame variables (`BusName::FRAMES_in` and `BusName::FRAMES_out`) and their clocks (`BusName::FRAMES_in_CLOCK` and `BusName::FRAMES_out_CLOCK`) are exposed in the `modelDescription.xml`, they must be listed as `<TerminalMemberVariable>` elements here.
  These variables represent the frame abstraction layer ("low cut").
  * There must be no `<TerminalStreamMemberVariable>` element.
