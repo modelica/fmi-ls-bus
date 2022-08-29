@@ -163,14 +163,14 @@ Receiving such frames must then be handled internally to the FMU.
 
 ==== Frame Terminal [[FrameTerminal,frame terminal]]
 
-Each frame listed in the <<NetworkDescriptionFile>> must be an element of its corresponding <<BUSTerminal>>.
+Each frame listed in the <<NetworkDescriptionFile>> must be an element of its corresponding <<BUSTerminal>> <<rule_2.3.2a, rule 2.3.2a>>][[apply_2.3.2a]].
 
-Attribute definitions::
+Attribute definitions [<<rule_2.3.2b, rule 2.3.2b>>][[apply_2.3.2b]]::
  * `terminalKind` must be set to `frame`.
  * `matchingRule` must be set to `bus`.
  * `name` must match the frame name as defined in the <<NetworkDescriptionFile>> in `/extra/org.modelica.fmi.layered_BUS`.
 
-Element definitions::
+Element definitions [<<rule_2.3.2c, rule 2.3.2c>>][[apply_2.3.2c]]::
  * There must be no `<TerminalStreamMemberVariable>` element.
  * There must be one <<PDUTerminal>> element per PDU of this frame.
  * There must be one `<TerminalMemberVariable>` for the clock this frame is connected to.
@@ -180,15 +180,15 @@ The <<TerminalMemberVariable>> must have the same causality as all variables ref
 
 ==== PDU Terminal [[PDUTerminal,PDU terminal]]
 
-Each PDU listed in the <<NetworkDescriptionFile>> must be an element of its corresponding <<FrameTerminal>>.
+Each PDU listed in the <<NetworkDescriptionFile>> must be an element of its corresponding <<FrameTerminal>> [<<rule_2.3.3a, rule 2.3.3a>>][[apply_2.3.3a]].
 
-Attribute definitions::
+Attribute definitions [<<rule_2.3.3b, rule 2.3.3b>>][[apply_2.3.3b]]::
  * `terminalKind` must be set to `pdu`.
  * `matchingRule` must be set to `bus`.
  * `name` must match a PDU name of the <<NetworkDescriptionFile>> in `/extra/org.modelica.fmi.layered_BUS`.
     For network types not natively referencing a "PDU", like CAN, a synthetic PDU with the same name as its frame is inserted.
 
-Element definitions::
+Element definitions [<<rule_2.3.3c, rule 2.3.3c>>][[apply_2.3.3c]]::
  * There must be no `<TerminalStreamMemberVariable>` element.
  * There must be no `<Terminal>` element.
  * There must be one `<TerminalMemberVariable>` per <<TerminalMemberVariable,signal>> of this PDU.
@@ -197,9 +197,9 @@ All <<TerminalMemberVariable,`TerminalMemberVariables`>> must have the same caus
 
 ==== Terminal Member Variable for Signals [[TerminalMemberVariable,Terminal Member Variable]]
 
-<<PDUTerminal,PDU terminals>> list all the contained signals as `<TerminalMemberVariable>`.
+<<PDUTerminal,PDU terminals>> list all the contained signals as `<TerminalMemberVariable>`. [<<rule_2.3.4a, rule 2.3.4a>>][[apply_2.3.4a]]
 
-Attribute definitions::
+Attribute definitions [<<rule_2.3.4b, rule 2.3.4b>>][[apply_2.3.4b]]::
  * `variableName` refers to the input or output variable name of the FMU and to enforce uniqueness is built as follows: `BusName::FrameName::PDUName::SignalName`, e.g. `Powertrain::tcuSensors::tcuSensors::vCar`.
     These variables represent the signal abstraction layer ("high cut").
  * `memberName` is the `SignalName` as given in the <<NetworkDescriptionFile>>, e.g. `vCar`.

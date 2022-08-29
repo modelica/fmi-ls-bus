@@ -146,14 +146,286 @@ rule_231c(busDescription, modelDescription, busTerminal) == allOf
 // {vdm}
 See [<<apply_2.3.1c, Bus elements>>]
 
-==== Rule <section><number>
-_[Similarly, rules defined for each section and occurrence within that.]_
-
-==== Network Description Validation
-This section defines the complete validation of a <<network description file>> against a TerminalsAndIcons XML structure.
+==== Rule 2.3.2a [[rule_2.3.2a]]
+_[Explanation here]_.
 
 // {vdm}
 ----
+rule_232a: Bus * Terminal +> bool
+rule_232a(busDesc, busTerminal) == allOf
+([
+	-- @OnFail("Missing 'frame' Terminal for %s", frame.name)
+	( exists f in seq busTerminal.terminal & f.name = frame.name )
+
+	| frame in seq busDesc.frames
+]);
+----
+// {vdm}
+See [<<apply_2.3.2a, Frame terminal>>]
+
+==== Rule 2.3.2b [[rule_2.3.2b]]
+_[Explanation here]_.
+
+// {vdm}
+----
+rule_232b: Frame * Terminal +> bool
+rule_232b(frameDesc, frameTerminal) == allOf
+([
+	-- @OnFail("Frame terminal must be terminalKind 'frame' at %s",
+	-- loc2str(frameTerminal.location))
+	( frameTerminal.terminalKind = "frame" ),
+
+	-- @OnFail("Frame temrinal must have matchingRule 'bus' at %s")
+	-- loc2str(busTerminal.location))
+	( frameTerminal.matchingRule = "bus" ),
+
+	-- @OnFail("Frame %s does not match network description name %s at %s",
+	-- frameTerminal.name, frameDesc.name, loc2str(frameTerminal.location))
+	( frameTerminal.name = frameDesc.name )
+]);
+----
+// {vdm}
+See [<<apply_2.3.2b, Frame attributes>>]
+
+==== Rule 2.3.2c [[rule_2.3.2c]]
+_[Explanation here]_.
+
+// {vdm}
+----
+rule_232c: Bus * Frame * FmiModelDescription * Terminal +> bool
+rule_232c(busDesc, frameDesc, modelDesc, frameTerminal) == allOf
+([
+	let clockName = busDesc.name ^ "::" ^ frameDesc.name ^ "_CLOCK" in allOf
+	([
+		let var = lookup(modelDesc, clockName) in
+			-- @OnFail("Missing ModelVariable for %s", clockName)
+			( var <> nil )
+
+			-- @OnFail("Variable is not of type Clock: %s", clockName)
+			and ( is_Clock(var) ),	
+
+		-- @OnFail("Missing TerminalMemberVariable for %s", clockName)
+		( exists tmv in seq frameTerminal.terminalMemberVariable &
+				tmv.variableName = clockName )
+	]),
+
+	-- @OnFail("TerminalStreamMemberVariables must be empty at %s",
+	-- loc2str(frameTerminal.location))
+	( frameTerminal.terminalStreamMemberVariable = nil ),
+
+	-- @OnFail("Frame has wrong number of PDUs at %s",
+	-- loc2str(frameTerminal.location))
+	( frameTerminal.terminal <> nil
+		and len frameTerminal.terminal = len frameDesc.pdus )
+]);
+----
+// {vdm}
+See [<<apply_2.3.2c, Frame elements>>]
+
+
+==== Rule 2.3.3a [[rule_2.3.3a]]
+_[Explanation here]_.
+
+// {vdm}
+----
+rule_233a: Frame * Terminal +> bool
+rule_233a(frameDesc, frameTerminal) == allOf
+([
+	-- @OnFail("Missing 'pdu' Terminal for %s", pdu.name)
+	( exists p in seq frameTerminal.terminal & p.name = pdu.name )
+
+	| pdu in seq frameDesc.pdus
+]);
+----
+// {vdm}
+See [<<apply_2.3.3a, PDU terminal>>]
+
+==== Rule 2.3.3b [[rule_2.3.3b]]
+_[Explanation here]_.
+
+// {vdm}
+----
+rule_233b: PDU * Terminal +> bool
+rule_233b(pduDesc, pduTerminal) == allOf
+([
+	-- @OnFail("PDU terminal must be terminalKind 'frame' at %s",
+	-- loc2str(pduTerminal.location))
+	( pduTerminal.terminalKind = "pdu" ),
+
+	-- @OnFail("PDU temrinal must have matchingRule 'bus' at %s")
+	-- loc2str(pduTerminal.location))
+	( pduTerminal.matchingRule = "bus" ),
+
+	-- @OnFail("PDU %s does not match network description name %s at %s",
+	-- pduTerminal.name, pduDesc.name, loc2str(pduTerminal.location))
+	( pduTerminal.name = pduDesc.name )
+]);
+----
+// {vdm}
+See [<<apply_2.3.3b, PDU attributes>>]
+
+==== Rule 2.3.3c [[rule_2.3.3c]]
+_[Explanation here]_.
+
+// {vdm}
+----
+rule_233c: PDU * Terminal +> bool
+rule_233c(pduDesc, pduTerminal) == allOf
+([
+	-- @OnFail("TerminalStreamMemberVariables must be empty at %s",
+	-- loc2str(pduTerminal.location))
+	( pduTerminal.terminalStreamMemberVariable = nil ),
+
+	-- @OnFail("PDU can have no Terminals at %s", loc2str(pduTerminal.location))
+	( pduTerminal.terminal = nil ),
+
+	-- @OnFail("PDU has wrong number of signals at %s",
+	-- loc2str(pduTerminal.location))
+	( pduTerminal.terminalMemberVariable <> nil
+		and len pduTerminal.terminalMemberVariable = len pduDesc.signals )
+]);
+----
+// {vdm}
+See [<<apply_2.3.3c, PDU elements>>]
+
+==== Rule 2.3.4a [[rule_2.3.4a]]
+_[Explanation here]_.
+
+// {vdm}
+----
+rule_234a: PDU * Terminal +> bool
+rule_234a(pduDesc, pduTerminal) == allOf
+([
+	-- @OnFail("PDU has wrong number of signals at %s",
+	-- loc2str(pduTerminal.location))
+	( pduTerminal.terminalMemberVariable <> nil
+		and len pduTerminal.terminalMemberVariable = len pduDesc.signals )
+]);
+----
+// {vdm}
+See [<<apply_2.3.4a, Signal variable>>]
+
+==== Rule 2.3.4b [[rule_2.3.4b]]
+_[Explanation here]_.
+
+// {vdm}
+----
+rule_234b: Signal * FmiModelDescription * TerminalMemberVariable +> bool
+rule_234b(signalDesc, modelDesc, signalVariable) == allOf
+([
+	-- @OnFail("Signal must be variableKind 'signal' at %s",
+	-- loc2str(signalVariable.location))
+	( signalVariable.variableKind = "signal" ),
+
+	-- @OnFail("Signal memberName should be '%s' at %s",
+	-- signalDesc.name, loc2str(signalVariable.location))
+	( signalVariable.memberName = signalDesc.name ),
+
+	let var = lookup(modelDesc, signalVariable.variableName) in
+		-- @OnFail("Signal variable %s is not defined", signalVariable.variableName)
+		(var <> nil)
+]);
+----
+// {vdm}
+See [<<apply_2.3.4b, Signal attributes>>]
+
+==== Network Description Validation
+This section defines the complete validation of a <<network description file>> against a TerminalsAndIcons XML structure, using the basic rules defined above.
+
+// {vdm}
+----
+networkValidation: NetworkDescription * FmiModelDescription * FmiTerminalsAndIcons +> bool
+networkValidation(networkDesc, modelDesc, terminalsAndIcons) == allOf
+([
+	rule_231a(networkDesc, terminalsAndIcons)
+]
+^
+[
+	let matching = {b | b in seq terminalsAndIcons.terminals &
+		b.name = busDesc.name }
+	in
+		-- @OnFail("Missing or duplicate bus terminal for %s", busDesc.name)
+		( card matching = 1 )
+			=> let {busTerminal} = matching in
+				busValidation(busDesc, modelDesc, busTerminal)
+
+	| busDesc in seq networkDesc
+]);
+
+busValidation: Bus * FmiModelDescription * Terminal +> bool
+busValidation(busDesc, modelDesc, busTerminal) == allOf
+([
+	rule_231b(busDesc, busTerminal),
+	rule_231c(busDesc, modelDesc, busTerminal),
+	rule_232a(busDesc, busTerminal)
+]
+^
+[
+	let matching = {f | f in seq busTerminal.terminal & f.name = frameDesc.name } in
+		-- @OnFail("Missing or duplicate frame for %s", frameDesc.name)
+		( card matching = 1 )
+			=> let {frameTerminal} = matching in
+				frameValidation(busDesc, frameDesc, modelDesc, frameTerminal)
+		
+	| frameDesc in seq busDesc.frames
+]);
+
+frameValidation: Bus * Frame * FmiModelDescription * Terminal +> bool
+frameValidation(busDesc, frameDesc, modelDesc, frameTerminal) == allOf
+([
+	rule_232b(frameDesc, frameTerminal),
+	rule_232c(busDesc, frameDesc, modelDesc, frameTerminal),
+	rule_233a(frameDesc, frameTerminal)
+]
+^
+[
+	let matching = {p | p in seq frameTerminal.terminal & p.name = pduDesc.name } in
+		-- @OnFail("Missing or duplicate PDU for %s", pduDesc.name)
+		( card matching = 1 )
+			=> let {pduTerminal} = matching in
+				pduValidation(busDesc, frameDesc, pduDesc, modelDesc, pduTerminal)
+		
+	| pduDesc in seq frameDesc.pdus
+]);
+
+pduValidation: Bus * Frame * PDU * FmiModelDescription * Terminal +> bool
+pduValidation(busDesc, frameDesc, pduDesc, modelDesc, pduTerminal) == allOf
+([
+	rule_233b(pduDesc, pduTerminal),
+	rule_233c(pduDesc, pduTerminal)
+]
+^
+[
+	let matching = {s | s in seq pduTerminal.terminalMemberVariable &
+		s.variableName =
+			busDesc.name ^ "::" ^
+			frameDesc.name ^ "::" ^
+			pduDesc.name ^ "::" ^
+			signalDesc.name}
+	in
+		-- @OnFail("Missing or duplicate TerminalMemberVariable for %s", signalDesc.name)
+		( card matching = 1 )
+			=> let {signalVariable} = matching in
+				signalValidation(signalDesc, modelDesc, signalVariable)
+		
+	| signalDesc in seq pduDesc.signals
+]);
+
+signalValidation: Signal * FmiModelDescription * TerminalMemberVariable +> bool
+signalValidation(signalDesc, modelDesc, signalVariable) == allOf
+([
+	-- @OnFail("Signal must be variableKind 'signal' at %s",
+	-- loc2str(signalVariable.location))
+	( signalVariable.variableKind = "signal" ),
+
+	-- @OnFail("Signal memberName should be '%s' at %s",
+	-- signalDesc.name, loc2str(signalVariable.location))
+	( signalVariable.memberName = signalDesc.name ),
+
+	let var = lookup(modelDesc, signalVariable.variableName) in
+		-- @OnFail("Signal variable %s is not defined", signalVariable.variableName)
+		(var <> nil)
+]);
 ----
 // {vdm}
 
@@ -164,9 +436,17 @@ ifdef::hidden[]
 values
 docReferences : ReferenceMap =
 {
-	"rule_2.3.1a"	|-> [ "<LS_BUS_STANDARD>#apply_2.3.1a" ],
-	"applyRule_2"	|-> [ "<LS_BUS_STANDARD>#apply_2.3.1b" ],
-	"applyRule_3"	|-> [ "<LS_BUS_STANDARD>#apply_2.3.1c" ]
+	"rule_231a" |-> [ "<LS_BUS_STANDARD>#apply_231a" ],
+	"rule_231b" |-> [ "<LS_BUS_STANDARD>#apply_231b" ],
+	"rule_231c" |-> [ "<LS_BUS_STANDARD>#apply_231c" ],
+	"rule_232a" |-> [ "<LS_BUS_STANDARD>#apply_232a" ],
+	"rule_232b" |-> [ "<LS_BUS_STANDARD>#apply_232b" ],
+	"rule_232c" |-> [ "<LS_BUS_STANDARD>#apply_232c" ],
+	"rule_233a" |-> [ "<LS_BUS_STANDARD>#apply_233a" ],
+	"rule_233b" |-> [ "<LS_BUS_STANDARD>#apply_233b" ],
+	"rule_233c" |-> [ "<LS_BUS_STANDARD>#apply_233c" ],
+	"rule_234a" |-> [ "<LS_BUS_STANDARD>#apply_234a" ],
+	"rule_234b" |-> [ "<LS_BUS_STANDARD>#apply_234b" ]
 }
 // {vdm}
 endif::[]
