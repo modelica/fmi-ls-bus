@@ -29,9 +29,9 @@
 
 === Introduction
 
-This Network Communication Standard contains a complete description of how to define network signals as input and output variables within an FMU.
+The Network Communication Standard contains a complete description of how to define network signals as input and output variables within an FMU.
 
-This appendix defines formal rules that clarify the textual description in the Standard. The formal rules can be used to automatically test the compliance of an FMU with the Standard. Each rule contains links to places in the Standard where the rule is relevant. Similarly, links in the Standard refer to the rules given in this appendix.
+This appendix defines formal rules that clarify the textual description in the Standard. The formal rules can be used to automatically test the compliance of an FMU with the Standard. Links in the Standard refer to the rules given in this appendix, and each rule contains links back to the places in the Standard where the rule is relevant.
 
 The rules only cover the _static_ semantics of the Standard. That is, they describe the rules for correctly configured XML files, not the subsequent _dynamic_ behaviour of the FMUs.
 
@@ -43,7 +43,7 @@ Free https://github.com/overturetool/vdm-vscode[open source tools] are available
 
 === The VDM-SL Network Description type
 
-In order to define rules for a correctly configured XML files, the various formats of the <<NetworkDescriptionFile>> must be represented as a common VDM-SL record type. This type is an abstract representation of the aspects of the real network description that matter to the rules.
+In order to define rules for a correctly configured XML files, the various formats of the <<NetworkDescriptionFile>> must be represented as a common VDM-SL record type. These types give an abstract representation of the aspects of the real network description that matter to the rules.
 
 ----
 types
@@ -70,7 +70,7 @@ types
 
 === Rules
 
-// This adds the "functions" section header for VDM
+// This adds the "functions" section header needed for VDM
 ifdef::hidden[]
 // {vdm}
 functions
@@ -78,7 +78,7 @@ functions
 endif::[]
 
 ==== Rule 2.3.1a [[rule_2.3.1a]]
-Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<FrameTerminal,frame terminals>>. The attribute `name` of the `<Terminal>` must match the root name of its <<NetworkDescriptionFile>>.
+_[Explanation here]_.
 // {vdm}
 ----
 rule_231a: NetworkDescription * FmiTerminalsAndIcons +> bool
@@ -94,7 +94,7 @@ rule_231a(nd, ti) == allOf
 See [<<apply_2.3.1a, Bus terminal>>] _[In general, this can be a list of places where the rule is relevant]_
 
 ==== Rule 2.3.1b [[rule_2.3.1b]]
-A bus terminal `terminalKind` must be set to `bus`, the `matchingRule` must be set to `bus` and the `name` is the network name, e.g. `Powertrain`.
+_[Explanation here]_.
 // {vdm}
 ----
 rule_231b: Bus * Terminal +> bool
@@ -122,7 +122,7 @@ rule_231b(busDescription, busTerminal) == allOf
 See [<<apply_2.3.1b, Bus attributes>>]
 
 ==== Rule 2.3.1c [[rule_2.3.1c]]
-If frame variables (`BusName::FRAMES_in` and `BusName::FRAMES_out`) and their clocks (`BusName::FRAMES_in_CLOCK` and `BusName::FRAMES_out_CLOCK`) are exposed in the `modelDescription.xml`, they must be listed as `<TerminalMemberVariable>` elements here. There must be no `<TerminalStreamMemberVariable>` element.
+_[Explanation here]_.
 // {vdm}
 ----
 rule_231c: Bus * FmiModelDescription * Terminal +> bool
