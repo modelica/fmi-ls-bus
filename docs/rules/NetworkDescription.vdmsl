@@ -32,7 +32,8 @@ types
 
 	Bus ::
 		name	: Name
-		frames	: seq1 of Frame;
+		frames	: seq1 of Frame
+		nodes   : seq1 of char;
 
 	Frame ::
 		name	: Name
@@ -44,5 +45,5 @@ types
 
 	Signal ::
 		name	: Name
-		unit	: [Unit];
+		unit	: [seq1 of char];
 

@@ -47,24 +47,25 @@ In order to define rules for a correctly configured XML files, the various forma
 
 ----
 types
-	Name = seq1 of char
-	NetworkDescription = set1 of Bus;
+	Name = seq1 of char;
+	NetworkDescription = seq1 of Bus;
 
 	Bus ::
 		name	: Name
-		frames	: set1 of Frame;
+		frames	: seq1 of Frame
+		nodes   : seq1 of char;
 
 	Frame ::
 		name	: Name
-		pdus	: set1 of PDU;
+		pdus	: seq1 of PDU;
 
 	PDU ::
 		name	: Name
-		signals	: set1 of Signal;
+		signals	: seq1 of Signal;
 
 	Signal ::
 		name	: Name
-		unit	: [Unit];
+		unit	: [seq1 of char];
 ----
 
 === Rules
@@ -125,22 +126,44 @@ If frame variables (`BusName::FRAMES_in` and `BusName::FRAMES_out`) and their cl
 // {vdm}
 ----
 rule_231c: Bus * FmiModelDescription * Terminal +> bool
-rule_231c(busDescription, modelDescription, busTerminal) == allOf
+rule_231c(busDesc, modelDesc, busTerminal) == allOf
 ([
-	let variableName = busDescription.name ^ "::" ^ varName in
-		-- @OnFail("Missing TerminalMemberVariable for %s", variableName)
-		( lookup(modelDescription, variableName) <> nil =>
-			exists tmv in seq busTerminal.terminalMemberVariable &
-				tmv.variableName = variableName )
+	let variableName = busDesc.name ^ "::" ^ varName,
+		clockName = variableName ^ "_CLOCK",
+		variable = lookup(modelDesc, variableName),
+		clockvar = lookup(modelDesc, clockName)
+	in
+		allOf
+		([
+			-- @OnFail("Missing TerminalMemberVariable for %s", variableName)
+			( exists tmv in seq busTerminal.terminalMemberVariable &
+					tmv.variableName = variableName ),
 
-	| varName in seq
-		[ "FRAMES_in", "FRAMES_out", "FRAMES_in_CLOCK", "FRAMES_out_CLOCK" ]
+			-- @OnFail("Missing TerminalMemberVariable for %s", clockName)
+			( exists tmv in seq busTerminal.terminalMemberVariable &
+					tmv.variableName = clockName ),
+
+			-- @OnFail("Frame variable must be fmi3Binary for %s", variableName)
+			( is_Binary(variable) ),
+
+			-- @OnFail("Frame variable must be triggered Clock for %s", clockName)
+			( is_Clock(clockvar) and clockvar.intervalVariability = <triggered> )
+		])
+
+	| varName in seq [ "FRAMES_in", "FRAMES_out" ]
 ]
 ^
 [
 	-- @OnFail("TerminalStreamMemberVariables must be empty at %s",
 	-- loc2str(busTerminal.location))
-	( busTerminal.terminalStreamMemberVariable = nil )
+	( busTerminal.terminalStreamMemberVariable = nil ),
+
+	-- @OnFail("Missing annotation for bus %s", busDesc.name)
+	( busTerminal.annotations <> nil )
+
+	-- @OnFail("Bus %s annotation does not match network at %s",
+	-- busDesc.name, loc2str(busTerminal.location))
+	and ( busTerminal.annotations(1).type = busDesc.nodes )
 ]);
 ----
 // {vdm}
@@ -202,7 +225,10 @@ rule_232c(busDesc, frameDesc, modelDesc, frameTerminal) == allOf
 			( var <> nil )
 
 			-- @OnFail("Variable is not of type Clock: %s", clockName)
-			and ( is_Clock(var) ),	
+			and ( is_Clock(var) )	-- Causality checked in rule_234a
+
+			-- @OnFail("Clock %s must be <triggered>", clockName)
+			and ( var.intervalVariability = <triggered> ),
 
 		-- @OnFail("Missing TerminalMemberVariable for %s", clockName)
 		( exists tmv in seq frameTerminal.terminalMemberVariable &
@@ -269,20 +295,15 @@ _[Explanation here]_.
 
 // {vdm}
 ----
-rule_233c: PDU * Terminal +> bool
-rule_233c(pduDesc, pduTerminal) == allOf
+rule_233c: Terminal +> bool
+rule_233c(pduTerminal) == allOf
 ([
 	-- @OnFail("TerminalStreamMemberVariables must be empty at %s",
 	-- loc2str(pduTerminal.location))
 	( pduTerminal.terminalStreamMemberVariable = nil ),
 
 	-- @OnFail("PDU can have no Terminals at %s", loc2str(pduTerminal.location))
-	( pduTerminal.terminal = nil ),
-
-	-- @OnFail("PDU has wrong number of signals at %s",
-	-- loc2str(pduTerminal.location))
-	( pduTerminal.terminalMemberVariable <> nil
-		and len pduTerminal.terminalMemberVariable = len pduDesc.signals )
+	( pduTerminal.terminal = nil )
 ]);
 ----
 // {vdm}
@@ -293,13 +314,48 @@ _[Explanation here]_.
 
 // {vdm}
 ----
-rule_234a: PDU * Terminal +> bool
-rule_234a(pduDesc, pduTerminal) == allOf
+rule_234a: Bus * Frame * PDU * FmiModelDescription * Terminal +> bool
+rule_234a(busDesc, frameDesc, pduDesc, modelDesc, pduTerminal) == allOf
 ([
 	-- @OnFail("PDU has wrong number of signals at %s",
 	-- loc2str(pduTerminal.location))
 	( pduTerminal.terminalMemberVariable <> nil
-		and len pduTerminal.terminalMemberVariable = len pduDesc.signals )
+		and len pduTerminal.terminalMemberVariable = len pduDesc.signals ),
+
+	-- Verify that the frame clock has the same causality as all the signals
+	let clockName = busDesc.name ^ "::" ^ frameDesc.name ^ "_CLOCK",
+		frameClock = lookup(modelDesc, clockName)
+	in
+		frameClock <> nil =>  -- Error reported in 2.3.2c
+			let clockCausality =
+				if frameClock.causality <> nil
+				then frameClock.causality
+				else <local>  -- default causality
+			in allOf
+			([
+				-- @OnFail("Clock causality must be input or output at %s",
+				-- loc2str(frameClock.location))
+				( clockCausality in set {<input>, <output>} )
+			]
+			^
+			[
+				let signalVariable = lookup(modelDesc, signalTerminal.variableName) in
+					signalVariable <> nil =>	-- error reported in rule_234b
+						let signalCausality =
+							if signalVariable.causality <> nil
+							then signalVariable.causality
+							else <local>
+				in
+					-- @OnFail("Signal causality should be %s at %s",
+					-- clockCausality, loc2str(signalTerminal.location))
+					( signalCausality = clockCausality )
+
+					-- @OnFail("Signal causality must be input or output at %s",
+					-- loc2str(signalVariable.location))
+					and ( signalCausality in set {<input>, <output>} )
+
+				| signalTerminal in seq pduTerminal.terminalMemberVariable
+			])
 ]);
 ----
 // {vdm}
@@ -321,9 +377,18 @@ rule_234b(signalDesc, modelDesc, signalVariable) == allOf
 	-- signalDesc.name, loc2str(signalVariable.location))
 	( signalVariable.memberName = signalDesc.name ),
 
-	let var = lookup(modelDesc, signalVariable.variableName) in
+	let var = lookup(modelDesc, signalVariable.variableName) in allOf
+	([
 		-- @OnFail("Signal variable %s is not defined", signalVariable.variableName)
-		(var <> nil)
+		(var <> nil),
+
+		-- @OnFail("Signal unit must be %s at %s",
+		-- signalDesc.unit, loc2str(signalVariable.location))
+		( var <> nil => signalDesc.unit <> nil => var.unit = signalDesc.unit ),
+
+		-- @OnFail("Variable is not clocked at %s", loc2str(signalVariable.location))
+		( var.clocks <> nil )
+	])
 ]);
 ----
 // {vdm}
@@ -392,7 +457,8 @@ pduValidation: Bus * Frame * PDU * FmiModelDescription * Terminal +> bool
 pduValidation(busDesc, frameDesc, pduDesc, modelDesc, pduTerminal) == allOf
 ([
 	rule_233b(pduDesc, pduTerminal),
-	rule_233c(pduDesc, pduTerminal)
+	rule_233c(pduTerminal),
+	rule_234a(busDesc, frameDesc, pduDesc, modelDesc, pduTerminal)
 ]
 ^
 [
@@ -414,17 +480,7 @@ pduValidation(busDesc, frameDesc, pduDesc, modelDesc, pduTerminal) == allOf
 signalValidation: Signal * FmiModelDescription * TerminalMemberVariable +> bool
 signalValidation(signalDesc, modelDesc, signalVariable) == allOf
 ([
-	-- @OnFail("Signal must be variableKind 'signal' at %s",
-	-- loc2str(signalVariable.location))
-	( signalVariable.variableKind = "signal" ),
-
-	-- @OnFail("Signal memberName should be '%s' at %s",
-	-- signalDesc.name, loc2str(signalVariable.location))
-	( signalVariable.memberName = signalDesc.name ),
-
-	let var = lookup(modelDesc, signalVariable.variableName) in
-		-- @OnFail("Signal variable %s is not defined", signalVariable.variableName)
-		(var <> nil)
+	rule_234b(signalDesc, modelDesc, signalVariable)
 ]);
 ----
 // {vdm}
