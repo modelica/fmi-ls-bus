@@ -163,7 +163,7 @@ Receiving such frames must then be handled internally to the FMU.
 
 ==== Frame Terminal [[FrameTerminal,frame terminal]]
 
-Each frame listed in the <<NetworkDescriptionFile>> must be an element of its corresponding <<BUSTerminal>> <<rule_2.3.2a, rule 2.3.2a>>][[apply_2.3.2a]].
+Each frame listed in the <<NetworkDescriptionFile>> must be an element of its corresponding <<BUSTerminal>> [<<rule_2.3.2a, rule 2.3.2a>>][[apply_2.3.2a]].
 
 Attribute definitions [<<rule_2.3.2b, rule 2.3.2b>>][[apply_2.3.2b]]::
  * `terminalKind` must be set to `frame`.
