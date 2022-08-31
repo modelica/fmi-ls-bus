@@ -82,12 +82,12 @@ _[Explanation here]_.
 // {vdm}
 ----
 rule_231a: NetworkDescription * FmiTerminalsAndIcons +> bool
-rule_231a(nd, ti) == allOf
+rule_231a(networkDesc, terminalsAndIcons) == allOf
 ([
-	-- @OnFail("%NAME: Missing 'bus' Terminal for %s", bus.name)
-	( exists terminal in seq ti.terminals & terminal.name = bus.name )
+	-- @OnFail("%NAME: Missing unique 'bus' Terminal for %s", bus.name)
+	( exists1 b in seq terminalsAndIcons.terminals & b.name = bus.name )
 
-	| bus in seq nd
+	| bus in seq networkDesc
 ]);
 ----
 // {vdm}
@@ -182,8 +182,8 @@ _[Explanation here]_.
 rule_232a: Bus * Terminal +> bool
 rule_232a(busDesc, busTerminal) == allOf
 ([
-	-- @OnFail("%NAME: Missing 'frame' Terminal for %s", frame.name)
-	( exists f in seq busTerminal.terminal & f.name = frame.name )
+	-- @OnFail("%NAME: Missing unique 'frame' Terminal for %s", frame.name)
+	( exists1 f in seq busTerminal.terminal & f.name = frame.name )
 
 	| frame in seq busDesc.frames
 ]);
@@ -262,8 +262,8 @@ _[Explanation here]_.
 rule_233a: Frame * Terminal +> bool
 rule_233a(frameDesc, frameTerminal) == allOf
 ([
-	-- @OnFail("%NAME: Missing 'pdu' Terminal for %s", pdu.name)
-	( exists p in seq frameTerminal.terminal & p.name = pdu.name )
+	-- @OnFail("%NAME: Missing unique 'pdu' Terminal for %s", pdu.name)
+	( exists1 p in seq frameTerminal.terminal & p.name = pdu.name )
 
 	| pdu in seq frameDesc.pdus
 ]);
