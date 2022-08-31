@@ -111,3 +111,10 @@ functions
 			if found = {}
 			then nil
 			else let v in set found in v;	-- Pick one
+
+	/**
+	 * Test for uniqueness in a sequence of names.
+	 */
+	 noDuplicates: seq of seq1 of char +> bool
+	 noDuplicates(sequence) ==
+	 	len sequence = card elems sequence;

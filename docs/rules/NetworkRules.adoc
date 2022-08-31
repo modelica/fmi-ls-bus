@@ -43,7 +43,7 @@ Free https://github.com/overturetool/vdm-vscode[open source tools] are available
 
 === The VDM-SL Network Description type
 
-In order to define rules for a correctly configured XML files, the various formats of the <<NetworkDescriptionFile>> must be represented as a common VDM-SL record type. These types give an abstract representation of the aspects of the real network description that matter to the rules.
+In order to define rules for a correctly configured XML files, the various formats of the <<NetworkDescriptionFile>> must be represented as a common VDM-SL record type. These types give an abstract representation of the aspects of the real network description that matter to the rules. The 'inv' clauses state that the names of the frames, PDUs and signals are unique within their bus, frame and PDU respectively.
 
 ----
 types
@@ -53,15 +53,21 @@ types
 	Bus ::
 		name	: Name
 		frames	: seq1 of Frame
-		nodes   : seq1 of char;
+		nodes   : seq1 of char		-- Matches bus Terminal Annotations
+	inv
+		bus == noDuplicates([ f.name | f in seq bus.frames ]);
 
 	Frame ::
 		name	: Name
-		pdus	: seq1 of PDU;
+		pdus	: seq1 of PDU
+	inv
+		frame == noDuplicates([ p.name | p in seq frame.pdus ]);
 
 	PDU ::
 		name	: Name
-		signals	: seq1 of Signal;
+		signals	: seq1 of Signal
+	inv
+		pdu == noDuplicates([ s.name | s in seq pdu.signals ]);
 
 	Signal ::
 		name	: Name
@@ -411,13 +417,11 @@ networkValidation(networkDesc, modelDesc, terminalsAndIcons) == allOf
 ]
 ^
 [
-	let matching = {b | b in seq terminalsAndIcons.terminals &
-		b.name = busDesc.name }
-	in
-		-- @OnFail("%NAME: Missing or duplicate bus terminal for %s", busDesc.name)
-		( card matching = 1 )
-			=> let {busTerminal} = matching in
-				busValidation(busDesc, modelDesc, busTerminal)
+	allOf
+	([
+		busValidation(busDesc, modelDesc, busTerminal)
+		| busTerminal in seq terminalsAndIcons.terminals & busTerminal.name = busDesc.name
+	])
 
 	| busDesc in seq networkDesc
 ]);
@@ -431,11 +435,11 @@ busValidation(busDesc, modelDesc, busTerminal) == allOf
 ]
 ^
 [
-	let matching = {f | f in seq busTerminal.terminal & f.name = frameDesc.name } in
-		-- @OnFail("%NAME: Missing or duplicate frame for %s", frameDesc.name)
-		( card matching = 1 )
-			=> let {frameTerminal} = matching in
-				frameValidation(busDesc, frameDesc, modelDesc, frameTerminal)
+	allOf
+	([
+		frameValidation(busDesc, frameDesc, modelDesc, frameTerminal)
+		| frameTerminal in seq busTerminal.terminal & frameTerminal.name = frameDesc.name
+	])
 		
 	| frameDesc in seq busDesc.frames
 ]);
@@ -449,12 +453,12 @@ frameValidation(busDesc, frameDesc, modelDesc, frameTerminal) == allOf
 ]
 ^
 [
-	let matching = {p | p in seq frameTerminal.terminal & p.name = pduDesc.name } in
-		-- @OnFail("%NAME: Missing or duplicate PDU for %s", pduDesc.name)
-		( card matching = 1 )
-			=> let {pduTerminal} = matching in
-				pduValidation(busDesc, frameDesc, pduDesc, modelDesc, pduTerminal)
-		
+	allOf
+	([
+		pduValidation(busDesc, frameDesc, pduDesc, modelDesc, pduTerminal)
+		| pduTerminal in seq frameTerminal.terminal & pduTerminal.name = pduDesc.name
+	])
+
 	| pduDesc in seq frameDesc.pdus
 ]);
 
@@ -467,17 +471,17 @@ pduValidation(busDesc, frameDesc, pduDesc, modelDesc, pduTerminal) == allOf
 ]
 ^
 [
-	let matching = {s | s in seq pduTerminal.terminalMemberVariable &
-		s.variableName =
-			busDesc.name ^ "::" ^
-			frameDesc.name ^ "::" ^
-			pduDesc.name ^ "::" ^
-			signalDesc.name}
-	in
-		-- @OnFail("%NAME: Missing or duplicate TerminalMemberVariable for %s", signalDesc.name)
-		( card matching = 1 )
-			=> let {signalVariable} = matching in
-				signalValidation(signalDesc, modelDesc, signalVariable)
+	allOf
+	([
+		signalValidation(signalDesc, modelDesc, signalVariable)
+
+		| signalVariable in seq pduTerminal.terminalMemberVariable &
+			signalVariable.variableName =
+				busDesc.name ^ "::" ^
+				frameDesc.name ^ "::" ^
+				pduDesc.name ^ "::" ^
+				signalDesc.name
+	])
 		
 	| signalDesc in seq pduDesc.signals
 ]);

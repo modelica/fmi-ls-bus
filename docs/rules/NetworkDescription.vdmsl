@@ -33,17 +33,24 @@ types
 	Bus ::
 		name	: Name
 		frames	: seq1 of Frame
-		nodes   : seq1 of char;
+		nodes   : seq1 of char		-- Matches bus Terminal Annotations
+	inv
+		bus == noDuplicates([ f.name | f in seq bus.frames ]);
 
 	Frame ::
 		name	: Name
-		pdus	: seq1 of PDU;
+		pdus	: seq1 of PDU
+	inv
+		frame == noDuplicates([ p.name | p in seq frame.pdus ]);
 
 	PDU ::
 		name	: Name
-		signals	: seq1 of Signal;
+		signals	: seq1 of Signal
+	inv
+		pdu == noDuplicates([ s.name | s in seq pdu.signals ]);
 
 	Signal ::
 		name	: Name
 		unit	: [seq1 of char];
+
 
