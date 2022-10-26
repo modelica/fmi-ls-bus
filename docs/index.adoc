@@ -32,6 +32,10 @@ The licenses text can be found in the https://raw.githubusercontent.com/modelica
 
 === Intend of this Document
 
+# TODO AJ: add use case description for low-cut MCAL transport-layer simulation requirements
+
+# TODO dSPACE: add image with the use-case architectures (see dSPACE slides)
+
 Automotive CAN, LIN, FlexRay, CAN FD and CAN XL are network technologies that have been applied successfully over many years by all automotive OEMs world wide.
 Virtualizing electronic control units (ECUs) and then simulating multiple such vECUs requires connecting them using a virtual version of these network technologies.
 Reusing standard network topology description formats, such as DBC, LDF, Fibex and ARXML, is required for efficiency and testing reasons alike.
@@ -75,9 +79,18 @@ To uniquely map between the FMU variables and the network variables, FMU variabl
 If an FMU specifies nodes that are both senders and receivers of a frame, the receiver role will be removed from the FMU interface to allow the signals to have a unique role as output and the reading of such outputs must be handled internally to the FMU.
 _[The FMI standard requires a variable to be either input or output.]_
 
+# TODO AJ: explanation of clock and binary (check names!) variables for low cut; clock type influences and flexibilities; not use of nextEventTime
+
+# TODO AJ: Fix and variable step size influence on buffering of transport-layer events and their binary variables
+#  -> high cut is different: no buffering possible: each send must be handled as Event
+
+# TODO AJ: structure of binary variable: event code plus parameters, potentially multiple parameter sets as send and confirm events must be buffered
+
 == Details
 
 === Network Description Files [[NetworkDescriptionFile,network description file]]
+
+# TODO AJ: remove old requirements for network description files (not needed anymore): make it optional
 
 FMI 3.0 introduces an `/extra` folder in its `zip` structure.
 The <<NetworkDescriptionFile,network description files>> will be placed under the reverse domain name controlled by the MAP FMI: `/extra/org.modelica.fmi.networks4FMI`.
@@ -108,6 +121,8 @@ Generally, signal variables are optional, but they must either be all missing or
 
 ==== Frame Variables [[FrameVariable]]
 
+# TODO AJ: this needs to change completely: This is now "Data"
+
 To define the frame abstraction layer (or "low cut"), frame variables are defined.
 
 A frame variable is of type `fmi3Binary` and contains one or more binary frames, from and including `Start of Frame` until and including `End of Frame` and frame padding between frames.
@@ -123,7 +138,18 @@ Generally, frame variables are optional, but they must either both be missing or
 The senders of network frames can chose how many frames are buffered and/or for how long frames are buffered before activating an output clock to trigger the actual sending of these frames.
 This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the bus communication.
 
+# TODO AJ: Add description of Event Type and their respective parameters and applicability to the different protoco types (mimic table)
+
+# TODO AJ: MIME types: org.modelica.fmi-ls-bus.v1.[CAN|CANFD|LIN|FlexRay|Ethernet|SPI]
+
+
 ==== Clock Variables [[ClockVariable]]
+
+# TODO AJ: rework the clock descriptions here; add connection constraints and their semantics
+# Names: Rx/Tx and Event/Data: BusName::Rx_Event, BusName::Rx_Data, BusName::Tx_Event, BusName::Tx_Data
+
+# TODO AJ: Add description of Event Mode handling here and how the countdown clock pre-schedules events into the future for performance reasons
+
 
 In order to use FMU input and output variables as transport layer for networks, aperiodic, triggered input and output clocks are used.
 Such a clock is activated by the sender to indicate the transmission of the corresponding frame or frames.
@@ -137,9 +163,15 @@ Each frame variable `BusName::FRAMES_in` and `BusName::FRAMES_out` have their ow
 
 // what about dynamic PDUs? Do they need their own clocks as well?
 
+==== Bus Parameters [[BusParameters]]
+
+# TODO AJ: define parameter names and their semantics influencing bus behavior and/or version of the fmi-ls-bus version (FMU declares them as parameters or structural parameters depending on internal mechanisms)
+
 === Terminal Definitions
 
 ==== Bus Terminal [[BUSTerminal,bus terminal]]
+
+# TODO AJ: adjust Terminal definitions for low cut
 
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<FrameTerminal,frame terminals>>.
 The attribute `name` of the `<Terminal>` must match the root name of its <<NetworkDescriptionFile>>
