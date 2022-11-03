@@ -32,65 +32,80 @@ The licenses text can be found in the https://raw.githubusercontent.com/modelica
 
 === Intend of this Document
 
-# TODO AJ: add use case description for low-cut MCAL transport-layer simulation requirements
+Automotive CAN, LIN, FlexRay, CAN FD and CAN XL are network technologies that have been applied successfully over many years by all automotive OEMs world wide.
+Virtualizing electronic control units (ECUs) and then simulating multiple such virtual ECUs requires connecting them using a virtual version of these network technologies.
+
+This layered standard defines what input and output variables and which FMI 3.0 features are used and how to emulate a transport layer for such network traffic.
+
+There are mainly two base use cases envisioned here:
+ - Physical signal abstraction ("high cut") to simply transport physical signal values between virtual ECUs.
+   The network properties are largely idealized: infinite bandwidth, zero-delay etc.
+   Signals, groups of signals and their properties (e.g. units) are usually derived from (existing and validated) standard network topology description formats (such as DBC, LDF, Fibex and ARXML).
+ - Frame abstraction ("low cut") to facilitate MCAL-level abstractions.
+   This transport layer emulation allows idealized and more detailed network simulation, including bandwidth restrictions, message arbitration and delays and it forwards the network payloads using binary variables.
+   The "low cut" abstraction layer is meant to allow virtualized MCAL driver implementations, including feedback from the physical drivers about send timing, rejection or network errors.
+
+In the simplest use case, the importer does not need to know about the special network semantics of certain variables of an FMU; it simply forwards variable values between 2 FMUs according to the FMI standard (<<multiOutput,with one exception noted at the end of the document>>).
+Only when more than two FMUs are connected to a single network a bus simulation component is required to merge and then forward the network interface semantics of the different variables from multiple output variables to multiple input variables.
+
+See the following image describing three potential architectures for connecting two or more networked virtual ECUs packaged into FMI 3.0 FMUs:
 
 # TODO dSPACE: add image with the use-case architectures (see dSPACE slides)
 
-Automotive CAN, LIN, FlexRay, CAN FD and CAN XL are network technologies that have been applied successfully over many years by all automotive OEMs world wide.
-Virtualizing electronic control units (ECUs) and then simulating multiple such vECUs requires connecting them using a virtual version of these network technologies.
-Reusing standard network topology description formats, such as DBC, LDF, Fibex and ARXML, is required for efficiency and testing reasons alike.
-Files in these formats exist in validated form as part of the engineering process, tooling exists and these standards evolve to support new use cases.
 
-This document describes how to use standard description formats for automotive network topologies on top of the FMI 3.0 standard.
-vECUs following this standard can then easily be connected in importing tools because the <<NetworkDescriptionFile,network description files>> declare which signals have what properties and belong to what frame/PDU in which of the potentially multiple networks connected to each vECU.
-The importer does not need to know about the special network semantics of certain variables of an FMU; it simply forwards variable values according to the FMI standard (<<multiOutput,with one exception noted at the end of the document>>).
-
-FMUs can extract frame and signal properties from the <<NetworkDescriptionFile,network description files>> and that allows all exporters and importers to have the same understanding and interpretation of the FMU signals.
-Such signal properties are, for example: signal scaling, frame/PDU timing and trigger conditions, packaging of signals in frames and unit definitions.
-This document does not address potential open points of these description formats, it is assumed that such ambiguities will be handled elsewhere (e.g. message timing in the DBC format).
-This document does not address IP protection or copyright issues.
-These are technical and legal issues that need attention from standardization bodies of the referenced description formats, tool vendors and end users.
-
-=== Basic Aspects of this Layered Standard
-
-This standard supports two abstraction layers for network stacks:
-
-Signal abstraction layer (also "high cut"):: physical signals as exchanged between the application software (ASW) and the basic software (BSW), in AUTOSAR this would be the Virtual Function Bus, and
-
-Frame abstraction layer (also "low cut"):: binary signal or signals representing one or more network frames as exchanged through the micro-controller abstraction layer (MCAL) between BSW and the hardware driver.
-
-Standardized <<NetworkDescriptionFile,network description files>> shipped with each FMU describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
-These <<NetworkDescriptionFile,network description files>> are placed into the `/extra/org.modelica.fmi.networks4FMI` folder.
+=== Basic Mechanisms of this Layered Standard
 
 Both abstraction layers are nearly equivalent and can be translated into one another using the <<NetworkDescriptionFile,network description files>>.
-Depending on the export tool, one of the abstraction layers is more "natural" to the FMU, while the other might have to be emulated with additional internal effort.
-Importers on the other hand rarely require both abstraction layers for system level compositions, because the engineering task defines the level of abstraction for the network communication.
+Depending on the export tool, one of the abstraction layers is more "natural" to the FMU, while the other might have to be emulated with additional internal effort or an adapter (FMU) could be used.
+Importers on the other hand rarely require both abstraction layers for system level compositions, because the engineering tasks define the required level of abstraction for the network communication.
 FMUs may choose to only support one abstraction layer providing only the corresponding variables.
-However, for versatility, having FMU capable of communicating on both abstraction layers is more convenient for users.
+However, for versatility, having FMUs capable of communicating on both abstraction layers is more convenient for users.
 
 _[FMUs providing both abstraction layers can deduce from the fmi3Set() and fmi3Get() calls they receive, which abstraction layer the importer is using.]_
 
-Since network communication is not continuous but time discrete, FMI 3.0 clocks are used to indicate when signals and/or frames are sent.
+Since network communication is not continuous but time discrete, FMI 3.0 clocks are used to indicate when signals and/or frames are sent or received.
 All signal and frame variables are clocked variables.
 
 FMI 3.0 terminal definitions in the `terminalsAndIcons.xml` for each level of grouping (networks, frames and PDUs) allow system composition tools without knowledge of the network description format to semantically group signals.
 To uniquely map between the FMU variables and the network variables, FMU variable names are structured, e.g. `BusName::FrameName::PDUName::SignalName`.
 
-If an FMU specifies nodes that are both senders and receivers of a frame, the receiver role will be removed from the FMU interface to allow the signals to have a unique role as output and the reading of such outputs must be handled internally to the FMU.
-_[The FMI standard requires a variable to be either input or output.]_
-
 # TODO AJ: explanation of clock and binary (check names!) variables for low cut; clock type influences and flexibilities; not use of nextEventTime
+
+All variables have structured names that indicate how these variables are related and to which abstraction layer they belong.
+For the high cut, variables represent signals and their clocks.
+For the low cut, variables represent frames and their clocks.
+Input and output variables show if these variables belong to signals or frames that are sent or received.
+Input clocks must be triggered and are connected by the importer to their corresponding output clocks of potentially different clock types.
+For example, a periodic output clock indicates that the FMU can only send signals or frames periodically, while a countdown clock indicates that the FMU can send signals at varying time steps.
+
+Using output clocks of different types allows simulations with different timing accuracy and performance.
+These clocks allow the FMU to specify the next send event efficiently and accurately, the importer will trigger these clocks according to these clock specifications as accurately as it can.
+
+_[The alternative of using `nextEventTime` would force epsilon matching of event times.]_
 
 # TODO AJ: Fix and variable step size influence on buffering of transport-layer events and their binary variables
 #  -> high cut is different: no buffering possible: each send must be handled as Event
+For any periodic (fixed-time) sending of messages, may force multiple sends into one `doStep`.
+While high-cut signal variables will miss all but the last value sent, low-cut frame variables will buffer all payloads inside the binary value.
+
+If an FMU represents network nodes that are both sender and receiver of a signal, the receiver role will be removed from the FMU interface to allow the signals to have a unique role as output and the reading of such outputs must be handled internally to the FMU.
+
+_[The FMI standard requires a variable to be either input or output.]_
+
+# TODO: is this correct? does that also work for network simulations? how else to solve this unique-variable-name requirement?
 
 # TODO AJ: structure of binary variable: event code plus parameters, potentially multiple parameter sets as send and confirm events must be buffered
+
+XXX
 
 == Details
 
 === Network Description Files [[NetworkDescriptionFile,network description file]]
 
 # TODO AJ: remove old requirements for network description files (not needed anymore): make it optional
+
+Standardized <<NetworkDescriptionFile,network description files>> can be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
+These <<NetworkDescriptionFile,network description files>> must be placed into the `/extra/org.modelica.fmi-ls-bus` folder.
 
 FMI 3.0 introduces an `/extra` folder in its `zip` structure.
 The <<NetworkDescriptionFile,network description files>> will be placed under the reverse domain name controlled by the MAP FMI: `/extra/org.modelica.fmi.networks4FMI`.
@@ -101,6 +116,12 @@ Multiple files can be specified, each one defining one network used by the FMU.
 This standard does not support composing one network from multiple <<NetworkDescriptionFile,network description files>>, even if using internal include mechanisms, it rather enforces the rule: one network - one file.
 
 It is recommended to use ARXML over DBC files for CAN whenever possible, because the DBC standard lacks some key frame/PDU properties that were added only later using non-standard extensions with different dialects in use.
+
+
+This document does not address potential open points of these description formats, it is assumed that such ambiguities will be handled elsewhere (e.g. message timing in the DBC format).
+This document does not address IP protection or copyright issues.
+These are technical and legal issues that need attention from standardization bodies of the referenced description formats, tool vendors and end users.
+
 
 === Variables
 
