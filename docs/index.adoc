@@ -139,29 +139,54 @@ In case multiplexed signals are present in a frame/PDU: all signals are present,
 
 Generally, signal variables are optional, but they must either be all missing or all present to clearly indicate support for the signal abstraction layer.
 
+All signal variables are clocked to indicate when exactly they have been sent, see <<ClockVariable>>.
+
 ==== Frame Variables [[FrameVariable]]
 
 # TODO AJ: this needs to change completely: This is now "Data"
 
 To define the frame abstraction layer (or "low cut"), frame variables are defined.
 
-A frame variable is of type `fmi3Binary` and contains one or more binary frames, from and including `Start of Frame` until and including `End of Frame` and frame padding between frames.
-Frames and inter-frame padding are build according to the network definitions.
-
+A frame variable is of type `fmi3Binary` and contains one or more binary frames, as sent by the network.
 There are two such frame variables per bus: an input and an output.
-The names of these frame variables are defined as `BusName::FRAMES_in` and `BusName::FRAMES_out`, e.g. `Powertrain::FRAMES_in` and `Powertrain::FRAMES_out` (see <<Example>>).
+The names of these frame variables are defined as `BusName::Data_in` and `BusName::Data_out`, e.g. `Powertrain::Data_in` and `Powertrain::Data_out` (see <<Example>>).
+
+# TODO all: names for the frame could use improvement!
 
 Both frame variables must be listed as <<TerminalMemberVariable>> of its corresponding <<BUSTerminal>>.
 
 Generally, frame variables are optional, but they must either both be missing or present to clearly indicate support for the frame abstraction layer.
 
 The senders of network frames can chose how many frames are buffered and/or for how long frames are buffered before activating an output clock to trigger the actual sending of these frames.
-This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the bus communication.
+This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication, see <<ClockVariable>>.
 
-# TODO AJ: Add description of Event Type and their respective parameters and applicability to the different protoco types (mimic table)
+# TODO all: MIME types: org.modelica.fmi-ls-bus.v1.[CAN|CANFD|LIN|FlexRay|Ethernet|SPI] -- anything missing? names good?
 
-# TODO AJ: MIME types: org.modelica.fmi-ls-bus.v1.[CAN|CANFD|LIN|FlexRay|Ethernet|SPI]
+[#table-math-model-exchange]
+[cols="8,3",options="header"]
+|====
+|MIME type name
+|Description
 
+|org.modelica.fmi-ls-bus.v1.CAN
+|binary variables simulating the automotive CAN network
+
+|org.modelica.fmi-ls-bus.v1.CANFD
+|binary variables simulating the automotive CANFD network
+
+|org.modelica.fmi-ls-bus.v1.LIN
+|binary variables simulating the automotive LIN network
+
+|org.modelica.fmi-ls-bus.v1.FlexRay
+|binary variables simulating the automotive FlexRay network
+
+|org.modelica.fmi-ls-bus.v1.Ethernet
+|binary variables simulating the automotive Ethernet network
+
+|org.modelica.fmi-ls-bus.v1.SPI
+|binary variables simulating the automotive SPI network
+
+|====
 
 ==== Clock Variables [[ClockVariable]]
 
@@ -179,9 +204,12 @@ Each frame `BusName::FrameName` has its own dedicated clock variable named `BusN
 All signal variables are clocked variables.
 Signal variables belonging to frame `BusName::FrameName` are triggered by the clock `BusName::FrameName_CLOCK` and all these variables must share the same `causality`.
 
-Each frame variable `BusName::FRAMES_in` and `BusName::FRAMES_out` have their own dedicated clock variable named `BusName::FRAMES_in_CLOCK` and `BusName::FRAMES_out_CLOCK`, e.g. `Powertrain::FRAMES_in_CLOCK` and `Powertrain::FRAMES_out_CLOCK`, respectively, must have the appropriate `causality`, and must be listed as <<TerminalMemberVariable>> of its corresponding <<BUSTerminal>>.
+Each frame variable `BusName::Data_in` and `BusName::Data_out` have their own dedicated clock variable named `BusName::FRAMES_in_CLOCK` and `BusName::FRAMES_out_CLOCK`, e.g. `Powertrain::FRAMES_in_CLOCK` and `Powertrain::FRAMES_out_CLOCK`, respectively, must have the appropriate `causality`, and must be listed as <<TerminalMemberVariable>> of its corresponding <<BUSTerminal>>.
 
 // what about dynamic PDUs? Do they need their own clocks as well?
+
+# TODO AJ: Add description of Event Type and their respective parameters and applicability to the different protoco types (mimic table)
+
 
 ==== Bus Parameters [[BusParameters]]
 
@@ -203,7 +231,7 @@ Attribute definitions::
  * `name` is the network name, e.g. `Powertrain`, see <<Example>> and constraints above.
 
 Element definitions::
- * If frame variables (`BusName::FRAMES_in` and `BusName::FRAMES_out`) and their clocks (`BusName::FRAMES_in_CLOCK` and `BusName::FRAMES_out_CLOCK`) are exposed in the `modelDescription.xml`, they must be listed as `<TerminalMemberVariable>` elements here.
+ * If frame variables (`BusName::Data_in` and `BusName::Data_out`) and their clocks (`BusName::FRAMES_in_CLOCK` and `BusName::FRAMES_out_CLOCK`) are exposed in the `modelDescription.xml`, they must be listed as `<TerminalMemberVariable>` elements here.
  These variables represent the frame abstraction layer ("low cut").
  * There must be no `<TerminalStreamMemberVariable>` element.
  * There must be one `<Terminal>` element per network frame described in the <<NetworkDescriptionFile>>.
