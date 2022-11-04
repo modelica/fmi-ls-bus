@@ -108,7 +108,7 @@ Status information allows, for example, the MCAL emulation of a virtual ECU to r
 # TODO AJ: remove old requirements for network description files (not needed anymore): make it optional
 
 Standardized <<NetworkDescriptionFile,network description files>> can be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
-These <<NetworkDescriptionFile,network description files>> must be placed into the `/extra/org.modelica.fmi-ls-bus` folder.
+These <<NetworkDescriptionFile,network description files>> must be placed into the `/extra/org.fmi-standard.fmi-ls-bus` folder.
 DBC, LDF, Fibex and ARXML files are allowed, e.g. `Powertrain.dbc`.
 The case sensitive root name of the <<NetworkDescriptionFile>> must be used as network identifier in the bus terminal type and prefix in the variable names.
 
@@ -160,7 +160,7 @@ Generally, frame variables are optional, but they must either both be missing or
 The senders of network frames can chose how many frames are buffered and/or for how long frames are buffered before activating an output clock to trigger the actual sending of these frames.
 This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication, see <<ClockVariable>>.
 
-# TODO all: MIME types: org.modelica.fmi-ls-bus.v1.[CAN|CANFD|LIN|FlexRay|Ethernet|SPI] -- anything missing? names good?
+# TODO all: MIME types: org.fmi-standard.fmi-ls-bus.v1.[CAN|CANFD|LIN|FlexRay|Ethernet|SPI] -- anything missing? names good?
 
 [#table-math-model-exchange]
 [cols="8,3",options="header"]
@@ -168,22 +168,22 @@ This allows senders to trade accuracy for speed: buffering more and interrupting
 |MIME type name
 |Description
 
-|org.modelica.fmi-ls-bus.v1.CAN
+|org.fmi-standard.fmi-ls-bus.v1.CAN
 |binary variables simulating the automotive CAN network
 
-|org.modelica.fmi-ls-bus.v1.CANFD
+|org.fmi-standard.fmi-ls-bus.v1.CANFD
 |binary variables simulating the automotive CANFD network
 
-|org.modelica.fmi-ls-bus.v1.LIN
+|org.fmi-standard.fmi-ls-bus.v1.LIN
 |binary variables simulating the automotive LIN network
 
-|org.modelica.fmi-ls-bus.v1.FlexRay
+|org.fmi-standard.fmi-ls-bus.v1.FlexRay
 |binary variables simulating the automotive FlexRay network
 
-|org.modelica.fmi-ls-bus.v1.Ethernet
+|org.fmi-standard.fmi-ls-bus.v1.Ethernet
 |binary variables simulating the automotive Ethernet network
 
-|org.modelica.fmi-ls-bus.v1.SPI
+|org.fmi-standard.fmi-ls-bus.v1.SPI
 |binary variables simulating the automotive SPI network
 
 |====
@@ -223,7 +223,7 @@ Each frame variable `BusName::Data_in` and `BusName::Data_out` have their own de
 
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<FrameTerminal,frame terminals>>.
 The attribute `name` of the `<Terminal>` must match the root name of its <<NetworkDescriptionFile>>
-_[e.g. `Powertrain`, if the file is `/extra/org.modelica.fmi.layered_BUS/Powertrain.dbc`]_.
+_[e.g. `Powertrain`, if the file is `/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc`]_.
 
 Attribute definitions::
  * `terminalKind` must be set to `bus`.
@@ -248,7 +248,7 @@ Each frame listed in the <<NetworkDescriptionFile>> must be an element of its co
 Attribute definitions::
  * `terminalKind` must be set to `frame`.
  * `matchingRule` must be set to `bus`.
- * `name` must match the frame name as defined in the <<NetworkDescriptionFile>> in `/extra/org.modelica.fmi.layered_BUS`.
+ * `name` must match the frame name as defined in the <<NetworkDescriptionFile>> in `/extra/org.fmi-standard.fmi-ls-bus`.
 
 Element definitions::
  * There must be no `<TerminalStreamMemberVariable>` element.
@@ -265,7 +265,7 @@ Each PDU listed in the <<NetworkDescriptionFile>> must be an element of its corr
 Attribute definitions::
  * `terminalKind` must be set to `pdu`.
  * `matchingRule` must be set to `bus`.
- * `name` must match a PDU name of the <<NetworkDescriptionFile>> in `/extra/org.modelica.fmi.layered_BUS`.
+ * `name` must match a PDU name of the <<NetworkDescriptionFile>> in `/extra/org.fmi-standard.fmi-ls-bus`.
     For network types not natively referencing a "PDU", like CAN, a synthetic PDU with the same name as its frame is inserted.
 
 Element definitions::
