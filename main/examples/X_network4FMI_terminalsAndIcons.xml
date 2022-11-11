@@ -4,16 +4,16 @@
     <Terminal terminalKind="bus" name="Powertrain" matchingRule="bus"
         description="Powertrain CAN bus defined with dbc file">
       <TerminalMemberVariable variableKind="signal"
-        variableName="Powertrain::FRAMES_in_CLOCK" />
+        variableName="Powertrain::Rx_Clock" />
       <TerminalMemberVariable variableKind="signal"
-        variableName="Powertrain::FRAMES_in" />
+        variableName="Powertrain::Rx_Data" />
       <TerminalMemberVariable variableKind="signal"
-        variableName="Powertrain::FRAMES_out_CLOCK" />
+        variableName="Powertrain::Tx_Clock" />
       <TerminalMemberVariable variableKind="signal"
-        variableName="Powertrain::FRAMES_out" />
+        variableName="Powertrain::Tx_Data" />
       <Terminal terminalKind="frame" name="tcuSensors" matchingRule="bus">
         <TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain::tcuSensors_CLOCK" />
+          variableName="Powertrain::tcuSensors_Clock" />
         <Terminal terminalKind="pdu" name="tcuSensors" matchingRule="bus">
           <TerminalMemberVariable variableKind="signal"
             variableName="Powertrain::tcuSensors::tcuSensors::vCar" memberName="vCar" />
@@ -23,7 +23,7 @@
       </Terminal>
       <Terminal terminalKind="frame" name="tcuState" matchingRule="bus">
         <TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain::tcuState_CLOCK" />
+          variableName="Powertrain::tcuState_Clock" />
         <Terminal terminalKind="pdu" name="tcuState" matchingRule="bus">
           <TerminalMemberVariable variableKind="signal"
             variableName="Powertrain::tcuState::tcuState::state" memberName="state" />
@@ -35,7 +35,7 @@
       </Terminal>
       <Terminal terminalKind="frame" name="ecuState" matchingRule="bus">
         <TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain::ecuState_CLOCK" />
+          variableName="Powertrain::ecuState_Clock" />
         <Terminal terminalKind="pdu" name="ecuState" matchingRule="bus">
           <TerminalMemberVariable variableKind="signal"
             variableName="Powertrain::ecuState::ecuState::accelPedal" memberName="accelPedal" />
