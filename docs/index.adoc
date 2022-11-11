@@ -20,7 +20,7 @@ This layered standard on top of FMI 3.0, defines how to describe and simulate ne
 {empty} +
 {empty}
 
-Copyright (C) 2021 The Modelica Association Project FMI.
+Copyright (C) 2022 The Modelica Association Project FMI.
 
 This document is licensed under the Attribution-ShareAlike 4.0 International license.
 The code is released under the 2-Clause BSD License.
@@ -38,11 +38,12 @@ Virtualizing electronic control units (ECUs) and then simulating multiple such v
 This layered standard defines what input and output variables and which FMI 3.0 features are used and how to emulate a transport layer for such network traffic.
 
 There are mainly two base use cases envisioned here:
- - Physical signal abstraction ("high cut") to simply transport physical signal values between virtual ECUs.
+
+ - Physical signal abstraction ("high cut") to simply transport physical signal values between virtual ECUs. +
    The network properties are largely idealized: infinite bandwidth, zero-delay etc.
    Signals, groups of signals and their properties (e.g. units) are usually derived from (existing and validated) standard network topology description formats (such as DBC, LDF, Fibex and ARXML).
- - Frame abstraction ("low cut") to facilitate MCAL-level abstractions.
-   This transport layer emulation allows idealized and more detailed network simulation, including bandwidth restrictions, message arbitration and delays and it forwards the network payloads using binary variables.
+ - Frame abstraction ("low cut") to facilitate MCAL emulations. +
+   This transport layer emulation allows anything from idealized to more detailed network simulations, including bandwidth restrictions, message arbitration and delays and it forwards the network payloads using binary variables.
    The "low cut" abstraction layer is meant to allow virtualized MCAL driver implementations, including feedback from the physical drivers about send timing, rejection or network errors.
 
 In the simplest use case, the importer does not need to know about the special network semantics of certain variables of an FMU; it simply forwards variable values between 2 FMUs according to the FMI standard (<<multiOutput,with one exception noted at the end of the document>>).
@@ -55,7 +56,7 @@ See the following image describing three potential architectures for connecting 
 
 === Basic Mechanisms of this Layered Standard
 
-Both abstraction layers are nearly equivalent and can be translated into one another using the <<NetworkDescriptionFile,network description files>>.
+Both abstraction layers are similar in many respects and can be translated into one another using the <<NetworkDescriptionFile,network description files>>.
 Depending on the export tool, one of the abstraction layers is more "natural" to the FMU, while the other might have to be emulated with additional internal effort or an adapter (FMU) could be used.
 Importers on the other hand rarely require both abstraction layers for system level compositions, because the engineering tasks define the required level of abstraction for the network communication.
 FMUs may choose to only support one abstraction layer providing only the corresponding variables.
@@ -74,7 +75,7 @@ To uniquely map between the FMU variables and the network variables, FMU variabl
 All variables have structured names that indicate how these variables are related and to which abstraction layer they belong.
 For the high cut, variables represent signals and their clocks.
 For the low cut, variables represent frames and their clocks.
-Input and output variables show if these variables belong to signals or frames that are sent or received.
+Input and output variables show if these variables belong to signals or frames that are received or sent, respectively.
 Input clocks must be triggered and are connected by the importer to their corresponding output clocks of potentially different clock types.
 For example, a periodic output clock indicates that the FMU can only send signals or frames periodically, while a countdown clock indicates that the FMU can send signals at varying time steps.
 
@@ -85,8 +86,8 @@ _[The alternative of using `nextEventTime` would force epsilon matching of event
 
 // TODO AJ: Fix and variable step size influence on buffering of transport-layer events and their binary variables
 //  -> high cut is different: no buffering possible: each send must be handled as Event
-For any periodic (fixed-time) sending of messages, may force multiple sends into one `doStep`.
-While high-cut signal variables will miss all but the last value sent, low-cut frame variables will buffer all payloads inside the binary value.
+For any periodic (fixed-time) sending of messages, multiple message sends fall into one `doStep`.
+While high-cut signal variables will miss all but the last value sent, low-cut frame variables will buffer all payloads inside their value.
 
 If an FMU represents network nodes that are both sender and receiver of a signal, the receiver role will be removed from the FMU interface to allow the signals to have a unique role as output and the reading of such outputs must be handled internally to the FMU.
 
@@ -96,7 +97,7 @@ _[The FMI standard requires a variable to be either input or output.]_
 
 // TODO AJ: structure of binary variable: event code plus parameters, potentially multiple parameter sets as send and confirm events must be buffered
 
-While the values and semantic of the clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport layer of the specific network technology, see <<FrameStructure>>.
+While the values and semantic of the clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport layer of the specific network technology, see <<FrameVariable>>.
 Frame variables do not just transport the network-specific payload, but also carry protocol-specific status information.
 Status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack about success or errors of a send request.
 
@@ -141,7 +142,7 @@ Generally, signal variables are optional, but they must either be all missing or
 
 All signal variables are clocked to indicate when exactly they have been sent, see <<ClockVariable>>.
 
-==== Frame Variables [[FrameVariable]]
+==== Frame Variables [[FrameVariable, Frame Variables]]
 
 // TODO AJ: this needs to change completely: This is now "Data"
 
