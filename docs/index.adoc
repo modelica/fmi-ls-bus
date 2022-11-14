@@ -51,7 +51,9 @@ Only when more than two FMUs are connected to a single network a bus simulation 
 
 See the following image describing three potential architectures for connecting two or more networked virtual ECUs packaged into FMI 3.0 FMUs:
 
-// TODO dSPACE: add image with the use-case architectures (see dSPACE slides)
+.3 ways to connect virtual ECU network variables.
+[#vECU-network-architectures]
+image::images/architecture.svg[width=80%, align="center"]
 
 
 === Basic Mechanisms of this Layered Standard
@@ -342,7 +344,11 @@ The input frame variable `BusName::Rx_Data` is clocked by the clock variable `Bu
 The output frame variable `BusName::Tx_Data` is clocked by the clock variable `BusName::Tx_Clock`, both with `causality` set to `output`.
 Both clock variables must also be listed as <<TerminalMemberVariable>> of its corresponding <<BUSTerminal>>.
 
-// TODO AJ: Add description of Event Type and their respective parameters and applicability to the different protoco types (mimic table)
+.Example for network simulation.
+[#figure-example-network-simulation]
+image::images/bus_simulation_example.svg[width=80%, align="center"]
+
+// TODO AJ: Add description of Event Type and their respective parameters and applicability to the different protocol types (mimic table)
 
 // TODO all: Should we mandate that all output clock types must be the same? Or should we allow the exporter to mix clock types for the different abstraction layers, or even for the different frames? Since different FMUs might use different clock types anyway, an importer needs to handle the mixed case anyway. Any other reason to be more strict here?
 
@@ -353,8 +359,6 @@ Both clock variables must also be listed as <<TerminalMemberVariable>> of its co
 === Terminal Definitions
 
 ==== Bus Terminal [[BUSTerminal,bus terminal]]
-
-// TODO AJ: adjust Terminal definitions for low cut
 
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<FrameTerminal,frame terminals>>.
 The attribute `name` of the `<Terminal>` must match the root name of its <<NetworkDescriptionFile>> if it exists
@@ -376,6 +380,10 @@ Annotation element::
  * There must be an `<Annotation>` element defining which node or nodes (as comma-separated list without spaces) of the <<NetworkDescriptionFile>> are wrapped inside the FMU.
 If the combination of nodes specified for this FMU turns a frame and its signals into both input and output because sending and receiving nodes are specified, only the sending (output) role will be defined in the FMU interface.
 Receiving such frames must then be handled internally to the FMU.
+
+.Frame variables and terminals.
+[#figure-frame-variables-terminals]
+image::images/bus_terminal.svg[width=80%, align="center"]
 
 ==== Frame Terminal [[FrameTerminal,frame terminal]]
 
