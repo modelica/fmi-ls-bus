@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-3580df5fb999255c6f21e864cb09feaa00dab2ca,</span>
-<span id="revdate">2022-11-14</span>
+<span id="revnumber">version main-b191724548ebbcd826b566e6b71c879a2f6c03cb,</span>
+<span id="revdate">2022-11-15</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -607,19 +607,20 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#_signal_variables">2.2.1. Signal Variables</a></li>
 <li><a href="#FrameVariable">2.2.2. Frame Variables</a></li>
 <li><a href="#ClockVariable">2.2.3. Clock Variables</a></li>
-<li><a href="#BusParameters">2.2.4. Bus Parameters</a></li>
+<li><a href="#NetworkParameters">2.2.4. Network Parameters</a></li>
 </ul>
 </li>
-<li><a href="#_terminal_definitions">2.3. Terminal Definitions</a>
+<li><a href="#NetworkSimulation">2.3. Network Simulation</a></li>
+<li><a href="#_terminal_definitions">2.4. Terminal Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#BUSTerminal">2.3.1. Bus Terminal</a></li>
-<li><a href="#FrameTerminal">2.3.2. Frame Terminal</a></li>
-<li><a href="#PDUTerminal">2.3.3. PDU Terminal</a></li>
-<li><a href="#TerminalMemberVariable">2.3.4. Terminal Member Variable for Signals</a></li>
+<li><a href="#BUSTerminal">2.4.1. Bus Terminal</a></li>
+<li><a href="#FrameTerminal">2.4.2. Frame Terminal</a></li>
+<li><a href="#PDUTerminal">2.4.3. PDU Terminal</a></li>
+<li><a href="#TerminalMemberVariable">2.4.4. Terminal Member Variable for Signals</a></li>
 </ul>
 </li>
-<li><a href="#Example">2.4. Example</a></li>
-<li><a href="#_known_limitations_of_this_standard">2.5. Known Limitations of this Standard</a></li>
+<li><a href="#Example">2.5. Example</a></li>
+<li><a href="#_known_limitations_of_this_standard">2.6. Known Limitations of this Standard</a></li>
 </ul>
 </li>
 </ul>
@@ -798,7 +799,7 @@ The unit definition of the variable must match the one defined in the <a href="#
 <div class="sect3">
 <h4 id="FrameVariable">2.2.2. Frame Variables</h4>
 <div class="paragraph">
-<p>To define the frame abstraction layer (or "low cut"), frame variables are defined.</p>
+<p>To define the frame abstraction layer (or "low cut"), frame variables are used.</p>
 </div>
 <div class="paragraph">
 <p>A frame variable is of type <code>fmi3Binary</code> and contains one or more binary frames, as sent by the network.
@@ -809,11 +810,14 @@ The names of these frame variables are defined as <code>BusName::Rx_Data</code> 
 <p>Both input and output frame variables must be listed as <a href="#TerminalMemberVariable">Terminal Member Variable</a> of its corresponding <a href="#BUSTerminal">bus terminal</a>.</p>
 </div>
 <div class="paragraph">
-<p>Generally, frame variables are optional, but they must either both be missing or present to clearly indicate support for the frame abstraction layer.</p>
+<p>Generally, frame variables are optional, but they must either both be missing or present to clearly indicate support for the frame abstraction layer ("low cut").</p>
 </div>
 <div class="paragraph">
 <p>The senders of network frames can chose how many frames are buffered and/or for how long frames are buffered before activating an output clock to trigger the actual sending of these frames.
 This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication, see <a href="#ClockVariable">Section 2.2.3</a>.</p>
+</div>
+<div class="paragraph">
+<p>The following table lists the names of MIME types used for frame variables:</p>
 </div>
 <table id="table-mime-types" class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -854,8 +858,8 @@ This allows senders to trade accuracy for speed: buffering more and interrupting
 </tbody>
 </table>
 <div class="paragraph">
-<p>The content of the binary variable is any number of frames, including none.
-One frame is composed according to the following table.</p>
+<p>The content of a binary variable is any number of frames, including none.
+There are different frame types, listed in the following table:</p>
 </div>
 <table id="table-frame-contenct" class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1003,20 +1007,57 @@ One frame is composed according to the following table.</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>The OP code contains an operation byte and encodes the size of the OP specific content field length and the repeat-bit (most significant bit of the second byte).</p>
+<p>The OP code contains an operation byte and encodes the size of the OP specific content field length (except Transmit frames with 0xef if frame has variable length with its own length field) and a repeat-bit (most significant bit of the second byte).
+The following table shows the OP Code structure:</p>
 </div>
+<table id="table-opcode-structure" class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 30%;">
+<col style="width: 30%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Type</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Repeat content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8 bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7 bit</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="ClockVariable">2.2.3. Clock Variables</h4>
 <div class="paragraph">
 <p>In order to use FMU input and output variables as transport layer for networks, input and output clocks are used.
-Such a clock is scheduled by the sender to indicate the transmission of the corresponding frame or frames.
-The output clock type, periodic or aperiodic, is defined by the sending FMU.
-The input clocks shall be triggered clocks.
-The importer will then connect and merge clock activations, even those of different clock types, as required by the network semantics.</p>
+Such a clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.</p>
 </div>
 <div class="paragraph">
-<p><em>[Even if FMUs connected to the same framework use output clocks of different types, the importer can aggregate these events and forward them to the corresponding triggered input clocks.]</em></p>
+<p>The output clock type, periodic or aperiodic, is defined by the sending FMU.
+This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>While aperiodic clocks allow very accurate network simulations, frequently entering Event Mode will reduce the network simulation speed.</p>
+</li>
+<li>
+<p>Using periodic clocks and buffering the frames to be transmitted reduces the number of Event Modes required and speeds up the simulation at the cost of simulation accuracy.</p>
+</li>
+<li>
+<p>One could use (structural) parameters to define the accuracy of aperiodic clocks, allowing control of the simulation accuracy and performance with the same FMU.</p>
+</li>
+<li>
+<p>The input clocks shall be triggered clocks.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The importer will then connect and merge output clock activations, even those of different clock types, and forwards them to the input clocks, as required by the network semantics.</p>
 </div>
 <div class="paragraph">
 <p>All signal variables are clocked variables.
@@ -1036,14 +1077,31 @@ Both clock variables must also be listed as <a href="#TerminalMemberVariable">Te
 </div>
 </div>
 <div class="sect3">
-<h4 id="BusParameters">2.2.4. Bus Parameters</h4>
+<h4 id="NetworkParameters">2.2.4. Network Parameters</h4>
 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_terminal_definitions">2.3. Terminal Definitions</h3>
+<h3 id="NetworkSimulation">2.3. Network Simulation</h3>
+<div id="figure-example-network-simulation-architecture" class="imageblock text-center">
+<div class="content">
+<img src="images/images/architecture_bus_simulation_importer.svg" alt="architecture bus simulation importer" width="80%">
+</div>
+<div class="title">Figure 3. Example network simulation architecture.</div>
+</div>
+<div class="paragraph">
+<p>The figure above shows one example for a network simulation architecture.
+The importer is able to handle FMU input and output variables with network semantics:
+The importer merges output clock activations, output binary data and output signal variables and forwards the results to their corresponding input variables.</p>
+</div>
+<div class="paragraph">
+<p>The accuracy/performance of the resulting network simulation can range from ideal (no bandwidth restriction, no arbitration, no network errors) to more realistic (with restricted bandwidth, message delay due to arbitration, network errors, error injection, &#8230;&#8203;).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_terminal_definitions">2.4. Terminal Definitions</h3>
 <div class="sect3">
-<h4 id="BUSTerminal">2.3.1. Bus Terminal</h4>
+<h4 id="BUSTerminal">2.4.1. Bus Terminal</h4>
 <div class="paragraph">
 <p>Each network connected to the FMU must be described in <code>icons/terminalsAndIcons.xml</code> as a <code>&lt;Terminal&gt;</code> element of <code>&lt;fmiTerminalsAndIcons&gt;&lt;Terminals&gt;</code> that wraps all <a href="#FrameTerminal">frame terminals</a>.
 The attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> must match the root name of its <a href="#NetworkDescriptionFile">network description file</a> if it exists
@@ -1103,11 +1161,11 @@ Receiving such frames must then be handled internally to the FMU.</p>
 <div class="content">
 <img src="images/images/bus_terminal.svg" alt="bus terminal" width="80%">
 </div>
-<div class="title">Figure 3. Frame variables and terminals.</div>
+<div class="title">Figure 4. Frame variables and terminals.</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="FrameTerminal">2.3.2. Frame Terminal</h4>
+<h4 id="FrameTerminal">2.4.2. Frame Terminal</h4>
 <div class="paragraph">
 <p>Each frame listed in the <a href="#NetworkDescriptionFile">network description file</a> must be an element of its corresponding <a href="#BUSTerminal">bus terminal</a>.</p>
 </div>
@@ -1153,7 +1211,7 @@ The name of this variable is composed as <a href="#ClockVariable"><code>BusName:
 </div>
 </div>
 <div class="sect3">
-<h4 id="PDUTerminal">2.3.3. PDU Terminal</h4>
+<h4 id="PDUTerminal">2.4.3. PDU Terminal</h4>
 <div class="paragraph">
 <p>Each PDU listed in the <a href="#NetworkDescriptionFile">network description file</a> must be an element of its corresponding <a href="#FrameTerminal">frame terminal</a>.</p>
 </div>
@@ -1199,7 +1257,7 @@ For network types not natively referencing a "PDU", like CAN, a synthetic PDU wi
 </div>
 </div>
 <div class="sect3">
-<h4 id="TerminalMemberVariable">2.3.4. Terminal Member Variable for Signals</h4>
+<h4 id="TerminalMemberVariable">2.4.4. Terminal Member Variable for Signals</h4>
 <div class="paragraph">
 <p><a href="#PDUTerminal">PDU terminals</a> list all the contained signals as <code>&lt;TerminalMemberVariable&gt;</code>.</p>
 </div>
@@ -1228,7 +1286,7 @@ This is redundant information but simplifies signal name extraction.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Example">2.4. Example</h3>
+<h3 id="Example">2.5. Example</h3>
 <div class="paragraph">
 <p>The following excerpts from files are used throughout this document as examples and should illustrate how the different concepts relate.</p>
 </div>
@@ -1373,7 +1431,7 @@ BO_ 512 ecuState: 4 ECU
 </div>
 </div>
 <div class="sect2">
-<h3 id="_known_limitations_of_this_standard">2.5. Known Limitations of this Standard</h3>
+<h3 id="_known_limitations_of_this_standard">2.6. Known Limitations of this Standard</h3>
 <div class="paragraph">
 <p>This layered standard maps several network protocols onto co-simulation variables as transport layer simulating in many ways an ideal network.
 Such an ideal network differs from physical networks in the following ways (and potentially others):</p>
