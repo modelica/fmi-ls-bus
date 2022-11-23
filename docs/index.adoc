@@ -15,6 +15,25 @@
 :favicon: images/favicon.ico
 :icons: font
 
+// TODO dSPACE: Step 1: Rethink document structure:
+// e.g. something like:
+// Common Concepts
+// Network Communication with High Cut
+// Network Communication with Low Cut
+//    General Event/OP Code mechanism
+//    CAN (with OP Codes)
+//    LIN (with OP Codes)
+//    Ethernet (with OP Codes)
+//    ...
+
+// TODO dSPACE: Step 2:
+// - Write section General Event/OP Code mechanism
+// - Write section (CAN with OP Codes)
+
+// TODO dSPACE: Step x:
+// - Write section (Ethernet with OP Codes)
+// - Write section (LIN with OP Codes)
+
 This layered standard on top of FMI 3.0, defines how to describe and simulate network signals as input and output variables of an FMU.
 
 {empty} +
