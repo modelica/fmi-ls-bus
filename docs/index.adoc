@@ -30,7 +30,7 @@ The licenses text can be found in the https://raw.githubusercontent.com/modelica
 
 == Introduction
 
-=== Intend of this Document
+=== Intent of This Document
 
 Automotive CAN, LIN, FlexRay, CAN FD, CAN XL and Ethernet are network technologies that have been applied successfully over many years by all automotive OEMs world wide.
 Virtualizing electronic control units (ECUs) and then simulating multiple such virtual ECUs requires connecting them using a virtual version of these network technologies.
@@ -95,7 +95,7 @@ _[The alternative of using `nextEventTime` would force epsilon matching of event
   -> high cut is different: no buffering possible: each send must be handled as Event
 
 For any periodic (fixed-time) sending of messages, multiple message sends fall into one `doStep`.
-While high-cut signal variables will miss all but the last value sent, low-cut frame variables will buffer all payloads inside their value.
+While high cut signal variables will miss all but the last value sent, low cut frame variables will buffer all payloads inside their value.
 
 If an FMU represents network nodes that are both sender and receiver of a signal, the receiver role will be removed from the FMU interface to allow the signals to have a unique role as output and the reading of such outputs must be handled internally to the FMU.
 
@@ -146,10 +146,10 @@ This type of communication allows the simulation of all bus features, such as ar
 
 This communication architecture enables complex bus simulations to be implemented on lightweight FMU importers. An n:m bus communication of several FMUs is also permitted. Depending on the needs, it may be necessary to dynamically provision the Bus Simulator FMU so that it provides the appropriate number of inputs and outputs to allow all FMUs to be connected.
 
-==== Bus feature integrated FMU Simulator [[BusFeatureIntegratedFmuSimulator]]
+==== FMU Simulator with Integrated Bus Simulation Feature [[BusFeatureIntegratedFmuSimulator]]
 In the third variant of the communication architecture, the Bus Simulations FMU is built directly into the respective FMU importer. The supported bus features are analogous to <<ExternalBusSimulationFmu, the External Bus Simulation FMU use case>>. The corresponding limitations regarding the behavior of the bus simulation are importer-specific. The following figure illustrates two FMUs, which integrated to an importer that directly supports this standard an needs no further external Bus Simulation FMU:
 
-.Bus simulation by using an Bus Simulation FMU, which is directly integrated into the specified importer.
+.Bus simulation by using a Bus Simulation FMU, which is directly integrated into the specified importer.
 [#figure-bus-feature-integrated-fmu-simulator]
 image::architecture_bus_simulation_importer.svg[width=80%, align="center"]
 
@@ -159,7 +159,7 @@ This communication architecture enables the realization of complex bus simulatio
 
 #TODO#
 
-== Physical signal abstraction ("high cut")
+== Physical Signal Abstraction ("high cut")
 
 === Overview
 
@@ -660,21 +660,23 @@ h|SPI
 #TODO dSPACE#
 
 === LIN
+
 #TODO dSPACE#
 
 === FlexRay
-#tbd#
+#TODO#
 
 === Ethernet
 
 #TODO dSPACE#
 
 === Network Parameters [[NetworkParameters]]
-#tbd#
+#TODO#
+
 #TODO all#: define parameter names and their semantics influencing bus behavior and/or version of the fmi-ls-bus version (FMU declares them as parameters or structural parameters depending on internal mechanisms)
 
 == Network Simulation [[NetworkSimulation]]
-#tbd#
+#TODO#
 
 .Example network simulation architecture.
 [#figure-example-network-simulation-architecture]
@@ -686,7 +688,7 @@ The importer merges output clock activations, output binary data and output sign
 
 The accuracy/performance of the resulting network simulation can range from ideal (no bandwidth restriction, no arbitration, no network errors) to more realistic (with restricted bandwidth, message delay due to arbitration, network errors, error injection, ...).
 
-== Known Limitations of this Standard
+== Known Limitations of This Standard
 
 #TODO all#
 
