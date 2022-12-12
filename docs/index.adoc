@@ -77,7 +77,7 @@ All signal and frame variables are clocked variables.
 FMI 3.0 terminal definitions in the `terminalsAndIcons.xml` for each level of grouping (networks, frames and PDUs) allow system composition tools without knowledge of the network description format to semantically group signals.
 To uniquely map between the FMU variables and the network variables, FMU variable names are structured, e.g. `BusName::FrameName::PDUName::SignalName`.
 
-// TODO AJ: explanation of clock and binary (check names!) variables for low cut; clock type influences and flexibilities; not use of nextEventTime
+#TODO AJ#: explanation of clock and binary (check names!) variables for low cut; clock type influences and flexibilities; not use of nextEventTime
 
 All variables have structured names that indicate how these variables are related and to which abstraction layer they belong.
 For the high cut, variables represent signals and their clocks.
@@ -91,8 +91,9 @@ These clocks allow the FMU to specify the next send event efficiently and accura
 
 _[The alternative of using `nextEventTime` would force epsilon matching of event times.]_
 
-// TODO AJ: Fix and variable step size influence on buffering of transport-layer events and their binary variables
-//  -> high cut is different: no buffering possible: each send must be handled as Event
+#TODO AJ#: Fix and variable step size influence on buffering of transport-layer events and their binary variables
+  -> high cut is different: no buffering possible: each send must be handled as Event
+
 For any periodic (fixed-time) sending of messages, multiple message sends fall into one `doStep`.
 While high-cut signal variables will miss all but the last value sent, low-cut frame variables will buffer all payloads inside their value.
 
@@ -100,9 +101,9 @@ If an FMU represents network nodes that are both sender and receiver of a signal
 
 _[The FMI standard requires a variable to be either input or output.]_
 
-// TODO: is this correct? does that also work for network simulations? how else to solve this unique-variable-name requirement?
+#TODO#: is this correct? does that also work for network simulations? how else to solve this unique-variable-name requirement?
 
-// TODO AJ: structure of binary variable: event code plus parameters, potentially multiple parameter sets as send and confirm events must be buffered
+#TODO AJ#: structure of binary variable: event code plus parameters, potentially multiple parameter sets as send and confirm events must be buffered
 
 While the values and semantic of the clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport layer of the specific network technology, see <<FrameVariable>>.
 Frame variables do not just transport the network-specific payload, but also carry protocol-specific status information.
@@ -184,7 +185,7 @@ All signal variables are clocked to indicate when exactly they have been sent, s
 
 ==== Clock Variables [[ClockVariableHighCut]]
 
-// TODO AJ: Add description of Event Mode handling here and how the countdown clock pre-schedules events into the future for performance reasons
+#TODO AJ#: Add description of Event Mode handling here and how the countdown clock pre-schedules events into the future for performance reasons
 
 
 In order to use FMU input and output variables as transport layer for networks, input and output clocks are used.
@@ -205,7 +206,7 @@ Signal variables belonging to frame `BusName::FrameName` are triggered by the cl
 
 === Network Description Files [[NetworkDescriptionFile,network description file]]
 
-// TODO AJ: remove old requirements for network description files (not needed anymore): make it optional
+#TODO AJ#: remove old requirements for network description files (not needed anymore): make it optional
 
 Standardized <<NetworkDescriptionFile,network description files>> can be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
 These <<NetworkDescriptionFile,network description files>> must be placed into the `/extra/org.fmi-standard.fmi-ls-bus` folder.
@@ -355,7 +356,7 @@ This section explains the different variable types used to carry network traffic
 
 ==== Communication Variables [[CommunicationVariable, Communication Variables]]
 
-// TODO AJ: this needs to change completely: This is now "Data"
+#TODO AJ#: this needs to change completely: This is now "Data"
 
 To define the network abstraction layer (or "low cut"), controller variables are used.
 
@@ -368,7 +369,7 @@ Both input and output variables must be listed as members of its corresponding <
 The senders of network frames can chose how many frames are buffered and/or for how long frames are buffered before activating an output clock to trigger the actual sending of these frames.
 This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication, see <<ClockVariableLowCut>>.
 
-// TODO all: MIME types: org.fmi-standard.fmi-ls-bus.v1.[CAN|CANFD|LIN|FlexRay|Ethernet|SPI] -- anything missing? names good?
+#TODO all#: MIME types: org.fmi-standard.fmi-ls-bus.v1.[CAN|CANFD|LIN|FlexRay|Ethernet|SPI] -- anything missing? names good?
 
 The following table lists the names of MIME types used for controller variables:
 
@@ -431,7 +432,7 @@ h|Repeated
 The OP code contains an operation byte and encodes the size of the OP specific content field length (except Transmit frames with 0xef if frame has variable length with its own length field) and a repeat-bit (most significant bit of the second byte).
 The following table shows the OP Code structure:
 
-// TODO all: the follow could be compressed into a single byte, but would that help?
+#TODO all#: the follow could be compressed into a single byte, but would that help?
 
 [#table-opcode-structure]
 [cols="4,3,3"]
@@ -446,11 +447,11 @@ h|Length
 
 |====
 
-// TODO all: we need a table here with network and message errors here
+#TODO all#: we need a table here with network and message errors here
 
 ==== Clock Variables [[ClockVariableLowCut]]
 
-// TODO AJ: Add description of Event Mode handling here and how the countdown clock pre-schedules events into the future for performance reasons
+#TODO AJ#: Add description of Event Mode handling here and how the countdown clock pre-schedules events into the future for performance reasons
 
 In order to use FMU input and output variables as transport layer for networks, input and output clocks are used.
 Such a clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.
@@ -470,9 +471,9 @@ The input frame variable `BusName::Rx_Data` is clocked by the clock variable `Bu
 The output frame variable `BusName::Tx_Data` is clocked by the clock variable `BusName::Tx_Clock`, both with `causality` set to `output`.
 Both clock variables must also be listed as member of its corresponding <<BUSTerminalLowCut>>.
 
-// TODO AJ: Add description of Event Type and their respective parameters and applicability to the different protocol types (mimic table)
+#TODO AJ#: Add description of Event Type and their respective parameters and applicability to the different protocol types (mimic table)
 
-// TODO all: Should we mandate that all output clock types must be the same? Or should we allow the exporter to mix clock types for the different abstraction layers, or even for the different frames? Since different FMUs might use different clock types anyway, an importer needs to handle the mixed case anyway. Any other reason to be more strict here?
+#TODO all#: Should we mandate that all output clock types must be the same? Or should we allow the exporter to mix clock types for the different abstraction layers, or even for the different frames? Since different FMUs might use different clock types anyway, an importer needs to handle the mixed case anyway. Any other reason to be more strict here?
 
 ==== Example [[ExampleLowCut,ExampleLowCut]]
 
@@ -655,24 +656,25 @@ h|SPI
 |====
 
 ==== Sequence Diagrams
+
 #TODO dSPACE#
 
 === LIN
 #TODO dSPACE#
 
 === FlexRay
-tbd
+#tbd#
 
 === Ethernet
 
 #TODO dSPACE#
 
 === Network Parameters [[NetworkParameters]]
-tbd
-// TODO all: define parameter names and their semantics influencing bus behavior and/or version of the fmi-ls-bus version (FMU declares them as parameters or structural parameters depending on internal mechanisms)
+#tbd#
+#TODO all#: define parameter names and their semantics influencing bus behavior and/or version of the fmi-ls-bus version (FMU declares them as parameters or structural parameters depending on internal mechanisms)
 
 == Network Simulation [[NetworkSimulation]]
-tbd
+#tbd#
 
 .Example network simulation architecture.
 [#figure-example-network-simulation-architecture]
