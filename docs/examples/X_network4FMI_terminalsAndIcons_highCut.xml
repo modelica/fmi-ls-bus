@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fmiTerminalsAndIcons fmiVersion="3.0-alpha6">
+<fmiTerminalsAndIcons fmiVersion="3.0-final">
   <Terminals>
     <Terminal terminalKind="bus" name="Powertrain" matchingRule="bus"
         description="Powertrain CAN bus defined with dbc file">
-      <TerminalMemberVariable variableKind="signal"
-        variableName="Powertrain::Rx_Clock" />
-      <TerminalMemberVariable variableKind="signal"
-        variableName="Powertrain::Rx_Data" />
-      <TerminalMemberVariable variableKind="signal"
-        variableName="Powertrain::Tx_Clock" />
-      <TerminalMemberVariable variableKind="signal"
-        variableName="Powertrain::Tx_Data" />
       <Terminal terminalKind="frame" name="tcuSensors" matchingRule="bus">
         <TerminalMemberVariable variableKind="signal"
           variableName="Powertrain::tcuSensors_Clock" />
