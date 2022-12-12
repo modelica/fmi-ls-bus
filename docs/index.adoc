@@ -114,13 +114,18 @@ Overall, this standard considers three possible communication architectures for 
 It should be explicitly noted at this point that the FMUs for integration in the respective use case do not have to be different, so that the same FMU can be integrated across all three communication architectures.
 
 ==== Direct Communication [[DirectCommunication]]
-The first option is to use a normal FMU importer. Within this configuration, the FMU importer does not require any special features for simulating buses, apart from supporting FMI variables, clocks and terminals. The figure below illustrates the direct communication of two FMUs:
+The first option is to use a normal FMU importer.
+Within this configuration, the FMU importer does not require any special features for simulating buses, apart from supporting FMI variables, clocks and terminals.
+The figure below illustrates the direct communication of two FMUs:
 
 .Direct communication of two FMUs.
 [#figure-direct-communication-of-two-fmus]
 image::architecture_direct_connection.svg[width=80%, align="center"]
 
-Direct bus communication is limited to exactly two FMUs. The simulation of more than two FMUs is therefore not intended. The bus simulation is also only idealized, so that the simulation of bus transmission times or arbitration, for example, is not supported. Such an ideal network differs from physical networks in the following ways (and potentially others):
+Direct bus communication is limited to exactly two FMUs.
+The simulation of more than two FMUs is therefore not intended.
+The bus simulation is also only idealized, so that the simulation of bus transmission times or arbitration, for example, is not supported.
+Such an ideal network differs from physical networks in the following ways (and potentially others):
 
  * Network frame arbitration: frames are sent on the wire according to network-specific priority rules. +
    Here all frames are transmitted at the same time without delay.
@@ -136,18 +141,28 @@ Direct bus communication is limited to exactly two FMUs. The simulation of more 
    Here the FMU will receive all frames, regardless of buffer size and would need to handle those limitations internally.
 
 ==== External Bus Simulation FMU [[ExternalBusSimulationFmu]]
-Within the second application, the FMUs are integrated via an additional FMU, the so-called Bus Simulation FMU. Within this configuration, the FMU importer does not require any special features for simulating buses, apart from supporting FMI variables, clocks and terminals. The figure below shows two FMUs which are connected to a specific Bus Simulator FMU. The figure below shows two FMUs which are connected to a specific Bus Simulator FMU. The total of three FMUs are executed on a standard importer:
+Within the second application, the FMUs are integrated via an additional FMU, the so-called Bus Simulation FMU.
+Within this configuration, the FMU importer does not require any special features for simulating buses, apart from supporting FMI variables, clocks and terminals.
+The figure below shows two FMUs which are connected to a specific Bus Simulator FMU.
+The figure below shows two FMUs which are connected to a specific Bus Simulator FMU.
+The total of three FMUs are executed on a standard importer:
 
 .Bus simulation by using an external Bus Simulation FMU.
 [#figure-external-bus-simulation-fmu]
 image::architecture_bus_simulation_fmu.svg[width=80%, align="center"]
 
-This type of communication allows the simulation of all bus features, such as arbitration or the simulation of timing. The limitation of the supported bus features cannot be specified explicitly in the case shown, but refers to a specific implementation of a Bus Simulator FMU.
+This type of communication allows the simulation of all bus features, such as arbitration or the simulation of timing.
+The limitation of the supported bus features cannot be specified explicitly in the case shown, but refers to a specific implementation of a Bus Simulator FMU.
 
-This communication architecture enables complex bus simulations to be implemented on lightweight FMU importers. An n:m bus communication of several FMUs is also permitted. Depending on the needs, it may be necessary to dynamically provision the Bus Simulator FMU so that it provides the appropriate number of inputs and outputs to allow all FMUs to be connected.
+This communication architecture enables complex bus simulations to be implemented on lightweight FMU importers.
+An n:m bus communication of several FMUs is also permitted.
+Depending on the needs, it may be necessary to dynamically provision the Bus Simulator FMU so that it provides the appropriate number of inputs and outputs to allow all FMUs to be connected.
 
 ==== FMU Simulator with Integrated Bus Simulation Feature [[BusFeatureIntegratedFmuSimulator]]
-In the third variant of the communication architecture, the Bus Simulations FMU is built directly into the respective FMU importer. The supported bus features are analogous to <<ExternalBusSimulationFmu, the External Bus Simulation FMU use case>>. The corresponding limitations regarding the behavior of the bus simulation are importer-specific. The following figure illustrates two FMUs, which integrated to an importer that directly supports this standard an needs no further external Bus Simulation FMU:
+In the third variant of the communication architecture, the Bus Simulations FMU is built directly into the respective FMU importer.
+The supported bus features are analogous to <<ExternalBusSimulationFmu, the External Bus Simulation FMU use case>>.
+The corresponding limitations regarding the behavior of the bus simulation are importer-specific.
+The following figure illustrates two FMUs, which integrated to an importer that directly supports this standard an needs no further external Bus Simulation FMU:
 
 .Bus simulation by using a Bus Simulation FMU, which is directly integrated into the specified importer.
 [#figure-bus-feature-integrated-fmu-simulator]
@@ -396,20 +411,25 @@ The following table lists the names of MIME types used for controller variables:
 
 |====
 
-As in the table above shown the version of a specified bus type is integrated within the MIME type. The MIME type and the associated versioning ensure that only compatible bus types can be connected to each other. The version number marks the set of available operations. Only the major version is included by the specified MIME type. The versioning follows the rules of https://semver.org/[Semantic Versioning 2.0.0].
+As in the table above shown the version of a specified bus type is integrated within the MIME type.
+The MIME type and the associated versioning ensure that only compatible bus types can be connected to each other.
+The version number marks the set of available operations.
+Only the major version is included by the specified MIME type.
+The versioning follows the rules of https://semver.org/[Semantic Versioning 2.0.0].
 
 The content of a binary variable is any number of operations, including none.
 
 An operation is always defined by the following attributes:
 
 * Name: The name of the specific operation for example _Transmit_ or _Confirm_.
-* OP Code: The OP Code defines the a unique value for every kind of operation. It consists of one byte in length and is defined for every bus type by this standard.
-* Arguments: The arguments of the respective operation follow the OP Code. Each argument and the specific argument length is defined for each operation within this standard.
-* Repeated: One bit within the OP Code if an operation can be exists more than one time in the specific `fmi3Binary` variable. 
+* OP Code: The OP Code defines the a unique value for every kind of operation.
+It consists of one byte in length and is defined for every bus type by this standard.
+* Arguments: The arguments of the respective operation follow the OP Code.
+Each argument and the specific argument length is defined for each operation within this standard.
+* Repeated: One bit within the OP Code if an operation can be exists more than one time in the specific `fmi3Binary` variable.
 
 The following table shows an example for an operation definition.
 The name is _OperationName_ and it contains three arguments _Arg1_ (2 bytes long), _Arg2_ (3 bytes long), _Arg3_  (4 bytes long).
-The operation can be repeated:
 
 [cols="1,1,1,1,1,1"]
 |====
@@ -418,11 +438,11 @@ The operation can be repeated:
 
 h|OP Code
 3+h|Specific content
-h|Repeated 
+h|Repeated
 
 |OperationName
 |0x01
-|2 byte Arg1 
+|2 byte Arg1
 |3 byte Arg2
 |4 byte Arg3
 |Yes
@@ -473,7 +493,8 @@ Both clock variables must also be listed as member of its corresponding <<BUSTer
 
 #TODO AJ#: Add description of Event Type and their respective parameters and applicability to the different protocol types (mimic table)
 
-#TODO all#: Should we mandate that all output clock types must be the same? Or should we allow the exporter to mix clock types for the different abstraction layers, or even for the different frames? Since different FMUs might use different clock types anyway, an importer needs to handle the mixed case anyway. Any other reason to be more strict here?
+#TODO all#: Should we mandate that all output clock types must be the same? Or should we allow the exporter to mix clock types for the different abstraction layers, or even for the different frames? Since different FMUs might use different clock types anyway, an importer needs to handle the mixed case anyway.
+Any other reason to be more strict here?
 
 ==== Example [[ExampleLowCut,ExampleLowCut]]
 
@@ -499,7 +520,9 @@ include::examples/X_network4FMI_terminalsAndIcons_lowCut.xml[]
 This section defines terminals for network abstraction or low cut.
 
 ==== Bus Terminal [[BUSTerminalLowCut,bus terminal]]
-Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>`. The attribute `name` of the `<Terminal>` must match the name of the specified bus controller _[e.g. the name of the CanController]_ within a low cut. If the specified V-ECU FMU contains more than one Controller, there shall be exactly one `<Terminal>` for each Controller.
+Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>`.
+The attribute `name` of the `<Terminal>` must match the name of the specified bus controller _[e.g. the name of the CanController]_ within a low cut.
+If the specified V-ECU FMU contains more than one Controller, there shall be exactly one `<Terminal>` for each Controller.
 
 Attribute definitions::
  * `terminalKind` must be set to `bus`.
@@ -510,7 +533,7 @@ Element definitions::
  * `BusName::Rx_Data` and `BusName::Tx_Data` and their clocks `BusName::Rx_Clock` and `BusName::Tx_Clock` are exposed in the `modelDescription.xml`, they must be listed as `<TerminalMemberVariable>` elements here.
  * There must be no `<TerminalStreamMemberVariable>` element.
 
-The following figure shows a V-ECU FMU with four variables `Tx_Data`, `Tx_Clock`, `Rx_Data`, `Rx_Clock` that are aggregated to a `<Terminal>` named _Bus Terminal_: 
+The following figure shows a V-ECU FMU with four variables `Tx_Data`, `Tx_Clock`, `Rx_Data`, `Rx_Clock` that are aggregated to a `<Terminal>` named _Bus Terminal_:
 
 .Frame variables and terminals.
 [#figure-frame-variables-terminals-lowcut]
