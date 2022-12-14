@@ -1,0 +1,143 @@
+==== CAN, CAN FD, CAN XL
+
+#TODO dSPACE#
+
+* n:m Kommunikation
+* Arbitrierung
+* Acknowledge
+* ...
+
+
+Because CAN, CAN FD, CAN XL are supported by this standard, https://www.sae.org/[SAE J1939] is also indirectly supported.
+
+===== Operations
+
+#TODO dSPACE#
+
+This section defines the allowed operations for CAN, CAN FD, CAN XL.
+The following table provides an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
+
+[#table-frame-contenct]
+[cols="4,3,3, 3,3,3, 2,2,2, 2,2,2"]
+|====
+.2+h|Frame type
+5+h|Frame content
+6+h|Network type support
+
+h|OP Code
+3+h|Specific content
+h|Repeated
+h|CAN
+h|CANFD
+h|LIN
+h|FlexRay
+h|Ethernet
+h|SPI
+
+|NOOP
+|0x0000
+3+|---
+|Single
+|yes
+|yes
+|yes
+|yes
+|yes
+|yes
+
+|Transmit
+|0x01ff
+|4 byte Frame ID
+|1 byte Data Length
+|n byte Data
+|Multiple
+|yes
+|yes
+|yes
+|yes
+|yes
+|yes
+
+|Confirm
+|0x0284
+3+|4 byte Frame ID
+|Multiple
+|yes
+|yes
+|yes
+|yes
+|yes/no
+|no
+
+|Network Error
+|0x0304
+3+|4 byte error code
+|Single
+|yes
+|yes
+|yes
+|yes
+|yes
+|no
+
+|Frame Error
+|0x0408
+|4 byte Frame ID
+2+|4 byte error code
+|Single
+|yes
+|yes
+|yes
+|yes
+|yes
+|no
+
+|Config Baud
+|0x0504
+3+|4 byte rate
+|Single
+|yes
+|yes
+|yes
+|no
+|no
+|yes
+
+|Config Clocks
+|0x0604
+3+|4 byte clock config
+|Single
+|no
+|no
+|no
+|yes
+|no
+|yes
+
+|Wakeup
+|0x0700
+3+|---
+|Single
+|no
+|no
+|no
+|yes
+|no
+|yes
+
+|Status
+|0x0804
+3+|??? 4 bytes ???
+|Single
+|?
+|?
+|?
+|?
+|yes
+|?
+
+|====
+
+
+===== Sequence Diagrams
+#TODO dSPACE#

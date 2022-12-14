@@ -1,0 +1,34 @@
+== Introduction
+
+=== Intent of This Document
+
+Automotive CAN, LIN, FlexRay, CAN FD, CAN XL and Ethernet are network technologies that have been applied successfully over many years by all automotive OEMs world wide.
+Virtualizing electronic control units (ECUs) and then simulating multiple such virtual ECUs requires connecting them using a virtual version of these network technologies.
+
+This layered standard defines what input and output variables and which FMI 3.0 features are used and how to emulate a transport layer for such network traffic.
+
+There are mainly two base use cases envisioned here:
+
+ - Physical signal abstraction ("high cut") to simply transport physical signal values between virtual ECUs. +
+   The network properties are largely idealized: infinite bandwidth, zero-delay etc.
+   Signals, groups of signals and their properties (e.g. units) are usually derived from (existing and validated) standard network topology description formats (such as DBC, LDF, Fibex and ARXML).
+ - Network abstraction ("low cut") to facilitate MicroController Abstraction Layer (MCAL) emulations. +
+   This transport layer emulation allows anything from idealized to more detailed network simulations, including bandwidth restrictions, message arbitration and delays and it forwards the network payloads using binary variables.
+   The "low cut" abstraction layer is meant to allow virtualized MicroController Abstraction Layer (MCAL) driver implementations, including feedback from the physical drivers about send timing, rejection or network errors. Since the Network abstraction Layer is protocol-independent, it can also be used for the simulation of non-automotive control units, e.g. from the field of industrial automation.
+
+In the simplest use case, the importer does not need to know about the special network semantics of certain variables of an FMU; it simply forwards variable values between 2 FMUs according to the FMI standard (<<multiOutput,with one exception noted at the end of the document>>).
+Only when more than two FMUs are connected to a single network a bus simulation component is required to merge and then forward the network interface semantics of the different variables from multiple output variables to multiple input variables.
+
+See the following image describing three potential architectures for connecting two or more networked virtual ECUs packaged into FMI 3.0 FMUs:
+
+.3 ways to connect virtual ECU network variables.
+[#vECU-network-architectures]
+image::architecture.svg[width=80%, align="center"]
+
+=== How to Read This Document
+
+Conventions used in this document:
+
+ - Non-normative text is given in square brackets in italic font: [Especially examples are defined in this style.]
+ - The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 (regardless of formatting and capitalization).
+ 
