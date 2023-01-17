@@ -587,42 +587,84 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-82972e562bd14a255b534d6ddc73084bd58a37af,</span>
-<span id="revdate">2022-11-15</span>
+<span id="revnumber">version main-473e38eb27f52a43eaac12bb70266b5804ab5c28,</span>
+<span id="revdate">2023-01-17</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_introduction">1. Introduction</a>
 <ul class="sectlevel2">
-<li><a href="#_intend_of_this_document">1.1. Intend of this Document</a></li>
-<li><a href="#_basic_mechanisms_of_this_layered_standard">1.2. Basic Mechanisms of this Layered Standard</a></li>
+<li><a href="#_intent_of_this_document">1.1. Intent of This Document</a></li>
+<li><a href="#_how_to_read_this_document">1.2. How to Read This Document</a></li>
 </ul>
 </li>
-<li><a href="#_details">2. Details</a>
+<li><a href="#_common_concepts">2. Common Concepts</a>
 <ul class="sectlevel2">
-<li><a href="#NetworkDescriptionFile">2.1. Network Description Files</a></li>
-<li><a href="#_variables">2.2. Variables</a>
+<li><a href="#SystemCompositions">2.1. System Compositions</a>
 <ul class="sectlevel3">
-<li><a href="#_signal_variables">2.2.1. Signal Variables</a></li>
-<li><a href="#FrameVariable">2.2.2. Frame Variables</a></li>
-<li><a href="#ClockVariable">2.2.3. Clock Variables</a></li>
-<li><a href="#NetworkParameters">2.2.4. Network Parameters</a></li>
+<li><a href="#DirectCommunication">2.1.1. Direct Communication</a></li>
+<li><a href="#ExternalBusSimulationFmu">2.1.2. External Bus Simulation FMU</a></li>
+<li><a href="#BusFeatureIntegratedFmuSimulator">2.1.3. FMU Simulator with Integrated Bus Simulation Feature</a></li>
 </ul>
 </li>
-<li><a href="#NetworkSimulation">2.3. Network Simulation</a></li>
-<li><a href="#_terminal_definitions">2.4. Terminal Definitions</a>
+<li><a href="#_timing_aspects">2.2. Timing Aspects</a></li>
+</ul>
+</li>
+<li><a href="#_physical_signal_abstraction_high_cut">3. Physical Signal Abstraction ("high cut")</a>
+<ul class="sectlevel2">
+<li><a href="#_overview">3.1. Overview</a></li>
+<li><a href="#_variables">3.2. Variables</a>
 <ul class="sectlevel3">
-<li><a href="#BUSTerminal">2.4.1. Bus Terminal</a></li>
-<li><a href="#FrameTerminal">2.4.2. Frame Terminal</a></li>
-<li><a href="#PDUTerminal">2.4.3. PDU Terminal</a></li>
-<li><a href="#TerminalMemberVariable">2.4.4. Terminal Member Variable for Signals</a></li>
+<li><a href="#_signal_variables">3.2.1. Signal Variables</a></li>
+<li><a href="#ClockVariableHighCut">3.2.2. Clock Variables</a></li>
 </ul>
 </li>
-<li><a href="#Example">2.5. Example</a></li>
-<li><a href="#_known_limitations_of_this_standard">2.6. Known Limitations of this Standard</a></li>
+<li><a href="#NetworkDescriptionFile">3.3. Network Description Files</a></li>
+<li><a href="#_terminal_definitions">3.4. Terminal Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#BUSTerminalHighCut">3.4.1. Bus Terminal</a></li>
+<li><a href="#FrameTerminal">3.4.2. Frame Terminal</a></li>
+<li><a href="#PDUTerminal">3.4.3. PDU Terminal</a></li>
+<li><a href="#TerminalMemberVariable">3.4.4. Terminal Member Variable for Signals</a></li>
 </ul>
 </li>
+<li><a href="#ExampleHighCut">3.5. Example</a></li>
+</ul>
+</li>
+<li><a href="#_network_abstraction_low_cut">4. Network Abstraction ("low cut")</a>
+<ul class="sectlevel2">
+<li><a href="#_overview_2">4.1. Overview</a></li>
+<li><a href="#_variables_2">4.2. Variables</a>
+<ul class="sectlevel3">
+<li><a href="#CommunicationVariable">4.2.1. Communication Variables</a></li>
+<li><a href="#ClockVariableLowCut">4.2.2. Clock Variables</a></li>
+<li><a href="#ExampleLowCut">4.2.3. Example</a></li>
+</ul>
+</li>
+<li><a href="#_terminal_definitions_2">4.3. Terminal Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#BUSTerminalLowCut">4.3.1. Bus Terminal</a></li>
+</ul>
+</li>
+<li><a href="#_bus_type_specific_details">4.4. Bus Type Specific Details</a>
+<ul class="sectlevel3">
+<li><a href="#_can_can_fd_can_xl">4.4.1. CAN, CAN FD, CAN XL</a>
+<ul class="sectlevel4">
+<li><a href="#_operations">4.4.1.1. Operations</a></li>
+<li><a href="#_sequence_diagrams">4.4.1.2. Sequence Diagrams</a></li>
+</ul>
+</li>
+<li><a href="#_lin">4.4.2. LIN</a></li>
+<li><a href="#_flexray">4.4.3. FlexRay</a></li>
+<li><a href="#_ethernet">4.4.4. Ethernet</a></li>
+</ul>
+</li>
+<li><a href="#NetworkParameters">4.5. Network Parameters</a></li>
+</ul>
+</li>
+<li><a href="#NetworkSimulation">5. Network Simulation</a></li>
+<li><a href="#_known_limitations_of_this_standard">6. Known Limitations of This Standard</a></li>
 </ul>
 </div>
 </div>
@@ -653,9 +695,9 @@ The licenses text can be found in the <a href="https://raw.githubusercontent.com
 <h2 id="_introduction">1. Introduction</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_intend_of_this_document">1.1. Intend of this Document</h3>
+<h3 id="_intent_of_this_document">1.1. Intent of This Document</h3>
 <div class="paragraph">
-<p>Automotive CAN, LIN, FlexRay, CAN FD and CAN XL are network technologies that have been applied successfully over many years by all automotive OEMs world wide.
+<p>Automotive CAN, LIN, FlexRay, CAN FD, CAN XL and Ethernet are network technologies that have been applied successfully over many years by all automotive OEMs world wide.
 Virtualizing electronic control units (ECUs) and then simulating multiple such virtual ECUs requires connecting them using a virtual version of these network technologies.</p>
 </div>
 <div class="paragraph">
@@ -672,9 +714,9 @@ The network properties are largely idealized: infinite bandwidth, zero-delay etc
 Signals, groups of signals and their properties (e.g. units) are usually derived from (existing and validated) standard network topology description formats (such as DBC, LDF, Fibex and ARXML).</p>
 </li>
 <li>
-<p>Frame abstraction ("low cut") to facilitate MCAL emulations.<br>
+<p>Network abstraction ("low cut") to facilitate MicroController Abstraction Layer (MCAL) emulations.<br>
 This transport layer emulation allows anything from idealized to more detailed network simulations, including bandwidth restrictions, message arbitration and delays and it forwards the network payloads using binary variables.
-The "low cut" abstraction layer is meant to allow virtualized MCAL driver implementations, including feedback from the physical drivers about send timing, rejection or network errors.</p>
+The "low cut" abstraction layer is meant to allow virtualized MicroController Abstraction Layer (MCAL) driver implementations, including feedback from the physical drivers about send timing, rejection or network errors. Since the Network abstraction Layer is protocol-independent, it can also be used for the simulation of non-automotive control units, e.g. from the field of industrial automation.</p>
 </li>
 </ul>
 </div>
@@ -693,9 +735,28 @@ Only when more than two FMUs are connected to a single network a bus simulation 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_basic_mechanisms_of_this_layered_standard">1.2. Basic Mechanisms of this Layered Standard</h3>
+<h3 id="_how_to_read_this_document">1.2. How to Read This Document</h3>
 <div class="paragraph">
-<p>Both abstraction layers are similar in many respects and can be translated into one another using the <a href="#NetworkDescriptionFile">network description files</a>.
+<p>Conventions used in this document:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Non-normative text is given in square brackets in italic font: [Especially examples are defined in this style.]</p>
+</li>
+<li>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 (regardless of formatting and capitalization).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_common_concepts">2. Common Concepts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Physical signal abstraction ("high cut") and Physical network abstraction ("low cut") layers are similar in many respects and can be translated into one another using the <a href="#NetworkDescriptionFile">network description files</a>.
 Depending on the export tool, one of the abstraction layers is more "natural" to the FMU, while the other might have to be emulated with additional internal effort or an adapter (FMU) could be used.
 Importers on the other hand rarely require both abstraction layers for system level compositions, because the engineering tasks define the required level of abstraction for the network communication.
 FMUs may choose to only support one abstraction layer providing only the corresponding variables.
@@ -713,6 +774,9 @@ All signal and frame variables are clocked variables.</p>
 To uniquely map between the FMU variables and the network variables, FMU variable names are structured, e.g. <code>BusName::FrameName::PDUName::SignalName</code>.</p>
 </div>
 <div class="paragraph">
+<p><mark>TODO AJ</mark>: explanation of clock and binary (check names!) variables for low cut; clock type influences and flexibilities; not use of nextEventTime</p>
+</div>
+<div class="paragraph">
 <p>All variables have structured names that indicate how these variables are related and to which abstraction layer they belong.
 For the high cut, variables represent signals and their clocks.
 For the low cut, variables represent frames and their clocks.
@@ -728,8 +792,12 @@ These clocks allow the FMU to specify the next send event efficiently and accura
 <p><em>[The alternative of using <code>nextEventTime</code> would force epsilon matching of event times.]</em></p>
 </div>
 <div class="paragraph">
+<p><mark>TODO AJ</mark>: Fix and variable step size influence on buffering of transport-layer events and their binary variables
+  &#8594; high cut is different: no buffering possible: each send must be handled as Event</p>
+</div>
+<div class="paragraph">
 <p>For any periodic (fixed-time) sending of messages, multiple message sends fall into one <code>doStep</code>.
-While high-cut signal variables will miss all but the last value sent, low-cut frame variables will buffer all payloads inside their value.</p>
+While high cut signal variables will miss all but the last value sent, low cut frame variables will buffer all payloads inside their value.</p>
 </div>
 <div class="paragraph">
 <p>If an FMU represents network nodes that are both sender and receiver of a signal, the receiver role will be removed from the FMU interface to allow the signals to have a unique role as output and the reading of such outputs must be handled internally to the FMU.</p>
@@ -738,18 +806,192 @@ While high-cut signal variables will miss all but the last value sent, low-cut f
 <p><em>[The FMI standard requires a variable to be either input or output.]</em></p>
 </div>
 <div class="paragraph">
-<p>While the values and semantic of the clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport layer of the specific network technology, see <a href="#FrameVariable">Frame Variables</a>.
+<p><mark>TODO</mark>: is this correct? does that also work for network simulations? how else to solve this unique-variable-name requirement?</p>
+</div>
+<div class="paragraph">
+<p><mark>TODO AJ</mark>: structure of binary variable: event code plus parameters, potentially multiple parameter sets as send and confirm events must be buffered</p>
+</div>
+<div class="paragraph">
+<p>While the values and semantic of the clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport layer of the specific network technology, see <a href="#FrameVariable">[FrameVariable]</a>.
 Frame variables do not just transport the network-specific payload, but also carry protocol-specific status information.
 Status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack about success or errors of a send request.</p>
+</div>
+<div class="sect2">
+<h3 id="SystemCompositions">2.1. System Compositions</h3>
+<div class="paragraph">
+<p>Overall, this standard considers three possible communication architectures for bus communication.
+It should be explicitly noted at this point that the FMUs for integration in the respective use case do not have to be different, so that the same FMU can be integrated across all three communication architectures.</p>
+</div>
+<div class="sect3">
+<h4 id="DirectCommunication">2.1.1. Direct Communication</h4>
+<div class="paragraph">
+<p>The first option is to use a normal FMU importer.
+Within this configuration, the FMU importer does not require any special features for simulating buses, apart from supporting FMI variables, clocks and terminals.
+The figure below illustrates the direct communication of two FMUs:</p>
+</div>
+<div id="figure-direct-communication-of-two-fmus" class="imageblock text-center">
+<div class="content">
+<img src="images/architecture_direct_connection.svg" alt="architecture direct connection" width="80%">
+</div>
+<div class="title">Figure 2. Direct communication of two FMUs.</div>
+</div>
+<div class="paragraph">
+<p>Direct bus communication is limited to exactly two FMUs.
+The simulation of more than two FMUs is therefore not intended.
+The bus simulation is also only idealized, so that the simulation of bus transmission times or arbitration, for example, is not supported.
+Such an ideal network differs from physical networks in the following ways (and potentially others):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Network frame arbitration: frames are sent on the wire according to network-specific priority rules.<br>
+Here all frames are transmitted at the same time without delay.</p>
+</li>
+<li>
+<p>Network congestion/bandwidth: too many network frames sent for the bandwidth of the network.<br>
+Here the network has infinite capacity.<br>
+If network properties are required, a bus simulation component must be added or included with the importer.</p>
+</li>
+<li>
+<p>Protocol functions of higher levels: i.e. CAN request for retransmit is a specific protocol function.<br>
+Here such specialties must be handled by the first layer inside the FMU.</p>
+</li>
+<li>
+<p>Incoming buffer overflow: when an ECU receives more frames than its buffer can hold.<br>
+Here the FMU will receive all frames, regardless of buffer size and would need to handle those limitations internally.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ExternalBusSimulationFmu">2.1.2. External Bus Simulation FMU</h4>
+<div class="paragraph">
+<p>Within the second application, the FMUs are integrated via an additional FMU, the so-called Bus Simulation FMU.
+Within this configuration, the FMU importer does not require any special features for simulating buses, apart from supporting FMI variables, clocks and terminals.
+The figure below shows two FMUs which are connected to a specific Bus Simulator FMU.
+The figure below shows two FMUs which are connected to a specific Bus Simulator FMU.
+The total of three FMUs are executed on a standard importer:</p>
+</div>
+<div id="figure-external-bus-simulation-fmu" class="imageblock text-center">
+<div class="content">
+<img src="images/architecture_bus_simulation_fmu.svg" alt="architecture bus simulation fmu" width="80%">
+</div>
+<div class="title">Figure 3. Bus simulation by using an external Bus Simulation FMU.</div>
+</div>
+<div class="paragraph">
+<p>This type of communication allows the simulation of all bus features, such as arbitration or the simulation of timing.
+The limitation of the supported bus features cannot be specified explicitly in the case shown, but refers to a specific implementation of a Bus Simulator FMU.</p>
+</div>
+<div class="paragraph">
+<p>This communication architecture enables complex bus simulations to be implemented on lightweight FMU importers.
+An n:m bus communication of several FMUs is also permitted.
+Depending on the needs, it may be necessary to dynamically provision the Bus Simulator FMU so that it provides the appropriate number of inputs and outputs to allow all FMUs to be connected.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="BusFeatureIntegratedFmuSimulator">2.1.3. FMU Simulator with Integrated Bus Simulation Feature</h4>
+<div class="paragraph">
+<p>In the third variant of the communication architecture, the Bus Simulations FMU is built directly into the respective FMU importer.
+The supported bus features are analogous to <a href="#ExternalBusSimulationFmu">the External Bus Simulation FMU use case</a>.
+The corresponding limitations regarding the behavior of the bus simulation are importer-specific.
+The following figure illustrates two FMUs, which integrated to an importer that directly supports this standard an needs no further external Bus Simulation FMU:</p>
+</div>
+<div id="figure-bus-feature-integrated-fmu-simulator" class="imageblock text-center">
+<div class="content">
+<img src="images/architecture_bus_simulation_importer.svg" alt="architecture bus simulation importer" width="80%">
+</div>
+<div class="title">Figure 4. Bus simulation by using a Bus Simulation FMU, which is directly integrated into the specified importer.</div>
+</div>
+<div class="paragraph">
+<p>This communication architecture enables the realization of complex bus simulations, which also want to integrate other, for example manufacturer-specific, formats into a bus simulation.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_timing_aspects">2.2. Timing Aspects</h3>
+<div class="paragraph">
+<p><mark>TODO</mark></p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_details">2. Details</h2>
+<h2 id="_physical_signal_abstraction_high_cut">3. Physical Signal Abstraction ("high cut")</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="NetworkDescriptionFile">2.1. Network Description Files</h3>
+<h3 id="_overview">3.1. Overview</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_variables">3.2. Variables</h3>
+<div class="paragraph">
+<p>This section explains the different variable types used to carry network traffic through FMI input and output variables.</p>
+</div>
+<div class="sect3">
+<h4 id="_signal_variables">3.2.1. Signal Variables</h4>
+<div class="paragraph">
+<p>To define the signal abstraction layer (or "high cut"), signal variables are defined.</p>
+</div>
+<div class="paragraph">
+<p>A signal variable carries the physical value of a network signal normally packaged inside a PDU or frame.
+The unit definition of the variable must match the one defined in the <a href="#NetworkDescriptionFile">network description file</a>.</p>
+</div>
+<div class="paragraph">
+<p>Each network signal must be listed as <a href="#TerminalMemberVariable">Terminal Member Variable</a> of its corresponding <a href="#PDUTerminal">PDU terminal</a>.</p>
+</div>
+<div class="paragraph">
+<p>In case multiplexed signals are present in a frame/PDU: all signals are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values <em>[those values could even be outside their specified min-max range without fault]</em>.</p>
+</div>
+<div class="paragraph">
+<p>Generally, signal variables are optional, but they must either be all missing or all present to clearly indicate support for the signal abstraction layer.</p>
+</div>
+<div class="paragraph">
+<p>All signal variables are clocked to indicate when exactly they have been sent, see <a href="#ClockVariableHighCut">Section 3.2.2</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ClockVariableHighCut">3.2.2. Clock Variables</h4>
+<div class="paragraph">
+<p><mark>TODO AJ</mark>: Add description of Event Mode handling here and how the countdown clock pre-schedules events into the future for performance reasons</p>
+</div>
+<div class="paragraph">
+<p>In order to use FMU input and output variables as transport layer for networks, input and output clocks are used.
+Such a clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.</p>
+</div>
+<div class="paragraph">
+<p>The output clock type, periodic or aperiodic, is defined by the sending FMU.
+This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>While aperiodic clocks allow very accurate network simulations, frequently entering Event Mode will reduce the network simulation speed.</p>
+</li>
+<li>
+<p>Using periodic clocks and buffering the frames to be transmitted reduces the number of Event Modes required and speeds up the simulation at the cost of simulation accuracy.</p>
+</li>
+<li>
+<p>One could use (structural) parameters to define the accuracy of aperiodic clocks, allowing control of the simulation accuracy and performance with the same FMU.</p>
+</li>
+<li>
+<p>The input clocks shall be triggered clocks.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The importer will then connect and merge output clock activations, even those of different clock types, and forwards them to the input clocks, as required by the network semantics.</p>
+</div>
+<div class="paragraph">
+<p>All signal variables are clocked variables.
+Signal variables belonging to frame <code>BusName::FrameName</code> are triggered by the clock <code>BusName::FrameName_Clock</code> and all these variables and their corresponding clock must share the same <code>causality</code> (<code>input</code> or <code>output</code>).</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="NetworkDescriptionFile">3.3. Network Description Files</h3>
+<div class="paragraph">
+<p><mark>TODO AJ</mark>: remove old requirements for network description files (not needed anymore): make it optional</p>
+</div>
 <div class="paragraph">
 <p>Standardized <a href="#NetworkDescriptionFile">network description files</a> can be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
 These <a href="#NetworkDescriptionFile">network description files</a> must be placed into the <code>/extra/org.fmi-standard.fmi-ls-bus</code> folder.
@@ -770,54 +1012,360 @@ These are technical and legal issues that need attention from standardization bo
 </div>
 </div>
 <div class="sect2">
-<h3 id="_variables">2.2. Variables</h3>
+<h3 id="_terminal_definitions">3.4. Terminal Definitions</h3>
+<div class="sect3">
+<h4 id="BUSTerminalHighCut">3.4.1. Bus Terminal</h4>
+<div class="paragraph">
+<p>Each network connected to the FMU must be described in <code>icons/terminalsAndIcons.xml</code> as a <code>&lt;Terminal&gt;</code> element of <code>&lt;fmiTerminalsAndIcons&gt;&lt;Terminals&gt;</code> that wraps all <a href="#FrameTerminal">frame terminals</a>.
+The attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> must match the root name of its <a href="#NetworkDescriptionFile">network description file</a> if it exists
+<em>[e.g. <code>Powertrain</code>, if the file is <code>/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc</code>]</em>.
+In any case, the attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> must be consistent with the <code>BusName</code> component of all its corresponding signal, frame and clock variables.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Attribute definitions</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>terminalKind</code> must be set to <code>bus</code>.</p>
+</li>
+<li>
+<p><code>matchingRule</code> must be set to <code>bus</code>.</p>
+</li>
+<li>
+<p><code>name</code> is the network name, e.g. <code>Powertrain</code>, see <a href="#ExampleHighCut">ExampleHighCut</a> and constraints above.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Element definitions</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>There must be no <code>&lt;TerminalStreamMemberVariable&gt;</code> element.</p>
+</li>
+<li>
+<p>There must be one <code>&lt;Terminal&gt;</code> element per network frame described in the <a href="#NetworkDescriptionFile">network description file</a>, if their signal and lock variables are present in the <code>modelDescription.xml</code>.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Annotation element</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>There must be an <code>&lt;Annotation&gt;</code> element defining which node or nodes (as comma-separated list without spaces) of the <a href="#NetworkDescriptionFile">network description file</a> are wrapped inside the FMU.
+If the combination of nodes specified for this FMU turns a frame and its signals into both input and output because sending and receiving nodes are specified, only the sending (output) role will be defined in the FMU interface.
+Receiving such frames must then be handled internally to the FMU.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="FrameTerminal">3.4.2. Frame Terminal</h4>
+<div class="paragraph">
+<p>Each frame listed in the <a href="#NetworkDescriptionFile">network description file</a> must be an element of its corresponding <a href="#BUSTerminalHighCut">bus terminal</a>.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Attribute definitions</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>terminalKind</code> must be set to <code>frame</code>.</p>
+</li>
+<li>
+<p><code>matchingRule</code> must be set to <code>bus</code>.</p>
+</li>
+<li>
+<p><code>name</code> must match the frame name as defined in the <a href="#NetworkDescriptionFile">network description file</a> in <code>/extra/org.fmi-standard.fmi-ls-bus</code>.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Element definitions</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>There must be no <code>&lt;TerminalStreamMemberVariable&gt;</code> element.</p>
+</li>
+<li>
+<p>There must be one <a href="#PDUTerminal">PDU terminal</a> element per PDU of this frame.</p>
+</li>
+<li>
+<p>There must be one <code>&lt;TerminalMemberVariable&gt;</code> for the clock this frame is connected to.
+The name of this variable is composed as <a href="#ClockVariable"><code>BusName::FrameName_Clock</code></a>, e.g. <code>Powertrain::tcuSensors_Clock</code>.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The <a href="#TerminalMemberVariable">Terminal Member Variable</a> must have the same causality as all variables referenced in the <a href="#PDUTerminal">PDU Terminals</a> included here.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="PDUTerminal">3.4.3. PDU Terminal</h4>
+<div class="paragraph">
+<p>Each PDU listed in the <a href="#NetworkDescriptionFile">network description file</a> must be an element of its corresponding <a href="#FrameTerminal">frame terminal</a>.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Attribute definitions</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>terminalKind</code> must be set to <code>pdu</code>.</p>
+</li>
+<li>
+<p><code>matchingRule</code> must be set to <code>bus</code>.</p>
+</li>
+<li>
+<p><code>name</code> must match a PDU name of the <a href="#NetworkDescriptionFile">network description file</a> in <code>/extra/org.fmi-standard.fmi-ls-bus</code>, if given.
+For network types not natively referencing a "PDU", like CAN, a synthetic PDU with the same name as its frame is inserted.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Element definitions</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>There must be no <code>&lt;TerminalStreamMemberVariable&gt;</code> element.</p>
+</li>
+<li>
+<p>There must be no <code>&lt;Terminal&gt;</code> element.</p>
+</li>
+<li>
+<p>There must be one <code>&lt;TerminalMemberVariable&gt;</code> per <a href="#TerminalMemberVariable">signal</a> of this PDU.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>All <a href="#TerminalMemberVariable"><code>TerminalMemberVariables</code></a> must have the same causality of either <code>input</code> or <code>output</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="TerminalMemberVariable">3.4.4. Terminal Member Variable for Signals</h4>
+<div class="paragraph">
+<p><a href="#PDUTerminal">PDU terminals</a> list all the contained signals as <code>&lt;TerminalMemberVariable&gt;</code>.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Attribute definitions</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>variableName</code> refers to the input or output variable name of the FMU and to enforce uniqueness is built as follows: <code>BusName::FrameName::PDUName::SignalName</code>, e.g. <code>Powertrain::tcuSensors::tcuSensors::vCar</code>.
+These variables represent the signal abstraction layer ("high cut").</p>
+</li>
+<li>
+<p><code>memberName</code> is the <code>SignalName</code> as given in the <a href="#NetworkDescriptionFile">network description file</a>, e.g. <code>vCar</code>, if given.
+This is redundant information but simplifies signal name extraction.</p>
+</li>
+<li>
+<p><code>variableKind</code> is <code>signal</code>.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ExampleHighCut">3.5. Example</h3>
+<div class="paragraph">
+<p>The following excerpts from files are used throughout this document as examples and should illustrate how the different concepts relate.</p>
+</div>
+<div class="paragraph">
+<p>The following partial DBC file lists merely the CAN message (frame) structure.
+Signal trigger conditions are not included because they have no bearing on this standard.</p>
+</div>
+<div id="Powertrain" class="listingblock dbc">
+<div class="title">Example Powertrain.dbc file</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-C hljs" data-lang="C">...
+BO_ 256 tcuSensors: 4 TCU
+ SG_ vCar :          0|16@1- (32,0)  [-500|500] "km/h" ECU
+ SG_ oilTemp :      16|9@1-  (2,50)  [-50|150]  "Grad C" ECU
+
+BO_ 257 tcuState: 2 TCU
+ SG_ state :         0|2@1+  (1,0)   [ 0|2] "-" ECU
+ SG_ gear :          2|4@1-  (1,0)   [-2|6] "-" ECU
+ SG_ targetGear :    6|4@1-  (1,0)   [-2|6] "-" ECU
+
+BO_ 512 ecuState: 4 ECU
+ SG_ accelPedal :    0|8@1+ (2,0)   [0|100]   "%" TCU
+ SG_ k15 :           8|1@1+ (1,0)   [0|1]     "-" TCU
+ SG_ oilTemp :       9|9@1- (2,50)  [-50|150] "Grad C" TCU
+ SG_ radiatorTemp : 18|9@1- (2,50)  [-50|150] "Grad C" TCU
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>modelDescription.xml</code> excerpt listed below shows which variables would exist for the <code>Powertrain.dbc</code> shown above.</p>
+</div>
+<div id="modelDescriptionHighCut" class="listingblock xml">
+<div class="title">Example modelDescription.xml for ECU node</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-XML hljs" data-lang="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;fmiModelDescription fmiVersion="3.0-final" modelName="Network4FMI"
+    instantiationToken="Network4FMI"&gt;
+  &lt;ModelVariables&gt;
+    &lt;Clock   name="Powertrain::tcuSensors_Clock"                 valueReference="1007"
+        causality="input" variability="discrete" interval="triggered"/&gt;
+    &lt;Float64 name="Powertrain::tcuSensors::tcuSensors::vCar"     valueReference="1005"
+        causality="input" variability="discrete" start="0"  clocks="1007"/&gt;
+    &lt;Float64 name="Powertrain::tcuSensors::tcuSensors::oilTemp"  valueReference="1006"
+        causality="input" variability="discrete" start="20" clocks="1007"/&gt;
+
+    &lt;Clock   name="Powertrain::tcuState_Clock"                   valueReference="1011"
+        causality="input" variability="discrete" interval="triggered"/&gt;
+    &lt;Float64 name="Powertrain::tcuState::tcuState::state"        valueReference="1008"
+        causality="input" variability="discrete" start="0" clocks="1011"/&gt;
+    &lt;Float64 name="Powertrain::tcuState::tcuState::gear"         valueReference="1009"
+        causality="input" variability="discrete" start="0" clocks="1011"/&gt;
+    &lt;Float64 name="Powertrain::tcuState::tcuState::targetGear"   valueReference="1010"
+        causality="input" variability="discrete" start="0" clocks="1011"/&gt;
+
+    &lt;Clock   name="Powertrain::ecuState_Clock"                   valueReference="1016"
+        causality="output" variability="discrete" interval="triggered"/&gt;
+    &lt;Float64 name="Powertrain::ecuState::ecuState::accelPedal"   valueReference="1012"
+        causality="output" variability="discrete" start="0" clocks="1016"/&gt;
+    &lt;Float64 name="Powertrain::ecuState::ecuState::k15"          valueReference="1013"
+        causality="output" variability="discrete" start="0" clocks="1016"/&gt;
+    &lt;Float64 name="Powertrain::ecuState::ecuState::oilTemp"      valueReference="1014"
+        causality="output" variability="discrete" start="0" clocks="1016"/&gt;
+    &lt;Float64 name="Powertrain::ecuState::ecuState::radiatorTemp" valueReference="1015"
+        causality="output" variability="discrete" start="0" clocks="1016"/&gt;
+  &lt;/ModelVariables&gt;
+  &lt;ModelStructure&gt;
+  &lt;/ModelStructure&gt;
+&lt;/fmiModelDescription&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following file shows the <code>&lt;Terminal&gt;</code> definition representing the network and frame structure defined with <code>Powertrain.dbc</code> above.</p>
+</div>
+<div id="terminalsAndIconHighCut" class="listingblock xml">
+<div class="title">Example terminalsAndIcons.xml file</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-XML hljs" data-lang="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;fmiTerminalsAndIcons fmiVersion="3.0-final"&gt;
+  &lt;Terminals&gt;
+    &lt;Terminal terminalKind="bus" name="Powertrain" matchingRule="bus"
+        description="Powertrain CAN bus defined with dbc file"&gt;
+      &lt;Terminal terminalKind="frame" name="tcuSensors" matchingRule="bus"&gt;
+        &lt;TerminalMemberVariable variableKind="signal"
+          variableName="Powertrain::tcuSensors_Clock" /&gt;
+        &lt;Terminal terminalKind="pdu" name="tcuSensors" matchingRule="bus"&gt;
+          &lt;TerminalMemberVariable variableKind="signal"
+            variableName="Powertrain::tcuSensors::tcuSensors::vCar" memberName="vCar" /&gt;
+          &lt;TerminalMemberVariable variableKind="signal"
+            variableName="Powertrain::tcuSensors::tcuSensors::oilTemp" memberName="oilTemp" /&gt;
+        &lt;/Terminal&gt;
+      &lt;/Terminal&gt;
+      &lt;Terminal terminalKind="frame" name="tcuState" matchingRule="bus"&gt;
+        &lt;TerminalMemberVariable variableKind="signal"
+          variableName="Powertrain::tcuState_Clock" /&gt;
+        &lt;Terminal terminalKind="pdu" name="tcuState" matchingRule="bus"&gt;
+          &lt;TerminalMemberVariable variableKind="signal"
+            variableName="Powertrain::tcuState::tcuState::state" memberName="state" /&gt;
+          &lt;TerminalMemberVariable variableKind="signal"
+            variableName="Powertrain::tcuState::tcuState::gear" memberName="gear" /&gt;
+          &lt;TerminalMemberVariable variableKind="signal"
+            variableName="Powertrain::tcuState::tcuState::targetGear" memberName="targetGear" /&gt;
+        &lt;/Terminal&gt;
+      &lt;/Terminal&gt;
+      &lt;Terminal terminalKind="frame" name="ecuState" matchingRule="bus"&gt;
+        &lt;TerminalMemberVariable variableKind="signal"
+          variableName="Powertrain::ecuState_Clock" /&gt;
+        &lt;Terminal terminalKind="pdu" name="ecuState" matchingRule="bus"&gt;
+          &lt;TerminalMemberVariable variableKind="signal"
+            variableName="Powertrain::ecuState::ecuState::accelPedal" memberName="accelPedal" /&gt;
+          &lt;TerminalMemberVariable variableKind="signal"
+            variableName="Powertrain::ecuState::ecuState::k15" memberName="k15" /&gt;
+          &lt;TerminalMemberVariable variableKind="signal"
+            variableName="Powertrain::ecuState::ecuState::oilTemp" memberName="oilTemp" /&gt;
+          &lt;TerminalMemberVariable variableKind="signal"
+            variableName="Powertrain::ecuState::ecuState::radiatorTemp" memberName="radiatorTemp" /&gt;
+        &lt;/Terminal&gt;
+      &lt;/Terminal&gt;
+      &lt;Annotations&gt;
+        &lt;Annotation type="ECU" /&gt;
+      &lt;/Annotations&gt;
+    &lt;/Terminal&gt;
+  &lt;/Terminals&gt;
+&lt;/fmiTerminalsAndIcons&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_network_abstraction_low_cut">4. Network Abstraction ("low cut")</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><mark>TODO dSPACE</mark></p>
+</div>
+<div class="sect2">
+<h3 id="_overview_2">4.1. Overview</h3>
+<div class="paragraph">
+<p><mark>TODO dSPACE</mark></p>
+</div>
+<div id="figure-example-network-simulation" class="imageblock text-center">
+<div class="content">
+<img src="images/bus_simulation_example.svg" alt="bus simulation example" width="80%">
+</div>
+<div class="title">Figure 5. Example for network simulation.</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_variables_2">4.2. Variables</h3>
 <div class="paragraph">
 <p>This section explains the different variable types used to carry network traffic through FMI input and output variables.</p>
 </div>
 <div class="sect3">
-<h4 id="_signal_variables">2.2.1. Signal Variables</h4>
+<h4 id="CommunicationVariable">4.2.1. Communication Variables</h4>
 <div class="paragraph">
-<p>To define the signal abstraction layer (or "high cut"), signal variables are defined.</p>
+<p><mark>TODO AJ</mark>: this needs to change completely: This is now "Data"</p>
 </div>
 <div class="paragraph">
-<p>A signal variable carries the physical value of a network signal normally packaged inside a PDU or frame.
-The unit definition of the variable must match the one defined in the <a href="#NetworkDescriptionFile">network description file</a>.</p>
+<p>To define the network abstraction layer (or "low cut"), controller variables are used.</p>
 </div>
 <div class="paragraph">
-<p>Each network signal must be listed as <a href="#TerminalMemberVariable">Terminal Member Variable</a> of its corresponding <a href="#PDUTerminal">PDU terminal</a>.</p>
+<p>A communication variable is of type <code>fmi3Binary</code> and contains one or more binary operations, as sent or receive by the FMU.
+There are two such communication variables per bus controller: an input and an output.
+The names of these communication variables are defined as <code>BusName::Rx_Data</code> and <code>BusName::Tx_Data</code>, e.g. <code>Powertrain::Rx_Data</code> and <code>Powertrain::Tx_Data</code> (see <a href="#ExampleLowCut">Example</a>).</p>
 </div>
 <div class="paragraph">
-<p>In case multiplexed signals are present in a frame/PDU: all signals are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values <em>[those values could even be outside their specified min-max range without fault]</em>.</p>
-</div>
-<div class="paragraph">
-<p>Generally, signal variables are optional, but they must either be all missing or all present to clearly indicate support for the signal abstraction layer.</p>
-</div>
-<div class="paragraph">
-<p>All signal variables are clocked to indicate when exactly they have been sent, see <a href="#ClockVariable">Section 2.2.3</a>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="FrameVariable">2.2.2. Frame Variables</h4>
-<div class="paragraph">
-<p>To define the frame abstraction layer (or "low cut"), frame variables are used.</p>
-</div>
-<div class="paragraph">
-<p>A frame variable is of type <code>fmi3Binary</code> and contains one or more binary frames, as sent by the network.
-There are two such frame variables per bus: an input and an output.
-The names of these frame variables are defined as <code>BusName::Rx_Data</code> and <code>BusName::Tx_Data</code>, e.g. <code>Powertrain::Rx_Data</code> and <code>Powertrain::Tx_Data</code> (see <a href="#Example">Example</a>).</p>
-</div>
-<div class="paragraph">
-<p>Both input and output frame variables must be listed as <a href="#TerminalMemberVariable">Terminal Member Variable</a> of its corresponding <a href="#BUSTerminal">bus terminal</a>.</p>
-</div>
-<div class="paragraph">
-<p>Generally, frame variables are optional, but they must either both be missing or present to clearly indicate support for the frame abstraction layer ("low cut").</p>
+<p>Both input and output variables must be listed as members of its corresponding <a href="#BUSTerminalLowCut">bus terminal</a>.</p>
 </div>
 <div class="paragraph">
 <p>The senders of network frames can chose how many frames are buffered and/or for how long frames are buffered before activating an output clock to trigger the actual sending of these frames.
-This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication, see <a href="#ClockVariable">Section 2.2.3</a>.</p>
+This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication, see <a href="#ClockVariableLowCut">Section 4.2.2</a>.</p>
 </div>
 <div class="paragraph">
-<p>The following table lists the names of MIME types used for frame variables:</p>
+<p><mark>TODO all</mark>: MIME types: org.fmi-standard.fmi-ls-bus.v1.[CAN|CANFD|LIN|FlexRay|Ethernet|SPI]&#8201;&#8212;&#8201;anything missing? names good?</p>
+</div>
+<div class="paragraph">
+<p>The following table lists the names of MIME types used for controller variables:</p>
 </div>
 <table id="table-mime-types" class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -832,34 +1380,314 @@ This allows senders to trade accuracy for speed: buffering more and interrupting
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">org.fmi-standard.fmi-ls-bus.v1.CAN</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">binary variables simulating the automotive CAN network</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">org.fmi-standard.fmi-ls-bus.v1.Can</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binary variables simulating the automotive CAN network including CAN, CAN FD and CAN XL</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">org.fmi-standard.fmi-ls-bus.v1.CANFD</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">binary variables simulating the automotive CANFD network</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">org.fmi-standard.fmi-ls-bus.v1.LIN</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">binary variables simulating the automotive LIN network</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">org.fmi-standard.fmi-ls-bus.v1.Lin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binary variables simulating the automotive LIN network</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">org.fmi-standard.fmi-ls-bus.v1.FlexRay</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">binary variables simulating the automotive FlexRay network</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binary variables simulating the automotive FlexRay network</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">org.fmi-standard.fmi-ls-bus.v1.Ethernet</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">binary variables simulating the automotive Ethernet network</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binary variables simulating the automotive Ethernet network</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">org.fmi-standard.fmi-ls-bus.v1.SPI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">binary variables simulating the automotive SPI network</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">org.fmi-standard.fmi-ls-bus.v1.Spi</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binary variables simulating the automotive SPI network</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>The content of a binary variable is any number of frames, including none.
-There are different frame types, listed in the following table:</p>
+<p>As in the table above shown the version of a specified bus type is integrated within the MIME type.
+The MIME type and the associated versioning ensure that only compatible bus types can be connected to each other.
+The version number marks the set of available operations.
+Only the major version is included by the specified MIME type.
+The versioning follows the rules of <a href="https://semver.org/">Semantic Versioning 2.0.0</a>.</p>
+</div>
+<div class="paragraph">
+<p>The content of a binary variable is any number of operations, including none.</p>
+</div>
+<div class="paragraph">
+<p>An operation is always defined by the following attributes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Name: The name of the specific operation for example <em>Transmit</em> or <em>Confirm</em>.</p>
+</li>
+<li>
+<p>OP Code: The OP Code defines the a unique value for every kind of operation.
+It consists of one byte in length and is defined for every bus type by this standard.</p>
+</li>
+<li>
+<p>Arguments: The arguments of the respective operation follow the OP Code.
+Each argument and the specific argument length is defined for each operation within this standard.</p>
+</li>
+<li>
+<p>Repeated: One bit within the OP Code if an operation can be exists more than one time in the specific <code>fmi3Binary</code> variable.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following table shows an example for an operation definition.
+The name is <em>OperationName</em> and it contains three arguments <em>Arg1</em> (2 bytes long), <em>Arg2</em> (3 bytes long), <em>Arg3</em>  (4 bytes long).
+The operation can be repeated:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Frame type</p></th>
+<th class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Frame content</p></th>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></th>
+<th class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Specific content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Repeated</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OperationName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 byte Arg1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 byte Arg2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte Arg3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The OP code contains an operation byte and encodes the size of the OP specific content field length (except Transmit frames with 0xef if frame has variable length with its own length field) and a repeat-bit (most significant bit of the second byte).
+The following table shows the OP Code structure:</p>
+</div>
+<div class="paragraph">
+<p><mark>TODO all</mark>: the follow could be compressed into a single byte, but would that help?</p>
+</div>
+<table id="table-opcode-structure" class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 30%;">
+<col style="width: 30%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Type</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Repeat content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8 bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7 bit</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><mark>TODO all</mark>: we need a table here with network and message errors here</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ClockVariableLowCut">4.2.2. Clock Variables</h4>
+<div class="paragraph">
+<p><mark>TODO AJ</mark>: Add description of Event Mode handling here and how the countdown clock pre-schedules events into the future for performance reasons</p>
+</div>
+<div class="paragraph">
+<p>In order to use FMU input and output variables as transport layer for networks, input and output clocks are used.
+Such a clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.</p>
+</div>
+<div class="paragraph">
+<p>The output clock type, periodic or aperiodic, is defined by the sending FMU.
+This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>While aperiodic clocks allow very accurate network simulations, frequently entering Event Mode will reduce the network simulation speed.</p>
+</li>
+<li>
+<p>Using periodic clocks and buffering the frames to be transmitted reduces the number of Event Modes required and speeds up the simulation at the cost of simulation accuracy.</p>
+</li>
+<li>
+<p>One could use (structural) parameters to define the accuracy of aperiodic clocks, allowing control of the simulation accuracy and performance with the same FMU.</p>
+</li>
+<li>
+<p>The input clocks shall be triggered clocks.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The importer will then connect and merge output clock activations, even those of different clock types, and forwards them to the input clocks, as required by the network semantics.</p>
+</div>
+<div class="paragraph">
+<p>Both controller variables are clocked variables.
+The input frame variable <code>BusName::Rx_Data</code> is clocked by the clock variable <code>BusName::Rx_Clock</code>, both with <code>causality</code> set to <code>input</code>.
+The output frame variable <code>BusName::Tx_Data</code> is clocked by the clock variable <code>BusName::Tx_Clock</code>, both with <code>causality</code> set to <code>output</code>.
+Both clock variables must also be listed as member of its corresponding <a href="#BUSTerminalLowCut">bus terminal</a>.</p>
+</div>
+<div class="paragraph">
+<p><mark>TODO AJ</mark>: Add description of Event Type and their respective parameters and applicability to the different protocol types (mimic table)</p>
+</div>
+<div class="paragraph">
+<p><mark>TODO all</mark>: Should we mandate that all output clock types must be the same? Or should we allow the exporter to mix clock types for the different abstraction layers, or even for the different frames? Since different FMUs might use different clock types anyway, an importer needs to handle the mixed case anyway.
+Any other reason to be more strict here?</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ExampleLowCut">4.2.3. Example</h4>
+<div class="paragraph">
+<p>The following excerpts from files are used throughout this document as examples and should illustrate how the different concepts relate.</p>
+</div>
+<div id="modelDescriptionLowCut" class="listingblock xml">
+<div class="title">Example modelDescription.xml for ECU node</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-XML hljs" data-lang="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;fmiModelDescription fmiVersion="3.0-final" modelName="Network4FMI"
+    instantiationToken="Network4FMI"&gt;
+  &lt;ModelVariables&gt;
+    &lt;Clock   name="Powertrain::Rx_Clock"                         valueReference="1002"
+        causality="input" variability="discrete" interval="triggered"/&gt;
+    &lt;Binary  name="Powertrain::Rx_Data"                          valueReference="1001"
+        causality="input" variability="discrete" clocks="1002"/&gt;
+    &lt;Clock   name="Powertrain::Tx_Clock"                         valueReference="1004"
+        causality="output" variability="discrete" interval="triggered"/&gt;
+    &lt;Binary  name="Powertrain::Tx_Data"                          valueReference="1003"
+        causality="output" variability="discrete" clocks="1004"/&gt;
+  &lt;/ModelVariables&gt;
+  &lt;ModelStructure&gt;
+  &lt;/ModelStructure&gt;
+&lt;/fmiModelDescription&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following file shows the <code>&lt;Terminal&gt;</code> related definition:</p>
+</div>
+<div id="terminalsAndIconLowCut" class="listingblock xml">
+<div class="title">Example terminalsAndIcons.xml file</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-XML hljs" data-lang="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;fmiTerminalsAndIcons fmiVersion="3.0-final"&gt;
+  &lt;Terminals&gt;
+    &lt;Terminal terminalKind="bus" name="Powertrain" matchingRule="bus"
+        description="Powertrain CAN bus terminal definition"&gt;
+      &lt;TerminalMemberVariable variableKind="signal"
+        variableName="name="Powertrain"::Rx_Clock" /&gt;
+      &lt;TerminalMemberVariable variableKind="signal"
+        variableName="name="Powertrain"::Rx_Data" /&gt;
+      &lt;TerminalMemberVariable variableKind="signal"
+        variableName="name="Powertrain"::Tx_Clock" /&gt;
+      &lt;TerminalMemberVariable variableKind="signal"
+        variableName="name="Powertrain"::Tx_Data" /&gt;
+      &lt;/Terminal&gt;
+    &lt;/Terminal&gt;
+  &lt;/Terminals&gt;
+&lt;/fmiTerminalsAndIcons&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_terminal_definitions_2">4.3. Terminal Definitions</h3>
+<div class="paragraph">
+<p>This section defines terminals for network abstraction or low cut.</p>
+</div>
+<div class="sect3">
+<h4 id="BUSTerminalLowCut">4.3.1. Bus Terminal</h4>
+<div class="paragraph">
+<p>Each network connected to the FMU must be described in <code>icons/terminalsAndIcons.xml</code> as a <code>&lt;Terminal&gt;</code> element of <code>&lt;fmiTerminalsAndIcons&gt;&lt;Terminals&gt;</code>.
+The attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> must match the name of the specified bus controller <em>[e.g. the name of the CanController]</em> within a low cut.
+If the specified V-ECU FMU contains more than one Controller, there shall be exactly one <code>&lt;Terminal&gt;</code> for each Controller.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Attribute definitions</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>terminalKind</code> must be set to <code>bus</code>.</p>
+</li>
+<li>
+<p><code>matchingRule</code> must be set to <code>bus</code>.</p>
+</li>
+<li>
+<p><code>name</code> is the controller name, e.g. <code>PowertrainController</code>, see <a href="#ExampleLowCut">Example</a> and constraints above.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Element definitions</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>BusName::Rx_Data</code> and <code>BusName::Tx_Data</code> and their clocks <code>BusName::Rx_Clock</code> and <code>BusName::Tx_Clock</code> are exposed in the <code>modelDescription.xml</code>, they must be listed as <code>&lt;TerminalMemberVariable&gt;</code> elements here.</p>
+</li>
+<li>
+<p>There must be no <code>&lt;TerminalStreamMemberVariable&gt;</code> element.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The following figure shows a V-ECU FMU with four variables <code>Tx_Data</code>, <code>Tx_Clock</code>, <code>Rx_Data</code>, <code>Rx_Clock</code> that are aggregated to a <code>&lt;Terminal&gt;</code> named <em>Bus Terminal</em>:</p>
+</div>
+<div id="figure-frame-variables-terminals-lowcut" class="imageblock text-center">
+<div class="content">
+<img src="images/bus_terminal.svg" alt="bus terminal" width="80%">
+</div>
+<div class="title">Figure 6. Frame variables and terminals.</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bus_type_specific_details">4.4. Bus Type Specific Details</h3>
+<div class="paragraph">
+<p><mark>ToDo</mark> Introductory sentence(s)</p>
+</div>
+<div class="sect3">
+<h4 id="_can_can_fd_can_xl">4.4.1. CAN, CAN FD, CAN XL</h4>
+<div class="paragraph">
+<p><mark>TODO dSPACE</mark></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>n:m Kommunikation</p>
+</li>
+<li>
+<p>Arbitrierung</p>
+</li>
+<li>
+<p>Acknowledge</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Because CAN, CAN FD, CAN XL are supported by this standard, <a href="https://www.sae.org/">SAE J1939</a> is also indirectly supported.</p>
+</div>
+<div class="sect4">
+<h5 id="_operations">4.4.1.1. Operations</h5>
+<div class="paragraph">
+<p><mark>TODO dSPACE</mark></p>
+</div>
+<div class="paragraph">
+<p>This section defines the allowed operations for CAN, CAN FD, CAN XL.
+The following table provides an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.</p>
 </div>
 <table id="table-frame-contenct" class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1006,88 +1834,55 @@ There are different frame types, listed in the following table:</p>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect4">
+<h5 id="_sequence_diagrams">4.4.1.2. Sequence Diagrams</h5>
 <div class="paragraph">
-<p>The OP code contains an operation byte and encodes the size of the OP specific content field length (except Transmit frames with 0xef if frame has variable length with its own length field) and a repeat-bit (most significant bit of the second byte).
-The following table shows the OP Code structure:</p>
+<p><mark>TODO dSPACE</mark></p>
 </div>
-<table id="table-opcode-structure" class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 40%;">
-<col style="width: 30%;">
-<col style="width: 30%;">
-</colgroup>
-<tbody>
-<tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Type</p></th>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Repeat content</p></th>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8 bit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 bit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">7 bit</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="ClockVariable">2.2.3. Clock Variables</h4>
-<div class="paragraph">
-<p>In order to use FMU input and output variables as transport layer for networks, input and output clocks are used.
-Such a clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.</p>
-</div>
-<div class="paragraph">
-<p>The output clock type, periodic or aperiodic, is defined by the sending FMU.
-This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>While aperiodic clocks allow very accurate network simulations, frequently entering Event Mode will reduce the network simulation speed.</p>
-</li>
-<li>
-<p>Using periodic clocks and buffering the frames to be transmitted reduces the number of Event Modes required and speeds up the simulation at the cost of simulation accuracy.</p>
-</li>
-<li>
-<p>One could use (structural) parameters to define the accuracy of aperiodic clocks, allowing control of the simulation accuracy and performance with the same FMU.</p>
-</li>
-<li>
-<p>The input clocks shall be triggered clocks.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The importer will then connect and merge output clock activations, even those of different clock types, and forwards them to the input clocks, as required by the network semantics.</p>
-</div>
-<div class="paragraph">
-<p>All signal variables are clocked variables.
-Signal variables belonging to frame <code>BusName::FrameName</code> are triggered by the clock <code>BusName::FrameName_Clock</code> and all these variables and their corresponding clock must share the same <code>causality</code> (<code>input</code> or <code>output</code>).</p>
-</div>
-<div class="paragraph">
-<p>Both frame variables are clocked variables.
-The input frame variable <code>BusName::Rx_Data</code> is clocked by the clock variable <code>BusName::Rx_Clock</code>, both with <code>causality</code> set to <code>input</code>.
-The output frame variable <code>BusName::Tx_Data</code> is clocked by the clock variable <code>BusName::Tx_Clock</code>, both with <code>causality</code> set to <code>output</code>.
-Both clock variables must also be listed as <a href="#TerminalMemberVariable">Terminal Member Variable</a> of its corresponding <a href="#BUSTerminal">bus terminal</a>.</p>
-</div>
-<div id="figure-example-network-simulation" class="imageblock text-center">
-<div class="content">
-<img src="images/bus_simulation_example.svg" alt="bus simulation example" width="80%">
-</div>
-<div class="title">Figure 2. Example for network simulation.</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="NetworkParameters">2.2.4. Network Parameters</h4>
-
+<h4 id="_lin">4.4.2. LIN</h4>
+<div class="paragraph">
+<p><mark>TODO dSPACE</mark></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_flexray">4.4.3. FlexRay</h4>
+<div class="paragraph">
+<p><mark>TODO</mark></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ethernet">4.4.4. Ethernet</h4>
+<div class="paragraph">
+<p><mark>TODO dSPACE</mark></p>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="NetworkSimulation">2.3. Network Simulation</h3>
+<h3 id="NetworkParameters">4.5. Network Parameters</h3>
+<div class="paragraph">
+<p><mark>TODO</mark></p>
+</div>
+<div class="paragraph">
+<p><mark>TODO all</mark>: define parameter names and their semantics influencing bus behavior and/or version of the fmi-ls-bus version (FMU declares them as parameters or structural parameters depending on internal mechanisms)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="NetworkSimulation">5. Network Simulation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><mark>TODO</mark></p>
+</div>
 <div id="figure-example-network-simulation-architecture" class="imageblock text-center">
 <div class="content">
 <img src="images/architecture_bus_simulation_importer.svg" alt="architecture bus simulation importer" width="80%">
 </div>
-<div class="title">Figure 3. Example network simulation architecture.</div>
+<div class="title">Figure 7. Example network simulation architecture.</div>
 </div>
 <div class="paragraph">
 <p>The figure above shows one example for a network simulation architecture.
@@ -1098,340 +1893,13 @@ The importer merges output clock activations, output binary data and output sign
 <p>The accuracy/performance of the resulting network simulation can range from ideal (no bandwidth restriction, no arbitration, no network errors) to more realistic (with restricted bandwidth, message delay due to arbitration, network errors, error injection, &#8230;&#8203;).</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_terminal_definitions">2.4. Terminal Definitions</h3>
-<div class="sect3">
-<h4 id="BUSTerminal">2.4.1. Bus Terminal</h4>
+</div>
+<div class="sect1">
+<h2 id="_known_limitations_of_this_standard">6. Known Limitations of This Standard</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Each network connected to the FMU must be described in <code>icons/terminalsAndIcons.xml</code> as a <code>&lt;Terminal&gt;</code> element of <code>&lt;fmiTerminalsAndIcons&gt;&lt;Terminals&gt;</code> that wraps all <a href="#FrameTerminal">frame terminals</a>.
-The attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> must match the root name of its <a href="#NetworkDescriptionFile">network description file</a> if it exists
-<em>[e.g. <code>Powertrain</code>, if the file is <code>/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc</code>]</em>.
-In any case, the attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> must be consistent with the <code>BusName</code> component of all its corresponding signal, frame and clock variables.</p>
+<p><mark>TODO all</mark></p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Attribute definitions</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p><code>terminalKind</code> must be set to <code>bus</code>.</p>
-</li>
-<li>
-<p><code>matchingRule</code> must be set to <code>bus</code>.</p>
-</li>
-<li>
-<p><code>name</code> is the network name, e.g. <code>Powertrain</code>, see <a href="#Example">Example</a> and constraints above.</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">Element definitions</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>If frame variables (<code>BusName::Rx_Data</code> and <code>BusName::Tx_Data</code>) and their clocks (<code>BusName::Rx_Clock</code> and <code>BusName::Tx_Clock</code>) are exposed in the <code>modelDescription.xml</code>, they must be listed as <code>&lt;TerminalMemberVariable&gt;</code> elements here.
-These variables represent the frame abstraction layer ("low cut").</p>
-</li>
-<li>
-<p>There must be no <code>&lt;TerminalStreamMemberVariable&gt;</code> element.</p>
-</li>
-<li>
-<p>There must be one <code>&lt;Terminal&gt;</code> element per network frame described in the <a href="#NetworkDescriptionFile">network description file</a>, if their signal and lock variables are present in the <code>modelDescription.xml</code>.</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">Annotation element</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>There must be an <code>&lt;Annotation&gt;</code> element defining which node or nodes (as comma-separated list without spaces) of the <a href="#NetworkDescriptionFile">network description file</a> are wrapped inside the FMU.
-If the combination of nodes specified for this FMU turns a frame and its signals into both input and output because sending and receiving nodes are specified, only the sending (output) role will be defined in the FMU interface.
-Receiving such frames must then be handled internally to the FMU.</p>
-</li>
-</ul>
-</div>
-</dd>
-</dl>
-</div>
-<div id="figure-frame-variables-terminals" class="imageblock text-center">
-<div class="content">
-<img src="images/bus_terminal.svg" alt="bus terminal" width="80%">
-</div>
-<div class="title">Figure 4. Frame variables and terminals.</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="FrameTerminal">2.4.2. Frame Terminal</h4>
-<div class="paragraph">
-<p>Each frame listed in the <a href="#NetworkDescriptionFile">network description file</a> must be an element of its corresponding <a href="#BUSTerminal">bus terminal</a>.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Attribute definitions</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p><code>terminalKind</code> must be set to <code>frame</code>.</p>
-</li>
-<li>
-<p><code>matchingRule</code> must be set to <code>bus</code>.</p>
-</li>
-<li>
-<p><code>name</code> must match the frame name as defined in the <a href="#NetworkDescriptionFile">network description file</a> in <code>/extra/org.fmi-standard.fmi-ls-bus</code>.</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">Element definitions</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>There must be no <code>&lt;TerminalStreamMemberVariable&gt;</code> element.</p>
-</li>
-<li>
-<p>There must be one <a href="#PDUTerminal">PDU terminal</a> element per PDU of this frame.</p>
-</li>
-<li>
-<p>There must be one <code>&lt;TerminalMemberVariable&gt;</code> for the clock this frame is connected to.
-The name of this variable is composed as <a href="#ClockVariable"><code>BusName::FrameName_Clock</code></a>, e.g. <code>Powertrain::tcuSensors_Clock</code>.</p>
-</li>
-</ul>
-</div>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>The <a href="#TerminalMemberVariable">Terminal Member Variable</a> must have the same causality as all variables referenced in the <a href="#PDUTerminal">PDU Terminals</a> included here.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="PDUTerminal">2.4.3. PDU Terminal</h4>
-<div class="paragraph">
-<p>Each PDU listed in the <a href="#NetworkDescriptionFile">network description file</a> must be an element of its corresponding <a href="#FrameTerminal">frame terminal</a>.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Attribute definitions</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p><code>terminalKind</code> must be set to <code>pdu</code>.</p>
-</li>
-<li>
-<p><code>matchingRule</code> must be set to <code>bus</code>.</p>
-</li>
-<li>
-<p><code>name</code> must match a PDU name of the <a href="#NetworkDescriptionFile">network description file</a> in <code>/extra/org.fmi-standard.fmi-ls-bus</code>, if given.
-For network types not natively referencing a "PDU", like CAN, a synthetic PDU with the same name as its frame is inserted.</p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">Element definitions</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>There must be no <code>&lt;TerminalStreamMemberVariable&gt;</code> element.</p>
-</li>
-<li>
-<p>There must be no <code>&lt;Terminal&gt;</code> element.</p>
-</li>
-<li>
-<p>There must be one <code>&lt;TerminalMemberVariable&gt;</code> per <a href="#TerminalMemberVariable">signal</a> of this PDU.</p>
-</li>
-</ul>
-</div>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>All <a href="#TerminalMemberVariable"><code>TerminalMemberVariables</code></a> must have the same causality of either <code>input</code> or <code>output</code>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="TerminalMemberVariable">2.4.4. Terminal Member Variable for Signals</h4>
-<div class="paragraph">
-<p><a href="#PDUTerminal">PDU terminals</a> list all the contained signals as <code>&lt;TerminalMemberVariable&gt;</code>.</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Attribute definitions</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p><code>variableName</code> refers to the input or output variable name of the FMU and to enforce uniqueness is built as follows: <code>BusName::FrameName::PDUName::SignalName</code>, e.g. <code>Powertrain::tcuSensors::tcuSensors::vCar</code>.
-These variables represent the signal abstraction layer ("high cut").</p>
-</li>
-<li>
-<p><code>memberName</code> is the <code>SignalName</code> as given in the <a href="#NetworkDescriptionFile">network description file</a>, e.g. <code>vCar</code>, if given.
-This is redundant information but simplifies signal name extraction.</p>
-</li>
-<li>
-<p><code>variableKind</code> is <code>signal</code>.</p>
-</li>
-</ul>
-</div>
-</dd>
-</dl>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Example">2.5. Example</h3>
-<div class="paragraph">
-<p>The following excerpts from files are used throughout this document as examples and should illustrate how the different concepts relate.</p>
-</div>
-<div class="paragraph">
-<p>The following partial DBC file lists merely the CAN message (frame) structure.
-Signal trigger conditions are not included because they have no bearing on this standard.</p>
-</div>
-<div id="Powertrain" class="listingblock dbc">
-<div class="title">Example Powertrain.dbc file</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-C hljs" data-lang="C">...
-BO_ 256 tcuSensors: 4 TCU
- SG_ vCar :          0|16@1- (32,0)  [-500|500] "km/h" ECU
- SG_ oilTemp :      16|9@1-  (2,50)  [-50|150]  "Grad C" ECU
-
-BO_ 257 tcuState: 2 TCU
- SG_ state :         0|2@1+  (1,0)   [ 0|2] "-" ECU
- SG_ gear :          2|4@1-  (1,0)   [-2|6] "-" ECU
- SG_ targetGear :    6|4@1-  (1,0)   [-2|6] "-" ECU
-
-BO_ 512 ecuState: 4 ECU
- SG_ accelPedal :    0|8@1+ (2,0)   [0|100]   "%" TCU
- SG_ k15 :           8|1@1+ (1,0)   [0|1]     "-" TCU
- SG_ oilTemp :       9|9@1- (2,50)  [-50|150] "Grad C" TCU
- SG_ radiatorTemp : 18|9@1- (2,50)  [-50|150] "Grad C" TCU
-...</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>modelDescription.xml</code> excerpt listed below shows which variables would exist for the <code>Powertrain.dbc</code> shown above.</p>
-</div>
-<div id="modelDescription" class="listingblock xml">
-<div class="title">Example modelDescription.xml for ECU node</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-XML hljs" data-lang="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;fmiModelDescription fmiVersion="3.0-alpha.7" modelName="Network4FMI"
-    instantiationToken="Network4FMI"&gt;
-  &lt;ModelVariables&gt;
-    &lt;Clock   name="Powertrain::Rx_Clock"                         valueReference="1002"
-        causality="input" variability="discrete" interval="triggered"/&gt;
-    &lt;Binary  name="Powertrain::Rx_Data"                          valueReference="1001"
-        causality="input" variability="discrete" clocks="1002"/&gt;
-    &lt;Clock   name="Powertrain::Tx_Clock"                         valueReference="1004"
-        causality="output" variability="discrete" interval="triggered"/&gt;
-    &lt;Binary  name="Powertrain::Tx_Data"                          valueReference="1003"
-        causality="output" variability="discrete" clocks="1004"/&gt;
-
-    &lt;Clock   name="Powertrain::tcuSensors_Clock"                 valueReference="1007"
-        causality="input" variability="discrete" interval="triggered"/&gt;
-    &lt;Float64 name="Powertrain::tcuSensors::tcuSensors::vCar"     valueReference="1005"
-        causality="input" variability="discrete" start="0"  clocks="1007"/&gt;
-    &lt;Float64 name="Powertrain::tcuSensors::tcuSensors::oilTemp"  valueReference="1006"
-        causality="input" variability="discrete" start="20" clocks="1007"/&gt;
-
-    &lt;Clock   name="Powertrain::tcuState_Clock"                   valueReference="1011"
-        causality="input" variability="discrete" interval="triggered"/&gt;
-    &lt;Float64 name="Powertrain::tcuState::tcuState::state"        valueReference="1008"
-        causality="input" variability="discrete" start="0" clocks="1011"/&gt;
-    &lt;Float64 name="Powertrain::tcuState::tcuState::gear"         valueReference="1009"
-        causality="input" variability="discrete" start="0" clocks="1011"/&gt;
-    &lt;Float64 name="Powertrain::tcuState::tcuState::targetGear"   valueReference="1010"
-        causality="input" variability="discrete" start="0" clocks="1011"/&gt;
-
-    &lt;Clock   name="Powertrain::ecuState_Clock"                   valueReference="1016"
-        causality="output" variability="discrete" interval="triggered"/&gt;
-    &lt;Float64 name="Powertrain::ecuState::ecuState::accelPedal"   valueReference="1012"
-        causality="output" variability="discrete" start="0" clocks="1016"/&gt;
-    &lt;Float64 name="Powertrain::ecuState::ecuState::k15"          valueReference="1013"
-        causality="output" variability="discrete" start="0" clocks="1016"/&gt;
-    &lt;Float64 name="Powertrain::ecuState::ecuState::oilTemp"      valueReference="1014"
-        causality="output" variability="discrete" start="0" clocks="1016"/&gt;
-    &lt;Float64 name="Powertrain::ecuState::ecuState::radiatorTemp" valueReference="1015"
-        causality="output" variability="discrete" start="0" clocks="1016"/&gt;
-  &lt;/ModelVariables&gt;
-  &lt;ModelStructure&gt;
-  &lt;/ModelStructure&gt;
-&lt;/fmiModelDescription&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The following file shows the <code>&lt;Terminal&gt;</code> definition representing the network and frame structure defined with <code>Powertrain.dbc</code> above.</p>
-</div>
-<div id="terminalsAndIcon" class="listingblock xml">
-<div class="title">Example terminalsAndIcons.xml file</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-XML hljs" data-lang="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;fmiTerminalsAndIcons fmiVersion="3.0-alpha6"&gt;
-  &lt;Terminals&gt;
-    &lt;Terminal terminalKind="bus" name="Powertrain" matchingRule="bus"
-        description="Powertrain CAN bus defined with dbc file"&gt;
-      &lt;TerminalMemberVariable variableKind="signal"
-        variableName="Powertrain::Rx_Clock" /&gt;
-      &lt;TerminalMemberVariable variableKind="signal"
-        variableName="Powertrain::Rx_Data" /&gt;
-      &lt;TerminalMemberVariable variableKind="signal"
-        variableName="Powertrain::Tx_Clock" /&gt;
-      &lt;TerminalMemberVariable variableKind="signal"
-        variableName="Powertrain::Tx_Data" /&gt;
-      &lt;Terminal terminalKind="frame" name="tcuSensors" matchingRule="bus"&gt;
-        &lt;TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain::tcuSensors_Clock" /&gt;
-        &lt;Terminal terminalKind="pdu" name="tcuSensors" matchingRule="bus"&gt;
-          &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::tcuSensors::tcuSensors::vCar" memberName="vCar" /&gt;
-          &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::tcuSensors::tcuSensors::oilTemp" memberName="oilTemp" /&gt;
-        &lt;/Terminal&gt;
-      &lt;/Terminal&gt;
-      &lt;Terminal terminalKind="frame" name="tcuState" matchingRule="bus"&gt;
-        &lt;TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain::tcuState_Clock" /&gt;
-        &lt;Terminal terminalKind="pdu" name="tcuState" matchingRule="bus"&gt;
-          &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::tcuState::tcuState::state" memberName="state" /&gt;
-          &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::tcuState::tcuState::gear" memberName="gear" /&gt;
-          &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::tcuState::tcuState::targetGear" memberName="targetGear" /&gt;
-        &lt;/Terminal&gt;
-      &lt;/Terminal&gt;
-      &lt;Terminal terminalKind="frame" name="ecuState" matchingRule="bus"&gt;
-        &lt;TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain::ecuState_Clock" /&gt;
-        &lt;Terminal terminalKind="pdu" name="ecuState" matchingRule="bus"&gt;
-          &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::ecuState::ecuState::accelPedal" memberName="accelPedal" /&gt;
-          &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::ecuState::ecuState::k15" memberName="k15" /&gt;
-          &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::ecuState::ecuState::oilTemp" memberName="oilTemp" /&gt;
-          &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::ecuState::ecuState::radiatorTemp" memberName="radiatorTemp" /&gt;
-        &lt;/Terminal&gt;
-      &lt;/Terminal&gt;
-      &lt;Annotations&gt;
-        &lt;Annotation type="ECU" /&gt;
-      &lt;/Annotations&gt;
-    &lt;/Terminal&gt;
-  &lt;/Terminals&gt;
-&lt;/fmiTerminalsAndIcons&gt;</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_known_limitations_of_this_standard">2.6. Known Limitations of this Standard</h3>
 <div class="paragraph">
 <p>This layered standard maps several network protocols onto co-simulation variables as transport layer simulating in many ways an ideal network.
 Such an ideal network differs from physical networks in the following ways (and potentially others):</p>
@@ -1462,7 +1930,6 @@ This requires the importer to handle the case when multiple source FMUs are send
 Importers must know how to handle this, just like they must know how to handle flow variables according to Kirchhoff&#8217;s law.</p>
 </li>
 </ul>
-</div>
 </div>
 </div>
 </div>
