@@ -1,0 +1,203 @@
+== Network Abstraction ("low cut")
+
+#TODO dSPACE# 
+
+=== Overview 
+
+#TODO dSPACE# 
+
+.Example for network simulation.
+[#figure-example-network-simulation]
+image::bus_simulation_example.svg[width=80%, align="center"]
+
+=== Variables
+
+This section explains the different variable types used to carry network traffic through FMI input and output variables.
+
+==== Communication Variables [[CommunicationVariable, Communication Variables]]
+
+#TODO AJ#: this needs to change completely: This is now "Data"
+
+To define the network abstraction layer (or "low cut"), controller variables are used.
+
+A communication variable is of type `fmi3Binary` and contains one or more binary operations, as sent or receive by the FMU.
+There are two such communication variables per bus controller: an input and an output.
+The names of these communication variables are defined as `BusName::Rx_Data` and `BusName::Tx_Data`, e.g. `Powertrain::Rx_Data` and `Powertrain::Tx_Data` (see <<ExampleLowCut, Example>>).
+
+Both input and output variables must be listed as members of its corresponding <<BUSTerminalLowCut>>.
+
+The senders of network frames can chose how many frames are buffered and/or for how long frames are buffered before activating an output clock to trigger the actual sending of these frames.
+This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication, see <<ClockVariableLowCut>>.
+
+#TODO all#: MIME types: org.fmi-standard.fmi-ls-bus.v1.[CAN|CANFD|LIN|FlexRay|Ethernet|SPI] -- anything missing? names good?
+
+The following table lists the names of MIME types used for controller variables:
+
+[#table-mime-types]
+[cols="4,5",options="header"]
+|====
+|MIME type name
+|Description
+
+|org.fmi-standard.fmi-ls-bus.v1.Can
+|Binary variables simulating the automotive CAN network including CAN, CAN FD and CAN XL
+
+|org.fmi-standard.fmi-ls-bus.v1.Lin
+|Binary variables simulating the automotive LIN network
+
+|org.fmi-standard.fmi-ls-bus.v1.FlexRay
+|Binary variables simulating the automotive FlexRay network
+
+|org.fmi-standard.fmi-ls-bus.v1.Ethernet
+|Binary variables simulating the automotive Ethernet network
+
+|org.fmi-standard.fmi-ls-bus.v1.Spi
+|Binary variables simulating the automotive SPI network
+
+|====
+
+As in the table above shown the version of a specified bus type is integrated within the MIME type.
+The MIME type and the associated versioning ensure that only compatible bus types can be connected to each other.
+The version number marks the set of available operations.
+Only the major version is included by the specified MIME type.
+The versioning follows the rules of https://semver.org/[Semantic Versioning 2.0.0].
+
+The content of a binary variable is any number of operations, including none.
+
+An operation is always defined by the following attributes:
+
+* Name: The name of the specific operation for example _Transmit_ or _Confirm_.
+* OP Code: The OP Code defines the a unique value for every kind of operation.
+It consists of one byte in length and is defined for every bus type by this standard.
+* Arguments: The arguments of the respective operation follow the OP Code.
+Each argument and the specific argument length is defined for each operation within this standard.
+* Repeated: One bit within the OP Code if an operation can be exists more than one time in the specific `fmi3Binary` variable.
+
+The following table shows an example for an operation definition.
+The name is _OperationName_ and it contains three arguments _Arg1_ (2 bytes long), _Arg2_ (3 bytes long), _Arg3_  (4 bytes long).
+The operation can be repeated:
+
+[cols="1,1,1,1,1,1"]
+|====
+.2+h|Frame type
+5+h|Frame content
+
+h|OP Code
+3+h|Specific content
+h|Repeated
+
+|OperationName
+|0x01
+|2 byte Arg1
+|3 byte Arg2
+|4 byte Arg3
+|Yes
+
+|====
+
+The OP code contains an operation byte and encodes the size of the OP specific content field length (except Transmit frames with 0xef if frame has variable length with its own length field) and a repeat-bit (most significant bit of the second byte).
+The following table shows the OP Code structure:
+
+#TODO all#: the follow could be compressed into a single byte, but would that help?
+
+[#table-opcode-structure]
+[cols="4,3,3"]
+|====
+h|Type
+h|Repeat content
+h|Length
+
+|8 bit
+|1 bit
+|7 bit
+
+|====
+
+#TODO all#: we need a table here with network and message errors here
+
+==== Clock Variables [[ClockVariableLowCut]]
+
+#TODO AJ#: Add description of Event Mode handling here and how the countdown clock pre-schedules events into the future for performance reasons
+
+In order to use FMU input and output variables as transport layer for networks, input and output clocks are used.
+Such a clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.
+
+The output clock type, periodic or aperiodic, is defined by the sending FMU.
+This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:
+
+ - While aperiodic clocks allow very accurate network simulations, frequently entering Event Mode will reduce the network simulation speed.
+ - Using periodic clocks and buffering the frames to be transmitted reduces the number of Event Modes required and speeds up the simulation at the cost of simulation accuracy.
+ - One could use (structural) parameters to define the accuracy of aperiodic clocks, allowing control of the simulation accuracy and performance with the same FMU.
+ - The input clocks shall be triggered clocks.
+
+The importer will then connect and merge output clock activations, even those of different clock types, and forwards them to the input clocks, as required by the network semantics.
+
+Both controller variables are clocked variables.
+The input frame variable `BusName::Rx_Data` is clocked by the clock variable `BusName::Rx_Clock`, both with `causality` set to `input`.
+The output frame variable `BusName::Tx_Data` is clocked by the clock variable `BusName::Tx_Clock`, both with `causality` set to `output`.
+Both clock variables must also be listed as member of its corresponding <<BUSTerminalLowCut>>.
+
+#TODO AJ#: Add description of Event Type and their respective parameters and applicability to the different protocol types (mimic table)
+
+#TODO all#: Should we mandate that all output clock types must be the same? Or should we allow the exporter to mix clock types for the different abstraction layers, or even for the different frames? Since different FMUs might use different clock types anyway, an importer needs to handle the mixed case anyway.
+Any other reason to be more strict here?
+
+==== Example [[ExampleLowCut,ExampleLowCut]]
+
+The following excerpts from files are used throughout this document as examples and should illustrate how the different concepts relate.
+
+.Example modelDescription.xml for ECU node
+[#modelDescriptionLowCut.xml]
+[source, XML]
+----
+include::examples/X_network4FMI_modelDescription_lowCut.xml[]
+----
+
+The following file shows the `<Terminal>` related definition:
+
+.Example terminalsAndIcons.xml file
+[#terminalsAndIconLowCut.xml]
+[source, XML]
+----
+include::examples/X_network4FMI_terminalsAndIcons_lowCut.xml[]
+----
+
+=== Terminal Definitions
+This section defines terminals for network abstraction or low cut.
+
+==== Bus Terminal [[BUSTerminalLowCut,bus terminal]]
+Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>`.
+The attribute `name` of the `<Terminal>` must match the name of the specified bus controller _[e.g. the name of the CanController]_ within a low cut.
+If the specified V-ECU FMU contains more than one Controller, there shall be exactly one `<Terminal>` for each Controller.
+
+Attribute definitions::
+ * `terminalKind` must be set to `bus`.
+ * `matchingRule` must be set to `bus`.
+ * `name` is the controller name, e.g. `PowertrainController`, see <<ExampleLowCut, Example>> and constraints above.
+
+Element definitions::
+ * `BusName::Rx_Data` and `BusName::Tx_Data` and their clocks `BusName::Rx_Clock` and `BusName::Tx_Clock` are exposed in the `modelDescription.xml`, they must be listed as `<TerminalMemberVariable>` elements here.
+ * There must be no `<TerminalStreamMemberVariable>` element.
+
+The following figure shows a V-ECU FMU with four variables `Tx_Data`, `Tx_Clock`, `Rx_Data`, `Rx_Clock` that are aggregated to a `<Terminal>` named _Bus Terminal_:
+
+.Frame variables and terminals.
+[#figure-frame-variables-terminals-lowcut]
+image::bus_terminal.svg[width=80%, align="center"]
+
+=== Bus Type Specific Details
+
+#ToDo# Introductory sentence(s)
+
+include::4_4_1_can.adoc[]
+
+include::4_4_2_lin.adoc[]
+
+include::4_4_3_flexray.adoc[]
+
+include::4_4_4_ethernet.adoc[]
+
+=== Network Parameters [[NetworkParameters]]
+#TODO#
+
+#TODO all#: define parameter names and their semantics influencing bus behavior and/or version of the fmi-ls-bus version (FMU declares them as parameters or structural parameters depending on internal mechanisms)

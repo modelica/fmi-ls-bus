@@ -1,0 +1,22 @@
+# generated files
+*.html
+*.pdf
+
+# PyCharm projects
+.idea/
+
+# schema figure generator
+xsddiagram/
+
+# build artifacts
+build/
+
+# keep docinfo
+!docinfo.html
+
+# custom automation scripts
+*.bat
+
+# custom vscode files
+.vscode/
+*.code-workspace
