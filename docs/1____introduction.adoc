@@ -9,19 +9,21 @@ This layered standard defines what input and output variables and which FMI 3.0 
 
 There are mainly two base use cases envisioned here:
 
- - Physical signal abstraction ("high cut") to simply transport physical signal values between virtual ECUs. +
-   The network properties are largely idealized: infinite bandwidth, zero-delay etc.
-   Signals, groups of signals and their properties (e.g. units) are usually derived from (existing and validated) standard network topology description formats (such as DBC, LDF, Fibex and ARXML).
- - Network abstraction ("low cut") to facilitate MicroController Abstraction Layer (MCAL) emulations. +
-   This transport layer emulation allows anything from idealized to more detailed network simulations, including bandwidth restrictions, message arbitration and delays and it forwards the network payloads using binary variables.
-   The "low cut" abstraction layer is meant to allow virtualized MicroController Abstraction Layer (MCAL) driver implementations, including feedback from the physical drivers about send timing, rejection or network errors. Since the Network abstraction Layer is protocol-independent, it can also be used for the simulation of non-automotive control units, e.g. from the field of industrial automation.
+* Physical signal abstraction ("high cut") to simply transport physical signal values between virtual ECUs. +
+The network properties are largely idealized: infinite bandwidth, zero-delay etc.
+Signals, groups of signals and their properties _(e.g. units)_ are usually derived from (existing and validated) standard network topology description formats _(such as DBC, LDF, Fibex and ARXML)_.
+* Network abstraction ("low cut") to realize virtualized bus driver implementations footnote:[In AUTOSAR context this concrete means a driver implementation within the MicroController Abstraction Layer (MCAL)]. +
+This transport layer emulation allows anything from idealized to more detailed network simulations, including bandwidth restrictions, message arbitration and delays.
+It forwards the network payloads using binary variables.
+The "low cut" abstraction layer is meant to allow virtualized bus driver implementations, including feedback from the physical drivers about transmission status or network node state.
+Since the Network abstraction Layer is protocol-independent, it can also be used for the simulation of non-automotive control units, _e.g. from the field of industrial automation_.
 
-In the simplest use case, the importer does not need to know about the special network semantics of certain variables of an FMU; it simply forwards variable values between 2 FMUs according to the FMI standard (<<multiOutput,with one exception noted at the end of the document>>).
-Only when more than two FMUs are connected to a single network a bus simulation component is required to merge and then forward the network interface semantics of the different variables from multiple output variables to multiple input variables.
+In the simplest use case, the importer does not need provide specific bus semantics of certain variables of an FMU; it simply forwards variable values between 2 FMUs according to the FMI standard (<<multiOutput,with one exception noted at the end of the document>>).
+Only when more than two FMUs are connected to a single network a bus simulation component is required to handle the bus communication between multiple senders and receivers according to the semantic of the selected bus type.
 
 See the following image describing three potential architectures for connecting two or more networked virtual ECUs packaged into FMI 3.0 FMUs:
 
-.3 ways to connect virtual ECU network variables.
+.Three ways to connect FMUs with bus support and network variables, for example virtual ECUs.
 [#vECU-network-architectures]
 image::architecture.svg[width=80%, align="center"]
 
@@ -29,6 +31,11 @@ image::architecture.svg[width=80%, align="center"]
 
 Conventions used in this document:
 
- - Non-normative text is given in square brackets in italic font: [Especially examples are defined in this style.]
+ - Non-normative text is given in square brackets in italic font: _[Especially examples are defined in this style.]_
  - The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 (regardless of formatting and capitalization).
- 
+
+=== Remarks
+
+This layered standard currently only refers to the FMI Co-Simulation (CS).
+At the current time, Scheduled Execution (SE) is not taken into account.
+All explanations in this document are therefore to be understood in the context of FMI Co-Simulation (CS).
