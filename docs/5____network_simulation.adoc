@@ -3,7 +3,7 @@
 
 .Example network simulation architecture.
 [#figure-example-network-simulation-architecture]
-image::architecture_bus_simulation_importer.svg[width=80%, align="center"]
+image::architecture_bus_simulation_importer.svg[width=60%, align="center"]
 
 The figure above shows one example for a network simulation architecture.
 The importer is able to handle FMU input and output variables with network semantics:
