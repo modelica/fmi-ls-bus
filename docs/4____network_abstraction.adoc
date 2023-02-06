@@ -75,7 +75,7 @@ Since the standard allows to concatenate multiple operations (see <<Communicatio
 
 === Variables [[NetworkAbstractionVariables, Variables]]
 
-This section explains how layered standard bus protocol operations are send and received by FMUs using FMI3 clock and clocked variables footnote:[For details, refer to Functional Mock-up Interface Specification (fmi-standard.org) chapter 2.2.8 Clocks.].
+This section explains how layered standard bus protocol operations are sent and received by FMUs using FMI3 clock and clocked variables footnote:[For details, refer to Functional Mock-up Interface Specification (fmi-standard.org) chapter 2.2.8 Clocks.].
 While the former (see <<ClockVariableLowCut, Tx\Rx Clock Variables>>) are used for scheduling and time synchronization, the latter (see <<CommunicationVariable, Tx\Rx Data Variables>>) are used to carry the layered standard bus protocol operations in binary form. To summarize, four variables with the following name schema are used:
 
 The input variable `BusName::Rx_Data` is clocked by the clock variable `BusName::Rx_Clock`, both with `causality` set to `input`.
