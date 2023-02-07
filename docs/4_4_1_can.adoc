@@ -9,8 +9,9 @@ Then the specified CAN operations are discussed. Finally, processes are describe
 
 ===== Overview
 
-CAN is a message based multi-master serial bus standard for connecting ECUs, which also known as nodes.
-For CAN two or more nodes are required on the CAN network to communicate. This means one sender node may have more but at least one receiver node. 
+CAN is a message-based multi-master serial bus standard for connecting ECUs, which also known as nodes.
+For CAN two or more nodes are required on the CAN network to communicate.
+This means one sender node may have more but at least one receiver node. 
 
 .Controller Area Network (CAN).
 [#figure-can-network-overview]
@@ -19,7 +20,8 @@ image::can_network_overview.svg[width=70%, align="center"]
 Every CAN frame is identified by a unique CAN frame ID and contains four different sections for arbitration, control, data and CRC values.
 During every transmission of a CAN Frame an acknowledge slot for the receivers is provided.
 The acknowledge slot is used to acknowledge the receipt of a valid CAN frame.
-So for every transmitted frame a transmission acknowledge is required according to the CAN standard. If two nodes transmit a frame during the same time an arbitration is done.
+So for every transmitted frame a transmission acknowledge is required according to the CAN standard.
+If two nodes transmit a frame during the same time an arbitration is done.
 With CAN, the priority of the respective message is based on the value of the frame ID.
 The lower the value of the frame ID, the higher the priority.
 For example, if two frames with ID = 15 and ID = 16 are to be sent at the same time from different nodes, the frame with ID = 15 wins the arbitration and is sent first.
@@ -30,10 +32,11 @@ The sleep state can be initiated locally only.
 
 ===== Configuration of Bus Simulation FMU
 
-In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation FMU of the baud rate from a FMU.
+In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation FMU of the baud rate from an FMU.
 For this purpose, a total of three operations are specified, which make the baud rate for <<BaudrateCanOpCode, CAN>>, <<BaudrateCanFdOpCode, CAN FD>> and <<BaudrateCanXlOpCode, CAN XL>> configurable.
 As already mentioned more detailed network simulations, including bandwidth restrictions, message arbitration and delays are possible within <<Composition-with-dedicated-Bus-Simulation-FMU, Composition with dedicated Bus Simulation FMU>> and <<BusFeatureIntegratedFmuSimulator, Importer with Integrated Bus Simulation>> communication case only.
-In this two cases a baud rate have to be configure. For <<DirectCommunication, Direct Communication>> use case the configuration is optional and will be ignored.
+In these two cases a baud rate has to be configured.
+For <<DirectCommunication, Direct Communication>> use case the configuration is optional and will be ignored.
 
 ===== Transmission and Acknowledge
 
@@ -42,7 +45,7 @@ With appropriate options, relevant functionalities can be configured and used on
 For realization of the CAN transmission acknowledge feature a Transmit/Confirm pattern is used.
 For CAN the transmission of network data consists of exactly two phases.
 In the first phase, the specific network data are send (transmit phase).
-In the second step, the sender receives feedback (confirm phase) if the transmission successful or not.
+In the second step, the sender receives feedback (confirm phase) if the transmission was successful or not.
 In the case of an unsuccessful transmission, a reason for the faulty transmission is also provided.
 Depending on the reason of faulty transmission the sender can decide if the specified transmission shall be repeated or not.
 
@@ -56,7 +59,8 @@ After the transmission the frame is directly confirmed by FMU 1 itself.
 [#figure-can-direct-communication]
 image::principles_of_communication_direct.svg[width=40%, align="center"]
 
-Within <<Composition-with-dedicated-Bus-Simulation-FMU, Composition with dedicated Bus Simulation FMU>> and <<BusFeatureIntegratedFmuSimulator, Importer with Integrated Bus Simulation>> the confirmation is done by the Bus Simulation FMU. The following <<#figure-can-confirmation-with-bus-simulation-fmu>> illustrates the behavior, whereby FMU 1 transmits a frame to FMU 2 via a Bus Simulation FMU.  
+Within <<Composition-with-dedicated-Bus-Simulation-FMU, Composition with dedicated Bus Simulation FMU>> and <<BusFeatureIntegratedFmuSimulator, Importer with Integrated Bus Simulation>> the confirmation is done by the Bus Simulation FMU.
+The following <<#figure-can-confirmation-with-bus-simulation-fmu>> illustrates the behavior, whereby FMU 1 transmits a frame to FMU 2 via a Bus Simulation FMU.  
 
 .Confirmation of transmitted frame via Bus Simulation FMU.
 [#figure-can-confirmation-with-bus-simulation-fmu]
@@ -64,27 +68,28 @@ image::can_confirmation_with_bus_simulation_fmu.svg[width=70%, align="center"]
 
 The <<SystemCompositions, System Compositions>> in which the FMU is located is defined by <<NetworkParameters, network parameters>>.
 
-<<#figure-can-transmission-acknowledge>> illustrates this two cases, whereby the transition from FMU 1 -> FMU 2 represents the successful case and FMU 2 -> FMU 1 represents the non successful case.
-In step (1) a <<TransmitOpCodeCanLowCut, transmission operation>> will be delivered to the Bus Simulation FMU.
-Within step (2) the <<TransmitOpCodeCanLowCut, transmission operation>> will transferred to FMU 2, so the transmission was successful.
-Also in step(2) FMU 1 receives a <<ConfirmOpCodeCanLowCut, confirmation operation>>, which means the transmission was successful.
-After this, in step (3), FMU 2 wants to transmit a frame to FMU 1.
-For this a <<TransmitOpCodeCanLowCut, transmission operation>> will be delivered from FMU 2 to the Bus Simulation FMU.
-In step(4) we see that the transmission results in an <<ErrorOpCodeCanLowCut, error operation>>.
-Because of this FMU 2 knows that the transmission was not successful.
+<<#figure-can-transmission-acknowledge>> illustrates these two cases, whereby the transition from FMU 1 -> FMU 2 represents the successful case and FMU 2 -> FMU 1 represents the non successful case.
+In step (1), a <<TransmitOpCodeCanLowCut, transmission operation>> will be delivered to the Bus Simulation FMU.
+Within step (2), the <<TransmitOpCodeCanLowCut, transmission operation>> will transferred to FMU 2, so the transmission was successful.
+Also in step (2), FMU 1 receives a <<ConfirmOpCodeCanLowCut, confirmation operation>>, which means the transmission was successful.
+In step (3), FMU 2 wants to transmit a frame to FMU 1:
+a <<TransmitOpCodeCanLowCut, transmission operation>> will be delivered from FMU 2 to the Bus Simulation FMU.
+In step (4), we see that the transmission results in an <<ErrorOpCodeCanLowCut, error operation>>:
+FMU 2 knows that the transmission was not successful.
 
 .Successful and not successful case CAN frame transmission.
 [#figure-can-transmission-acknowledge]
 image::can_transmission_acknowledge.svg[width=80%, align="center"]
 
-Normally transmission failure cannot occur during a simulated bus transmission.
-The most kinds of errors are commonly used to inject transmission errors, for example using the Bus Simulation FMU, for advanced test scenarios.
+Normally, transmission failure cannot occur during a simulated bus transmission.
+Most common kinds of errors are used to inject transmission errors, for example using the Bus Simulation FMU, for advanced test scenarios.
 
 ===== Topology
 
 As already illustrated in <<#figure-can-network-overview>>, CAN always describes a line topology.
 It is therefore necessary that a CAN node can send a message and that it can be received by several recipients.
-This line topology cannot be mapped in FMI in this way. The required line topology is therefore simulated within the Bus Simulation FMU.
+This line topology cannot be mapped in FMI in this way.
+The required line topology is therefore simulated within the Bus Simulation FMU.
 A Bus Simulation FMU must make the transmitted message available again to all recipients and the sender.
 This behavior is relevant for <<Composition-with-dedicated-Bus-Simulation-FMU, Composition with dedicated Bus Simulation FMU>> and <<BusFeatureIntegratedFmuSimulator, Importer with Integrated Bus Simulation>> communication case only.
 For <<DirectCommunication, Direct Communication>> use case this behavior can be ignored because there are exactly two FMUs without a Bus Simulation FMU.
@@ -94,12 +99,13 @@ For <<DirectCommunication, Direct Communication>> use case this behavior can be 
 Arbitration is an instrument of the CAN standard to resolve the conflict of the simultaneous sending of messages from several CAN nodes without a collision.
 The arbitration is handled completely in the Bus Simulation FMU and can be recognized by the fact that the Bus Simulation FMU receives a <<TransmitOpCodeCanLowCut, transmission operation>> from several FMUs in the same step.
 As soon as an arbitration is lost, an <<ErrorOpCodeCanLowCut, error operation>> with ErrorCode = ARBITRATION_LOST must be returned to the respective sender within the next Event Mode step.
-As soon as a FMU loses arbitration in this way, it must independently repeat the corresponding <<TransmitOpCodeCanLowCut, transmission operation>>.
+As soon as an FMU loses arbitration in this way, it must independently repeat the corresponding <<TransmitOpCodeCanLowCut, transmission operation>>.
 
 <<#figure-can-arbitration-overview>> shows the realization of a CAN arbitration.
 At the beginning, FMU 1 and FMU 2 each send a frame at the same time.
 In this situation, an arbitration is necessary so that it can be decided which frame should be sent in this case.
-Both frames are transferred to the Bus Simulation FMU. Arbitration takes place within the Bus Simulation FMU.
+Both frames are transferred to the Bus Simulation FMU.
+Arbitration takes place within the Bus Simulation FMU.
 In the example given, the two frames with CAN ID = 15 and CAN ID = 16 are analyzed and it is decided that CAN ID = 15 wins the arbitration.
 The Bus Simulation FMU then calculates the transmission time for the CAN frame with CAN ID = 15.
 The next time the FMI Event Mode is called up for the Bus Simulation FMU, the corresponding CAN frame is transmitted to FMU 2 and FMU 3.
@@ -125,9 +131,10 @@ Arbitration is available in <<Composition-with-dedicated-Bus-Simulation-FMU, Com
 
 This standard supports wake-up and sleep for the CAN bus, whereby only the bus-specific parts are taken into account.
 This means that the realization of local virtual ECU wake-up and sleeping processes are internal parts of the respective FMU, which is not covered by this document.
-Because entering sleep state is a virtual ECU internal process always within CAN bus, this can be ignored.
-Also the virtual ECU local wake-up process is ignored as well.
-The CAN specific wake-up pulse can be emulated by using the <<WakeupCanOpCode, wake-up operation>>. A <<WakeupCanOpCode, wake-up operation>> shall always be sent to all participants of the bus by the Bus Simulation FMU. 
+Because entering sleep state is a virtual ECU internal process, this can be ignored here.
+The virtual ECU local wake-up process is ignored as well.
+The CAN specific wake-up pulse can be emulated by using the <<WakeupCanOpCode, wake-up operation>>.
+A <<WakeupCanOpCode, wake-up operation>> shall always be sent to all participants of the bus by the Bus Simulation FMU. 
 
 <<#figure-can-wake-up>> shows the wake-up of FMU 1 and FMU 2 via the Bus Simulation FMU:
 
@@ -212,10 +219,12 @@ h|Direction
 |====
 
 ====== NOOP 
-Represents no operation. This operation code must be used if no frames are to be sent in the respective time window, so the specified number of frames to send is zero. 
+Represents no operation.
+This operation code must be used if no frames are to be sent in the respective time window, so the specified number of frames to send is zero. 
 
 ====== Transmit [[TransmitOpCodeCanLowCut]]
-Represents the `Transmit operation` of a specified frame. The following information are included within this operation: 
+Represents the `Transmit operation` of a specified frame.
+The following information are included within this operation: 
 
 * Frame ID: The specified ID of the CAN, CAN FD or CAN XL message, whereby the size of the field is defined by the CAN standard.
 * UseBuffer: If a specified Frame ID looses arbitration, this parameter defines if the given frame shall be buffered by the Bus Simulation or shall be removed and the FMU has to trigger the transmission again.
