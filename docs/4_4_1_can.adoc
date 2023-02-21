@@ -442,11 +442,11 @@ If the buffering is not adjusted by a specified Network FMU the Bus Simulation s
 
 ===== Transmission and Acknowledge
 The <<TransmitOpCodeCanLowCut, Transmission operation>> represents the sending of a CAN, CAN FD and CAN XL frame.
-With appropriate options, relevant functionalities can be configured and used on an network abstracted level (e.g. Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
+With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g. Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
 For realization of the CAN transmission acknowledge feature a Transmit/Confirm pattern is used.
 For CAN, the transmission of network data consists of exactly two phases.
 In the first phase, the specific network data are send.
-In the second step, the sender receives feedback if the transmission successful or not.
+In the second step, the sender receives feedback if the transmission was successful or not.
 In the case of an unsuccessful transmission, a reason for the faulty transmission is also provided.
 Depending on the reason of faulty transmission the sender can decide if the specified transmission shall be repeated or not.
 
@@ -469,7 +469,7 @@ The following <<#figure-can-confirmation-with-bus-simulation-fmu>> illustrates t
 [#figure-can-confirmation-with-bus-simulation-fmu]
 image::can_confirmation_with_bus_simulation_fmu.svg[width=70%, align="center"]
 
-<<example-can-possible-results-of-transmission>> contain an example of the possible transmission results and visualize them in the form of a diagram.
+<<example-can-possible-results-of-transmission>> contains an example of the possible transmission results and visualize them in the form of a diagram.
 
 ===== Arbitration [[CanArbitration]]
 Arbitration is an instrument of the CAN standard to resolve the conflict of the simultaneous sending of messages from several CAN nodes without a collision.
@@ -505,7 +505,7 @@ image::can_wake_up.svg[width=70%, align="center"]
 This section contains sample sequences to clarify the facts in the CAN part.
 
 ====== Transmission [[example-can-possible-results-of-transmission]]
-<<#figure-can-transmission-acknowledge>> illustrates the two possible results of a <<TransmitOpCodeCanLowCut, Transmission operation>>, whereby the transition from FMU 1 -> FMU 2 represents the successful case and FMU 2 -> FMU 1 represents the non successful case.
+<<#figure-can-transmission-acknowledge>> illustrates the two possible results of a <<TransmitOpCodeCanLowCut, Transmission operation>>, whereby the transition from FMU 1 -> FMU 2 represents the successful case and FMU 2 -> FMU 1 represents the unsuccessful case.
 In step (1), a <<TransmitOpCodeCanLowCut, Transmission operation>> will be delivered to the Bus Simulation.
 Within step (2), the <<TransmitOpCodeCanLowCut, Transmission operation>> will transferred to FMU 2, so the transmission was successful.
 Also in step (2), FMU 1 receives a <<ConfirmOpCodeCanLowCut, Confirm operation>>, which means the transmission was successful.
