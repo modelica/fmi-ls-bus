@@ -50,6 +50,8 @@ The following table shows an example for an operation definition.
 The name is _OperationName_ and has the OP Code 0x01.
 The operation has three arguments _Arg1_ (2 bytes long), _Arg2_Length_ (1 byte long), _Arg2_Data_ (_<Arg2Length>_ bytes long), whereby argument 2 and argument 3 form a coherent variable length argument.
 
+.Definition of an operation within the Layered Standard Bus Protocol.
+[#table-operation-definition]
 [cols="1,1,1,1,1,1"]
 |====
 .2+h|Operation type
@@ -71,6 +73,8 @@ h|Total Length
 
 Additionally, all operations are described separately in detail in the following structure:
 
+.Operation example within the Layered Standard Bus Protocol.
+[#table-operation-definition-example]
 [cols="5,4,3,20"]
 |====
 h|Name
@@ -116,6 +120,8 @@ Remarks:
 A special operation of the Layered Standard Bus Protocol is the `NOOP` operation.
 This operation is independent from the bus type and shall be returned by networked FMUs if no other operations are pending for transmission.
 
+.Detailed description of the NOOP operation.
+[#table-noop-operation]
 [cols="5,4,3,20"]
 |====
 h|Name
@@ -132,6 +138,7 @@ h|Description
 |OP Code
 |1 byte
 |Contains the OP Code of the specified operation.
+For this operation the OP Code always has the value 0x00 within all bus types.
 
 |Total Length
 |4 byte
@@ -144,8 +151,8 @@ h|Behavior
 |====
 
 === Variables [[NetworkAbstractionVariables, Variables]]
-This section explains how layered standard bus protocol operations are sent and received by FMUs using FMI3 clock and clocked variables footnote:[For details, refer to Functional Mock-up Interface Specification (fmi-standard.org) chapter 2.2.8 Clocks.].
-While the former (see <<ClockVariableLowCut, Tx\Rx Clock Variables>>) are used for scheduling and time synchronization, the latter (see <<CommunicationVariable, Tx\Rx Data Variables>>) are used to carry the layered standard bus protocol operations in binary form.
+This section explains how Layered Standard Bus Protocol operations are sent and received by FMUs using FMI3 clock and clocked variables footnote:[For details, refer to Functional Mock-up Interface Specification (fmi-standard.org) chapter 2.2.8 Clocks.].
+While the former (see <<ClockVariableLowCut, Tx\Rx Clock Variables>>) are used for scheduling and time synchronization, the latter (see <<CommunicationVariable, Tx\Rx Data Variables>>) are used to carry the Layered Standard Bus Protocol operations in binary form.
 To summarize, four variables with the following name schema are used:
 
 The input variable `BusName::Rx_Data` is clocked by the clock variable `BusName::Rx_Clock`, both with `causality` set to `input`.
@@ -210,6 +217,7 @@ This type indicates which specific bus type is involved.
 It ensures that only bus types of the same type can be interconnected, since FMI only allows the connection of two mime types of the same binary variables.
 The following table lists the names of MIME types used for the Tx\Rx data variables:
 
+.Overview of the available MIME types for the different supported bus types.
 [#table-mime-types]
 [cols="4,5",options="header"]
 |====
@@ -300,7 +308,7 @@ Justified by this scenarios the FMU importer shall parameterize the FMUs accordi
         Type:         Boolean
         Causality:    structuralParameter
         Variability:  fixed
-        Start:        -
+        Start:        "true"
 ----
 
 `org.fmi-standard.fmi-ls-bus.DirectConfirmation` shall be set to `True` if a given FMU importer wants to integrate the specified FMUs via the <<DirectCommunication, Direct Communication>> case; otherwise to `False`.
