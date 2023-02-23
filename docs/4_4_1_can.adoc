@@ -24,15 +24,16 @@ This operation is used to simulate triggering a wake-up from bus side.
 The following table gives a detailed overview of the available operations.
 It shows all operations and the arguments they contain.
 
+.Overview of the available operations for CAN, CAN FD and CAN XL.
 [#table-operation-content-can]
 [cols="9,1,6,5,4,4,5,5,5,5,5"]
 |====
-.2+h|Operation type
-10+h|Operation content
+.2+h|Operation Name
+10+h|Operation Content
 
 h|OP Code
 h|Total Length
-8+h|Specific content
+8+h|Specific Content
 
 |NOOP
 |0x00
@@ -136,6 +137,8 @@ See <<NOOP-Operation, NOOP operation>> for definition.
 ====== Transmit [[TransmitOpCodeCanLowCut]]
 There are three types of transmit operations, each representing the transmission of a CAN, a CAN FD and a CAN XL frame.
 
+.Detailed description of the CAN Transmit operation.
+[#table-can-transmit-operation]
 [cols="5,4,3,20"]
 |====
 h|Name 3+| CAN Transmit
@@ -143,6 +146,7 @@ h|Description 3+| Represents an operation for the transmission of a CAN frame.
 h|OP Code [hex] 3+| 0x01
 .9+h|Content h|Argument h|Length h|Description
 | OP Code | 1 byte | Contains the OP Code of the specified operation.
+For this operation the OP Code always has the value 0x01.
 | Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
 For this operation always applies: `Total Length = 12 + Data Length`.
 | ID | 4 byte | The specified ID of the CAN message.
@@ -159,6 +163,8 @@ The next <<TransmitOpCodeCanLowCut, Transmission operation>> shall only be sent 
 
 |====
 
+.Detailed description of the CAN FD Transmit operation.
+[#table-can-fd-transmit-operation]
 [cols="5,4,3,20"]
 |====
 h|Name 3+| CAN FD Transmit
@@ -166,6 +172,7 @@ h|Description 3+| Represents an operation for the transmission of a CAN FD frame
 h|OP Code [hex] 3+| 0x02
 .10+h|Content h|Argument h|Length h|Description
 | OP Code | 1 byte | Contains the OP Code of the specified operation.
+For this operation the OP Code always has the value 0x02.
 | Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
 For this operation always applies: `Total Length = 12 + Data Length`.
 | ID | 4 byte | The specified ID of the CAN message.
@@ -183,6 +190,8 @@ The next <<TransmitOpCodeCanLowCut, Transmission operation>> shall only be sent 
 
 |====
 
+.Detailed description of the CAN XL Transmit operation.
+[#table-can-xl-transmit-operation]
 [cols="5,4,3,20"]
 |====
 h|Name 3+| CAN XL Transmit
@@ -190,6 +199,7 @@ h|Description 3+| Represents an operation for the transmission of a CAN XL frame
 h|OP Code [hex] 3+| 0x03
 .12+h|Content h|Argument h|Length h|Description 
 | OP Code | 1 byte | Contains the OP Code of the specified operation.
+For this operation the OP Code always has the value 0x03.
 | Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
 For this operation always applies: `Total Length = 18 + Data Length`.
 | ID | 4 byte | The specified ID of the CAN message.
@@ -214,6 +224,8 @@ The `Confirm operation` represents the confirmation of a transmitted frame (see 
 For every frame, which is successfully transmitted via `Transmit operation`, a `Confirm operation` is expected.
 The following information are included within this operation: 
 
+.Detailed description of the Confirm operation.
+[#table-can-confirm-operation]
 [cols="5,4,3,20"]
 |====
 h|Name
@@ -226,6 +238,7 @@ h|OP Code [hex]
 |OP Code
 |1 byte
 |Contains the OP Code of the specified operation.
+For this operation the OP Code always has the value 0x04.
 
 |Total Length
 |4 byte
@@ -247,6 +260,8 @@ Otherwise the confirmation of the transmitted network data shall be done by the 
 By using the `Error operation` the Bus Simulation can communicate an error for a specific <<TransmitOpCodeCanLowCut, Transmission operation>>.
 The following information are included within this operation: 
 
+.Detailed description of the Error operation.
+[#table-can-error-operation]
 [cols="5,4,3,20"]
 |====
 h|Name
@@ -259,6 +274,7 @@ h|OP Code [hex]
 |OP Code
 |1 byte
 |Contains the OP Code of the specified operation.
+For this operation the OP Code always has the value 0x05.
 
 |Total Length
 |4 byte
@@ -280,6 +296,8 @@ h|Behavior
 
 The following codes are allowed to use as Error Code: 
 
+.Overview of the available error states and codes.
+[#table-can-error-codes]
 [cols="1,1,5"]
 |====
 
@@ -317,6 +335,8 @@ The given error is always related to a specific <<TransmitOpCodeCanLowCut, Trans
 The `Configuration operation` allows Network FMUs the configuration of the Bus Simulation with parameters like baud rate information and further options.
 The following information are included within this operation: 
 
+.Detailed description of the Configuration operation.
+[#table-can-configuration-operation]
 [cols="5,1,10,4,3,20"]
 |====
 h|Name
@@ -331,6 +351,7 @@ h|OP Code [hex]
 3+|OP Code
 |1 byte
 |Contains the OP Code of the specified operation.
+For this operation the OP Code always has the value 0x06.
 
 3+|Total Length
 |4 byte
@@ -383,6 +404,8 @@ If required configuration parameters are not adjusted by a Network FMU the Bus S
 
 The following Kind values are allowed to be used: 
 
+.Overview of the available configuration kinds and values.
+[#table-can-configuration-kinds]
 [cols="1,1,5"]
 |====
 
@@ -397,6 +420,8 @@ h|Kind h|Value h|Description
 ====== Wake-up [[WakeupCanOpCode]]
 By using the `Wakeup operation` the underlying Bus Simulation can trigger a bus-specific wake up.
 
+.Detailed description of the Wakeup operation.
+[#table-can-wakeup-operation]
 [cols="5,4,3,20"]
 |====
 h|Name
@@ -409,6 +434,7 @@ h|OP Code [hex]
 |OP Code
 |1 byte
 |Contains the OP Code of the specified operation.
+For this operation the OP Code always has the value 0x07.
 
 |Total Length
 |4 byte
@@ -460,7 +486,7 @@ After that the transmission is directly confirmed by FMU 1 itself.
 
 .Direct Confirmation of transmitted network data.
 [#figure-can-direct-communication]
-image::principles_of_communication_direct.svg[width=40%, align="center"]
+image::can_direct_confirmation.svg[width=40%, align="center"]
 
 If a Bus Simulation is used the confirmation is done by the Bus Simulation itself.
 The following <<#figure-can-confirmation-with-bus-simulation-fmu>> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.
