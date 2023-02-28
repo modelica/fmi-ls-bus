@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-be6abdcc8be56750aedfc61ac093eee152b29bfa,</span>
-<span id="revdate">2023-02-21</span>
+<span id="revnumber">version main-63158b888f5d85131e099e438f238df28ac8f9c0,</span>
+<span id="revdate">2023-02-28</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -636,12 +636,16 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#network-abstraction">4. Network Abstraction ("low cut")</a>
 <ul class="sectlevel2">
 <li><a href="#_overview_2">4.1. Overview</a></li>
-<li><a href="#Overview-Layered-Standard-Bus-Protocol">4.2. Layered Standard Bus Protocol</a></li>
+<li><a href="#Overview-Layered-Standard-Bus-Protocol">4.2. Layered Standard Bus Protocol</a>
+<ul class="sectlevel3">
+<li><a href="#NOOP-Operation">4.2.1. NOOP Operation</a></li>
+</ul>
+</li>
 <li><a href="#NetworkAbstractionVariables">4.3. Variables</a>
 <ul class="sectlevel3">
 <li><a href="#ClockVariableLowCut">4.3.1. Tx\Rx Clock Variables</a>
 <ul class="sectlevel4">
-<li><a href="#_bus_communication_points">4.3.1.1. Bus Communication Points</a></li>
+<li><a href="#bus-communication-points">4.3.1.1. Bus Communication Points</a></li>
 </ul>
 </li>
 <li><a href="#CommunicationVariable">4.3.2. Tx\Rx Data Variables</a></li>
@@ -654,32 +658,43 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#ExampleLowCut">4.4.2. Example</a></li>
 </ul>
 </li>
-<li><a href="#NetworkParameters">4.5. Network Parameters</a></li>
+<li><a href="#NetworkParameters">4.5. Network Parameters</a>
+<ul class="sectlevel3">
+<li><a href="#direct-confirmation-parameter">4.5.1. Direct Confirmation Parameter</a></li>
+</ul>
+</li>
 <li><a href="#_example">4.6. Example</a></li>
 <li><a href="#BusTypeSpecificDetails">4.7. Bus Specific Details</a>
 <ul class="sectlevel3">
 <li><a href="#_can_can_fd_can_xl">4.7.1. CAN, CAN FD, CAN XL</a>
 <ul class="sectlevel4">
 <li><a href="#_overview_3">4.7.1.1. Overview</a></li>
-<li><a href="#_configuration_of_bus_simulation_fmu">4.7.1.2. Configuration of Bus Simulation FMU</a></li>
-<li><a href="#_transmission_and_acknowledge">4.7.1.3. Transmission and Acknowledge</a></li>
-<li><a href="#_topology">4.7.1.4. Topology</a></li>
-<li><a href="#CanArbitration">4.7.1.5. Arbitration</a></li>
-<li><a href="#_wake_upsleep">4.7.1.6. Wake-up/Sleep</a></li>
-<li><a href="#_operations">4.7.1.7. Operations</a>
+<li><a href="#_operations">4.7.1.2. Operations</a>
 <ul class="sectlevel5">
-<li><a href="#_noop">4.7.1.7.1. NOOP</a></li>
-<li><a href="#TransmitOpCodeCanLowCut">4.7.1.7.2. Transmit</a></li>
-<li><a href="#ConfirmOpCodeCanLowCut">4.7.1.7.3. Confirm</a></li>
-<li><a href="#ErrorOpCodeCanLowCut">4.7.1.7.4. Error</a></li>
-<li><a href="#WakeupCanOpCode">4.7.1.7.5. Wakeup</a></li>
-<li><a href="#BaudrateCanOpCode">4.7.1.7.6. BaudrateCan</a></li>
-<li><a href="#BaudrateCanFdOpCode">4.7.1.7.7. BaudrateCanFD</a></li>
-<li><a href="#BaudrateCanXlOpCode">4.7.1.7.8. BaudrateCanXL</a></li>
+<li><a href="#_noop">4.7.1.2.1. NOOP</a></li>
+<li><a href="#TransmitOpCodeCanLowCut">4.7.1.2.2. Transmit</a></li>
+<li><a href="#ConfirmOpCodeCanLowCut">4.7.1.2.3. Confirm</a></li>
+<li><a href="#ErrorOpCodeCanLowCut">4.7.1.2.4. Error</a></li>
+<li><a href="#ConfigurationCanOpCode">4.7.1.2.5. Configuration</a></li>
+<li><a href="#WakeupCanOpCode">4.7.1.2.6. Wake-up</a></li>
 </ul>
 </li>
-<li><a href="#_sequence_diagrams">4.7.1.8. Sequence Diagrams</a></li>
-<li><a href="#_sae_j1939">4.7.1.9. SAE J1939</a></li>
+<li><a href="#_configuration_of_bus_simulation">4.7.1.3. Configuration of Bus Simulation</a>
+<ul class="sectlevel5">
+<li><a href="#_baudrate_handling">4.7.1.3.1. Baudrate Handling</a></li>
+<li><a href="#_buffer_handling">4.7.1.3.2. Buffer Handling</a></li>
+</ul>
+</li>
+<li><a href="#_transmission_and_acknowledge">4.7.1.4. Transmission and Acknowledge</a></li>
+<li><a href="#CanArbitration">4.7.1.5. Arbitration</a></li>
+<li><a href="#_wake_upsleep">4.7.1.6. Wake-up/Sleep</a></li>
+<li><a href="#_examples">4.7.1.7. Examples</a>
+<ul class="sectlevel5">
+<li><a href="#example-can-possible-results-of-transmission">4.7.1.7.1. Transmission</a></li>
+<li><a href="#example-can-arbitration">4.7.1.7.2. CAN Arbitration</a></li>
+<li><a href="#example-can-arbitration-with-buffer-option">4.7.1.7.3. CAN Arbitration with Buffer Option</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#_lin">4.7.2. LIN</a></li>
@@ -1379,14 +1394,14 @@ BO_ 512 ecuState: 4 ECU
 <h3 id="_overview_2">4.1. Overview</h3>
 <div class="paragraph">
 <p>The network abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
-Exchanging data in terms of <a href="#Overview-Layered-Standard-Bus-Protocol">Layered Standard Bus Protocol</a> via variable groups by the dedicated bus terminal (see <a href="#ClockVariableLowCut">Section 4.3.1</a>), allows the implementation of bus simulations in a wide range from idealized up to a detailed behavior including e.g. timing, arbitration, error, status and other effects.
+Exchanging data in terms of <a href="#Overview-Layered-Standard-Bus-Protocol">Layered Standard Bus Protocol</a> via variables grouped by a dedicated bus terminal (see <a href="#ClockVariableLowCut">Section 4.3.1</a>), allows the implementation of bus simulations in a wide range from idealized up to a detailed behavior including e.g. timing, arbitration, error, status and other effects.
 During simulation, the network communication is controlled by send and receive bus operations.
 Based on these operations, networked FMUs have to react as specified by this layered standard in dependency of their role.
 This role can be a Bus Simulation FMU or an importer with bus simulation support on one side, and networked FMUs (e.g. virtual ECUs) on the other side (see <a href="#SystemCompositions">System Compositions</a>).
 The Layered Standard Bus Protocol in general is bus type specific, but has some similarities.
 Bus communication often follows a Transmit/Confirm pattern where a networked FMU sends a Transmit operation containing the network message as payload.
 Depending on the <a href="#SystemCompositions">System Composition</a>, the importer forwards the Transmit operation directly to receiving FMUs or to a dedicated bus simulation.
-The bus simulation then might delay the transfer of the Transmit operation to the receiving FMUs to simulate timing behavior, before sending a bus specific Confirm operation back to the sending FMU.</p>
+The Bus Simulation then might delay the transfer of the Transmit operation to the receiving FMUs to simulate timing behavior, before sending a bus specific Confirm operation back to the sending FMU.</p>
 </div>
 <div id="figure-transmission-overview" class="imageblock text-center">
 <div class="content">
@@ -1408,8 +1423,8 @@ For simulating bus communication with timing effects, the FMUs should set the Co
 <div class="paragraph">
 <p>For simplification reasons or if a detail bus simulation is not desired, fixed-step size FMUs can also be used with the Network Abstraction.
 However, depending on the chosen simulation step-size, delay effects of the bus simulation have to be taken into account.
-The combination of fixed-step size and variable-step size FMUs requires the decoupling of the bus simulation logic and the bus simulation timing.
-This decoupling is realized by queuing Tx\Rx bus operations inside the bus simulation as well as queuing Tx bus operations inside network FMUs and will be addressed by this standard.
+The combination of fixed-step size and variable-step size FMUs requires the decoupling of the Bus Simulation logic and the Bus Simulation timing.
+This decoupling is realized by queuing Tx\Rx bus operations inside the Bus Simulation as well as queuing Tx bus operations inside Network FMUs and will be addressed by this standard.
 By queuing bus operations, System Composition with variable-step size FMUs as well as fixed-step size FMUs can be simulated together without affecting each other.</p>
 </div>
 </div>
@@ -1417,10 +1432,12 @@ By queuing bus operations, System Composition with variable-step size FMUs as we
 <h3 id="Overview-Layered-Standard-Bus-Protocol">4.2. Layered Standard Bus Protocol</h3>
 <div class="paragraph">
 <p>The Layered Standard Bus Protocol allows the transmission of bus operations between FMUs in binary form via clocks and clocked variables (see <a href="#NetworkAbstractionVariables">Variables</a>).
-Depending on the role (networked or bus simulation), FMUs have to react on received operations as specified by this layered standard.
+Depending on the role (Network or Bus Simulation), FMUs have to react on received operations as specified by this layered standard.
 Operations and the reaction on reception are bus type specific and therefore described in the bus specific chapters.
-However, the description follows a uniform structure that is described here.
-Beside that, the structure also represents the binary form of transmission, where numbers shall be transmitted with <code>little-endian</code> byte order.</p>
+However, the description follows a uniform structure and consists of two parts, an overview table and a detail description of all operations.</p>
+</div>
+<div class="paragraph">
+<p>The overview table represents the binary format of operations and is structured as follows:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1429,7 +1446,7 @@ Beside that, the structure also represents the binary form of transmission, wher
 It consists of one byte in length.</p>
 </li>
 <li>
-<p>Total Length: A two byte total data length (OP Code + Total Length + Arguments) field following the OP Code.<a id="TotalLengthField"></a>
+<p>Total Length: A four byte total data length (OP Code + Total Length + Arguments) field following the OP Code.<a id="TotalLengthField"></a>
 For operation with variable size arguments, the total length can vary in value at runtime.</p>
 </li>
 <li>
@@ -1444,7 +1461,8 @@ For arguments with a variable length an argument pair composed of length and dat
 The name is <em>OperationName</em> and has the OP Code 0x01.
 The operation has three arguments <em>Arg1</em> (2 bytes long), <em>Arg2_Length</em> (1 byte long), <em>Arg2_Data</em> (<em>&lt;Arg2Length&gt;</em> bytes long), whereby argument 2 and argument 3 form a coherent variable length argument.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
+<table id="table-operation-definition" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Definition of an operation within the Layered Standard Bus Protocol.</caption>
 <colgroup>
 <col style="width: 16.6666%;">
 <col style="width: 16.6666%;">
@@ -1466,7 +1484,7 @@ The operation has three arguments <em>Arg1</em> (2 bytes long), <em>Arg2_Length<
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OperationName</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x01</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">5 + &lt;Arg2_Length&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7 + &lt;Arg2_Length&gt;</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte Arg1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte Arg2_Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;Arg2_Length&gt; byte Arg2_Data</p></td>
@@ -1474,15 +1492,139 @@ The operation has three arguments <em>Arg1</em> (2 bytes long), <em>Arg2_Length<
 </tbody>
 </table>
 <div class="paragraph">
-<p>Remark:
-Since the standard allows to concatenate multiple operations (see <a href="#CommunicationVariable">Tx\Rx Data Variables</a>), the <a href="#TotalLengthField">Total Length</a> field was introduced to allow the implementation of a generic parser for receiving operations.</p>
+<p>Additionally, all operations are described separately in detail in the following structure:</p>
+</div>
+<table id="table-operation-definition-example" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Operation example within the Layered Standard Bus Protocol.</caption>
+<colgroup>
+<col style="width: 15.625%;">
+<col style="width: 12.5%;">
+<col style="width: 9.375%;">
+<col style="width: 62.5%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Name of the operation <em>(e.g. OperationName)</em></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Contains a description of the specified operation.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">OP Code of the operation <em>(e.g. 0x01)</em></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="6"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Argument</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code of the specified operation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
+For this operation always applies: <code>Total Length = 7 + &lt;Arg2_Length&gt;</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Arg1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The first data argument of this operation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Arg2_Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains the length of the Arg2_Data argument in bytes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Arg2_Data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The second data argument of this operation.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Describes the behavior of a Network FMU and the Bus Simulation in the context of this operation.
+<em>e.g. The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Remarks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Numbers shall be transmitted with <code>little-endian</code> byte order.</p>
+</li>
+<li>
+<p>Since the standard allows to concatenate multiple operations (see <a href="#CommunicationVariable">Tx\Rx Data Variables</a>), the <a href="#TotalLengthField">Total Length</a> field was introduced to allow the implementation of a generic parser for received operations.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="NOOP-Operation">4.2.1. NOOP Operation</h4>
+<div class="paragraph">
+<p>A special operation of the Layered Standard Bus Protocol is the <code>NOOP</code> operation.
+This operation is independent from the bus type and shall be returned by networked FMUs if no other operations are pending for transmission.</p>
+</div>
+<table id="table-noop-operation" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Detailed description of the NOOP operation.</caption>
+<colgroup>
+<col style="width: 15.625%;">
+<col style="width: 12.5%;">
+<col style="width: 9.375%;">
+<col style="width: 62.5%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">NOOP</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Represents no operation.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x00</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Argument</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code of the specified operation.
+For this operation the OP Code always has the value 0x00 within all bus types.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
+For this operation always applies: <code>Total Length = 5</code>.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The specified operation shall be produced and consumed by Network FMUs and the Bus Simulation.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect2">
 <h3 id="NetworkAbstractionVariables">4.3. Variables</h3>
 <div class="paragraph">
-<p>This section explains how layered standard bus protocol operations are sent and received by FMUs using FMI3 clock and clocked variables <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>.
-While the former (see <a href="#ClockVariableLowCut">Tx\Rx Clock Variables</a>) are used for scheduling and time synchronization, the latter (see <a href="#CommunicationVariable">Tx\Rx Data Variables</a>) are used to carry the layered standard bus protocol operations in binary form.
+<p>This section explains how Layered Standard Bus Protocol operations are sent and received by FMUs using FMI3 clock and clocked variables <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>.
+While the former (see <a href="#ClockVariableLowCut">Tx\Rx Clock Variables</a>) are used for scheduling and time synchronization, the latter (see <a href="#CommunicationVariable">Tx\Rx Data Variables</a>) are used to carry the Layered Standard Bus Protocol operations in binary form.
 To summarize, four variables with the following name schema are used:</p>
 </div>
 <div class="paragraph">
@@ -1493,13 +1635,13 @@ To summarize, four variables with the following name schema are used:</p>
 </div>
 <div class="paragraph">
 <p>Both variable pairs must be listed as member of its corresponding <a href="#BUSTerminalLowCut">Bus Terminal</a>.
-How to set the <code>BusName</code> placeholder is bus type specific and therefore decribed in the bus specific chapters.</p>
+How to set the <code>BusName</code> placeholder is bus type specific and therefore described in the bus specific chapters.</p>
 </div>
 <div class="sect3">
 <h4 id="ClockVariableLowCut">4.3.1. Tx\Rx Clock Variables</h4>
 <div class="paragraph">
 <p>As described in the FMI3 specification, Clock variables are used to synchronize events between importer and across FMUs.
-Since Clock variables are strictly related to the Event Mode, networked FMUs shall set the Co-Simulation attribute <code>hasEventMode = fmi3True</code> in the model description file.</p>
+Since Clock variables are strictly related to the <code>Event Mode</code>, networked FMUs shall set the Co-Simulation attribute <code>hasEventMode = fmi3True</code> in the model description file.</p>
 </div>
 <div class="paragraph">
 <p>For simulating bus communication according to the Network Abstraction, a time-based clock is used for the <code>Tx_Clock</code> variable to signal the point in time when layered standard bus operations must be transferred by the importer to the receiver FMUs.
@@ -1511,10 +1653,10 @@ Its up to the implementer to either use a <code>periodic</code> or <code>aperiod
 <div class="ulist">
 <ul>
 <li>
-<p>While aperiodic clocks allow very accurate network simulations, frequently entering Event Mode will reduce the network simulation speed.</p>
+<p>While aperiodic clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> will reduce the network simulation speed.</p>
 </li>
 <li>
-<p>Using periodic clocks and queuing the operations to be transmitted reduces the number of Event Modes required and speeds up the simulation at the cost of simulation accuracy.</p>
+<p>Using periodic clocks and queuing the operations to be transmitted reduces the number of <code>Event Mode</code> entries and speeds up the simulation at the cost of simulation accuracy.</p>
 </li>
 <li>
 <p>One could use (structural) parameters to define the accuracy of aperiodic clocks, allowing control of the simulation accuracy and performance with the same FMU.</p>
@@ -1532,10 +1674,11 @@ Its up to the implementer to either use a <code>periodic</code> or <code>aperiod
 Any other reason to be more strict here?</p>
 </div>
 <div class="sect4">
-<h5 id="_bus_communication_points">4.3.1.1. Bus Communication Points</h5>
+<h5 id="bus-communication-points">4.3.1.1. Bus Communication Points</h5>
 <div class="paragraph">
-<p>For transferring bus operations, networked FMUs must be synchronous in time.
-The importer must ensure this by calling <code>fmi3DoStep</code> for each FMU with a proper <code>communicationStepSize</code> argument.
+<p>For transferring bus operations from the Tx_Data to the Rx_Data variables, networked FMUs must be synchronous in time.
+This point in time is also referred to as the <code>Bus Communication Point</code>.
+The importer must ensure that networked FMUs hit such points synchronously by calling <code>fmi3DoStep</code> with a proper <code>communicationStepSize</code> argument.
 To determine the <code>communicationStepSize</code> for the first simulation step, the importer gets the Tx clock time in <code>Initialization Mode</code> as follows:</p>
 </div>
 <div class="ulist">
@@ -1550,7 +1693,7 @@ If <code>intervalDecimal</code> is not defined, the importer shall call <code>fm
 </ul>
 </div>
 <div class="paragraph">
-<p>Based on the Tx clock intervals received in the <code>Initialization Mode</code>, the importer calls <code>fmi3DoStep</code> with a determind <code>communicationStepSize</code> to reach the next bus communication point.
+<p>Based on the Tx clock intervals received in the <code>Initialization Mode</code>, the importer calls <code>fmi3DoStep</code> with a determined <code>communicationStepSize</code> to reach the next Bus Communication Point.
 After returning from <code>fmi3DoStep</code>, the importer has to enter the <code>Event Mode</code> by calling <code>fmi3EnterEventMode</code>.
 In <code>Event Mode</code> the importer activates the Tx and Rx clock by calling <code>fmi3SetClock</code>.
 The importer then starts to transfer bus operations from the Tx_Data to the Rx_Data variable (see <a href="#CommunicationVariable">Communication Variables</a>).</p>
@@ -1571,7 +1714,7 @@ The importer then starts to transfer bus operations from the Tx_Data to the Rx_D
 <div class="paragraph">
 <p>If an FMU wants to respond to a received bus operation in the same time step, then <code>fmi3GetInterval</code> must return 0.
 In this case the importer remains in <code>Event Mode</code> and starts a new iteration.
-If an FMU does not know the next Tx clock time for any reason, <code>fmi3GetInterval</code> shall return with <code>qualifierer = fmi3IntervalNotYetKnown</code>.</p>
+If an FMU does not know the next Tx clock time for any reason, <code>fmi3GetInterval</code> shall return with <code>qualifier = fmi3IntervalNotYetKnown</code>.</p>
 </div>
 </div>
 </div>
@@ -1586,15 +1729,13 @@ This allows senders to trade accuracy for speed: buffering more and interrupting
 <div class="sect3">
 <h4 id="_mime_types">4.3.3. MIME Types</h4>
 <div class="paragraph">
-<p><mark>TODO all</mark>: MIME types: org.fmi-standard.fmi-ls-bus.v1.[CAN|CANFD|LIN|FlexRay|Ethernet|SPI]&#8201;&#8212;&#8201;anything missing? names good?</p>
-</div>
-<div class="paragraph">
 <p>Within FMI, every binary FMI variable has a <code>mimeType</code>, which indicates the type of data passed as a binary.
 This type indicates which specific bus type is involved.
 It ensures that only bus types of the same type can be interconnected, since FMI only allows the connection of two mime types of the same binary variables.
 The following table lists the names of MIME types used for the Tx\Rx data variables:</p>
 </div>
 <table id="table-mime-types" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. Overview of the available MIME types for the different supported bus types.</caption>
 <colgroup>
 <col style="width: 44.4444%;">
 <col style="width: 55.5556%;">
@@ -1752,471 +1893,617 @@ If the specified FMU is connected to more than one network, there shall be exact
 This chapter specifies the structural parameters that each FMU shall provide.</p>
 </div>
 <div class="paragraph">
+<p><mark>TODO all</mark>: define further parameter names and their semantics influencing bus behavior and/or version of the fmi-ls-bus version (FMU declares them as parameters or structural parameters depending on internal mechanisms)</p>
+</div>
+<div class="sect3">
+<h4 id="direct-confirmation-parameter">4.5.1. Direct Confirmation Parameter</h4>
+<div class="paragraph">
 <p>Within the <a href="#DirectCommunication">Direct Communication</a> case the transmission is always positively confirmed by the FMU itself.
-Within <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Composition with dedicated Bus Simulation FMU</a> and <a href="#BusFeatureIntegratedFmuSimulator">Importer with Integrated Bus Simulation</a> communication case, the Bus Simulation returns a feedback of a successful or faulty transmission.
-Justified by this scenarios the FMU simulator shall parameterize the FMUs according to the selected <a href="#SystemCompositions">System Composition</a> via the following defined structural parameters:</p>
+Within the <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Composition with dedicated Bus Simulation FMU</a> and <a href="#BusFeatureIntegratedFmuSimulator">Importer with Integrated Bus Simulation</a> communication use case, the Bus Simulation returns a feedback of a successful or faulty transmission.
+Justified by this scenarios the FMU importer shall parameterize the FMUs according to the selected <a href="#SystemCompositions">System Composition</a> via the following defined structural parameters:</p>
 </div>
 <div id="figure-fmu-system-composition-parameters" class="listingblock">
-<div class="title">FMU parameters for system composition selection by the FMU importer</div>
+<div class="title">FMU parameters for system composition selection by the FMU importer.</div>
 <div class="content">
 <pre>    org.fmi-standard.fmi-ls-bus.DirectConfirmation
         Description:  "Specifies if a transmission is always positively confirmed by the FMU itself"
         Type:         Boolean
         Causality:    structuralParameter
         Variability:  fixed
-        Start:        -</pre>
+        Start:        "true"</pre>
 </div>
 </div>
 <div class="paragraph">
 <p><code>org.fmi-standard.fmi-ls-bus.DirectConfirmation</code> shall be set to <code>True</code> if a given FMU importer wants to integrate the specified FMUs via the <a href="#DirectCommunication">Direct Communication</a> case; otherwise to <code>False</code>.</p>
 </div>
 <div class="paragraph">
-<p><mark>TODO all</mark>: define further parameter names and their semantics influencing bus behavior and/or version of the fmi-ls-bus version (FMU declares them as parameters or structural parameters depending on internal mechanisms)</p>
+<p>This structural parameter shall only be available for Network FMUs.
+A Bus Simulation (FMU) does not require this structural parameter.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_example">4.6. Example</h3>
 <div class="paragraph">
-<p>#TODO dSPACE: Providing examples</p>
+<p><mark>TODO dSPACE</mark>: Providing examples</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="BusTypeSpecificDetails">4.7. Bus Specific Details</h3>
 <div class="paragraph">
-<p>The Network Abstraction ("low cut") defines an abstraction layer for several different bus types.
-This standard can applied in any bus specific problem domain, for example in scenarios for the automotive sector (Vehicle bus,  Autonomous Driving, Advanced Driver Assistance System), medical devices, elevator controls and in automation technology.</p>
-</div>
-<div class="paragraph">
-<p>The following chapters specifies the supported bus formats of this standard.</p>
+<p>The Network Abstraction ("low cut") defines an abstraction layer for several different bus types, which are supported by this standard.
+For every bus types the individual specified <a href="#Overview-Layered-Standard-Bus-Protocol">Layered Standard Bus Protocol</a> is taken into account.
+This is followed by a concrete description of important bus-specific aspects.
+Finally, processes are described in detail with the help of examples and sequence diagrams.</p>
 </div>
 <div class="sect3">
 <h4 id="_can_can_fd_can_xl">4.7.1. CAN, CAN FD, CAN XL</h4>
 <div class="paragraph">
-<p><mark>TODO dSPACE: THIS CHAPTER IS STILL UNDER CONSTRUCTION. At the moment it is only a preview</mark></p>
-</div>
-<div class="paragraph">
-<p>This section specifies the CAN bus support of this standard.
-The data communication protocols CAN, CAN FD and CAN XL are taken into account here.
-The overview begins with a general part, which explains the implementation of the CAN basic features.
-Then the specified CAN operations are discussed. Finally, processes are described in detail with the help of sequence diagrams.</p>
+<p>This section describes the CAN bus specific standardization topics.
+CAN as well as CAN FD, CAN XL formats are supported.
+The various CAN standards CAN, CAN FD and CAN XL are considered together because they work very similarly and can also be combined in certain scenarios.</p>
 </div>
 <div class="sect4">
 <h5 id="_overview_3">4.7.1.1. Overview</h5>
 <div class="paragraph">
-<p>CAN is a message-based multi-master serial bus standard for connecting ECUs, which also known as nodes.
-For CAN two or more nodes are required on the CAN network to communicate.
-This means one sender node may have more but at least one receiver node.</p>
+<p>To realize CAN, CAN FD and CAN XL support, CAN specific operations are specified based on the <a href="#Overview-Layered-Standard-Bus-Protocol">Layered Standard Bus Protocol</a>.
+Overall, the following groups of operations are specified:</p>
 </div>
-<div id="figure-can-network-overview" class="imageblock text-center">
-<div class="content">
-<img src="images/can_network_overview.svg" alt="can network overview" width="70%">
-</div>
-<div class="title">Figure 9. Controller Area Network (CAN).</div>
-</div>
-<div class="paragraph">
-<p>Every CAN frame is identified by a unique CAN frame ID and contains four different sections for arbitration, control, data and CRC values.
-During every transmission of a CAN Frame an acknowledge slot for the receivers is provided.
-The acknowledge slot is used to acknowledge the receipt of a valid CAN frame.
+<div class="ulist">
+<ul>
+<li>
+<p>Transmit: This group of operations is used to simulate a frame transmission.
+There are three specializations of this operation, one each for CAN, CAN FD and CAN XL frames.</p>
+</li>
+<li>
+<p>Confirm: During every transmission of a CAN Frame an acknowledgement slot for the receivers is provided.
+The acknowledgement slot is used to acknowledge the reception of a valid CAN frame.
 So for every transmitted frame a transmission acknowledge is required according to the CAN standard.
-If two nodes transmit a frame during the same time an arbitration is done.
-With CAN, the priority of the respective message is based on the value of the frame ID.
-The lower the value of the frame ID, the higher the priority.
-For example, if two frames with ID = 15 and ID = 16 are to be sent at the same time from different nodes, the frame with ID = 15 wins the arbitration and is sent first.
-Frame IDs must be unique on a single CAN bus, otherwise two nodes would continue transmission beyond the end of the arbitration field (ID) causing an error.
-CAN supports wake-up and sleep scenarios.
+The confirm operation is used to simulate this behavior.</p>
+</li>
+<li>
+<p>Error: The Error operation is used for error handling, which can be triggered by other operations.
+For example, the failure of a transmission can be indicated.</p>
+</li>
+<li>
+<p>Configuration: The configuration operation enables the configuration of bus-specific parameters and options that are required for simulating a bus transmission.
+For example, it allows specifying the baud rate or influencing buffer behavior.</p>
+</li>
+<li>
+<p>Wakeup: CAN supports wake-up and sleep scenarios.
 Normally there are two ways to wake up from sleep mode: a local wake up on a specified wake-up pin, or a CAN wake-up on the CAN bus via a CAN specific wake-up pulse.
-The sleep state can be initiated locally only.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_configuration_of_bus_simulation_fmu">4.7.1.2. Configuration of Bus Simulation FMU</h5>
-<div class="paragraph">
-<p>In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation FMU of the baud rate from an FMU.
-For this purpose, a total of three operations are specified, which make the baud rate for <a href="#BaudrateCanOpCode">CAN</a>, <a href="#BaudrateCanFdOpCode">CAN FD</a> and <a href="#BaudrateCanXlOpCode">CAN XL</a> configurable.
-As already mentioned more detailed network simulations, including bandwidth restrictions, message arbitration and delays are possible within <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Composition with dedicated Bus Simulation FMU</a> and <a href="#BusFeatureIntegratedFmuSimulator">Importer with Integrated Bus Simulation</a> communication case only.
-In these two cases a baud rate has to be configured.
-For <a href="#DirectCommunication">Direct Communication</a> use case the configuration is optional and will be ignored.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_transmission_and_acknowledge">4.7.1.3. Transmission and Acknowledge</h5>
-<div class="paragraph">
-<p>The <a href="#TransmitOpCodeCanLowCut">transmission operation</a> represents the sending of a CAN, CAN FD and CAN XL frame.
-With appropriate options, relevant functionalities can be configured and used on an network abstracted level (e.g. Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
-For realization of the CAN transmission acknowledge feature a Transmit/Confirm pattern is used.
-For CAN the transmission of network data consists of exactly two phases.
-In the first phase, the specific network data are send (transmit phase).
-In the second step, the sender receives feedback (confirm phase) if the transmission was successful or not.
-In the case of an unsuccessful transmission, a reason for the faulty transmission is also provided.
-Depending on the reason of faulty transmission the sender can decide if the specified transmission shall be repeated or not.</p>
+This operation is used to simulate triggering a wake-up from bus side.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>This directly means that every <a href="#TransmitOpCodeCanLowCut">transmission operation</a> transferred to a Bus Simulation FMU has a result in form of a) <a href="#ConfirmOpCodeCanLowCut">positive confirmation</a> if the transmission was successful or b) an <a href="#ErrorOpCodeCanLowCut">error</a> if the transmission was not successful.
-The next <a href="#TransmitOpCodeCanLowCut">transmission operation</a> shall only be sent as soon as there is a confirmation or an error.
-Within <a href="#DirectCommunication">Direct Communication</a> use case, where exactly two FMUs communicate with each other, the confirmation of the transmitted frame shall be directly done by the sender itself.
-<a href="#figure-can-direct-communication">Figure 10</a> illustrates this communication, whereby FMU 1 transmits a frame to FMU 2.
-After the transmission the frame is directly confirmed by FMU 1 itself.</p>
-</div>
-<div id="figure-can-direct-communication" class="imageblock text-center">
-<div class="content">
-<img src="images/principles_of_communication_direct.svg" alt="principles of communication direct" width="40%">
-</div>
-<div class="title">Figure 10. Direct Confirmation of transmitted frame.</div>
-</div>
-<div class="paragraph">
-<p>Within <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Composition with dedicated Bus Simulation FMU</a> and <a href="#BusFeatureIntegratedFmuSimulator">Importer with Integrated Bus Simulation</a> the confirmation is done by the Bus Simulation FMU.
-The following <a href="#figure-can-confirmation-with-bus-simulation-fmu">Figure 11</a> illustrates the behavior, whereby FMU 1 transmits a frame to FMU 2 via a Bus Simulation FMU.</p>
-</div>
-<div id="figure-can-confirmation-with-bus-simulation-fmu" class="imageblock text-center">
-<div class="content">
-<img src="images/can_confirmation_with_bus_simulation_fmu.svg" alt="can confirmation with bus simulation fmu" width="70%">
-</div>
-<div class="title">Figure 11. Confirmation of transmitted frame via Bus Simulation FMU.</div>
-</div>
-<div class="paragraph">
-<p>The <a href="#SystemCompositions">System Compositions</a> in which the FMU is located is defined by <a href="#NetworkParameters">network parameters</a>.</p>
-</div>
-<div class="paragraph">
-<p><a href="#figure-can-transmission-acknowledge">Figure 12</a> illustrates these two cases, whereby the transition from FMU 1 &#8594; FMU 2 represents the successful case and FMU 2 &#8594; FMU 1 represents the non successful case.
-In step (1), a <a href="#TransmitOpCodeCanLowCut">transmission operation</a> will be delivered to the Bus Simulation FMU.
-Within step (2), the <a href="#TransmitOpCodeCanLowCut">transmission operation</a> will transferred to FMU 2, so the transmission was successful.
-Also in step (2), FMU 1 receives a <a href="#ConfirmOpCodeCanLowCut">confirmation operation</a>, which means the transmission was successful.
-In step (3), FMU 2 wants to transmit a frame to FMU 1:
-a <a href="#TransmitOpCodeCanLowCut">transmission operation</a> will be delivered from FMU 2 to the Bus Simulation FMU.
-In step (4), we see that the transmission results in an <a href="#ErrorOpCodeCanLowCut">error operation</a>:
-FMU 2 knows that the transmission was not successful.</p>
-</div>
-<div id="figure-can-transmission-acknowledge" class="imageblock text-center">
-<div class="content">
-<img src="images/can_transmission_acknowledge.svg" alt="can transmission acknowledge" width="80%">
-</div>
-<div class="title">Figure 12. Successful and not successful case CAN frame transmission.</div>
-</div>
-<div class="paragraph">
-<p>Normally, transmission failure cannot occur during a simulated bus transmission.
-Most common kinds of errors are used to inject transmission errors, for example using the Bus Simulation FMU, for advanced test scenarios.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_topology">4.7.1.4. Topology</h5>
-<div class="paragraph">
-<p>As already illustrated in <a href="#figure-can-network-overview">Figure 9</a>, CAN always describes a line topology.
-It is therefore necessary that a CAN node can send a message and that it can be received by several recipients.
-This line topology cannot be mapped in FMI in this way.
-The required line topology is therefore simulated within the Bus Simulation FMU.
-A Bus Simulation FMU must make the transmitted message available again to all recipients and the sender.
-This behavior is relevant for <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Composition with dedicated Bus Simulation FMU</a> and <a href="#BusFeatureIntegratedFmuSimulator">Importer with Integrated Bus Simulation</a> communication case only.
-For <a href="#DirectCommunication">Direct Communication</a> use case this behavior can be ignored because there are exactly two FMUs without a Bus Simulation FMU.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="CanArbitration">4.7.1.5. Arbitration</h5>
-<div class="paragraph">
-<p>Arbitration is an instrument of the CAN standard to resolve the conflict of the simultaneous sending of messages from several CAN nodes without a collision.
-The arbitration is handled completely in the Bus Simulation FMU and can be recognized by the fact that the Bus Simulation FMU receives a <a href="#TransmitOpCodeCanLowCut">transmission operation</a> from several FMUs in the same step.
-As soon as an arbitration is lost, an <a href="#ErrorOpCodeCanLowCut">error operation</a> with ErrorCode = ARBITRATION_LOST must be returned to the respective sender within the next Event Mode step.
-As soon as an FMU loses arbitration in this way, it must independently repeat the corresponding <a href="#TransmitOpCodeCanLowCut">transmission operation</a>.</p>
-</div>
-<div class="paragraph">
-<p><a href="#figure-can-arbitration-overview">Figure 13</a> shows the realization of a CAN arbitration.
-At the beginning, FMU 1 and FMU 2 each send a frame at the same time.
-In this situation, an arbitration is necessary so that it can be decided which frame should be sent in this case.
-Both frames are transferred to the Bus Simulation FMU.
-Arbitration takes place within the Bus Simulation FMU.
-In the example given, the two frames with CAN ID = 15 and CAN ID = 16 are analyzed and it is decided that CAN ID = 15 wins the arbitration.
-The Bus Simulation FMU then calculates the transmission time for the CAN frame with CAN ID = 15.
-The next time the FMI Event Mode is called up for the Bus Simulation FMU, the corresponding CAN frame is transmitted to FMU 2 and FMU 3.
-For CAN ID 16, FMU 2 is informed via an <a href="#ErrorOpCodeCanLowCut">error operation</a> with ErrorCode = ARBITRATION_LOST that this frame cannot be sent.
-FMU 1 gets a <a href="#ConfirmOpCodeCanLowCut">confirm operation</a>, because the specified frame with CAN ID 15 was successfully transmitted.</p>
-</div>
-<div id="figure-can-arbitration-overview" class="imageblock text-center">
-<div class="content">
-<img src="images/can_arbitration_overview.svg" alt="can arbitration overview" width="80%">
-</div>
-<div class="title">Figure 13. Arbitration of CAN frames within Bus Simulation FMU.</div>
-</div>
-<div class="paragraph">
-<p>Within a <a href="#TransmitOpCodeCanLowCut">transmission operation</a>, the <code>UseBuffer</code> argument can be specified.
-Once this is set, the bus simulation buffers the frame after losing arbitration and sends it as soon as possible.
-When using this parameter, it is therefore not necessary for the FMU to trigger the respective frame to be sent again.
-In this scenario the <a href="#ErrorOpCodeCanLowCut">error operation</a> with ErrorCode = ARBITRATION_LOST shall not be returned to the specific FMU.</p>
-</div>
-<div id="figure-can-arbitration-overview-with-buffer" class="imageblock text-center">
-<div class="content">
-<img src="images/can_arbitration_overview_with_buffer.svg" alt="can arbitration overview with buffer" width="80%">
-</div>
-<div class="title">Figure 14. Arbitration of CAN frames with buffering within Bus Simulation FMU.</div>
-</div>
-<div class="paragraph">
-<p>Arbitration is available in <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Composition with dedicated Bus Simulation FMU</a> and <a href="#BusFeatureIntegratedFmuSimulator">Importer with Integrated Bus Simulation</a> communication case only.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_wake_upsleep">4.7.1.6. Wake-up/Sleep</h5>
-<div class="paragraph">
-<p>This standard supports wake-up and sleep for the CAN bus, whereby only the bus-specific parts are taken into account.
-This means that the realization of local virtual ECU wake-up and sleeping processes are internal parts of the respective FMU, which is not covered by this document.
-Because entering sleep state is a virtual ECU internal process, this can be ignored here.
-The virtual ECU local wake-up process is ignored as well.
-The CAN specific wake-up pulse can be emulated by using the <a href="#WakeupCanOpCode">wake-up operation</a>.
-A <a href="#WakeupCanOpCode">wake-up operation</a> shall always be sent to all participants of the bus by the Bus Simulation FMU.</p>
-</div>
-<div class="paragraph">
-<p><a href="#figure-can-wake-up">Figure 15</a> shows the wake-up of FMU 1 and FMU 2 via the Bus Simulation FMU:</p>
-</div>
-<div id="figure-can-wake-up" class="imageblock text-center">
-<div class="content">
-<img src="images/can_wake_up.svg" alt="can wake up" width="70%">
-</div>
-<div class="title">Figure 15. Wake-up of FMU 1 and FMU 2 via bus.</div>
-</div>
-<div class="paragraph">
-<p>Wake-up/Sleep makes mostly sense in <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Composition with dedicated Bus Simulation FMU</a> and <a href="#BusFeatureIntegratedFmuSimulator">Importer with Integrated Bus Simulation</a> communication case, but is also allowed in <a href="#DirectCommunication">Direct Communication</a> use case.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_operations">4.7.1.7. Operations</h5>
-<div class="paragraph">
-<p>This section defines the allowed operations for CAN, CAN FD, CAN XL.
-The following table provides an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.</p>
+<p>The following table gives a detailed overview of the available operations.
+It shows all operations and the arguments they contain.</p>
 </div>
 <table id="table-operation-content-can" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. Overview of the available operations for CAN, CAN FD and CAN XL.</caption>
 <colgroup>
-<col style="width: 2.9411%;">
-<col style="width: 2.9411%;">
-<col style="width: 2.9411%;">
-<col style="width: 2.9411%;">
-<col style="width: 58.8235%;">
-<col style="width: 2.9411%;">
-<col style="width: 2.9411%;">
-<col style="width: 2.9411%;">
-<col style="width: 2.9411%;">
-<col style="width: 2.9411%;">
-<col style="width: 14.7066%;">
+<col style="width: 16.6666%;">
+<col style="width: 1.8518%;">
+<col style="width: 11.1111%;">
+<col style="width: 9.2592%;">
+<col style="width: 7.4074%;">
+<col style="width: 7.4074%;">
+<col style="width: 9.2592%;">
+<col style="width: 9.2592%;">
+<col style="width: 9.2592%;">
+<col style="width: 9.2592%;">
+<col style="width: 9.2597%;">
 </colgroup>
 <tbody>
 <tr>
-<th class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Operation type</p></th>
-<th class="tableblock halign-left valign-top" colspan="8"><p class="tableblock">Operation content</p></th>
-<th class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">General</p></th>
+<th class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Operation Name</p></th>
+<th class="tableblock halign-left valign-top" colspan="10"><p class="tableblock">Operation Content</p></th>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></th>
-<th class="tableblock halign-left valign-top" colspan="7"><p class="tableblock">Specific content</p></th>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Repeated</p></th>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Direction</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></th>
+<th class="tableblock halign-left valign-top" colspan="8"><p class="tableblock">Specific Content</p></th>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NOOP</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x00</p></td>
-<td class="tableblock halign-left valign-top" colspan="7"><p class="tableblock">---</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Single</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FMU &#8594; Bus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 5<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="8"><p class="tableblock">---</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Transmit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0x81</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte Frame ID</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 byte Data Length (DLC)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte Flags</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte SDT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte VCID</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte AF</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">n bytes Data</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Multiple</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FMU &#8594; Bus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CAN Transmit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 12 + DL<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ide<br>
+(1 bit)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rtr<br>
+(1 bit)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DL<br>
+(2 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="4"><p class="tableblock">Data<br>
+(n byte)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CAN FD Transmit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x02</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 12 + DL<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ide<br>
+(1 bit)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Brs<br>
+(1 bit)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Esi<br>
+(1 bit)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DL<br>
+(2 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Data<br>
+(n byte)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CAN XL Transmit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x03</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 18 + DL<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ide<br>
+(1 bit)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sec<br>
+(1 bit)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SDT<br>
+(1 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VCID<br>
+(1 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AF<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DL<br>
+(2 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data<br>
+(n byte)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Confirm</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0x82</p></td>
-<td class="tableblock halign-left valign-top" colspan="7"><p class="tableblock">4 byte Frame ID</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Multiple</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bus &#8594; FMU</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x04</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 9<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="8"><p class="tableblock">ID<br>
+(4 byte)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0x83</p></td>
-<td class="tableblock halign-left valign-top" colspan="7"><p class="tableblock">1 byte ErrorCode</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Multiple</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bus &#8594; FMU</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x05</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 10<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="7"><p class="tableblock">Error Code<br>
+(1 byte)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x06</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;Length&gt;<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kind<br>
+(1 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="7"><p class="tableblock"><em>Dynamic Part</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Wakeup</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0x84</p></td>
-<td class="tableblock halign-left valign-top" colspan="7"><p class="tableblock">---</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Multiple</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bus &#8594; FMU</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BaudrateCan</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0x05</p></td>
-<td class="tableblock halign-left valign-top" colspan="7"><p class="tableblock">4 byte BaudrateValue</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Single</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FMU &#8594; Bus</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BaudrateCanFD</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0x06</p></td>
-<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">4 byte BaudrateValue</p></td>
-<td class="tableblock halign-left valign-top" colspan="4"><p class="tableblock">4 byte BaudrateValueCanFd</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Single</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FMU &#8594; Bus</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BaudrateCanXL</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x07</p></td>
-<td class="tableblock halign-left valign-top" colspan="7"><p class="tableblock">4 byte BaudrateValueCanXl</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Single</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">FMU &#8594; Bus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 5<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="8"><p class="tableblock">---</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect4">
+<h5 id="_operations">4.7.1.2. Operations</h5>
+<div class="paragraph">
+<p>This section defines the allowed operations for CAN, CAN FD, CAN XL.
+The following tables provides an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.</p>
+</div>
 <div class="sect5">
-<h6 id="_noop">4.7.1.7.1. NOOP</h6>
+<h6 id="_noop">4.7.1.2.1. NOOP</h6>
 <div class="paragraph">
 <p>Represents no operation.
-This operation code must be used if no frames are to be sent in the respective time window, so the specified number of frames to send is zero.</p>
+See <a href="#NOOP-Operation">NOOP operation</a> for definition.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="TransmitOpCodeCanLowCut">4.7.1.7.2. Transmit</h6>
+<h6 id="TransmitOpCodeCanLowCut">4.7.1.2.2. Transmit</h6>
 <div class="paragraph">
-<p>Represents the <code>Transmit operation</code> of a specified frame.
-The following information are included within this operation:</p>
+<p>There are three types of transmit operations, each representing the transmission of a CAN, a CAN FD and a CAN XL frame.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Frame ID: The specified ID of the CAN, CAN FD or CAN XL message, whereby the size of the field is defined by the CAN standard.</p>
-</li>
-<li>
-<p>UseBuffer: If a specified Frame ID looses arbitration, this parameter defines if the given frame shall be buffered by the Bus Simulation or shall be removed and the FMU has to trigger the transmission again.
-The parameter value is defined as \(true = 0\) and \(false = 1\).</p>
-</li>
-<li>
-<p>Data Length (DLC): Number of bytes of data (0–8 bytes)</p>
-</li>
-<li>
-<p>Flags: The flags field consists of a total of seven segments, with each of the following information stored in one bit, starting with the lowest:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Ide: Identifier Extension</p>
-</li>
-<li>
-<p>Rtr: Specifies if the given frame represents an Remote Transmission Request frame.</p>
-</li>
-<li>
-<p>Fdf: Specifies if the given frame represents an CAN FD frame, whereby \(true = 0\) and \(false = 1\).</p>
-</li>
-<li>
-<p>Brs: Defines the Bit Rate Switch.
-This information is relevant for CAN FD Format only.</p>
-</li>
-<li>
-<p>Esi: Error State indicator.
-This information is relevant for CAN FD Format only.</p>
-</li>
-<li>
-<p>Xlf: Specifies if the given frame represents an CAN XL frame, whereby \(true = 0\) and \(false = 1\).</p>
-</li>
-<li>
-<p>Sec: Simple Extended Content.
-This information is relevant for CAN XL Format only.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<table class="tableblock frame-all grid-all stretch">
+<table id="table-can-transmit-operation" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 6. Detailed description of the CAN Transmit operation.</caption>
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 10%;">
-<col style="width: 10%;">
-<col style="width: 10%;">
-<col style="width: 10%;">
-<col style="width: 10%;">
-<col style="width: 10%;">
-<col style="width: 10%;">
-<col style="width: 10%;">
+<col style="width: 15.625%;">
+<col style="width: 12.5%;">
+<col style="width: 9.375%;">
+<col style="width: 62.5%;">
 </colgroup>
 <tbody>
 <tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Bit position</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">CAN Transmit</p></td>
 </tr>
 <tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Field value</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reserved</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Sec</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Xlf</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Esi</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Brs</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Fdf</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Rtr</p></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Represents an operation for the transmission of a CAN frame.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x01</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="9"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Argument</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code of the specified operation.
+For this operation the OP Code always has the value 0x01.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
+For this operation always applies: <code>Total Length = 12 + Data Length</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The specified ID of the CAN message.
+The maximum length of an ID is 11-bit and 29-bit if Identifier Extension (Ide) is used.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ide</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies if CAN Identifier Extension is used or not.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rtr</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies if the given frame represents an Remote Transmission Request frame.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6 bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reserved for future usage.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the length of the Data argument in bytes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN Format.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The specified operation shall be produced by a Network FMU and distributed to all participants, except the transmission initiator, of the bus by the Bus Simulation.
+Within the <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Composition with dedicated Bus Simulation FMU</a> and <a href="#BusFeatureIntegratedFmuSimulator">Importer with Integrated Bus Simulation</a> communication use case every <a href="#TransmitOpCodeCanLowCut">Transmission operation</a> transferred to a Bus Simulation has a result in form of either a <a href="#ConfirmOpCodeCanLowCut">positive confirmation</a> if the transmission was successful or an <a href="#ErrorOpCodeCanLowCut">error</a> including a specified error code if the transmission was not successful.
+The next <a href="#TransmitOpCodeCanLowCut">Transmission operation</a> shall only be sent as soon as there is a confirmation or an error.</p></td>
 </tr>
 </tbody>
 </table>
-<div class="ulist">
-<ul>
-<li>
-<p>SDT (SDU type): Describes the structure of the frames Data Field content.
-This information is relevant for CAN XL Format only.</p>
-</li>
-<li>
-<p>VCID: Represents the virtual CAN network ID.
-This information is relevant for CAN XL Format only.</p>
-</li>
-<li>
-<p>AF (Acceptance Field): Represents the CAN XL acceptance field.
-This information is relevant for CAN XL Format only.</p>
-</li>
-<li>
-<p>Data: Stores the given frame data to transfer.
-The length of the data depends on the CAN Format CAN, CAN FD or CAN XL.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Within <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Composition with dedicated Bus Simulation FMU</a> and <a href="#BusFeatureIntegratedFmuSimulator">Importer with Integrated Bus Simulation</a> communication case every <a href="#TransmitOpCodeCanLowCut">transmission operation</a> transferred to a Bus Simulation FMU has a result in form of a) <a href="#ConfirmOpCodeCanLowCut">positive confirmation</a> if the transmission was successful or b) an <a href="#ErrorOpCodeCanLowCut">error</a> including a specified error code if the transmission was not successful.
-The next <a href="#TransmitOpCodeCanLowCut">transmission operation</a> shall only be sent as soon as there is a confirmation or an error.</p>
-</div>
+<table id="table-can-fd-transmit-operation" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 7. Detailed description of the CAN FD Transmit operation.</caption>
+<colgroup>
+<col style="width: 15.625%;">
+<col style="width: 12.5%;">
+<col style="width: 9.375%;">
+<col style="width: 62.5%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">CAN FD Transmit</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Represents an operation for the transmission of a CAN FD frame.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x02</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="10"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Argument</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code of the specified operation.
+For this operation the OP Code always has the value 0x02.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
+For this operation always applies: <code>Total Length = 12 + Data Length</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The specified ID of the CAN message.
+The maximum length of an ID is 11-bit and 29-bit if Identifier Extension (Ide) is used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ide</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies if CAN Identifier Extension is used or not.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Brs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the Bit Rate Switch.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Esi</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Error State indicator.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reserved for future usage.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the length of the Data argument in bytes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN FD Format.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The specified operation shall be produced by a Network FMU and distributed to all participants, except the transmission initiator, of the bus by the Bus Simulation.
+Within the <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Composition with dedicated Bus Simulation FMU</a> and <a href="#BusFeatureIntegratedFmuSimulator">Importer with Integrated Bus Simulation</a> communication use case every <a href="#TransmitOpCodeCanLowCut">Transmission operation</a> transferred to a Bus Simulation has a result in form of either a <a href="#ConfirmOpCodeCanLowCut">positive confirmation</a> if the transmission was successful or an <a href="#ErrorOpCodeCanLowCut">error</a> including a specified error code if the transmission was not successful.
+The next <a href="#TransmitOpCodeCanLowCut">Transmission operation</a> shall only be sent as soon as there is a confirmation or an error.</p></td>
+</tr>
+</tbody>
+</table>
+<table id="table-can-xl-transmit-operation" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 8. Detailed description of the CAN XL Transmit operation.</caption>
+<colgroup>
+<col style="width: 15.625%;">
+<col style="width: 12.5%;">
+<col style="width: 9.375%;">
+<col style="width: 62.5%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">CAN XL Transmit</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Represents an operation for the transmission of a CAN XL frame.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x03</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="12"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Argument</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code of the specified operation.
+For this operation the OP Code always has the value 0x03.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
+For this operation always applies: <code>Total Length = 18 + Data Length</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The specified ID of the CAN message.
+The maximum length of an ID is 11-bit and 29-bit if Identifier Extension (Ide) is used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ide</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies if CAN Identifier Extension is used or not.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sec</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Simple Extended Content</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6 bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reserved for future usage.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SDT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Describes the structure of the frames Data Field content (SDU type).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VCID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Represents the virtual CAN network ID.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Represents the CAN XL Acceptance Field (AF).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the length of the Data argument in bytes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN XL Format.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The specified operation shall be produced by a Network FMU and distributed to all participants, except the transmission initiator, of the bus by the Bus Simulation.
+Within the <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Composition with dedicated Bus Simulation FMU</a> and <a href="#BusFeatureIntegratedFmuSimulator">Importer with Integrated Bus Simulation</a> communication use case every <a href="#TransmitOpCodeCanLowCut">Transmission operation</a> transferred to a Bus Simulation has a result in form of either a <a href="#ConfirmOpCodeCanLowCut">positive confirmation</a> if the transmission was successful or an <a href="#ErrorOpCodeCanLowCut">error</a> including a specified error code if the transmission was not successful.
+The next <a href="#TransmitOpCodeCanLowCut">Transmission operation</a> shall only be sent as soon as there is a confirmation or an error.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect5">
-<h6 id="ConfirmOpCodeCanLowCut">4.7.1.7.3. Confirm</h6>
+<h6 id="ConfirmOpCodeCanLowCut">4.7.1.2.3. Confirm</h6>
 <div class="paragraph">
 <p>The <code>Confirm operation</code> represents the confirmation of a transmitted frame (see <a href="#TransmitOpCodeCanLowCut">Transmit operation</a>).
-For every frame, which is transmitted via <code>Transmit operation</code>, a <code>Confirm operation</code> is expected separate from direct communication case.
+For every frame, which is successfully transmitted via <code>Transmit operation</code>, a <code>Confirm operation</code> is expected.
 The following information are included within this operation:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Frame ID: The specified ID of the CAN, CAN FD or CAN XL message, whereby the size of the field is defined by the CAN standard.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The <code>Confirm operation</code> is not supported in the <a href="#DirectCommunication">Direct Communication</a> case.
-Within this communication case, a send operation is always positively confirmed.</p>
-</div>
+<table id="table-can-confirm-operation" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 9. Detailed description of the Confirm operation.</caption>
+<colgroup>
+<col style="width: 15.625%;">
+<col style="width: 12.5%;">
+<col style="width: 9.375%;">
+<col style="width: 62.5%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Confirm</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Represents an operation to confirm the transmission of a CAN, CAN FD and CAN XL frame to simulate a CAN acknowledgement.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x04</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="4"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Argument</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code of the specified operation.
+For this operation the OP Code always has the value 0x04.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
+For this operation always applies: <code>Total Length = 9</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The specified ID of the CAN message that should be confirmed.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The specified operation shall be produced by the Bus Simulation and consumed by a Network FMU.
+If <code>org.fmi-standard.fmi-ls-bus.DirectConfirmation</code> (see <a href="#direct-confirmation-parameter">Section 4.5.1</a>) is set to \(true\) the confirmation of the transmitted network data shall be directly done by the sender itself.
+Otherwise the confirmation of the transmitted network data shall be done by the Bus Simulation.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect5">
-<h6 id="ErrorOpCodeCanLowCut">4.7.1.7.4. Error</h6>
+<h6 id="ErrorOpCodeCanLowCut">4.7.1.2.4. Error</h6>
 <div class="paragraph">
-<p>By using the <code>Error operation</code> the Bus Simulation FMU can communicate an error for a specific frame to send.
-The following codes are allowed to use for ErrorCode:</p>
+<p>By using the <code>Error operation</code> the Bus Simulation can communicate an error for a specific <a href="#TransmitOpCodeCanLowCut">Transmission operation</a>.
+The following information are included within this operation:</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
+<table id="table-can-error-operation" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 10. Detailed description of the Error operation.</caption>
+<colgroup>
+<col style="width: 15.625%;">
+<col style="width: 12.5%;">
+<col style="width: 9.375%;">
+<col style="width: 62.5%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Error</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Represents an operation for error handling.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x05</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="5"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Argument</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code of the specified operation.
+For this operation the OP Code always has the value 0x05.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
+For this operation always applies: <code>Total Length = 10</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The specified ID of the CAN message which triggers the error.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Error Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The specified error code, basing on the table below.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The specified operation shall be produced by the Bus Simulation and consumed by a Network FMU.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following codes are allowed to use as Error Code:</p>
+</div>
+<table id="table-can-error-codes" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 11. Overview of the available error states and codes.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -2225,13 +2512,20 @@ The following codes are allowed to use for ErrorCode:</p>
 <tbody>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">State</p></th>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Code</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Error Code</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ARBITRATION_LOST</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x01</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Represents an arbitration lost error, which shall be used if a specific frame initiated by a <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> lost the arbitration. See <a href="#CanArbitration">Section 4.7.1.5</a> for further details.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Represents an arbitration lost error, which shall be used if a specific frame initiated by a <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> lost the arbitration.
+See <a href="#CanArbitration">Section 4.7.1.5</a> for further details.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OPERATION_ERROR</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x40</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Represents a generic operation error, which can be initiated by every operation.
+This error shall be used when generally encountering a problem with the syntax or content of an operation.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">COMMUNICATION_ERROR</p></td>
@@ -2245,7 +2539,7 @@ The following codes are allowed to use for ErrorCode:</p>
 Within CAN the sender always receives its transmitted data for a comparison.
 If the sent and received bits are not identical this situation results in a Bit Error.
 This error case cannot occur during a simulated bus transmission.
-The error is used to inject transmission errors, for example using the Bus Simulation FMU, for advanced test scenarios.
+The error is used to inject transmission errors, for example using the Bus Simulation, for advanced test scenarios.
 The given error is always related to a specific <a href="#TransmitOpCodeCanLowCut">Transmit operation</a>.</p></td>
 </tr>
 <tr>
@@ -2253,7 +2547,7 @@ The given error is always related to a specific <a href="#TransmitOpCodeCanLowCu
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x82</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A Bit Stuff Error occurs if 6 consecutive bits of equal value are detected on the bus.
 This error case cannot occur during a simulated bus transmission.
-The error is used to inject transmission errors, for example using the Bus Simulation FMU, for advanced test scenarios.
+The error is used to inject transmission errors, for example using the Bus Simulation, for advanced test scenarios.
 The given error is always related to a specific <a href="#TransmitOpCodeCanLowCut">Transmit operation</a>.</p></td>
 </tr>
 <tr>
@@ -2261,7 +2555,7 @@ The given error is always related to a specific <a href="#TransmitOpCodeCanLowCu
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x83</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Occurs during a violation of End-of-Frame (EOF) format.
 This error case cannot occur during a simulated bus transmission.
-The error is used to inject transmission errors, for example using the Bus Simulation FMU, for advanced test scenarios.
+The error is used to inject transmission errors, for example using the Bus Simulation, for advanced test scenarios.
 The given error is always related to a specific <a href="#TransmitOpCodeCanLowCut">Transmit operation</a>.</p></td>
 </tr>
 <tr>
@@ -2269,7 +2563,7 @@ The given error is always related to a specific <a href="#TransmitOpCodeCanLowCu
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x84</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Represents an CRC Error, so if the data of a frame and the related checksum not harmonize.
 This error case cannot occur during a simulated bus transmission.
-The error is used to inject transmission errors, for example using the Bus Simulation FMU, for advanced test scenarios.
+The error is used to inject transmission errors, for example using the Bus Simulation, for advanced test scenarios.
 The given error is always related to a specific <a href="#TransmitOpCodeCanLowCut">Transmit operation</a>.</p></td>
 </tr>
 <tr>
@@ -2277,80 +2571,388 @@ The given error is always related to a specific <a href="#TransmitOpCodeCanLowCu
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x85</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">At least one receiving node identifies an invalid CAN frame.
 This error case cannot occur during a simulated bus transmission.
-The error is used to inject transmission errors, for example using the Bus Simulation FMU, for advanced test scenarios.
+The error is used to inject transmission errors, for example using the Bus Simulation, for advanced test scenarios.
 The given error is always related to a specific <a href="#TransmitOpCodeCanLowCut">Transmit operation</a>.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect5">
-<h6 id="WakeupCanOpCode">4.7.1.7.5. Wakeup</h6>
+<h6 id="ConfigurationCanOpCode">4.7.1.2.5. Configuration</h6>
 <div class="paragraph">
-<p>By using the <code>Wakeup operation</code> the underlying Bus Simulation FMU can trigger a bus-specific wake up.
-This operation contains no arguments and shall always be sent to all participants of the bus by the Bus Simulation FMU.</p>
+<p>The <code>Configuration operation</code> allows Network FMUs the configuration of the Bus Simulation with parameters like baud rate information and further options.
+The following information are included within this operation:</p>
+</div>
+<table id="table-can-configuration-operation" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 12. Detailed description of the Configuration operation.</caption>
+<colgroup>
+<col style="width: 11.6279%;">
+<col style="width: 2.3255%;">
+<col style="width: 23.2558%;">
+<col style="width: 9.3023%;">
+<col style="width: 6.9767%;">
+<col style="width: 46.5118%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Configuration</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Represents an operation for the configuration of a Bus Simulation.
+In detail the configuration of a CAN, CAN FD and CAN XL baud rate is possible.
+Also the configuration of further options, like buffer handling, is supported by this operation.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">0x06</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="10"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Argument</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">OP Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code of the specified operation.
+For this operation the OP Code always has the value 0x06.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Kind</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the kind of configuration.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="6"></th>
+<th class="tableblock halign-left valign-top" colspan="4"><p class="tableblock">Values</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CAN_BAUDRATE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Baudrate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The specified baudrate value to configure, whereby the specified ranges are defined by the CAN standard.
+The required unit for the baudrate value is bit/s.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CAN_FD_BAUDRATE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Baudrate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The specified baudrate value to configure, whereby the specified ranges are defined by the CAN FD standard.
+The required unit for the baudrate value is bit/s.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CAN_XL_BAUDRATE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Baudrate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The specified baudrate value to configure, whereby the specified ranges are defined by the CAN XL standard.
+The required unit for the baudrate value is bit/s.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">OPTIONS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Buffer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If a specified CAN message ID looses arbitration, this parameter defines if the given <a href="#TransmitOpCodeCanLowCut">Transmission operation</a> shall be buffered by the Bus Simulation or shall be removed and the FMU has to trigger the transmission again.
+The parameter value is defined as \(true = 0\) and \(false = 1\).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7 bit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reserved for future usage.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
+The operation shall not be routed to other Network FMUs by the Bus Simulation.
+A Network FMU shall ignored this operation on consumer side.
+The configuration shall be completed by a specified Network FMU before it produces any <a href="#TransmitOpCodeCanLowCut">Transmission operation</a>.
+Any configuration can be repeated multiple times during the runtime of a Network FMU.
+In context of CAN FD, also a CAN baud rate should always be configured by using <code>Kind = CAN_BAUDRATE</code>.
+If required configuration parameters are not adjusted by a Network FMU the Bus Simulation shall choose a default behavior by itself.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following Kind values are allowed to be used:</p>
+</div>
+<table id="table-can-configuration-kinds" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 13. Overview of the available configuration kinds and values.</caption>
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 71.4286%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Kind</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Value</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CAN_BAUDRATE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This code indicates that a CAN baud rate should be configured for the Bus Simulation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CAN_FD_BAUDRATE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x02</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allows the configuration of a CAN FD baudrate for the Bus Simulation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CAN_XL_BAUDRATE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x03</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allows the configuration of a CAN XL baudrate for the Bus Simulation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OPTIONS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x04</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This code configures various available options for the Bus Simulation.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="WakeupCanOpCode">4.7.1.2.6. Wake-up</h6>
+<div class="paragraph">
+<p>By using the <code>Wakeup operation</code> the underlying Bus Simulation can trigger a bus-specific wake up.</p>
+</div>
+<table id="table-can-wakeup-operation" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 14. Detailed description of the Wakeup operation.</caption>
+<colgroup>
+<col style="width: 15.625%;">
+<col style="width: 12.5%;">
+<col style="width: 9.375%;">
+<col style="width: 62.5%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Wakeup</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Represents an operation for triggering a bus-specific wake up.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x07</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Argument</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code of the specified operation.
+For this operation the OP Code always has the value 0x07.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
+For this operation always applies: <code>Total Length = 5</code>.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The specified operation shall be produced by a Network FMU and distributed to all participants, except the wake-up initiator, of the bus by using the Bus Simulation.
+If a Network FMU does not support wake-up this operation can be ignored on consumer side.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_configuration_of_bus_simulation">4.7.1.3. Configuration of Bus Simulation</h5>
+<div class="paragraph">
+<p>The configuration of the Bus Simulation is done by the specified Network FMUs itself.
+For this purpose, a <a href="#ConfigurationCanOpCode">Configuration operation</a> is specified with several configuration kinds.
+The initial configuration of the Bus Simulation shall be completed by a Network FMU before the first transmission is triggered.
+The configuration may be repeated multiple times during the runtime of a Network FMU.</p>
+</div>
+<div class="sect5">
+<h6 id="_baudrate_handling">4.7.1.3.1. Baudrate Handling</h6>
+<div class="paragraph">
+<p>In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation about the specified baud rate from a Network FMU.
+This baud rate information can be configured by using <code>CAN_BAUDRATE</code>, <code>CAN_FD_BAUDRATE</code> and <code>CAN_XL_BAUDRATE</code> configuration kind of the <a href="#ConfigurationCanOpCode">Configuration operation</a>.
+In a CAN FD scenario, both the configuration for <code>CAN_BAUDRATE</code> and for <code>CAN_FD_BAUDRATE</code> shall be carried out if the CAN FD bit rate switch feature is used.
+Otherwise the configuration of <code>CAN_BAUDRATE</code> is sufficient for CAN FD.
+The Bus Simulation can derive the required CAN, CAN FD or CAN XL controller type from the baud rate configurations a Network FMU carried out.
+If the baud rate information is not adjusted by a specified Network FMU the Bus Simulation shall choose a default behavior by itself.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="BaudrateCanOpCode">4.7.1.7.6. BaudrateCan</h6>
+<h6 id="_buffer_handling">4.7.1.3.2. Buffer Handling</h6>
 <div class="paragraph">
-<p>The <code>BaudrateCan operation</code> specifies the CAN baud rate to a specific value.
-The following information are included within this operation:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>BaudrateValue: The specified baudrate value to configure, whereby the specified ranges are defined by the CAN standard.
-The required unit for the baudrate value is bit/s.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect5">
-<h6 id="BaudrateCanFdOpCode">4.7.1.7.7. BaudrateCanFD</h6>
-<div class="paragraph">
-<p>The <code>BaudrateCanFD operation</code> specifies the CAN and CAN FD baud rate to a specific value.
-The following information are included within this operation:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>BaudrateValue: The specified baudrate value to configure, whereby the specified ranges are defined by the CAN standard.
-The required unit for the baudrate value is bit/s.</p>
-</li>
-<li>
-<p>BaudrateValueCanFd: The specified baudrate value to configure, whereby the specified ranges are defined by the CAN FD standard.
-The required unit for the baudrate value is bit/s.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect5">
-<h6 id="BaudrateCanXlOpCode">4.7.1.7.8. BaudrateCanXL</h6>
-<div class="paragraph">
-<p>The <code>BaudrateCanXL operation</code> specifies the CAN XL baud rate to a specific value.
-The following information are included within this operation:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>BaudrateValueCanXl: The specified baudrate value to configure, whereby the specified ranges are defined by the CAN standard.
-The required unit for the baudrate value is bit/s.</p>
-</li>
-</ul>
+<p>By using the <code>OPTIONS</code> configuration kind of a <a href="#ConfigurationCanOpCode">Configuration operation</a> the buffer handling within the Bus Simulation can be adjusted.
+Using buffer handling is required in arbitration scenarios only and will be described <a href="#CanArbitration">within this context</a>.
+If the buffering is not adjusted by a specified Network FMU the Bus Simulation shall choose a default behavior by itself.</p>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_sequence_diagrams">4.7.1.8. Sequence Diagrams</h5>
+<h5 id="_transmission_and_acknowledge">4.7.1.4. Transmission and Acknowledge</h5>
 <div class="paragraph">
-<p><mark>TODO dSPACE</mark></p>
+<p>The <a href="#TransmitOpCodeCanLowCut">Transmission operation</a> represents the sending of a CAN, CAN FD and CAN XL frame.
+With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g. Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
+For realization of the CAN transmission acknowledge feature a Transmit/Confirm pattern is used.
+For CAN, the transmission of network data consists of exactly two phases.
+In the first phase, the specific network data are send.
+In the second step, the sender receives feedback if the transmission was successful or not.
+In the case of an unsuccessful transmission, a reason for the faulty transmission is also provided.
+Depending on the reason of faulty transmission the sender can decide if the specified transmission shall be repeated or not.</p>
+</div>
+<div class="paragraph">
+<p>This directly means that every <a href="#TransmitOpCodeCanLowCut">Transmission operation</a> transferred to a Bus Simulation has a result either in form of a <a href="#ConfirmOpCodeCanLowCut">positive confirmation</a> if the transmission was successful or an <a href="#ErrorOpCodeCanLowCut">error</a> if the transmission was not successful.
+The next <a href="#TransmitOpCodeCanLowCut">Transmission operation</a> shall only be sent as soon as there is a confirmation or an error.
+If <code>org.fmi-standard.fmi-ls-bus.DirectConfirmation</code> (see <a href="#direct-confirmation-parameter">Section 4.5.1</a>) is set to \(true\) the confirmation of the transmitted network data shall be directly done by the sender itself.
+Otherwise the confirmation of the transmitted network data shall be done by the Bus Simulation.</p>
+</div>
+<div class="paragraph">
+<p><a href="#figure-can-direct-communication">Figure 9</a> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
+After that the transmission is directly confirmed by FMU 1 itself.</p>
+</div>
+<div id="figure-can-direct-communication" class="imageblock text-center">
+<div class="content">
+<img src="images/can_direct_confirmation.svg" alt="can direct confirmation" width="40%">
+</div>
+<div class="title">Figure 9. Direct Confirmation of transmitted network data.</div>
+</div>
+<div class="paragraph">
+<p>If a Bus Simulation is used the confirmation is done by the Bus Simulation itself.
+The following <a href="#figure-can-confirmation-with-bus-simulation-fmu">Figure 10</a> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.</p>
+</div>
+<div id="figure-can-confirmation-with-bus-simulation-fmu" class="imageblock text-center">
+<div class="content">
+<img src="images/can_confirmation_with_bus_simulation_fmu.svg" alt="can confirmation with bus simulation fmu" width="70%">
+</div>
+<div class="title">Figure 10. Confirmation of transmitted network data via Bus Simulation.</div>
+</div>
+<div class="paragraph">
+<p><a href="#example-can-possible-results-of-transmission">Section 4.7.1.7.1</a> contains an example of the possible transmission results and visualize them in the form of a diagram.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_sae_j1939">4.7.1.9. SAE J1939</h5>
+<h5 id="CanArbitration">4.7.1.5. Arbitration</h5>
 <div class="paragraph">
-<p>Society of Automotive Engineers standard SAE J1939 is a wide use communication standard for communication and diagnostics among vehicle components within the car and heavy-duty truck industry.
-Because CAN, CAN FD, CAN XL are supported by this standard, <a href="https://www.sae.org/">SAE J1939</a> is also indirectly supported.</p>
+<p>Arbitration is an instrument of the CAN standard to resolve the conflict of the simultaneous sending of messages from several CAN nodes without a collision.
+The arbitration is handled completely in the Bus Simulation and can be recognized by the fact that the Bus Simulation receives a <a href="#TransmitOpCodeCanLowCut">Transmission operation</a> from several FMUs in the same step.
+As soon as an arbitration is lost, an <a href="#ErrorOpCodeCanLowCut">Error operation</a> with <code>Error Code = ARBITRATION_LOST</code> must be returned to the respective sender within the next <code>Event Mode</code> step.
+As soon as an FMU loses arbitration in this way, it shall independently repeat the corresponding <a href="#TransmitOpCodeCanLowCut">Transmission operation</a>.</p>
+</div>
+<div id="figure-can-arbitration" class="imageblock text-center">
+<div class="content">
+<img src="images/can_arbitration.svg" alt="can arbitration" width="70%">
+</div>
+<div class="title">Figure 11. Arbitration of two transmissions at the same time.</div>
+</div>
+<div class="paragraph">
+<p>Within a <a href="#ConfigurationCanOpCode">Configuration operation</a>, the <code>Buffer</code> argument can be specified.
+Once this is set, the Bus Simulation buffers the frame after losing arbitration and sends it as soon as possible.
+When using this parameter, it is therefore not necessary for the FMU to trigger the respective frame to be sent again.
+In this scenario the <a href="#ErrorOpCodeCanLowCut">Error operation</a> with <code>Error Code = ARBITRATION_LOST</code> shall not be returned to the specific FMU.
+Arbitration is available in communication cases with Bus Simulation only.</p>
+</div>
+<div class="paragraph">
+<p><a href="#example-can-arbitration">Section 4.7.1.7.2</a> and <a href="#example-can-arbitration-with-buffer-option">Section 4.7.1.7.3</a> contain examples of the presented arbitration cases and visualize them in the form of sequence diagrams.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_wake_upsleep">4.7.1.6. Wake-up/Sleep</h5>
+<div class="paragraph">
+<p>This standard supports wake-up and sleep for the CAN bus, whereby only the bus-specific parts are taken into account.
+This means that the realization of local virtual ECU wake-up and sleeping processes are internal parts of the respective FMU, which is not covered by this document.
+Because entering sleep state is a virtual ECU internal process always within CAN bus, this can be ignored.
+Also the virtual ECU local wake-up process is ignored as well.
+The CAN specific wake-up pulse can be simulated by using the <a href="#WakeupCanOpCode">Wake-up operation</a>.
+A <a href="#WakeupCanOpCode">Wake-up operation</a> is initiated by one Network FMU and shall be distributed to all participants of the bus by the Bus Simulation, except the wake-up initiator.</p>
+</div>
+<div id="figure-can-wake-up" class="imageblock text-center">
+<div class="content">
+<img src="images/can_wake_up.svg" alt="can wake up" width="70%">
+</div>
+<div class="title">Figure 12. Wake-up initiated by FMU 1 wakes-up FMU 2 and FMU 3 via bus.</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_examples">4.7.1.7. Examples</h5>
+<div class="paragraph">
+<p>This section contains sample sequences to clarify the facts in the CAN part.</p>
+</div>
+<div class="sect5">
+<h6 id="example-can-possible-results-of-transmission">4.7.1.7.1. Transmission</h6>
+<div class="paragraph">
+<p><a href="#figure-can-transmission-acknowledge">Figure 13</a> illustrates the two possible results of a <a href="#TransmitOpCodeCanLowCut">Transmission operation</a>, whereby the transition from FMU 1 &#8594; FMU 2 represents the successful case and FMU 2 &#8594; FMU 1 represents the unsuccessful case.
+In step (1), a <a href="#TransmitOpCodeCanLowCut">Transmission operation</a> will be delivered to the Bus Simulation.
+Within step (2), the <a href="#TransmitOpCodeCanLowCut">Transmission operation</a> will transferred to FMU 2, so the transmission was successful.
+Also in step (2), FMU 1 receives a <a href="#ConfirmOpCodeCanLowCut">Confirm operation</a>, which means the transmission was successful.
+In step (3), FMU 2 wants to transmit network data to FMU 1:
+A <a href="#TransmitOpCodeCanLowCut">Transmission operation</a> will be delivered from FMU 2 to the Bus Simulation.
+In step (4), we see that the transmission results in an <a href="#ErrorOpCodeCanLowCut">Error operation</a>.
+Because of this FMU 2 knows that the transmission was not successful.</p>
+</div>
+<div id="figure-can-transmission-acknowledge" class="imageblock text-center">
+<div class="content">
+<img src="images/can_transmission_acknowledge.svg" alt="can transmission acknowledge" width="60%">
+</div>
+<div class="title">Figure 13. Successful and not successful cases of a CAN transmission.</div>
+</div>
+<div class="paragraph">
+<p>Normally, transmission failure cannot occur during a simulated bus transmission.
+Most common kinds of errors are used to inject transmission errors, for example using the Bus Simulation FMU, for advanced test scenarios.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="example-can-arbitration">4.7.1.7.2. CAN Arbitration</h6>
+<div class="paragraph">
+<p><a href="#figure-can-arbitration-overview">Figure 14</a> shows the realization of a CAN arbitration.
+At the beginning, FMU 1 and FMU 2 each send network data at the same time.
+In this situation, an arbitration is necessary so that it can be decided which frame should be sent in this case.
+Both frames are transferred to the Bus Simulation.
+Arbitration takes place within the Bus Simulation.
+In the example given, the two frames with CAN ID = 15 and CAN ID = 16 are analyzed and it is decided that CAN ID = 15 wins the arbitration.
+The Bus Simulation then calculates the transmission time for the CAN frame with CAN ID = 15.
+The next time the FMI <code>Event Mode</code> is called up for the Bus Simulation, the corresponding CAN frame is transmitted to FMU 2 and FMU 3.
+For CAN ID 16, FMU 2 is informed via an <a href="#ErrorOpCodeCanLowCut">Error operation</a> with <code>Error Code = ARBITRATION_LOST</code> that this frame cannot be sent.
+FMU 1 gets a <a href="#ConfirmOpCodeCanLowCut">Confirm operation</a>, because the specified frame with CAN ID 15 was successfully transmitted.</p>
+</div>
+<div id="figure-can-arbitration-overview" class="imageblock text-center">
+<div class="content">
+<img src="images/can_arbitration_overview.svg" alt="can arbitration overview" width="80%">
+</div>
+<div class="title">Figure 14. Arbitration of CAN frames within Bus Simulation.</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="example-can-arbitration-with-buffer-option">4.7.1.7.3. CAN Arbitration with Buffer Option</h6>
+<div class="paragraph">
+<p><a href="#figure-can-arbitration-overview-with-buffer">Figure 15</a> shows the realization of a CAN arbitration by using the <code>Buffer</code> option within the <a href="#ConfigurationCanOpCode">Configuration operation</a>.
+At the beginning, FMU 1 and FMU 2 each send network data at the same time.
+In this situation, an arbitration is necessary so that it can be decided which frame should be sent in this case.
+Both frames are transferred to the Bus Simulation.
+Arbitration takes place within the Bus Simulation.
+In the example given, the two frames with CAN ID = 15 and CAN ID = 16 are analyzed and it is decided that CAN ID = 15 wins the arbitration.
+The Bus Simulation then calculates the transmission time for the CAN frame with CAN ID = 15.
+The next time the FMI <code>Event Mode</code> is called up for the Bus Simulation, the corresponding CAN frame is transmitted to FMU 2 and FMU 3.
+The <a href="#TransmitOpCodeCanLowCut">Transmission operation</a> of CAN ID 16 is buffered by the Bus Simulation and will be sent within the next time slot.
+The Bus Simulation does not return an <a href="#ErrorOpCodeCanLowCut">Error operation</a> with an <code>Error Code = ARBITRATION_LOST</code> to FMU 2.
+FMU 1 gets a <a href="#ConfirmOpCodeCanLowCut">Confirm operation</a>, because the specified frame with CAN ID 15 was successfully transmitted.</p>
+</div>
+<div id="figure-can-arbitration-overview-with-buffer" class="imageblock text-center">
+<div class="content">
+<img src="images/can_arbitration_overview_with_buffer.svg" alt="can arbitration overview with buffer" width="80%">
+</div>
+<div class="title">Figure 15. Arbitration of CAN frames with buffering within Bus Simulation.</div>
+</div>
 </div>
 </div>
 </div>
