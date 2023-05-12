@@ -334,27 +334,6 @@ This chapter specifies the structural parameters that each FMU shall provide.
  
 #TODO all#: define further parameter names and their semantics influencing bus behavior and/or version of the fmi-ls-bus version (FMU declares them as parameters or structural parameters depending on internal mechanisms)
 
-==== Direct Confirmation Parameter [[direct-confirmation-parameter]]
-Within the <<DirectCommunication, Direct Communication>> case the transmission is always positively confirmed by the FMU itself.
-Within the <<Composition-with-dedicated-Bus-Simulation-FMU, Composition with dedicated Bus Simulation FMU>> and <<BusFeatureIntegratedFmuSimulator, Importer with Integrated Bus Simulation>> communication use case, the Bus Simulation returns a feedback of a successful or faulty transmission.
-Justified by this scenarios the FMU importer shall parameterize the FMUs according to the selected <<SystemCompositions, System Composition>> via the following defined structural parameters:
-
-.FMU parameters for system composition selection by the FMU importer.
-[[figure-fmu-system-composition-parameters]]
-----
-    org.fmi-standard.fmi-ls-bus.DirectConfirmation
-        Description:  "Specifies if a transmission is always positively confirmed by the FMU itself"
-        Type:         Boolean
-        Causality:    structuralParameter
-        Variability:  fixed
-        Start:        "true"
-----
-
-`org.fmi-standard.fmi-ls-bus.DirectConfirmation` shall be set to `true` if a given FMU importer wants to integrate the specified FMUs via the <<DirectCommunication, Direct Communication>> case; otherwise to `false`.
-
-This structural parameter shall only be available for Network FMUs.
-A Bus Simulation (FMU) does not require this structural parameter.
-
 === Bus Specific Details [[BusTypeSpecificDetails]]
 For each supported bus types the <<Overview-Layered-Standard-Bus-Protocol, Layered Standard Bus Protocol>> is defined.
 This chapter basically describes the operations of the <<Overview-Layered-Standard-Bus-Protocol, Layered Standard Bus Protocol>> to enable the simulation of supported bus types.

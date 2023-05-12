@@ -241,9 +241,7 @@ Depending on the simulation details, the Bus Simulation might response with a <<
 |====
 
 ====== Confirm [[ConfirmOpCodeCanLowCut]]
-The `Confirm operation` represents the confirmation of a transmitted frame (see <<TransmitOpCodeCanLowCut, Transmit operation>>).
-For every frame, which is successfully transmitted via a `Transmit operation`, a `Confirm operation` is expected.
-The following information are included within this operation: 
+The `Confirm operation` is used to signal the successful reception of a transmitted CAN frame (see <<TransmitOpCodeCanLowCut, Transmit operation>>) by at least one Network FMU.
 
 .Detailed description of the Confirm operation.
 [#table-can-confirm-operation]
@@ -252,7 +250,7 @@ The following information are included within this operation:
 h|Name
 3+|Confirm
 h|Description
-3+|Represents an operation to confirm the transmission of a CAN, CAN FD and CAN XL frame to simulate a CAN acknowledgement.
+3+|Signals a successful reception of a transmitted CAN, CAN FD and CAN XL frame to simulate a CAN acknowledgment behavior.
 h|OP Code [hex]
 3+|0x20
 .4+h|Content h|Argument h|Length h|Description
@@ -270,9 +268,10 @@ For this operation applies: `Total Length = 9`.
 |The ID of the confirmed CAN message.
 
 h|Behavior
-3+|The specified operation shall be produced by the Bus Simulation and consumed by a Network FMU.
-If `org.fmi-standard.fmi-ls-bus.DirectConfirmation` (see <<direct-confirmation-parameter>>) is set to `true` the confirmation of the transmitted network data shall be directly done by the sender itself.
-Otherwise the confirmation of the transmitted network data shall be done by the Bus Simulation.
+3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
+If the structural parameter `org.fmi-standard.fmi-ls-bus.WaitForBusNotification` (see <<bus-notification-parameter>>) is set to `false`, the Network FMU does not rely on receiving Confirm operations.
+In this case, Bus Simulations should not send Confirm operations to the Network FMU.
+If all Network FMUs, except the <<TransmitOpCodeCanLowCut, Transmit operation>> initiating Network FMU, communicated the <<StatusOpCodeCanLowCut, status>> `BUS_OFF` the Bus Simulation shall not provide a confirmation.
 
 |====
 
@@ -313,6 +312,8 @@ h|Behavior
 In such case, the Bus Simulation has to decide, which <<TransmitOpCodeCanLowCut, Transmit operation>> should be proceed first.
 Depending on the configuration (see the `Arbitration Lost Behavior` argument of the <<ConfigurationCanOpCode, Configuration operation>>), the deferred <<TransmitOpCodeCanLowCut, Transmit operations>> shall either be buffered or discarded and sending the Arbitration Lost operation back to the respective Network FMUs.
 A Network FMU receiving the Arbitration Lost operation can decide to provide the <<TransmitOpCodeCanLowCut, Transmit operation>> again or e.g. to raise an internal transmit timeout failure after a while.
+If the structural parameter `org.fmi-standard.fmi-ls-bus.WaitForBusNotification` (see <<bus-notification-parameter>>) is set to `false`, the Network FMU does not rely on receiving Arbitration Lost operations.
+In this case, Bus Simulations should not send Arbitration Lost operations to the Network FMU.
 
 |====
 
@@ -367,7 +368,8 @@ To determine the CAN node state properly, Network FMUs need the information abou
 If a Network FMU is sending, the argument `Is Sender` shall be set.
 If a Network FMU is detecting the error first, the argument `Detected` shall be set.
 The arguments `Detected` and `Is Sender` must only be set once per simulated error.
-
+If the structural parameter `org.fmi-standard.fmi-ls-bus.WaitForBusNotification` (see <<bus-notification-parameter>>) is set to `false`, the Network FMU does not rely on receiving Bus Error operations.
+In this case, Bus Simulations should not send Bus Error operations to the Network FMU.
 |====
 
 The following Error Codes are specified:
@@ -464,7 +466,7 @@ The required unit for the baudrate value is bit/s.
 |1 bit
 |This parameter defines, how a Bus Simulation shall behave in cases of an arbitration lost scenario.
 If the option is not set, <<TransmitOpCodeCanLowCut, Transmit operations>> shall be buffered by the Bus Simulation and no <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall be sent.
-Otherwise, the <<TransmitOpCodeCanLowCut, Transmit operation>> shall be discard and an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall be sent to the Network FMU (see <<CanArbitration>>).
+Otherwise, the <<TransmitOpCodeCanLowCut, Transmit operation>> shall be discarded and an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall be sent to the Network FMU (see <<CanArbitration>>).
 The parameter value is defined as `Deactivated = 0` and `Activated = 1`.
 |-
 |7 bit
@@ -586,11 +588,37 @@ If a Network FMU does not support wake-up this operation can be ignored on consu
 
 |====
 
+===== Network Parameters [[can-network-parameters]]
+Using structural parameters, FMUs can be parameterized according to importer specifications.
+This chapter specifies the structural parameters that each CAN specific FMU shall provide.
+
+====== Bus Notification Parameter [[bus-notification-parameter]]
+For a detailed simulation, the CAN bus behavior regarding acknowledgment, bus errors and arbitration losses must be considered.
+A Bus Simulation can simulate this effect by sending bus notifications in terms of <<ConfirmOpCodeCanLowCut, Confirm>>-, <<BusErrorOpCodeCanLowCut, Bus Error>>- and <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operations>> to the Network FMUs.
+However in cases where Network FMUs are connected directly or if a Bus Simulation does not simulate such effects, a Network FMU would not receive these operations.
+
+In order to inform Network FMUs not to rely on bus notifications, the importer can set the `org.fmi-standard.fmi-ls-bus.WaitForBusNotification` parameter to `false`, which also shall be the default value.
+Only if the Bus Simulation either supports <<ConfirmOpCodeCanLowCut, Confirm>>-, <<BusErrorOpCodeCanLowCut, Bus Error>>- or <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operations>>, `org.fmi-standard.fmi-ls-bus.WaitForBusNotification` shall be set to `true`.
+
+.FMU parameter for the configuration of bus notifications.
+[[figure-fmu-bus-notifications-parameter]]
+----
+    org.fmi-standard.fmi-ls-bus.WaitForBusNotification
+        Description:  "Specifies whether the respective Network FMU relies on bus notifications."
+        Type:         Boolean
+        Causality:    structuralParameter
+        Variability:  fixed
+        Start:        "false"
+----
+
+This structural parameter shall only be available for Network FMUs.
+A Bus Simulation (FMU) does not require this structural parameter.
+
 ===== Configuration of Bus Simulation
 The configuration of the Bus Simulation is done by the Network FMUs itself.
 For this purpose, the <<ConfigurationCanOpCode, Configuration operation>> provides several configuration parameters.
 <<ConfigurationCanOpCode, Configuration operations>> may be produced multiple times during the runtime of a Network FMU.
-Because the Bus Simulation shall choose a default behavior, it may be useful in several scenarios that Network FMUs finnish configuration before the production of <<TransmitOpCodeCanLowCut, Transmit operations>>.
+Because the Bus Simulation shall choose a default behavior, it may be useful in several scenarios that Network FMUs finish configuration before the production of <<TransmitOpCodeCanLowCut, Transmit operations>>.
 
 ====== Baudrate Handling
 In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation about the specified baud rate from a Network FMU.
@@ -608,17 +636,12 @@ If the buffering is not adjusted by a specified Network FMU the Bus Simulation s
 ===== Transmission and Acknowledge
 The <<TransmitOpCodeCanLowCut, Transmit operation>> represents the sending of a CAN, CAN FD and CAN XL frame.
 With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g. Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
-For realization of the CAN transmission acknowledge feature a Transmit/Confirm pattern is used.
-For CAN, the transmission of network data consists of exactly two phases.
-In the first phase, the specific network data are send.
-In the second step, the sender receives feedback if the transmission was successful or not.
-In the case of an unsuccessful transmission, a reason for the faulty transmission is also provided.
-Depending on the reason of faulty transmission the sender can decide if the specified transmission shall be repeated or not.
+In the real world, flawless transmitted CAN frames will be acknowledged by at least one receiver CAN node.
+To simulate this behavior, the <<ConfirmOpCodeCanLowCut, Confirm operations>> were introduced.
+In addition to support lightweight bus simulations and <<DirectCommunication, direct connected Network FMUs>>, the structural parameter `org.fmi-standard.fmi-ls-bus.WaitForBusNotification` (see <<bus-notification-parameter>>) has been defined.
 
-This directly means that every <<TransmitOpCodeCanLowCut, Transmit operation>> transferred to a Bus Simulation has a result either in form of a <<ConfirmOpCodeCanLowCut, positive confirmation>> if the transmission was successful or a failure is indicated by using an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> or a <<BusErrorOpCodeCanLowCut, Bus Error operation>> if the transmission was not successful.
-The next <<TransmitOpCodeCanLowCut, Transmit operation>> shall only be sent as soon as there is a confirmation or an error.
-If `org.fmi-standard.fmi-ls-bus.DirectConfirmation` (see <<direct-confirmation-parameter>>) is set to `true` the confirmation of the transmitted network data shall be directly done by the sender itself.
-Otherwise the confirmation of the transmitted network data shall be done by the Bus Simulation.
+If `org.fmi-standard.fmi-ls-bus.WaitForBusNotification` is set to `false` (default), then Network FMUs shall not rely on receiving <<ConfirmOpCodeCanLowCut, Confirm operations>>.
+In this case, the bus simulation is idealized and happened in a fire-and-forget manner.
 
 <<#figure-can-direct-communication>> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
 After that the transmission is directly confirmed by FMU 1 itself.
@@ -627,7 +650,9 @@ After that the transmission is directly confirmed by FMU 1 itself.
 [#figure-can-direct-communication]
 image::can_direct_confirmation.svg[width=40%, align="center"]
 
-If a Bus Simulation is used the confirmation is done by the Bus Simulation itself.
+For a detailed simulation, Bus Simulations shall support <<ConfirmOpCodeCanLowCut, Confirm operations>>.
+In this case, the `org.fmi-standard.fmi-ls-bus.WaitForBusNotification` parameter of the Network FMUs shall be set to `true` and Network FMUs can rely on receiving <<ConfirmOpCodeCanLowCut, Confirm operations>>.
+
 The following <<#figure-can-confirmation-with-bus-simulation-fmu>> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.
 
 .Confirmation of transmitted network data via Bus Simulation.
@@ -665,7 +690,7 @@ As soon as an FMU loses arbitration in this way, it shall independently repeat t
 image::can_arbitration.svg[width=70%, align="center"]
 
 Within a <<ConfigurationCanOpCode, Configuration operation>>, the `Arbitration Lost Behavior` argument can be specified.
-Once this option deactivated, the Bus Simulation buffers the frame after losing arbitration and sends it as soon as possible.
+Once this option is deactivated, the Bus Simulation buffers the frame after losing arbitration and sends it as soon as possible.
 In this case it is not necessary for the Network FMU to trigger the respective frame to be sent again and an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall not be returned to the specific Network FMU.
 If the `Arbitration Lost Behavior` is activated, the specified Network FMU is informed by an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> and needs to repeat the corresponding <<TransmitOpCodeCanLowCut, Transmit operation>> itself.
 Arbitration is available in communication cases with Bus Simulation only.
@@ -774,6 +799,6 @@ A Network FMU communicates its current CAN node state via the <<StatusOpCodeCanL
 * The current CAN node state of a Network FMU shall be set to `ERROR_ACTIVE` if the value of REC < 128 and TEC < 128 and communicate via <<StatusOpCodeCanLowCut, Status operation>> to the Bus Simulation.
 * The current CAN node state of a Network FMU shall be set to `BUS_OFF` if the value of TEC > 255 and communicate via <<StatusOpCodeCanLowCut, Status operation>> to the Bus Simulation.
 
-If `org.fmi-standard.fmi-ls-bus.DirectConfirmation` (see <<direct-confirmation-parameter>>) is set to `true`, the <<ConfirmOpCodeCanLowCut, Confirm operation>> cannot be directly used as indicator to set the TEC value and will be incorrect under the rules outlined above.
+If `org.fmi-standard.fmi-ls-bus.WaitForBusNotification` (see <<bus-notification-parameter>>) is set to `false`, the <<ConfirmOpCodeCanLowCut, Confirm operation>> cannot be directly used as indicator to set the TEC value and will be incorrect under the rules outlined above.
+Also <<BusErrorOpCodeCanLowCut, Bus Error operations>> are not available in this scenario, so that the values for TEC and REC automatically remain zero in this case.
 It should be considered to solve the error handling differently in this case or to disable it completely within the specified Network FMU.
-Also `org.fmi-standard.fmi-ls-bus.DirectConfirmation` shall be set to `true` and <<BusErrorOpCodeCanLowCut, Bus Error operations>> are not available in <<DirectCommunication, Direct Communication>> cases, so that the values for TEC and REC automatically remain zero in this case.
