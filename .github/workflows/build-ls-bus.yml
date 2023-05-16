@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: prepare
       run: mkdir build
     - name: build layered standard Network Communication 
@@ -24,7 +24,7 @@ jobs:
     - name: copy images and examples
       run: tar cfC - docs images examples | tar xfC - build
     - name: archive layered standard Network Communication
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: FMI-LS-BUS
         path: build/*
@@ -32,10 +32,10 @@ jobs:
     - name: extract branch name
       id: extract_branch
       shell: bash
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
     - name: deploy
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      uses: peaceiris/actions-gh-pages@v3.7.0-8
+      uses: peaceiris/actions-gh-pages@v3.9.3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: build
