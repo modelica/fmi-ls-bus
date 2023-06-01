@@ -642,9 +642,10 @@ In addition to support lightweight bus simulations and <<DirectCommunication, di
 
 If `org.fmi-standard.fmi-ls-bus.WaitForBusNotification` is set to `false` (default), then Network FMUs shall not rely on receiving <<ConfirmOpCodeCanLowCut, Confirm operations>>.
 In this case, the bus simulation is idealized and happened in a fire-and-forget manner.
+If a specified Network FMU is depending on <<ConfirmOpCodeCanLowCut, Confirm operations>> and `org.fmi-standard.fmi-ls-bus.WaitForBusNotification` is set to `false`, the self confirmation shall be realized internally within the respective Network FMU. 
 
 <<#figure-can-direct-communication>> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
-After that the transmission is directly confirmed by FMU 1 itself.
+After that the transmission is directly confirmed by FMU 1 itself, whereby FMU 1 handles that self confirmation internally.
 
 .Direct Confirmation of transmitted network data.
 [#figure-can-direct-communication]
