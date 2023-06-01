@@ -116,41 +116,6 @@ Remarks:
 * Numbers shall be transmitted with `little-endian` byte order.
 * Since the standard allows to concatenate multiple operations (see <<CommunicationVariable, Tx\Rx Data Variables>>), the <<TotalLengthField, Total Length>> field was introduced to allow the implementation of a generic parser for received operations.
 
-==== NOOP Operation [[NOOP-Operation]]
-A special operation of the Layered Standard Bus Protocol is the `NOOP` operation.
-This operation is independent from the bus type and shall be returned by networked FMUs if no other operations are pending for transmission.
-
-.Detailed description of the NOOP operation.
-[#table-noop-operation]
-[cols="5,4,3,20"]
-|====
-h|Name
-3+|NOOP
-h|Description
-3+|Represents no pending operations.
-h|OP Code [hex]
-3+|0x00
-.3+h|Content
-h|Argument
-h|Length
-h|Description
-
-|OP Code
-|1 byte
-|Contains the OP Code (0x00) of the operation.
-
-|Total Length
-|4 byte
-|Defines the cumulative length of all arguments in bytes.
-For this operation applies: `Total Length = 5`.
-
-h|Behavior
-3+|The specified operation can be produced by Network FMUs and the Bus Simulation.
-Networked FMU shall ignore received NOOP operations.
-FMU Importer can decide not to transmit the NOOP operation to Networked FMUs.
-
-|====
-
 ==== Format Error [[Format-Error-Operation]]
 The Format Error operation is independent from the bus type and shall be used when encountering a syntax or content error of received operations.
 
@@ -222,8 +187,8 @@ The importer will then connect and merge output clock activations, even those of
 Any other reason to be more strict here?
  
 ===== Bus Communication Points [[bus-communication-points]]
-For transferring bus operations from the Tx_Data to the Rx_Data variables, networked FMUs must be synchronous in time.
-This point in time is also referred to as the `Bus Communication Point`.
+For transferring bus operations from the `Tx_Data` to the `Rx_Data` variables, networked FMUs must be synchronous in time.
+This point in time is also referred to as the Bus Communication Point.
 The importer must ensure that networked FMUs hit such points synchronously by calling `fmi3DoStep` with a proper `communicationStepSize` argument.
 To determine the `communicationStepSize` for the first simulation step, the importer gets the Tx clock time in `Initialization Mode` as follows: 
 
@@ -234,7 +199,7 @@ To determine the `communicationStepSize` for the first simulation step, the impo
 Based on the Tx clock intervals received in the `Initialization Mode`, the importer calls `fmi3DoStep` with a determined `communicationStepSize` to reach the next Bus Communication Point.
 After returning from `fmi3DoStep`, the importer has to enter the `Event Mode` by calling `fmi3EnterEventMode`.
 In `Event Mode` the importer activates the Tx and Rx clock by calling `fmi3SetClock`.
-The importer then starts to transfer bus operations from the Tx_Data to the Rx_Data variable (see <<CommunicationVariable>>).
+The importer then starts to transfer bus operations from the `Tx_Data` to the `Rx_Data` variable (see <<CommunicationVariable>>).
 
 To determine the `communicationStepSize` for the next simulation step, the importer gets the Tx clock time as follows: 
 
@@ -246,7 +211,8 @@ In this case the importer remains in `Event Mode` and starts a new iteration.
 If an FMU does not know the next Tx clock time for any reason, `fmi3GetInterval` shall return with `qualifier = fmi3IntervalNotYetKnown`.
 
 ==== Tx\Rx Data Variables [[CommunicationVariable, Communication Variables]]
-The Tx\Rx variables are of type `fmi3Binary` and contains one or more bus operations, as sent or receive by the FMU.
+The Tx\Rx variables are of type `fmi3Binary` and contains multiple bus operations, as sent or receive by the FMU.
+If no bus operations shall be sent by a specified Network FMU at a given Bus Communication Point, the size of the corresponding binary `Tx_Data` variable shall be set to zero.
 The senders can chose how many bus operations are buffered and/or for how long operations are buffered before activating an output clock to trigger the actual sending of these operation.
 This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication.
 
