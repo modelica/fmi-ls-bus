@@ -548,7 +548,7 @@ If required status is not adjusted by a Network FMU the Bus Simulation shall cho
 |ERROR_PASSIVE
 |0x02
 |Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: ERROR PASSIVE.
-This node state is relevant for arbitration, because `ERROR_ACTIVE` and `ERROR_ACTIVE` nodes requires different prioritization.
+This node state is relevant for arbitration, because `ERROR_ACTIVE` and `ERROR_PASSIVE` nodes requires different prioritization.
 See <<CanArbitration>> for further details.
 
 |BUS_OFF
