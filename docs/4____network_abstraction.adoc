@@ -284,7 +284,7 @@ As in the table above the version of a specified bus type is integrated within t
 The MIME type and the associated versioning ensure that only compatible bus types can be connected to each other.
 The version number marks the set of available operations.
 Only the major version is included by the specified MIME type.
-The versioning follows the rules of https://semver.org/[Semantic Versioning 2.0.0].
+The versioning follows the rules of semantic versioning, as defined in <<PW13>>.
 
 === Terminal Definitions
 This section defines terminals for network abstraction or low cut.

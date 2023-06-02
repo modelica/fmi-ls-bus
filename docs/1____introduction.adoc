@@ -39,3 +39,41 @@ Conventions used in this document:
 This layered standard currently only refers to the FMI Co-Simulation (CS).
 At the current time, Scheduled Execution (SE) is not taken into account.
 All explanations in this document are therefore to be understood in the context of FMI Co-Simulation (CS).
+
+== Layered Standard Manifest File
+
+This layered standard defines the required capability flags in the layered standard manifest file.
+<<table-schema-fmi-ls-bus-attributes>> shows the content of `fmi-ls-manifest.xml`.
+
+.`fmiLayeredStandardManifest` attribute details.
+[[table-schema-fmi-ls-bus-attributes]]
+[cols="1,1,1,2",options="header"]
+|====
+|Attribute
+|Namespace
+|Value
+|Description
+
+|`fmi-ls-name`
+| `\http://fmi-standard.org/fmi-ls-manifest`
+| `org.fmi-standard.fmi-ls-bus`
+| Name of the layered standard in reverse domain name notation.
+
+|`fmi-ls-version`
+| `\http://fmi-standard.org/fmi-ls-manifest`
+| `1.0.0`
+| Version of the layered standard. This layered standard uses semantic versioning, as defined in <<PW13>>.
+
+|`fmi-ls-description`
+| `\http://fmi-standard.org/fmi-ls-manifest`
+| `Layered Standard for Bus`
+| String with a brief description of the layered standard that is suitable for display to users.
+
+|====
+
+An example of a manifest file for this layered standard is shown below:
+
+[source, xml]
+----
+include::examples/fmi_ls_bus_manifest_example.xml[]
+----
