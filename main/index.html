@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-2f0af4c5b9bd2a3969a6f158f51a4d49e1dd6e51,</span>
-<span id="revdate">2023-06-01</span>
+<span id="revnumber">version main-004ff4b1b6046f9bcdbcf90955b3e926820ee2d7,</span>
+<span id="revdate">2023-06-02</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -3060,11 +3060,12 @@ In addition to support lightweight bus simulations and <a href="#DirectCommunica
 </div>
 <div class="paragraph">
 <p>If <code>org.fmi-standard.fmi-ls-bus.WaitForBusNotification</code> is set to <code>false</code> (default), then Network FMUs shall not rely on receiving <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a>.
-In this case, the bus simulation is idealized and happened in a fire-and-forget manner.</p>
+In this case, the bus simulation is idealized and happened in a fire-and-forget manner.
+If a specified Network FMU is depending on <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a> and <code>org.fmi-standard.fmi-ls-bus.WaitForBusNotification</code> is set to <code>false</code>, the self confirmation shall be realized internally within the respective Network FMU.</p>
 </div>
 <div class="paragraph">
 <p><a href="#figure-can-direct-communication">Figure 9</a> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
-After that the transmission is directly confirmed by FMU 1 itself.</p>
+After that the transmission is directly confirmed by FMU 1 itself, whereby FMU 1 handles that self confirmation internally.</p>
 </div>
 <div id="figure-can-direct-communication" class="imageblock text-center">
 <div class="content">
