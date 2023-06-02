@@ -1,1 +1,64 @@
-<mxfile host="app.diagrams.net" modified="2023-02-27T16:22:42.216Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50" etag="6OBWI88Pv3sIVZ5rOQ8C" version="20.8.23" type="device"><diagram name="Page-1" id="GN8UAnModPF_gRLHxyBv">5Vnfd5owFP5rfOwOEEF5VGd/7WzdWdf1nL2lEDErEgaxav/6JZAAIaCtw2k7HxS+JDfJd7/c3MQemCzWFwmM55+Jj8KeZfjrHvjYsyzbNtg3BzY5AIxhDgQJ9nPILIFb/IwEKNoFS+yjVKlICQkpjlXQI1GEPKpgMEnISq02I6HaawwDpAG3Hgx19B77dJ6jQzktjl8iHMxlz6YhShZQVhZAOoc+WVUgMO2BSUIIzZ8W6wkKOXeSl7zdeUtpMbAERfQlDTZT6y6ZzlYbDAw4de/i+2v3TFh5guFSTHjKSEsYNPIofkJi6HQj+UjIMvIRN2n2wHg1xxTdxtDjpSsmAIbN6SIUxSlNyCOakJBZ5K2BwT6uy0pmJKJNuD4pOUKUULSuQGKSF4gsEE02rIooBZJwoTjbEe+r0n+mrDOv+E7Wg0IyQWG6ZJU9CGJfQbLVSvJXmKbds+y6nE+d5QLvgGXTVVkeWMdmGWgsj5cpA25ms85V7DgANKlY4B3w2++fGr99jV+NVhT5Ix5z2ZsXcml7KpMl7Q3qLNhr57uVV+QrUVxntcKa3UCaxBIUwizsKdtIA5Oih68Es5G0hp6BXXNGSpaJh0SraqyuGeqDHYYoTAJENUOZY4tp7+9ru2tft+8Ep+5T26i5wtzXpzVDDvi3PnVe5dOIRGg/h6ZsHlSXRgaf41CaY32Jt6070omowKqH431VAJzjqmBwWBUUKca7VAEY1JzX31MFlrNDTgdWwbBBBU7IyBrHihac30t+PMm26rM0O5yNWAXTiNeZu2Q5ewrEbyjrZ4cyKYyyotzNK9BfdPh9yghg3DlwwbM2MQiDnTvlUBg/+WjUETI4LrHaCmA5Gt2WA4plMWPKrUEwxEHEFc8UjBg+5hkfZsfJkShYYN/n3TQmnXp+JA7EZkdZO+hbqu4sEQ8q68dpWD/1INVZUil1f2gl7m/oG0oRfR9iajuIdyyy+tHFkdH3aCLTbzmk53z89BJ1uDtUlsYwarTzAL3HIPPEmQiG3ByOMMUwbNZbc0Qz+Uo1+KVB3uNDsiMEZg0KeeYDVAddmqhUzAh560ru6CbJ6puqkK2hJmR3S7bRvZD1m6Q3I+Sw0OWQUxP5O5WstNiq5LeoW+WSrmPdsvWg6Naxj6xb/W5u26njXd8ngIH7Yai4x65vfC8+S+qmDndPdH1Fr26cn5dfhlb86dlePqS/fjTcbJ9Y9naVByj8zFxGov8tjdNCRsPCaD8r2GoaZxvOodI49lr+D5Zrs/wzEUz/AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2023-06-02T13:04:18.673Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.57" etag="LnW9Ms_LzpROZCvcMvll" version="21.3.7" type="device">
+  <diagram name="Page-1" id="GN8UAnModPF_gRLHxyBv">
+    <mxGraphModel dx="455" dy="256" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="yE2UrEfwyi30aE9UpWJ9-1" value="Error Active" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#000099;fontColor=#000099;" parent="1" vertex="1">
+          <mxGeometry x="320" y="560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yE2UrEfwyi30aE9UpWJ9-2" value="Error Passive" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#990000;fontColor=#990000;" parent="1" vertex="1">
+          <mxGeometry x="190" y="720" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yE2UrEfwyi30aE9UpWJ9-3" value="Bus Off" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#006633;fontColor=#006633;" parent="1" vertex="1">
+          <mxGeometry x="440" y="720" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yE2UrEfwyi30aE9UpWJ9-4" value="" style="endArrow=classic;html=1;rounded=0;fontColor=#006633;strokeColor=#006633;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="320" y="750" as="sourcePoint" />
+            <mxPoint x="430" y="750" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yE2UrEfwyi30aE9UpWJ9-5" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#000099;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="500" y="710" as="sourcePoint" />
+            <mxPoint x="400" y="630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yE2UrEfwyi30aE9UpWJ9-6" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#000099;startArrow=classic;startFill=1;endFill=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="240" y="710" as="sourcePoint" />
+            <mxPoint x="360" y="630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yE2UrEfwyi30aE9UpWJ9-7" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#990000;startArrow=classic;startFill=1;endFill=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="370" y="640" as="sourcePoint" />
+            <mxPoint x="260" y="710" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yE2UrEfwyi30aE9UpWJ9-8" value="&lt;p style=&quot;font-size: 10px;&quot;&gt;&lt;font color=&quot;#006633&quot; style=&quot;font-size: 10px;&quot;&gt;TEC &amp;gt; 255&lt;/font&gt;&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="342" y="727" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="yE2UrEfwyi30aE9UpWJ9-10" value="&lt;p style=&quot;font-size: 10px;&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Reset and&lt;br&gt;128 Transmit or Bus Error Operations received&lt;/font&gt;&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000099;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="450" y="636" width="120" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="yE2UrEfwyi30aE9UpWJ9-11" value="&lt;div style=&quot;font-size: 9px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;REC &amp;gt; 127 or&lt;br&gt;TEC &amp;gt; 127&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000099;fontSize=9;" parent="1" vertex="1">
+          <mxGeometry x="241" y="628" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="yE2UrEfwyi30aE9UpWJ9-12" value="&lt;div style=&quot;font-size: 9px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;REC &amp;lt; 128 and&lt;br&gt;TEC &amp;lt; 128&lt;/span&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#990000;fontSize=9;" parent="1" vertex="1">
+          <mxGeometry x="299" y="665" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="yE2UrEfwyi30aE9UpWJ9-13" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#000099;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="379.8" y="530" as="sourcePoint" />
+            <mxPoint x="379.8" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JItIO6ZHN82pKz5ubsjV-2" value="&lt;p style=&quot;font-size: 10px;&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Initialization&lt;/font&gt;&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000099;fontSize=10;" parent="1" vertex="1">
+          <mxGeometry x="350" y="506" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
