@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-004ff4b1b6046f9bcdbcf90955b3e926820ee2d7,</span>
+<span id="revnumber">version main-3267bad110889735f41b200776a132465595fb9b,</span>
 <span id="revdate">2023-06-02</span>
 </div>
 <div id="toc" class="toc2">
@@ -2487,7 +2487,7 @@ For this operation applies: <code>Total Length = 9</code>.</p></td>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
-If the structural parameter <code>org.fmi-standard.fmi-ls-bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 4.6.1.3.1</a>) is set to <code>false</code>, the Network FMU does not rely on receiving Confirm operations.
+If the structural parameter <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 4.6.1.3.1</a>) is set to <code>false</code>, the Network FMU does not rely on receiving Confirm operations.
 In this case, Bus Simulations should not send Confirm operations to the Network FMU.
 If all Network FMUs, except the <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> initiating Network FMU, communicated the <a href="#StatusOpCodeCanLowCut">status</a> <code>BUS_OFF</code> the Bus Simulation shall not provide a confirmation.</p></td>
 </tr>
@@ -2556,7 +2556,7 @@ For this operation applies: <code>Total Length = 9</code>.</p></td>
 In such case, the Bus Simulation has to decide, which <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> should be proceed first.
 Depending on the configuration (see the <code>Arbitration Lost Behavior</code> argument of the <a href="#ConfigurationCanOpCode">Configuration operation</a>), the deferred <a href="#TransmitOpCodeCanLowCut">Transmit operations</a> shall either be buffered or discarded and sending the Arbitration Lost operation back to the respective Network FMUs.
 A Network FMU receiving the Arbitration Lost operation can decide to provide the <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> again or e.g. to raise an internal transmit timeout failure after a while.
-If the structural parameter <code>org.fmi-standard.fmi-ls-bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 4.6.1.3.1</a>) is set to <code>false</code>, the Network FMU does not rely on receiving Arbitration Lost operations.
+If the structural parameter <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 4.6.1.3.1</a>) is set to <code>false</code>, the Network FMU does not rely on receiving Arbitration Lost operations.
 In this case, Bus Simulations should not send Arbitration Lost operations to the Network FMU.</p></td>
 </tr>
 </tbody>
@@ -2639,7 +2639,7 @@ To determine the CAN node state properly, Network FMUs need the information abou
 If a Network FMU is sending, the argument <code>Is Sender</code> shall be set.
 If a Network FMU is detecting the error first, the argument <code>Detected</code> shall be set.
 The arguments <code>Detected</code> and <code>Is Sender</code> must only be set once per simulated error.
-If the structural parameter <code>org.fmi-standard.fmi-ls-bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 4.6.1.3.1</a>) is set to <code>false</code>, the Network FMU does not rely on receiving Bus Error operations.
+If the structural parameter <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 4.6.1.3.1</a>) is set to <code>false</code>, the Network FMU does not rely on receiving Bus Error operations.
 In this case, Bus Simulations should not send Bus Error operations to the Network FMU.</p></td>
 </tr>
 </tbody>
@@ -3001,13 +3001,13 @@ A Bus Simulation can simulate this effect by sending bus notifications in terms 
 However in cases where Network FMUs are connected directly or if a Bus Simulation does not simulate such effects, a Network FMU would not receive these operations.</p>
 </div>
 <div class="paragraph">
-<p>In order to inform Network FMUs not to rely on bus notifications, the importer can set the <code>org.fmi-standard.fmi-ls-bus.WaitForBusNotification</code> parameter to <code>false</code>, which also shall be the default value.
-Only if the Bus Simulation either supports <a href="#ConfirmOpCodeCanLowCut">Confirm</a>-, <a href="#BusErrorOpCodeCanLowCut">Bus Error</a>- or <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost operations</a>, <code>org.fmi-standard.fmi-ls-bus.WaitForBusNotification</code> shall be set to <code>true</code>.</p>
+<p>In order to inform Network FMUs not to rely on bus notifications, the importer can set the <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> parameter to <code>false</code>, which also shall be the default value.
+Only if the Bus Simulation either supports <a href="#ConfirmOpCodeCanLowCut">Confirm</a>-, <a href="#BusErrorOpCodeCanLowCut">Bus Error</a>- or <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost operations</a>, <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> shall be set to <code>true</code>.</p>
 </div>
 <div id="figure-fmu-bus-notifications-parameter" class="listingblock">
 <div class="title">FMU parameter for the configuration of bus notifications.</div>
 <div class="content">
-<pre>    org.fmi-standard.fmi-ls-bus.WaitForBusNotification
+<pre>    org.fmi_standard.fmi_ls_bus.WaitForBusNotification
         Description:  "Specifies whether the respective Network FMU relies on bus notifications."
         Type:         Boolean
         Causality:    structuralParameter
@@ -3056,12 +3056,12 @@ If the buffering is not adjusted by a specified Network FMU the Bus Simulation s
 With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g. Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
 In the real world, flawless transmitted CAN frames will be acknowledged by at least one receiver CAN node.
 To simulate this behavior, the <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a> were introduced.
-In addition to support lightweight bus simulations and <a href="#DirectCommunication">direct connected Network FMUs</a>, the structural parameter <code>org.fmi-standard.fmi-ls-bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 4.6.1.3.1</a>) has been defined.</p>
+In addition to support lightweight bus simulations and <a href="#DirectCommunication">direct connected Network FMUs</a>, the structural parameter <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 4.6.1.3.1</a>) has been defined.</p>
 </div>
 <div class="paragraph">
-<p>If <code>org.fmi-standard.fmi-ls-bus.WaitForBusNotification</code> is set to <code>false</code> (default), then Network FMUs shall not rely on receiving <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a>.
+<p>If <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> is set to <code>false</code> (default), then Network FMUs shall not rely on receiving <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a>.
 In this case, the bus simulation is idealized and happened in a fire-and-forget manner.
-If a specified Network FMU is depending on <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a> and <code>org.fmi-standard.fmi-ls-bus.WaitForBusNotification</code> is set to <code>false</code>, the self confirmation shall be realized internally within the respective Network FMU.</p>
+If a specified Network FMU is depending on <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a> and <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> is set to <code>false</code>, the self confirmation shall be realized internally within the respective Network FMU.</p>
 </div>
 <div class="paragraph">
 <p><a href="#figure-can-direct-communication">Figure 9</a> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
@@ -3075,7 +3075,7 @@ After that the transmission is directly confirmed by FMU 1 itself, whereby FMU 1
 </div>
 <div class="paragraph">
 <p>For a detailed simulation, Bus Simulations shall support <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a>.
-In this case, the <code>org.fmi-standard.fmi-ls-bus.WaitForBusNotification</code> parameter of the Network FMUs shall be set to <code>true</code> and Network FMUs can rely on receiving <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a>.</p>
+In this case, the <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> parameter of the Network FMUs shall be set to <code>true</code> and Network FMUs can rely on receiving <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a>.</p>
 </div>
 <div class="paragraph">
 <p>The following <a href="#figure-can-confirmation-with-bus-simulation-fmu">Figure 10</a> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.</p>
@@ -3296,7 +3296,7 @@ If the REC was 0, it stays 0, and if it was greater than 127, then it will be se
 </ul>
 </div>
 <div class="paragraph">
-<p>If <code>org.fmi-standard.fmi-ls-bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 4.6.1.3.1</a>) is set to <code>false</code>, the <a href="#ConfirmOpCodeCanLowCut">Confirm operation</a> cannot be directly used as indicator to set the TEC value and will be incorrect under the rules outlined above.
+<p>If <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 4.6.1.3.1</a>) is set to <code>false</code>, the <a href="#ConfirmOpCodeCanLowCut">Confirm operation</a> cannot be directly used as indicator to set the TEC value and will be incorrect under the rules outlined above.
 Also <a href="#BusErrorOpCodeCanLowCut">Bus Error operations</a> are not available in this scenario, so that the values for TEC and REC automatically remain zero in this case.
 It should be considered to solve the error handling differently in this case or to disable it completely within the specified Network FMU.</p>
 </div>
