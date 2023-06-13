@@ -38,7 +38,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		<xs:complexType>
 			<xs:attribute ref="fmi-ls:fmi-ls-name" use="required" fixed="org.fmi-standard.fmi-ls-bus"/>
 			<xs:attribute ref="fmi-ls:fmi-ls-version" use="required"/>
-			<xs:attribute ref="fmi-ls:fmi-ls-description" use="required" fixed="The Layered Standard for Network Communication allows the simulation of bus communication by using input and output variables of an FMU."/>
+			<xs:attribute ref="fmi-ls:fmi-ls-description" use="required" fixed="Layered Standard for the simulation of bus communication on a signal or network abstraction based level."/>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>
