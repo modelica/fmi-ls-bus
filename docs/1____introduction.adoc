@@ -66,7 +66,7 @@ This layered standard defines the required capability flags in the layered stand
 
 |`fmi-ls-description`
 | `\http://fmi-standard.org/fmi-ls-manifest`
-| `Layered Standard for Bus`
+| `Layered Standard for the simulation of bus communication on a signal or network abstraction based level.`
 | String with a brief description of the layered standard that is suitable for display to users.
 
 |====
@@ -77,3 +77,5 @@ An example of a manifest file for this layered standard is shown below:
 ----
 include::examples/fmi_ls_bus_manifest_example.xml[]
 ----
+
+The manifest file shall be stored inside the FMU at the following path: `/extra/org.fmi-standard.fmi-ls-bus/fmi-ls-manifest.xml`.
