@@ -3,22 +3,22 @@ This chapter describes the <<Overview-Layered-Standard-Bus-Protocol, Layered Sta
 The various CAN standards CAN, CAN FD and CAN XL are considered together, because they are very similar and can also be combined in certain scenarios.
 
 ===== Overview
-To simulate CAN, CAN FD and CAN XL busses, CAN specific operations are specified based on the <<Overview-Layered-Standard-Bus-Protocol, Layered Standard Bus Protocol>>.
+To simulate CAN, CAN FD and CAN XL buses, CAN-specific operations are specified based on the <<Overview-Layered-Standard-Bus-Protocol, Layered Standard Bus Protocol>>.
 Overall, the following groups of operations exists:
 
 * Transmit: This group of operations is used to simulate a frame transmission.
 There are three specializations of this operation, one each for CAN, CAN FD and CAN XL frames.
-* Confirm: An acknowledgment of transmitted CAN frames is define by the CAN standard.
+* Confirm: An acknowledgment of transmitted CAN frames is defined by the CAN standard.
 The confirm operation is used to simulate this behavior.
 * Error: This group of operations is used for protocol format errors and to simulate bus failures.
 For example, the failure of a transmission can be indicated.
 * Arbitration Lost: The operation is used by Bus Simulations to inform Network FMUs that a frame could not be transmitted immediately.
 * Configuration: The configuration operation enables the configuration of bus-specific parameters and options that are required to simulate the bus behavior properly.
-For example, it allows specifying the baud rate or influencing buffer behavior.
+For example, it allows the specification of the baud rate or influencing the buffer behavior.
 * Status: The Status operation is used by Networked FMUs to inform Bus Simulations about the internal state (Active/Passive/Bus Off) which concerns the reaction on bus errors.
-* Wakeup: CAN supports wake-up and sleep scenarios.
-Normally there are two ways to wake up from sleep mode: a local wake up on a specified wake-up pin, or a CAN wake-up on the CAN bus via a CAN specific wake-up pulse.
-This operation is used to simulate triggering a wake-up from bus side.
+* Wake up: CAN supports wake up and sleep scenarios.
+Normally there are two ways to wake up from sleep mode: a local wake up on a specified wake-up pin, or a wake up on the CAN bus via a CAN specific wake-up pulse.
+This operation is used to simulate triggering a wake up from bus side.
 
 The following table gives a detailed overview of the available operations.
 It shows all operations and the arguments they contain.
@@ -166,23 +166,23 @@ There are three types of transmit operations for transmission of CAN, CAN FD and
 [cols="5,4,3,20"]
 |====
 h|Name 3+| CAN Transmit
-h|Description 3+| Initiate the transmission of CAN frames.
+h|Description 3+| Initiates the transmission of CAN frames.
 h|OP Code [hex] 3+| 0x10
 .9+h|Content h|Argument h|Length h|Description
 | OP Code | 1 byte | Contains the OP Code (0x10) of the operation.
 | Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
-For this operation applies: `Total Length = 12 + Data Length`.
+The following applies for this operation: `Total Length = 12 + Data Length`.
 | ID | 4 byte | The specified ID of the CAN message.
 | Ide | 1 bit | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
-| Rtr | 1 bit | Specifies whether the given frame represents an Remote Transmission Request frame.
+| Rtr | 1 bit | Specifies whether the given frame represents a Remote Transmission Request frame.
 | - | 6 bit | Reserved for future usage.
 | Data Length | 2 byte | Specifies the length of the Data argument in bytes.
 | Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN Format.
 h|Behavior
 3+|The CAN Transmit operation shall be provided by Network FMUs to initiate the transmission of a CAN frame.
-In case of direct connected Network FMUs (see <<DirectCommunication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+In case of directly connected Network FMUs (see <<DirectCommunication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<Composition-with-dedicated-Bus-Simulation-FMU>> and <<BusFeatureIntegratedFmuSimulator>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might response with a <<ConfirmOpCodeCanLowCut, Confirm>>, <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost>>, <<BusErrorOpCodeCanLowCut, Bus Error>> or <<FormatErrorOpCodeCanLowCut, Format Error>> operation.
+Depending on the simulation details, the Bus Simulation might respond with a <<ConfirmOpCodeCanLowCut, Confirm>>, <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost>>, <<BusErrorOpCodeCanLowCut, Bus Error>> or <<FormatErrorOpCodeCanLowCut, Format Error>> operation.
 
 |====
 
@@ -196,8 +196,8 @@ h|OP Code [hex] 3+| 0x11
 .10+h|Content h|Argument h|Length h|Description
 | OP Code | 1 byte | Contains the OP Code (0x11) of the operation.
 | Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
-For this operation applies: `Total Length = 12 + Data Length`.
-| ID | 4 byte | The specified ID of the CAN message.
+The following applies for this operation: `Total Length = 12 + Data Length`.
+| ID | 4 byte | The specifies ID of the CAN message.
 | Ide | 1 bit | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
 | Brs | 1 bit | Defines the Bit Rate Switch.
 | Esi | 1 bit | Error State indicator.
@@ -206,7 +206,7 @@ For this operation applies: `Total Length = 12 + Data Length`.
 | Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN FD Format.
 h|Behavior
 3+|The CAN FD Transmit operation shall be provided by Network FMUs to initiate the transmission of a CAN FD frame.
-In case of direct connected Network FMUs (see <<DirectCommunication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+In case of directly connected Network FMUs (see <<DirectCommunication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<Composition-with-dedicated-Bus-Simulation-FMU>> and <<BusFeatureIntegratedFmuSimulator>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might response with a <<ConfirmOpCodeCanLowCut, Confirm>>, <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost>>, <<BusErrorOpCodeCanLowCut, Bus Error>> or <<FormatErrorOpCodeCanLowCut, Format Error>> operation.
 
@@ -222,7 +222,7 @@ h|OP Code [hex] 3+| 0x12
 .12+h|Content h|Argument h|Length h|Description 
 | OP Code | 1 byte | Contains the OP Code (0x12) of the operation.
 | Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
-For this operation applies: `Total Length = 18 + Data Length`.
+The following applies for this operation: `Total Length = 18 + Data Length`.
 | ID | 4 byte | The specified ID of the CAN message.
 | Ide | 1 bit | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
 | Sec | 1 bit | Simple Extended Content
@@ -234,7 +234,7 @@ For this operation applies: `Total Length = 18 + Data Length`.
 | Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN XL Format.
 h|Behavior
 3+|The CAN XL Transmit operation shall be provided by Network FMUs to initiate the transmission of a CAN XL frame.
-In case of direct connected Network FMUs (see <<DirectCommunication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+In case of directly connected Network FMUs (see <<DirectCommunication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<Composition-with-dedicated-Bus-Simulation-FMU>> and <<BusFeatureIntegratedFmuSimulator>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might response with a <<ConfirmOpCodeCanLowCut, Confirm>>, <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost>>, <<BusErrorOpCodeCanLowCut, Bus Error>> or <<FormatErrorOpCodeCanLowCut, Format Error>> operation.
 
@@ -250,7 +250,7 @@ The `Confirm operation` is used to signal the successful reception of a transmit
 h|Name
 3+|Confirm
 h|Description
-3+|Signals a successful reception of a transmitted CAN, CAN FD and CAN XL frame to simulate a CAN acknowledgment behavior.
+3+|Signals successful receipt of a transmitted CAN, CAN FD and CAN XL frame to simulate a CAN acknowledgment behavior.
 h|OP Code [hex]
 3+|0x20
 .4+h|Content h|Argument h|Length h|Description
@@ -261,7 +261,7 @@ h|OP Code [hex]
 |Total Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-For this operation applies: `Total Length = 9`.
+The following applies for this operation: `Total Length = 9`.
 
 |ID
 |4 byte
@@ -271,7 +271,7 @@ h|Behavior
 3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
 If the structural parameter `org.fmi_standard.fmi_ls_bus.WaitForBusNotification` (see <<bus-notification-parameter>>) is set to `false`, the Network FMU does not rely on receiving Confirm operations.
 In this case, Bus Simulations should not send Confirm operations to the Network FMU.
-If all Network FMUs, except the <<TransmitOpCodeCanLowCut, Transmit operation>> initiating Network FMU, communicated the <<StatusOpCodeCanLowCut, status>> `BUS_OFF` the Bus Simulation shall not provide a confirmation.
+If all Network FMUs, except the <<TransmitOpCodeCanLowCut, Transmit operation>> initiating Network FMU, communicate the <<StatusOpCodeCanLowCut, status>> `BUS_OFF`, the Bus Simulation shall not provide a confirmation.
 
 |====
 
@@ -280,7 +280,7 @@ Represents a format error that indicates a syntax or content error of receiving 
 See <<Format-Error-Operation, Format Error>> for definition.
 
 ====== Arbitration Lost [[ArbitrationLostOpCodeCanLowCut]]
-The Arbitration Lost operation defines a feedback from a Bus Simulation to a Network FMU that a <<TransmitOpCodeCanLowCut, Transmit operation>> could not be sent immediately due to concurrent transmit request.
+The Arbitration Lost operation defines a feedback message from a Bus Simulation to a Network FMU that a <<TransmitOpCodeCanLowCut, Transmit operation>> could not be sent immediately due to a concurrent transmit request.
 
 .Detailed description of the Arbitration Lost operation.
 [#table-can-arbitration-lost-error-operation]
@@ -301,17 +301,17 @@ h|OP Code [hex]
 |Total Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-For this operation applies: `Total Length = 9`.
+The following applies for this operation: `Total Length = 9`.
 
 |ID
 |4 byte
 |The ID of the CAN message which which could not be transmitted immediately, because it loses arbitration.
 
 h|Behavior
-3+|While simulation, several <<TransmitOpCodeCanLowCut, Transmit operation>> could be sent by Network FMUs to a Bus Simulation at the same time.
-In such case, the Bus Simulation has to decide, which <<TransmitOpCodeCanLowCut, Transmit operation>> should be proceed first.
+3+|During simulation, several <<TransmitOpCodeCanLowCut, Transmit operations>> can be sent by Network FMUs to a Bus Simulation at the same time.
+In such case, the Bus Simulation has to decide which <<TransmitOpCodeCanLowCut, Transmit operation>> should proceed first.
 Depending on the configuration (see the `Arbitration Lost Behavior` argument of the <<ConfigurationCanOpCode, Configuration operation>>), the deferred <<TransmitOpCodeCanLowCut, Transmit operations>> shall either be buffered or discarded and sending the Arbitration Lost operation back to the respective Network FMUs.
-A Network FMU receiving the Arbitration Lost operation can decide to provide the <<TransmitOpCodeCanLowCut, Transmit operation>> again or e.g. to raise an internal transmit timeout failure after a while.
+A Network FMU receiving the Arbitration Lost operation can decide to provide the <<TransmitOpCodeCanLowCut, Transmit operation>> again or e.g., to raise an internal transmit timeout failure after a while.
 If the structural parameter `org.fmi_standard.fmi_ls_bus.WaitForBusNotification` (see <<bus-notification-parameter>>) is set to `false`, the Network FMU does not rely on receiving Arbitration Lost operations.
 In this case, Bus Simulations should not send Arbitration Lost operations to the Network FMU.
 
@@ -338,11 +338,11 @@ h|OP Code [hex]
 |Total Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-For this operation applies: `Total Length = 10`.
+The following applies for this operation: `Total Length = 10`.
 
 |ID
 |4 byte
-|The ID of the CAN message that has been transmitted while the error happened.
+|The ID of the CAN message that was transmitted while the error happened.
 
 |Error Code
 |1 byte
@@ -364,7 +364,7 @@ h|Behavior
 3+|While transmitting CAN frames, various kinds of bus error may happen.
 A Bus Simulation can simulate such errors by providing Bus Error operations to the Network FMUs.
 Based on consumed Bus Error operations, Network FMUs shall maintain an internal CAN node state (see <<CanErrorHandling>>).
-To determine the CAN node state properly, Network FMUs need the information about the their role at the time while the simulated error happened.
+To determine the CAN node state properly, Network FMUs need the information about their role at the time when the simulated error happened.
 If a Network FMU is sending, the argument `Is Sender` shall be set.
 If a Network FMU is detecting the error first, the argument `Detected` shall be set.
 The arguments `Detected` and `Is Sender` must only be set once per simulated error.
@@ -383,8 +383,8 @@ h|State h|Error Code h|Description
 
 |BIT_ERROR
 |0x01
-|Within the CAN standard the sender also receives transmitted data for comparison.
-If the sent and received bits are not identical this failure results in a Bit Error.
+|Within the CAN standard, the sender also receives transmitted data for comparison.
+If the sent and received bits are not identical, this failure results in a Bit Error.
 
 |BIT_STUFFING_ERROR
 |0x02
@@ -396,7 +396,7 @@ If the sent and received bits are not identical this failure results in a Bit Er
 
 |CRC_ERROR
 |0x04
-|Occurs when the data of a frame and the related checksum not harmonize.
+|Occurs when the data of a frame and the related checksum do not harmonize.
 
 |ACK_ERROR
 |0x05
@@ -405,13 +405,13 @@ If the sent and received bits are not identical this failure results in a Bit Er
 |BROKEN_ERROR_FRAME
 |0x06
 |Represents an invalid transmission of a CAN Error frame.
-Within CAN an Error frame is transmitted by any unit on detecting a bus error.
+Within CAN, an Error frame is transmitted by any unit on detection of a bus error.
 
 |====
 
 ====== Configuration [[ConfigurationCanOpCode]]
 The `Configuration operation` is used by Network FMUs to send simulation specific options like baud rate settings to Bus Simulations.
-The following information are included within this operation: 
+The following information is included within this operation: 
 
 .Detailed description of the Configuration operation.
 [#table-can-configuration-operation]
@@ -421,7 +421,7 @@ h|Name
 5+|Configuration
 h|Description
 5+|Represents an operation for the configuration of a Bus Simulation.
-In detail the configuration of a CAN, CAN FD and CAN XL baud rate is possible.
+In detail, the configuration of a CAN, CAN FD and CAN XL baud rate is possible.
 Also the configuration of further options, like buffer handling, is supported by this operation.
 h|OP Code [hex]
 5+|0x40
@@ -433,12 +433,12 @@ h|OP Code [hex]
 3+|Total Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-For this operation applies: `Total Length = 6 + Length of parameter arguments in bytes`.
+The following applies for this operation: `Total Length = 6 + Length of parameter arguments in bytes`.
 
 3+|Parameter Type
 |1 byte
 |Defines the current configuration parameter.
-Note, only one parameter can be set per `Configuration operation`.
+Note that only one parameter can be set per `Configuration operation`.
 
 .6+h|
 4+h|Parameters
@@ -464,7 +464,7 @@ The required unit for the baudrate value is bit/s.
 .2+|OPTIONS
 |Arbitration Lost Behavior
 |1 bit
-|This parameter defines, how a Bus Simulation shall behave in cases of an arbitration lost scenario.
+|This parameter defines how a Bus Simulation shall behave in cases of an arbitration lost scenario.
 If the option is not set, <<TransmitOpCodeCanLowCut, Transmit operations>> shall be buffered by the Bus Simulation and no <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall be sent.
 Otherwise, the <<TransmitOpCodeCanLowCut, Transmit operation>> shall be discarded and an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall be sent to the Network FMU (see <<CanArbitration>>).
 The parameter value is defined as `Deactivated = 0` and `Activated = 1`.
@@ -475,10 +475,10 @@ The parameter value is defined as `Deactivated = 0` and `Activated = 1`.
 h|Behavior
 5+|The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
 The operation shall not be routed to other Network FMUs by the Bus Simulation.
-A Network FMU shall ignored this operation on consumer side.
+A Network FMU shall ignore this operation on the consumer side.
 Configuration operations can be produced multiple times during the runtime of a Network FMU.
 In context of CAN FD, also a CAN baud rate should be configured by using `Parameter Type = CAN_BAUDRATE`.
-If configuration parameters are not adjusted by a Network FMU the Bus Simulation shall choose a default behavior by itself.
+If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.
 |====
 
 The following configuration parameters are defined:
@@ -497,7 +497,7 @@ h|Parameter h|Value h|Description
 |====
 
 ====== Status [[StatusOpCodeCanLowCut]]
-By using the `Status operation` a Network FMU can communicate the current CAN node state to the Bus Simulation.
+By using the `Status operation`, a Network FMU can communicate the current CAN node state to the Bus Simulation.
 The following information is included within this operation: 
 
 .Detailed description of the Status operation.
@@ -518,21 +518,21 @@ h|OP Code [hex]
 |Total Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-For this operation applies: `Total Length = 6`.
+The following applies for this operation: `Total Length = 6`.
 
 |Status
 |1 byte
-|The specified status code, basing on <<table-can-status-values, the table below>>.
+|The specified status code, based on <<table-can-status-values, the table below>>.
 
 h|Behavior
 3+|The specified operation shall be produced by Network FMUs and consumed by the Bus Simulation.
 The operation shall not be routed to other Network FMUs by the Bus Simulation.
-A Network FMU shall ignore this operation on consumer side.
+A Network FMU shall ignore this operation on the consumer side.
 A Network FMU shall report its status to the Bus Simulation after it changes.
 
 |====
 
-The following status values are allowed to use: 
+The following status values can be used:
 
 .Overview of the available status values.
 [#table-can-status-values]
@@ -543,7 +543,7 @@ h|Kind h|Value h|Description
 |ERROR_ACTIVE
 |0x01
 |Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: ERROR ACTIVE.
-If required status is not adjusted by a Network FMU the Bus Simulation shall choose `ERROR_ACTIVE` by itself for a specified Network FMU.
+If required status is not adjusted by a Network FMU, the Bus Simulation shall choose `ERROR_ACTIVE` by itself for a specified Network FMU.
 
 |ERROR_PASSIVE
 |0x02
@@ -554,13 +554,13 @@ See <<CanArbitration>> for further details.
 |BUS_OFF
 |0x03
 |Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: BUS OFF.
-If a Network FMU communicate the status `BUS_OFF` to the Bus Simulation the specified Network FMU shall not get any new <<TransmitOpCodeCanLowCut, Transmission operations>> from the Bus Simulation.
-If all Network FMUs, except the <<TransmitOpCodeCanLowCut, Transmit operation>> initiating Network FMU, communicated the status `BUS_OFF` the Bus Simulation shall not provide a <<ConfirmOpCodeCanLowCut, confirmation>>.
+If a Network FMU communicates the status `BUS_OFF` to the Bus Simulation, the specified Network FMU shall not get any new <<TransmitOpCodeCanLowCut, Transmission operations>> from the Bus Simulation.
+If all Network FMUs, except the <<TransmitOpCodeCanLowCut, Transmit operation>> initiating Network FMU, communicate the status `BUS_OFF`, the Bus Simulation shall not provide a <<ConfirmOpCodeCanLowCut, confirmation>>.
 
 |====
 
-====== Wake-up [[WakeupCanOpCode]]
-By using the `Wakeup operation` the underlying Bus Simulation can trigger a bus-specific wake up.
+====== Wake Up [[WakeupCanOpCode]]
+By using the `Wakeup operation`, the underlying Bus Simulation can trigger a bus-specific wake up.
 
 .Detailed description of the Wakeup operation.
 [#table-can-wakeup-operation]
@@ -580,22 +580,22 @@ h|OP Code [hex]
 |Total Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-For this operation applies: `Total Length = 5`.
+The following applies for this operation: `Total Length = 5`.
 
 h|Behavior
-3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the wake-up initiator, of the bus by using the Bus Simulation.
-If a Network FMU does not support wake-up this operation can be ignored on consumer side.
+3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the wake-up initiator, of the bus using the Bus Simulation.
+If a Network FMU does not support wake up, this operation can be ignored on the consumer side.
 
 |====
 
 ===== Network Parameters [[can-network-parameters]]
 Using structural parameters, FMUs can be parameterized according to importer specifications.
-This chapter specifies the structural parameters that each CAN specific FMU shall provide.
+This chapter specifies the structural parameters that each CAN-specific FMU shall provide.
 
 ====== Bus Notification Parameter [[bus-notification-parameter]]
 For a detailed simulation, the CAN bus behavior regarding acknowledgment, bus errors and arbitration losses must be considered.
 A Bus Simulation can simulate this effect by sending bus notifications in terms of <<ConfirmOpCodeCanLowCut, Confirm>>-, <<BusErrorOpCodeCanLowCut, Bus Error>>- and <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operations>> to the Network FMUs.
-However in cases where Network FMUs are connected directly or if a Bus Simulation does not simulate such effects, a Network FMU would not receive these operations.
+However, in cases where Network FMUs are connected directly or if a Bus Simulation does not simulate such effects, a Network FMU shall not receive these operations.
 
 In order to inform Network FMUs not to rely on bus notifications, the importer can set the `org.fmi_standard.fmi_ls_bus.WaitForBusNotification` parameter to `false`, which also shall be the default value.
 Only if the Bus Simulation either supports <<ConfirmOpCodeCanLowCut, Confirm>>-, <<BusErrorOpCodeCanLowCut, Bus Error>>- or <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operations>>, `org.fmi_standard.fmi_ls_bus.WaitForBusNotification` shall be set to `true`.
@@ -617,8 +617,8 @@ A Bus Simulation (FMU) does not require this structural parameter.
 ===== Configuration of Bus Simulation
 The configuration of the Bus Simulation is done by the Network FMUs itself.
 For this purpose, the <<ConfigurationCanOpCode, Configuration operation>> provides several configuration parameters.
-<<ConfigurationCanOpCode, Configuration operations>> may be produced multiple times during the runtime of a Network FMU.
-Because the Bus Simulation shall choose a default behavior, it may be useful in several scenarios that Network FMUs finish configuration before the production of <<TransmitOpCodeCanLowCut, Transmit operations>>.
+<<ConfigurationCanOpCode, Configuration operations>> can be produced multiple times during the runtime of a Network FMU.
+Because the Bus Simulation shall choose a default behavior, it might be useful in several scenarios that Network FMUs finish configuration before the production of <<TransmitOpCodeCanLowCut, Transmit operations>>.
 
 ====== Baudrate Handling
 In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation about the specified baud rate from a Network FMU.
@@ -626,26 +626,26 @@ This baud rate information can be configured by using `CAN_BAUDRATE`, `CAN_FD_BA
 In a CAN FD scenario, both the configuration for `CAN_BAUDRATE` and for `CAN_FD_BAUDRATE` shall be carried out if the CAN FD bit rate switch feature is used.
 Otherwise the configuration of `CAN_BAUDRATE` is sufficient for CAN FD.
 The Bus Simulation can derive the required CAN, CAN FD or CAN XL controller type from the baud rate configurations a Network FMU carried out.
-If the baud rate information is not adjusted by a specified Network FMU the Bus Simulation shall choose a default behavior by itself.
+If the baud rate information is not adjusted by a specified Network FMU, the Bus Simulation shall choose a default behavior by itself.
 
 ====== Buffer Handling
-By using the `OPTIONS` configuration kind of a <<ConfigurationCanOpCode, Configuration operation>> the buffer handling within the Bus Simulation can be adjusted.
+By using the `OPTIONS` configuration kind of a <<ConfigurationCanOpCode, Configuration operation>>, the buffer handling within the Bus Simulation can be adjusted.
 Using buffer handling is required in arbitration scenarios only and will be described <<CanArbitration, within this context>>.
-If the buffering is not adjusted by a specified Network FMU the Bus Simulation shall choose a default behavior by itself.
+If the buffering is not adjusted by a specified Network FMU, the Bus Simulation shall choose a default behavior by itself.
 
 ===== Transmission and Acknowledge
 The <<TransmitOpCodeCanLowCut, Transmit operation>> represents the sending of a CAN, CAN FD and CAN XL frame.
-With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g. Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
-In the real world, flawless transmitted CAN frames will be acknowledged by at least one receiver CAN node.
+With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g., Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
+In the real world, flawlessly transmitted CAN frames will be acknowledged by at least one receiver CAN node.
 To simulate this behavior, the <<ConfirmOpCodeCanLowCut, Confirm operations>> were introduced.
-In addition to support lightweight bus simulations and <<DirectCommunication, direct connected Network FMUs>>, the structural parameter `org.fmi_standard.fmi_ls_bus.WaitForBusNotification` (see <<bus-notification-parameter>>) has been defined.
+In addition to support lightweight bus simulations and <<DirectCommunication, directly connected Network FMUs>>, the structural parameter `org.fmi_standard.fmi_ls_bus.WaitForBusNotification` (see <<bus-notification-parameter>>) has been defined.
 
 If `org.fmi_standard.fmi_ls_bus.WaitForBusNotification` is set to `false` (default), then Network FMUs shall not rely on receiving <<ConfirmOpCodeCanLowCut, Confirm operations>>.
-In this case, the bus simulation is idealized and happened in a fire-and-forget manner.
+In this case, the bus simulation is idealized and takes place in a fire-and-forget manner.
 If a specified Network FMU is depending on <<ConfirmOpCodeCanLowCut, Confirm operations>> and `org.fmi_standard.fmi_ls_bus.WaitForBusNotification` is set to `false`, the self confirmation shall be realized internally within the respective Network FMU. 
 
 <<#figure-can-direct-communication>> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
-After that the transmission is directly confirmed by FMU 1 itself, whereby FMU 1 handles that self confirmation internally.
+After that, the transmission is directly confirmed by FMU 1 itself, whereby FMU 1 handles that self confirmation internally.
 
 .Direct Confirmation of transmitted network data.
 [#figure-can-direct-communication]
@@ -660,15 +660,15 @@ The following <<#figure-can-confirmation-with-bus-simulation-fmu>> illustrates t
 [#figure-can-confirmation-with-bus-simulation-fmu]
 image::can_confirmation_with_bus_simulation_fmu.svg[width=70%, align="center"]
 
-If all Network FMUs, except the <<TransmitOpCodeCanLowCut, Transmit operation>> initiating Network FMU, communicated the <<StatusOpCodeCanLowCut, status>> `BUS_OFF` the Bus Simulation shall not provide a <<ConfirmOpCodeCanLowCut, confirmation>>.
+If all Network FMUs, except the <<TransmitOpCodeCanLowCut, Transmit operation>> initiating Network FMU, communicate the <<StatusOpCodeCanLowCut, status>> `BUS_OFF`, the Bus Simulation shall not provide a <<ConfirmOpCodeCanLowCut, confirmation>>.
 
-<<example-can-possible-results-of-transmission>> contains an example of the possible transmission results and visualize them in the form of a diagram.
+<<example-can-possible-results-of-transmission>> contains an example of the possible transmission results and displays them in the form of a diagram.
 
 ===== Error Handling [[CanErrorHandling]]
-The CAN protocol includes sophisticated fault confinement mechanism to prevent malfunctioning within CAN nodes.
+The CAN protocol includes a sophisticated fault confinement mechanism to prevent malfunctioning within CAN nodes.
 A Transmit Error Counter (TEC) and a Receive Error Counter (REC) represent a historical communication quality metric.
 To maintain the TEC and REC values, <<BusErrorOpCodeCanLowCut, Bus Error operations>> shall be provided to all Network FMUs by the Bus Simulation.
-The argument `Is Sender` shall be set to `true` for the Network FMU the <<TransmitOpCodeCanLowCut, Transmit operation>> originated from.
+The argument `Is Sender` shall be set to `true` for the Network FMU that the <<TransmitOpCodeCanLowCut, Transmit operation>> originated from.
 The argument `Detected` shall be set to `true` if the Network FMU detects the transmission error.
 If a Network FMU changes its current CAN node state, the <<StatusOpCodeCanLowCut, Status operation>> shall be provided to the Bus Simulation.
 When a Network FMU has been provided the status `BUS_OFF` to the Bus Simulation, the it shall not get any new <<TransmitOpCodeCanLowCut, Transmit operations>> from the Bus Simulation.
@@ -678,7 +678,7 @@ When a Network FMU has been provided the status `BUS_OFF` to the Bus Simulation,
 image::can_error_handling_overview.svg[width=80%, align="center"]
 
 <<example-can-error-handling>> contains a detailed overview about the CAN error handling.
-Additionally a rule set how to implement a correct CAN error handling based on this standard with respect to the arguments of the <<BusErrorOpCodeCanLowCut, Bus Error operation>> is shown.
+Additionally, a rule set showing how to implement correct CAN error handling based on this standard with respect to the arguments of the <<BusErrorOpCodeCanLowCut, Bus Error operation>> is shown.
 
 ===== Arbitration [[CanArbitration]]
 Arbitration is an instrument of the CAN standard to resolve the conflict of the simultaneous sending of messages from several CAN nodes without a collision.
@@ -692,24 +692,24 @@ image::can_arbitration.svg[width=70%, align="center"]
 
 Within a <<ConfigurationCanOpCode, Configuration operation>>, the `Arbitration Lost Behavior` argument can be specified.
 Once this option is deactivated, the Bus Simulation buffers the frame after losing arbitration and sends it as soon as possible.
-In this case it is not necessary for the Network FMU to trigger the respective frame to be sent again and an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall not be returned to the specific Network FMU.
+In this case, it is not necessary for the Network FMU to trigger the respective frame to be sent again and an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall not be returned to the specific Network FMU.
 If the `Arbitration Lost Behavior` is activated, the specified Network FMU is informed by an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> and needs to repeat the corresponding <<TransmitOpCodeCanLowCut, Transmit operation>> itself.
 Arbitration is available in communication cases with Bus Simulation only.
 
 In the case of arbitration, the Bus Simulation must also take the status of the respective Network FMU into account, which is communicated via a <<StatusOpCodeCanLowCut, Status operation>>.
-To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN node is in Error Passive state the Bus Simulation shall prefer Network FMUs that status is `ERROR_ACTIVE`.
+To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN node is in Error Passive state, the Bus Simulation shall prefer Network FMUs whose status is `ERROR_ACTIVE`.
 
 <<example-can-arbitration-with-arbitration-lost-behavior>> and <<example-can-arbitration-without-arbitration-lost-behavior>> contain examples of the presented arbitration cases and visualize them in the form of sequence diagrams.
 
-===== Wake-up/Sleep
-This standard supports wake-up and sleep for the CAN bus, whereby only the bus-specific parts are taken into account.
+===== Wake Up/Sleep
+This standard supports wake up and sleep for the CAN bus, whereby only the bus-specific parts are taken into account.
 This means that the realization of local virtual ECU wake-up and sleeping processes are internal parts of the respective FMU, which is not covered by this document.
 Because entering sleep state is a virtual ECU internal process always within CAN bus, this can be ignored.
-Also the virtual ECU local wake-up process is ignored as well.
-The CAN specific wake-up pulse can be simulated by using the <<WakeupCanOpCode, Wake-up operation>>.
-A <<WakeupCanOpCode, Wake-up operation>> is initiated by one Network FMU and shall be distributed to all participants of the bus by the Bus Simulation, except the wake-up initiator.
+Also, the virtual ECU local wake-up process is ignored as well.
+The CAN-specific wake-up pulse can be simulated by using the <<WakeupCanOpCode, Wakeup operation>>.
+A <<WakeupCanOpCode, Wakeup operation>> is initiated by one Network FMU and shall be distributed to all participants of the bus,except the wake-up initiator, by the Bus Simulation.
 
-.Wake-up initiated by FMU 1 wakes-up FMU 2 and FMU 3 via bus.
+.Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.
 [#figure-can-wake-up]
 image::can_wake_up.svg[width=70%, align="center"]
 
@@ -718,19 +718,19 @@ This section contains sample sequences to clarify the facts in the CAN part.
 
 ====== Transmission [[example-can-possible-results-of-transmission]]
 <<#figure-can-transmission-acknowledge>> illustrates the two possible results of a <<TransmitOpCodeCanLowCut, Transmit operation>>, whereby the transition from FMU 1 -> FMU 2 represents the successful case and FMU 2 -> FMU 1 represents the unsuccessful case.
-For the second transmission the Bus Simulation injects a failure of transmission.
+For the second transmission, the Bus Simulation injects a failure of transmission.
 In step (1), a <<TransmitOpCodeCanLowCut, Transmit operation>> will be delivered to the Bus Simulation.
 Within step (2), the <<TransmitOpCodeCanLowCut, Transmit operation>> will transferred to FMU 2, so the transmission was successful.
 Also in step (2), FMU 1 receives a <<ConfirmOpCodeCanLowCut, Confirm operation>>, which means the transmission was successful.
 In step (3), FMU 2 wants to transmit network data to FMU 1:
 A <<TransmitOpCodeCanLowCut, Transmit operation>> will be delivered from FMU 2 to the Bus Simulation.
 In step (4), we see that the transmission results in an <<BusErrorOpCodeCanLowCut, Bus Error operation>>, because the Bus Simulation injects a failure of transmission.
-Basing on these <<BusErrorOpCodeCanLowCut, Bus Error operation>> FMU 2 knows that the transmission was not successful.
-Within this <<BusErrorOpCodeCanLowCut, Bus Error operation>> the `Is Sender` argument is set to `true` for FMU 2, because it provides the failing <<TransmitOpCodeCanLowCut, Transmit operation>>.
+Based on the <<BusErrorOpCodeCanLowCut, Bus Error operation>> FMU 2 knows that the transmission was not successful.
+Within this <<BusErrorOpCodeCanLowCut, Bus Error operation>>, the `Is Sender` argument is set to `true` for FMU 2, because it provides the failing <<TransmitOpCodeCanLowCut, Transmit operation>>.
 Another <<BusErrorOpCodeCanLowCut, Bus Error operation>> instance is provided by the Bus Simulation to FMU 1.
-For FMU 1 the `Detected` argument is set to `true`, which means that FMU detects the specified transmission error.
+For FMU 1, the `Detected` argument is set to `true`, which means that FMU detects the specified transmission error.
 
-.Successful and not successful cases of a CAN transmission.
+.Successful and unsuccessful cases of a CAN transmission.
 [#figure-can-transmission-acknowledge]
 image::can_transmission_acknowledge.svg[width=60%, align="center"]
 
@@ -738,9 +738,9 @@ Normally, transmission failure cannot occur during a simulated bus transmission.
 Most common kinds of errors are used to inject transmission errors, for example using the Bus Simulation FMU, for advanced test scenarios.
 
 ====== CAN Arbitration without Buffering [[example-can-arbitration-with-arbitration-lost-behavior]]
-<<#figure-can-arbitration-overview>> shows the realization of a CAN arbitration by using activated `Arbitration Lost Behavior` option within the <<ConfigurationCanOpCode, Configuration operation>>.
+<<#figure-can-arbitration-overview>> shows the realization of a CAN arbitration by using the activated `Arbitration Lost Behavior` option within the <<ConfigurationCanOpCode, Configuration operation>>.
 At the beginning, FMU 1 and FMU 2 each send network data at the same time.
-In this situation, an arbitration is necessary so that it can be decided which frame should be sent in this case.
+In this situation, an arbitration is necessary to decide which frame should be sent in this case.
 Both frames are transferred to the Bus Simulation.
 Arbitration takes place within the Bus Simulation.
 In the example given, the two frames with CAN ID = 15 and CAN ID = 16 are analyzed and it is decided that CAN ID = 15 wins the arbitration.
@@ -754,9 +754,9 @@ FMU 1 gets a <<ConfirmOpCodeCanLowCut, Confirm operation>>, because the specifie
 image::can_arbitration_overview.svg[width=80%, align="center"]
 
 ====== CAN Arbitration with Buffering [[example-can-arbitration-without-arbitration-lost-behavior]]
-<<#figure-can-arbitration-overview-with-buffer>> shows the realization of a CAN arbitration by using deactivated `Arbitration Lost Behavior` option within the <<ConfigurationCanOpCode, Configuration operation>>.
+<<#figure-can-arbitration-overview-with-buffer>> shows the realization of a CAN arbitration by using the deactivated `Arbitration Lost Behavior` option within the <<ConfigurationCanOpCode, Configuration operation>>.
 At the beginning, FMU 1 and FMU 2 each send network data at the same time.
-In this situation, an arbitration is necessary so that it can be decided which frame should be sent in this case.
+In this situation, an arbitration is necessary to decide which frame should be sent in this case.
 Both frames are transferred to the Bus Simulation.
 Arbitration takes place within the Bus Simulation.
 In the example given, the two frames with CAN ID = 15 and CAN ID = 16 are analyzed and it is decided that CAN ID = 15 wins the arbitration.
@@ -773,7 +773,7 @@ image::can_arbitration_overview_with_buffer.svg[width=80%, align="center"]
 ====== Error Handling [[example-can-error-handling]]
 
 This chapter describes a possible implementation of the CAN error handling within Network FMUs using a rule set based on <<BusErrorOpCodeCanLowCut, Bus Error operations>>.
-Each Network FMU will care for its own Transmit Error Counter (TEC), Receive Error Counter (REC) and current CAN node state.
+Each Network FMU will provide its own Transmit Error Counter (TEC), Receive Error Counter (REC) and current CAN node state.
 The values for TEC and REC will be increased and decreased with respect to the `Error Code`, `Is Sender` and `Detected` arguments of a <<BusErrorOpCodeCanLowCut, Bus Error operation>> and are inherited from the original CAN error confinement rules.
 Based on the values of TEC and REC, the CAN controller moves in the following state machine:
 
@@ -782,24 +782,24 @@ Based on the values of TEC and REC, the CAN controller moves in the following st
 image::can_error_state_machine.svg[width=60%, align="center"]
 
 This CAN node state machine and the related TEC and REC values have to be included within the Network FMUs.
-<<BusErrorOpCodeCanLowCut, Bus Error operations>> shall be directly use to maintain the TEC and REC values.
-The Network FMU shall react on the <<BusErrorOpCodeCanLowCut, Bus Error operations>> that the Bus Simulation provides, basing on the following rule set:
+<<BusErrorOpCodeCanLowCut, Bus Error operations>> shall be directly used to maintain the TEC and REC values.
+The Network FMU shall react on the <<BusErrorOpCodeCanLowCut, Bus Error operations>> that the Bus Simulation provides, based on the following rule set:
 
-* When an FMU gets an <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments `Is Sender = false` and `Detected = false` and also `Error Code != BROKEN_ERROR_FRAME` the REC shall be increased by 1.
-* When an FMU gets an <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments (`Is Sender = false` and `Detected = true`) or `Error Code = BROKEN_ERROR_FRAME` the REC shall be increased by 8.
-* When an FMU gets an <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments `Is Sender = true` or `Error Code = BROKEN_ERROR_FRAME` the TEC shall be increased by 8.
+* When an FMU gets a <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments `Is Sender = false` and `Detected = false` and also `Error Code != BROKEN_ERROR_FRAME`, the REC shall be increased by 1.
+* When an FMU gets a <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments (`Is Sender = false` and `Detected = true`) or `Error Code = BROKEN_ERROR_FRAME`, the REC shall be increased by 8.
+* When an FMU gets a <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments `Is Sender = true` or `Error Code = BROKEN_ERROR_FRAME`, the TEC shall be increased by 8.
 Exception: `Status =  ERROR_PASSIVE` and `Error Code = ACK_ERROR`.
-* When an FMU provides a <<TransmitOpCodeCanLowCut, Transmit operation>> and receives a <<ConfirmOpCodeCanLowCut, Confirm operation>> for it the TEC shall be decreased by 1 unless it was already 0.
-* When an FMU gets a <<TransmitOpCodeCanLowCut, Transmit operation>> the REC shall be decreased by 1, if it was between 1 and 127.
+* When an FMU provides a <<TransmitOpCodeCanLowCut, Transmit operation>> and receives a <<ConfirmOpCodeCanLowCut, Confirm operation>> for it, the TEC shall be decreased by 1 unless it was already 0.
+* When an FMU gets a <<TransmitOpCodeCanLowCut, Transmit operation>>, the REC shall be decreased by 1, if it was between 1 and 127.
 If the REC was 0, it stays 0, and if it was greater than 127, then it will be set to the value between 119 and 127.
 
 A Network FMU communicates its current CAN node state via the <<StatusOpCodeCanLowCut, Status operation>> by using the following rule set:
 
-* After the initialization of a Network FMU the current CAN node state shall be set to `ERROR_ACTIVE` and communicate via <<StatusOpCodeCanLowCut, Status operation>> to the Bus Simulation.
+* After the initialization of a Network FMU, the current CAN node state shall be set to `ERROR_ACTIVE` and communicate via <<StatusOpCodeCanLowCut, Status operation>> to the Bus Simulation.
 * The current CAN node state of a Network FMU shall be set to `ERROR_PASSIVE` if the value of REC > 127 or TEC > 127 and communicate via <<StatusOpCodeCanLowCut, Status operation>> to the Bus Simulation.
 * The current CAN node state of a Network FMU shall be set to `ERROR_ACTIVE` if the value of REC < 128 and TEC < 128 and communicate via <<StatusOpCodeCanLowCut, Status operation>> to the Bus Simulation.
 * The current CAN node state of a Network FMU shall be set to `BUS_OFF` if the value of TEC > 255 and communicate via <<StatusOpCodeCanLowCut, Status operation>> to the Bus Simulation.
 
 If `org.fmi_standard.fmi_ls_bus.WaitForBusNotification` (see <<bus-notification-parameter>>) is set to `false`, the <<ConfirmOpCodeCanLowCut, Confirm operation>> cannot be directly used as indicator to set the TEC value and will be incorrect under the rules outlined above.
 Also <<BusErrorOpCodeCanLowCut, Bus Error operations>> are not available in this scenario, so that the values for TEC and REC automatically remain zero in this case.
-It should be considered to solve the error handling differently in this case or to disable it completely within the specified Network FMU.
+It is recommended to solve the error handling differently in this case or to disabling it completely within the specified Network FMU.
