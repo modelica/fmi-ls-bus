@@ -197,7 +197,7 @@ h|OP Code [hex] 3+| 0x11
 | OP Code | 1 byte | Contains the OP Code (0x11) of the operation.
 | Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Total Length = 12 + Data Length`.
-| ID | 4 byte | The specifies ID of the CAN message.
+| ID | 4 byte | The specified ID of the CAN message.
 | Ide | 1 bit | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
 | Brs | 1 bit | Defines the Bit Rate Switch.
 | Esi | 1 bit | Error State indicator.
