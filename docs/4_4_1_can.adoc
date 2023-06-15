@@ -173,7 +173,7 @@ h|Behavior
 In case of directly connected Network FMUs (see <<DirectCommunication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<Composition-with-dedicated-Bus-Simulation-FMU>> and <<BusFeatureIntegratedFmuSimulator>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might respond with a <<ConfirmOpCodeCanLowCut, Confirm>>, <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost>>, <<BusErrorOpCodeCanLowCut, Bus Error>> or <<FormatErrorOpCodeCanLowCut, Format Error>> operation.
-Depending on the <<StatusOpCodeCanLowCut, status>> of the specified Network FMU further restrictions for CAN Transmit operations <<table-can-status-values, exists>>.
+Depending on the <<StatusOpCodeCanLowCut, status>> of the specified Network FMU further restrictions for CAN Transmit operations <<table-can-status-values, exist>>.
 
 |====
 
@@ -200,7 +200,7 @@ h|Behavior
 In case of directly connected Network FMUs (see <<DirectCommunication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<Composition-with-dedicated-Bus-Simulation-FMU>> and <<BusFeatureIntegratedFmuSimulator>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might response with a <<ConfirmOpCodeCanLowCut, Confirm>>, <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost>>, <<BusErrorOpCodeCanLowCut, Bus Error>> or <<FormatErrorOpCodeCanLowCut, Format Error>> operation.
-Depending on the <<StatusOpCodeCanLowCut, status>> of the specified Network FMU further restrictions for CAN FD Transmit operations <<table-can-status-values, exists>>.
+Depending on the <<StatusOpCodeCanLowCut, status>> of the specified Network FMU further restrictions for CAN FD Transmit operations <<table-can-status-values, exist>>.
 
 |====
 
@@ -229,7 +229,7 @@ h|Behavior
 In case of directly connected Network FMUs (see <<DirectCommunication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<Composition-with-dedicated-Bus-Simulation-FMU>> and <<BusFeatureIntegratedFmuSimulator>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might response with a <<ConfirmOpCodeCanLowCut, Confirm>>, <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost>>, <<BusErrorOpCodeCanLowCut, Bus Error>> or <<FormatErrorOpCodeCanLowCut, Format Error>> operation.
-Depending on the <<StatusOpCodeCanLowCut, status>> of the specified Network FMU further restrictions for CAN XL Transmit operations <<table-can-status-values, exists>>.
+Depending on the <<StatusOpCodeCanLowCut, status>> of the specified Network FMU further restrictions for CAN XL Transmit operations <<table-can-status-values, exist>>.
 
 |====
 
@@ -264,7 +264,7 @@ h|Behavior
 3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
 If the structural parameter `org.fmi_standard.fmi_ls_bus.WaitForBusNotification` (see <<bus-notification-parameter>>) is set to `false`, the Network FMU does not rely on receiving Confirm operations.
 In this case, Bus Simulations should not send Confirm operations to the Network FMU.
-Depending on the <<StatusOpCodeCanLowCut, status>> of the specified Network FMU further restrictions for Confirm operations <<table-can-status-values, exists>>.
+Depending on the <<StatusOpCodeCanLowCut, status>> of the specified Network FMU further restrictions for Confirm operations <<table-can-status-values, exist>>.
 
 |====
 
@@ -664,7 +664,7 @@ To maintain the TEC and REC values, <<BusErrorOpCodeCanLowCut, Bus Error operati
 The argument `Is Sender` shall be set to `true` for the Network FMU that the <<TransmitOpCodeCanLowCut, Transmit operation>> originated from.
 The argument `Detected` shall be set to `true` if the Network FMU detects the transmission error.
 If a Network FMU changes its current CAN node state, the <<StatusOpCodeCanLowCut, Status operation>> shall be provided to the Bus Simulation.
-When a Network FMU has been provided the status `BUS_OFF` to the Bus Simulation, the it also shall not provide any new <<TransmitOpCodeCanLowCut, Transmit operations>> to the Bus Simulation to simulate a real bus off behavior.
+When a Network FMU has provided the status `BUS_OFF` to the Bus Simulation, then it also shall not provide any new <<TransmitOpCodeCanLowCut, Transmit operations>> to the Bus Simulation to simulate a real bus off behavior.
 
 .Architectural error handling overview.
 [#figure-can-architectural-error-handling-overview]
