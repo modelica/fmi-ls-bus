@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-e05120d42db99f0b26b45db790582272108137c1,</span>
-<span id="revdate">2023-06-14</span>
+<span id="revnumber">version main-b9b5ae818d295b2e2bf33cb87510ece717f40f87,</span>
+<span id="revdate">2023-06-15</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -711,8 +711,7 @@ document.addEventListener('keydown', (event) => {
 </li>
 </ul>
 </li>
-<li><a href="#NetworkSimulation">6. Network Simulation</a></li>
-<li><a href="#_known_limitations_of_this_standard">7. Known Limitations of This Standard</a></li>
+<li><a href="#_known_limitations_of_this_standard">6. Known Limitations of This Standard</a></li>
 <li><a href="#_references">References</a></li>
 </ul>
 </div>
@@ -3391,29 +3390,7 @@ It should be considered to solve the error handling differently in this case or 
 </div>
 </div>
 <div class="sect1">
-<h2 id="NetworkSimulation">6. Network Simulation</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><mark>TODO</mark></p>
-</div>
-<div id="figure-example-network-simulation-architecture" class="imageblock text-center">
-<div class="content">
-<img src="images/architecture_bus_simulation_importer.svg" alt="architecture bus simulation importer" width="60%">
-</div>
-<div class="title">Figure 18. Example network simulation architecture.</div>
-</div>
-<div class="paragraph">
-<p>The figure above shows one example for a network simulation architecture.
-The importer is able to handle FMU input and output variables with network semantics:
-The importer merges output clock activations, output binary data and output signal variables and forwards the results to their corresponding input variables.</p>
-</div>
-<div class="paragraph">
-<p>The accuracy/performance of the resulting network simulation can range from ideal (no bandwidth restriction, no arbitration, no network errors) to more realistic (with restricted bandwidth, message delay due to arbitration, network errors, error injection, &#8230;&#8203;).</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_known_limitations_of_this_standard">7. Known Limitations of This Standard</h2>
+<h2 id="_known_limitations_of_this_standard">6. Known Limitations of This Standard</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><mark>TODO all</mark></p>
