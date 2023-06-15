@@ -34,14 +34,8 @@ h|OP Code
 h|Total Length
 8+h|Specific Content
 
-|NOOP
-|0x00
-|:= 5 +
-(4 byte)
-8+|---
-
 |Format Error
-|0x01
+|0x00
 |:= 5 + n +
 (4 byte)
 8+|Data +
@@ -153,10 +147,6 @@ h|Total Length
 ===== Operations
 This section defines the specified operations for CAN, CAN FD and CAN XL.
 The following tables provides an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
-
-====== NOOP 
-Represents no operation.
-See <<NOOP-Operation, NOOP operation>> for definition.
 
 ====== Transmit [[TransmitOpCodeCanLowCut]]
 There are three types of transmit operations for transmission of CAN, CAN FD and CAN XL frame.

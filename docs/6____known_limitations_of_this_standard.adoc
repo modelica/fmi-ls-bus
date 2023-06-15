@@ -22,3 +22,8 @@ Such an ideal network differs from physical networks in the following ways (and 
    Here this is also possible, with output variables for frames (and their signals) that are sent by more than one FMU.
    This requires the importer to handle the case when multiple source FMUs are sending the same frame.
    Importers must know how to handle this, just like they must know how to handle flow variables according to Kirchhoff's law.
+
+[bibliography]
+== References
+
+- [[[PW13]]] Preston-Werner, T. (2013): **Semantic Versioning 2.0.0**.  https://semver.org/spec/v2.0.0.html
