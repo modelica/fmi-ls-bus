@@ -51,7 +51,7 @@ Signal variables belonging to frame `BusName::FrameName` are triggered by the cl
 
 Standardized <<NetworkDescriptionFile,network description files>> can be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
 These <<NetworkDescriptionFile,network description files>> must be placed into the `/extra/org.fmi-standard.fmi-ls-bus` folder.
-DBC, LDF, Fibex and ARXML files are allowed, e.g. `Powertrain.dbc`.
+DBC, LDF, Fibex and ARXML files are allowed, e.g., `Powertrain.dbc`.
 The case sensitive root name of the <<NetworkDescriptionFile>> must be used as network identifier in the bus terminal type and prefix in the variable names.
 
 Multiple files can be specified, each one defining one network used by the FMU.
@@ -59,7 +59,7 @@ This standard does not support composing one network from multiple <<NetworkDesc
 
 It is recommended to use ARXML over DBC files for CAN whenever possible, because the DBC standard lacks some key frame/PDU properties that were added only later using non-standard extensions with different dialects in use.
 
-This document does not address potential open points of these description formats, it is assumed that such ambiguities will be handled elsewhere (e.g. message timing in the DBC format).
+This document does not address potential open points of these description formats, it is assumed that such ambiguities will be handled elsewhere (e.g., message timing in the DBC format).
 This document does not address IP protection or copyright issues.
 These are technical and legal issues that need attention from standardization bodies of the referenced description formats, tool vendors and end users.
 
@@ -69,13 +69,13 @@ These are technical and legal issues that need attention from standardization bo
 
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<FrameTerminal,frame terminals>>.
 The attribute `name` of the `<Terminal>` must match the root name of its <<NetworkDescriptionFile>> if it exists
-_[e.g. `Powertrain`, if the file is `/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc`]_.
+_[e.g., `Powertrain`, if the file is `/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc`]_.
 In any case, the attribute `name` of the `<Terminal>` must be consistent with the `BusName` component of all its corresponding signal, frame and clock variables.
 
 Attribute definitions::
  * `terminalKind` must be set to `bus`.
  * `matchingRule` must be set to `bus`.
- * `name` is the network name, e.g. `Powertrain`, see <<ExampleHighCut>> and constraints above.
+ * `name` is the network name, e.g., `Powertrain`, see <<ExampleHighCut>> and constraints above.
 
 Element definitions::
  * There must be no `<TerminalStreamMemberVariable>` element.
@@ -99,7 +99,7 @@ Element definitions::
  * There must be no `<TerminalStreamMemberVariable>` element.
  * There must be one <<PDUTerminal>> element per PDU of this frame.
  * There must be one `<TerminalMemberVariable>` for the clock this frame is connected to.
-   The name of this variable is composed as <<ClockVariable,`BusName::FrameName_Clock`>>, e.g. `Powertrain::tcuSensors_Clock`.
+   The name of this variable is composed as <<ClockVariable,`BusName::FrameName_Clock`>>, e.g., `Powertrain::tcuSensors_Clock`.
 
 The <<TerminalMemberVariable>> must have the same causality as all variables referenced in the <<PDUTerminal,PDU Terminals>> included here.
 
@@ -125,9 +125,9 @@ All <<TerminalMemberVariable,`TerminalMemberVariables`>> must have the same caus
 <<PDUTerminal,PDU terminals>> list all the contained signals as `<TerminalMemberVariable>`.
 
 Attribute definitions::
- * `variableName` refers to the input or output variable name of the FMU and to enforce uniqueness is built as follows: `BusName::FrameName::PDUName::SignalName`, e.g. `Powertrain::tcuSensors::tcuSensors::vCar`.
+ * `variableName` refers to the input or output variable name of the FMU and to enforce uniqueness is built as follows: `BusName::FrameName::PDUName::SignalName`, e.g., `Powertrain::tcuSensors::tcuSensors::vCar`.
     These variables represent the signal abstraction layer ("high cut").
- * `memberName` is the `SignalName` as given in the <<NetworkDescriptionFile>>, e.g. `vCar`, if given.
+ * `memberName` is the `SignalName` as given in the <<NetworkDescriptionFile>>, e.g., `vCar`, if given.
     This is redundant information but simplifies signal name extraction.
  * `variableKind` is `signal`.
 
