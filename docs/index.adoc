@@ -25,6 +25,4 @@ include::3____physical_signal_abstraction.adoc[]
 
 include::4____network_abstraction.adoc[]
 
-include::5____network_simulation.adoc[]
-
 include::6____known_limitations_of_this_standard.adoc[]
