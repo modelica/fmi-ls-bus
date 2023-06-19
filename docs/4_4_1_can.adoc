@@ -415,7 +415,7 @@ In detail, the configuration of a CAN, CAN FD and CAN XL baud rate is possible.
 Also the configuration of further options, like buffer handling, is supported by this operation.
 h|OP Code [hex]
 5+|0x40
-.10+h|Content 3+h|Argument h|Length h|Description
+.9+h|Content 3+h|Argument h|Length h|Description
 3+|OP Code
 |1 byte
 |Contains the OP Code (0x40) of the operation.
@@ -430,7 +430,7 @@ The following applies for this operation: `Total Length = 6 + Length of paramete
 |Defines the current configuration parameter.
 Note that only one parameter can be set per `Configuration operation`.
 
-.6+h|
+.5+h|
 4+h|Parameters
 
 |CAN_BAUDRATE
@@ -451,16 +451,12 @@ The required unit for the baudrate value is bit/s.
 |The CAN XL baudrate value to configure.
 The required unit for the baudrate value is bit/s.
 
-.2+|OPTIONS
+.1+|OPTIONS
 |Arbitration Lost Behavior
-|1 bit
+|1 byte
 |This parameter defines how a Bus Simulation shall behave in cases of an arbitration lost scenario.
-If the option is not set, <<TransmitOpCodeCanLowCut, Transmit operations>> shall be buffered by the Bus Simulation and no <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall be sent.
-Otherwise, the <<TransmitOpCodeCanLowCut, Transmit operation>> shall be discarded and an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall be sent to the Network FMU (see <<CanArbitration>>).
-The parameter value is defined as `Deactivated = 0` and `Activated = 1`.
-|-
-|7 bit
-|Reserved for future usage.
+If the option is set to `BufferAndRetransmit`, <<TransmitOpCodeCanLowCut, Transmit operations>> shall be buffered by the Bus Simulation and no <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall be sent.
+If the option is set to `DiscardAndNotify`, the <<TransmitOpCodeCanLowCut, Transmit operation>> shall be discarded and an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall be sent to the Network FMU (see <<CanArbitration>>).
 
 h|Behavior
 5+|The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
@@ -483,6 +479,19 @@ h|Parameter h|Value h|Description
 |CAN_FD_BAUDRATE|0x02|Allows the configuration of a CAN FD baudrate for the Bus Simulation.
 |CAN_XL_BAUDRATE|0x03|Allows the configuration of a CAN XL baudrate for the Bus Simulation.
 |OPTIONS|0x04|This code configures various available options for the Bus Simulation.
+
+|====
+
+The following values for the Arbitration Lost Behavior option are defined:
+
+.Overview of the available Arbitration Lost Behavior values.
+[#table-can-configuration-arbitration-lost-behavior-kinds]
+[cols="2,1,5"]
+|====
+
+h|Arbitration Lost Behavior h|Value h|Description
+|BufferAndRetransmit|0x01|<<TransmitOpCodeCanLowCut, Transmit operations>> shall be buffered by the Bus Simulation.
+|DiscardAndNotify|0x02|<<TransmitOpCodeCanLowCut, Transmit operations>> shall be discarded and the specified Network FMU shall be notified by the Bus Simulation via an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>>.
 
 |====
 
@@ -681,9 +690,9 @@ As soon as an FMU loses arbitration in this way, it shall independently repeat t
 image::can_arbitration.svg[width=70%, align="center"]
 
 Within a <<ConfigurationCanOpCode, Configuration operation>>, the `Arbitration Lost Behavior` argument can be specified.
-Once this option is deactivated, the Bus Simulation buffers the frame after losing arbitration and sends it as soon as possible.
+Once this option is set to `BufferAndRetransmit`, the Bus Simulation buffers the frame after losing arbitration and sends it as soon as possible.
 In this case, it is not necessary for the Network FMU to trigger the respective frame to be sent again and an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall not be returned to the specific Network FMU.
-If the `Arbitration Lost Behavior` is activated, the specified Network FMU is informed by an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> and needs to repeat the corresponding <<TransmitOpCodeCanLowCut, Transmit operation>> itself.
+If the `Arbitration Lost Behavior` is set to `DiscardAndNotify`, the specified Network FMU is informed by an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> and needs to repeat the corresponding <<TransmitOpCodeCanLowCut, Transmit operation>> itself.
 Arbitration is available in communication cases with Bus Simulation only.
 
 In the case of arbitration, the Bus Simulation must also take the status of the respective Network FMU into account, which is communicated via a <<StatusOpCodeCanLowCut, Status operation>>.
@@ -728,7 +737,7 @@ Normally, transmission failure cannot occur during a simulated bus transmission.
 Most common kinds of errors are used to inject transmission errors, for example using the Bus Simulation FMU, for advanced test scenarios.
 
 ====== CAN Arbitration without Buffering [[example-can-arbitration-with-arbitration-lost-behavior]]
-<<#figure-can-arbitration-overview>> shows the realization of a CAN arbitration by using the activated `Arbitration Lost Behavior` option within the <<ConfigurationCanOpCode, Configuration operation>>.
+<<#figure-can-arbitration-overview>> shows the realization of a CAN arbitration by using the `Arbitration Lost Behavior` option `DiscardAndNotify` within the <<ConfigurationCanOpCode, Configuration operation>>.
 At the beginning, FMU 1 and FMU 2 each send network data at the same time.
 In this situation, an arbitration is necessary to decide which frame should be sent in this case.
 Both frames are transferred to the Bus Simulation.
@@ -744,7 +753,7 @@ FMU 1 gets a <<ConfirmOpCodeCanLowCut, Confirm operation>>, because the specifie
 image::can_arbitration_overview.svg[width=80%, align="center"]
 
 ====== CAN Arbitration with Buffering [[example-can-arbitration-without-arbitration-lost-behavior]]
-<<#figure-can-arbitration-overview-with-buffer>> shows the realization of a CAN arbitration by using the deactivated `Arbitration Lost Behavior` option within the <<ConfigurationCanOpCode, Configuration operation>>.
+<<#figure-can-arbitration-overview-with-buffer>> shows the realization of a CAN arbitration by using the `Arbitration Lost Behavior` option `BufferAndRetransmit` within the <<ConfigurationCanOpCode, Configuration operation>>.
 At the beginning, FMU 1 and FMU 2 each send network data at the same time.
 In this situation, an arbitration is necessary to decide which frame should be sent in this case.
 Both frames are transferred to the Bus Simulation.
