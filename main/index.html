@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-4dce45bff5a4a0e779a06b2b357e252bd812c794,</span>
+<span id="revnumber">version main-9e4a76889d7ff2f07fc2796e6d2979d30f7be78d,</span>
 <span id="revdate">2023-06-19</span>
 </div>
 <div id="toc" class="toc2">
@@ -2254,7 +2254,8 @@ The following applies for this operation: <code>Total Length = 12 + Data Length<
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The CAN Transmit operation shall be provided by Network FMUs to initiate the transmission of a CAN frame.
 In case of directly connected Network FMUs (see <a href="#DirectCommunication">Section 3.1.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Section 3.1.2</a> and <a href="#BusFeatureIntegratedFmuSimulator">Section 3.1.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might respond with a <a href="#ConfirmOpCodeCanLowCut">Confirm</a>, <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost</a>, <a href="#BusErrorOpCodeCanLowCut">Bus Error</a> or <a href="#FormatErrorOpCodeCanLowCut">Format Error</a> operation.</p></td>
+Depending on the simulation details, the Bus Simulation might respond with a <a href="#ConfirmOpCodeCanLowCut">Confirm</a>, <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost</a>, <a href="#BusErrorOpCodeCanLowCut">Bus Error</a> or <a href="#FormatErrorOpCodeCanLowCut">Format Error</a> operation.
+Depending on the <a href="#StatusOpCodeCanLowCut">status</a> of the specified Network FMU further restrictions for CAN Transmit operations <a href="#table-can-status-values">exist</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2336,7 +2337,8 @@ The following applies for this operation: <code>Total Length = 12 + Data Length<
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The CAN FD Transmit operation shall be provided by Network FMUs to initiate the transmission of a CAN FD frame.
 In case of directly connected Network FMUs (see <a href="#DirectCommunication">Section 3.1.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Section 3.1.2</a> and <a href="#BusFeatureIntegratedFmuSimulator">Section 3.1.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might response with a <a href="#ConfirmOpCodeCanLowCut">Confirm</a>, <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost</a>, <a href="#BusErrorOpCodeCanLowCut">Bus Error</a> or <a href="#FormatErrorOpCodeCanLowCut">Format Error</a> operation.</p></td>
+Depending on the simulation details, the Bus Simulation might response with a <a href="#ConfirmOpCodeCanLowCut">Confirm</a>, <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost</a>, <a href="#BusErrorOpCodeCanLowCut">Bus Error</a> or <a href="#FormatErrorOpCodeCanLowCut">Format Error</a> operation.
+Depending on the <a href="#StatusOpCodeCanLowCut">status</a> of the specified Network FMU further restrictions for CAN FD Transmit operations <a href="#table-can-status-values">exist</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2428,7 +2430,8 @@ The following applies for this operation: <code>Total Length = 18 + Data Length<
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The CAN XL Transmit operation shall be provided by Network FMUs to initiate the transmission of a CAN XL frame.
 In case of directly connected Network FMUs (see <a href="#DirectCommunication">Section 3.1.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Section 3.1.2</a> and <a href="#BusFeatureIntegratedFmuSimulator">Section 3.1.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might response with a <a href="#ConfirmOpCodeCanLowCut">Confirm</a>, <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost</a>, <a href="#BusErrorOpCodeCanLowCut">Bus Error</a> or <a href="#FormatErrorOpCodeCanLowCut">Format Error</a> operation.</p></td>
+Depending on the simulation details, the Bus Simulation might response with a <a href="#ConfirmOpCodeCanLowCut">Confirm</a>, <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost</a>, <a href="#BusErrorOpCodeCanLowCut">Bus Error</a> or <a href="#FormatErrorOpCodeCanLowCut">Format Error</a> operation.
+Depending on the <a href="#StatusOpCodeCanLowCut">status</a> of the specified Network FMU further restrictions for CAN XL Transmit operations <a href="#table-can-status-values">exist</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2486,7 +2489,7 @@ The following applies for this operation: <code>Total Length = 9</code>.</p></td
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
 If the structural parameter <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 5.6.1.3.1</a>) is set to <code>false</code>, the Network FMU does not rely on receiving Confirm operations.
 In this case, Bus Simulations should not send Confirm operations to the Network FMU.
-If all Network FMUs, except the <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> initiating Network FMU, communicate the <a href="#StatusOpCodeCanLowCut">status</a> <code>BUS_OFF</code>, the Bus Simulation shall not provide a confirmation.</p></td>
+Depending on the <a href="#StatusOpCodeCanLowCut">status</a> of the specified Network FMU further restrictions for Confirm operations <a href="#table-can-status-values">exist</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2948,7 +2951,7 @@ See <a href="#CanArbitration">Section 5.6.1.7</a> for further details.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BUS_OFF</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x03</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: BUS OFF.
-If a Network FMU communicates the status <code>BUS_OFF</code> to the Bus Simulation, the specified Network FMU shall not get any new <a href="#TransmitOpCodeCanLowCut">Transmission operations</a> from the Bus Simulation.
+If a Network FMU communicates the status <code>BUS_OFF</code> to the Bus Simulation, the specified Network FMU shall not provide any new <a href="#TransmitOpCodeCanLowCut">Transmission operations</a> to the Bus Simulation.
 If all Network FMUs, except the <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> initiating Network FMU, communicate the status <code>BUS_OFF</code>, the Bus Simulation shall not provide a <a href="#ConfirmOpCodeCanLowCut">confirmation</a>.</p></td>
 </tr>
 </tbody>
@@ -3121,7 +3124,7 @@ To maintain the TEC and REC values, <a href="#BusErrorOpCodeCanLowCut">Bus Error
 The argument <code>Is Sender</code> shall be set to <code>true</code> for the Network FMU that the <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> originated from.
 The argument <code>Detected</code> shall be set to <code>true</code> if the Network FMU detects the transmission error.
 If a Network FMU changes its current CAN node state, the <a href="#StatusOpCodeCanLowCut">Status operation</a> shall be provided to the Bus Simulation.
-When a Network FMU has been provided the status <code>BUS_OFF</code> to the Bus Simulation, the it shall not get any new <a href="#TransmitOpCodeCanLowCut">Transmit operations</a> from the Bus Simulation.</p>
+When a Network FMU has provided the status <code>BUS_OFF</code> to the Bus Simulation, then it also shall not provide any new <a href="#TransmitOpCodeCanLowCut">Transmit operations</a> to the Bus Simulation to simulate a real bus off behavior.</p>
 </div>
 <div id="figure-can-architectural-error-handling-overview" class="imageblock text-center">
 <div class="content">
@@ -3157,7 +3160,7 @@ Arbitration is available in communication cases with Bus Simulation only.</p>
 </div>
 <div class="paragraph">
 <p>In the case of arbitration, the Bus Simulation must also take the status of the respective Network FMU into account, which is communicated via a <a href="#StatusOpCodeCanLowCut">Status operation</a>.
-To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN node is in Error Passive state, the Bus Simulation shall prefer Network FMUs whose status is <code>ERROR_ACTIVE</code>.</p>
+To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN node is in Error Passive state, the Bus Simulation shall prefer Network FMUs whose status is <code>ERROR_ACTIVE</code> (see <a href="#table-can-status-values">Table 18</a>).</p>
 </div>
 <div class="paragraph">
 <p><a href="#example-can-arbitration-with-arbitration-lost-behavior">Section 5.6.1.9.2</a> and <a href="#example-can-arbitration-without-arbitration-lost-behavior">Section 5.6.1.9.3</a> contain examples of the presented arbitration cases and visualize them in the form of sequence diagrams.</p>
@@ -3311,6 +3314,9 @@ If the REC was 0, it stays 0, and if it was greater than 127, then it will be se
 </li>
 <li>
 <p>The current CAN node state of a Network FMU shall be set to <code>BUS_OFF</code> if the value of TEC &gt; 255 and communicate via <a href="#StatusOpCodeCanLowCut">Status operation</a> to the Bus Simulation.</p>
+</li>
+<li>
+<p>The <code>BUS_OFF</code> status shall be set to <code>ERROR_ACTIVE</code> again when the Network FMU simulates a controller reset (optional) and has received in total 128 <a href="#TransmitOpCodeCanLowCut">Transmit operations</a> or <a href="#BusErrorOpCodeCanLowCut">Bus Error operations</a> from the network.</p>
 </li>
 </ul>
 </div>
