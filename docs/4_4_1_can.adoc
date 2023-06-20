@@ -360,7 +360,7 @@ Based on consumed Bus Error operations, Network FMUs shall maintain an internal 
 To determine the CAN node state properly, Network FMUs need the information about their role at the time when the simulated error happened.
 If a Network FMU is sending, the argument `Is Sender` shall be set.
 If a Network FMU is detecting the error first, the argument `Detected` shall be set.
-The arguments `Detected` and `Is Sender` must only be set once per simulated error.
+The arguments `Is Sender` must only be set once per simulated error.
 If the structural parameter `org.fmi_standard.fmi_ls_bus.WaitForBusNotification` (see <<bus-notification-parameter>>) is set to `false`, the Network FMU does not rely on receiving Bus Error operations.
 In this case, Bus Simulations should not send Bus Error operations to the Network FMU.
 |====
@@ -399,6 +399,19 @@ If the sent and received bits are not identical, this failure results in a Bit E
 |0x06
 |Represents an invalid transmission of a CAN Error frame.
 Within CAN, an Error frame is transmitted by any unit on detection of a bus error.
+
+|====
+
+The following values for the Error Flag option are defined:
+
+.Overview of the available Error Flag values.
+[#table-can-bus-error-error-flag-kinds]
+[cols="2,1,5"]
+|====
+
+h|Error Flag h|Value h|Description
+|PRIMARY_ERROR_FLAG|0x01|Defines that a specified Network FMU is detecting the given <<BusErrorOpCodeCanLowCut, Bus Error>> first.
+|SECONDARY_ERROR_FLAG|0x02|Defines that a specified Network FMU is reacting on a <<BusErrorOpCodeCanLowCut, Bus Error>> and does not detect it.
 
 |====
 
