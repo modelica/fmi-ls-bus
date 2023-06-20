@@ -25,7 +25,7 @@ It shows all operations and the arguments they contain.
 
 .Overview of the available operations for CAN, CAN FD and CAN XL.
 [#table-operation-content-can]
-[cols="9,1,6,5,4,4,5,5,5,5,5"]
+[cols="9,1,6,5,5,5,5,5,5,5,5"]
 |====
 .2+h|Operation Name
 10+h|Operation Content
@@ -43,14 +43,14 @@ h|Total Length
 
 |CAN Transmit
 |0x10
-|:= 12 + DL +
+|:= 13 + DL +
 (4 byte)
 |ID +
 (4 byte)
 |Ide +
-(1 bit)
+(1 byte)
 |Rtr +
-(1 bit)
+(1 byte)
 |DL +
 (2 byte)
 4+|Data +
@@ -58,16 +58,16 @@ h|Total Length
 
 |CAN FD Transmit
 |0x11
-|:= 12 + DL +
+|:= 14 + DL +
 (4 byte)
 |ID +
 (4 byte)
 |Ide +
-(1 bit)
+(1 byte)
 |Brs +
-(1 bit)
+(1 byte)
 |Esi +
-(1 bit)
+(1 byte)
 |DL +
 (2 byte)
 3+|Data +
@@ -75,14 +75,14 @@ h|Total Length
 
 |CAN XL Transmit
 |0x12
-|:= 18 + DL +
+|:= 19 + DL +
 (4 byte)
 |ID +
 (4 byte)
 |Ide +
-(1 bit)
+(1 byte)
 |Sec +
-(1 bit)
+(1 byte)
 |SDT +
 (1 byte)
 |VCID +
@@ -158,14 +158,15 @@ There are three types of transmit operations for transmission of CAN, CAN FD and
 h|Name 3+| CAN Transmit
 h|Description 3+| Initiates the transmission of CAN frames.
 h|OP Code [hex] 3+| 0x10
-.9+h|Content h|Argument h|Length h|Description
+.8+h|Content h|Argument h|Length h|Description
 | OP Code | 1 byte | Contains the OP Code (0x10) of the operation.
 | Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Total Length = 12 + Data Length`.
+The following applies for this operation: `Total Length = 13 + Data Length`.
 | ID | 4 byte | The specified ID of the CAN message.
-| Ide | 1 bit | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
-| Rtr | 1 bit | Specifies whether the given frame represents a Remote Transmission Request frame.
-| - | 6 bit | Reserved for future usage.
+| Ide | 1 byte | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used. 
+| Rtr | 1 byte | Specifies whether the given frame represents a Remote Transmission Request frame.
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Data Length | 2 byte | Specifies the length of the Data argument in bytes.
 | Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN Format.
 h|Behavior
@@ -183,15 +184,17 @@ Depending on the simulation details, the Bus Simulation might respond with a <<C
 h|Name 3+| CAN FD Transmit
 h|Description 3+| Represents an operation for the transmission of a CAN FD frame.
 h|OP Code [hex] 3+| 0x11
-.10+h|Content h|Argument h|Length h|Description
+.9+h|Content h|Argument h|Length h|Description
 | OP Code | 1 byte | Contains the OP Code (0x11) of the operation.
 | Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Total Length = 12 + Data Length`.
 | ID | 4 byte | The specified ID of the CAN message.
-| Ide | 1 bit | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
-| Brs | 1 bit | Defines the Bit Rate Switch.
-| Esi | 1 bit | Error State indicator.
-| - | 5 bit | Reserved for future usage.
+| Ide | 1 byte | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+| Brs | 1 byte | Defines the Bit Rate Switch.
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+| Esi | 1 byte | Error State indicator.
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Data Length | 2 byte | Specifies the length of the Data argument in bytes.
 | Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN FD Format.
 h|Behavior
@@ -209,14 +212,15 @@ Depending on the simulation details, the Bus Simulation might response with a <<
 h|Name 3+| CAN XL Transmit
 h|Description 3+| Represents an operation for the transmission of a CAN XL frame.
 h|OP Code [hex] 3+| 0x12
-.12+h|Content h|Argument h|Length h|Description 
+.11+h|Content h|Argument h|Length h|Description 
 | OP Code | 1 byte | Contains the OP Code (0x12) of the operation.
 | Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Total Length = 18 + Data Length`.
+The following applies for this operation: `Total Length = 19 + Data Length`.
 | ID | 4 byte | The specified ID of the CAN message.
-| Ide | 1 bit | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
-| Sec | 1 bit | Simple Extended Content
-| - | 6 bit | Reserved for future usage.
+| Ide | 1 byte | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+| Sec | 1 byte | Simple Extended Content
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | SDT | 1 byte | Describes the structure of the frames Data Field content (SDU type).
 | VCID | 1 byte | Represents the virtual CAN network ID.
 | AF | 4 byte | Represents the CAN XL Acceptance Field (AF).
@@ -320,7 +324,7 @@ h|Description
 3+|Represents an operation for simulated bus errors.
 h|OP Code [hex]
 3+|0x31
-.8+h|Content h|Argument h|Length h|Description
+.7+h|Content h|Argument h|Length h|Description
 |OP Code
 |1 byte
 |Contains the OP Code (0x31) of the operation.
@@ -328,7 +332,7 @@ h|OP Code [hex]
 |Total Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Total Length = 10`.
+The following applies for this operation: `Total Length = 12`.
 
 |ID
 |4 byte
@@ -339,16 +343,14 @@ The following applies for this operation: `Total Length = 10`.
 |The simulated bus error, based on <<table-can-error-codes, the table below>>.
 
 |Detected
-|1 bit
+|1 byte
 |Defines whether the Error was detected by the Network FMU.
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
 |Is Sender
-|1 bit
+|1 byte
 |Set if the Bus Error operation is a reaction to a <<TransmitOpCodeCanLowCut, Transmit operation>> that was provided by the specified Network FMU from the Bus Simulation.
-
-|Reserved
-|6 bit
-|Reserved for future usage.
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
 h|Behavior
 3+|While transmitting CAN frames, various kinds of bus error may happen.
@@ -455,8 +457,8 @@ The required unit for the baudrate value is bit/s.
 |Arbitration Lost Behavior
 |1 byte
 |This parameter defines how a Bus Simulation shall behave in cases of an arbitration lost scenario.
-If the option is set to `BufferAndRetransmit`, <<TransmitOpCodeCanLowCut, Transmit operations>> shall be buffered by the Bus Simulation and no <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall be sent.
-If the option is set to `DiscardAndNotify`, the <<TransmitOpCodeCanLowCut, Transmit operation>> shall be discarded and an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall be sent to the Network FMU (see <<CanArbitration>>).
+If the option is set to `BUFFER_AND_RETRANSMIT`, <<TransmitOpCodeCanLowCut, Transmit operations>> shall be buffered by the Bus Simulation and no <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall be sent.
+If the option is set to `DISCARD_AND_NOTIFY`, the <<TransmitOpCodeCanLowCut, Transmit operation>> shall be discarded and an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall be sent to the Network FMU (see <<CanArbitration>>).
 
 h|Behavior
 5+|The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
@@ -490,8 +492,8 @@ The following values for the Arbitration Lost Behavior option are defined:
 |====
 
 h|Arbitration Lost Behavior h|Value h|Description
-|BufferAndRetransmit|0x01|<<TransmitOpCodeCanLowCut, Transmit operations>> shall be buffered by the Bus Simulation.
-|DiscardAndNotify|0x02|<<TransmitOpCodeCanLowCut, Transmit operations>> shall be discarded and the specified Network FMU shall be notified by the Bus Simulation via an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>>.
+|BUFFER_AND_RETRANSMIT|0x01|<<TransmitOpCodeCanLowCut, Transmit operations>> shall be buffered by the Bus Simulation.
+|DISCARD_AND_NOTIFY|0x02|<<TransmitOpCodeCanLowCut, Transmit operations>> shall be discarded and the specified Network FMU shall be notified by the Bus Simulation via an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>>.
 
 |====
 
@@ -667,8 +669,8 @@ If all Network FMUs, except the <<TransmitOpCodeCanLowCut, Transmit operation>> 
 The CAN protocol includes a sophisticated fault confinement mechanism to prevent malfunctioning within CAN nodes.
 A Transmit Error Counter (TEC) and a Receive Error Counter (REC) represent a historical communication quality metric.
 To maintain the TEC and REC values, <<BusErrorOpCodeCanLowCut, Bus Error operations>> shall be provided to all Network FMUs by the Bus Simulation.
-The argument `Is Sender` shall be set to `true` for the Network FMU that the <<TransmitOpCodeCanLowCut, Transmit operation>> originated from.
-The argument `Detected` shall be set to `true` if the Network FMU detects the transmission error.
+The argument `Is Sender` shall be set to `TRUE` for the Network FMU that the <<TransmitOpCodeCanLowCut, Transmit operation>> originated from.
+The argument `Detected` shall be set to `TRUE` if the Network FMU detects the transmission error.
 If a Network FMU changes its current CAN node state, the <<StatusOpCodeCanLowCut, Status operation>> shall be provided to the Bus Simulation.
 When a Network FMU has been provided the status `BUS_OFF` to the Bus Simulation, the it shall not get any new <<TransmitOpCodeCanLowCut, Transmit operations>> from the Bus Simulation.
 
@@ -690,9 +692,9 @@ As soon as an FMU loses arbitration in this way, it shall independently repeat t
 image::can_arbitration.svg[width=70%, align="center"]
 
 Within a <<ConfigurationCanOpCode, Configuration operation>>, the `Arbitration Lost Behavior` argument can be specified.
-Once this option is set to `BufferAndRetransmit`, the Bus Simulation buffers the frame after losing arbitration and sends it as soon as possible.
+Once this option is set to `BUFFER_AND_RETRANSMIT`, the Bus Simulation buffers the frame after losing arbitration and sends it as soon as possible.
 In this case, it is not necessary for the Network FMU to trigger the respective frame to be sent again and an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> shall not be returned to the specific Network FMU.
-If the `Arbitration Lost Behavior` is set to `DiscardAndNotify`, the specified Network FMU is informed by an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> and needs to repeat the corresponding <<TransmitOpCodeCanLowCut, Transmit operation>> itself.
+If the `Arbitration Lost Behavior` is set to `DISCARD_AND_NOTIFY`, the specified Network FMU is informed by an <<ArbitrationLostOpCodeCanLowCut, Arbitration Lost operation>> and needs to repeat the corresponding <<TransmitOpCodeCanLowCut, Transmit operation>> itself.
 Arbitration is available in communication cases with Bus Simulation only.
 
 In the case of arbitration, the Bus Simulation must also take the status of the respective Network FMU into account, which is communicated via a <<StatusOpCodeCanLowCut, Status operation>>.
@@ -725,9 +727,9 @@ In step (3), FMU 2 wants to transmit network data to FMU 1:
 A <<TransmitOpCodeCanLowCut, Transmit operation>> will be delivered from FMU 2 to the Bus Simulation.
 In step (4), we see that the transmission results in an <<BusErrorOpCodeCanLowCut, Bus Error operation>>, because the Bus Simulation injects a failure of transmission.
 Based on the <<BusErrorOpCodeCanLowCut, Bus Error operation>> FMU 2 knows that the transmission was not successful.
-Within this <<BusErrorOpCodeCanLowCut, Bus Error operation>>, the `Is Sender` argument is set to `true` for FMU 2, because it provides the failing <<TransmitOpCodeCanLowCut, Transmit operation>>.
+Within this <<BusErrorOpCodeCanLowCut, Bus Error operation>>, the `Is Sender` argument is set to `TRUE` for FMU 2, because it provides the failing <<TransmitOpCodeCanLowCut, Transmit operation>>.
 Another <<BusErrorOpCodeCanLowCut, Bus Error operation>> instance is provided by the Bus Simulation to FMU 1.
-For FMU 1, the `Detected` argument is set to `true`, which means that FMU detects the specified transmission error.
+For FMU 1, the `Detected` argument is set to `TRUE`, which means that FMU detects the specified transmission error.
 
 .Successful and unsuccessful cases of a CAN transmission.
 [#figure-can-transmission-acknowledge]
@@ -737,7 +739,7 @@ Normally, transmission failure cannot occur during a simulated bus transmission.
 Most common kinds of errors are used to inject transmission errors, for example using the Bus Simulation FMU, for advanced test scenarios.
 
 ====== CAN Arbitration without Buffering [[example-can-arbitration-with-arbitration-lost-behavior]]
-<<#figure-can-arbitration-overview>> shows the realization of a CAN arbitration by using the `Arbitration Lost Behavior` option `DiscardAndNotify` within the <<ConfigurationCanOpCode, Configuration operation>>.
+<<#figure-can-arbitration-overview>> shows the realization of a CAN arbitration by using the `Arbitration Lost Behavior` option `DISCARD_AND_NOTIFY` within the <<ConfigurationCanOpCode, Configuration operation>>.
 At the beginning, FMU 1 and FMU 2 each send network data at the same time.
 In this situation, an arbitration is necessary to decide which frame should be sent in this case.
 Both frames are transferred to the Bus Simulation.
@@ -753,7 +755,7 @@ FMU 1 gets a <<ConfirmOpCodeCanLowCut, Confirm operation>>, because the specifie
 image::can_arbitration_overview.svg[width=80%, align="center"]
 
 ====== CAN Arbitration with Buffering [[example-can-arbitration-without-arbitration-lost-behavior]]
-<<#figure-can-arbitration-overview-with-buffer>> shows the realization of a CAN arbitration by using the `Arbitration Lost Behavior` option `BufferAndRetransmit` within the <<ConfigurationCanOpCode, Configuration operation>>.
+<<#figure-can-arbitration-overview-with-buffer>> shows the realization of a CAN arbitration by using the `Arbitration Lost Behavior` option `BUFFER_AND_RETRANSMIT` within the <<ConfigurationCanOpCode, Configuration operation>>.
 At the beginning, FMU 1 and FMU 2 each send network data at the same time.
 In this situation, an arbitration is necessary to decide which frame should be sent in this case.
 Both frames are transferred to the Bus Simulation.
@@ -784,9 +786,9 @@ This CAN node state machine and the related TEC and REC values have to be includ
 <<BusErrorOpCodeCanLowCut, Bus Error operations>> shall be directly used to maintain the TEC and REC values.
 The Network FMU shall react on the <<BusErrorOpCodeCanLowCut, Bus Error operations>> that the Bus Simulation provides, based on the following rule set:
 
-* When an FMU gets a <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments `Is Sender = false` and `Detected = false` and also `Error Code != BROKEN_ERROR_FRAME`, the REC shall be increased by 1.
-* When an FMU gets a <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments (`Is Sender = false` and `Detected = true`) or `Error Code = BROKEN_ERROR_FRAME`, the REC shall be increased by 8.
-* When an FMU gets a <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments `Is Sender = true` or `Error Code = BROKEN_ERROR_FRAME`, the TEC shall be increased by 8.
+* When an FMU gets a <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments `Is Sender = FALSE` and `Detected = FALSE` and also `Error Code != BROKEN_ERROR_FRAME`, the REC shall be increased by 1.
+* When an FMU gets a <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments (`Is Sender = FALSE` and `Detected = TRUE`) or `Error Code = BROKEN_ERROR_FRAME`, the REC shall be increased by 8.
+* When an FMU gets a <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments `Is Sender = TRUE` or `Error Code = BROKEN_ERROR_FRAME`, the TEC shall be increased by 8.
 Exception: `Status =  ERROR_PASSIVE` and `Error Code = ACK_ERROR`.
 * When an FMU provides a <<TransmitOpCodeCanLowCut, Transmit operation>> and receives a <<ConfirmOpCodeCanLowCut, Confirm operation>> for it, the TEC shall be decreased by 1 unless it was already 0.
 * When an FMU gets a <<TransmitOpCodeCanLowCut, Transmit operation>>, the REC shall be decreased by 1, if it was between 1 and 127.
