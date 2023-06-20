@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-9e4a76889d7ff2f07fc2796e6d2979d30f7be78d,</span>
-<span id="revdate">2023-06-19</span>
+<span id="revnumber">version main-58fb4e144b533740e10e97342c2a230065c897ec,</span>
+<span id="revdate">2023-06-20</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -1004,7 +1004,7 @@ Because the Bus Simulation FMU can provide the described functionality, the prim
 The Bus Simulation FMU makes the messages available to all recipients and has the option of acknowledging successful transmission to the sender.
 Also in this case, the FMU importer does not require any special features for bus simulation, apart from supporting FMI variables, clocks and terminals.
 The figure below shows two FMUs which are connected to a specific Bus Simulation FMU.
-The total of three FMUs are executed on a common FMI 3 importer:</p>
+The total of three FMUs are executed on a common FMI 3.0 importer:</p>
 </div>
 <div id="figure-external-bus-simulation-fmu" class="imageblock text-center">
 <div class="content">
@@ -1481,7 +1481,7 @@ The Bus Simulation then might delay the transfer of the Transmit operation to th
 <div class="paragraph">
 <p>The point in time at which FMUs will (potentially) send new network messages must be given to the importer in advance.
 Based on these times, the importer has to calculate the next <code>communicationStepSize</code> for all networked FMUs.
-For simulating bus communication with timing effects, the FMUs should set the Co-Simulation attribute <code>canHandleVariableCommunicationStepSize = true</code>.</p>
+For simulating bus communication with timing effects, the FMUs should set the Co-Simulation attribute <code>canHandleVariableCommunicationStepSize = "true"</code>.</p>
 </div>
 <div id="figure-transmission-example-with-timing-behavior" class="imageblock text-center">
 <div class="content">
@@ -1697,7 +1697,7 @@ The following applies for this operation: <code>Total Length = 5 + Length of Dat
 <div class="sect2">
 <h3 id="NetworkAbstractionVariables">5.3. Variables</h3>
 <div class="paragraph">
-<p>This section explains how layered standard bus protocol operations are sent and received by FMUs using FMI3 clock and clocked variables <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>.
+<p>This section explains how layered standard bus protocol operations are sent and received by FMUs using FMI 3.0 clock and clocked variables <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>.
 While the former (see <a href="#ClockVariableLowCut">Tx/Rx Clock Variables</a>) are used for scheduling and time synchronization, the latter (see <a href="#CommunicationVariable">Tx/Rx Data Variables</a>) are used to carry the layered standard bus protocol operations in binary form.
 To summarize, four variables with the following name schema are used:</p>
 </div>
@@ -1714,8 +1714,8 @@ How to set the <code>BusName</code> placeholder is bus-type-specific and therefo
 <div class="sect3">
 <h4 id="ClockVariableLowCut">5.3.1. Tx/Rx Clock Variables</h4>
 <div class="paragraph">
-<p>As described in the FMI3 specification, Clock variables are used to synchronize events between importer and across FMUs.
-Since Clock variables are strictly related to the <code>Event Mode</code>, networked FMUs shall set the Co-Simulation attribute <code>hasEventMode = fmi3True</code> in the model description file.</p>
+<p>As described in the FMI 3.0 specification, Clock variables are used to synchronize events between importer and across FMUs.
+Since Clock variables are strictly related to the <code>Event Mode</code>, networked FMUs shall set the Co-Simulation attribute <code>hasEventMode = "true"</code> in the model description file.</p>
 </div>
 <div class="paragraph">
 <p>For simulating bus communication according to the Network Abstraction, a time-based clock is used for the <code>Tx_Clock</code> variable to signal the point in time when layered standard bus operations must be transferred by the importer to the receiver FMUs.
