@@ -18,7 +18,7 @@ image::transmit_messages.svg[width=50%, align="center"]
 
 The point in time at which FMUs will (potentially) send new network messages must be given to the importer in advance.
 Based on these times, the importer has to calculate the next `communicationStepSize` for all networked FMUs.
-For simulating bus communication with timing effects, the FMUs should set the Co-Simulation attribute `canHandleVariableCommunicationStepSize = true`.
+For simulating bus communication with timing effects, the FMUs should set the Co-Simulation attribute `canHandleVariableCommunicationStepSize = "true"`.
 
 .Example for network simulation with timing behavior.
 [#figure-transmission-example-with-timing-behavior]
@@ -168,7 +168,7 @@ How to set the `BusName` placeholder is bus-type-specific and therefore describe
 
 ==== Tx/Rx Clock Variables [[ClockVariableLowCut]]
 As described in the FMI 3.0 specification, Clock variables are used to synchronize events between importer and across FMUs.
-Since Clock variables are strictly related to the `Event Mode`, networked FMUs shall set the Co-Simulation attribute `hasEventMode = true` in the model description file.
+Since Clock variables are strictly related to the `Event Mode`, networked FMUs shall set the Co-Simulation attribute `hasEventMode = "true"` in the model description file.
 
 For simulating bus communication according to the Network Abstraction, a time-based clock is used for the `Tx_Clock` variable to signal the point in time when layered standard bus operations must be transferred by the importer to the receiver FMUs.
 It is up to the implementer to either use a `periodic` or `aperiodic` Clock.
