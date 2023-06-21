@@ -18,7 +18,7 @@ image::transmit_messages.svg[width=50%, align="center"]
 
 The point in time at which FMUs will (potentially) send new network messages must be given to the importer in advance.
 Based on these times, the importer has to calculate the next `communicationStepSize` for all networked FMUs.
-For simulating bus communication with timing effects, the FMUs should set the Co-Simulation attribute `canHandleVariableCommunicationStepSize = true`.
+For simulating bus communication with timing effects, the FMUs should set the Co-Simulation attribute `canHandleVariableCommunicationStepSize = "true"`.
 
 .Example for network simulation with timing behavior.
 [#figure-transmission-example-with-timing-behavior]
@@ -154,8 +154,25 @@ h|Behavior
 
 |====
 
+==== Basic Type Definitions [[Basic-Type-Definitions]]
+The following basic types are defined for this standard, which apply to all supported buses.
+These basic types are used in the bus-specific parts within the operation definitions as operation arguments.
+
+The following values for the boolean basic type are defined:
+
+.Overview of the available boolean values.
+[#table-boolean-value-kinds]
+[cols="2,1,5"]
+|====
+
+h|Boolean h|Value h|Description
+|FALSE|0x00|Describes the boolean value: False.
+|TRUE|0x01|Describes the boolean value: True.
+
+|====
+
 === Variables [[NetworkAbstractionVariables, Variables]]
-This section explains how layered standard bus protocol operations are sent and received by FMUs using FMI3 clock and clocked variables footnote:[For details, refer to Functional Mock-up Interface Specification (fmi-standard.org) chapter 2.2.8 Clocks.].
+This section explains how layered standard bus protocol operations are sent and received by FMUs using FMI 3.0 clock and clocked variables footnote:[For details, refer to Functional Mock-up Interface Specification (fmi-standard.org) chapter 2.2.8 Clocks.].
 While the former (see <<ClockVariableLowCut, Tx/Rx Clock Variables>>) are used for scheduling and time synchronization, the latter (see <<CommunicationVariable, Tx/Rx Data Variables>>) are used to carry the layered standard bus protocol operations in binary form.
 To summarize, four variables with the following name schema are used:
 
@@ -167,8 +184,8 @@ Both variable pairs must be listed as member of its corresponding <<BUSTerminalL
 How to set the `BusName` placeholder is bus-type-specific and therefore described in the bus-specific chapters.
 
 ==== Tx/Rx Clock Variables [[ClockVariableLowCut]]
-As described in the FMI3 specification, Clock variables are used to synchronize events between importer and across FMUs.
-Since Clock variables are strictly related to the `Event Mode`, networked FMUs shall set the Co-Simulation attribute `hasEventMode = fmi3True` in the model description file.
+As described in the FMI 3.0 specification, Clock variables are used to synchronize events between importer and across FMUs.
+Since Clock variables are strictly related to the `Event Mode`, networked FMUs shall set the Co-Simulation attribute `hasEventMode = "true"` in the model description file.
 
 For simulating bus communication according to the Network Abstraction, a time-based clock is used for the `Tx_Clock` variable to signal the point in time when layered standard bus operations must be transferred by the importer to the receiver FMUs.
 It is up to the implementer to either use a `periodic` or `aperiodic` Clock.
