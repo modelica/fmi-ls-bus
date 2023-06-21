@@ -154,6 +154,23 @@ h|Behavior
 
 |====
 
+==== Basic Type Definitions [[Basic-Type-Definitions]]
+The following basic types are defined for this standard, which apply to all supported buses.
+These basic types are used in the bus-specific parts within the operation definitions as operation arguments.
+
+The following values for the boolean basic type are defined:
+
+.Overview of the available boolean values.
+[#table-boolean-value-kinds]
+[cols="2,1,5"]
+|====
+
+h|Boolean h|Value h|Description
+|FALSE|0x00|Describes the boolean value: False.
+|TRUE|0x01|Describes the boolean value: True.
+
+|====
+
 === Variables [[NetworkAbstractionVariables, Variables]]
 This section explains how layered standard bus protocol operations are sent and received by FMUs using FMI 3.0 clock and clocked variables footnote:[For details, refer to Functional Mock-up Interface Specification (fmi-standard.org) chapter 2.2.8 Clocks.].
 While the former (see <<ClockVariableLowCut, Tx/Rx Clock Variables>>) are used for scheduling and time synchronization, the latter (see <<CommunicationVariable, Tx/Rx Data Variables>>) are used to carry the layered standard bus protocol operations in binary form.
