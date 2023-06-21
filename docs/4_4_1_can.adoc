@@ -692,7 +692,7 @@ When a Network FMU has provided the status `BUS_OFF` to the Bus Simulation, then
 
 .Architectural error handling overview.
 [#figure-can-architectural-error-handling-overview]
-image::can_error_handling_overview.svg[width=80%, align="center"]
+image::can_error_handling_overview.svg[width=100%, align="center"]
 
 <<example-can-error-handling>> contains a detailed overview about the CAN error handling.
 Additionally, a rule set showing how to implement correct CAN error handling based on this standard with respect to the arguments of the <<BusErrorOpCodeCanLowCut, Bus Error operation>> is shown.
