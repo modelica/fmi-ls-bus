@@ -116,7 +116,7 @@ h|Total Length
 (4 byte)
 2+|Error Code +
 (1 byte)
-2+|Detected +
+2+|Error Flag +
 (1 byte)
 3+|Is Sender +
 (1 byte)
@@ -345,10 +345,10 @@ The following applies for this operation: `Total Length = 12`.
 |1 byte
 |The simulated bus error, based on <<table-can-error-codes, the table below>>.
 
-|Detected
+|Error Flag
 |1 byte
-|Defines whether the Error was detected by the Network FMU.
-For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+|Defines whether the Error was detected by a specified Network FMU.
+For specification the boolean values `PRIMARY_ERROR_FLAG` and `SECONDARY_ERROR_FLAG` (see <<table-can-bus-error-error-flag-kinds>>) shall be used.
 
 |Is Sender
 |1 byte
@@ -361,7 +361,7 @@ A Bus Simulation can simulate such errors by providing Bus Error operations to t
 Based on consumed Bus Error operations, Network FMUs shall maintain an internal CAN node state (see <<CanErrorHandling>>).
 To determine the CAN node state properly, Network FMUs need the information about their role at the time when the simulated error happened.
 If a Network FMU is sending, the argument `Is Sender` shall be set.
-If a Network FMU is detecting the error first, the argument `Detected` shall be set.
+If a Network FMU is detecting the error first, the argument `Error Flag = PRIMARY_ERROR_FLAG` shall be set.
 The arguments `Is Sender` must only be set once per simulated error.
 If the structural parameter `org.fmi_standard.fmi_ls_bus.WaitForBusNotification` (see <<bus-notification-parameter>>) is set to `false`, the Network FMU does not rely on receiving Bus Error operations.
 In this case, Bus Simulations should not send Bus Error operations to the Network FMU.
@@ -686,7 +686,7 @@ The CAN protocol includes a sophisticated fault confinement mechanism to prevent
 A Transmit Error Counter (TEC) and a Receive Error Counter (REC) represent a historical communication quality metric.
 To maintain the TEC and REC values, <<BusErrorOpCodeCanLowCut, Bus Error operations>> shall be provided to all Network FMUs by the Bus Simulation.
 The argument `Is Sender` shall be set to `TRUE` for the Network FMU that the <<TransmitOpCodeCanLowCut, Transmit operation>> originated from.
-The argument `Detected` shall be set to `TRUE` if the Network FMU detects the transmission error.
+The argument `Error Flag` shall be set to `PRIMARY_ERROR_FLAG` if the Network FMU detects the transmission error.
 If a Network FMU changes its current CAN node state, the <<StatusOpCodeCanLowCut, Status operation>> shall be provided to the Bus Simulation.
 When a Network FMU has provided the status `BUS_OFF` to the Bus Simulation, then it also shall not provide any new <<TransmitOpCodeCanLowCut, Transmit operations>> to the Bus Simulation to simulate a real bus off behavior.
 
@@ -745,7 +745,7 @@ In step (4), we see that the transmission results in an <<BusErrorOpCodeCanLowCu
 Based on the <<BusErrorOpCodeCanLowCut, Bus Error operation>> FMU 2 knows that the transmission was not successful.
 Within this <<BusErrorOpCodeCanLowCut, Bus Error operation>>, the `Is Sender` argument is set to `TRUE` for FMU 2, because it provides the failing <<TransmitOpCodeCanLowCut, Transmit operation>>.
 Another <<BusErrorOpCodeCanLowCut, Bus Error operation>> instance is provided by the Bus Simulation to FMU 1.
-For FMU 1, the `Detected` argument is set to `TRUE`, which means that FMU detects the specified transmission error.
+For FMU 1, the `Error Flag` argument is set to `PRIMARY_ERROR_FLAG`, which means that FMU detects the specified transmission error.
 
 .Successful and unsuccessful cases of a CAN transmission.
 [#figure-can-transmission-acknowledge]
@@ -791,7 +791,7 @@ image::can_arbitration_overview_with_buffer.svg[width=80%, align="center"]
 
 This chapter describes a possible implementation of the CAN error handling within Network FMUs using a rule set based on <<BusErrorOpCodeCanLowCut, Bus Error operations>>.
 Each Network FMU will provide its own Transmit Error Counter (TEC), Receive Error Counter (REC) and current CAN node state.
-The values for TEC and REC will be increased and decreased with respect to the `Error Code`, `Is Sender` and `Detected` arguments of a <<BusErrorOpCodeCanLowCut, Bus Error operation>> and are inherited from the original CAN error confinement rules.
+The values for TEC and REC will be increased and decreased with respect to the `Error Code`, `Is Sender` and `Error Flag` arguments of a <<BusErrorOpCodeCanLowCut, Bus Error operation>> and are inherited from the original CAN error confinement rules.
 Based on the values of TEC and REC, the CAN controller moves in the following state machine:
 
 .CAN node state machine.
@@ -802,8 +802,8 @@ This CAN node state machine and the related TEC and REC values have to be includ
 <<BusErrorOpCodeCanLowCut, Bus Error operations>> shall be directly used to maintain the TEC and REC values.
 The Network FMU shall react on the <<BusErrorOpCodeCanLowCut, Bus Error operations>> that the Bus Simulation provides, based on the following rule set:
 
-* When an FMU gets a <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments `Is Sender = FALSE` and `Detected = FALSE` and also `Error Code != BROKEN_ERROR_FRAME`, the REC shall be increased by 1.
-* When an FMU gets a <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments (`Is Sender = FALSE` and `Detected = TRUE`) or `Error Code = BROKEN_ERROR_FRAME`, the REC shall be increased by 8.
+* When an FMU gets a <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments `Is Sender = FALSE` and `Error Flag = SECONDARY_ERROR_FLAG` and also `Error Code != BROKEN_ERROR_FRAME`, the REC shall be increased by 1.
+* When an FMU gets a <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments (`Is Sender = FALSE` and `Error Flag = PRIMARY_ERROR_FLAG`) or `Error Code = BROKEN_ERROR_FRAME`, the REC shall be increased by 8.
 * When an FMU gets a <<BusErrorOpCodeCanLowCut, Bus Error operation>> where the arguments `Is Sender = TRUE` or `Error Code = BROKEN_ERROR_FRAME`, the TEC shall be increased by 8.
 Exception: `Status =  ERROR_PASSIVE` and `Error Code = ACK_ERROR`.
 * When an FMU provides a <<TransmitOpCodeCanLowCut, Transmit operation>> and receives a <<ConfirmOpCodeCanLowCut, Confirm operation>> for it, the TEC shall be decreased by 1 unless it was already 0.
