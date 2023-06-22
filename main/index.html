@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-1b49c570aec1d69bbaf5faa761eddf3bd2ae8da6,</span>
-<span id="revdate">2023-06-21</span>
+<span id="revnumber">version main-37e81403501bf9781b39edf6727d184d94b2b537,</span>
+<span id="revdate">2023-06-22</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -2174,7 +2174,7 @@ It shows all operations and the arguments they contain.</p>
 (4 byte)</p></td>
 <td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Error Code<br>
 (1 byte)</p></td>
-<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Detected<br>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Error Flag<br>
 (1 byte)</p></td>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Is Sender<br>
 (1 byte)</p></td>
@@ -2644,10 +2644,10 @@ The following applies for this operation: <code>Total Length = 12</code>.</p></t
 <td class="tableblock halign-left valign-top"><p class="tableblock">The simulated bus error, based on <a href="#table-can-error-codes">the table below</a>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Detected</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Error Flag</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defines whether the Error was detected by the Network FMU.
-For specification the boolean values <code>TRUE</code> and <code>FALSE</code> (see <a href="#table-boolean-value-kinds">Table 5</a>) shall be used.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines whether the Error was detected by a specified Network FMU.
+For specification the boolean values <code>PRIMARY_ERROR_FLAG</code> and <code>SECONDARY_ERROR_FLAG</code> (see <a href="#table-can-bus-error-error-flag-kinds">Table 15</a>) shall be used.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is Sender</p></td>
@@ -2662,8 +2662,8 @@ A Bus Simulation can simulate such errors by providing Bus Error operations to t
 Based on consumed Bus Error operations, Network FMUs shall maintain an internal CAN node state (see <a href="#CanErrorHandling">Section 5.6.1.6</a>).
 To determine the CAN node state properly, Network FMUs need the information about their role at the time when the simulated error happened.
 If a Network FMU is sending, the argument <code>Is Sender</code> shall be set.
-If a Network FMU is detecting the error first, the argument <code>Detected</code> shall be set.
-The arguments <code>Detected</code> and <code>Is Sender</code> must only be set once per simulated error.
+If a Network FMU is detecting the error first, the argument <code>Error Flag = PRIMARY_ERROR_FLAG</code> shall be set.
+The arguments <code>Is Sender</code> must only be set once per simulated error.
 If the structural parameter <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 5.6.1.3.1</a>) is set to <code>false</code>, the Network FMU does not rely on receiving Bus Error operations.
 In this case, Bus Simulations should not send Bus Error operations to the Network FMU.</p></td>
 </tr>
@@ -2719,6 +2719,34 @@ Within CAN, an Error frame is transmitted by any unit on detection of a bus erro
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>The following values for the Error Flag option are defined:</p>
+</div>
+<table id="table-can-bus-error-error-flag-kinds" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 15. Overview of the available Error Flag values.</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 62.5%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Error Flag</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Value</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PRIMARY_ERROR_FLAG</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines that a specified Network FMU is detecting the given <a href="#BusErrorOpCodeCanLowCut">Bus Error</a> first.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SECONDARY_ERROR_FLAG</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x02</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines that a specified Network FMU is reacting on a <a href="#BusErrorOpCodeCanLowCut">Bus Error</a> and does not detect it.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect5">
 <h6 id="ConfigurationCanOpCode">5.6.1.2.6. Configuration</h6>
@@ -2727,7 +2755,7 @@ Within CAN, an Error frame is transmitted by any unit on detection of a bus erro
 The following information is included within this operation:</p>
 </div>
 <table id="table-can-configuration-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. Detailed description of the Configuration operation.</caption>
+<caption class="title">Table 16. Detailed description of the Configuration operation.</caption>
 <colgroup>
 <col style="width: 11.6279%;">
 <col style="width: 2.3255%;">
@@ -2822,7 +2850,7 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 <p>The following configuration parameters are defined:</p>
 </div>
 <table id="table-can-configuration-kinds" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 16. Overview of the available configuration parameters.</caption>
+<caption class="title">Table 17. Overview of the available configuration parameters.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -2860,7 +2888,7 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 <p>The following values for the Arbitration Lost Behavior option are defined:</p>
 </div>
 <table id="table-can-configuration-arbitration-lost-behavior-kinds" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 17. Overview of the available Arbitration Lost Behavior values.</caption>
+<caption class="title">Table 18. Overview of the available Arbitration Lost Behavior values.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 12.5%;">
@@ -2892,7 +2920,7 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 The following information is included within this operation:</p>
 </div>
 <table id="table-can-status-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 18. Detailed description of the Status operation.</caption>
+<caption class="title">Table 19. Detailed description of the Status operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -2947,7 +2975,7 @@ A Network FMU shall report its status to the Bus Simulation after it changes.</p
 <p>The following status values can be used:</p>
 </div>
 <table id="table-can-status-values" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 19. Overview of the available status values.</caption>
+<caption class="title">Table 20. Overview of the available status values.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -2988,7 +3016,7 @@ If all Network FMUs, except the <a href="#TransmitOpCodeCanLowCut">Transmit oper
 <p>By using the <code>Wakeup operation</code>, the underlying Bus Simulation can trigger a bus-specific wake up.</p>
 </div>
 <table id="table-can-wakeup-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 20. Detailed description of the Wakeup operation.</caption>
+<caption class="title">Table 21. Detailed description of the Wakeup operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -3147,13 +3175,13 @@ In this case, the <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code
 A Transmit Error Counter (TEC) and a Receive Error Counter (REC) represent a historical communication quality metric.
 To maintain the TEC and REC values, <a href="#BusErrorOpCodeCanLowCut">Bus Error operations</a> shall be provided to all Network FMUs by the Bus Simulation.
 The argument <code>Is Sender</code> shall be set to <code>TRUE</code> for the Network FMU that the <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> originated from.
-The argument <code>Detected</code> shall be set to <code>TRUE</code> if the Network FMU detects the transmission error.
+The argument <code>Error Flag</code> shall be set to <code>PRIMARY_ERROR_FLAG</code> if the Network FMU detects the transmission error.
 If a Network FMU changes its current CAN node state, the <a href="#StatusOpCodeCanLowCut">Status operation</a> shall be provided to the Bus Simulation.
 When a Network FMU has provided the status <code>BUS_OFF</code> to the Bus Simulation, then it also shall not provide any new <a href="#TransmitOpCodeCanLowCut">Transmit operations</a> to the Bus Simulation to simulate a real bus off behavior.</p>
 </div>
 <div id="figure-can-architectural-error-handling-overview" class="imageblock text-center">
 <div class="content">
-<img src="images/can_error_handling_overview.svg" alt="can error handling overview" width="80%">
+<img src="images/can_error_handling_overview.svg" alt="can error handling overview" width="100%">
 </div>
 <div class="title">Figure 11. Architectural error handling overview.</div>
 </div>
@@ -3185,7 +3213,7 @@ Arbitration is available in communication cases with Bus Simulation only.</p>
 </div>
 <div class="paragraph">
 <p>In the case of arbitration, the Bus Simulation must also take the status of the respective Network FMU into account, which is communicated via a <a href="#StatusOpCodeCanLowCut">Status operation</a>.
-To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN node is in Error Passive state, the Bus Simulation shall prefer Network FMUs whose status is <code>ERROR_ACTIVE</code> (see <a href="#table-can-status-values">Table 19</a>).</p>
+To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN node is in Error Passive state, the Bus Simulation shall prefer Network FMUs whose status is <code>ERROR_ACTIVE</code> (see <a href="#table-can-status-values">Table 20</a>).</p>
 </div>
 <div class="paragraph">
 <p><a href="#example-can-arbitration-with-arbitration-lost-behavior">Section 5.6.1.9.2</a> and <a href="#example-can-arbitration-without-arbitration-lost-behavior">Section 5.6.1.9.3</a> contain examples of the presented arbitration cases and visualize them in the form of sequence diagrams.</p>
@@ -3227,7 +3255,7 @@ In step (4), we see that the transmission results in an <a href="#BusErrorOpCode
 Based on the <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a> FMU 2 knows that the transmission was not successful.
 Within this <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a>, the <code>Is Sender</code> argument is set to <code>TRUE</code> for FMU 2, because it provides the failing <a href="#TransmitOpCodeCanLowCut">Transmit operation</a>.
 Another <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a> instance is provided by the Bus Simulation to FMU 1.
-For FMU 1, the <code>Detected</code> argument is set to <code>TRUE</code>, which means that FMU detects the specified transmission error.</p>
+For FMU 1, the <code>Error Flag</code> argument is set to <code>PRIMARY_ERROR_FLAG</code>, which means that FMU detects the specified transmission error.</p>
 </div>
 <div id="figure-can-transmission-acknowledge" class="imageblock text-center">
 <div class="content">
@@ -3288,7 +3316,7 @@ FMU 1 gets a <a href="#ConfirmOpCodeCanLowCut">Confirm operation</a>, because th
 <div class="paragraph">
 <p>This chapter describes a possible implementation of the CAN error handling within Network FMUs using a rule set based on <a href="#BusErrorOpCodeCanLowCut">Bus Error operations</a>.
 Each Network FMU will provide its own Transmit Error Counter (TEC), Receive Error Counter (REC) and current CAN node state.
-The values for TEC and REC will be increased and decreased with respect to the <code>Error Code</code>, <code>Is Sender</code> and <code>Detected</code> arguments of a <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a> and are inherited from the original CAN error confinement rules.
+The values for TEC and REC will be increased and decreased with respect to the <code>Error Code</code>, <code>Is Sender</code> and <code>Error Flag</code> arguments of a <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a> and are inherited from the original CAN error confinement rules.
 Based on the values of TEC and REC, the CAN controller moves in the following state machine:</p>
 </div>
 <div id="figure-can-error-state-machine" class="imageblock text-center">
@@ -3305,10 +3333,10 @@ The Network FMU shall react on the <a href="#BusErrorOpCodeCanLowCut">Bus Error 
 <div class="ulist">
 <ul>
 <li>
-<p>When an FMU gets a <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a> where the arguments <code>Is Sender = FALSE</code> and <code>Detected = FALSE</code> and also <code>Error Code != BROKEN_ERROR_FRAME</code>, the REC shall be increased by 1.</p>
+<p>When an FMU gets a <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a> where the arguments <code>Is Sender = FALSE</code> and <code>Error Flag = SECONDARY_ERROR_FLAG</code> and also <code>Error Code != BROKEN_ERROR_FRAME</code>, the REC shall be increased by 1.</p>
 </li>
 <li>
-<p>When an FMU gets a <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a> where the arguments (<code>Is Sender = FALSE</code> and <code>Detected = TRUE</code>) or <code>Error Code = BROKEN_ERROR_FRAME</code>, the REC shall be increased by 8.</p>
+<p>When an FMU gets a <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a> where the arguments (<code>Is Sender = FALSE</code> and <code>Error Flag = PRIMARY_ERROR_FLAG</code>) or <code>Error Code = BROKEN_ERROR_FRAME</code>, the REC shall be increased by 8.</p>
 </li>
 <li>
 <p>When an FMU gets a <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a> where the arguments <code>Is Sender = TRUE</code> or <code>Error Code = BROKEN_ERROR_FRAME</code>, the TEC shall be increased by 8.
