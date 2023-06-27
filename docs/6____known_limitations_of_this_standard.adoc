@@ -27,3 +27,5 @@ Such an ideal network differs from physical networks in the following ways (and 
 == References
 
 - [[[PW13]]] Preston-Werner, T. (2013): **Semantic Versioning 2.0.0**.  https://semver.org/spec/v2.0.0.html
+- [[[RFC2119]]] RFC 2119. https://tools.ietf.org/html/rfc2119
+- [[[LICENSE]]] FMI License text. https://raw.githubusercontent.com/modelica/fmi-standard/master/LICENSE.txt
