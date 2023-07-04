@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fmiModelDescription fmiVersion="3.0-final" modelName="Network4FMI"
+<fmiModelDescription fmiVersion="3.0" modelName="Network4FMI"
     instantiationToken="Network4FMI">
   <ModelVariables>
     <Clock name="Powertrain::Rx_Clock" valueReference="1002"

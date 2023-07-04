@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-92f89140c00e2a3d552bf82245a3f08d306e5e6c,</span>
+<span id="revnumber">version main-4d6071a3d306cc30b4acbb99db45f8fdc7c512b0,</span>
 <span id="revdate">2023-07-04</span>
 </div>
 <div id="toc" class="toc2">
@@ -1065,7 +1065,7 @@ The unit definition of the variable must match the one defined in the <a href="#
 <p>Each network signal must be listed as <a href="#TerminalMemberVariable">Terminal Member Variable</a> of its corresponding <a href="#PDUTerminal">PDU terminal</a>.</p>
 </div>
 <div class="paragraph">
-<p>In case multiplexed signals are present in a frame/PDU: all signals are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values <em>[those values could even be outside their specified min-max range without fault]</em>.</p>
+<p>In case multiplexed signals are present in a frame/PDU/container PDU: all signals/PDUs are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values <em>[those values could even be outside their specified min-max range without fault]</em>.</p>
 </div>
 <div class="paragraph">
 <p>Generally, signal variables are optional, but they must either be all missing or all present to clearly indicate support for the signal abstraction layer.</p>
@@ -1111,7 +1111,7 @@ This allows the FMU (or better the exporting tool) to balance the accuracy and p
 <div class="sect2">
 <h3 id="NetworkDescriptionFile">4.3. Network Description Files</h3>
 <div class="paragraph">
-<p>Standardized <a href="#NetworkDescriptionFile">network description files</a> can be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
+<p>Standardized <a href="#NetworkDescriptionFile">network description files</a> may optionally be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
 If these <a href="#NetworkDescriptionFile">network description files</a> are shipped, they must be placed into the <code>/extra/org.fmi-standard.fmi-ls-bus</code> folder.
 DBC, LDF, Fibex and ARXML files are allowed, e.g., <code>Powertrain.dbc</code>.
 The case sensitive root name of the <a href="#NetworkDescriptionFile">network description file</a> must be used as network identifier in the bus terminal type and prefix in the variable names.</p>
@@ -1320,7 +1320,7 @@ Signal trigger conditions are not included because they have no bearing on this 
 <pre class="highlightjs highlight"><code class="language-C hljs" data-lang="C">...
 BO_ 256 tcuSensors: 4 TCU
  SG_ vCar :          0|16@1- (32,0)  [-500|500] "km/h" ECU
- SG_ oilTemp :      16|9@1-  (2,50)  [-50|150]  "Grad C" ECU
+ SG_ oilTemp :      16|9@1-  (2,50)  [-50|150]  "Degree C" ECU
 
 BO_ 257 tcuState: 2 TCU
  SG_ state :         0|2@1+  (1,0)   [ 0|2] "-" ECU
@@ -1330,8 +1330,8 @@ BO_ 257 tcuState: 2 TCU
 BO_ 512 ecuState: 4 ECU
  SG_ accelPedal :    0|8@1+ (2,0)   [0|100]   "%" TCU
  SG_ k15 :           8|1@1+ (1,0)   [0|1]     "-" TCU
- SG_ oilTemp :       9|9@1- (2,50)  [-50|150] "Grad C" TCU
- SG_ radiatorTemp : 18|9@1- (2,50)  [-50|150] "Grad C" TCU
+ SG_ oilTemp :       9|9@1- (2,50)  [-50|150] "Degree C" TCU
+ SG_ radiatorTemp : 18|9@1- (2,50)  [-50|150] "Degree C" TCU
 ...</code></pre>
 </div>
 </div>
@@ -1342,7 +1342,7 @@ BO_ 512 ecuState: 4 ECU
 <div class="title">Example modelDescription.xml for ECU node</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-XML hljs" data-lang="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;fmiModelDescription fmiVersion="3.0-final" modelName="Network4FMI"
+&lt;fmiModelDescription fmiVersion="3.0" modelName="Network4FMI"
     instantiationToken="Network4FMI"&gt;
   &lt;ModelVariables&gt;
     &lt;Clock   name="Powertrain::tcuSensors_Clock"                 valueReference="1007"
@@ -1384,7 +1384,7 @@ BO_ 512 ecuState: 4 ECU
 <div class="title">Example terminalsAndIcons.xml file</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-XML hljs" data-lang="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;fmiTerminalsAndIcons fmiVersion="3.0-final"&gt;
+&lt;fmiTerminalsAndIcons fmiVersion="3.0"&gt;
   &lt;Terminals&gt;
     &lt;Terminal terminalKind="bus" name="Powertrain" matchingRule="bus"
         description="Powertrain CAN bus defined with dbc file"&gt;
@@ -1931,7 +1931,7 @@ If the specified FMU is connected to more than one network, there shall be exact
 <div class="title">Example modelDescription.xml for ECU node</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-XML hljs" data-lang="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;fmiModelDescription fmiVersion="3.0-final" modelName="Network4FMI"
+&lt;fmiModelDescription fmiVersion="3.0" modelName="Network4FMI"
     instantiationToken="Network4FMI"&gt;
   &lt;ModelVariables&gt;
     &lt;Clock name="Powertrain::Rx_Clock" valueReference="1002"
@@ -1955,7 +1955,7 @@ If the specified FMU is connected to more than one network, there shall be exact
 <div class="title">Example terminalsAndIcons.xml file</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-XML hljs" data-lang="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;fmiTerminalsAndIcons fmiVersion="3.0-final"&gt;
+&lt;fmiTerminalsAndIcons fmiVersion="3.0"&gt;
   &lt;Terminals&gt;
     &lt;Terminal terminalKind="bus" name="Powertrain" matchingRule="bus"
         description="Powertrain CAN bus terminal definition"&gt;
