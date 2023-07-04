@@ -45,7 +45,7 @@ Signal variables belonging to frame `BusName::FrameName` are triggered by the cl
 
 === Network Description Files [[NetworkDescriptionFile,network description file]]
 
-Standardized <<NetworkDescriptionFile,network description files>> can be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
+Standardized <<NetworkDescriptionFile,network description files>> may optionally be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
 If these <<NetworkDescriptionFile,network description files>> are shipped, they must be placed into the `/extra/org.fmi-standard.fmi-ls-bus` folder.
 DBC, LDF, Fibex and ARXML files are allowed, e.g., `Powertrain.dbc`.
 The case sensitive root name of the <<NetworkDescriptionFile>> must be used as network identifier in the bus terminal type and prefix in the variable names.
