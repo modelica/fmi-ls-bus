@@ -34,6 +34,9 @@ _[The alternative of using `nextEventTime` would force epsilon matching of event
 For any periodic (fixed-time) sending of messages, multiple message sends fall into one `doStep`.
 While high cut signal variables will miss all but the last value sent, low cut frame variables will buffer all payloads inside their value.
 
+If triggered output clocks are used, the importer must take create care to schedule and potentially roll-back FMUs that have advanced their doStep past such a (surprising) triggered clock activation from another FMU.
+It is strongly recommended to avoid using triggered output clocks and to instead use time-base clocks to avoid these complications and potential performance problems.
+
 If an FMU represents network nodes that are both sender and receiver of a signal, the receiver role will be removed from the FMU interface to allow the signals to have a unique role as output and the reading of such outputs must be handled internally to the FMU.
 
 _[The FMI standard requires a variable to be either input or output.]_
