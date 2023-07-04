@@ -20,7 +20,7 @@ The unit definition of the variable must match the one defined in the <<NetworkD
 
 Each network signal must be listed as <<TerminalMemberVariable>> of its corresponding <<PDUTerminal>>.
 
-In case multiplexed signals are present in a frame/PDU: all signals are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values _[those values could even be outside their specified min-max range without fault]_.
+In case multiplexed signals are present in a frame/PDU/container PDU: all signals/PDUs are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values _[those values could even be outside their specified min-max range without fault]_.
 
 Generally, signal variables are optional, but they must either be all missing or all present to clearly indicate support for the signal abstraction layer.
 
@@ -45,7 +45,7 @@ Signal variables belonging to frame `BusName::FrameName` are triggered by the cl
 
 === Network Description Files [[NetworkDescriptionFile,network description file]]
 
-Standardized <<NetworkDescriptionFile,network description files>> can be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
+Standardized <<NetworkDescriptionFile,network description files>> may optionally be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
 If these <<NetworkDescriptionFile,network description files>> are shipped, they must be placed into the `/extra/org.fmi-standard.fmi-ls-bus` folder.
 DBC, LDF, Fibex and ARXML files are allowed, e.g., `Powertrain.dbc`.
 The case sensitive root name of the <<NetworkDescriptionFile>> must be used as network identifier in the bus terminal type and prefix in the variable names.
@@ -141,7 +141,7 @@ Signal trigger conditions are not included because they have no bearing on this 
 ...
 BO_ 256 tcuSensors: 4 TCU
  SG_ vCar :          0|16@1- (32,0)  [-500|500] "km/h" ECU
- SG_ oilTemp :      16|9@1-  (2,50)  [-50|150]  "Grad C" ECU
+ SG_ oilTemp :      16|9@1-  (2,50)  [-50|150]  "Degree C" ECU
 
 BO_ 257 tcuState: 2 TCU
  SG_ state :         0|2@1+  (1,0)   [ 0|2] "-" ECU
@@ -151,8 +151,8 @@ BO_ 257 tcuState: 2 TCU
 BO_ 512 ecuState: 4 ECU
  SG_ accelPedal :    0|8@1+ (2,0)   [0|100]   "%" TCU
  SG_ k15 :           8|1@1+ (1,0)   [0|1]     "-" TCU
- SG_ oilTemp :       9|9@1- (2,50)  [-50|150] "Grad C" TCU
- SG_ radiatorTemp : 18|9@1- (2,50)  [-50|150] "Grad C" TCU
+ SG_ oilTemp :       9|9@1- (2,50)  [-50|150] "Degree C" TCU
+ SG_ radiatorTemp : 18|9@1- (2,50)  [-50|150] "Degree C" TCU
 ...
 ----
 
