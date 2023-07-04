@@ -6,6 +6,7 @@ Automotive CAN, LIN, FlexRay, CAN FD, CAN XL and Ethernet are network technologi
 Virtualizing electronic control units (ECUs) and then simulating multiple such virtual ECUs requires connecting them using a virtual version of these network technologies.
 
 This layered standard defines what input and output variables and which FMI 3.0 features are used and how to emulate a transport layer for such network traffic.
+At this point it should be explicitly mentioned that this layered standard not only relates to automotive buses, but can also be extended to buses from other domains in the future.
 
 There are mainly two base use cases envisioned here:
 
@@ -18,14 +19,13 @@ It forwards the network payloads using binary variables.
 The "low cut" abstraction layer is meant to allow virtualized bus driver implementations, including feedback from the physical drivers about transmission status or network node states.
 Since the network abstraction layer is protocol-independent, it can also be used for the simulation of non-automotive control units, _e.g., from the field of industrial automation_.
 
-In the simplest use case, the importer does not need to know specific bus semantics of certain variables of an FMU; it simply forwards variable values between 2 FMUs according to the FMI standard (<<multiOutput,with one exception noted at the end of the document>>).
-Only when more than two FMUs are connected to a single network, a bus simulation component is required to handle the bus communication between multiple senders and receivers according to the semantic of the selected bus type.
+So that this layered standard can be supported in a variety of FMU importers and other types of simulators three possible communication architectures for bus communication are specified:
 
-See the following image describing three potential architectures for connecting two or more networked virtual ECUs packaged into FMI 3.0 FMUs:
-
-.Three ways to connect FMUs with bus support and network variables, for example virtual ECUs.
-[#vECU-network-architectures]
-image::architecture.svg[width=80%, align="center"]
+* Direct Communication: Limited to exactly two FMUs, a common FMU importer that not require any special features for simulating buses, apart from supporting FMI variables, clocks and terminals can be use to emulate bus communication.
+* Composition with dedicated Bus Simulation FMU: A separate Bus Simulation FMU is used to simulate the specific bus behavior.
+Other FMUs that want to emulate bus communication provide and relate network information via this Bus Simulation FMU.
+This communication architecture can be operated by a common FMU importer and allows complex and detailed bus simulations.
+* Importer with Integrated Bus Simulation: Works analogously to the Composition with dedicated Bus Simulation FMU architecture, whereby the Bus Simulation FMU is directly integrated into an importer or other simulator.
 
 === How to Read This Document
 
