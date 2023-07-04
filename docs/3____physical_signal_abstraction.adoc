@@ -141,7 +141,7 @@ Signal trigger conditions are not included because they have no bearing on this 
 ...
 BO_ 256 tcuSensors: 4 TCU
  SG_ vCar :          0|16@1- (32,0)  [-500|500] "km/h" ECU
- SG_ oilTemp :      16|9@1-  (2,50)  [-50|150]  "Grad C" ECU
+ SG_ oilTemp :      16|9@1-  (2,50)  [-50|150]  "Degree C" ECU
 
 BO_ 257 tcuState: 2 TCU
  SG_ state :         0|2@1+  (1,0)   [ 0|2] "-" ECU
@@ -151,8 +151,8 @@ BO_ 257 tcuState: 2 TCU
 BO_ 512 ecuState: 4 ECU
  SG_ accelPedal :    0|8@1+ (2,0)   [0|100]   "%" TCU
  SG_ k15 :           8|1@1+ (1,0)   [0|1]     "-" TCU
- SG_ oilTemp :       9|9@1- (2,50)  [-50|150] "Grad C" TCU
- SG_ radiatorTemp : 18|9@1- (2,50)  [-50|150] "Grad C" TCU
+ SG_ oilTemp :       9|9@1- (2,50)  [-50|150] "Degree C" TCU
+ SG_ radiatorTemp : 18|9@1- (2,50)  [-50|150] "Degree C" TCU
 ...
 ----
 

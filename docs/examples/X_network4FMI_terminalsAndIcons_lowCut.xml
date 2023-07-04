@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fmiTerminalsAndIcons fmiVersion="3.0-final">
+<fmiTerminalsAndIcons fmiVersion="3.0">
   <Terminals>
     <Terminal terminalKind="bus" name="Powertrain" matchingRule="bus"
         description="Powertrain CAN bus terminal definition">
