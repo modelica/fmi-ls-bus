@@ -41,7 +41,7 @@ If an FMU represents network nodes that are both sender and receiver of a signal
 
 _[The FMI standard requires a variable to be either input or output.]_
 
-While the values and semantic of the clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology, see <<FrameVariable>>.
+While the values and semantic of the clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology.
 Frame variables do not just transport the network-specific payload, but also carry protocol-specific status information.
 Status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack about success or errors of a send request.
 
