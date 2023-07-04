@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-37e81403501bf9781b39edf6727d184d94b2b537,</span>
-<span id="revdate">2023-06-22</span>
+<span id="revnumber">version main-b3fd8076ec61f77552c47db3827ef813c9087482,</span>
+<span id="revdate">2023-07-04</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -748,7 +748,8 @@ The licenses text can be found in the <a href="https://raw.githubusercontent.com
 Virtualizing electronic control units (ECUs) and then simulating multiple such virtual ECUs requires connecting them using a virtual version of these network technologies.</p>
 </div>
 <div class="paragraph">
-<p>This layered standard defines what input and output variables and which FMI 3.0 features are used and how to emulate a transport layer for such network traffic.</p>
+<p>This layered standard defines what input and output variables and which FMI 3.0 features are used and how to emulate a transport layer for such network traffic.
+At this point it should be explicitly mentioned that this layered standard not only relates to automotive buses, but can also be extended to buses from other domains in the future.</p>
 </div>
 <div class="paragraph">
 <p>There are mainly two base use cases envisioned here:</p>
@@ -758,29 +759,34 @@ Virtualizing electronic control units (ECUs) and then simulating multiple such v
 <li>
 <p>Physical signal abstraction ("high cut") to simply transport physical signal values between virtual ECUs.<br>
 The network properties are largely idealized: infinite bandwidth, zero-delay etc.
-Signals, groups of signals and their properties <em>(e.g. units)</em> are usually derived from (existing and validated) standard network topology description formats <em>(such as DBC, LDF, Fibex and ARXML)</em>.</p>
+Signals, groups of signals and their properties <em>(e.g., units)</em> are usually derived from (existing and validated) standard network topology description formats <em>(such as DBC, LDF, Fibex and ARXML)</em>.</p>
 </li>
 <li>
 <p>Network abstraction ("low cut") to realize virtualized bus driver implementations <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>.<br>
 This transport layer emulation allows anything from idealized to more detailed network simulations, including bandwidth restrictions, message arbitration and delays.
 It forwards the network payloads using binary variables.
-The "low cut" abstraction layer is meant to allow virtualized bus driver implementations, including feedback from the physical drivers about transmission status or network node state.
-Since the Network abstraction Layer is protocol-independent, it can also be used for the simulation of non-automotive control units, <em>e.g. from the field of industrial automation</em>.</p>
+The "low cut" abstraction layer is meant to allow virtualized bus driver implementations, including feedback from the physical drivers about transmission status or network node states.
+Since the network abstraction layer is protocol-independent, it can also be used for the simulation of non-automotive control units, <em>e.g., from the field of industrial automation</em>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>In the simplest use case, the importer does not need provide specific bus semantics of certain variables of an FMU; it simply forwards variable values between 2 FMUs according to the FMI standard (<a href="#multiOutput">with one exception noted at the end of the document</a>).
-Only when more than two FMUs are connected to a single network a bus simulation component is required to handle the bus communication between multiple senders and receivers according to the semantic of the selected bus type.</p>
+<p>So that this layered standard can be supported in a variety of FMU importers and other types of simulators three possible communication architectures for bus communication are specified:</p>
 </div>
-<div class="paragraph">
-<p>See the following image describing three potential architectures for connecting two or more networked virtual ECUs packaged into FMI 3.0 FMUs:</p>
-</div>
-<div id="vECU-network-architectures" class="imageblock text-center">
-<div class="content">
-<img src="images/architecture.svg" alt="architecture" width="80%">
-</div>
-<div class="title">Figure 1. Three ways to connect FMUs with bus support and network variables, for example virtual ECUs.</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Direct Communication: Limited to exactly two FMUs, a common FMU importer that not require any special features for simulating buses, apart from supporting FMI variables, clocks and terminals can be use to emulate bus communication.</p>
+</li>
+<li>
+<p>Composition with dedicated Bus Simulation FMU: A separate Bus Simulation FMU is used to simulate the specific bus behavior.
+Other FMUs that want to emulate bus communication provide and relate network information via this Bus Simulation FMU.
+This communication architecture can be operated by a common FMU importer and allows complex and detailed bus simulations.</p>
+</li>
+<li>
+<p>Importer with Integrated Bus Simulation: Works analogously to the Composition with dedicated Bus Simulation FMU architecture, whereby the Bus Simulation FMU is directly integrated into an importer or other simulator.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -794,7 +800,7 @@ Only when more than two FMUs are connected to a single network a bus simulation 
 <p>Non-normative text is given in square brackets in italic font: <em>[Especially examples are defined in this style.]</em></p>
 </li>
 <li>
-<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 (regardless of formatting and capitalization).</p>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#RFC2119">[RFC2119]</a> (regardless of formatting and capitalization).</p>
 </li>
 </ul>
 </div>
@@ -802,9 +808,9 @@ Only when more than two FMUs are connected to a single network a bus simulation 
 <div class="sect2">
 <h3 id="_remarks">1.3. Remarks</h3>
 <div class="paragraph">
-<p>This layered standard currently only refers to the FMI Co-Simulation (CS).
-At the current time, Scheduled Execution (SE) is not taken into account.
-All explanations in this document are therefore to be understood in the context of FMI Co-Simulation (CS).</p>
+<p>This layered standard currently only refers to the FMI for Co-Simulation (CS).
+At the current time, Model Exchange (ME) and Scheduled Execution (SE) are not taken into account.
+All explanations in this document are therefore to be understood in the context of FMI for Co-Simulation (CS).</p>
 </div>
 </div>
 </div>
@@ -813,11 +819,10 @@ All explanations in this document are therefore to be understood in the context 
 <h2 id="_layered_standard_manifest_file">2. Layered Standard Manifest File</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This layered standard defines the required capability flags in the layered standard manifest file.
-<a href="#table-schema-fmi-ls-bus-attributes">Table 1</a> shows the content of <code>fmi-ls-manifest.xml</code>.</p>
+<p>This layered standard defines requires the use of a layered standard manifest file and <a href="#table-schema-fmi-ls-bus-attributes">Table 1</a> shows the content of <code>fmi-ls-manifest.xml</code>.</p>
 </div>
 <table id="table-schema-fmi-ls-bus-attributes" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. <code>fmiLayeredStandardManifest</code> attribute details.</caption>
+<caption class="title">Table 1. Attribute Details.</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -899,7 +904,7 @@ To uniquely map between the FMU variables and the network variables, FMU variabl
 <div class="content">
 <img src="images/terminal_relations.svg" alt="terminal relations" width="60%">
 </div>
-<div class="title">Figure 2. Relations between Bus-, Frame- and PDU Terminals.</div>
+<div class="title">Figure 1. Relations between Bus-, Frame- and PDU Terminals.</div>
 </div>
 <div class="paragraph">
 <p><mark>TODO AJ</mark>: explanation of clock and binary (check names!) variables for low cut; clock type influences and flexibilities; not use of nextEventTime</p>
@@ -962,7 +967,7 @@ The figure below illustrates the direct communication of two FMUs:</p>
 <div class="content">
 <img src="images/architecture_direct_connection.svg" alt="architecture direct connection" width="50%">
 </div>
-<div class="title">Figure 3. Direct communication of two FMUs.</div>
+<div class="title">Figure 2. Direct communication of two FMUs.</div>
 </div>
 <div class="paragraph">
 <p>Direct bus communication is limited to exactly two FMUs.
@@ -1011,7 +1016,7 @@ The total of three FMUs are executed on a common FMI 3.0 importer:</p>
 <div class="content">
 <img src="images/architecture_bus_simulation_fmu.svg" alt="architecture bus simulation fmu" width="50%">
 </div>
-<div class="title">Figure 4. Bus simulation by using a dedicated Bus Simulation FMU.</div>
+<div class="title">Figure 3. Bus simulation by using a dedicated Bus Simulation FMU.</div>
 </div>
 <div class="paragraph">
 <p>This type of communication allows the simulation of all bus features, such as arbitration or the simulation of timing.
@@ -1033,7 +1038,7 @@ The following figure illustrates two FMUs, which are integrated by an importer t
 <div class="content">
 <img src="images/architecture_bus_simulation_importer.svg" alt="architecture bus simulation importer" width="50%">
 </div>
-<div class="title">Figure 5. Bus simulation by using an importer with internal bus simulation support.</div>
+<div class="title">Figure 4. Bus simulation by using an importer with internal bus simulation support.</div>
 </div>
 <div class="paragraph">
 <p>This communication architecture enables the realization of complex bus simulations.
@@ -1477,7 +1482,7 @@ The Bus Simulation then might delay the transfer of the Transmit operation to th
 <div class="content">
 <img src="images/transmit_messages.svg" alt="transmit messages" width="50%">
 </div>
-<div class="title">Figure 6. Transmission overview.</div>
+<div class="title">Figure 5. Transmission overview.</div>
 </div>
 <div class="paragraph">
 <p>The point in time at which FMUs will (potentially) send new network messages must be given to the importer in advance.
@@ -1488,7 +1493,7 @@ For simulating bus communication with timing effects, the FMUs should set the Co
 <div class="content">
 <img src="images/bus_simulation_example.svg" alt="bus simulation example" width="80%">
 </div>
-<div class="title">Figure 7. Example for network simulation with timing behavior.</div>
+<div class="title">Figure 6. Example for network simulation with timing behavior.</div>
 </div>
 <div class="paragraph">
 <p>For simplification reasons or if a detailed bus simulation is not desired, fixed-step size FMUs can also be used with Network Abstraction.
@@ -1941,7 +1946,7 @@ If the specified FMU is connected to more than one network, there shall be exact
 <div class="content">
 <img src="images/bus_terminal.svg" alt="bus terminal" width="30%">
 </div>
-<div class="title">Figure 8. Frame variables and terminals.</div>
+<div class="title">Figure 7. Frame variables and terminals.</div>
 </div>
 </div>
 <div class="sect3">
@@ -3139,27 +3144,27 @@ In this case, the bus simulation is idealized and takes place in a fire-and-forg
 If a specified Network FMU is depending on <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a> and <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> is set to <code>false</code>, the self confirmation shall be realized internally within the respective Network FMU.</p>
 </div>
 <div class="paragraph">
-<p><a href="#figure-can-direct-communication">Figure 9</a> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
+<p><a href="#figure-can-direct-communication">Figure 8</a> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
 After that, the transmission is directly confirmed by FMU 1 itself, whereby FMU 1 handles that self confirmation internally.</p>
 </div>
 <div id="figure-can-direct-communication" class="imageblock text-center">
 <div class="content">
 <img src="images/can_direct_confirmation.svg" alt="can direct confirmation" width="40%">
 </div>
-<div class="title">Figure 9. Direct Confirmation of transmitted network data.</div>
+<div class="title">Figure 8. Direct Confirmation of transmitted network data.</div>
 </div>
 <div class="paragraph">
 <p>For a detailed simulation, Bus Simulations shall support <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a>.
 In this case, the <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> parameter of the Network FMUs shall be set to <code>true</code> and Network FMUs can rely on receiving <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a>.</p>
 </div>
 <div class="paragraph">
-<p>The following <a href="#figure-can-confirmation-with-bus-simulation-fmu">Figure 10</a> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.</p>
+<p>The following <a href="#figure-can-confirmation-with-bus-simulation-fmu">Figure 9</a> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.</p>
 </div>
 <div id="figure-can-confirmation-with-bus-simulation-fmu" class="imageblock text-center">
 <div class="content">
 <img src="images/can_confirmation_with_bus_simulation_fmu.svg" alt="can confirmation with bus simulation fmu" width="70%">
 </div>
-<div class="title">Figure 10. Confirmation of transmitted network data via Bus Simulation.</div>
+<div class="title">Figure 9. Confirmation of transmitted network data via Bus Simulation.</div>
 </div>
 <div class="paragraph">
 <p>If all Network FMUs, except the <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> initiating Network FMU, communicate the <a href="#StatusOpCodeCanLowCut">status</a> <code>BUS_OFF</code>, the Bus Simulation shall not provide a <a href="#ConfirmOpCodeCanLowCut">confirmation</a>.</p>
@@ -3183,7 +3188,7 @@ When a Network FMU has provided the status <code>BUS_OFF</code> to the Bus Simul
 <div class="content">
 <img src="images/can_error_handling_overview.svg" alt="can error handling overview" width="100%">
 </div>
-<div class="title">Figure 11. Architectural error handling overview.</div>
+<div class="title">Figure 10. Architectural error handling overview.</div>
 </div>
 <div class="paragraph">
 <p><a href="#example-can-error-handling">Section 5.6.1.9.4</a> contains a detailed overview about the CAN error handling.
@@ -3202,7 +3207,7 @@ As soon as an FMU loses arbitration in this way, it shall independently repeat t
 <div class="content">
 <img src="images/can_arbitration.svg" alt="can arbitration" width="70%">
 </div>
-<div class="title">Figure 12. Arbitration of two transmissions at the same time.</div>
+<div class="title">Figure 11. Arbitration of two transmissions at the same time.</div>
 </div>
 <div class="paragraph">
 <p>Within a <a href="#ConfigurationCanOpCode">Configuration operation</a>, the <code>Arbitration Lost Behavior</code> argument can be specified.
@@ -3233,7 +3238,7 @@ A <a href="#WakeupCanOpCode">Wakeup operation</a> is initiated by one Network FM
 <div class="content">
 <img src="images/can_wake_up.svg" alt="can wake up" width="70%">
 </div>
-<div class="title">Figure 13. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
+<div class="title">Figure 12. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
 </div>
 </div>
 <div class="sect4">
@@ -3244,7 +3249,7 @@ A <a href="#WakeupCanOpCode">Wakeup operation</a> is initiated by one Network FM
 <div class="sect5">
 <h6 id="example-can-possible-results-of-transmission">5.6.1.9.1. Transmission</h6>
 <div class="paragraph">
-<p><a href="#figure-can-transmission-acknowledge">Figure 14</a> illustrates the two possible results of a <a href="#TransmitOpCodeCanLowCut">Transmit operation</a>, whereby the transition from FMU 1 &#8594; FMU 2 represents the successful case and FMU 2 &#8594; FMU 1 represents the unsuccessful case.
+<p><a href="#figure-can-transmission-acknowledge">Figure 13</a> illustrates the two possible results of a <a href="#TransmitOpCodeCanLowCut">Transmit operation</a>, whereby the transition from FMU 1 &#8594; FMU 2 represents the successful case and FMU 2 &#8594; FMU 1 represents the unsuccessful case.
 For the second transmission, the Bus Simulation injects a failure of transmission.
 In step (1), a <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> will be delivered to the Bus Simulation.
 Within step (2), the <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> will transferred to FMU 2, so the transmission was successful.
@@ -3261,7 +3266,7 @@ For FMU 1, the <code>Error Flag</code> argument is set to <code>PRIMARY_ERROR_FL
 <div class="content">
 <img src="images/can_transmission_acknowledge.svg" alt="can transmission acknowledge" width="60%">
 </div>
-<div class="title">Figure 14. Successful and unsuccessful cases of a CAN transmission.</div>
+<div class="title">Figure 13. Successful and unsuccessful cases of a CAN transmission.</div>
 </div>
 <div class="paragraph">
 <p>Normally, transmission failure cannot occur during a simulated bus transmission.
@@ -3271,7 +3276,7 @@ Most common kinds of errors are used to inject transmission errors, for example 
 <div class="sect5">
 <h6 id="example-can-arbitration-with-arbitration-lost-behavior">5.6.1.9.2. CAN Arbitration without Buffering</h6>
 <div class="paragraph">
-<p><a href="#figure-can-arbitration-overview">Figure 15</a> shows the realization of a CAN arbitration by using the <code>Arbitration Lost Behavior</code> option <code>DISCARD_AND_NOTIFY</code> within the <a href="#ConfigurationCanOpCode">Configuration operation</a>.
+<p><a href="#figure-can-arbitration-overview">Figure 14</a> shows the realization of a CAN arbitration by using the <code>Arbitration Lost Behavior</code> option <code>DISCARD_AND_NOTIFY</code> within the <a href="#ConfigurationCanOpCode">Configuration operation</a>.
 At the beginning, FMU 1 and FMU 2 each send network data at the same time.
 In this situation, an arbitration is necessary to decide which frame should be sent in this case.
 Both frames are transferred to the Bus Simulation.
@@ -3286,13 +3291,13 @@ FMU 1 gets a <a href="#ConfirmOpCodeCanLowCut">Confirm operation</a>, because th
 <div class="content">
 <img src="images/can_arbitration_overview.svg" alt="can arbitration overview" width="80%">
 </div>
-<div class="title">Figure 15. Arbitration of CAN frames within Bus Simulation.</div>
+<div class="title">Figure 14. Arbitration of CAN frames within Bus Simulation.</div>
 </div>
 </div>
 <div class="sect5">
 <h6 id="example-can-arbitration-without-arbitration-lost-behavior">5.6.1.9.3. CAN Arbitration with Buffering</h6>
 <div class="paragraph">
-<p><a href="#figure-can-arbitration-overview-with-buffer">Figure 16</a> shows the realization of a CAN arbitration by using the <code>Arbitration Lost Behavior</code> option <code>BUFFER_AND_RETRANSMIT</code> within the <a href="#ConfigurationCanOpCode">Configuration operation</a>.
+<p><a href="#figure-can-arbitration-overview-with-buffer">Figure 15</a> shows the realization of a CAN arbitration by using the <code>Arbitration Lost Behavior</code> option <code>BUFFER_AND_RETRANSMIT</code> within the <a href="#ConfigurationCanOpCode">Configuration operation</a>.
 At the beginning, FMU 1 and FMU 2 each send network data at the same time.
 In this situation, an arbitration is necessary to decide which frame should be sent in this case.
 Both frames are transferred to the Bus Simulation.
@@ -3308,7 +3313,7 @@ FMU 1 gets a <a href="#ConfirmOpCodeCanLowCut">Confirm operation</a>, because th
 <div class="content">
 <img src="images/can_arbitration_overview_with_buffer.svg" alt="can arbitration overview with buffer" width="80%">
 </div>
-<div class="title">Figure 16. Arbitration of CAN frames with buffering within Bus Simulation.</div>
+<div class="title">Figure 15. Arbitration of CAN frames with buffering within Bus Simulation.</div>
 </div>
 </div>
 <div class="sect5">
@@ -3323,7 +3328,7 @@ Based on the values of TEC and REC, the CAN controller moves in the following st
 <div class="content">
 <img src="images/can_error_state_machine.svg" alt="can error state machine" width="60%">
 </div>
-<div class="title">Figure 17. CAN node state machine.</div>
+<div class="title">Figure 16. CAN node state machine.</div>
 </div>
 <div class="paragraph">
 <p>This CAN node state machine and the related TEC and REC values have to be included within the Network FMUs.
@@ -3449,6 +3454,12 @@ Importers must know how to handle this, just like they must know how to handle f
 <li>
 <p><a id="PW13"></a>[PW13] Preston-Werner, T. (2013): <strong>Semantic Versioning 2.0.0</strong>.  <a href="https://semver.org/spec/v2.0.0.html" class="bare">https://semver.org/spec/v2.0.0.html</a></p>
 </li>
+<li>
+<p><a id="RFC2119"></a>[RFC2119] RFC 2119. <a href="https://tools.ietf.org/html/rfc2119" class="bare">https://tools.ietf.org/html/rfc2119</a></p>
+</li>
+<li>
+<p><a id="LICENSE"></a>[LICENSE] FMI License text. <a href="https://raw.githubusercontent.com/modelica/fmi-standard/master/LICENSE.txt" class="bare">https://raw.githubusercontent.com/modelica/fmi-standard/master/LICENSE.txt</a></p>
+</li>
 </ul>
 </div>
 </div>
@@ -3457,7 +3468,7 @@ Importers must know how to handle this, just like they must know how to handle f
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. In AUTOSAR context this concrete means a driver implementation within the MicroController Abstraction Layer (MCAL)
+<a href="#_footnoteref_1">1</a>. In AUTOSAR context this means a driver implementation within the MicroController Abstraction Layer (MCAL)
 </div>
 <div class="footnote" id="_footnotedef_2">
 <a href="#_footnoteref_2">2</a>. For details, refer to Functional Mock-up Interface Specification (fmi-standard.org) chapter 2.2.8 Clocks.
