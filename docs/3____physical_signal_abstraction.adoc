@@ -20,7 +20,7 @@ The unit definition of the variable must match the one defined in the <<NetworkD
 
 Each network signal must be listed as <<TerminalMemberVariable>> of its corresponding <<PDUTerminal>>.
 
-In case multiplexed signals are present in a frame/PDU: all signals are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values _[those values could even be outside their specified min-max range without fault]_.
+In case multiplexed signals are present in a frame/PDU/container PDU: all signals/PDUs are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values _[those values could even be outside their specified min-max range without fault]_.
 
 Generally, signal variables are optional, but they must either be all missing or all present to clearly indicate support for the signal abstraction layer.
 
