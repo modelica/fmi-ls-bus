@@ -1,7 +1,7 @@
 == Common Concepts
 
-Physical signal abstraction ("high cut") and Network abstraction ("low cut") layers represent different levels for the exchange of bus messages.
-Physical signal abstraction focuses primarily on the exchange of signal values, while Network abstraction provides a complete way of implementing a virtual bus driver.
+Physical signal abstraction ("high cut") and network abstraction ("low cut") layers represent different levels for the exchange of bus messages.
+Physical signal abstraction focuses primarily on the exchange of signal values, while network abstraction provides a complete way of implementing a virtual bus driver.
 Depending on the exporting tool, one of the abstraction layers is more "natural" to the FMU, while the other might have to be emulated with additional internal effort or an adapter (FMU) could be used.
 Importers on the other hand rarely require both abstraction layers for system level compositions, because the engineering tasks define the required level of abstraction for the network communication.
 FMUs may choose to only support one abstraction layer providing only the corresponding variables.
@@ -19,33 +19,29 @@ To uniquely map between the FMU variables and the network variables, FMU variabl
 [#figure-terminal-relations]
 image::terminal_relations.svg[width=60%, align="center"]
 
-#TODO AJ#: explanation of clock and binary (check names!) variables for low cut; clock type influences and flexibilities; not use of nextEventTime
-
 All variables have structured names that indicate how these variables are related and to which abstraction layer they belong.
 For the high cut, variables represent signals and their clocks.
-For the low cut, variables represent frames and their clocks.
-Input and output variables show if these variables belong to signals or frames that are received or sent, respectively.
+For the low cut, variables represent send and receive bus traffic and their respective clocks.
+Input and output variables show if these variables belong to signals or bus traffic that are received or sent, respectively.
 Input clocks must be triggered and are connected by the importer to their corresponding output clocks of potentially different clock types.
 For example, a periodic output clock indicates that the FMU can only send signals or frames periodically, while a countdown clock indicates that the FMU can send signals at varying time steps.
 
 Using output clocks of different types allows simulations with different timing accuracy and performance.
-These clocks allow the FMU to specify the next send event efficiently and accurately, the importer will trigger these clocks according to these clock specifications as accurately as it can.
+Some clock types allow the FMU to specify the next send event efficiently and accurately, the importer will trigger these clocks according to these clock specifications as accurately as it can.
 
 _[The alternative of using `nextEventTime` would force epsilon matching of event times.]_
 
-#TODO AJ#: Fix and variable step size influence on buffering of transport-layer events and their binary variables
-  -> high cut is different: no buffering possible: each send must be handled as Event
-
 For any periodic (fixed-time) sending of messages, multiple message sends fall into one `doStep`.
 While high cut signal variables will miss all but the last value sent, low cut frame variables will buffer all payloads inside their value.
+
+If triggered output clocks are used, the importer must take create care to schedule and potentially roll-back FMUs that have advanced their doStep past such a (surprising) triggered clock activation from another FMU.
+It is strongly recommended to avoid using triggered output clocks and to instead use time-base clocks to avoid these complications and potential performance problems.
 
 If an FMU represents network nodes that are both sender and receiver of a signal, the receiver role will be removed from the FMU interface to allow the signals to have a unique role as output and the reading of such outputs must be handled internally to the FMU.
 
 _[The FMI standard requires a variable to be either input or output.]_
 
-#TODO#: is this correct? does that also work for network simulations? how else to solve this unique-variable-name requirement?
-
-While the values and semantic of the clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology, see <<FrameVariable>>.
+While the values and semantic of the clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology.
 Frame variables do not just transport the network-specific payload, but also carry protocol-specific status information.
 Status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack about success or errors of a send request.
 
@@ -53,8 +49,6 @@ Status information allows, for example, the MCAL emulation of a virtual ECU to r
 Overall, this standard considers three possible communication architectures for bus communication.
 It should be explicitly noted at this point that the FMUs for integration in the respective use case do not necessarily have to be different, so that the same FMU can be integrated across all three communication architectures.
 The interface of the FMU to the importer is always the same, but a different subset of the features is actually used.
-
-#TODO ALL#: Clarify if System Compositions matches for High and Low Cut
 
 ==== Direct Communication [[DirectCommunication]]
 The first option is to use a common FMU importer.
@@ -66,7 +60,7 @@ The figure below illustrates the direct communication of two FMUs:
 image::architecture_direct_connection.svg[width=50%, align="center"]
 
 Direct bus communication is limited to exactly two FMUs.
-The simulation of bus communication between more than two FMUs is therefore not intended.
+The simulation of bus communication between more than two FMUs is not possible in such a naive way.
 The bus simulation is also only idealized, so that the simulation of bus transmission times or arbitration, for example, is not supported.
 Such an ideal network differs from physical networks in the following ways (and potentially others):
 
@@ -74,27 +68,28 @@ Such an ideal network differs from physical networks in the following ways (and 
    Here all frames are transmitted at the same time without delay.
 
  * Network congestion/bandwidth: too many network frames sent for the bandwidth of the network. +
-   Here the network has infinite capacity. +
-   If network properties are required, a bus simulation component must be added or included in the importer.
+   Here the network has infinite capacity.
 
  * Protocol functions of higher levels: _e.g. CAN request for retransmit is a specific protocol function_. +
-   Here such specialties must be handled by the first layer inside the FMU.
+   Here such specialties must be handled by a higher layer inside the FMU.
 
  * Incoming buffer overflow: when an ECU receives more frames than its buffer can hold. +
    Here the FMU will receive all frames, regardless of buffer size and would need to handle those limitations internally.
 
 ==== Composition with dedicated Bus Simulation FMU [[Composition-with-dedicated-Bus-Simulation-FMU]]
-Another option is to connect FMUs by means of a dedicated Bus Simulation FMU.
+If more realistic network properties are required, a bus simulation component must be added.
+
+One option is to connect FMUs to a dedicated Bus Simulation FMU.
 The Bus Simulation FMU is used to simulate the bus behavior and differs depending on the bus type (e.g., for CAN, LIN, Ethernet or FlexRay).
 For example, it is used to simulate the transmission time or the failure of bus messages.
 A Bus Simulation FMU must provide enough bus terminals for all FMUs that are interconnected via a bus.
-The implementation of a bus simulation FMU can be dynamic or static, potentially generated by a tool.
+The implementation of a Bus Simulation FMU can be dynamic or static, potentially generated by a tool.
 <<network-abstraction>> explains the topic of binary protocol data within the bus terminal variables in more detail.
-Because the Bus Simulation FMU can provide the described functionality, the primary concept is that all FMUs that want to transmit bus messages provide this information to the Bus Simulation FMU.
-The Bus Simulation FMU makes the messages available to all recipients and has the option of acknowledging successful transmission to the sender.
+Because the Bus Simulation FMU can provide the described functionality, all FMUs that want to transmit bus messages send their messages to the Bus Simulation FMU.
+The Bus Simulation FMU can then acknowledge, delay or even reject messages and forwards messages to recipients accordingly.
 Also in this case, the FMU importer does not require any special features for bus simulation, apart from supporting FMI variables, clocks and terminals.
 The figure below shows two FMUs which are connected to a specific Bus Simulation FMU.
-The total of three FMUs are executed on a common FMI 3.0 importer:
+The total of three FMUs are executed on a common FMI 3.0 importer.
 
 .Bus simulation by using a dedicated Bus Simulation FMU.
 [#figure-external-bus-simulation-fmu]
@@ -110,14 +105,8 @@ Depending on the needs, it may be necessary to dynamically provision the Bus Sim
 In the third variant of the communication architecture, the bus simulation is built directly into the respective importer.
 The supported bus features are analogous to the <<Composition-with-dedicated-Bus-Simulation-FMU, Composition with dedicated Bus Simulation FMU>> use case.
 The corresponding limitations regarding the behavior of the bus simulation are importer-specific.
-The following figure illustrates two FMUs, which are integrated by an importer that directly supports this standard and needs no further Bus Simulation FMU:
+The following figure illustrates two FMUs, which are integrated by an importer that directly supports this standard and needs no further Bus Simulation FMU.
 
 .Bus simulation by using an importer with internal bus simulation support.
 [#figure-bus-feature-integrated-fmu-simulator]
 image::architecture_bus_simulation_importer.svg[width=50%, align="center"]
-
-This communication architecture enables the realization of complex bus simulations.
-By using proprietary extension mechanisms of an existing importer it may also be possible to integrate other, for example manufacturer-specific, formats into a bus simulation.
-
-=== Timing Aspects
-#TODO#
