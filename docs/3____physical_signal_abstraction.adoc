@@ -2,7 +2,7 @@
 
 === Overview
 
-Physical Signal Abstraction allows an idealized exchange of unit-based variables between FMUs.
+Physical signal abstraction allows an idealized exchange of unit-based variables between FMUs.
 In AUTOSAR, this would be equivalent to the Virtual Function Bus.
 Variables are clocked to reflect the timing aspects of the information flow.
 Changes to these clocked variables always reach the destination.
