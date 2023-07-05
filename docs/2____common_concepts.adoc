@@ -20,8 +20,8 @@ To uniquely map between the FMU variables and the network variables, FMU variabl
 image::terminal_relations.svg[width=60%, align="center"]
 
 All variables have structured names that indicate how these variables are related and to which abstraction layer they belong.
-For the high cut, variables represent signals and their clocks.
-For the low cut, variables represent send and receive bus traffic and their respective clocks.
+For the "high cut", variables represent signals and their clocks.
+For the "low cut", variables represent send and receive bus traffic and their respective clocks.
 Input and output variables show if these variables belong to signals or bus traffic that are received or sent, respectively.
 Input clocks must be triggered and are connected by the importer to their corresponding output clocks of potentially different clock types.
 For example, a periodic output clock indicates that the FMU can only send signals or frames periodically, while a countdown clock indicates that the FMU can send signals at varying time steps.
@@ -32,7 +32,7 @@ Some clock types allow the FMU to specify the next send event efficiently and ac
 _[The alternative of using `nextEventTime` would force epsilon matching of event times.]_
 
 For any periodic (fixed-time) sending of messages, multiple message sends fall into one `doStep`.
-While high cut signal variables will miss all but the last value sent, low cut frame variables will buffer all payloads inside their value.
+While "high cut" signal variables will miss all but the last value sent, "low cut" frame variables will buffer all payloads inside their value.
 
 If triggered output clocks are used, the importer must take create care to schedule and potentially roll-back FMUs that have advanced their doStep past such a (surprising) triggered clock activation from another FMU.
 It is strongly recommended to avoid using triggered output clocks and to instead use time-base clocks to avoid these complications and potential performance problems.
