@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-4d6071a3d306cc30b4acbb99db45f8fdc7c512b0,</span>
-<span id="revdate">2023-07-04</span>
+<span id="revnumber">version main-42ce6d5df475d9fde552b3afc97bdc776dbf4f50,</span>
+<span id="revdate">2023-07-05</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -906,8 +906,8 @@ To uniquely map between the FMU variables and the network variables, FMU variabl
 </div>
 <div class="paragraph">
 <p>All variables have structured names that indicate how these variables are related and to which abstraction layer they belong.
-For the high cut, variables represent signals and their clocks.
-For the low cut, variables represent send and receive bus traffic and their respective clocks.
+For the "high cut", variables represent signals and their clocks.
+For the "low cut", variables represent send and receive bus traffic and their respective clocks.
 Input and output variables show if these variables belong to signals or bus traffic that are received or sent, respectively.
 Input clocks must be triggered and are connected by the importer to their corresponding output clocks of potentially different clock types.
 For example, a periodic output clock indicates that the FMU can only send signals or frames periodically, while a countdown clock indicates that the FMU can send signals at varying time steps.</p>
@@ -921,7 +921,7 @@ Some clock types allow the FMU to specify the next send event efficiently and ac
 </div>
 <div class="paragraph">
 <p>For any periodic (fixed-time) sending of messages, multiple message sends fall into one <code>doStep</code>.
-While high cut signal variables will miss all but the last value sent, low cut frame variables will buffer all payloads inside their value.</p>
+While "high cut" signal variables will miss all but the last value sent, "low cut" frame variables will buffer all payloads inside their value.</p>
 </div>
 <div class="paragraph">
 <p>If triggered output clocks are used, the importer must take create care to schedule and potentially roll-back FMUs that have advanced their doStep past such a (surprising) triggered clock activation from another FMU.
@@ -1041,7 +1041,7 @@ The following figure illustrates two FMUs, which are integrated by an importer t
 <div class="sect2">
 <h3 id="_overview">4.1. Overview</h3>
 <div class="paragraph">
-<p>Physical Signal Abstraction allows an idealized exchange of unit-based variables between FMUs.
+<p>Physical signal abstraction allows an idealized exchange of unit-based variables between FMUs.
 In AUTOSAR, this would be equivalent to the Virtual Function Bus.
 Variables are clocked to reflect the timing aspects of the information flow.
 Changes to these clocked variables always reach the destination.</p>
@@ -1440,7 +1440,7 @@ BO_ 512 ecuState: 4 ECU
 <h2 id="network-abstraction">5. Network Abstraction ("low cut")</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This chapter describes the Network Abstraction or "low cut" in detail.</p>
+<p>This chapter describes the network abstraction or "low cut" in detail.</p>
 </div>
 <div class="sect2">
 <h3 id="_overview_2">5.1. Overview</h3>
@@ -1473,7 +1473,7 @@ For simulating bus communication with timing effects, the FMUs should set the Co
 <div class="title">Figure 6. Example for network simulation with timing behavior.</div>
 </div>
 <div class="paragraph">
-<p>For simplification reasons or if a detailed bus simulation is not desired, fixed-step size FMUs can also be used with Network Abstraction.
+<p>For simplification reasons or if a detailed bus simulation is not desired, fixed-step size FMUs can also be used with network abstraction.
 However, depending on the chosen simulation step-size, delay effects of the bus simulation have to be taken into account.
 Compositions with fixed-step size and variable-step size FMUs require the decoupling of the Bus Simulation logic and the Bus Simulation timing.
 This decoupling is realized by queuing Tx/Rx bus operations inside the Bus Simulation as well as queuing Tx bus operations inside Network FMUs.
@@ -1736,7 +1736,7 @@ How to set the <code>BusName</code> placeholder is bus-type-specific and therefo
 Since clock variables are strictly related to the <code>Event Mode</code>, networked FMUs shall set the Co-Simulation attribute <code>hasEventMode = "true"</code> in the model description file.</p>
 </div>
 <div class="paragraph">
-<p>For simulating bus communication according to the Network Abstraction, a time-based clock is used for the <code>Tx_Clock</code> variable to signal the point in time when layered standard bus operations must be transferred by the importer to the receiver FMUs.
+<p>For simulating bus communication according to the network abstraction, a time-based clock is used for the <code>Tx_Clock</code> variable to signal the point in time when layered standard bus operations must be transferred by the importer to the receiver FMUs.
 It is up to the implementer to either use a <code>periodic</code> or <code>aperiodic</code> clock.</p>
 </div>
 <div class="paragraph">
@@ -1870,13 +1870,13 @@ The versioning follows the rules of semantic versioning, as defined in <a href="
 <div class="sect2">
 <h3 id="_terminal_definitions_2">5.4. Terminal Definitions</h3>
 <div class="paragraph">
-<p>This section defines terminals for network abstraction or low cut.</p>
+<p>This section defines terminals for network abstraction or "low cut".</p>
 </div>
 <div class="sect3">
 <h4 id="BUSTerminalLowCut">5.4.1. Bus Terminal</h4>
 <div class="paragraph">
 <p>Each network connected to the FMU must be described in <code>icons/terminalsAndIcons.xml</code> as a <code>&lt;Terminal&gt;</code> element of <code>&lt;fmiTerminalsAndIcons&gt;&lt;Terminals&gt;</code>.
-The attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> must match the name of the specified network <em>[e.g., the name of the CAN channel: Powertrain]</em> within a low cut.
+The attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> must match the name of the specified network <em>[e.g., the name of the CAN channel: Powertrain]</em> within a "low cut".
 If the specified FMU is connected to more than one network, there shall be exactly one <code>&lt;Terminal&gt;</code> for each network.</p>
 </div>
 <div class="dlist">
