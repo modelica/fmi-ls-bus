@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-42ce6d5df475d9fde552b3afc97bdc776dbf4f50,</span>
+<span id="revnumber">version main-4dec74943832b14715d518c2db89cb0d69e607b9,</span>
 <span id="revdate">2023-07-05</span>
 </div>
 <div id="toc" class="toc2">
@@ -631,6 +631,7 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#ExampleHighCut">4.4.5. Example</a></li>
 </ul>
 </li>
+<li><a href="#_limitations">4.5. Limitations</a></li>
 </ul>
 </li>
 <li><a href="#network-abstraction">5. Network Abstraction ("low cut")</a>
@@ -708,7 +709,6 @@ document.addEventListener('keydown', (event) => {
 </li>
 </ul>
 </li>
-<li><a href="#_known_limitations_of_this_standard">6. Known Limitations of This Standard</a></li>
 <li><a href="#_references">References</a></li>
 </ul>
 </div>
@@ -1038,6 +1038,9 @@ The following figure illustrates two FMUs, which are integrated by an importer t
 <div class="sect1">
 <h2 id="_physical_signal_abstraction_high_cut">4. Physical Signal Abstraction ("high cut")</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>This chapter describes the physical signal abstraction or "high cut" in detail.</p>
+</div>
 <div class="sect2">
 <h3 id="_overview">4.1. Overview</h3>
 <div class="paragraph">
@@ -1131,6 +1134,9 @@ These are technical and legal issues that need attention from standardization bo
 </div>
 <div class="sect2">
 <h3 id="_terminal_definitions">4.4. Terminal Definitions</h3>
+<div class="paragraph">
+<p>This section defines terminals for physical signal abstraction or "high cut".</p>
+</div>
 <div class="sect3">
 <h4 id="BUSTerminalHighCut">4.4.1. Bus Terminal</h4>
 <div class="paragraph">
@@ -1432,6 +1438,40 @@ BO_ 512 ecuState: 4 ECU
 &lt;/fmiTerminalsAndIcons&gt;</code></pre>
 </div>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_limitations">4.5. Limitations</h3>
+<div class="paragraph">
+<p>Physical signal abstraction maps several network protocols onto co-simulation variables as transport layer simulating in many ways an ideal network.
+Such an ideal network differs from physical networks in the following ways (and potentially others):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Network frame arbitration: frames are sent on the wire according to network-specific priority rules.<br>
+Here all frames are transmitted at the same time without delay.</p>
+</li>
+<li>
+<p>Network congestion/bandwidth: too many network frames sent for the bandwidth of the network.<br>
+Here the network has infinite capacity.<br>
+If network properties are required, a bus simulation component must be added or included with the importer.</p>
+</li>
+<li>
+<p>Protocol functions of higher levels: i.e. CAN request for retransmit is a specific protocol function.<br>
+Here such specialties must be handled by the first layer inside the FMU.</p>
+</li>
+<li>
+<p>Incoming buffer overflow: when an ECU receives more frames than its buffer can hold.<br>
+Here the FMU will receive all frames, regardless of buffer size and would need to handle those limitations internally.</p>
+</li>
+<li>
+<p>Network protocols allow frames to be sent from more than one node.<br>
+Here this is also possible, with output variables for frames (and their signals) that are sent by more than one FMU.
+This requires the importer to handle the case when multiple source FMUs are sending the same frame.
+Importers must know how to handle this, just like they must know how to handle flow variables according to Kirchhoff&#8217;s law.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -3367,45 +3407,6 @@ It is recommended to solve the error handling differently in this case or to dis
 <p><mark>TODO dSPACE</mark></p>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_known_limitations_of_this_standard">6. Known Limitations of This Standard</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><mark>TODO all</mark></p>
-</div>
-<div class="paragraph">
-<p>This layered standard maps several network protocols onto co-simulation variables as transport layer simulating in many ways an ideal network.
-Such an ideal network differs from physical networks in the following ways (and potentially others):</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Network frame arbitration: frames are sent on the wire according to network-specific priority rules.<br>
-Here all frames are transmitted at the same time without delay.</p>
-</li>
-<li>
-<p>Network congestion/bandwidth: too many network frames sent for the bandwidth of the network.<br>
-Here the network has infinite capacity.<br>
-If network properties are required, a bus simulation component must be added or included with the importer.</p>
-</li>
-<li>
-<p>Protocol functions of higher levels: i.e. CAN request for retransmit is a specific protocol function.<br>
-Here such specialties must be handled by the first layer inside the FMU.</p>
-</li>
-<li>
-<p>Incoming buffer overflow: when an ECU receives more frames than its buffer can hold.<br>
-Here the FMU will receive all frames, regardless of buffer size and would need to handle those limitations internally.</p>
-</li>
-<li>
-<p><a id="multiOutput"></a>Network protocols allow frames to be sent from more than one node.<br>
-Here this is also possible, with output variables for frames (and their signals) that are sent by more than one FMU.
-This requires the importer to handle the case when multiple source FMUs are sending the same frame.
-Importers must know how to handle this, just like they must know how to handle flow variables according to Kirchhoff&#8217;s law.</p>
-</li>
-</ul>
 </div>
 </div>
 </div>
