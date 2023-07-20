@@ -45,12 +45,12 @@ While the values and semantic of the clock variables are clear, the binary frame
 Frame variables do not just transport the network-specific payload, but also carry protocol-specific status information.
 Status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack about success or errors of a send request.
 
-=== System Compositions [[SystemCompositions]]
+=== System Compositions [[common-concepts-system-compositions]]
 Overall, this standard considers three possible communication architectures for bus communication.
 It should be explicitly noted at this point that the FMUs for integration in the respective use case do not necessarily have to be different, so that the same FMU can be integrated across all three communication architectures.
 The interface of the FMU to the importer is always the same, but a different subset of the features is actually used.
 
-==== Direct Communication [[DirectCommunication]]
+==== Direct Communication [[common-concepts-direct-communication]]
 The first option is to use a common FMU importer.
 Within this configuration, the FMU importer does not require any special features for simulating buses, apart from supporting FMI variables, clocks and terminals.
 The figure below illustrates the direct communication of two FMUs:
@@ -76,7 +76,7 @@ Such an ideal network differs from physical networks in the following ways (and 
  * Incoming buffer overflow: when an ECU receives more frames than its buffer can hold. +
    Here the FMU will receive all frames, regardless of buffer size and would need to handle those limitations internally.
 
-==== Composition with dedicated Bus Simulation FMU [[Composition-with-dedicated-Bus-Simulation-FMU]]
+==== Composition with dedicated Bus Simulation FMU [[common-concepts-composition-with-dedicated-bus-simulation-fmu]]
 If more realistic network properties are required, a bus simulation component must be added.
 
 One option is to connect FMUs to a dedicated Bus Simulation FMU.
@@ -101,9 +101,9 @@ This communication architecture enables complex bus simulations to be implemente
 An n:m bus communication of several FMUs is also permitted.
 Depending on the needs, it may be necessary to dynamically provision the Bus Simulation FMU so that it provides the appropriate number of inputs and outputs to allow all FMUs to be connected.
 
-==== Importer with Integrated Bus Simulation [[BusFeatureIntegratedFmuSimulator]]
+==== Importer with Integrated Bus Simulation [[common-concepts-importer-with-integrated-bus-simulation]]
 In the third variant of the communication architecture, the bus simulation is built directly into the respective importer.
-The supported bus features are analogous to the <<Composition-with-dedicated-Bus-Simulation-FMU, Composition with dedicated Bus Simulation FMU>> use case.
+The supported bus features are analogous to the <<common-concepts-composition-with-dedicated-bus-simulation-fmu, Composition with dedicated Bus Simulation FMU>> use case.
 The corresponding limitations regarding the behavior of the bus simulation are importer-specific.
 The following figure illustrates two FMUs, which are integrated by an importer that directly supports this standard and needs no further Bus Simulation FMU.
 

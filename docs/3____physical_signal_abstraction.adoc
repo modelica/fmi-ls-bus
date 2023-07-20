@@ -17,18 +17,18 @@ This section explains the different variable types used to carry network traffic
 To define the signal abstraction layer (or "high cut"), signal variables are defined.
 
 A signal variable carries the physical value of a network signal normally packaged inside a PDU or frame.
-The unit definition of the variable must match the one defined in the <<NetworkDescriptionFile>>, if provided.
+The unit definition of the variable must match the one defined in the <<high-cut-network-description-files>>, if provided.
 
-Each network signal must be listed as <<TerminalMemberVariable>> of its corresponding <<PDUTerminal>>.
+Each network signal must be listed as <<high-cut-terminal-member-variable-for-signals>> of its corresponding <<high-cut-pdu-terminal>>.
 
 In case multiplexed signals are present in a frame/PDU/container PDU: all signals/PDUs are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values _[those values could even be outside their specified min-max range without fault]_.
 
 Generally, signal variables are optional, but they must either be all missing or all present to clearly indicate support for the signal abstraction layer.
 
-All signal variables are clocked to exactly indicate when they have been sent, see <<ClockVariableHighCut>>.
+All signal variables are clocked to exactly indicate when they have been sent, see <<high-cut-clock-variables>>.
 
 
-==== Clock Variables [[ClockVariableHighCut]]
+==== Clock Variables [[high-cut-clock-variables]]
 In order to use FMU input and output variables as transport layer for networks, input and output clocks are used.
 Such a clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.
 
@@ -44,15 +44,15 @@ The importer will then connect and merge output clock activations, even those of
 
 Signal variables belonging to frame `BusName::FrameName` are triggered by the clock `BusName::FrameName_Clock` and all these variables and their corresponding clock must share the same `causality` (`input` or `output`).
 
-=== Network Description Files [[NetworkDescriptionFile,network description file]]
+=== Network Description Files [[high-cut-network-description-files,network description file]]
 
-Standardized <<NetworkDescriptionFile,network description files>> may optionally be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
-If these <<NetworkDescriptionFile,network description files>> are shipped, they must be placed into the `/extra/org.fmi-standard.fmi-ls-bus` folder.
+Standardized <<high-cut-network-description-files,network description files>> may optionally be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
+If these <<high-cut-network-description-files,network description files>> are shipped, they must be placed into the `/extra/org.fmi-standard.fmi-ls-bus` folder.
 DBC, LDF, Fibex and ARXML files are allowed, e.g., `Powertrain.dbc`.
-The case sensitive root name of the <<NetworkDescriptionFile>> must be used as network identifier in the bus terminal type and prefix in the variable names.
+The case sensitive root name of the <<high-cut-network-description-files>> must be used as network identifier in the bus terminal type and prefix in the variable names.
 
 Multiple files can be specified, each one defining one network used by the FMU.
-This standard does not support composing one network from multiple <<NetworkDescriptionFile,network description files>>, even if using internal include mechanisms, it rather enforces the rule: one network - one file.
+This standard does not support composing one network from multiple <<high-cut-network-description-files,network description files>>, even if using internal include mechanisms, it rather enforces the rule: one network - one file.
 
 It is recommended to use ARXML over DBC files for CAN whenever possible, because the DBC standard lacks some key frame/PDU properties that were added only later using non-standard extensions with different dialects in use.
 
@@ -63,73 +63,73 @@ These are technical and legal issues that need attention from standardization bo
 === Terminal Definitions
 This section defines terminals for physical signal abstraction or "high cut".
 
-==== Bus Terminal [[BUSTerminalHighCut,bus terminal]]
+==== Bus Terminal [[high-cut-bus-terminal,bus terminal]]
 
-Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<FrameTerminal,frame terminals>>.
-The attribute `name` of the `<Terminal>` must match the root name of its <<NetworkDescriptionFile>> if it exists
+Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<high-cut-frame-terminal,frame terminals>>.
+The attribute `name` of the `<Terminal>` must match the root name of its <<high-cut-network-description-files>> if it exists
 _[e.g., `Powertrain`, if the file is `/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc`]_.
 In any case, the attribute `name` of the `<Terminal>` must be consistent with the `BusName` component of all its corresponding signal, frame and clock variables.
 
 Attribute definitions::
  * `terminalKind` must be set to `bus`.
  * `matchingRule` must be set to `bus`.
- * `name` is the network name, e.g., `Powertrain`, see <<ExampleHighCut>> and constraints above.
+ * `name` is the network name, e.g., `Powertrain`, see <<high-cut-example, example>> and constraints above.
 
 Element definitions::
  * There must be no `<TerminalStreamMemberVariable>` element.
- * There must be one `<Terminal>` element per network frame described in the <<NetworkDescriptionFile>>, if their signal and lock variables are present in the `modelDescription.xml`.
+ * There must be one `<Terminal>` element per network frame described in the <<high-cut-network-description-files>>, if their signal and lock variables are present in the `modelDescription.xml`.
 
 Annotation element::
- * There must be an `<Annotation>` element defining which node or nodes (as comma-separated list without spaces) of the <<NetworkDescriptionFile>> are wrapped inside the FMU.
+ * There must be an `<Annotation>` element defining which node or nodes (as comma-separated list without spaces) of the <<high-cut-network-description-files>> are wrapped inside the FMU.
 If the combination of nodes specified for this FMU turns a frame and its signals into both input and output because sending and receiving nodes are specified, only the sending (output) role will be defined in the FMU interface.
 Receiving such frames must then be handled internally to the FMU.
 
-==== Frame Terminal [[FrameTerminal,frame terminal]]
+==== Frame Terminal [[high-cut-frame-terminal,frame terminal]]
 
-Each frame listed in the <<NetworkDescriptionFile>> must be an element of its corresponding <<BUSTerminalHighCut>>.
+Each frame listed in the <<high-cut-network-description-files>> must be an element of its corresponding <<high-cut-bus-terminal>>.
 
 Attribute definitions::
  * `terminalKind` must be set to `frame`.
  * `matchingRule` must be set to `bus`.
- * `name` must match the frame name as defined in the <<NetworkDescriptionFile>> in `/extra/org.fmi-standard.fmi-ls-bus`.
+ * `name` must match the frame name as defined in the <<high-cut-network-description-files>> in `/extra/org.fmi-standard.fmi-ls-bus`.
 
 Element definitions::
  * There must be no `<TerminalStreamMemberVariable>` element.
- * There must be one <<PDUTerminal>> element per PDU of this frame.
+ * There must be one <<high-cut-pdu-terminal>> element per PDU of this frame.
  * There must be one `<TerminalMemberVariable>` for the clock this frame is connected to.
    The name of this variable is composed as <<ClockVariable,`BusName::FrameName_Clock`>>, e.g., `Powertrain::tcuSensors_Clock`.
 
-The <<TerminalMemberVariable>> must have the same causality as all variables referenced in the <<PDUTerminal,PDU Terminals>> included here.
+The <<high-cut-terminal-member-variable-for-signals>> must have the same causality as all variables referenced in the <<high-cut-pdu-terminal,PDU Terminals>> included here.
 
-==== PDU Terminal [[PDUTerminal,PDU terminal]]
+==== PDU Terminal [[high-cut-pdu-terminal,PDU terminal]]
 
-Each PDU listed in the <<NetworkDescriptionFile>> must be an element of its corresponding <<FrameTerminal>>.
+Each PDU listed in the <<high-cut-network-description-files>> must be an element of its corresponding <<high-cut-frame-terminal>>.
 
 Attribute definitions::
  * `terminalKind` must be set to `pdu`.
  * `matchingRule` must be set to `bus`.
- * `name` must match a PDU name of the <<NetworkDescriptionFile>> in `/extra/org.fmi-standard.fmi-ls-bus`, if given.
+ * `name` must match a PDU name of the <<high-cut-network-description-files>> in `/extra/org.fmi-standard.fmi-ls-bus`, if given.
     For network types not natively referencing a "PDU", like CAN, a synthetic PDU with the same name as its frame is inserted.
 
 Element definitions::
  * There must be no `<TerminalStreamMemberVariable>` element.
  * There must be no `<Terminal>` element.
- * There must be one `<TerminalMemberVariable>` per <<TerminalMemberVariable,signal>> of this PDU.
+ * There must be one `<TerminalMemberVariable>` per <<high-cut-terminal-member-variable-for-signals,signal>> of this PDU.
 
-All <<TerminalMemberVariable,`TerminalMemberVariables`>> must have the same causality of either `input` or `output`.
+All <<high-cut-terminal-member-variable-for-signals,`TerminalMemberVariables`>> must have the same causality of either `input` or `output`.
 
-==== Terminal Member Variable for Signals [[TerminalMemberVariable,Terminal Member Variable]]
+==== Terminal Member Variable for Signals [[high-cut-terminal-member-variable-for-signals,Terminal Member Variable]]
 
-<<PDUTerminal,PDU terminals>> list all the contained signals as `<TerminalMemberVariable>`.
+<<high-cut-pdu-terminal,PDU terminals>> list all the contained signals as `<TerminalMemberVariable>`.
 
 Attribute definitions::
  * `variableName` refers to the input or output variable name of the FMU and to enforce uniqueness is built as follows: `BusName::FrameName::PDUName::SignalName`, e.g., `Powertrain::tcuSensors::tcuSensors::vCar`.
     These variables represent the signal abstraction layer ("high cut").
- * `memberName` is the `SignalName` as given in the <<NetworkDescriptionFile>>, e.g., `vCar`, if given.
+ * `memberName` is the `SignalName` as given in the <<high-cut-network-description-files>>, e.g., `vCar`, if given.
     This is redundant information but simplifies signal name extraction.
  * `variableKind` is `signal`.
 
-==== Example [[ExampleHighCut,ExampleHighCut]]
+==== Example [[high-cut-example]]
 
 The following excerpts from files are used throughout this document as examples and should illustrate how the different concepts relate.
 
