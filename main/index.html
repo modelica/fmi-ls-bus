@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-b60db1630a6824be1cfcfef6bcbaf40590b37c94,</span>
+<span id="revnumber">version main-58c45f6417609e814970b8e166a3f9d2167f076b,</span>
 <span id="revdate">2023-07-20</span>
 </div>
 <div id="toc" class="toc2">
@@ -697,6 +697,7 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#low-cut-can-example-transmission">5.5.1.9.1. Transmission</a></li>
 <li><a href="#low-cut-can-example-can-arbitration-without-buffering">5.5.1.9.2. CAN Arbitration without Buffering</a></li>
 <li><a href="#low-cut-can-example-can-arbitration-with-buffering">5.5.1.9.3. CAN Arbitration with Buffering</a></li>
+<li><a href="#low-cut-can-example-error-handling">5.5.1.9.4. Error Handling</a></li>
 </ul>
 </li>
 </ul>
@@ -800,12 +801,6 @@ This communication architecture can be operated by a common FMU importer and all
 <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#RFC2119">[RFC2119]</a> (regardless of formatting and capitalization).</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>In key parts of this document, non-normative examples are used to help understand the standard.
-To keep the standard itself brief, the <a href="https://modelica.github.io/fmi-guides/main/ls-bus-guide/">FMI LS BUS Implementer’s Guide</a> was created.
-It contains further technical discussions and examples on how to implement certain aspects of the standard for both FMUs and importers.
-Contrary to the standard, the FMI LS BUS Implementer’s Guide will be a living document, enhanced with further tips and tricks as the FMI community encounters them.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1095,10 +1090,10 @@ This allows the FMU (or better the exporting tool) to balance the accuracy and p
 <div class="ulist">
 <ul>
 <li>
-<p>While aperiodic clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> will reduce the network simulation speed.</p>
+<p>While aperiodic clocks allow very accurate network simulations, frequently entering Event Mode will reduce the network simulation speed.</p>
 </li>
 <li>
-<p>Using periodic clocks reduces the number of <code>Event Modes</code> required and speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.</p>
+<p>Using periodic clocks reduces the number of Event Modes required and speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.</p>
 </li>
 <li>
 <p>One could use (structural) parameters to define the accuracy of aperiodic clocks, allowing control of the simulation accuracy and performance with the same FMU.</p>
@@ -3198,6 +3193,10 @@ When a Network FMU has provided the status <code>BUS_OFF</code> to the Bus Simul
 </div>
 <div class="title">Figure 10. Architectural error handling overview.</div>
 </div>
+<div class="paragraph">
+<p><a href="#low-cut-can-example-error-handling">Section 5.5.1.9.4</a> contains a detailed overview about the CAN error handling.
+Additionally, a rule set showing how to implement correct CAN error handling based on this standard with respect to the arguments of the <a href="#low-cut-can-bus-error-operation">Bus Error operation</a> is shown.</p>
+</div>
 </div>
 <div class="sect4">
 <h5 id="low-cut-can-arbitration">5.5.1.7. Arbitration</h5>
@@ -3318,6 +3317,74 @@ FMU 1 gets a <a href="#low-cut-can-confirm-operation">Confirm operation</a>, bec
 <img src="images/can_arbitration_overview_with_buffer.svg" alt="can arbitration overview with buffer" width="80%">
 </div>
 <div class="title">Figure 15. Arbitration of CAN frames with buffering within Bus Simulation.</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="low-cut-can-example-error-handling">5.5.1.9.4. Error Handling</h6>
+<div class="paragraph">
+<p>This chapter describes a possible implementation of the CAN error handling within Network FMUs using a rule set based on <a href="#low-cut-can-bus-error-operation">Bus Error operations</a>.
+Each Network FMU will provide its own Transmit Error Counter (TEC), Receive Error Counter (REC) and current CAN node state.
+The values for TEC and REC will be increased and decreased with respect to the <code>Error Code</code>, <code>Is Sender</code> and <code>Error Flag</code> arguments of a <a href="#low-cut-can-bus-error-operation">Bus Error operation</a> and are inherited from the original CAN error confinement rules.
+Based on the values of TEC and REC, the CAN controller moves in the following state machine:</p>
+</div>
+<div id="figure-can-error-state-machine" class="imageblock text-center">
+<div class="content">
+<img src="images/can_error_state_machine.svg" alt="can error state machine" width="60%">
+</div>
+<div class="title">Figure 16. CAN node state machine.</div>
+</div>
+<div class="paragraph">
+<p>This CAN node state machine and the related TEC and REC values have to be included within the Network FMUs.
+<a href="#low-cut-can-bus-error-operation">Bus Error operations</a> shall be directly used to maintain the TEC and REC values.
+The Network FMU shall react on the <a href="#low-cut-can-bus-error-operation">Bus Error operations</a> that the Bus Simulation provides, based on the following rule set:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When an FMU gets a <a href="#low-cut-can-bus-error-operation">Bus Error operation</a> where the arguments <code>Is Sender = FALSE</code> and <code>Error Flag = SECONDARY_ERROR_FLAG</code> and also <code>Error Code != BROKEN_ERROR_FRAME</code>, the REC shall be increased by 1.</p>
+</li>
+<li>
+<p>When an FMU gets a <a href="#low-cut-can-bus-error-operation">Bus Error operation</a> where the arguments (<code>Is Sender = FALSE</code> and <code>Error Flag = PRIMARY_ERROR_FLAG</code>) or <code>Error Code = BROKEN_ERROR_FRAME</code>, the REC shall be increased by 8.</p>
+</li>
+<li>
+<p>When an FMU gets a <a href="#low-cut-can-bus-error-operation">Bus Error operation</a> where the arguments <code>Is Sender = TRUE</code> or <code>Error Code = BROKEN_ERROR_FRAME</code>, the TEC shall be increased by 8.
+Exception: <code>Status =  ERROR_PASSIVE</code> and <code>Error Code = ACK_ERROR</code>.</p>
+</li>
+<li>
+<p>When an FMU provides a <a href="#low-cut-can-transmit-operation">Transmit operation</a> and receives a <a href="#low-cut-can-confirm-operation">Confirm operation</a> for it, the TEC shall be decreased by 1 unless it was already 0.</p>
+</li>
+<li>
+<p>When an FMU gets a <a href="#low-cut-can-transmit-operation">Transmit operation</a>, the REC shall be decreased by 1, if it was between 1 and 127.
+If the REC was 0, it stays 0, and if it was greater than 127, then it will be set to the value between 119 and 127.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A Network FMU communicates its current CAN node state via the <a href="#low-cut-can-status-operation">Status operation</a> by using the following rule set:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>After the initialization of a Network FMU, the current CAN node state shall be set to <code>ERROR_ACTIVE</code> and communicate via <a href="#low-cut-can-status-operation">Status operation</a> to the Bus Simulation.</p>
+</li>
+<li>
+<p>The current CAN node state of a Network FMU shall be set to <code>ERROR_PASSIVE</code> if the value of REC &gt; 127 or TEC &gt; 127 and communicate via <a href="#low-cut-can-status-operation">Status operation</a> to the Bus Simulation.</p>
+</li>
+<li>
+<p>The current CAN node state of a Network FMU shall be set to <code>ERROR_ACTIVE</code> if the value of REC &lt; 128 and TEC &lt; 128 and communicate via <a href="#low-cut-can-status-operation">Status operation</a> to the Bus Simulation.</p>
+</li>
+<li>
+<p>The current CAN node state of a Network FMU shall be set to <code>BUS_OFF</code> if the value of TEC &gt; 255 and communicate via <a href="#low-cut-can-status-operation">Status operation</a> to the Bus Simulation.</p>
+</li>
+<li>
+<p>The <code>BUS_OFF</code> status shall be set to <code>ERROR_ACTIVE</code> again when the Network FMU simulates a controller reset (optional) and has received in total 128 <a href="#low-cut-can-transmit-operation">Transmit operations</a> or <a href="#low-cut-can-bus-error-operation">Bus Error operations</a> from the network.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#low-cut-can-bus-notification-parameter">Section 5.5.1.3.1</a>) is set to <code>false</code>, the <a href="#low-cut-can-confirm-operation">Confirm operation</a> cannot be directly used as indicator to set the TEC value and will be incorrect under the rules outlined above.
+Also <a href="#low-cut-can-bus-error-operation">Bus Error operations</a> are not available in this scenario, so that the values for TEC and REC automatically remain zero in this case.
+It is recommended to solve the error handling differently in this case or to disabling it completely within the specified Network FMU.</p>
 </div>
 </div>
 </div>
