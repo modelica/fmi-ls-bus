@@ -694,9 +694,6 @@ When a Network FMU has provided the status `BUS_OFF` to the Bus Simulation, then
 [#figure-can-architectural-error-handling-overview]
 image::can_error_handling_overview.svg[width=100%, align="center"]
 
-<<low-cut-can-example-error-handling>> contains a detailed overview about the CAN error handling.
-Additionally, a rule set showing how to implement correct CAN error handling based on this standard with respect to the arguments of the <<low-cut-can-bus-error-operation, Bus Error operation>> is shown.
-
 ===== Arbitration [[low-cut-can-arbitration]]
 Arbitration is an instrument of the CAN standard to resolve the conflict of the simultaneous sending of messages from several CAN nodes without a collision.
 The arbitration is handled in the Bus Simulation and can be recognized by the fact that the Bus Simulation receives a <<low-cut-can-transmit-operation, Transmit operation>> from several FMUs at the same time.
@@ -786,38 +783,3 @@ FMU 1 gets a <<low-cut-can-confirm-operation, Confirm operation>>, because the s
 .Arbitration of CAN frames with buffering within Bus Simulation.
 [#figure-can-arbitration-overview-with-buffer]
 image::can_arbitration_overview_with_buffer.svg[width=80%, align="center"]
-
-====== Error Handling [[low-cut-can-example-error-handling]]
-
-This chapter describes a possible implementation of the CAN error handling within Network FMUs using a rule set based on <<low-cut-can-bus-error-operation, Bus Error operations>>.
-Each Network FMU will provide its own Transmit Error Counter (TEC), Receive Error Counter (REC) and current CAN node state.
-The values for TEC and REC will be increased and decreased with respect to the `Error Code`, `Is Sender` and `Error Flag` arguments of a <<low-cut-can-bus-error-operation, Bus Error operation>> and are inherited from the original CAN error confinement rules.
-Based on the values of TEC and REC, the CAN controller moves in the following state machine:
-
-.CAN node state machine.
-[#figure-can-error-state-machine]
-image::can_error_state_machine.svg[width=60%, align="center"]
-
-This CAN node state machine and the related TEC and REC values have to be included within the Network FMUs.
-<<low-cut-can-bus-error-operation, Bus Error operations>> shall be directly used to maintain the TEC and REC values.
-The Network FMU shall react on the <<low-cut-can-bus-error-operation, Bus Error operations>> that the Bus Simulation provides, based on the following rule set:
-
-* When an FMU gets a <<low-cut-can-bus-error-operation, Bus Error operation>> where the arguments `Is Sender = FALSE` and `Error Flag = SECONDARY_ERROR_FLAG` and also `Error Code != BROKEN_ERROR_FRAME`, the REC shall be increased by 1.
-* When an FMU gets a <<low-cut-can-bus-error-operation, Bus Error operation>> where the arguments (`Is Sender = FALSE` and `Error Flag = PRIMARY_ERROR_FLAG`) or `Error Code = BROKEN_ERROR_FRAME`, the REC shall be increased by 8.
-* When an FMU gets a <<low-cut-can-bus-error-operation, Bus Error operation>> where the arguments `Is Sender = TRUE` or `Error Code = BROKEN_ERROR_FRAME`, the TEC shall be increased by 8.
-Exception: `Status =  ERROR_PASSIVE` and `Error Code = ACK_ERROR`.
-* When an FMU provides a <<low-cut-can-transmit-operation, Transmit operation>> and receives a <<low-cut-can-confirm-operation, Confirm operation>> for it, the TEC shall be decreased by 1 unless it was already 0.
-* When an FMU gets a <<low-cut-can-transmit-operation, Transmit operation>>, the REC shall be decreased by 1, if it was between 1 and 127.
-If the REC was 0, it stays 0, and if it was greater than 127, then it will be set to the value between 119 and 127.
-
-A Network FMU communicates its current CAN node state via the <<low-cut-can-status-operation, Status operation>> by using the following rule set:
-
-* After the initialization of a Network FMU, the current CAN node state shall be set to `ERROR_ACTIVE` and communicate via <<low-cut-can-status-operation, Status operation>> to the Bus Simulation.
-* The current CAN node state of a Network FMU shall be set to `ERROR_PASSIVE` if the value of REC > 127 or TEC > 127 and communicate via <<low-cut-can-status-operation, Status operation>> to the Bus Simulation.
-* The current CAN node state of a Network FMU shall be set to `ERROR_ACTIVE` if the value of REC < 128 and TEC < 128 and communicate via <<low-cut-can-status-operation, Status operation>> to the Bus Simulation.
-* The current CAN node state of a Network FMU shall be set to `BUS_OFF` if the value of TEC > 255 and communicate via <<low-cut-can-status-operation, Status operation>> to the Bus Simulation.
-* The `BUS_OFF` status shall be set to `ERROR_ACTIVE` again when the Network FMU simulates a controller reset (optional) and has received in total 128 <<low-cut-can-transmit-operation, Transmit operations>> or <<low-cut-can-bus-error-operation, Bus Error operations>> from the network.
-
-If `org.fmi_standard.fmi_ls_bus.WaitForBusNotification` (see <<low-cut-can-bus-notification-parameter>>) is set to `false`, the <<low-cut-can-confirm-operation, Confirm operation>> cannot be directly used as indicator to set the TEC value and will be incorrect under the rules outlined above.
-Also <<low-cut-can-bus-error-operation, Bus Error operations>> are not available in this scenario, so that the values for TEC and REC automatically remain zero in this case.
-It is recommended to solve the error handling differently in this case or to disabling it completely within the specified Network FMU.

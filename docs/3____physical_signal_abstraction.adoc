@@ -35,8 +35,8 @@ Such a clock is scheduled by the sending FMU to indicate the transmission of the
 The output clock type, periodic or aperiodic, is defined by the sending FMU.
 This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:
 
- - While aperiodic clocks allow very accurate network simulations, frequently entering Event Mode will reduce the network simulation speed.
- - Using periodic clocks reduces the number of Event Modes required and speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.
+ - While aperiodic clocks allow very accurate network simulations, frequently entering `Event Mode` will reduce the network simulation speed.
+ - Using periodic clocks reduces the number of `Event Modes` required and speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.
  - One could use (structural) parameters to define the accuracy of aperiodic clocks, allowing control of the simulation accuracy and performance with the same FMU.
  - The input clocks shall be triggered clocks.
 
