@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-4dec74943832b14715d518c2db89cb0d69e607b9,</span>
-<span id="revdate">2023-07-05</span>
+<span id="revnumber">version main-70b75721676f9df696398526f45d8d05bab9ee69,</span>
+<span id="revdate">2023-07-20</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -603,11 +603,11 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#_layered_standard_manifest_file">2. Layered Standard Manifest File</a></li>
 <li><a href="#_common_concepts">3. Common Concepts</a>
 <ul class="sectlevel2">
-<li><a href="#SystemCompositions">3.1. System Compositions</a>
+<li><a href="#common-concepts-system-compositions">3.1. System Compositions</a>
 <ul class="sectlevel3">
-<li><a href="#DirectCommunication">3.1.1. Direct Communication</a></li>
-<li><a href="#Composition-with-dedicated-Bus-Simulation-FMU">3.1.2. Composition with dedicated Bus Simulation FMU</a></li>
-<li><a href="#BusFeatureIntegratedFmuSimulator">3.1.3. Importer with Integrated Bus Simulation</a></li>
+<li><a href="#common-concepts-direct-communication">3.1.1. Direct Communication</a></li>
+<li><a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">3.1.2. Composition with dedicated Bus Simulation FMU</a></li>
+<li><a href="#common-concepts-importer-with-integrated-bus-simulation">3.1.3. Importer with Integrated Bus Simulation</a></li>
 </ul>
 </li>
 </ul>
@@ -618,17 +618,17 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#_variables">4.2. Variables</a>
 <ul class="sectlevel3">
 <li><a href="#_signal_variables">4.2.1. Signal Variables</a></li>
-<li><a href="#ClockVariableHighCut">4.2.2. Clock Variables</a></li>
+<li><a href="#high-cut-clock-variables">4.2.2. Clock Variables</a></li>
 </ul>
 </li>
-<li><a href="#NetworkDescriptionFile">4.3. Network Description Files</a></li>
+<li><a href="#high-cut-network-description-files">4.3. Network Description Files</a></li>
 <li><a href="#_terminal_definitions">4.4. Terminal Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#BUSTerminalHighCut">4.4.1. Bus Terminal</a></li>
-<li><a href="#FrameTerminal">4.4.2. Frame Terminal</a></li>
-<li><a href="#PDUTerminal">4.4.3. PDU Terminal</a></li>
-<li><a href="#TerminalMemberVariable">4.4.4. Terminal Member Variable for Signals</a></li>
-<li><a href="#ExampleHighCut">4.4.5. Example</a></li>
+<li><a href="#high-cut-bus-terminal">4.4.1. Bus Terminal</a></li>
+<li><a href="#high-cut-frame-terminal">4.4.2. Frame Terminal</a></li>
+<li><a href="#high-cut-pdu-terminal">4.4.3. PDU Terminal</a></li>
+<li><a href="#high-cut-terminal-member-variable-for-signals">4.4.4. Terminal Member Variable for Signals</a></li>
+<li><a href="#high-cut-example">4.4.5. Example</a></li>
 </ul>
 </li>
 <li><a href="#_limitations">4.5. Limitations</a></li>
@@ -637,49 +637,49 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#network-abstraction">5. Network Abstraction ("low cut")</a>
 <ul class="sectlevel2">
 <li><a href="#_overview_2">5.1. Overview</a></li>
-<li><a href="#Overview-Layered-Standard-Bus-Protocol">5.2. Layered Standard Bus Protocol</a>
+<li><a href="#low-cut-layered-standard-bus-protocol">5.2. Layered Standard Bus Protocol</a>
 <ul class="sectlevel3">
-<li><a href="#Format-Error-Operation">5.2.1. Format Error</a></li>
-<li><a href="#Basic-Type-Definitions">5.2.2. Basic Type Definitions</a></li>
+<li><a href="#low-cut-format-error-operation">5.2.1. Format Error</a></li>
+<li><a href="#low-cut-basic-type-definitions">5.2.2. Basic Type Definitions</a></li>
 </ul>
 </li>
-<li><a href="#NetworkAbstractionVariables">5.3. Variables</a>
+<li><a href="#low-cut-variables">5.3. Variables</a>
 <ul class="sectlevel3">
-<li><a href="#ClockVariableLowCut">5.3.1. Tx/Rx Clock Variables</a>
+<li><a href="#low-cut-tx-rx-clock-variables">5.3.1. Tx/Rx Clock Variables</a>
 <ul class="sectlevel4">
-<li><a href="#bus-communication-points">5.3.1.1. Bus Communication Points</a></li>
+<li><a href="#low-cut-bus-communication-points">5.3.1.1. Bus Communication Points</a></li>
 </ul>
 </li>
-<li><a href="#CommunicationVariable">5.3.2. Tx/Rx Data Variables</a></li>
+<li><a href="#low-cut-tx-rx-data-variables">5.3.2. Tx/Rx Data Variables</a></li>
 <li><a href="#_mime_types">5.3.3. MIME Types</a></li>
 </ul>
 </li>
 <li><a href="#_terminal_definitions_2">5.4. Terminal Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#BUSTerminalLowCut">5.4.1. Bus Terminal</a></li>
-<li><a href="#ExampleLowCut">5.4.2. Example</a></li>
+<li><a href="#low-cut-bus-terminal">5.4.1. Bus Terminal</a></li>
+<li><a href="#low-cut-example">5.4.2. Example</a></li>
 </ul>
 </li>
-<li><a href="#BusTypeSpecificDetails">5.5. Bus-Specific Details</a>
+<li><a href="#low-cut-bus-specific-details">5.5. Bus-Specific Details</a>
 <ul class="sectlevel3">
 <li><a href="#_can_can_fd_can_xl">5.5.1. CAN, CAN FD, CAN XL</a>
 <ul class="sectlevel4">
 <li><a href="#_overview_3">5.5.1.1. Overview</a></li>
 <li><a href="#_operations">5.5.1.2. Operations</a>
 <ul class="sectlevel5">
-<li><a href="#TransmitOpCodeCanLowCut">5.5.1.2.1. Transmit</a></li>
-<li><a href="#ConfirmOpCodeCanLowCut">5.5.1.2.2. Confirm</a></li>
-<li><a href="#FormatErrorOpCodeCanLowCut">5.5.1.2.3. Format Error</a></li>
-<li><a href="#ArbitrationLostOpCodeCanLowCut">5.5.1.2.4. Arbitration Lost</a></li>
-<li><a href="#BusErrorOpCodeCanLowCut">5.5.1.2.5. Bus Error</a></li>
-<li><a href="#ConfigurationCanOpCode">5.5.1.2.6. Configuration</a></li>
-<li><a href="#StatusOpCodeCanLowCut">5.5.1.2.7. Status</a></li>
-<li><a href="#WakeupCanOpCode">5.5.1.2.8. Wake Up</a></li>
+<li><a href="#low-cut-can-transmit-operation">5.5.1.2.1. Transmit</a></li>
+<li><a href="#low-cut-can-confirm-operation">5.5.1.2.2. Confirm</a></li>
+<li><a href="#low-cut-can-format-error-operation">5.5.1.2.3. Format Error</a></li>
+<li><a href="#low-cut-can-arbitration-lost-operation">5.5.1.2.4. Arbitration Lost</a></li>
+<li><a href="#low-cut-can-bus-error-operation">5.5.1.2.5. Bus Error</a></li>
+<li><a href="#low-cut-can-configuration-operation">5.5.1.2.6. Configuration</a></li>
+<li><a href="#low-cut-can-status-operation">5.5.1.2.7. Status</a></li>
+<li><a href="#low-cut-can-wake-up-operation">5.5.1.2.8. Wake Up</a></li>
 </ul>
 </li>
-<li><a href="#can-network-parameters">5.5.1.3. Network Parameters</a>
+<li><a href="#low-cut-can-network-parameters">5.5.1.3. Network Parameters</a>
 <ul class="sectlevel5">
-<li><a href="#bus-notification-parameter">5.5.1.3.1. Bus Notification Parameter</a></li>
+<li><a href="#low-cut-can-bus-notification-parameter">5.5.1.3.1. Bus Notification Parameter</a></li>
 </ul>
 </li>
 <li><a href="#_configuration_of_bus_simulation">5.5.1.4. Configuration of Bus Simulation</a>
@@ -689,15 +689,15 @@ document.addEventListener('keydown', (event) => {
 </ul>
 </li>
 <li><a href="#_transmission_and_acknowledge">5.5.1.5. Transmission and Acknowledge</a></li>
-<li><a href="#CanErrorHandling">5.5.1.6. Error Handling</a></li>
-<li><a href="#CanArbitration">5.5.1.7. Arbitration</a></li>
+<li><a href="#low-cut-can-error-handling">5.5.1.6. Error Handling</a></li>
+<li><a href="#low-cut-can-arbitration">5.5.1.7. Arbitration</a></li>
 <li><a href="#_wake_upsleep">5.5.1.8. Wake Up/Sleep</a></li>
 <li><a href="#_examples">5.5.1.9. Examples</a>
 <ul class="sectlevel5">
-<li><a href="#example-can-possible-results-of-transmission">5.5.1.9.1. Transmission</a></li>
-<li><a href="#example-can-arbitration-with-arbitration-lost-behavior">5.5.1.9.2. CAN Arbitration without Buffering</a></li>
-<li><a href="#example-can-arbitration-without-arbitration-lost-behavior">5.5.1.9.3. CAN Arbitration with Buffering</a></li>
-<li><a href="#example-can-error-handling">5.5.1.9.4. Error Handling</a></li>
+<li><a href="#low-cut-can-example-transmission">5.5.1.9.1. Transmission</a></li>
+<li><a href="#low-cut-can-example-can-arbitration-without-buffering">5.5.1.9.2. CAN Arbitration without Buffering</a></li>
+<li><a href="#low-cut-can-example-can-arbitration-with-buffering">5.5.1.9.3. CAN Arbitration with Buffering</a></li>
+<li><a href="#low-cut-can-example-error-handling">5.5.1.9.4. Error Handling</a></li>
 </ul>
 </li>
 </ul>
@@ -939,14 +939,14 @@ Frame variables do not just transport the network-specific payload, but also car
 Status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack about success or errors of a send request.</p>
 </div>
 <div class="sect2">
-<h3 id="SystemCompositions">3.1. System Compositions</h3>
+<h3 id="common-concepts-system-compositions">3.1. System Compositions</h3>
 <div class="paragraph">
 <p>Overall, this standard considers three possible communication architectures for bus communication.
 It should be explicitly noted at this point that the FMUs for integration in the respective use case do not necessarily have to be different, so that the same FMU can be integrated across all three communication architectures.
 The interface of the FMU to the importer is always the same, but a different subset of the features is actually used.</p>
 </div>
 <div class="sect3">
-<h4 id="DirectCommunication">3.1.1. Direct Communication</h4>
+<h4 id="common-concepts-direct-communication">3.1.1. Direct Communication</h4>
 <div class="paragraph">
 <p>The first option is to use a common FMU importer.
 Within this configuration, the FMU importer does not require any special features for simulating buses, apart from supporting FMI variables, clocks and terminals.
@@ -986,7 +986,7 @@ Here the FMU will receive all frames, regardless of buffer size and would need t
 </div>
 </div>
 <div class="sect3">
-<h4 id="Composition-with-dedicated-Bus-Simulation-FMU">3.1.2. Composition with dedicated Bus Simulation FMU</h4>
+<h4 id="common-concepts-composition-with-dedicated-bus-simulation-fmu">3.1.2. Composition with dedicated Bus Simulation FMU</h4>
 <div class="paragraph">
 <p>If more realistic network properties are required, a bus simulation component must be added.</p>
 </div>
@@ -1018,10 +1018,10 @@ Depending on the needs, it may be necessary to dynamically provision the Bus Sim
 </div>
 </div>
 <div class="sect3">
-<h4 id="BusFeatureIntegratedFmuSimulator">3.1.3. Importer with Integrated Bus Simulation</h4>
+<h4 id="common-concepts-importer-with-integrated-bus-simulation">3.1.3. Importer with Integrated Bus Simulation</h4>
 <div class="paragraph">
 <p>In the third variant of the communication architecture, the bus simulation is built directly into the respective importer.
-The supported bus features are analogous to the <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Composition with dedicated Bus Simulation FMU</a> use case.
+The supported bus features are analogous to the <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Composition with dedicated Bus Simulation FMU</a> use case.
 The corresponding limitations regarding the behavior of the bus simulation are importer-specific.
 The following figure illustrates two FMUs, which are integrated by an importer that directly supports this standard and needs no further Bus Simulation FMU.</p>
 </div>
@@ -1062,10 +1062,10 @@ Changes to these clocked variables always reach the destination.</p>
 </div>
 <div class="paragraph">
 <p>A signal variable carries the physical value of a network signal normally packaged inside a PDU or frame.
-The unit definition of the variable must match the one defined in the <a href="#NetworkDescriptionFile">network description file</a>, if provided.</p>
+The unit definition of the variable must match the one defined in the <a href="#high-cut-network-description-files">network description file</a>, if provided.</p>
 </div>
 <div class="paragraph">
-<p>Each network signal must be listed as <a href="#TerminalMemberVariable">Terminal Member Variable</a> of its corresponding <a href="#PDUTerminal">PDU terminal</a>.</p>
+<p>Each network signal must be listed as <a href="#high-cut-terminal-member-variable-for-signals">Terminal Member Variable</a> of its corresponding <a href="#high-cut-pdu-terminal">PDU terminal</a>.</p>
 </div>
 <div class="paragraph">
 <p>In case multiplexed signals are present in a frame/PDU/container PDU: all signals/PDUs are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values <em>[those values could even be outside their specified min-max range without fault]</em>.</p>
@@ -1074,11 +1074,11 @@ The unit definition of the variable must match the one defined in the <a href="#
 <p>Generally, signal variables are optional, but they must either be all missing or all present to clearly indicate support for the signal abstraction layer.</p>
 </div>
 <div class="paragraph">
-<p>All signal variables are clocked to exactly indicate when they have been sent, see <a href="#ClockVariableHighCut">Section 4.2.2</a>.</p>
+<p>All signal variables are clocked to exactly indicate when they have been sent, see <a href="#high-cut-clock-variables">Section 4.2.2</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="ClockVariableHighCut">4.2.2. Clock Variables</h4>
+<h4 id="high-cut-clock-variables">4.2.2. Clock Variables</h4>
 <div class="paragraph">
 <p>In order to use FMU input and output variables as transport layer for networks, input and output clocks are used.
 Such a clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.</p>
@@ -1112,16 +1112,16 @@ This allows the FMU (or better the exporting tool) to balance the accuracy and p
 </div>
 </div>
 <div class="sect2">
-<h3 id="NetworkDescriptionFile">4.3. Network Description Files</h3>
+<h3 id="high-cut-network-description-files">4.3. Network Description Files</h3>
 <div class="paragraph">
-<p>Standardized <a href="#NetworkDescriptionFile">network description files</a> may optionally be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
-If these <a href="#NetworkDescriptionFile">network description files</a> are shipped, they must be placed into the <code>/extra/org.fmi-standard.fmi-ls-bus</code> folder.
+<p>Standardized <a href="#high-cut-network-description-files">network description files</a> may optionally be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
+If these <a href="#high-cut-network-description-files">network description files</a> are shipped, they must be placed into the <code>/extra/org.fmi-standard.fmi-ls-bus</code> folder.
 DBC, LDF, Fibex and ARXML files are allowed, e.g., <code>Powertrain.dbc</code>.
-The case sensitive root name of the <a href="#NetworkDescriptionFile">network description file</a> must be used as network identifier in the bus terminal type and prefix in the variable names.</p>
+The case sensitive root name of the <a href="#high-cut-network-description-files">network description file</a> must be used as network identifier in the bus terminal type and prefix in the variable names.</p>
 </div>
 <div class="paragraph">
 <p>Multiple files can be specified, each one defining one network used by the FMU.
-This standard does not support composing one network from multiple <a href="#NetworkDescriptionFile">network description files</a>, even if using internal include mechanisms, it rather enforces the rule: one network - one file.</p>
+This standard does not support composing one network from multiple <a href="#high-cut-network-description-files">network description files</a>, even if using internal include mechanisms, it rather enforces the rule: one network - one file.</p>
 </div>
 <div class="paragraph">
 <p>It is recommended to use ARXML over DBC files for CAN whenever possible, because the DBC standard lacks some key frame/PDU properties that were added only later using non-standard extensions with different dialects in use.</p>
@@ -1138,10 +1138,10 @@ These are technical and legal issues that need attention from standardization bo
 <p>This section defines terminals for physical signal abstraction or "high cut".</p>
 </div>
 <div class="sect3">
-<h4 id="BUSTerminalHighCut">4.4.1. Bus Terminal</h4>
+<h4 id="high-cut-bus-terminal">4.4.1. Bus Terminal</h4>
 <div class="paragraph">
-<p>Each network connected to the FMU must be described in <code>icons/terminalsAndIcons.xml</code> as a <code>&lt;Terminal&gt;</code> element of <code>&lt;fmiTerminalsAndIcons&gt;&lt;Terminals&gt;</code> that wraps all <a href="#FrameTerminal">frame terminals</a>.
-The attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> must match the root name of its <a href="#NetworkDescriptionFile">network description file</a> if it exists
+<p>Each network connected to the FMU must be described in <code>icons/terminalsAndIcons.xml</code> as a <code>&lt;Terminal&gt;</code> element of <code>&lt;fmiTerminalsAndIcons&gt;&lt;Terminals&gt;</code> that wraps all <a href="#high-cut-frame-terminal">frame terminals</a>.
+The attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> must match the root name of its <a href="#high-cut-network-description-files">network description file</a> if it exists
 <em>[e.g., <code>Powertrain</code>, if the file is <code>/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc</code>]</em>.
 In any case, the attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> must be consistent with the <code>BusName</code> component of all its corresponding signal, frame and clock variables.</p>
 </div>
@@ -1158,7 +1158,7 @@ In any case, the attribute <code>name</code> of the <code>&lt;Terminal&gt;</code
 <p><code>matchingRule</code> must be set to <code>bus</code>.</p>
 </li>
 <li>
-<p><code>name</code> is the network name, e.g., <code>Powertrain</code>, see <a href="#ExampleHighCut">ExampleHighCut</a> and constraints above.</p>
+<p><code>name</code> is the network name, e.g., <code>Powertrain</code>, see <a href="#high-cut-example">example</a> and constraints above.</p>
 </li>
 </ul>
 </div>
@@ -1171,7 +1171,7 @@ In any case, the attribute <code>name</code> of the <code>&lt;Terminal&gt;</code
 <p>There must be no <code>&lt;TerminalStreamMemberVariable&gt;</code> element.</p>
 </li>
 <li>
-<p>There must be one <code>&lt;Terminal&gt;</code> element per network frame described in the <a href="#NetworkDescriptionFile">network description file</a>, if their signal and lock variables are present in the <code>modelDescription.xml</code>.</p>
+<p>There must be one <code>&lt;Terminal&gt;</code> element per network frame described in the <a href="#high-cut-network-description-files">network description file</a>, if their signal and lock variables are present in the <code>modelDescription.xml</code>.</p>
 </li>
 </ul>
 </div>
@@ -1181,7 +1181,7 @@ In any case, the attribute <code>name</code> of the <code>&lt;Terminal&gt;</code
 <div class="ulist">
 <ul>
 <li>
-<p>There must be an <code>&lt;Annotation&gt;</code> element defining which node or nodes (as comma-separated list without spaces) of the <a href="#NetworkDescriptionFile">network description file</a> are wrapped inside the FMU.
+<p>There must be an <code>&lt;Annotation&gt;</code> element defining which node or nodes (as comma-separated list without spaces) of the <a href="#high-cut-network-description-files">network description file</a> are wrapped inside the FMU.
 If the combination of nodes specified for this FMU turns a frame and its signals into both input and output because sending and receiving nodes are specified, only the sending (output) role will be defined in the FMU interface.
 Receiving such frames must then be handled internally to the FMU.</p>
 </li>
@@ -1192,9 +1192,9 @@ Receiving such frames must then be handled internally to the FMU.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="FrameTerminal">4.4.2. Frame Terminal</h4>
+<h4 id="high-cut-frame-terminal">4.4.2. Frame Terminal</h4>
 <div class="paragraph">
-<p>Each frame listed in the <a href="#NetworkDescriptionFile">network description file</a> must be an element of its corresponding <a href="#BUSTerminalHighCut">bus terminal</a>.</p>
+<p>Each frame listed in the <a href="#high-cut-network-description-files">network description file</a> must be an element of its corresponding <a href="#high-cut-bus-terminal">bus terminal</a>.</p>
 </div>
 <div class="dlist">
 <dl>
@@ -1209,7 +1209,7 @@ Receiving such frames must then be handled internally to the FMU.</p>
 <p><code>matchingRule</code> must be set to <code>bus</code>.</p>
 </li>
 <li>
-<p><code>name</code> must match the frame name as defined in the <a href="#NetworkDescriptionFile">network description file</a> in <code>/extra/org.fmi-standard.fmi-ls-bus</code>.</p>
+<p><code>name</code> must match the frame name as defined in the <a href="#high-cut-network-description-files">network description file</a> in <code>/extra/org.fmi-standard.fmi-ls-bus</code>.</p>
 </li>
 </ul>
 </div>
@@ -1222,7 +1222,7 @@ Receiving such frames must then be handled internally to the FMU.</p>
 <p>There must be no <code>&lt;TerminalStreamMemberVariable&gt;</code> element.</p>
 </li>
 <li>
-<p>There must be one <a href="#PDUTerminal">PDU terminal</a> element per PDU of this frame.</p>
+<p>There must be one <a href="#high-cut-pdu-terminal">PDU terminal</a> element per PDU of this frame.</p>
 </li>
 <li>
 <p>There must be one <code>&lt;TerminalMemberVariable&gt;</code> for the clock this frame is connected to.
@@ -1234,13 +1234,13 @@ The name of this variable is composed as <a href="#ClockVariable"><code>BusName:
 </dl>
 </div>
 <div class="paragraph">
-<p>The <a href="#TerminalMemberVariable">Terminal Member Variable</a> must have the same causality as all variables referenced in the <a href="#PDUTerminal">PDU Terminals</a> included here.</p>
+<p>The <a href="#high-cut-terminal-member-variable-for-signals">Terminal Member Variable</a> must have the same causality as all variables referenced in the <a href="#high-cut-pdu-terminal">PDU Terminals</a> included here.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="PDUTerminal">4.4.3. PDU Terminal</h4>
+<h4 id="high-cut-pdu-terminal">4.4.3. PDU Terminal</h4>
 <div class="paragraph">
-<p>Each PDU listed in the <a href="#NetworkDescriptionFile">network description file</a> must be an element of its corresponding <a href="#FrameTerminal">frame terminal</a>.</p>
+<p>Each PDU listed in the <a href="#high-cut-network-description-files">network description file</a> must be an element of its corresponding <a href="#high-cut-frame-terminal">frame terminal</a>.</p>
 </div>
 <div class="dlist">
 <dl>
@@ -1255,7 +1255,7 @@ The name of this variable is composed as <a href="#ClockVariable"><code>BusName:
 <p><code>matchingRule</code> must be set to <code>bus</code>.</p>
 </li>
 <li>
-<p><code>name</code> must match a PDU name of the <a href="#NetworkDescriptionFile">network description file</a> in <code>/extra/org.fmi-standard.fmi-ls-bus</code>, if given.
+<p><code>name</code> must match a PDU name of the <a href="#high-cut-network-description-files">network description file</a> in <code>/extra/org.fmi-standard.fmi-ls-bus</code>, if given.
 For network types not natively referencing a "PDU", like CAN, a synthetic PDU with the same name as its frame is inserted.</p>
 </li>
 </ul>
@@ -1272,7 +1272,7 @@ For network types not natively referencing a "PDU", like CAN, a synthetic PDU wi
 <p>There must be no <code>&lt;Terminal&gt;</code> element.</p>
 </li>
 <li>
-<p>There must be one <code>&lt;TerminalMemberVariable&gt;</code> per <a href="#TerminalMemberVariable">signal</a> of this PDU.</p>
+<p>There must be one <code>&lt;TerminalMemberVariable&gt;</code> per <a href="#high-cut-terminal-member-variable-for-signals">signal</a> of this PDU.</p>
 </li>
 </ul>
 </div>
@@ -1280,13 +1280,13 @@ For network types not natively referencing a "PDU", like CAN, a synthetic PDU wi
 </dl>
 </div>
 <div class="paragraph">
-<p>All <a href="#TerminalMemberVariable"><code>TerminalMemberVariables</code></a> must have the same causality of either <code>input</code> or <code>output</code>.</p>
+<p>All <a href="#high-cut-terminal-member-variable-for-signals"><code>TerminalMemberVariables</code></a> must have the same causality of either <code>input</code> or <code>output</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="TerminalMemberVariable">4.4.4. Terminal Member Variable for Signals</h4>
+<h4 id="high-cut-terminal-member-variable-for-signals">4.4.4. Terminal Member Variable for Signals</h4>
 <div class="paragraph">
-<p><a href="#PDUTerminal">PDU terminals</a> list all the contained signals as <code>&lt;TerminalMemberVariable&gt;</code>.</p>
+<p><a href="#high-cut-pdu-terminal">PDU terminals</a> list all the contained signals as <code>&lt;TerminalMemberVariable&gt;</code>.</p>
 </div>
 <div class="dlist">
 <dl>
@@ -1299,7 +1299,7 @@ For network types not natively referencing a "PDU", like CAN, a synthetic PDU wi
 These variables represent the signal abstraction layer ("high cut").</p>
 </li>
 <li>
-<p><code>memberName</code> is the <code>SignalName</code> as given in the <a href="#NetworkDescriptionFile">network description file</a>, e.g., <code>vCar</code>, if given.
+<p><code>memberName</code> is the <code>SignalName</code> as given in the <a href="#high-cut-network-description-files">network description file</a>, e.g., <code>vCar</code>, if given.
 This is redundant information but simplifies signal name extraction.</p>
 </li>
 <li>
@@ -1312,7 +1312,7 @@ This is redundant information but simplifies signal name extraction.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="ExampleHighCut">4.4.5. Example</h4>
+<h4 id="high-cut-example">4.4.5. Example</h4>
 <div class="paragraph">
 <p>The following excerpts from files are used throughout this document as examples and should illustrate how the different concepts relate.</p>
 </div>
@@ -1486,13 +1486,13 @@ Importers must know how to handle this, just like they must know how to handle f
 <h3 id="_overview_2">5.1. Overview</h3>
 <div class="paragraph">
 <p>The network abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
-Exchanging data in terms of the <a href="#Overview-Layered-Standard-Bus-Protocol">Layered Standard Bus Protocol</a> via variables grouped by a dedicated bus terminal (see <a href="#ClockVariableLowCut">Section 5.3.1</a>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
+Exchanging data in terms of the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a> via variables grouped by a dedicated bus terminal (see <a href="#low-cut-tx-rx-clock-variables">Section 5.3.1</a>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
 During simulation, the network communication is controlled by send and receive bus operations.
 Based on these operations, Network FMUs have to react as specified by this layered standard depending on their role.
-This role can be a Bus Simulation FMU or an importer with bus simulation support on one side, and Network FMUs (e.g., virtual ECUs) on the other side (see <a href="#SystemCompositions">System Compositions</a>).
+This role can be a Bus Simulation FMU or an importer with bus simulation support on one side, and Network FMUs (e.g., virtual ECUs) on the other side (see <a href="#common-concepts-system-compositions">System Compositions</a>).
 The Layered Standard Bus Protocol in general is bus-type-specific, but has some similarities.
 Bus communication often follows a Transmit/Confirm pattern, where a Network FMU sends a Transmit operation containing the network message as payload.
-Depending on the <a href="#SystemCompositions">System Composition</a>, the importer forwards the Transmit operation either directly to receiving FMUs or to a dedicated bus simulation.
+Depending on the <a href="#common-concepts-system-compositions">System Composition</a>, the importer forwards the Transmit operation either directly to receiving FMUs or to a dedicated bus simulation.
 The Bus Simulation then might delay the transfer of the Transmit operation to the receiving FMUs to simulate timing behavior, before sending a bus-specific Confirm operation back to the sending FMU.</p>
 </div>
 <div id="figure-transmission-overview" class="imageblock text-center">
@@ -1521,9 +1521,9 @@ By queuing bus operations, System Compositions with variable-step size FMUs as w
 </div>
 </div>
 <div class="sect2">
-<h3 id="Overview-Layered-Standard-Bus-Protocol">5.2. Layered Standard Bus Protocol</h3>
+<h3 id="low-cut-layered-standard-bus-protocol">5.2. Layered Standard Bus Protocol</h3>
 <div class="paragraph">
-<p>The Layered Standard Bus Protocol allows the transmission of bus operations between FMUs in binary form via clocks and clocked variables (see <a href="#NetworkAbstractionVariables">Variables</a>).
+<p>The Layered Standard Bus Protocol allows the transmission of bus operations between FMUs in binary form via clocks and clocked variables (see <a href="#low-cut-variables">Variables</a>).
 Depending on the role (Network or Bus Simulation), FMUs have to respond to received operations as specified by this layered standard.
 Operations and the reaction on receipt are bus-type-specific and therefore described in the bus-specific chapters.
 However, the description follows a uniform structure and consists of two parts, an overview table and a detailed description of all operations.</p>
@@ -1655,12 +1655,12 @@ The following applies for this operation: <code>Total Length = 7 + &lt;Arg2_Leng
 <p>Numbers shall be transmitted with <code>little-endian</code> byte order.</p>
 </li>
 <li>
-<p>Since the standard allows to concatenate multiple operations (see <a href="#CommunicationVariable">Tx/Rx Data Variables</a>), the <a href="#TotalLengthField">Total Length</a> field was introduced to allow the implementation of a generic parser for received operations.</p>
+<p>Since the standard allows to concatenate multiple operations (see <a href="#low-cut-tx-rx-data-variables">Tx/Rx Data Variables</a>), the <a href="#TotalLengthField">Total Length</a> field was introduced to allow the implementation of a generic parser for received operations.</p>
 </li>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="Format-Error-Operation">5.2.1. Format Error</h4>
+<h4 id="low-cut-format-error-operation">5.2.1. Format Error</h4>
 <div class="paragraph">
 <p>The Format Error operation is independent from the bus type and shall be used when encountering a syntax or content error of received operations.</p>
 </div>
@@ -1717,7 +1717,7 @@ The following applies for this operation: <code>Total Length = 5 + Length of Dat
 </table>
 </div>
 <div class="sect3">
-<h4 id="Basic-Type-Definitions">5.2.2. Basic Type Definitions</h4>
+<h4 id="low-cut-basic-type-definitions">5.2.2. Basic Type Definitions</h4>
 <div class="paragraph">
 <p>The following basic types are defined for this standard, which apply to all supported buses.
 These basic types are used in the bus-specific parts within the operation definitions as operation arguments.</p>
@@ -1753,10 +1753,10 @@ These basic types are used in the bus-specific parts within the operation defini
 </div>
 </div>
 <div class="sect2">
-<h3 id="NetworkAbstractionVariables">5.3. Variables</h3>
+<h3 id="low-cut-variables">5.3. Variables</h3>
 <div class="paragraph">
 <p>This section explains how layered standard bus protocol operations are sent and received by FMUs using FMI 3.0 clock and clocked variables <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>.
-While the former (see <a href="#ClockVariableLowCut">Tx/Rx Clock Variables</a>) are used for scheduling and time synchronization, the latter (see <a href="#CommunicationVariable">Tx/Rx Data Variables</a>) are used to carry the layered standard bus protocol operations in binary form.
+While the former (see <a href="#low-cut-tx-rx-clock-variables">Tx/Rx Clock Variables</a>) are used for scheduling and time synchronization, the latter (see <a href="#low-cut-tx-rx-data-variables">Tx/Rx Data Variables</a>) are used to carry the layered standard bus protocol operations in binary form.
 To summarize, four variables with the following name schema are used:</p>
 </div>
 <div class="paragraph">
@@ -1766,11 +1766,11 @@ To summarize, four variables with the following name schema are used:</p>
 <p>The output variable <code>BusName::Tx_Data</code> is clocked by the clock variable <code>BusName::Tx_Clock</code>, both with <code>causality</code> set to <code>output</code>.</p>
 </div>
 <div class="paragraph">
-<p>Both variable pairs must be listed as member of its corresponding <a href="#BUSTerminalLowCut">Bus Terminal</a>.
+<p>Both variable pairs must be listed as member of its corresponding <a href="#low-cut-bus-terminal">Bus Terminal</a>.
 How to set the <code>BusName</code> placeholder is bus-type-specific and therefore described in the bus-specific chapters.</p>
 </div>
 <div class="sect3">
-<h4 id="ClockVariableLowCut">5.3.1. Tx/Rx Clock Variables</h4>
+<h4 id="low-cut-tx-rx-clock-variables">5.3.1. Tx/Rx Clock Variables</h4>
 <div class="paragraph">
 <p>As described in the FMI 3.0 specification, clock variables are used to synchronize events between importer and across FMUs.
 Since clock variables are strictly related to the <code>Event Mode</code>, networked FMUs shall set the Co-Simulation attribute <code>hasEventMode = "true"</code> in the model description file.</p>
@@ -1802,7 +1802,7 @@ It is up to the implementer to either use a <code>periodic</code> or <code>aperi
 <p>The importer will then connect and merge output clock activations, even those of different clock types, and forward them to the input clocks, as required by the network semantics.</p>
 </div>
 <div class="sect4">
-<h5 id="bus-communication-points">5.3.1.1. Bus Communication Points</h5>
+<h5 id="low-cut-bus-communication-points">5.3.1.1. Bus Communication Points</h5>
 <div class="paragraph">
 <p>For transferring bus operations from the <code>Tx_Data</code> to the <code>Rx_Data</code> variables, networked FMUs must be synchronous in time.
 This point in time is also referred to as the Bus Communication Point.
@@ -1824,7 +1824,7 @@ If <code>intervalDecimal</code> is not defined, the importer shall call <code>fm
 <p>Based on the Tx clock intervals received in the <code>Initialization Mode</code>, the importer calls <code>fmi3DoStep</code> with a determined <code>communicationStepSize</code> to reach the next Bus Communication Point.
 After returning from <code>fmi3DoStep</code>, the importer has to enter the <code>Event Mode</code> by calling <code>fmi3EnterEventMode</code>.
 In <code>Event Mode</code>, the importer activates the Tx and Rx clock by calling <code>fmi3SetClock</code>.
-The importer then starts to transfer bus operations from the <code>Tx_Data</code> to the <code>Rx_Data</code> variable (see <a href="#CommunicationVariable">Communication Variables</a>).</p>
+The importer then starts to transfer bus operations from the <code>Tx_Data</code> to the <code>Rx_Data</code> variable (see <a href="#low-cut-tx-rx-data-variables">Communication Variables</a>).</p>
 </div>
 <div class="paragraph">
 <p>To determine the <code>communicationStepSize</code> for the next simulation step, the importer gets the Tx clock time as follows:</p>
@@ -1847,7 +1847,7 @@ If an FMU does not know the next Tx clock time for any reason, <code>fmi3GetInte
 </div>
 </div>
 <div class="sect3">
-<h4 id="CommunicationVariable">5.3.2. Tx/Rx Data Variables</h4>
+<h4 id="low-cut-tx-rx-data-variables">5.3.2. Tx/Rx Data Variables</h4>
 <div class="paragraph">
 <p>The Tx/Rx variables are of type <code>fmi3Binary</code> and contain multiple bus operations, as sent or receive by the FMU.
 If no bus operations shall be sent by a specified Network FMU at a given Bus Communication Point, the size of the corresponding binary <code>Tx_Data</code> variable shall be set to zero.
@@ -1913,7 +1913,7 @@ The versioning follows the rules of semantic versioning, as defined in <a href="
 <p>This section defines terminals for network abstraction or "low cut".</p>
 </div>
 <div class="sect3">
-<h4 id="BUSTerminalLowCut">5.4.1. Bus Terminal</h4>
+<h4 id="low-cut-bus-terminal">5.4.1. Bus Terminal</h4>
 <div class="paragraph">
 <p>Each network connected to the FMU must be described in <code>icons/terminalsAndIcons.xml</code> as a <code>&lt;Terminal&gt;</code> element of <code>&lt;fmiTerminalsAndIcons&gt;&lt;Terminals&gt;</code>.
 The attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> must match the name of the specified network <em>[e.g., the name of the CAN channel: Powertrain]</em> within a "low cut".
@@ -1932,7 +1932,7 @@ If the specified FMU is connected to more than one network, there shall be exact
 <p><code>matchingRule</code> must be set to <code>bus</code>.</p>
 </li>
 <li>
-<p><code>name</code> is the network name, e.g., <code>Powertrain</code>, see <a href="#ExampleLowCut">Example</a> and constraints.</p>
+<p><code>name</code> is the network name, e.g., <code>Powertrain</code>, see <a href="#low-cut-example">example</a> and constraints.</p>
 </li>
 </ul>
 </div>
@@ -1963,7 +1963,7 @@ If the specified FMU is connected to more than one network, there shall be exact
 </div>
 </div>
 <div class="sect3">
-<h4 id="ExampleLowCut">5.4.2. Example</h4>
+<h4 id="low-cut-example">5.4.2. Example</h4>
 <div class="paragraph">
 <p>The following excerpts from files are used throughout this document as examples and illustrate how the different concepts relate.</p>
 </div>
@@ -2016,21 +2016,21 @@ If the specified FMU is connected to more than one network, there shall be exact
 </div>
 </div>
 <div class="sect2">
-<h3 id="BusTypeSpecificDetails">5.5. Bus-Specific Details</h3>
+<h3 id="low-cut-bus-specific-details">5.5. Bus-Specific Details</h3>
 <div class="paragraph">
-<p>For each supported bus type, the <a href="#Overview-Layered-Standard-Bus-Protocol">Layered Standard Bus Protocol</a> is defined.
-This chapter describes the operations of the <a href="#Overview-Layered-Standard-Bus-Protocol">Layered Standard Bus Protocol</a> to enable the simulation of supported bus types.</p>
+<p>For each supported bus type, the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a> is defined.
+This chapter describes the operations of the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a> to enable the simulation of supported bus types.</p>
 </div>
 <div class="sect3">
 <h4 id="_can_can_fd_can_xl">5.5.1. CAN, CAN FD, CAN XL</h4>
 <div class="paragraph">
-<p>This chapter describes the <a href="#Overview-Layered-Standard-Bus-Protocol">Layered Standard Bus Protocol</a> for CAN, CAN FD and CAN XL.
+<p>This chapter describes the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a> for CAN, CAN FD and CAN XL.
 The various CAN standards CAN, CAN FD and CAN XL are considered together, because they are very similar and can also be combined in certain scenarios.</p>
 </div>
 <div class="sect4">
 <h5 id="_overview_3">5.5.1.1. Overview</h5>
 <div class="paragraph">
-<p>To simulate CAN, CAN FD and CAN XL buses, CAN-specific operations are specified based on the <a href="#Overview-Layered-Standard-Bus-Protocol">Layered Standard Bus Protocol</a>.
+<p>To simulate CAN, CAN FD and CAN XL buses, CAN-specific operations are specified based on the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a>.
 Overall, the following groups of operations exists:</p>
 </div>
 <div class="ulist">
@@ -2221,7 +2221,7 @@ It shows all operations and the arguments they contain.</p>
 The following tables provides an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.</p>
 </div>
 <div class="sect5">
-<h6 id="TransmitOpCodeCanLowCut">5.5.1.2.1. Transmit</h6>
+<h6 id="low-cut-can-transmit-operation">5.5.1.2.1. Transmit</h6>
 <div class="paragraph">
 <p>There are three types of transmit operations for transmission of CAN, CAN FD and CAN XL frame.</p>
 </div>
@@ -2293,10 +2293,10 @@ For specification the boolean values <code>TRUE</code> and <code>FALSE</code> (s
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The CAN Transmit operation shall be provided by Network FMUs to initiate the transmission of a CAN frame.
-In case of directly connected Network FMUs (see <a href="#DirectCommunication">Section 3.1.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
-If a Bus Simulation is involved (see <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Section 3.1.2</a> and <a href="#BusFeatureIntegratedFmuSimulator">Section 3.1.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might respond with a <a href="#ConfirmOpCodeCanLowCut">Confirm</a>, <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost</a>, <a href="#BusErrorOpCodeCanLowCut">Bus Error</a> or <a href="#FormatErrorOpCodeCanLowCut">Format Error</a> operation.
-Depending on the <a href="#StatusOpCodeCanLowCut">status</a> of the specified Network FMU further restrictions for CAN Transmit operations <a href="#table-can-status-values">exist</a>.</p></td>
+In case of directly connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.1.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.1.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.1.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
+Depending on the simulation details, the Bus Simulation might respond with a <a href="#low-cut-can-confirm-operation">Confirm</a>, <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost</a>, <a href="#low-cut-can-bus-error-operation">Bus Error</a> or <a href="#low-cut-can-format-error-operation">Format Error</a> operation.
+Depending on the <a href="#low-cut-can-status-operation">status</a> of the specified Network FMU further restrictions for CAN Transmit operations <a href="#table-can-status-values">exist</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2374,10 +2374,10 @@ For specification the boolean values <code>TRUE</code> and <code>FALSE</code> (s
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The CAN FD Transmit operation shall be provided by Network FMUs to initiate the transmission of a CAN FD frame.
-In case of directly connected Network FMUs (see <a href="#DirectCommunication">Section 3.1.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
-If a Bus Simulation is involved (see <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Section 3.1.2</a> and <a href="#BusFeatureIntegratedFmuSimulator">Section 3.1.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might response with a <a href="#ConfirmOpCodeCanLowCut">Confirm</a>, <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost</a>, <a href="#BusErrorOpCodeCanLowCut">Bus Error</a> or <a href="#FormatErrorOpCodeCanLowCut">Format Error</a> operation.
-Depending on the <a href="#StatusOpCodeCanLowCut">status</a> of the specified Network FMU further restrictions for CAN FD Transmit operations <a href="#table-can-status-values">exist</a>.</p></td>
+In case of directly connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.1.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.1.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.1.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
+Depending on the simulation details, the Bus Simulation might response with a <a href="#low-cut-can-confirm-operation">Confirm</a>, <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost</a>, <a href="#low-cut-can-bus-error-operation">Bus Error</a> or <a href="#low-cut-can-format-error-operation">Format Error</a> operation.
+Depending on the <a href="#low-cut-can-status-operation">status</a> of the specified Network FMU further restrictions for CAN FD Transmit operations <a href="#table-can-status-values">exist</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2464,18 +2464,18 @@ For specification the boolean values <code>TRUE</code> and <code>FALSE</code> (s
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The CAN XL Transmit operation shall be provided by Network FMUs to initiate the transmission of a CAN XL frame.
-In case of directly connected Network FMUs (see <a href="#DirectCommunication">Section 3.1.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
-If a Bus Simulation is involved (see <a href="#Composition-with-dedicated-Bus-Simulation-FMU">Section 3.1.2</a> and <a href="#BusFeatureIntegratedFmuSimulator">Section 3.1.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might response with a <a href="#ConfirmOpCodeCanLowCut">Confirm</a>, <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost</a>, <a href="#BusErrorOpCodeCanLowCut">Bus Error</a> or <a href="#FormatErrorOpCodeCanLowCut">Format Error</a> operation.
-Depending on the <a href="#StatusOpCodeCanLowCut">status</a> of the specified Network FMU further restrictions for CAN XL Transmit operations <a href="#table-can-status-values">exist</a>.</p></td>
+In case of directly connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.1.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.1.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.1.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
+Depending on the simulation details, the Bus Simulation might response with a <a href="#low-cut-can-confirm-operation">Confirm</a>, <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost</a>, <a href="#low-cut-can-bus-error-operation">Bus Error</a> or <a href="#low-cut-can-format-error-operation">Format Error</a> operation.
+Depending on the <a href="#low-cut-can-status-operation">status</a> of the specified Network FMU further restrictions for CAN XL Transmit operations <a href="#table-can-status-values">exist</a>.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect5">
-<h6 id="ConfirmOpCodeCanLowCut">5.5.1.2.2. Confirm</h6>
+<h6 id="low-cut-can-confirm-operation">5.5.1.2.2. Confirm</h6>
 <div class="paragraph">
-<p>The <code>Confirm operation</code> is used to signal the successful reception of a transmitted CAN frame (see <a href="#TransmitOpCodeCanLowCut">Transmit operation</a>) by at least one Network FMU.</p>
+<p>The <code>Confirm operation</code> is used to signal the successful reception of a transmitted CAN frame (see <a href="#low-cut-can-transmit-operation">Transmit operation</a>) by at least one Network FMU.</p>
 </div>
 <table id="table-can-confirm-operation" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 11. Detailed description of the Confirm operation.</caption>
@@ -2523,24 +2523,24 @@ The following applies for this operation: <code>Total Length = 9</code>.</p></td
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
-If the structural parameter <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 5.5.1.3.1</a>) is set to <code>false</code>, the Network FMU does not rely on receiving Confirm operations.
+If the structural parameter <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#low-cut-can-bus-notification-parameter">Section 5.5.1.3.1</a>) is set to <code>false</code>, the Network FMU does not rely on receiving Confirm operations.
 In this case, Bus Simulations should not send Confirm operations to the Network FMU.
-Depending on the <a href="#StatusOpCodeCanLowCut">status</a> of the specified Network FMU further restrictions for Confirm operations <a href="#table-can-status-values">exist</a>.</p></td>
+Depending on the <a href="#low-cut-can-status-operation">status</a> of the specified Network FMU further restrictions for Confirm operations <a href="#table-can-status-values">exist</a>.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect5">
-<h6 id="FormatErrorOpCodeCanLowCut">5.5.1.2.3. Format Error</h6>
+<h6 id="low-cut-can-format-error-operation">5.5.1.2.3. Format Error</h6>
 <div class="paragraph">
 <p>Represents a format error that indicates a syntax or content error of receiving operations.
-See <a href="#Format-Error-Operation">Format Error</a> for definition.</p>
+See <a href="#low-cut-format-error-operation">Format Error</a> for definition.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="ArbitrationLostOpCodeCanLowCut">5.5.1.2.4. Arbitration Lost</h6>
+<h6 id="low-cut-can-arbitration-lost-operation">5.5.1.2.4. Arbitration Lost</h6>
 <div class="paragraph">
-<p>The Arbitration Lost operation defines a feedback message from a Bus Simulation to a Network FMU that a <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> could not be sent immediately due to a concurrent transmit request.</p>
+<p>The Arbitration Lost operation defines a feedback message from a Bus Simulation to a Network FMU that a <a href="#low-cut-can-transmit-operation">Transmit operation</a> could not be sent immediately due to a concurrent transmit request.</p>
 </div>
 <table id="table-can-arbitration-lost-error-operation" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 12. Detailed description of the Arbitration Lost operation.</caption>
@@ -2558,7 +2558,7 @@ See <a href="#Format-Error-Operation">Format Error</a> for definition.</p>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The Arbitration Lost operation indicates that a CAN frame could not be sent immediately and was therefore discarded by the Bus Simulation.
-See <a href="#CanArbitration">Section 5.5.1.7</a> for further details.</p></td>
+See <a href="#low-cut-can-arbitration">Section 5.5.1.7</a> for further details.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
@@ -2588,18 +2588,18 @@ The following applies for this operation: <code>Total Length = 9</code>.</p></td
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
-<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">During simulation, several <a href="#TransmitOpCodeCanLowCut">Transmit operations</a> can be sent by Network FMUs to a Bus Simulation at the same time.
-In such case, the Bus Simulation has to decide which <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> should proceed first.
-Depending on the configuration (see the <code>Arbitration Lost Behavior</code> argument of the <a href="#ConfigurationCanOpCode">Configuration operation</a>), the deferred <a href="#TransmitOpCodeCanLowCut">Transmit operations</a> shall either be buffered or discarded and sending the Arbitration Lost operation back to the respective Network FMUs.
-A Network FMU receiving the Arbitration Lost operation can decide to provide the <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> again or e.g., to raise an internal transmit timeout failure after a while.
-If the structural parameter <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 5.5.1.3.1</a>) is set to <code>false</code>, the Network FMU does not rely on receiving Arbitration Lost operations.
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">During simulation, several <a href="#low-cut-can-transmit-operation">Transmit operations</a> can be sent by Network FMUs to a Bus Simulation at the same time.
+In such case, the Bus Simulation has to decide which <a href="#low-cut-can-transmit-operation">Transmit operation</a> should proceed first.
+Depending on the configuration (see the <code>Arbitration Lost Behavior</code> argument of the <a href="#low-cut-can-configuration-operation">Configuration operation</a>), the deferred <a href="#low-cut-can-transmit-operation">Transmit operations</a> shall either be buffered or discarded and sending the Arbitration Lost operation back to the respective Network FMUs.
+A Network FMU receiving the Arbitration Lost operation can decide to provide the <a href="#low-cut-can-transmit-operation">Transmit operation</a> again or e.g., to raise an internal transmit timeout failure after a while.
+If the structural parameter <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#low-cut-can-bus-notification-parameter">Section 5.5.1.3.1</a>) is set to <code>false</code>, the Network FMU does not rely on receiving Arbitration Lost operations.
 In this case, Bus Simulations should not send Arbitration Lost operations to the Network FMU.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect5">
-<h6 id="BusErrorOpCodeCanLowCut">5.5.1.2.5. Bus Error</h6>
+<h6 id="low-cut-can-bus-error-operation">5.5.1.2.5. Bus Error</h6>
 <div class="paragraph">
 <p>The Bus Error operation represents special bus communication errors, which are delivered to every participant in the network.</p>
 </div>
@@ -2660,19 +2660,19 @@ For specification the boolean values <code>PRIMARY_ERROR_FLAG</code> and <code>S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is Sender</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Set if the Bus Error operation is a reaction to a <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> that was provided by the specified Network FMU from the Bus Simulation.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set if the Bus Error operation is a reaction to a <a href="#low-cut-can-transmit-operation">Transmit operation</a> that was provided by the specified Network FMU from the Bus Simulation.
 For specification the boolean values <code>TRUE</code> and <code>FALSE</code> (see <a href="#table-boolean-value-kinds">Table 5</a>) shall be used.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">While transmitting CAN frames, various kinds of bus error may happen.
 A Bus Simulation can simulate such errors by providing Bus Error operations to the Network FMUs.
-Based on consumed Bus Error operations, Network FMUs shall maintain an internal CAN node state (see <a href="#CanErrorHandling">Section 5.5.1.6</a>).
+Based on consumed Bus Error operations, Network FMUs shall maintain an internal CAN node state (see <a href="#low-cut-can-error-handling">Section 5.5.1.6</a>).
 To determine the CAN node state properly, Network FMUs need the information about their role at the time when the simulated error happened.
 If a Network FMU is sending, the argument <code>Is Sender</code> shall be set.
 If a Network FMU is detecting the error first, the argument <code>Error Flag = PRIMARY_ERROR_FLAG</code> shall be set.
 The arguments <code>Is Sender</code> must only be set once per simulated error.
-If the structural parameter <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 5.5.1.3.1</a>) is set to <code>false</code>, the Network FMU does not rely on receiving Bus Error operations.
+If the structural parameter <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#low-cut-can-bus-notification-parameter">Section 5.5.1.3.1</a>) is set to <code>false</code>, the Network FMU does not rely on receiving Bus Error operations.
 In this case, Bus Simulations should not send Bus Error operations to the Network FMU.</p></td>
 </tr>
 </tbody>
@@ -2746,18 +2746,18 @@ Within CAN, an Error frame is transmitted by any unit on detection of a bus erro
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PRIMARY_ERROR_FLAG</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x01</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defines that a specified Network FMU is detecting the given <a href="#BusErrorOpCodeCanLowCut">Bus Error</a> first.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines that a specified Network FMU is detecting the given <a href="#low-cut-can-bus-error-operation">Bus Error</a> first.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SECONDARY_ERROR_FLAG</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x02</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Defines that a specified Network FMU is reacting on a <a href="#BusErrorOpCodeCanLowCut">Bus Error</a> and does not detect it.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines that a specified Network FMU is reacting on a <a href="#low-cut-can-bus-error-operation">Bus Error</a> and does not detect it.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect5">
-<h6 id="ConfigurationCanOpCode">5.5.1.2.6. Configuration</h6>
+<h6 id="low-cut-can-configuration-operation">5.5.1.2.6. Configuration</h6>
 <div class="paragraph">
 <p>The <code>Configuration operation</code> is used by Network FMUs to send simulation specific options like baud rate settings to Bus Simulations.
 The following information is included within this operation:</p>
@@ -2840,8 +2840,8 @@ The required unit for the baudrate value is bit/s.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Arbitration Lost Behavior</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This parameter defines how a Bus Simulation shall behave in cases of an arbitration lost scenario.
-If the option is set to <code>BUFFER_AND_RETRANSMIT</code>, <a href="#TransmitOpCodeCanLowCut">Transmit operations</a> shall be buffered by the Bus Simulation and no <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost operation</a> shall be sent.
-If the option is set to <code>DISCARD_AND_NOTIFY</code>, the <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> shall be discarded and an <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost operation</a> shall be sent to the Network FMU (see <a href="#CanArbitration">Section 5.5.1.7</a>).</p></td>
+If the option is set to <code>BUFFER_AND_RETRANSMIT</code>, <a href="#low-cut-can-transmit-operation">Transmit operations</a> shall be buffered by the Bus Simulation and no <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost operation</a> shall be sent.
+If the option is set to <code>DISCARD_AND_NOTIFY</code>, the <a href="#low-cut-can-transmit-operation">Transmit operation</a> shall be discarded and an <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost operation</a> shall be sent to the Network FMU (see <a href="#low-cut-can-arbitration">Section 5.5.1.7</a>).</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
@@ -2911,18 +2911,18 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BUFFER_AND_RETRANSMIT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x01</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#TransmitOpCodeCanLowCut">Transmit operations</a> shall be buffered by the Bus Simulation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#low-cut-can-transmit-operation">Transmit operations</a> shall be buffered by the Bus Simulation.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DISCARD_AND_NOTIFY</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x02</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#TransmitOpCodeCanLowCut">Transmit operations</a> shall be discarded and the specified Network FMU shall be notified by the Bus Simulation via an <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost operation</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#low-cut-can-transmit-operation">Transmit operations</a> shall be discarded and the specified Network FMU shall be notified by the Bus Simulation via an <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost operation</a>.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect5">
-<h6 id="StatusOpCodeCanLowCut">5.5.1.2.7. Status</h6>
+<h6 id="low-cut-can-status-operation">5.5.1.2.7. Status</h6>
 <div class="paragraph">
 <p>By using the <code>Status operation</code>, a Network FMU can communicate the current CAN node state to the Bus Simulation.
 The following information is included within this operation:</p>
@@ -3006,20 +3006,20 @@ If required status is not adjusted by a Network FMU, the Bus Simulation shall ch
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x02</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: ERROR PASSIVE.
 This node state is relevant for arbitration, because <code>ERROR_ACTIVE</code> and <code>ERROR_PASSIVE</code> nodes requires different prioritization.
-See <a href="#CanArbitration">Section 5.5.1.7</a> for further details.</p></td>
+See <a href="#low-cut-can-arbitration">Section 5.5.1.7</a> for further details.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BUS_OFF</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x03</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: BUS OFF.
-If a Network FMU communicates the status <code>BUS_OFF</code> to the Bus Simulation, the specified Network FMU shall not provide any new <a href="#TransmitOpCodeCanLowCut">Transmission operations</a> to the Bus Simulation.
-If all Network FMUs, except the <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> initiating Network FMU, communicate the status <code>BUS_OFF</code>, the Bus Simulation shall not provide a <a href="#ConfirmOpCodeCanLowCut">confirmation</a>.</p></td>
+If a Network FMU communicates the status <code>BUS_OFF</code> to the Bus Simulation, the specified Network FMU shall not provide any new <a href="#low-cut-can-transmit-operation">Transmission operations</a> to the Bus Simulation.
+If all Network FMUs, except the <a href="#low-cut-can-transmit-operation">Transmit operation</a> initiating Network FMU, communicate the status <code>BUS_OFF</code>, the Bus Simulation shall not provide a <a href="#low-cut-can-confirm-operation">confirmation</a>.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect5">
-<h6 id="WakeupCanOpCode">5.5.1.2.8. Wake Up</h6>
+<h6 id="low-cut-can-wake-up-operation">5.5.1.2.8. Wake Up</h6>
 <div class="paragraph">
 <p>By using the <code>Wakeup operation</code>, the underlying Bus Simulation can trigger a bus-specific wake up.</p>
 </div>
@@ -3071,21 +3071,21 @@ If a Network FMU does not support wake up, this operation can be ignored on the 
 </div>
 </div>
 <div class="sect4">
-<h5 id="can-network-parameters">5.5.1.3. Network Parameters</h5>
+<h5 id="low-cut-can-network-parameters">5.5.1.3. Network Parameters</h5>
 <div class="paragraph">
 <p>Using structural parameters, FMUs can be parameterized according to importer specifications.
 This chapter specifies the structural parameters that each CAN-specific FMU shall provide.</p>
 </div>
 <div class="sect5">
-<h6 id="bus-notification-parameter">5.5.1.3.1. Bus Notification Parameter</h6>
+<h6 id="low-cut-can-bus-notification-parameter">5.5.1.3.1. Bus Notification Parameter</h6>
 <div class="paragraph">
 <p>For a detailed simulation, the CAN bus behavior regarding acknowledgment, bus errors and arbitration losses must be considered.
-A Bus Simulation can simulate this effect by sending bus notifications in terms of <a href="#ConfirmOpCodeCanLowCut">Confirm</a>-, <a href="#BusErrorOpCodeCanLowCut">Bus Error</a>- and <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost operations</a> to the Network FMUs.
+A Bus Simulation can simulate this effect by sending bus notifications in terms of <a href="#low-cut-can-confirm-operation">Confirm</a>-, <a href="#low-cut-can-bus-error-operation">Bus Error</a>- and <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost operations</a> to the Network FMUs.
 However, in cases where Network FMUs are connected directly or if a Bus Simulation does not simulate such effects, a Network FMU shall not receive these operations.</p>
 </div>
 <div class="paragraph">
 <p>In order to inform Network FMUs not to rely on bus notifications, the importer can set the <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> parameter to <code>false</code>, which also shall be the default value.
-Only if the Bus Simulation either supports <a href="#ConfirmOpCodeCanLowCut">Confirm</a>-, <a href="#BusErrorOpCodeCanLowCut">Bus Error</a>- or <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost operations</a>, <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> shall be set to <code>true</code>.</p>
+Only if the Bus Simulation either supports <a href="#low-cut-can-confirm-operation">Confirm</a>-, <a href="#low-cut-can-bus-error-operation">Bus Error</a>- or <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost operations</a>, <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> shall be set to <code>true</code>.</p>
 </div>
 <div id="figure-fmu-bus-notifications-parameter" class="listingblock">
 <div class="title">FMU parameter for the configuration of bus notifications.</div>
@@ -3108,15 +3108,15 @@ A Bus Simulation (FMU) does not require this structural parameter.</p>
 <h5 id="_configuration_of_bus_simulation">5.5.1.4. Configuration of Bus Simulation</h5>
 <div class="paragraph">
 <p>The configuration of the Bus Simulation is done by the Network FMUs itself.
-For this purpose, the <a href="#ConfigurationCanOpCode">Configuration operation</a> provides several configuration parameters.
-<a href="#ConfigurationCanOpCode">Configuration operations</a> can be produced multiple times during the runtime of a Network FMU.
-Because the Bus Simulation shall choose a default behavior, it might be useful in several scenarios that Network FMUs finish configuration before the production of <a href="#TransmitOpCodeCanLowCut">Transmit operations</a>.</p>
+For this purpose, the <a href="#low-cut-can-configuration-operation">Configuration operation</a> provides several configuration parameters.
+<a href="#low-cut-can-configuration-operation">Configuration operations</a> can be produced multiple times during the runtime of a Network FMU.
+Because the Bus Simulation shall choose a default behavior, it might be useful in several scenarios that Network FMUs finish configuration before the production of <a href="#low-cut-can-transmit-operation">Transmit operations</a>.</p>
 </div>
 <div class="sect5">
 <h6 id="_baudrate_handling">5.5.1.4.1. Baudrate Handling</h6>
 <div class="paragraph">
 <p>In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation about the specified baud rate from a Network FMU.
-This baud rate information can be configured by using <code>CAN_BAUDRATE</code>, <code>CAN_FD_BAUDRATE</code> and <code>CAN_XL_BAUDRATE</code> configuration kind of the <a href="#ConfigurationCanOpCode">Configuration operation</a>.
+This baud rate information can be configured by using <code>CAN_BAUDRATE</code>, <code>CAN_FD_BAUDRATE</code> and <code>CAN_XL_BAUDRATE</code> configuration kind of the <a href="#low-cut-can-configuration-operation">Configuration operation</a>.
 In a CAN FD scenario, both the configuration for <code>CAN_BAUDRATE</code> and for <code>CAN_FD_BAUDRATE</code> shall be carried out if the CAN FD bit rate switch feature is used.
 Otherwise the configuration of <code>CAN_BAUDRATE</code> is sufficient for CAN FD.
 The Bus Simulation can derive the required CAN, CAN FD or CAN XL controller type from the baud rate configurations a Network FMU carried out.
@@ -3126,8 +3126,8 @@ If the baud rate information is not adjusted by a specified Network FMU, the Bus
 <div class="sect5">
 <h6 id="_buffer_handling">5.5.1.4.2. Buffer Handling</h6>
 <div class="paragraph">
-<p>By using the <code>OPTIONS</code> configuration kind of a <a href="#ConfigurationCanOpCode">Configuration operation</a>, the buffer handling within the Bus Simulation can be adjusted.
-Using buffer handling is required in arbitration scenarios only and will be described <a href="#CanArbitration">within this context</a>.
+<p>By using the <code>OPTIONS</code> configuration kind of a <a href="#low-cut-can-configuration-operation">Configuration operation</a>, the buffer handling within the Bus Simulation can be adjusted.
+Using buffer handling is required in arbitration scenarios only and will be described <a href="#low-cut-can-arbitration">within this context</a>.
 If the buffering is not adjusted by a specified Network FMU, the Bus Simulation shall choose a default behavior by itself.</p>
 </div>
 </div>
@@ -3135,16 +3135,16 @@ If the buffering is not adjusted by a specified Network FMU, the Bus Simulation 
 <div class="sect4">
 <h5 id="_transmission_and_acknowledge">5.5.1.5. Transmission and Acknowledge</h5>
 <div class="paragraph">
-<p>The <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> represents the sending of a CAN, CAN FD and CAN XL frame.
+<p>The <a href="#low-cut-can-transmit-operation">Transmit operation</a> represents the sending of a CAN, CAN FD and CAN XL frame.
 With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g., Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
 In the real world, flawlessly transmitted CAN frames will be acknowledged by at least one receiver CAN node.
-To simulate this behavior, the <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a> were introduced.
-In addition to support lightweight bus simulations and <a href="#DirectCommunication">directly connected Network FMUs</a>, the structural parameter <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 5.5.1.3.1</a>) has been defined.</p>
+To simulate this behavior, the <a href="#low-cut-can-confirm-operation">Confirm operations</a> were introduced.
+In addition to support lightweight bus simulations and <a href="#common-concepts-direct-communication">directly connected Network FMUs</a>, the structural parameter <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#low-cut-can-bus-notification-parameter">Section 5.5.1.3.1</a>) has been defined.</p>
 </div>
 <div class="paragraph">
-<p>If <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> is set to <code>false</code> (default), then Network FMUs shall not rely on receiving <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a>.
+<p>If <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> is set to <code>false</code> (default), then Network FMUs shall not rely on receiving <a href="#low-cut-can-confirm-operation">Confirm operations</a>.
 In this case, the bus simulation is idealized and takes place in a fire-and-forget manner.
-If a specified Network FMU is depending on <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a> and <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> is set to <code>false</code>, the self confirmation shall be realized internally within the respective Network FMU.</p>
+If a specified Network FMU is depending on <a href="#low-cut-can-confirm-operation">Confirm operations</a> and <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> is set to <code>false</code>, the self confirmation shall be realized internally within the respective Network FMU.</p>
 </div>
 <div class="paragraph">
 <p><a href="#figure-can-direct-communication">Figure 8</a> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
@@ -3157,8 +3157,8 @@ After that, the transmission is directly confirmed by FMU 1 itself, whereby FMU 
 <div class="title">Figure 8. Direct Confirmation of transmitted network data.</div>
 </div>
 <div class="paragraph">
-<p>For a detailed simulation, Bus Simulations shall support <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a>.
-In this case, the <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> parameter of the Network FMUs shall be set to <code>true</code> and Network FMUs can rely on receiving <a href="#ConfirmOpCodeCanLowCut">Confirm operations</a>.</p>
+<p>For a detailed simulation, Bus Simulations shall support <a href="#low-cut-can-confirm-operation">Confirm operations</a>.
+In this case, the <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> parameter of the Network FMUs shall be set to <code>true</code> and Network FMUs can rely on receiving <a href="#low-cut-can-confirm-operation">Confirm operations</a>.</p>
 </div>
 <div class="paragraph">
 <p>The following <a href="#figure-can-confirmation-with-bus-simulation-fmu">Figure 9</a> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.</p>
@@ -3170,22 +3170,22 @@ In this case, the <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code
 <div class="title">Figure 9. Confirmation of transmitted network data via Bus Simulation.</div>
 </div>
 <div class="paragraph">
-<p>If all Network FMUs, except the <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> initiating Network FMU, communicate the <a href="#StatusOpCodeCanLowCut">status</a> <code>BUS_OFF</code>, the Bus Simulation shall not provide a <a href="#ConfirmOpCodeCanLowCut">confirmation</a>.</p>
+<p>If all Network FMUs, except the <a href="#low-cut-can-transmit-operation">Transmit operation</a> initiating Network FMU, communicate the <a href="#low-cut-can-status-operation">status</a> <code>BUS_OFF</code>, the Bus Simulation shall not provide a <a href="#low-cut-can-confirm-operation">confirmation</a>.</p>
 </div>
 <div class="paragraph">
-<p><a href="#example-can-possible-results-of-transmission">Section 5.5.1.9.1</a> contains an example of the possible transmission results and displays them in the form of a diagram.</p>
+<p><a href="#low-cut-can-example-transmission">Section 5.5.1.9.1</a> contains an example of the possible transmission results and displays them in the form of a diagram.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="CanErrorHandling">5.5.1.6. Error Handling</h5>
+<h5 id="low-cut-can-error-handling">5.5.1.6. Error Handling</h5>
 <div class="paragraph">
 <p>The CAN protocol includes a sophisticated fault confinement mechanism to prevent malfunctioning within CAN nodes.
 A Transmit Error Counter (TEC) and a Receive Error Counter (REC) represent a historical communication quality metric.
-To maintain the TEC and REC values, <a href="#BusErrorOpCodeCanLowCut">Bus Error operations</a> shall be provided to all Network FMUs by the Bus Simulation.
-The argument <code>Is Sender</code> shall be set to <code>TRUE</code> for the Network FMU that the <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> originated from.
+To maintain the TEC and REC values, <a href="#low-cut-can-bus-error-operation">Bus Error operations</a> shall be provided to all Network FMUs by the Bus Simulation.
+The argument <code>Is Sender</code> shall be set to <code>TRUE</code> for the Network FMU that the <a href="#low-cut-can-transmit-operation">Transmit operation</a> originated from.
 The argument <code>Error Flag</code> shall be set to <code>PRIMARY_ERROR_FLAG</code> if the Network FMU detects the transmission error.
-If a Network FMU changes its current CAN node state, the <a href="#StatusOpCodeCanLowCut">Status operation</a> shall be provided to the Bus Simulation.
-When a Network FMU has provided the status <code>BUS_OFF</code> to the Bus Simulation, then it also shall not provide any new <a href="#TransmitOpCodeCanLowCut">Transmit operations</a> to the Bus Simulation to simulate a real bus off behavior.</p>
+If a Network FMU changes its current CAN node state, the <a href="#low-cut-can-status-operation">Status operation</a> shall be provided to the Bus Simulation.
+When a Network FMU has provided the status <code>BUS_OFF</code> to the Bus Simulation, then it also shall not provide any new <a href="#low-cut-can-transmit-operation">Transmit operations</a> to the Bus Simulation to simulate a real bus off behavior.</p>
 </div>
 <div id="figure-can-architectural-error-handling-overview" class="imageblock text-center">
 <div class="content">
@@ -3194,17 +3194,17 @@ When a Network FMU has provided the status <code>BUS_OFF</code> to the Bus Simul
 <div class="title">Figure 10. Architectural error handling overview.</div>
 </div>
 <div class="paragraph">
-<p><a href="#example-can-error-handling">Section 5.5.1.9.4</a> contains a detailed overview about the CAN error handling.
-Additionally, a rule set showing how to implement correct CAN error handling based on this standard with respect to the arguments of the <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a> is shown.</p>
+<p><a href="#low-cut-can-example-error-handling">Section 5.5.1.9.4</a> contains a detailed overview about the CAN error handling.
+Additionally, a rule set showing how to implement correct CAN error handling based on this standard with respect to the arguments of the <a href="#low-cut-can-bus-error-operation">Bus Error operation</a> is shown.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="CanArbitration">5.5.1.7. Arbitration</h5>
+<h5 id="low-cut-can-arbitration">5.5.1.7. Arbitration</h5>
 <div class="paragraph">
 <p>Arbitration is an instrument of the CAN standard to resolve the conflict of the simultaneous sending of messages from several CAN nodes without a collision.
-The arbitration is handled in the Bus Simulation and can be recognized by the fact that the Bus Simulation receives a <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> from several FMUs at the same time.
-As soon as an arbitration is lost, an <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost operation</a> shall be returned to the respective sender within the next <code>Event Mode</code> step.
-As soon as an FMU loses arbitration in this way, it shall independently repeat the corresponding <a href="#TransmitOpCodeCanLowCut">Transmit operation</a>.</p>
+The arbitration is handled in the Bus Simulation and can be recognized by the fact that the Bus Simulation receives a <a href="#low-cut-can-transmit-operation">Transmit operation</a> from several FMUs at the same time.
+As soon as an arbitration is lost, an <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost operation</a> shall be returned to the respective sender within the next <code>Event Mode</code> step.
+As soon as an FMU loses arbitration in this way, it shall independently repeat the corresponding <a href="#low-cut-can-transmit-operation">Transmit operation</a>.</p>
 </div>
 <div id="figure-can-arbitration" class="imageblock text-center">
 <div class="content">
@@ -3213,18 +3213,18 @@ As soon as an FMU loses arbitration in this way, it shall independently repeat t
 <div class="title">Figure 11. Arbitration of two transmissions at the same time.</div>
 </div>
 <div class="paragraph">
-<p>Within a <a href="#ConfigurationCanOpCode">Configuration operation</a>, the <code>Arbitration Lost Behavior</code> argument can be specified.
+<p>Within a <a href="#low-cut-can-configuration-operation">Configuration operation</a>, the <code>Arbitration Lost Behavior</code> argument can be specified.
 Once this option is set to <code>BUFFER_AND_RETRANSMIT</code>, the Bus Simulation buffers the frame after losing arbitration and sends it as soon as possible.
-In this case, it is not necessary for the Network FMU to trigger the respective frame to be sent again and an <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost operation</a> shall not be returned to the specific Network FMU.
-If the <code>Arbitration Lost Behavior</code> is set to <code>DISCARD_AND_NOTIFY</code>, the specified Network FMU is informed by an <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost operation</a> and needs to repeat the corresponding <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> itself.
+In this case, it is not necessary for the Network FMU to trigger the respective frame to be sent again and an <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost operation</a> shall not be returned to the specific Network FMU.
+If the <code>Arbitration Lost Behavior</code> is set to <code>DISCARD_AND_NOTIFY</code>, the specified Network FMU is informed by an <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost operation</a> and needs to repeat the corresponding <a href="#low-cut-can-transmit-operation">Transmit operation</a> itself.
 Arbitration is available in communication cases with Bus Simulation only.</p>
 </div>
 <div class="paragraph">
-<p>In the case of arbitration, the Bus Simulation must also take the status of the respective Network FMU into account, which is communicated via a <a href="#StatusOpCodeCanLowCut">Status operation</a>.
+<p>In the case of arbitration, the Bus Simulation must also take the status of the respective Network FMU into account, which is communicated via a <a href="#low-cut-can-status-operation">Status operation</a>.
 To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN node is in Error Passive state, the Bus Simulation shall prefer Network FMUs whose status is <code>ERROR_ACTIVE</code> (see <a href="#table-can-status-values">Table 20</a>).</p>
 </div>
 <div class="paragraph">
-<p><a href="#example-can-arbitration-with-arbitration-lost-behavior">Section 5.5.1.9.2</a> and <a href="#example-can-arbitration-without-arbitration-lost-behavior">Section 5.5.1.9.3</a> contain examples of the presented arbitration cases and visualize them in the form of sequence diagrams.</p>
+<p><a href="#low-cut-can-example-can-arbitration-without-buffering">Section 5.5.1.9.2</a> and <a href="#low-cut-can-example-can-arbitration-with-buffering">Section 5.5.1.9.3</a> contain examples of the presented arbitration cases and visualize them in the form of sequence diagrams.</p>
 </div>
 </div>
 <div class="sect4">
@@ -3234,8 +3234,8 @@ To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN n
 This means that the realization of local virtual ECU wake-up and sleeping processes are internal parts of the respective FMU, which is not covered by this document.
 Because entering sleep state is a virtual ECU internal process always within CAN bus, this can be ignored.
 Also, the virtual ECU local wake-up process is ignored as well.
-The CAN-specific wake-up pulse can be simulated by using the <a href="#WakeupCanOpCode">Wakeup operation</a>.
-A <a href="#WakeupCanOpCode">Wakeup operation</a> is initiated by one Network FMU and shall be distributed to all participants of the bus,except the wake-up initiator, by the Bus Simulation.</p>
+The CAN-specific wake-up pulse can be simulated by using the <a href="#low-cut-can-wake-up-operation">Wakeup operation</a>.
+A <a href="#low-cut-can-wake-up-operation">Wakeup operation</a> is initiated by one Network FMU and shall be distributed to all participants of the bus,except the wake-up initiator, by the Bus Simulation.</p>
 </div>
 <div id="figure-can-wake-up" class="imageblock text-center">
 <div class="content">
@@ -3250,19 +3250,19 @@ A <a href="#WakeupCanOpCode">Wakeup operation</a> is initiated by one Network FM
 <p>This section contains sample sequences to clarify the facts in the CAN part.</p>
 </div>
 <div class="sect5">
-<h6 id="example-can-possible-results-of-transmission">5.5.1.9.1. Transmission</h6>
+<h6 id="low-cut-can-example-transmission">5.5.1.9.1. Transmission</h6>
 <div class="paragraph">
-<p><a href="#figure-can-transmission-acknowledge">Figure 13</a> illustrates the two possible results of a <a href="#TransmitOpCodeCanLowCut">Transmit operation</a>, whereby the transition from FMU 1 &#8594; FMU 2 represents the successful case and FMU 2 &#8594; FMU 1 represents the unsuccessful case.
+<p><a href="#figure-can-transmission-acknowledge">Figure 13</a> illustrates the two possible results of a <a href="#low-cut-can-transmit-operation">Transmit operation</a>, whereby the transition from FMU 1 &#8594; FMU 2 represents the successful case and FMU 2 &#8594; FMU 1 represents the unsuccessful case.
 For the second transmission, the Bus Simulation injects a failure of transmission.
-In step (1), a <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> will be delivered to the Bus Simulation.
-Within step (2), the <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> will transferred to FMU 2, so the transmission was successful.
-Also in step (2), FMU 1 receives a <a href="#ConfirmOpCodeCanLowCut">Confirm operation</a>, which means the transmission was successful.
+In step (1), a <a href="#low-cut-can-transmit-operation">Transmit operation</a> will be delivered to the Bus Simulation.
+Within step (2), the <a href="#low-cut-can-transmit-operation">Transmit operation</a> will transferred to FMU 2, so the transmission was successful.
+Also in step (2), FMU 1 receives a <a href="#low-cut-can-confirm-operation">Confirm operation</a>, which means the transmission was successful.
 In step (3), FMU 2 wants to transmit network data to FMU 1:
-A <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> will be delivered from FMU 2 to the Bus Simulation.
-In step (4), we see that the transmission results in an <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a>, because the Bus Simulation injects a failure of transmission.
-Based on the <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a> FMU 2 knows that the transmission was not successful.
-Within this <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a>, the <code>Is Sender</code> argument is set to <code>TRUE</code> for FMU 2, because it provides the failing <a href="#TransmitOpCodeCanLowCut">Transmit operation</a>.
-Another <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a> instance is provided by the Bus Simulation to FMU 1.
+A <a href="#low-cut-can-transmit-operation">Transmit operation</a> will be delivered from FMU 2 to the Bus Simulation.
+In step (4), we see that the transmission results in an <a href="#low-cut-can-bus-error-operation">Bus Error operation</a>, because the Bus Simulation injects a failure of transmission.
+Based on the <a href="#low-cut-can-bus-error-operation">Bus Error operation</a> FMU 2 knows that the transmission was not successful.
+Within this <a href="#low-cut-can-bus-error-operation">Bus Error operation</a>, the <code>Is Sender</code> argument is set to <code>TRUE</code> for FMU 2, because it provides the failing <a href="#low-cut-can-transmit-operation">Transmit operation</a>.
+Another <a href="#low-cut-can-bus-error-operation">Bus Error operation</a> instance is provided by the Bus Simulation to FMU 1.
 For FMU 1, the <code>Error Flag</code> argument is set to <code>PRIMARY_ERROR_FLAG</code>, which means that FMU detects the specified transmission error.</p>
 </div>
 <div id="figure-can-transmission-acknowledge" class="imageblock text-center">
@@ -3277,9 +3277,9 @@ Most common kinds of errors are used to inject transmission errors, for example 
 </div>
 </div>
 <div class="sect5">
-<h6 id="example-can-arbitration-with-arbitration-lost-behavior">5.5.1.9.2. CAN Arbitration without Buffering</h6>
+<h6 id="low-cut-can-example-can-arbitration-without-buffering">5.5.1.9.2. CAN Arbitration without Buffering</h6>
 <div class="paragraph">
-<p><a href="#figure-can-arbitration-overview">Figure 14</a> shows the realization of a CAN arbitration by using the <code>Arbitration Lost Behavior</code> option <code>DISCARD_AND_NOTIFY</code> within the <a href="#ConfigurationCanOpCode">Configuration operation</a>.
+<p><a href="#figure-can-arbitration-overview">Figure 14</a> shows the realization of a CAN arbitration by using the <code>Arbitration Lost Behavior</code> option <code>DISCARD_AND_NOTIFY</code> within the <a href="#low-cut-can-configuration-operation">Configuration operation</a>.
 At the beginning, FMU 1 and FMU 2 each send network data at the same time.
 In this situation, an arbitration is necessary to decide which frame should be sent in this case.
 Both frames are transferred to the Bus Simulation.
@@ -3287,8 +3287,8 @@ Arbitration takes place within the Bus Simulation.
 In the example given, the two frames with CAN ID = 15 and CAN ID = 16 are analyzed and it is decided that CAN ID = 15 wins the arbitration.
 The Bus Simulation then calculates the transmission time for the CAN frame with CAN ID = 15.
 The next time the FMI <code>Event Mode</code> is called up for the Bus Simulation, the corresponding CAN frame is transmitted to FMU 2 and FMU 3.
-For CAN ID 16, FMU 2 is informed via an <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost operation</a> that this frame cannot be sent.
-FMU 1 gets a <a href="#ConfirmOpCodeCanLowCut">Confirm operation</a>, because the specified frame with CAN ID 15 was successfully transmitted.</p>
+For CAN ID 16, FMU 2 is informed via an <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost operation</a> that this frame cannot be sent.
+FMU 1 gets a <a href="#low-cut-can-confirm-operation">Confirm operation</a>, because the specified frame with CAN ID 15 was successfully transmitted.</p>
 </div>
 <div id="figure-can-arbitration-overview" class="imageblock text-center">
 <div class="content">
@@ -3298,9 +3298,9 @@ FMU 1 gets a <a href="#ConfirmOpCodeCanLowCut">Confirm operation</a>, because th
 </div>
 </div>
 <div class="sect5">
-<h6 id="example-can-arbitration-without-arbitration-lost-behavior">5.5.1.9.3. CAN Arbitration with Buffering</h6>
+<h6 id="low-cut-can-example-can-arbitration-with-buffering">5.5.1.9.3. CAN Arbitration with Buffering</h6>
 <div class="paragraph">
-<p><a href="#figure-can-arbitration-overview-with-buffer">Figure 15</a> shows the realization of a CAN arbitration by using the <code>Arbitration Lost Behavior</code> option <code>BUFFER_AND_RETRANSMIT</code> within the <a href="#ConfigurationCanOpCode">Configuration operation</a>.
+<p><a href="#figure-can-arbitration-overview-with-buffer">Figure 15</a> shows the realization of a CAN arbitration by using the <code>Arbitration Lost Behavior</code> option <code>BUFFER_AND_RETRANSMIT</code> within the <a href="#low-cut-can-configuration-operation">Configuration operation</a>.
 At the beginning, FMU 1 and FMU 2 each send network data at the same time.
 In this situation, an arbitration is necessary to decide which frame should be sent in this case.
 Both frames are transferred to the Bus Simulation.
@@ -3308,9 +3308,9 @@ Arbitration takes place within the Bus Simulation.
 In the example given, the two frames with CAN ID = 15 and CAN ID = 16 are analyzed and it is decided that CAN ID = 15 wins the arbitration.
 The Bus Simulation then calculates the transmission time for the CAN frame with CAN ID = 15.
 The next time the FMI <code>Event Mode</code> is called up for the Bus Simulation, the corresponding CAN frame is transmitted to FMU 2 and FMU 3.
-The <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> of CAN ID 16 is buffered by the Bus Simulation and will be sent within the next time slot.
-The Bus Simulation does not return an <a href="#ArbitrationLostOpCodeCanLowCut">Arbitration Lost operation</a> to FMU 2.
-FMU 1 gets a <a href="#ConfirmOpCodeCanLowCut">Confirm operation</a>, because the specified frame with CAN ID 15 was successfully transmitted.</p>
+The <a href="#low-cut-can-transmit-operation">Transmit operation</a> of CAN ID 16 is buffered by the Bus Simulation and will be sent within the next time slot.
+The Bus Simulation does not return an <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost operation</a> to FMU 2.
+FMU 1 gets a <a href="#low-cut-can-confirm-operation">Confirm operation</a>, because the specified frame with CAN ID 15 was successfully transmitted.</p>
 </div>
 <div id="figure-can-arbitration-overview-with-buffer" class="imageblock text-center">
 <div class="content">
@@ -3320,11 +3320,11 @@ FMU 1 gets a <a href="#ConfirmOpCodeCanLowCut">Confirm operation</a>, because th
 </div>
 </div>
 <div class="sect5">
-<h6 id="example-can-error-handling">5.5.1.9.4. Error Handling</h6>
+<h6 id="low-cut-can-example-error-handling">5.5.1.9.4. Error Handling</h6>
 <div class="paragraph">
-<p>This chapter describes a possible implementation of the CAN error handling within Network FMUs using a rule set based on <a href="#BusErrorOpCodeCanLowCut">Bus Error operations</a>.
+<p>This chapter describes a possible implementation of the CAN error handling within Network FMUs using a rule set based on <a href="#low-cut-can-bus-error-operation">Bus Error operations</a>.
 Each Network FMU will provide its own Transmit Error Counter (TEC), Receive Error Counter (REC) and current CAN node state.
-The values for TEC and REC will be increased and decreased with respect to the <code>Error Code</code>, <code>Is Sender</code> and <code>Error Flag</code> arguments of a <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a> and are inherited from the original CAN error confinement rules.
+The values for TEC and REC will be increased and decreased with respect to the <code>Error Code</code>, <code>Is Sender</code> and <code>Error Flag</code> arguments of a <a href="#low-cut-can-bus-error-operation">Bus Error operation</a> and are inherited from the original CAN error confinement rules.
 Based on the values of TEC and REC, the CAN controller moves in the following state machine:</p>
 </div>
 <div id="figure-can-error-state-machine" class="imageblock text-center">
@@ -3335,55 +3335,55 @@ Based on the values of TEC and REC, the CAN controller moves in the following st
 </div>
 <div class="paragraph">
 <p>This CAN node state machine and the related TEC and REC values have to be included within the Network FMUs.
-<a href="#BusErrorOpCodeCanLowCut">Bus Error operations</a> shall be directly used to maintain the TEC and REC values.
-The Network FMU shall react on the <a href="#BusErrorOpCodeCanLowCut">Bus Error operations</a> that the Bus Simulation provides, based on the following rule set:</p>
+<a href="#low-cut-can-bus-error-operation">Bus Error operations</a> shall be directly used to maintain the TEC and REC values.
+The Network FMU shall react on the <a href="#low-cut-can-bus-error-operation">Bus Error operations</a> that the Bus Simulation provides, based on the following rule set:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>When an FMU gets a <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a> where the arguments <code>Is Sender = FALSE</code> and <code>Error Flag = SECONDARY_ERROR_FLAG</code> and also <code>Error Code != BROKEN_ERROR_FRAME</code>, the REC shall be increased by 1.</p>
+<p>When an FMU gets a <a href="#low-cut-can-bus-error-operation">Bus Error operation</a> where the arguments <code>Is Sender = FALSE</code> and <code>Error Flag = SECONDARY_ERROR_FLAG</code> and also <code>Error Code != BROKEN_ERROR_FRAME</code>, the REC shall be increased by 1.</p>
 </li>
 <li>
-<p>When an FMU gets a <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a> where the arguments (<code>Is Sender = FALSE</code> and <code>Error Flag = PRIMARY_ERROR_FLAG</code>) or <code>Error Code = BROKEN_ERROR_FRAME</code>, the REC shall be increased by 8.</p>
+<p>When an FMU gets a <a href="#low-cut-can-bus-error-operation">Bus Error operation</a> where the arguments (<code>Is Sender = FALSE</code> and <code>Error Flag = PRIMARY_ERROR_FLAG</code>) or <code>Error Code = BROKEN_ERROR_FRAME</code>, the REC shall be increased by 8.</p>
 </li>
 <li>
-<p>When an FMU gets a <a href="#BusErrorOpCodeCanLowCut">Bus Error operation</a> where the arguments <code>Is Sender = TRUE</code> or <code>Error Code = BROKEN_ERROR_FRAME</code>, the TEC shall be increased by 8.
+<p>When an FMU gets a <a href="#low-cut-can-bus-error-operation">Bus Error operation</a> where the arguments <code>Is Sender = TRUE</code> or <code>Error Code = BROKEN_ERROR_FRAME</code>, the TEC shall be increased by 8.
 Exception: <code>Status =  ERROR_PASSIVE</code> and <code>Error Code = ACK_ERROR</code>.</p>
 </li>
 <li>
-<p>When an FMU provides a <a href="#TransmitOpCodeCanLowCut">Transmit operation</a> and receives a <a href="#ConfirmOpCodeCanLowCut">Confirm operation</a> for it, the TEC shall be decreased by 1 unless it was already 0.</p>
+<p>When an FMU provides a <a href="#low-cut-can-transmit-operation">Transmit operation</a> and receives a <a href="#low-cut-can-confirm-operation">Confirm operation</a> for it, the TEC shall be decreased by 1 unless it was already 0.</p>
 </li>
 <li>
-<p>When an FMU gets a <a href="#TransmitOpCodeCanLowCut">Transmit operation</a>, the REC shall be decreased by 1, if it was between 1 and 127.
+<p>When an FMU gets a <a href="#low-cut-can-transmit-operation">Transmit operation</a>, the REC shall be decreased by 1, if it was between 1 and 127.
 If the REC was 0, it stays 0, and if it was greater than 127, then it will be set to the value between 119 and 127.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>A Network FMU communicates its current CAN node state via the <a href="#StatusOpCodeCanLowCut">Status operation</a> by using the following rule set:</p>
+<p>A Network FMU communicates its current CAN node state via the <a href="#low-cut-can-status-operation">Status operation</a> by using the following rule set:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>After the initialization of a Network FMU, the current CAN node state shall be set to <code>ERROR_ACTIVE</code> and communicate via <a href="#StatusOpCodeCanLowCut">Status operation</a> to the Bus Simulation.</p>
+<p>After the initialization of a Network FMU, the current CAN node state shall be set to <code>ERROR_ACTIVE</code> and communicate via <a href="#low-cut-can-status-operation">Status operation</a> to the Bus Simulation.</p>
 </li>
 <li>
-<p>The current CAN node state of a Network FMU shall be set to <code>ERROR_PASSIVE</code> if the value of REC &gt; 127 or TEC &gt; 127 and communicate via <a href="#StatusOpCodeCanLowCut">Status operation</a> to the Bus Simulation.</p>
+<p>The current CAN node state of a Network FMU shall be set to <code>ERROR_PASSIVE</code> if the value of REC &gt; 127 or TEC &gt; 127 and communicate via <a href="#low-cut-can-status-operation">Status operation</a> to the Bus Simulation.</p>
 </li>
 <li>
-<p>The current CAN node state of a Network FMU shall be set to <code>ERROR_ACTIVE</code> if the value of REC &lt; 128 and TEC &lt; 128 and communicate via <a href="#StatusOpCodeCanLowCut">Status operation</a> to the Bus Simulation.</p>
+<p>The current CAN node state of a Network FMU shall be set to <code>ERROR_ACTIVE</code> if the value of REC &lt; 128 and TEC &lt; 128 and communicate via <a href="#low-cut-can-status-operation">Status operation</a> to the Bus Simulation.</p>
 </li>
 <li>
-<p>The current CAN node state of a Network FMU shall be set to <code>BUS_OFF</code> if the value of TEC &gt; 255 and communicate via <a href="#StatusOpCodeCanLowCut">Status operation</a> to the Bus Simulation.</p>
+<p>The current CAN node state of a Network FMU shall be set to <code>BUS_OFF</code> if the value of TEC &gt; 255 and communicate via <a href="#low-cut-can-status-operation">Status operation</a> to the Bus Simulation.</p>
 </li>
 <li>
-<p>The <code>BUS_OFF</code> status shall be set to <code>ERROR_ACTIVE</code> again when the Network FMU simulates a controller reset (optional) and has received in total 128 <a href="#TransmitOpCodeCanLowCut">Transmit operations</a> or <a href="#BusErrorOpCodeCanLowCut">Bus Error operations</a> from the network.</p>
+<p>The <code>BUS_OFF</code> status shall be set to <code>ERROR_ACTIVE</code> again when the Network FMU simulates a controller reset (optional) and has received in total 128 <a href="#low-cut-can-transmit-operation">Transmit operations</a> or <a href="#low-cut-can-bus-error-operation">Bus Error operations</a> from the network.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>If <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#bus-notification-parameter">Section 5.5.1.3.1</a>) is set to <code>false</code>, the <a href="#ConfirmOpCodeCanLowCut">Confirm operation</a> cannot be directly used as indicator to set the TEC value and will be incorrect under the rules outlined above.
-Also <a href="#BusErrorOpCodeCanLowCut">Bus Error operations</a> are not available in this scenario, so that the values for TEC and REC automatically remain zero in this case.
+<p>If <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> (see <a href="#low-cut-can-bus-notification-parameter">Section 5.5.1.3.1</a>) is set to <code>false</code>, the <a href="#low-cut-can-confirm-operation">Confirm operation</a> cannot be directly used as indicator to set the TEC value and will be incorrect under the rules outlined above.
+Also <a href="#low-cut-can-bus-error-operation">Bus Error operations</a> are not available in this scenario, so that the values for TEC and REC automatically remain zero in this case.
 It is recommended to solve the error handling differently in this case or to disabling it completely within the specified Network FMU.</p>
 </div>
 </div>
