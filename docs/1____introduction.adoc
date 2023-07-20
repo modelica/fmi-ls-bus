@@ -34,6 +34,11 @@ Conventions used in this document:
  - Non-normative text is given in square brackets in italic font: _[Especially examples are defined in this style.]_
  - The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <<RFC2119>> (regardless of formatting and capitalization).
 
+In key parts of this document, non-normative examples are used to help understand the standard.
+To keep the standard itself brief, the https://modelica.github.io/fmi-guides/main/ls-bus-guide/[FMI LS BUS Implementer’s Guide] was created.
+It contains further technical discussions and examples on how to implement certain aspects of the standard for both FMUs and importers.
+Contrary to the standard, the FMI LS BUS Implementer’s Guide will be a living document, enhanced with further tips and tricks as the FMI community encounters them.
+
 === Remarks
 
 This layered standard currently only refers to the FMI for Co-Simulation (CS).
