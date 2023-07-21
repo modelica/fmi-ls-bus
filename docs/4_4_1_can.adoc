@@ -679,7 +679,7 @@ image::can_confirmation_with_bus_simulation_fmu.svg[width=70%, align="center"]
 
 If all Network FMUs, except the <<low-cut-can-transmit-operation, Transmit operation>> initiating Network FMU, communicate the <<low-cut-can-status-operation, status>> `BUS_OFF`, the Bus Simulation shall not provide a <<low-cut-can-confirm-operation, confirmation>>.
 
-<<low-cut-can-example-transmission>> contains an example of the possible transmission results and displays them in the form of a diagram.
+The https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams[FMI LS BUS Implementer’s Guide] contains an example of the possible transmission results and displays them in the form of a diagram.
 
 ===== Error Handling [[low-cut-can-error-handling]]
 The CAN protocol includes a sophisticated fault confinement mechanism to prevent malfunctioning within CAN nodes.
@@ -713,7 +713,7 @@ Arbitration is available in communication cases with Bus Simulation only.
 In the case of arbitration, the Bus Simulation must also take the status of the respective Network FMU into account, which is communicated via a <<low-cut-can-status-operation, Status operation>>.
 To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN node is in Error Passive state, the Bus Simulation shall prefer Network FMUs whose status is `ERROR_ACTIVE` (see <<table-can-status-values>>).
 
-<<low-cut-can-example-can-arbitration-without-buffering>> and <<low-cut-can-example-can-arbitration-with-buffering>> contain examples of the presented arbitration cases and visualize them in the form of sequence diagrams.
+The https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams[FMI LS BUS Implementer’s Guide] contains examples of the presented arbitration cases and visualize them in the form of sequence diagrams.
 
 ===== Wake Up/Sleep
 This standard supports wake up and sleep for the CAN bus, whereby only the bus-specific parts are taken into account.
@@ -726,60 +726,3 @@ A <<low-cut-can-wake-up-operation, Wakeup operation>> is initiated by one Networ
 .Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.
 [#figure-can-wake-up]
 image::can_wake_up.svg[width=70%, align="center"]
-
-===== Examples
-This section contains sample sequences to clarify the facts in the CAN part.
-
-====== Transmission [[low-cut-can-example-transmission]]
-<<#figure-can-transmission-acknowledge>> illustrates the two possible results of a <<low-cut-can-transmit-operation, Transmit operation>>, whereby the transition from FMU 1 -> FMU 2 represents the successful case and FMU 2 -> FMU 1 represents the unsuccessful case.
-For the second transmission, the Bus Simulation injects a failure of transmission.
-In step (1), a <<low-cut-can-transmit-operation, Transmit operation>> will be delivered to the Bus Simulation.
-Within step (2), the <<low-cut-can-transmit-operation, Transmit operation>> will transferred to FMU 2, so the transmission was successful.
-Also in step (2), FMU 1 receives a <<low-cut-can-confirm-operation, Confirm operation>>, which means the transmission was successful.
-In step (3), FMU 2 wants to transmit network data to FMU 1:
-A <<low-cut-can-transmit-operation, Transmit operation>> will be delivered from FMU 2 to the Bus Simulation.
-In step (4), we see that the transmission results in an <<low-cut-can-bus-error-operation, Bus Error operation>>, because the Bus Simulation injects a failure of transmission.
-Based on the <<low-cut-can-bus-error-operation, Bus Error operation>> FMU 2 knows that the transmission was not successful.
-Within this <<low-cut-can-bus-error-operation, Bus Error operation>>, the `Is Sender` argument is set to `TRUE` for FMU 2, because it provides the failing <<low-cut-can-transmit-operation, Transmit operation>>.
-Another <<low-cut-can-bus-error-operation, Bus Error operation>> instance is provided by the Bus Simulation to FMU 1.
-For FMU 1, the `Error Flag` argument is set to `PRIMARY_ERROR_FLAG`, which means that FMU detects the specified transmission error.
-
-.Successful and unsuccessful cases of a CAN transmission.
-[#figure-can-transmission-acknowledge]
-image::can_transmission_acknowledge.svg[width=60%, align="center"]
-
-Normally, transmission failure cannot occur during a simulated bus transmission.
-Most common kinds of errors are used to inject transmission errors, for example using the Bus Simulation FMU, for advanced test scenarios.
-
-====== CAN Arbitration without Buffering [[low-cut-can-example-can-arbitration-without-buffering]]
-<<#figure-can-arbitration-overview>> shows the realization of a CAN arbitration by using the `Arbitration Lost Behavior` option `DISCARD_AND_NOTIFY` within the <<low-cut-can-configuration-operation, Configuration operation>>.
-At the beginning, FMU 1 and FMU 2 each send network data at the same time.
-In this situation, an arbitration is necessary to decide which frame should be sent in this case.
-Both frames are transferred to the Bus Simulation.
-Arbitration takes place within the Bus Simulation.
-In the example given, the two frames with CAN ID = 15 and CAN ID = 16 are analyzed and it is decided that CAN ID = 15 wins the arbitration.
-The Bus Simulation then calculates the transmission time for the CAN frame with CAN ID = 15.
-The next time the FMI `Event Mode` is called up for the Bus Simulation, the corresponding CAN frame is transmitted to FMU 2 and FMU 3.
-For CAN ID 16, FMU 2 is informed via an <<low-cut-can-arbitration-lost-operation, Arbitration Lost operation>> that this frame cannot be sent.
-FMU 1 gets a <<low-cut-can-confirm-operation, Confirm operation>>, because the specified frame with CAN ID 15 was successfully transmitted.
-
-.Arbitration of CAN frames within Bus Simulation.
-[#figure-can-arbitration-overview]
-image::can_arbitration_overview.svg[width=80%, align="center"]
-
-====== CAN Arbitration with Buffering [[low-cut-can-example-can-arbitration-with-buffering]]
-<<#figure-can-arbitration-overview-with-buffer>> shows the realization of a CAN arbitration by using the `Arbitration Lost Behavior` option `BUFFER_AND_RETRANSMIT` within the <<low-cut-can-configuration-operation, Configuration operation>>.
-At the beginning, FMU 1 and FMU 2 each send network data at the same time.
-In this situation, an arbitration is necessary to decide which frame should be sent in this case.
-Both frames are transferred to the Bus Simulation.
-Arbitration takes place within the Bus Simulation.
-In the example given, the two frames with CAN ID = 15 and CAN ID = 16 are analyzed and it is decided that CAN ID = 15 wins the arbitration.
-The Bus Simulation then calculates the transmission time for the CAN frame with CAN ID = 15.
-The next time the FMI `Event Mode` is called up for the Bus Simulation, the corresponding CAN frame is transmitted to FMU 2 and FMU 3.
-The <<low-cut-can-transmit-operation, Transmit operation>> of CAN ID 16 is buffered by the Bus Simulation and will be sent within the next time slot.
-The Bus Simulation does not return an <<low-cut-can-arbitration-lost-operation, Arbitration Lost operation>> to FMU 2.
-FMU 1 gets a <<low-cut-can-confirm-operation, Confirm operation>>, because the specified frame with CAN ID 15 was successfully transmitted.
-
-.Arbitration of CAN frames with buffering within Bus Simulation.
-[#figure-can-arbitration-overview-with-buffer]
-image::can_arbitration_overview_with_buffer.svg[width=80%, align="center"]
