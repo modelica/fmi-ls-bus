@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-b5952a37cabe1d5c9effe30bd135a28db4713b81,</span>
-<span id="revdate">2023-07-21</span>
+<span id="revnumber">version main-b6be96a6ddb604eadfd16d26f5f6824aec15c158,</span>
+<span id="revdate">2023-08-29</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -1047,6 +1047,18 @@ In AUTOSAR, this would be equivalent to the Virtual Function Bus.
 Variables are clocked to reflect the timing aspects of the information flow.
 Changes to these clocked variables always reach the destination.</p>
 </div>
+<div class="paragraph">
+<p>The figure below shows an example architecture of a high-cut.
+Here the signals (<em>Signal 1&#8230;&#8203;8</em>) from PDUs, which in turn are assigned to frames, are modeled as clocked FMU variables of a specific type.
+The PDU and frame structuring is done via terminals (<em>PDU A, B, C</em> and <em>Frame X, Y</em>).
+The respective FMU variables are connected to a Bus Simulation, which emulates them according to their own needs for e.g., in accuracy.</p>
+</div>
+<div id="figure-transmission-high-cut-overview" class="imageblock text-center">
+<div class="content">
+<img src="images/high_cut_network_fmu.svg" alt="high cut network fmu" width="80%">
+</div>
+<div class="title">Figure 5. High-cut example architecture.</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_variables">4.2. Variables</h3>
@@ -1497,7 +1509,7 @@ The Bus Simulation then might delay the transfer of the Transmit operation to th
 <div class="content">
 <img src="images/transmit_messages.svg" alt="transmit messages" width="50%">
 </div>
-<div class="title">Figure 5. Transmission overview.</div>
+<div class="title">Figure 6. Transmission overview.</div>
 </div>
 <div class="paragraph">
 <p>The point in time at which FMUs will (potentially) send new network messages can be given to the importer in advance with the proper clock type.
@@ -1508,7 +1520,7 @@ For simulating bus communication with timing effects, the FMUs should set the Co
 <div class="content">
 <img src="images/bus_simulation_example.svg" alt="bus simulation example" width="80%">
 </div>
-<div class="title">Figure 6. Example for network simulation with timing behavior.</div>
+<div class="title">Figure 7. Example for network simulation with timing behavior.</div>
 </div>
 <div class="paragraph">
 <p>For simplification reasons or if a detailed bus simulation is not desired, fixed-step size FMUs can also be used with network abstraction.
@@ -1957,7 +1969,7 @@ If the specified FMU is connected to more than one network, there shall be exact
 <div class="content">
 <img src="images/bus_terminal.svg" alt="bus terminal" width="30%">
 </div>
-<div class="title">Figure 7. Frame variables and terminals.</div>
+<div class="title">Figure 8. Frame variables and terminals.</div>
 </div>
 </div>
 <div class="sect3">
@@ -3145,27 +3157,27 @@ In this case, the bus simulation is idealized and takes place in a fire-and-forg
 If a specified Network FMU is depending on <a href="#low-cut-can-confirm-operation">Confirm operations</a> and <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> is set to <code>false</code>, the self confirmation shall be realized internally within the respective Network FMU.</p>
 </div>
 <div class="paragraph">
-<p><a href="#figure-can-direct-communication">Figure 8</a> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
+<p><a href="#figure-can-direct-communication">Figure 9</a> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
 After that, the transmission is directly confirmed by FMU 1 itself, whereby FMU 1 handles that self confirmation internally.</p>
 </div>
 <div id="figure-can-direct-communication" class="imageblock text-center">
 <div class="content">
 <img src="images/can_direct_confirmation.svg" alt="can direct confirmation" width="40%">
 </div>
-<div class="title">Figure 8. Direct Confirmation of transmitted network data.</div>
+<div class="title">Figure 9. Direct Confirmation of transmitted network data.</div>
 </div>
 <div class="paragraph">
 <p>For a detailed simulation, Bus Simulations shall support <a href="#low-cut-can-confirm-operation">Confirm operations</a>.
 In this case, the <code>org.fmi_standard.fmi_ls_bus.WaitForBusNotification</code> parameter of the Network FMUs shall be set to <code>true</code> and Network FMUs can rely on receiving <a href="#low-cut-can-confirm-operation">Confirm operations</a>.</p>
 </div>
 <div class="paragraph">
-<p>The following <a href="#figure-can-confirmation-with-bus-simulation-fmu">Figure 9</a> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.</p>
+<p>The following <a href="#figure-can-confirmation-with-bus-simulation-fmu">Figure 10</a> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.</p>
 </div>
 <div id="figure-can-confirmation-with-bus-simulation-fmu" class="imageblock text-center">
 <div class="content">
 <img src="images/can_confirmation_with_bus_simulation_fmu.svg" alt="can confirmation with bus simulation fmu" width="70%">
 </div>
-<div class="title">Figure 9. Confirmation of transmitted network data via Bus Simulation.</div>
+<div class="title">Figure 10. Confirmation of transmitted network data via Bus Simulation.</div>
 </div>
 <div class="paragraph">
 <p>If all Network FMUs, except the <a href="#low-cut-can-transmit-operation">Transmit operation</a> initiating Network FMU, communicate the <a href="#low-cut-can-status-operation">status</a> <code>BUS_OFF</code>, the Bus Simulation shall not provide a <a href="#low-cut-can-confirm-operation">confirmation</a>.</p>
@@ -3189,7 +3201,7 @@ When a Network FMU has provided the status <code>BUS_OFF</code> to the Bus Simul
 <div class="content">
 <img src="images/can_error_handling_overview.svg" alt="can error handling overview" width="100%">
 </div>
-<div class="title">Figure 10. Architectural error handling overview.</div>
+<div class="title">Figure 11. Architectural error handling overview.</div>
 </div>
 </div>
 <div class="sect4">
@@ -3204,7 +3216,7 @@ As soon as an FMU loses arbitration in this way, it shall independently repeat t
 <div class="content">
 <img src="images/can_arbitration.svg" alt="can arbitration" width="70%">
 </div>
-<div class="title">Figure 11. Arbitration of two transmissions at the same time.</div>
+<div class="title">Figure 12. Arbitration of two transmissions at the same time.</div>
 </div>
 <div class="paragraph">
 <p>Within a <a href="#low-cut-can-configuration-operation">Configuration operation</a>, the <code>Arbitration Lost Behavior</code> argument can be specified.
@@ -3235,7 +3247,7 @@ A <a href="#low-cut-can-wake-up-operation">Wakeup operation</a> is initiated by 
 <div class="content">
 <img src="images/can_wake_up.svg" alt="can wake up" width="70%">
 </div>
-<div class="title">Figure 12. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
+<div class="title">Figure 13. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
 </div>
 </div>
 </div>
