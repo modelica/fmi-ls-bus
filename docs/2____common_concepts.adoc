@@ -111,5 +111,5 @@ The following figure illustrates two FMUs, which are integrated by an importer t
 [#figure-bus-feature-integrated-fmu-simulator]
 image::architecture_bus_simulation_importer.svg[width=50%, align="center"]
 
-Using this type of architecture allows the support of this layered standard for non-primary FMI importers by using proprietary extension mechanisms.
+The usage of this architecture type allows the integration of this layered standard into an already existing simulator, which implements network communication with proprietary interfaces.
 In this case, it may also be possible to integrate other, for example manufacturer-specific, formats into a bus simulation.
