@@ -146,12 +146,12 @@ static_assert(sizeof(fmi3LsBusCanOperationCanTransmit) == (5 + 4 + 1 + 1 + 2),
 /**
  * Data type for defining a Bit Rate Switch.
  */
-typedef fmi3UInt8 fmi3LsBusCanBrs;
+typedef fmi3Boolean fmi3LsBusCanBrs;
 
 /**
  * Data type for defining a Error State Indicator.
  */
-typedef fmi3UInt8 fmi3LsBusCanEsi;
+typedef fmi3Boolean fmi3LsBusCanEsi;
 
 /**
  * Can FD transmit operation.
@@ -173,7 +173,7 @@ static_assert(sizeof(fmi3LsBusCanOperationCanFdTransmit) == (5 + 4 + 1 + 1 + 1 +
 /**
  * Data type for defining a Simple Extended Content.
  */
-typedef fmi3UInt8 fmi3LsBusCanSec;
+typedef fmi3Boolean fmi3LsBusCanSec;
 
 /**
  * Data type for defining a Service Data Unit Type.
@@ -325,7 +325,7 @@ typedef fmi3UInt8 fmi3LsBusCanConfigParameterType;
 #define FMI3_LS_BUS_CAN_CONFIG_PARAM_TYPE_CAN_BAUDRATE ((fmi3LsBusCanConfigParameterType)0x1)
 #define FMI3_LS_BUS_CAN_CONFIG_PARAM_TYPE_CANFD_BAUDRATE ((fmi3LsBusCanConfigParameterType)0x2)
 #define FMI3_LS_BUS_CAN_CONFIG_PARAM_TYPE_CANXL_BAUDRATE ((fmi3LsBusCanConfigParameterType)0x3)
-#define FMI3_LS_BUS_CAN_CONFIG_PARAM_TYPE_OPTIONS ((fmi3LsBusCanConfigParameterType)0x4)
+#define FMI3_LS_BUS_CAN_CONFIG_PARAM_TYPE_ARBITRATION_LOST_BEHAVIOR ((fmi3LsBusCanConfigParameterType)0x4)
 
 /**
  * FMI data type to be used for the CAN configuration options.
