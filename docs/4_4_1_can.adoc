@@ -469,7 +469,7 @@ The required unit for the baudrate value is bit/s.
 |The CAN XL baudrate value to configure.
 The required unit for the baudrate value is bit/s.
 
-.1+|OPTIONS
+|ARBITRATION_LOST_BEHAVIOR
 |Arbitration Lost Behavior
 |1 byte
 |This parameter defines how a Bus Simulation shall behave in cases of an arbitration lost scenario.
@@ -496,7 +496,8 @@ h|Parameter h|Value h|Description
 |CAN_BAUDRATE|0x01|This code indicates that a CAN baud rate should be configured for the Bus Simulation.
 |CAN_FD_BAUDRATE|0x02|Allows the configuration of a CAN FD baudrate for the Bus Simulation.
 |CAN_XL_BAUDRATE|0x03|Allows the configuration of a CAN XL baudrate for the Bus Simulation.
-|OPTIONS|0x04|This code configures various available options for the Bus Simulation.
+|ARBITRATION_LOST_BEHAVIOR|0x04|This code configures the behavior of a Bus Simulation if an arbitration is lost.
+See <<table-can-configuration-arbitration-lost-behavior-kinds>>) for possible values.
 
 |====
 
