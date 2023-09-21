@@ -1,5 +1,5 @@
 ==== LIN
-#TODO dSPACE: Currently includes LIN operations in an early state and just for preview.#
+This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for LIN.
 
 ===== Operations
 This section defines the allowed operations for LIN.
