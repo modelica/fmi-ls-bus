@@ -19,7 +19,7 @@ h|OP Code [hex] 3+| 0x10
 | OP Code | 1 byte | Contains the OP Code of the specified operation.
 For this operation the OP Code always has the value 0x10.
 | Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
-For this operation always applies: `Total Length = 6`.
+For this operation always applies: `Total Length = 7`.
 | PID | 1 byte | The specified protected ID (PID) of the LIN message.
 The maximum length of a PID is 8-bit.
 | Response Data Length | 1 byte | The size of the response in byte.
@@ -45,7 +45,7 @@ For this operation the OP Code always has the value 0x11.
 For this operation always applies: `Total Length = 8 + Data Length`.
 | PID | 1 byte | The specified protected ID (PID) of the LIN message.
 The maximum length of a PID is 8-bit.
-| Response Error | 1 bit | Represents the Response Error field of a LIN frame.
+| Response Error | 1 byte | Represents the Response Error field of a LIN frame.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Data Length | 1 byte | Specifies the length of the Data argument in bytes.
 | Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
@@ -86,7 +86,7 @@ Represents a format error that indicates a syntax or content error of receiving 
 See <<low-cut-format-error-operation, Format Error>> for definition.
 
 ====== Bus Error [[low-cut-lin-bus-error-operation]]
-The Bus Error operation represents special bus communication errors, which are delivered to every participant in the network.
+The Bus Error operation represents special bus communication errors, which are delivered to the LIN Master node in the network.
 
 .Detailed description of the Bus Error operation.
 [#table-lin-bus-error-operation]
@@ -222,6 +222,7 @@ A Network FMU shall ignored this operation on consumer side.
 The configuration shall be completed by a specified Network FMU before it produces any <<low-cut-lin-transmit-operation, Transmission operation>>.
 Any configuration can be repeated multiple times during the runtime of a Network FMU.
 If required configuration parameters are not adjusted by a Network FMU the Bus Simulation shall choose a default behavior by itself.
+For a smooth simulation, it must be ensured that exactly one master node is configured.
 |====
 
 The following Kind values are allowed to be used: 
