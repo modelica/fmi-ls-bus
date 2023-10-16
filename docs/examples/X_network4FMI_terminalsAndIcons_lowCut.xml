@@ -4,13 +4,13 @@
     <Terminal terminalKind="bus" name="Powertrain" matchingRule="bus"
         description="Powertrain CAN bus terminal definition">
       <TerminalMemberVariable variableKind="signal"
-        variableName="name="Powertrain"::Rx_Clock" />
+        variableName="Powertrain::Rx_Clock" />
       <TerminalMemberVariable variableKind="signal"
-        variableName="name="Powertrain"::Rx_Data" />
+        variableName="Powertrain::Rx_Data" />
       <TerminalMemberVariable variableKind="signal"
-        variableName="name="Powertrain"::Tx_Clock" />
+        variableName="Powertrain::Tx_Clock" />
       <TerminalMemberVariable variableKind="signal"
-        variableName="name="Powertrain"::Tx_Data" />
+        variableName="Powertrain::Tx_Data" />
       </Terminal>
     </Terminal>
   </Terminals>
