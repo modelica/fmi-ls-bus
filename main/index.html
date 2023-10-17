@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-7219228c504db00d771c33713553da1065f0a9b5,</span>
+<span id="revnumber">version main-dbb9b75d75b85146ac3479cdd4a193f23b24b56b,</span>
 <span id="revdate">2023-10-17</span>
 </div>
 <div id="toc" class="toc2">
@@ -2863,7 +2863,7 @@ The required unit for the baudrate value is bit/s.</p></td>
 The required unit for the baudrate value is bit/s.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OPTIONS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ARBITRATION_LOST_BEHAVIOR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Arbitration Lost Behavior</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This parameter defines how a Bus Simulation shall behave in cases of an arbitration lost scenario.
@@ -2913,9 +2913,10 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 <td class="tableblock halign-left valign-top"><p class="tableblock">Allows the configuration of a CAN XL baudrate for the Bus Simulation.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OPTIONS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ARBITRATION_LOST_BEHAVIOR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x04</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This code configures various available options for the Bus Simulation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This code configures the behavior of a Bus Simulation if an arbitration is lost.
+See <a href="#table-can-configuration-arbitration-lost-behavior-kinds">Table 18</a>) for possible values.</p></td>
 </tr>
 </tbody>
 </table>
