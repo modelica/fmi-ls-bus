@@ -41,6 +41,11 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "fmi3lsBus.h"
 #include <assert.h>
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4200)
+#endif
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -49,11 +54,6 @@ extern "C"
 /***************************************************
   CAN bus specific OP code 
 ****************************************************/
-        
-/**
- * Defines the minimum size of a CAN, CAN FD or CAN XL frame.
- */
-#define MINIMUM_CAN_FRAME_SIZE 1
 
 /**
  * Initiates the transmission of CAN frames.
@@ -119,12 +119,12 @@ typedef fmi3UInt32 fmi3LsBusCanId;
 /**
  * Data type for defining a standard or extended messages.
  */
-typedef fmi3Boolean fmi3LsBusCanIde;
+typedef fmi3UInt8 fmi3LsBusCanIde;
 
 /**
  * Data type for defining a Remote Transmission Request frame.
  */
-typedef fmi3Boolean fmi3LsBusCanRtr;
+typedef fmi3UInt8 fmi3LsBusCanRtr;
 
 /**
  * Data type for data length.
@@ -138,8 +138,6 @@ typedef fmi3UInt8 fmi3LsBusCanData;
 
 /**
  * Can transmit operation.
- *
- * Note: This struct needs to be manually allocated with the size of `sizeof(fmi3LsBusCanOperationCanTransmit) + dataLength - MINIMUM_CAN_FRAME_SIZE`.
  */
 typedef struct
 {
@@ -148,26 +146,24 @@ typedef struct
     fmi3LsBusCanIde ide; /**< Standard (11-bit) or Extended (29-bit) message identifier. */
     fmi3LsBusCanRtr rtr; /**< Remote Transmission Request frame. */
     fmi3LsBusCanDataLength dataLength; /**< Data length. */
-    fmi3LsBusCanData data[MINIMUM_CAN_FRAME_SIZE]; /**< Data (variable size). */
+    fmi3LsBusCanData data[]; /**< Data. */
 } fmi3LsBusCanOperationCanTransmit;
 
-static_assert(sizeof(fmi3LsBusCanOperationCanTransmit) == (5 + 4 + 1 + 1 + 2 + MINIMUM_CAN_FRAME_SIZE),
+static_assert(sizeof(fmi3LsBusCanOperationCanTransmit) == (5 + 4 + 1 + 1 + 2),
               "'fmi3LsBusCanOperationCanTransmit' does not match the expected data size");
 
 /**
  * Data type for defining a Bit Rate Switch.
  */
-typedef fmi3Boolean fmi3LsBusCanBrs;
+typedef fmi3UInt8 fmi3LsBusCanBrs;
 
 /**
  * Data type for defining a Error State Indicator.
  */
-typedef fmi3Boolean fmi3LsBusCanEsi;
+typedef fmi3UInt8 fmi3LsBusCanEsi;
 
 /**
  * Can FD transmit operation.
- *
- * Note: This struct needs to be manually allocated with the size of `sizeof(fmi3LsBusCanOperationCanFdTransmit) + dataLength - MINIMUM_CAN_FRAME_SIZE`.
  */
 typedef struct
 {
@@ -177,16 +173,16 @@ typedef struct
     fmi3LsBusCanBrs brs;               /**< Bit Rate Switch. */
     fmi3LsBusCanEsi esi;               /**< Error State Idicator. */
     fmi3LsBusCanDataLength dataLength; /**< Data length. */
-    fmi3LsBusCanData data[MINIMUM_CAN_FRAME_SIZE]; /**< Data (variable size). */
+    fmi3LsBusCanData data[]; /**< Data. */
 } fmi3LsBusCanOperationCanFdTransmit;
 
-static_assert(sizeof(fmi3LsBusCanOperationCanFdTransmit) == (5 + 4 + 1 + 1 + 1 + 2 + MINIMUM_CAN_FRAME_SIZE),
+static_assert(sizeof(fmi3LsBusCanOperationCanFdTransmit) == (5 + 4 + 1 + 1 + 1 + 2),
               "'fmi3LsBusCanOperationCanFdTransmit' does not match the expected data size");
 
 /**
  * Data type for defining a Simple Extended Content.
  */
-typedef fmi3Boolean fmi3LsBusCanSec;
+typedef fmi3UInt8 fmi3LsBusCanSec;
 
 /**
  * Data type for defining a Service Data Unit Type.
@@ -205,8 +201,6 @@ typedef fmi3UInt32 fmi3LsBusCanAf;
 
 /**
  * Can XL transmit operation.
- *
- * Note: This struct needs to be manually allocated with the size of `sizeof(fmi3LsBusCanOperationCanXlTransmit) + dataLength - MINIMUM_CAN_FRAME_SIZE`.
  */
 typedef struct
 {
@@ -218,10 +212,10 @@ typedef struct
     fmi3LsBusCanVcId vcid;             /**< Virtual CAN Network ID. */
     fmi3LsBusCanAf af;                 /**< Acceptance Field. */
     fmi3LsBusCanDataLength dataLength; /**< Data length. */
-    fmi3LsBusCanData data[MINIMUM_CAN_FRAME_SIZE]; /**< Data (variable size).*/
+    fmi3LsBusCanData data[]; /**< Data.*/
 } fmi3LsBusCanOperationCanXlTransmit;
 
-static_assert(sizeof(fmi3LsBusCanOperationCanXlTransmit) == (5 + 4 + 1 + 1 + 1 + 1 + 4 + 2 + MINIMUM_CAN_FRAME_SIZE),
+static_assert(sizeof(fmi3LsBusCanOperationCanXlTransmit) == (5 + 4 + 1 + 1 + 1 + 1 + 4 + 2),
               "'fmi3LsBusCanOperationCanXlTransmit' does not match the expected data size");
 
 /**
@@ -283,7 +277,7 @@ typedef fmi3UInt8 fmi3LsBusCanErrorFlag;
 /**
  * Data type for defining a sender or receiver situation.
  */
-typedef fmi3Boolean fmi3LsBusCanIsSender;
+typedef fmi3UInt8 fmi3LsBusCanIsSender;
 
 /**
  * Can bus error operation.
@@ -386,6 +380,10 @@ static_assert(sizeof(fmi3LsBusCanOperationWakeup) == (5),
 
 #ifdef __cplusplus
 } /* end of extern "C" { */
+#endif
+
+#ifdef _MSC_VER
+#pragma warning(pop)
 #endif
 
 #endif /* fmi3LsBusCan_h */
