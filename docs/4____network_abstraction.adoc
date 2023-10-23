@@ -178,57 +178,90 @@ To summarize, four variables with the following name schema are used:
 
 The input variable `BusName::Rx_Data` is clocked by the clock variable `BusName::Rx_Clock`, both with `causality` set to `input`.
 
-The output variable `BusName::Tx_Data` is clocked by the clock variable `BusName::Tx_Clock`, both with `causality` set to `output`.
+The output variable `BusName::Tx_Data` is clocked by the clock variable `BusName::Tx_Clock`. 
+The `causality` for the Tx_Data variable shall be `output`, but depends of the selected clock type for the Tx_Clock variable (see <<low-cut-tx-time-based-clock-variables, Tx Clock Variables>>).  
 
 Both variable pairs must be listed as member of its corresponding <<low-cut-bus-terminal, Bus Terminal>>.
 How to set the `BusName` placeholder is bus-type-specific and therefore described in the bus-specific chapters.
 
-==== Tx/Rx Clock Variables [[low-cut-tx-rx-clock-variables]]
+==== Tx Clock Variables [[low-cut-tx-clock-variables]]
 As described in the FMI 3.0 specification, clock variables are used to synchronize events between importer and across FMUs.
 Since clock variables are strictly related to the `Event Mode`, networked FMUs shall set the Co-Simulation attribute `hasEventMode = "true"` in the model description file.
 
-For simulating bus communication according to the network abstraction, a time-based clock is used for the `Tx_Clock` variable to signal the point in time when layered standard bus operations must be transferred by the importer to the receiver FMUs.
-It is up to the implementer to either use a `periodic` or `aperiodic` clock.
+The point in time where bus operations are transfered from the Tx_Data to the Rx_Data variables is defined by the Tx_Clock variable.
+This point is also referred to as the `bus communication point`.
+A bus communication point and a regular communication point can take place at the same time, but should be considered as independent by the importer.
+In contrast to a regular communication point where input/output variables used in step mode are exchanged, only the clocked Tx/Rx data variables needs to be considered by the importer.
 
-This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:
+For defining the point in time of a bus comminucation point, `time-based` or `triggered` clocks can be used for the Tx_Clock variable.
+Hence the clock type can influences the bus simulation significantly, the differences should be taken into account.
+
+===== Time-based Tx Clock Variables [[low-cut-tx-time-based-clock-variables]]
+A time-based Tx Clock variable allows networked FMUs to annouce a bus communication point for the next simulation step in advanced.
+
+.Example Bus Communication Points announced by aperiodic time-based Tx_Clock variables.
+[#low-cut-communication-points]
+image::low_cut_communication_points.svg[width=100%, align="center"]
+
+The announced Tx time however does not mean that a bus operation really has to be transferred, but that the networked FMUs should enter the event mode at that time.
+An importer has to determine proper communication step sizes to synchronize networked FMUs at the Tx time.
+
+_[Note: While simulation it can happen that no Tx_Data has to be transferred to the Rx_Data variable at the announced Tx time. In this case the retured 'valueSize' of the Tx_Data variable is 0._
+
+Even the `causality` of a time-based Tx_Clock variable and a triggered Rx_Clock variable are each `input` it is allowed to connect both, since a time-base clock variable of an FMU is considered only to be a request to the importer to provide an attendant clock source.
+
+.Consideration of time-base Tx_Clock connections.
+[#low-cut-time-based-port-connection]
+image::low_cut_time_based_port_connection.svg[width=40%, align="center"]  
+
+_[Note: For clarity always a direct connection line between the Tx_Clock and Rx_Clock variables is shown in figures of this document._
+
+A time-based clock can be `periodic` or `aperiodic`.
+Both allows to define bus comunication points independently from the regular communication points with fixed or variable distances. 
+The difference between the two clock types is listed in the following table.
+
+.Time-based clock properties.
+[#table-tx-clock-properties]
+[cols="2,1,7"]
+|====
+h|Clock properties h|intervalVariability h|Description
+|periodic|constant|The bus communication point interval is defined in the modelDescription.xml.
+|periodic|fixed|The bus communication point interval is defined in the modelDescription.xml or must be provided in Initialization Mode.
+|periodic|tunable|The bus communication point interval is defined in the modelDescription.xml or must be provided in Initialization Mode and can be changed in EventMode.
+|aperiodic|changing|The bus communication point interval must be provided in Initialization Mode and can be changed in EventMode if this Clock ticked.
+|aperiodic|countdown|The bus communication point interval must be provided in Initialization Mode and can be changed in every EventMode.
+|====
+
+Network FMUs using a time-based Tx_Clock variable should set the Co-Simulation attribute `canHandleVariableCommunicationStepSize = "true"` in the model description file, since `fmi3DoStep` is typically called with variable `communicationStepSize`.
+
+===== Triggered Tx Clock Variables [[low-cut-tx-triggered-clock-variables]]
+A `triggered` Tx_Clock variable signals pending bus operations after returning from `fmi3DoStep`.
+Therefore bus communication points and regular communication points coincide and takes place at the same time.
+By using a triggered Tx_Clock the time of a bus communication point cannot be defined independently, but is given by the importer.
+Pendig Tx data shall be signal by returning from fmi3DoStep with the `eventHandlingNeeded` arguments set to `fmi3True`.
+
+.Triggered Tx_Clock/Rx_Clock connection.
+[#low-cut-triggered-port-connection]
+image::low_cut_communication_with_triggered_tx_clock.svg[width=100%, align="center"]  
+
+_[Note: Starting with FMI 3.0 FMUs can return early from fmi3DoStep.
+Network FMUs should not set the `earlyReturn` argument to `fmi3True` to signal a Tx_Clock event, since this would require to set networked FMUs back in time by the importer to hit a bus communication point synchronously in time._
+
+==== Rx Clock Variables [[low-cut-rx-clock-variables]]
+The input clocks (`Rx_Clock`) shall be triggered clocks.
+
+==== Tx/Rx Data Variables [[low-cut-tx-rx-data-variables, Communication Variables]]
+The Tx/Rx variables are of type `fmi3Binary` and contain multiple bus operations, as sent or receive by the FMU.
+If no bus operations shall be sent by a specified Network FMU at a given bus communication point, the size of the corresponding binary `Tx_Data` variable shall be set to zero.
+The senders can choose how many bus operations are buffered and/or for how long operations are buffered before activating an output clock to trigger the actual sending of these operations.
+This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication.
+
+==== Selecting the type of Tx Clock[[low-cut-selecting_tx_variables]]
+Selecting suitable Tx variables allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:
 
  - While aperiodic clocks allow very accurate network simulations, frequently entering `Event Mode` will reduce the network simulation speed.
  - Using periodic clocks and queuing the operations to be transmitted reduces the number of `Event Mode` entries and speeds up the simulation at the cost of simulation accuracy.
  - One could use (structural) parameters to define the accuracy of aperiodic clocks, allowing control of the simulation accuracy and performance with the same FMU.
-
-The input clocks (`Rx_Clock`) shall be triggered clocks.
-
-The importer will then connect and merge output clock activations, even those of different clock types, and forward them to the input clocks, as required by the network semantics.
-
-===== Bus Communication Points [[low-cut-bus-communication-points]]
-For transferring bus operations from the `Tx_Data` to the `Rx_Data` variables, networked FMUs must be synchronous in time.
-This point in time is also referred to as the Bus Communication Point.
-The importer must ensure that networked FMUs hit such points synchronously by calling `fmi3DoStep` with a proper `communicationStepSize` argument.
-To determine the `communicationStepSize` for the first simulation step, the importer gets the Tx clock time in `Initialization Mode` as follows:
-
-* For aperiodic Tx clocks, the importer calls `fmi3GetInterval`.
-* For periodic Tx clocks, the importer shall evaluate the clock attributes (e.g., `intervalDecimal`) as defined in the model description.
-  If `intervalDecimal` is not defined, the importer shall call `fmi3GetShift`.
-
-Based on the Tx clock intervals received in the `Initialization Mode`, the importer calls `fmi3DoStep` with a determined `communicationStepSize` to reach the next Bus Communication Point.
-After returning from `fmi3DoStep`, the importer has to enter the `Event Mode` by calling `fmi3EnterEventMode`.
-In `Event Mode`, the importer activates the Tx and Rx clock by calling `fmi3SetClock`.
-The importer then starts to transfer bus operations from the `Tx_Data` to the `Rx_Data` variable (see <<low-cut-tx-rx-data-variables>>).
-
-To determine the `communicationStepSize` for the next simulation step, the importer gets the Tx clock time as follows:
-
-* For aperiodic Tx clocks, the importer calls `fmi3GetInterval`.
-* For periodic Tx clocks, the importer shall evaluate the clock attributes as defined in the model description.
-
-If an FMU wants to respond to a received bus operation in the same time step, then `fmi3GetInterval` must return 0.
-In this case, the importer remains in `Event Mode` and starts a new iteration.
-If an FMU does not know the next Tx clock time for any reason, `fmi3GetInterval` shall return with `qualifier = fmi3IntervalNotYetKnown`.
-
-==== Tx/Rx Data Variables [[low-cut-tx-rx-data-variables, Communication Variables]]
-The Tx/Rx variables are of type `fmi3Binary` and contain multiple bus operations, as sent or receive by the FMU.
-If no bus operations shall be sent by a specified Network FMU at a given Bus Communication Point, the size of the corresponding binary `Tx_Data` variable shall be set to zero.
-The senders can choose how many bus operations are buffered and/or for how long operations are buffered before activating an output clock to trigger the actual sending of these operations.
-This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication.
 
 ==== MIME Types
 Within FMI, every binary FMI variable has a `mimeType`, which indicates the type of data passed as a binary.
