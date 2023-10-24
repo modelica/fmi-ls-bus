@@ -203,16 +203,19 @@ A time-based Tx Clock variable allows networked FMUs to annouce a bus communicat
 [#low-cut-communication-points]
 image::low_cut_communication_points.svg[width=100%, align="center"]
 
-The announced Tx time however does not mean that a bus operation really has to be transferred, but that the networked FMUs should enter the event mode at that time.
-An importer has to determine proper communication step sizes to synchronize networked FMUs at the Tx time.
+The announced Tx time however does not mean that a bus operation really has to be transferred, but that the connected networked FMUs should enter the event mode at that time.
+An importer has to determine proper communication step sizes to synchronize networked FMUs at the announced Tx time.
 
-_[Note: While simulation it can happen that no Tx_Data has to be transferred to the Rx_Data variable at the announced Tx time. In this case the retured 'valueSize' of the Tx_Data variable is 0._
+_[Note: While simulation it can happen that no Tx_Data has to be transferred to the Rx_Data variable at the announced Tx time. In this case the retured 'valueSize' of the Tx_Data variable is 0.]_
 
 Even the `causality` of a time-based Tx_Clock variable and a triggered Rx_Clock variable are each `input` it is allowed to connect both, since a time-base clock variable of an FMU is considered only to be a request to the importer to provide an attendant clock source.
-
+     
 .Consideration of time-base Tx_Clock connections.
 [#low-cut-time-based-port-connection]
 image::low_cut_time_based_port_connection.svg[width=40%, align="center"]  
+
+Because of the common clock source however, both clock variables (Rx/Tx) might get active at the same time.
+To make sure that the Rx_Data variables is set properly, an importer has to activate the Rx_Clock variable under consideration of Tx_Data/Rx_Data dependency.
 
 _[Note: For clarity always a direct connection line between the Tx_Clock and Rx_Clock variables is shown in figures of this document._
 
@@ -222,7 +225,7 @@ The difference between the two clock types is listed in the following table.
 
 .Time-based clock properties.
 [#table-tx-clock-properties]
-[cols="2,1,7"]
+[cols="3,1,7"]
 |====
 h|Clock properties h|intervalVariability h|Description
 |periodic|constant|The bus communication point interval is defined in the modelDescription.xml.
@@ -235,17 +238,16 @@ h|Clock properties h|intervalVariability h|Description
 Network FMUs using a time-based Tx_Clock variable should set the Co-Simulation attribute `canHandleVariableCommunicationStepSize = "true"` in the model description file, since `fmi3DoStep` is typically called with variable `communicationStepSize`.
 
 ===== Triggered Tx Clock Variables [[low-cut-tx-triggered-clock-variables]]
-A `triggered` Tx_Clock variable signals pending bus operations after returning from `fmi3DoStep`.
-Therefore bus communication points and regular communication points coincide and takes place at the same time.
-By using a triggered Tx_Clock the time of a bus communication point cannot be defined independently, but is given by the importer.
+A `triggered` clock basically allows to signal events when returning from `fmi3DoStep` either by using an `Early Return` or when the requested communication point at latexmath:[t_{i+1}] was reached.
+Since signaling Tx_Clock events with an early return at latexmath:[t < t_{i+1}] would require to set connected networked FMUs back in time to reach bus communication points synchronously, a triggered Tx_Clock variable must only be set when returning from `fmi3DoStep` with the `earlyReturn` argument set to `fmi3False`.
+In consequence, bus communication points and regular communication points coincide and takes place at the same time.
+The time of a bus communication point can therefore not be defined independently, but is given by the importer.
 Pendig Tx data shall be signal by returning from fmi3DoStep with the `eventHandlingNeeded` arguments set to `fmi3True`.
 
 .Triggered Tx_Clock/Rx_Clock connection.
 [#low-cut-triggered-port-connection]
 image::low_cut_communication_with_triggered_tx_clock.svg[width=100%, align="center"]  
 
-_[Note: Starting with FMI 3.0 FMUs can return early from fmi3DoStep.
-Network FMUs should not set the `earlyReturn` argument to `fmi3True` to signal a Tx_Clock event, since this would require to set networked FMUs back in time by the importer to hit a bus communication point synchronously in time._
 
 ==== Rx Clock Variables [[low-cut-rx-clock-variables]]
 The input clocks (`Rx_Clock`) shall be triggered clocks.
