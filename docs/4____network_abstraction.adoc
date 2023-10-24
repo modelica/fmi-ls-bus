@@ -179,7 +179,7 @@ To summarize, four variables with the following name schema are used:
 The input variable `BusName::Rx_Data` is clocked by the clock variable `BusName::Rx_Clock`, both with `causality` set to `input`.
 
 The output variable `BusName::Tx_Data` is clocked by the clock variable `BusName::Tx_Clock`. 
-The `causality` for the Tx_Data variable shall be `output`, but depends of the selected clock type for the Tx_Clock variable (see <<low-cut-tx-time-based-clock-variables, Tx Clock Variables>>).  
+The `causality` for the Tx_Data variable shall be `output`, but for the Tx_Clock variable it depends of the selected clock type (see <<low-cut-tx-time-based-clock-variables, Tx Clock Variables>>).  
 
 Both variable pairs must be listed as member of its corresponding <<low-cut-bus-terminal, Bus Terminal>>.
 How to set the `BusName` placeholder is bus-type-specific and therefore described in the bus-specific chapters.
@@ -217,7 +217,7 @@ image::low_cut_time_based_port_connection.svg[width=40%, align="center"]
 Because of the common clock source however, both clock variables (Rx/Tx) might get active at the same time.
 To make sure that the Rx_Data variables is set properly, an importer has to activate the Rx_Clock variable under consideration of Tx_Data/Rx_Data dependency.
 
-_[Note: For clarity always a direct connection line between the Tx_Clock and Rx_Clock variables is shown in figures of this document._
+_[Note: For clarity always a direct connection line between the Tx_Clock and Rx_Clock variables is shown in figures of this document.]_
 
 A time-based clock can be `periodic` or `aperiodic`.
 Both allows to define bus comunication points independently from the regular communication points with fixed or variable distances. 
