@@ -312,11 +312,10 @@ typedef fmi3UInt8 fmi3LsBusCanStatusKind;
 typedef struct
 {
     fmi3LsBusOperationHeader header; /**< Message header */
-    fmi3LsBusCanId id;               /**<  CAN message ID. */
     fmi3LsBusCanStatusKind status;   /**<  Status Kind. */
 } fmi3LsBusCanOperationStatus;
 
-static_assert(sizeof(fmi3LsBusCanOperationStatus) == (5 + 4 + 1),
+static_assert(sizeof(fmi3LsBusCanOperationStatus) == (5 + 1),
               "'fmi3LsBusCanOperationStatus' does not match the expected data size");
 
 /**
