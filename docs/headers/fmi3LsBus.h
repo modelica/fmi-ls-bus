@@ -38,8 +38,10 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----------------------------------------------------------------------------
 */
 
-#include "fmi3PlatformTypes.h"
 #include <assert.h>
+
+#include "fmi3PlatformTypes.h"
+
 
 #ifdef __cplusplus
 extern "C"
@@ -47,34 +49,35 @@ extern "C"
 #endif
 
 /**
- * FMI virtual bus operation which indicates an operation format error.
+ * \brief FMI virtual bus operation of type 'Format Error'.
  */
 #define FMI3_LS_BUS_OP_FORMAT_ERROR ((fmi3LsBusOperationType)0x0001)
 
 /**
- * Data type for OP codes.
+ * \brief Data type representing the type of a bus operation.
  */
 typedef fmi3UInt8 fmi3LsBusOperationType;
 
 /**
- * \brief FMI data type representing the length of payload data.
+ * \brief Data type representing the length of a bus operation.
  */
 typedef fmi3UInt32 fmi3LsBusOperationLength;
 
 
 #pragma pack(1)
+
 /**
- * Operation header data type.
+ * \brief FMI virtual bus operation header structure.
  */
 typedef struct
 {
-    fmi3LsBusOperationType type; /**< Operation type. */
+    fmi3LsBusOperationType type;     /**< Type of the operation. */
     fmi3LsBusOperationLength length; /**< Total length of the operation. */
 } fmi3LsBusOperationHeader;
 
 #pragma pack()
 
-/* Checks the size of 'fmi3LsBusOperationHeader' to make sure the instruction #pragma pack(1) is taken into account  */
+/* Checks the size of 'fmi3LsBusOperationHeader' to make sure the instruction #pragma pack(1) is taken into account. */
 static_assert(sizeof(fmi3LsBusOperationHeader) == 5, "'fmi3LsBusOperationHeader' does not match the expected data size");
 
 #ifdef __cplusplus
