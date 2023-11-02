@@ -275,13 +275,15 @@ The attribute `name` of the `<Terminal>` must match the name of the specified ne
 If the specified FMU is connected to more than one network, there shall be exactly one `<Terminal>` for each network.
 
 Attribute definitions::
- * `terminalKind` must be set to `bus`.
- * `matchingRule` must be set to `bus`.
+ * `terminalKind` must be set to `org.fmi-ls-bus.network-terminal`.
+ * `matchingRule` must be set to `org.fmi-ls-bus.transceiver`.
  * `name` is the network name, e.g., `Powertrain`, see <<low-cut-example, example>> and constraints.
 
 Element definitions::
  * `BusName::Rx_Data` and `BusName::Tx_Data` and their clocks `BusName::Rx_Clock` and `BusName::Tx_Clock` are exposed in the `modelDescription.xml`, they must be listed as `<TerminalMemberVariable>` elements here.
  * There must be no `<TerminalStreamMemberVariable>` element.
+
+The `matchingRule` of type `org.fmi-ls-bus.transceiver` is specified as: `Tx_{Data|Clock}` variables shall be connected to `Rx_{Data|Clock}` variables and vice versa, whereby the variable type shall be equal.
 
 The <<#figure-frame-variables-terminals-lowcut, following figure>> shows a FMU with four variables `Tx_Data`, `Tx_Clock`, `Rx_Data`, `Rx_Clock` that are aggregated to a `<Terminal>` named _Bus Terminal_:
 

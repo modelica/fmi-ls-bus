@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fmiTerminalsAndIcons fmiVersion="3.0">
   <Terminals>
-    <Terminal terminalKind="bus" name="Powertrain" matchingRule="bus"
+    <Terminal terminalKind="org.fmi-ls-bus.network-terminal" name="Powertrain" matchingRule="org.fmi-ls-bus.transceiver"
         description="Powertrain CAN bus terminal definition">
       <TerminalMemberVariable variableKind="signal"
         variableName="Powertrain::Rx_Clock" />
