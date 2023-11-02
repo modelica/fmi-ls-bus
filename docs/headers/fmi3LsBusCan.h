@@ -38,8 +38,9 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----------------------------------------------------------------------------
 */
 
-#include "fmi3lsBus.h"
 #include <assert.h>
+
+#include "fmi3LsBus.h"
 
 #ifdef _MSC_VER
 #pragma warning(push)
