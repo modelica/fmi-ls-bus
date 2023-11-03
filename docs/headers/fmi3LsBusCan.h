@@ -38,12 +38,14 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----------------------------------------------------------------------------
 */
 
-#include "fmi3lsBus.h"
 #include <assert.h>
+
+#include "fmi3LsBus.h"
 
 #ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable : 4200)
+#pragma warning(disable : 4815)
 #endif
 
 #ifdef __cplusplus
@@ -51,314 +53,403 @@ extern "C"
 {
 #endif
 
-/***************************************************
-  CAN bus specific OP code 
-****************************************************/
 
 /**
- * Initiates the transmission of CAN frames.
+ * CAN bus-specific operation codes.
+ */
+
+/**
+ * \brief FMI virtual bus operation of type 'CAN Transmit'.
+ *
+ * Indicates the transmission of a single CAN frame.
  */
 #define FMI3_LS_BUS_CAN_OP_CAN_TRANSMIT ((fmi3LsBusOperationType)0x0010)
 
 /**
- * Represents an operation for the transmission of a CAN FD frame.
+ * \brief FMI virtual bus operation of type 'CAN FD Transmit'.
+ *
+ * Indicates the transmission of a single CAN FD frame.
  */
 #define FMI3_LS_BUS_CAN_OP_CANFD_TRANSMIT ((fmi3LsBusOperationType)0x0011)
 
-/**
- * Represents an operation for the transmission of a CAN XL frame.
- */
+ /**
+  * \brief FMI virtual bus operation of type 'CAN XL Transmit'.
+  *
+  * Indicates the transmission of a single CAN XL frame.
+  */
 #define FMI3_LS_BUS_CAN_OP_CANXL_TRANSMIT ((fmi3LsBusOperationType)0x0012)
 
 /**
- * Signals successful receipt of a transmitted CAN, CAN FD and CAN XL frame to simulate a CAN acknowledgment behavior.
+ * \brief FMI virtual bus operation of type 'Confirm'.
+ *
+ * Indicates that a CAN frame was successfully transmitted on the virtual bus.
  */
 #define FMI3_LS_BUS_CAN_OP_CONFIRM ((fmi3LsBusOperationType)0x0020)
 
 /**
- * The Arbitration Lost operation indicates that a CAN frame could not be sent immediately and was therefore
+ * \brief FMI virtual bus operation of type 'Arbitration Lost'.
+ *
+ * Indicates that a CAN frame could not be sent immediately and was therefore
  * discarded by the Bus Simulation.
  */
 #define FMI3_LS_BUS_CAN_OP_ARBITRATION_LOST ((fmi3LsBusOperationType)0x0030)
 
 /**
- * Represents an operation for simulated bus errors.
+ * \brief FMI virtual bus operation of type 'Bus Error'.
+ *
+ * Indicates that an error occurred on the virtual bus.
  */
 #define FMI3_LS_BUS_CAN_OP_CAN_BUS_ERROR ((fmi3LsBusOperationType)0x0031)
 
 /**
- * Represents an operation for the configuration of a Bus Simulation. In detail, the configuration of a CAN, CAN FD
- * and CAN XL baud rate is possible. Also the configuration of further options, like buffer handling, is supported
- * by this operation.
+ * \brief FMI virtual bus operation of type 'Configuration'.
+ *
+ * Performs configuration of the bus simulation.
+ * The configuration of a CAN, CAN FD and CAN XL baud rate
+ * as well as further options, such as like arbitration behavior, is supported by this operation.
  */
 #define FMI3_LS_BUS_CAN_OP_CONFIGURATION ((fmi3LsBusOperationType)0x0040)
 
 /**
- * FMI virtual bus operation which indicates a status operation.
+ * \brief FMI virtual bus operation of type 'Status'.
+ *
+ * Indicates a change in status of a Network FMU.
  */
 #define FMI3_LS_BUS_CAN_OP_STATUS ((fmi3LsBusOperationType)0x0041)
 
 /**
- * Represents an operation for triggering a bus-specific wake up.
+ * \brief FMI virtual bus operation of type 'Wakeup'.
+ *
+ * Triggers a bus-specific wake up.
  */
 #define FMI3_LS_BUS_CAN_OP_WAKEUP ((fmi3LsBusOperationType)0x0042)
 
 
-
-/***************************************************
-Types for CAN specific bus operations
-****************************************************/
+/**
+ * CAN bus-specific operation types.
+ */
 
 #pragma pack(1)
 
 /**
- * Data type representing the CAN identifer.
+ * \brief Data type representing a CAN identifier.
  */
 typedef fmi3UInt32 fmi3LsBusCanId;
 
 /**
- * Data type for defining a standard or extended messages.
+ * \brief Data type indicating whether a frame is a standard or extended message.
  */
 typedef fmi3UInt8 fmi3LsBusCanIde;
 
 /**
- * Data type for defining a Remote Transmission Request frame.
+ * \brief Data type indicating whether a frame is a Remote Transmission Request.
  */
 typedef fmi3UInt8 fmi3LsBusCanRtr;
 
 /**
- * Data type for data length.
+ * \brief Data type representing the CAN frame payload length.
  */
 typedef fmi3UInt16 fmi3LsBusCanDataLength;
 
 /**
- * Data type for data.
+ * \brief Data type representing the CAN frame payload data.
  */
 typedef fmi3UInt8 fmi3LsBusCanData;
 
 /**
- * Can transmit operation.
+ * \brief FMI virtual bus operation structure of type 'CAN Transmit'.
  */
 typedef struct
 {
-    fmi3LsBusOperationHeader header; /**< Message header */
-    fmi3LsBusCanId  id; /**<  CAN message ID. */
-    fmi3LsBusCanIde ide; /**< Standard (11-bit) or Extended (29-bit) message identifier. */
-    fmi3LsBusCanRtr rtr; /**< Remote Transmission Request frame. */
+    fmi3LsBusOperationHeader header;   /**< Operation header. */
+    fmi3LsBusCanId  id;                /**< CAN message ID. */
+    fmi3LsBusCanIde ide;               /**< Standard (11-bit) or Extended (29-bit) message identifier. */
+    fmi3LsBusCanRtr rtr;               /**< Remote Transmission Request frame. */
     fmi3LsBusCanDataLength dataLength; /**< Data length. */
-    fmi3LsBusCanData data[]; /**< Data. */
+    fmi3LsBusCanData data[];           /**< Data. */
 } fmi3LsBusCanOperationCanTransmit;
 
 static_assert(sizeof(fmi3LsBusCanOperationCanTransmit) == (5 + 4 + 1 + 1 + 2),
               "'fmi3LsBusCanOperationCanTransmit' does not match the expected data size");
 
 /**
- * Data type for defining a Bit Rate Switch.
+ * \brief Data type indicating whether a Bit Rate Switch occurs during transmission.
  */
 typedef fmi3UInt8 fmi3LsBusCanBrs;
 
 /**
- * Data type for defining a Error State Indicator.
+ * \brief Data type representing the Error State Indicator.
  */
 typedef fmi3UInt8 fmi3LsBusCanEsi;
 
 /**
- * Can FD transmit operation.
+ * \brief FMI virtual bus operation structure of type 'CAN FD Transmit'.
  */
 typedef struct
 {
-    fmi3LsBusOperationHeader header;   /**< Message header */
-    fmi3LsBusCanId id;                 /**<  CAN message ID. */
+    fmi3LsBusOperationHeader header;   /**< Operation header. */
+    fmi3LsBusCanId id;                 /**< CAN message ID. */
     fmi3LsBusCanIde ide;               /**< Standard (11-bit) or Extended (29-bit) message identifier. */
     fmi3LsBusCanBrs brs;               /**< Bit Rate Switch. */
-    fmi3LsBusCanEsi esi;               /**< Error State Idicator. */
+    fmi3LsBusCanEsi esi;               /**< Error State Indicator. */
     fmi3LsBusCanDataLength dataLength; /**< Data length. */
-    fmi3LsBusCanData data[]; /**< Data. */
+    fmi3LsBusCanData data[];           /**< Data. */
 } fmi3LsBusCanOperationCanFdTransmit;
 
 static_assert(sizeof(fmi3LsBusCanOperationCanFdTransmit) == (5 + 4 + 1 + 1 + 1 + 2),
               "'fmi3LsBusCanOperationCanFdTransmit' does not match the expected data size");
 
 /**
- * Data type for defining a Simple Extended Content.
+ * \brief Data type representing the Simple Extended Content.
  */
 typedef fmi3UInt8 fmi3LsBusCanSec;
 
 /**
- * Data type for defining a Service Data Unit Type.
+ * \brief Data type representing the Service Data Unit Type.
  */
 typedef fmi3UInt8 fmi3LsBusCanSdt;
 
 /**
- * Data type for defining a Virtual CAN Network ID.
+ * \brief Data type representing the Virtual CAN Network ID.
  */
 typedef fmi3UInt8 fmi3LsBusCanVcId;
 
 /**
- * Data type for defining an Acceptance Field.
+ * \brief Data type representing the Acceptance Field.
  */
 typedef fmi3UInt32 fmi3LsBusCanAf;
 
 /**
- * Can XL transmit operation.
+ * \brief FMI virtual bus operation structure of type 'CAN XL Transmit'.
  */
 typedef struct
 {
-    fmi3LsBusOperationHeader header;   /**< Message header */
-    fmi3LsBusCanId id;                 /**<  CAN message ID. */
+    fmi3LsBusOperationHeader header;   /**< Operation header. */
+    fmi3LsBusCanId id;                 /**< CAN message ID. */
     fmi3LsBusCanIde ide;               /**< Standard (11-bit) or Extended (29-bit) message identifier. */
     fmi3LsBusCanSec sec;               /**< Simple Extended Content. */
     fmi3LsBusCanSdt sdt;               /**< Service Data Unit Type. */
     fmi3LsBusCanVcId vcid;             /**< Virtual CAN Network ID. */
     fmi3LsBusCanAf af;                 /**< Acceptance Field. */
     fmi3LsBusCanDataLength dataLength; /**< Data length. */
-    fmi3LsBusCanData data[]; /**< Data.*/
+    fmi3LsBusCanData data[];           /**< Data.*/
 } fmi3LsBusCanOperationCanXlTransmit;
 
 static_assert(sizeof(fmi3LsBusCanOperationCanXlTransmit) == (5 + 4 + 1 + 1 + 1 + 1 + 4 + 2),
               "'fmi3LsBusCanOperationCanXlTransmit' does not match the expected data size");
 
 /**
- * Can confirm operation.
+ * \brief FMI virtual bus operation structure of type 'Confirm'.
  */
 typedef struct
 {
-    fmi3LsBusOperationHeader header; /**< Message header */
-    fmi3LsBusCanId id; /**<  CAN message ID. */
+    fmi3LsBusOperationHeader header; /**< Operation header */
+    fmi3LsBusCanId id;               /**< CAN message ID. */
 } fmi3LsBusCanOperationConfirm;
 
 static_assert(sizeof(fmi3LsBusCanOperationConfirm) == (5 + 4),
               "'fmi3LsBusCanOperationConfirm' does not match the expected data size");
 
 /**
- * Can arbitration lost operation.
+ * \brief FMI virtual bus operation structure of type 'Arbitration Lost'.
  */
 typedef struct
 {
-    fmi3LsBusOperationHeader header; /**< Message header */
-    fmi3LsBusCanId id;               /**<  CAN message ID. */
+    fmi3LsBusOperationHeader header; /**< Operation header */
+    fmi3LsBusCanId id;               /**< CAN message ID. */
 } fmi3LsBusCanOperationArbitrationLost;
 
 static_assert(sizeof(fmi3LsBusCanOperationArbitrationLost) == (5 + 4),
               "'fmi3LsBusCanOperationArbitrationLost' does not match the expected data size");
 
 /**
- * FMI data type to be used for the CAN bus error code.
+ * \brief Data type representing a CAN bus error code.
  */
 typedef fmi3UInt8 fmi3LsBusCanErrorCode;
 
+/**
+ * \brief Represents a CAN bus error of type 'BIT_ERROR'.
+ *
+ *  Within the CAN standard, the sender also receives transmitted data for comparison.
+ *  If the sent and received bits are not identical, this failure results in a Bit Error.
+ */
 #define FMI3_LS_BUS_CAN_BUSERROR_PARAM_ERROR_CODE_BIT_ERROR \
     ((fmi3LsBusCanErrorCode)0x1)
 
+/**
+ * \brief Represents a CAN bus error of type 'BIT_STUFFING_ERROR'.
+ *
+ *  A bit stuffing error occurs if 6 consecutive bits of equal value are detected on the bus.
+ */
 #define FMI3_LS_BUS_CAN_BUSERROR_PARAM_ERROR_CODE_BIT_STUFFING_ERROR \
     ((fmi3LsBusCanErrorCode)0x2)
 
+/**
+ * \brief Represents a CAN bus error of type 'FORM_ERROR'.
+ *
+ * Occurs during a violation of End-of-Frame (EOF) format.
+ */
 #define FMI3_LS_BUS_CAN_BUSERROR_PARAM_ERROR_CODE_FORM_ERROR \
     ((fmi3LsBusCanErrorCode)0x3)
 
+/**
+ * \brief Represents a CAN bus error of type 'CRC_ERROR'.
+ *
+ * Occurs when the data of a frame and the related checksum do not harmonize.
+ */
 #define FMI3_LS_BUS_CAN_BUSERROR_PARAM_ERROR_CODE_CRC_ERROR \
     ((fmi3LsBusCanErrorCode)0x4)
 
+/**
+ * \brief Represents a CAN bus error of type 'ACK_ERROR'.
+ *
+ * At least one receiving node identifies an invalid CAN frame.
+ */
 #define FMI3_LS_BUS_CAN_BUSERROR_PARAM_ERROR_CODE_ACK_ERROR \
     ((fmi3LsBusCanErrorCode)0x5)
 
+/**
+ * \brief Represents a CAN bus error of type 'BROKEN_ERROR_FRAME'.
+ *
+ * Represents an invalid transmission of a CAN error frame.
+ * Within CAN, an error frame is transmitted by any unit on detection of a bus error.
+ */
 #define FMI3_LS_BUS_CAN_BUSERROR_PARAM_ERROR_CODE_BROKEN_ERROR_FRAME \
     ((fmi3LsBusCanErrorCode)0x6)
 
 /**
- * FMI data type to be used for the CAN bus error flag.
+ * \brief Data type representing a CAN bus error flag indicating which node detected the error first.
  */
 typedef fmi3UInt8 fmi3LsBusCanErrorFlag;
 
+/**
+ * \brief Indicates that a specified Network FMU is detecting the given Bus Error first.
+ */
 #define FMI3_LS_BUS_CAN_BUSERROR_PARAM_ERROR_FLAG_PRIMARY_ERROR_FLAG ((fmi3LsBusCanErrorFlag)0x1)
 
+/**
+ * \brief Indicates that a specified Network FMU is reacting on a Bus Error and does not detect it.
+ */
 #define FMI3_LS_BUS_CAN_BUSERROR_PARAM_ERROR_FLAG_SECONDARY_ERROR_FLAG ((fmi3LsBusCanErrorFlag)0x2)
 
 /**
- * Data type for defining a sender or receiver situation.
+ * \brief Data type indicating whether a bus error occurred in response to a transmit operation of this Network FMU.
  */
 typedef fmi3UInt8 fmi3LsBusCanIsSender;
 
 /**
- * Can bus error operation.
+ * \brief FMI virtual bus operation structure of type 'Bus Error'.
  */
 typedef struct
 {
-    fmi3LsBusOperationHeader header; /**< Message header */
-    fmi3LsBusCanId id;               /**<  CAN message ID. */
-    fmi3LsBusCanErrorCode errorCode; /**<  Bus Error Code. */
-    fmi3LsBusCanErrorFlag errorFlag; /**<  Bus Error Flag. */
-    fmi3LsBusCanIsSender isSender;   /**<  Is Sender. */
+    fmi3LsBusOperationHeader header; /**< Operation header. */
+    fmi3LsBusCanId id;               /**< CAN message ID. */
+    fmi3LsBusCanErrorCode errorCode; /**< Bus error code. */
+    fmi3LsBusCanErrorFlag errorFlag; /**< Bus error flag. */
+    fmi3LsBusCanIsSender isSender;   /**< Whether the error occurred in response to a transmission of this FMU. */
 } fmi3LsBusCanOperationBusError;
 
 static_assert(sizeof(fmi3LsBusCanOperationBusError) == (5 + 4 + 1 + 1 + 1),
               "'fmi3LsBusCanOperationBusError' does not match the expected data size");
 
 /**
- * FMI data type to be used for the CAN status kind.
+ * \brief Data type indicating the status of a CAN node.
  */
 typedef fmi3UInt8 fmi3LsBusCanStatusKind;
 
+/**
+ * \brief Indicates that the CAN node is in state 'ERROR_ACTIVE'.
+ */
 #define FMI3_LS_BUS_CAN_STATUS_PARAM_STATUS_KIND_ERROR_ACTIVE ((fmi3LsBusCanStatusKind)0x1)
 
+/**
+ * \brief Indicates that the CAN node is in state 'ERROR_PASSIVE'.
+ */
 #define FMI3_LS_BUS_CAN_STATUS_PARAM_STATUS_KIND_ERROR_PASSIVE ((fmi3LsBusCanStatusKind)0x2)
 
+/**
+ * \brief Indicates that the CAN node is in state 'BUS_OFF'.
+ */
 #define FMI3_LS_BUS_CAN_STATUS_PARAM_STATUS_KIND_BUS_OFF ((fmi3LsBusCanStatusKind)0x3)
 
 /**
- * Can status operation.
+ * \brief FMI virtual bus operation structure of type 'Status'.
  */
 typedef struct
 {
-    fmi3LsBusOperationHeader header; /**< Message header */
-    fmi3LsBusCanId id;               /**<  CAN message ID. */
-    fmi3LsBusCanStatusKind status;   /**<  Status Kind. */
+    fmi3LsBusOperationHeader header; /**< Operation header. */
+    fmi3LsBusCanStatusKind status;   /**< Status of the FMU. */
 } fmi3LsBusCanOperationStatus;
 
-static_assert(sizeof(fmi3LsBusCanOperationStatus) == (5 + 4 + 1),
+static_assert(sizeof(fmi3LsBusCanOperationStatus) == (5 + 1),
               "'fmi3LsBusCanOperationStatus' does not match the expected data size");
 
 /**
- * FMI data type to be used for baudrate settings.
+ * \brief Data type representing a CAN baud rate in bit/s.
  */
 typedef fmi3UInt32 fmi3LsBusCanBaudrate;
 
 /**
- * FMI data type to be used for the configuration parameter type.
+ * \brief Data type representing the parameter configured with a configuration operation.
  */
 typedef fmi3UInt8 fmi3LsBusCanConfigParameterType;
 
 /**
- * Definitions of configuration parameter type.
+ * \brief Indicates the configuration of the CAN baud rate.
+ * \note The baud rate is configured using the field 'baudrate'.
  */
 #define FMI3_LS_BUS_CAN_CONFIG_PARAM_TYPE_CAN_BAUDRATE ((fmi3LsBusCanConfigParameterType)0x1)
+
+/**
+ * \brief Indicates the configuration of the CAN FD baud rate.
+ * \note The baud rate is configured using the field 'baudrate'.
+ */
 #define FMI3_LS_BUS_CAN_CONFIG_PARAM_TYPE_CANFD_BAUDRATE ((fmi3LsBusCanConfigParameterType)0x2)
+
+/**
+ * \brief Indicates the configuration of the CAN XL baud rate.
+ * \note The baud rate is configured using the field 'baudrate'.
+ */
 #define FMI3_LS_BUS_CAN_CONFIG_PARAM_TYPE_CANXL_BAUDRATE ((fmi3LsBusCanConfigParameterType)0x3)
+
+/**
+ * \brief Indicates the configuration of the arbitration lost behavior.
+ * \note The behavior is configured using the field 'arbitrationLostBehavior'.
+ */
 #define FMI3_LS_BUS_CAN_CONFIG_PARAM_TYPE_ARBITRATION_LOST_BEHAVIOR ((fmi3LsBusCanConfigParameterType)0x4)
 
 /**
- * FMI data type to be used for the CAN configuration options.
+ * \brief Data type representing the arbitration lost behavior.
  */
 typedef fmi3UInt8 fmi3LsBusCanArbitrationLostBehavior;
 
+/**
+ * \brief Represents the arbitration lost behavior 'BUFFER_AND_RETRANSMIT':
+ *  Transmit operations shall be buffered by the Bus Simulation.
+ */
 #define FMI3_LS_BUS_CAN_CONFIG_PARAM_ARBITRATION_LOST_BEHAVIOR_BUFFER_AND_RETRANSMIT \
     ((fmi3LsBusCanArbitrationLostBehavior)0x1)
 
+/**
+ * \brief Represents the arbitration lost behavior 'DISCARD_AND_NOTIFY':
+ *  Transmit operations shall be discarded and the specified Network FMU shall be notified
+ *  by the Bus Simulation using an 'Arbitration Lost' operation.
+ */
 #define FMI3_LS_BUS_CAN_CONFIG_PARAM_ARBITRATION_LOST_BEHAVIOR_DISCARD_AND_NOTIFY \
     ((fmi3LsBusCanArbitrationLostBehavior)0x2)
 
 /**
- * Can configuration operation.
+ * \brief FMI virtual bus operation structure of type 'Configuration'.
  */
 typedef struct
 {
-    fmi3LsBusOperationHeader header; /**< Message header */
-    fmi3LsBusCanConfigParameterType parameterType; /**< Defines the current configuration parameter.
-                                                        Note: Only one parameter can be set per Configuration operation. */
+    fmi3LsBusOperationHeader header;                                 /**< Operation header. */
+    fmi3LsBusCanConfigParameterType parameterType;                   /**< Defines the current configuration parameter.
+                                                                          \note Only one parameter can be set per Configuration operation. */
     union
     {
-        fmi3LsBusCanBaudrate baudrate;
-        fmi3LsBusCanArbitrationLostBehavior arbitrationLostBehavior;
+        fmi3LsBusCanBaudrate baudrate;                               /**< The configured baud rate. */
+        fmi3LsBusCanArbitrationLostBehavior arbitrationLostBehavior; /**< The configured arbitration lost behavior. */
     };
 } fmi3LsBusOperationCanConfiguration;
 
@@ -366,11 +457,11 @@ static_assert(sizeof(fmi3LsBusOperationCanConfiguration) >= (5 + 4 + 1),
               "'fmi3LsBusOperationCanConfiguration' does not match the expected data size");
 
 /**
- * Can wakeup operation.
+ * \brief FMI virtual bus operation structure of type 'Wakeup'.
  */
 typedef struct
 {
-    fmi3LsBusOperationHeader header; /**< Message header */
+    fmi3LsBusOperationHeader header; /**< Operation header. */
 } fmi3LsBusCanOperationWakeup;
 
 static_assert(sizeof(fmi3LsBusCanOperationWakeup) == (5),
