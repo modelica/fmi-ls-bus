@@ -308,10 +308,6 @@ The following file shows the `<Terminal>` related definition:
 include::examples/X_network4FMI_terminalsAndIcons_lowCut.xml[]
 ----
 
-//=== Network Parameters [[NetworkParameters]]
-//Using structural parameters, FMUs can be parameterized according to importer specifications.
-//This subchapter specifies the structural parameters that each FMU shall provide.
-
 === Bus-Specific Details [[low-cut-bus-specific-details]]
 For each supported bus type, the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> is defined.
 This chapter describes the operations of the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> to enable the simulation of supported bus types.
