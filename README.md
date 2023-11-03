@@ -21,7 +21,6 @@ based on the [FMI][] standard.
 - `headers` -- Header files of the C-API
 - `schema` -- XSD schema for this FMI Layered
 Standard
-- <<README.md#,README.md>> -- This document
 
 ## Copyright and License
 Code and documentation copyright (C) 2008-2011 the MODELISAR consortium and 2012-2023 the Modelica Association Project FMI.
