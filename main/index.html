@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-6d5a733577d606b9a51a8daed2fd323e423140ce,</span>
+<span id="revnumber">version main-34dbc9cabd22b19c75aaaf9e1048c16a81e3847f,</span>
 <span id="revdate">2023-11-07</span>
 </div>
 <div id="toc" class="toc2">
@@ -1179,7 +1179,7 @@ In any case, the attribute <code>name</code> of the <code>&lt;Terminal&gt;</code
 <div class="ulist">
 <ul>
 <li>
-<p><code>terminalKind</code> must be set to <code>bus</code>.</p>
+<p><code>terminalKind</code> must be set to <code>org.fmi-ls-bus.network-terminal</code>.</p>
 </li>
 <li>
 <p><code>matchingRule</code> must be set to <code>bus</code>.</p>
@@ -1230,7 +1230,7 @@ Receiving such frames must then be handled internally to the FMU.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>terminalKind</code> must be set to <code>frame</code>.</p>
+<p><code>terminalKind</code> must be set to <code>org.fmi-ls-bus.frame-terminal</code>.</p>
 </li>
 <li>
 <p><code>matchingRule</code> must be set to <code>bus</code>.</p>
@@ -1276,7 +1276,7 @@ The name of this variable is composed as <a href="#ClockVariable"><code>BusName:
 <div class="ulist">
 <ul>
 <li>
-<p><code>terminalKind</code> must be set to <code>pdu</code>.</p>
+<p><code>terminalKind</code> must be set to <code>org.fmi-ls-bus.pdu-terminal</code>.</p>
 </li>
 <li>
 <p><code>matchingRule</code> must be set to <code>bus</code>.</p>
@@ -1419,22 +1419,22 @@ BO_ 512 ecuState: 4 ECU
 <pre class="highlightjs highlight"><code class="language-XML hljs" data-lang="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;fmiTerminalsAndIcons fmiVersion="3.0"&gt;
   &lt;Terminals&gt;
-    &lt;Terminal terminalKind="bus" name="Powertrain" matchingRule="bus"
+    &lt;Terminal terminalKind="org.fmi-ls-bus.network-terminal" name="Powertrain" matchingRule="bus"
         description="Powertrain CAN bus defined with dbc file"&gt;
-      &lt;Terminal terminalKind="frame" name="tcuSensors" matchingRule="bus"&gt;
+      &lt;Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="tcuSensors" matchingRule="bus"&gt;
         &lt;TerminalMemberVariable variableKind="signal"
           variableName="Powertrain::tcuSensors_Clock" /&gt;
-        &lt;Terminal terminalKind="pdu" name="tcuSensors" matchingRule="bus"&gt;
+        &lt;Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="tcuSensors" matchingRule="bus"&gt;
           &lt;TerminalMemberVariable variableKind="signal"
             variableName="Powertrain::tcuSensors::tcuSensors::vCar" memberName="vCar" /&gt;
           &lt;TerminalMemberVariable variableKind="signal"
             variableName="Powertrain::tcuSensors::tcuSensors::oilTemp" memberName="oilTemp" /&gt;
         &lt;/Terminal&gt;
       &lt;/Terminal&gt;
-      &lt;Terminal terminalKind="frame" name="tcuState" matchingRule="bus"&gt;
+      &lt;Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="tcuState" matchingRule="bus"&gt;
         &lt;TerminalMemberVariable variableKind="signal"
           variableName="Powertrain::tcuState_Clock" /&gt;
-        &lt;Terminal terminalKind="pdu" name="tcuState" matchingRule="bus"&gt;
+        &lt;Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="tcuState" matchingRule="bus"&gt;
           &lt;TerminalMemberVariable variableKind="signal"
             variableName="Powertrain::tcuState::tcuState::state" memberName="state" /&gt;
           &lt;TerminalMemberVariable variableKind="signal"
@@ -1443,10 +1443,10 @@ BO_ 512 ecuState: 4 ECU
             variableName="Powertrain::tcuState::tcuState::targetGear" memberName="targetGear" /&gt;
         &lt;/Terminal&gt;
       &lt;/Terminal&gt;
-      &lt;Terminal terminalKind="frame" name="ecuState" matchingRule="bus"&gt;
+      &lt;Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="ecuState" matchingRule="bus"&gt;
         &lt;TerminalMemberVariable variableKind="signal"
           variableName="Powertrain::ecuState_Clock" /&gt;
-        &lt;Terminal terminalKind="pdu" name="ecuState" matchingRule="bus"&gt;
+        &lt;Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="ecuState" matchingRule="bus"&gt;
           &lt;TerminalMemberVariable variableKind="signal"
             variableName="Powertrain::ecuState::ecuState::accelPedal" memberName="accelPedal" /&gt;
           &lt;TerminalMemberVariable variableKind="signal"
@@ -1953,10 +1953,10 @@ If the specified FMU is connected to more than one network, there shall be exact
 <div class="ulist">
 <ul>
 <li>
-<p><code>terminalKind</code> must be set to <code>bus</code>.</p>
+<p><code>terminalKind</code> must be set to <code>org.fmi-ls-bus.network-terminal</code>.</p>
 </li>
 <li>
-<p><code>matchingRule</code> must be set to <code>bus</code>.</p>
+<p><code>matchingRule</code> must be set to <code>org.fmi-ls-bus.transceiver</code>.</p>
 </li>
 <li>
 <p><code>name</code> is the network name, e.g., <code>Powertrain</code>, see <a href="#low-cut-example">example</a> and constraints.</p>
@@ -1978,6 +1978,9 @@ If the specified FMU is connected to more than one network, there shall be exact
 </div>
 </dd>
 </dl>
+</div>
+<div class="paragraph">
+<p>The <code>matchingRule</code> of type <code>org.fmi-ls-bus.transceiver</code> is specified as: <code>Tx_{Data|Clock}</code> variables shall be connected to <code>Rx_{Data|Clock}</code> variables and vice versa, whereby the variable type shall be equal.</p>
 </div>
 <div class="paragraph">
 <p>The <a href="#figure-frame-variables-terminals-lowcut">following figure</a> shows a FMU with four variables <code>Tx_Data</code>, <code>Tx_Clock</code>, <code>Rx_Data</code>, <code>Rx_Clock</code> that are aggregated to a <code>&lt;Terminal&gt;</code> named <em>Bus Terminal</em>:</p>
@@ -2024,7 +2027,7 @@ If the specified FMU is connected to more than one network, there shall be exact
 <pre class="highlightjs highlight"><code class="language-XML hljs" data-lang="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;fmiTerminalsAndIcons fmiVersion="3.0"&gt;
   &lt;Terminals&gt;
-    &lt;Terminal terminalKind="bus" name="Powertrain" matchingRule="bus"
+    &lt;Terminal terminalKind="org.fmi-ls-bus.network-terminal" name="Powertrain" matchingRule="org.fmi-ls-bus.transceiver"
         description="Powertrain CAN bus terminal definition"&gt;
       &lt;TerminalMemberVariable variableKind="signal"
         variableName="Powertrain::Rx_Clock" /&gt;
