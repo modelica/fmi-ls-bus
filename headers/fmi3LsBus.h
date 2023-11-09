@@ -77,8 +77,10 @@ typedef struct
 
 #pragma pack()
 
+#if defined(static_assert)
 /* Checks the size of 'fmi3LsBusOperationHeader' to make sure the instruction #pragma pack(1) is taken into account. */
 static_assert(sizeof(fmi3LsBusOperationHeader) == 5, "'fmi3LsBusOperationHeader' does not match the expected data size");
+#endif
 
 #ifdef __cplusplus
 } /* end of extern "C" { */
