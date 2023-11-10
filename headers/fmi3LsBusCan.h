@@ -169,7 +169,7 @@ typedef struct
     fmi3LsBusCanData data[];           /**< Data. */
 } fmi3LsBusCanOperationCanTransmit;
 
-#if defined(static_assert)
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusCanOperationCanTransmit) == (5 + 4 + 1 + 1 + 2),
               "'fmi3LsBusCanOperationCanTransmit' does not match the expected data size");
 #endif
@@ -198,7 +198,7 @@ typedef struct
     fmi3LsBusCanData data[];           /**< Data. */
 } fmi3LsBusCanOperationCanFdTransmit;
 
-#if defined(static_assert)
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusCanOperationCanFdTransmit) == (5 + 4 + 1 + 1 + 1 + 2),
               "'fmi3LsBusCanOperationCanFdTransmit' does not match the expected data size");
 #endif
@@ -239,7 +239,7 @@ typedef struct
     fmi3LsBusCanData data[];           /**< Data.*/
 } fmi3LsBusCanOperationCanXlTransmit;
 
-#if defined(static_assert)
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusCanOperationCanXlTransmit) == (5 + 4 + 1 + 1 + 1 + 1 + 4 + 2),
               "'fmi3LsBusCanOperationCanXlTransmit' does not match the expected data size");
 #endif
@@ -253,7 +253,7 @@ typedef struct
     fmi3LsBusCanId id;               /**< CAN message ID. */
 } fmi3LsBusCanOperationConfirm;
 
-#if defined(static_assert)
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusCanOperationConfirm) == (5 + 4),
               "'fmi3LsBusCanOperationConfirm' does not match the expected data size");
 #endif
@@ -267,7 +267,7 @@ typedef struct
     fmi3LsBusCanId id;               /**< CAN message ID. */
 } fmi3LsBusCanOperationArbitrationLost;
 
-#if defined(static_assert)
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusCanOperationArbitrationLost) == (5 + 4),
               "'fmi3LsBusCanOperationArbitrationLost' does not match the expected data size");
 #endif
@@ -359,7 +359,7 @@ typedef struct
     fmi3LsBusCanIsSender isSender;   /**< Whether the error occurred in response to a transmission of this FMU. */
 } fmi3LsBusCanOperationBusError;
 
-#if defined(static_assert)
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusCanOperationBusError) == (5 + 4 + 1 + 1 + 1),
               "'fmi3LsBusCanOperationBusError' does not match the expected data size");
 #endif
@@ -393,7 +393,7 @@ typedef struct
     fmi3LsBusCanStatusKind status;   /**< Status of the FMU. */
 } fmi3LsBusCanOperationStatus;
 
-#if defined(static_assert)
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusCanOperationStatus) == (5 + 1),
               "'fmi3LsBusCanOperationStatus' does not match the expected data size");
 #endif
@@ -467,7 +467,7 @@ typedef struct
     };
 } fmi3LsBusOperationCanConfiguration;
 
-#if defined(static_assert)
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusOperationCanConfiguration) >= (5 + 4 + 1),
               "'fmi3LsBusOperationCanConfiguration' does not match the expected data size");
 #endif
@@ -480,7 +480,7 @@ typedef struct
     fmi3LsBusOperationHeader header; /**< Operation header. */
 } fmi3LsBusCanOperationWakeup;
 
-#if defined(static_assert)
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusCanOperationWakeup) == (5),
               "'fmi3LsBusCanOperationWakeup' does not match the expected data size");
 #endif

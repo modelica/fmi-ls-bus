@@ -37,8 +37,15 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----------------------------------------------------------------------------
 */
+#if !defined(FMI3_LS_BUS_CHECK_OPERATION_SIZE) && ((defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)) || (defined(__cplusplus) && (__cplusplus >= 201103L)))
+#define FMI3_LS_BUS_CHECK_OPERATION_SIZE 1
+#else
+#define FMI3_LS_BUS_CHECK_OPERATION_SIZE 0
+#endif
 
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ == 201112L) && (FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1)
 #include <assert.h>
+#endif
 
 #include "fmi3PlatformTypes.h"
 
@@ -77,7 +84,7 @@ typedef struct
 
 #pragma pack()
 
-#if defined(static_assert)
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 /* Checks the size of 'fmi3LsBusOperationHeader' to make sure the instruction #pragma pack(1) is taken into account. */
 static_assert(sizeof(fmi3LsBusOperationHeader) == 5, "'fmi3LsBusOperationHeader' does not match the expected data size");
 #endif
