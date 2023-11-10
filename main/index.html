@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-d6cba7c74b92261e28b0d2bb309fec520737609f,</span>
-<span id="revdate">2023-11-07</span>
+<span id="revnumber">version main-3cca2f873269c2c5e7a5cf74b7a8a7ca77c6060e,</span>
+<span id="revdate">2023-11-10</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -696,16 +696,27 @@ document.addEventListener('keydown', (event) => {
 </li>
 <li><a href="#_lin">5.5.2. LIN</a>
 <ul class="sectlevel4">
-<li><a href="#_operations_2">5.5.2.1. Operations</a>
+<li><a href="#_overview_4">5.5.2.1. Overview</a></li>
+<li><a href="#_operations_2">5.5.2.2. Operations</a>
 <ul class="sectlevel5">
-<li><a href="#low-cut-lin-transmit-operation">5.5.2.1.1. Transmit</a></li>
-<li><a href="#low-cut-lin-format-error-operation">5.5.2.1.2. Format Error</a></li>
-<li><a href="#low-cut-lin-bus-error-operation">5.5.2.1.3. Bus Error</a></li>
-<li><a href="#low-cut-lin-configuration-operation">5.5.2.1.4. Configuration</a></li>
-<li><a href="#low-cut-lin-status-operation">5.5.2.1.5. Status</a></li>
-<li><a href="#low-cut-lin-wakeup-operation">5.5.2.1.6. Wake-up</a></li>
+<li><a href="#low-cut-lin-transmit-operation">5.5.2.2.1. Transmit</a></li>
+<li><a href="#low-cut-lin-format-error-operation">5.5.2.2.2. Format Error</a></li>
+<li><a href="#low-cut-lin-bus-error-operation">5.5.2.2.3. Bus Error</a></li>
+<li><a href="#low-cut-lin-configuration-operation">5.5.2.2.4. Configuration</a></li>
+<li><a href="#low-cut-lin-status-operation">5.5.2.2.5. Status</a></li>
+<li><a href="#low-cut-lin-wake-up-operation">5.5.2.2.6. Wake Up</a></li>
 </ul>
 </li>
+<li><a href="#_transmission_and_reception">5.5.2.3. Transmission and Reception</a></li>
+<li><a href="#_detection_of_collisions">5.5.2.4. Detection of Collisions</a></li>
+<li><a href="#_configuration_of_bus_simulation_2">5.5.2.5. Configuration of Bus Simulation</a>
+<ul class="sectlevel5">
+<li><a href="#_baudrate_handling_2">5.5.2.5.1. Baudrate Handling</a></li>
+<li><a href="#_node_definition">5.5.2.5.2. Node Definition</a></li>
+</ul>
+</li>
+<li><a href="#_error_handling">5.5.2.6. Error Handling</a></li>
+<li><a href="#_wake_upsleep_2">5.5.2.7. Wake Up/Sleep</a></li>
 </ul>
 </li>
 <li><a href="#_flexray">5.5.3. FlexRay</a></li>
@@ -3277,18 +3288,158 @@ A <a href="#low-cut-can-wake-up-operation">Wakeup operation</a> is initiated by 
 <p>This chapter describes the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a> for LIN.</p>
 </div>
 <div class="sect4">
-<h5 id="_operations_2">5.5.2.1. Operations</h5>
+<h5 id="_overview_4">5.5.2.1. Overview</h5>
+<div class="paragraph">
+<p>To simulate LIN buses, LIN-specific operations are specified based on the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a>.
+Overall, the following groups of operations exists:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Transmit: This group of operations is used to simulate a frame transmission.
+There are three specific operations that represent the different communication options between a LIN Master and one or more LIN Slaves.</p>
+</li>
+<li>
+<p>Error: This group of operations is used for protocol format errors and to simulate bus failures.
+For example, the failure of a transmission can be indicated.</p>
+</li>
+<li>
+<p>Configuration: The configuration operation enables the configuration of bus-specific parameters and options that are required to simulate the bus behavior properly.
+For example, it allows the specification of the baud rate.</p>
+</li>
+<li>
+<p>Status: The Status operation is used by Networked FMUs to inform Bus Simulations about the internal state (Power Off/Initialization/Operation/Sleep) which concerns the reaction on bus errors.</p>
+</li>
+<li>
+<p>Wake up: LIN supports wake up and sleep scenarios.
+Normally there are two ways to wake up from sleep mode: a local wake up on a specified wake-up pin, or a wake up on the LIN bus via a LIN specific wake-up pulse.
+This operation is used to simulate triggering a wake up from bus side.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following table gives a detailed overview of the available operations.
+It shows all operations and the arguments they contain.</p>
+</div>
+<table id="table-operation-content-lin" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 22. Overview of the available operations for LIN.</caption>
+<colgroup>
+<col style="width: 16.0714%;">
+<col style="width: 1.7857%;">
+<col style="width: 10.7142%;">
+<col style="width: 8.9285%;">
+<col style="width: 8.9285%;">
+<col style="width: 8.9285%;">
+<col style="width: 8.9285%;">
+<col style="width: 8.9285%;">
+<col style="width: 8.9285%;">
+<col style="width: 8.9285%;">
+<col style="width: 8.9292%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Operation Name</p></th>
+<th class="tableblock halign-left valign-top" colspan="10"><p class="tableblock">Operation Content</p></th>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></th>
+<th class="tableblock halign-left valign-top" colspan="8"><p class="tableblock">Specific Content</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Format Error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x00</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 5 + n<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="8"><p class="tableblock">Data<br>
+(n byte)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Header</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 7<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PID<br>
+(1 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="7"><p class="tableblock">Response Data Length<br>
+(1 byte)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Response</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 8 + DL<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PID<br>
+(1 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Response Error<br>
+(1 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DL<br>
+(1 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="4"><p class="tableblock">Data<br>
+(n byte)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Header Response</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 7 + DL<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PID<br>
+(1 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DL<br>
+(1 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="6"><p class="tableblock">Data<br>
+(n byte)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bus Error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 12<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ID<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="7"><p class="tableblock">Error Code<br>
+(1 byte)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;Length&gt;<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kind<br>
+(1 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="7"><p class="tableblock"><em>Dynamic Part</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x40</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 6<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="8"><p class="tableblock">Status<br>
+(1 byte)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wakeup</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x41</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 5<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="8"><p class="tableblock">---</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_operations_2">5.5.2.2. Operations</h5>
 <div class="paragraph">
 <p>This section defines the allowed operations for LIN.
 The following tables provides an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.</p>
 </div>
 <div class="sect5">
-<h6 id="low-cut-lin-transmit-operation">5.5.2.1.1. Transmit</h6>
+<h6 id="low-cut-lin-transmit-operation">5.5.2.2.1. Transmit</h6>
 <div class="paragraph">
 <p>There are three types of transmit operations, each representing the transmission of a LIN header, a response and a combination of a header and response.</p>
 </div>
 <table id="table-lin-header-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 22. Detailed description of the LIN Header operation.</caption>
+<caption class="title">Table 23. Detailed description of the LIN Header operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -3347,7 +3498,7 @@ Depending on the simulation details, the Bus Simulation might response with a <a
 </tbody>
 </table>
 <table id="table-lin-response-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 23. Detailed description of the LIN Response operation.</caption>
+<caption class="title">Table 24. Detailed description of the LIN Response operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -3361,7 +3512,7 @@ Depending on the simulation details, the Bus Simulation might response with a <a
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
-<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Represents an operation for the transmission of a LIN response from a LIN slave to the LIN Master.</p></td>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Represents an operation for the transmission of a LIN response from a LIN Slave to the LIN Master.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
@@ -3417,7 +3568,7 @@ Depending on the simulation details, the Bus Simulation might response with a <a
 </tbody>
 </table>
 <table id="table-lin-header-response-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 24. Detailed description of the LIN Header Response operation.</caption>
+<caption class="title">Table 25. Detailed description of the LIN Header Response operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -3482,19 +3633,19 @@ Depending on the simulation details, the Bus Simulation might response with a <a
 </table>
 </div>
 <div class="sect5">
-<h6 id="low-cut-lin-format-error-operation">5.5.2.1.2. Format Error</h6>
+<h6 id="low-cut-lin-format-error-operation">5.5.2.2.2. Format Error</h6>
 <div class="paragraph">
 <p>Represents a format error that indicates a syntax or content error of receiving operations.
 See <a href="#low-cut-format-error-operation">Format Error</a> for definition.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="low-cut-lin-bus-error-operation">5.5.2.1.3. Bus Error</h6>
+<h6 id="low-cut-lin-bus-error-operation">5.5.2.2.3. Bus Error</h6>
 <div class="paragraph">
 <p>The Bus Error operation represents special bus communication errors, which are delivered to the LIN Master node in the network.</p>
 </div>
 <table id="table-lin-bus-error-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 25. Detailed description of the Bus Error operation.</caption>
+<caption class="title">Table 26. Detailed description of the Bus Error operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -3554,7 +3705,7 @@ Out of this Error operations are available in the <a href="#common-concepts-comp
 <p>The following codes are allowed to use as Error Code:</p>
 </div>
 <table id="table-lin-bus-error-codes" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 26. Overview of the available error states and codes.</caption>
+<caption class="title">Table 27. Overview of the available error states and codes.</caption>
 <colgroup>
 <col style="width: 4.1666%;">
 <col style="width: 12.5%;">
@@ -3609,13 +3760,13 @@ The given error is always related to a specific <a href="#low-cut-lin-transmit-o
 </table>
 </div>
 <div class="sect5">
-<h6 id="low-cut-lin-configuration-operation">5.5.2.1.4. Configuration</h6>
+<h6 id="low-cut-lin-configuration-operation">5.5.2.2.4. Configuration</h6>
 <div class="paragraph">
 <p>The <code>Configuration operation</code> allows Network FMUs the configuration of the Bus Simulation with parameters like baud rate information and further options.
 The following information are included within this operation:</p>
 </div>
 <table id="table-lin-configuration-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 27. Detailed description of the Configuration operation.</caption>
+<caption class="title">Table 28. Detailed description of the Configuration operation.</caption>
 <colgroup>
 <col style="width: 11.6279%;">
 <col style="width: 2.3255%;">
@@ -3678,7 +3829,7 @@ The required unit for the baudrate value is bit/s.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Node Definition</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Configures the required node type (Master or Slave) within a Bus Simulation.
-Possible values are: <code>LIN_MASTER</code> and <code>LIN_SLAVE</code> (see <a href="#table-lin-configuration-node-definition-kinds">Table 29</a>).</p></td>
+Possible values are: <code>LIN_MASTER</code> and <code>LIN_SLAVE</code> (see <a href="#table-lin-configuration-node-definition-kinds">Table 30</a>).</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
@@ -3686,9 +3837,9 @@ Possible values are: <code>LIN_MASTER</code> and <code>LIN_SLAVE</code> (see <a 
 The operation shall not be routed to other Network FMUs by the Bus Simulation.
 A Network FMU shall ignored this operation on consumer side.
 The configuration shall be completed by a specified Network FMU before it produces any <a href="#low-cut-lin-transmit-operation">Transmission operation</a>.
-Any configuration can be repeated multiple times during the runtime of a Network FMU.
-If required configuration parameters are not adjusted by a Network FMU the Bus Simulation shall choose a default behavior by itself.
-For a smooth simulation, it must be ensured that exactly one master node is configured.</p></td>
+The configuration must not be repeated multiple times during the runtime of a Network FMU.
+A Bus Simulation should stop as soon as more than one <code>LIN_MASTER</code> is configured in a network.
+If required configuration parameters are not adjusted by a Network FMU the Bus Simulation shall choose a default behavior by itself.</p></td>
 </tr>
 </tbody>
 </table>
@@ -3696,7 +3847,7 @@ For a smooth simulation, it must be ensured that exactly one master node is conf
 <p>The following Kind values are allowed to be used:</p>
 </div>
 <table id="table-lin-configuration-kinds" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 28. Overview of the available configuration kinds and values.</caption>
+<caption class="title">Table 29. Overview of the available configuration kinds and values.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -3724,7 +3875,7 @@ For a smooth simulation, it must be ensured that exactly one master node is conf
 <p>The following values for the Arbitration Lost Behavior option are defined:</p>
 </div>
 <table id="table-lin-configuration-node-definition-kinds" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 29. Overview of the available node definition values for LIN.</caption>
+<caption class="title">Table 30. Overview of the available node definition values for LIN.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 12.5%;">
@@ -3750,13 +3901,13 @@ For a smooth simulation, it must be ensured that exactly one master node is conf
 </table>
 </div>
 <div class="sect5">
-<h6 id="low-cut-lin-status-operation">5.5.2.1.5. Status</h6>
+<h6 id="low-cut-lin-status-operation">5.5.2.2.5. Status</h6>
 <div class="paragraph">
 <p>By using the <code>Status operation</code> a Network FMU can communicate the current LIN node state of the simulated LIN Controller within the Network FMU to the Bus Simulation.
 The following information are included within this operation:</p>
 </div>
 <table id="table-lin-status-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 30. Detailed description of the status operation.</caption>
+<caption class="title">Table 31. Detailed description of the status operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -3774,7 +3925,7 @@ The following information are included within this operation:</p>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
-<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x31</p></td>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x40</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top" rowspan="4"><p class="tableblock">Content</p></th>
@@ -3786,7 +3937,7 @@ The following information are included within this operation:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code of the specified operation.
-For this operation the OP Code always has the value 0x31.</p></td>
+For this operation the OP Code always has the value 0x40.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
@@ -3812,7 +3963,7 @@ A Network FMU shall report its status to the Bus Simulation after it changes.</p
 <p>The following status values are allowed to use:</p>
 </div>
 <table id="table-lin-status-values" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 31. Overview of the available status values.</caption>
+<caption class="title">Table 32. Overview of the available status values.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -3848,12 +3999,12 @@ A Network FMU shall report its status to the Bus Simulation after it changes.</p
 </table>
 </div>
 <div class="sect5">
-<h6 id="low-cut-lin-wakeup-operation">5.5.2.1.6. Wake-up</h6>
+<h6 id="low-cut-lin-wake-up-operation">5.5.2.2.6. Wake Up</h6>
 <div class="paragraph">
 <p>By using the <code>Wakeup operation</code> the underlying Bus Simulation can trigger a bus-specific wake up.</p>
 </div>
 <table id="table-lin-wakeup-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 32. Detailed description of the Wakeup operation.</caption>
+<caption class="title">Table 33. Detailed description of the Wakeup operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -3871,7 +4022,7 @@ A Network FMU shall report its status to the Bus Simulation after it changes.</p
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
-<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x32</p></td>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x41</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">Content</p></th>
@@ -3883,7 +4034,7 @@ A Network FMU shall report its status to the Bus Simulation after it changes.</p
 <td class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code of the specified operation.
-For this operation the OP Code always has the value 0x32.</p></td>
+For this operation the OP Code always has the value 0x41.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
@@ -3898,6 +4049,66 @@ If a Network FMU does not support wake-up this operation can be ignored on consu
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_transmission_and_reception">5.5.2.3. Transmission and Reception</h5>
+<div class="paragraph">
+<p><mark>TODO</mark></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_detection_of_collisions">5.5.2.4. Detection of Collisions</h5>
+<div class="paragraph">
+<p><mark>TODO</mark></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_configuration_of_bus_simulation_2">5.5.2.5. Configuration of Bus Simulation</h5>
+<div class="paragraph">
+<p>The configuration of the Bus Simulation is done by the Network FMUs itself.
+For this purpose, the <a href="#low-cut-lin-configuration-operation">Configuration operation</a> provides several configuration parameters.
+<a href="#low-cut-lin-configuration-operation">Configuration operations</a> can be produced multiple times during the runtime of a Network FMU.
+Because the Bus Simulation shall choose a default behavior, it might be useful in several scenarios that Network FMUs finish configuration before the production of <a href="#low-cut-lin-transmit-operation">Transmit operations</a>.</p>
+</div>
+<div class="sect5">
+<h6 id="_baudrate_handling_2">5.5.2.5.1. Baudrate Handling</h6>
+<div class="paragraph">
+<p>In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation about the specified baud rate from a Network FMU.
+This baud rate information can be configured by using <code>LIN_BAUDRATE</code> configuration kind of the <a href="#low-cut-lin-configuration-operation">Configuration operation</a>.
+If the baud rate information is not adjusted by a specified Network FMU, the Bus Simulation shall choose a default behavior by itself.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_node_definition">5.5.2.5.2. Node Definition</h6>
+<div class="paragraph">
+<p>By using the <code>LIN_NODE_DEFINITION</code> configuration kind of a <a href="#low-cut-lin-configuration-operation">Configuration operation</a>, the specified node type <code>LIN_MASTER</code> or <code>LIN_SLAVE</code> needs to be adjusted.
+This configuration must be done before the first exchange of <a href="#low-cut-lin-transmit-operation">Transmit operations</a>.
+A Bus Simulation should stop as soon as more than one LIN Master is configured in a network.</p>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_error_handling">5.5.2.6. Error Handling</h5>
+<div class="paragraph">
+<p><mark>TODO</mark></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_wake_upsleep_2">5.5.2.7. Wake Up/Sleep</h5>
+<div class="paragraph">
+<p>This standard supports wake up and sleep for the LIN bus, whereby only the bus-specific parts are taken into account.
+This means that the realization of local virtual ECU wake-up and sleeping processes are internal parts of the respective FMU, which is not covered by this document.
+Because entering sleep state is a virtual ECU internal process always within LIN bus, this can be ignored.
+Also, the virtual ECU local wake-up process is ignored as well.
+The LIN-specific wake-up pulse can be simulated by using the <a href="#low-cut-lin-wake-up-operation">Wakeup operation</a>.
+A <a href="#low-cut-lin-wake-up-operation">Wakeup operation</a> is initiated by one Network FMU and shall be distributed to all participants of the bus,except the wake-up initiator, by the Bus Simulation.</p>
+</div>
+<div id="figure-lin-wake-up" class="imageblock text-center">
+<div class="content">
+<img src="images/lin_wake_up.svg" alt="lin wake up" width="70%">
+</div>
+<div class="title">Figure 14. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
 </div>
 </div>
 </div>
