@@ -647,7 +647,7 @@ The Bus Simulation can derive the required CAN, CAN FD or CAN XL controller type
 If the baud rate information is not adjusted by a specified Network FMU, the Bus Simulation shall choose a default behavior by itself.
 
 ====== Buffer Handling
-By using the `OPTIONS` configuration kind of a <<low-cut-can-configuration-operation, Configuration operation>>, the buffer handling within the Bus Simulation can be adjusted.
+By using the `ARBITRATION_LOST_BEHAVIOR` configuration kind of a <<low-cut-can-configuration-operation, Configuration operation>>, the buffer handling within the Bus Simulation can be adjusted.
 Using buffer handling is required in arbitration scenarios only and will be described <<low-cut-can-arbitration, within this context>>.
 If the buffering is not adjusted by a specified Network FMU, the Bus Simulation shall choose a default behavior by itself.
 
