@@ -1,6 +1,107 @@
 ==== LIN
 This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for LIN.
 
+===== Overview
+To simulate LIN buses, LIN-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
+Overall, the following groups of operations exists:
+
+* Transmit: This group of operations is used to simulate a frame transmission.
+There are three specific operations that represent the different communication options between a LIN Master and one or more LIN Slaves.
+* Error: This group of operations is used for protocol format errors and to simulate bus failures.
+For example, the failure of a transmission can be indicated.
+* Configuration: The configuration operation enables the configuration of bus-specific parameters and options that are required to simulate the bus behavior properly.
+For example, it allows the specification of the baud rate.
+* Status: The Status operation is used by Networked FMUs to inform Bus Simulations about the internal state (Power Off/Initialization/Operation/Sleep) which concerns the reaction on bus errors.
+* Wake up: LIN supports wake up and sleep scenarios.
+Normally there are two ways to wake up from sleep mode: a local wake up on a specified wake-up pin, or a wake up on the LIN bus via a LIN specific wake-up pulse.
+This operation is used to simulate triggering a wake up from bus side.
+
+The following table gives a detailed overview of the available operations.
+It shows all operations and the arguments they contain.
+
+.Overview of the available operations for LIN.
+[#table-operation-content-lin]
+[cols="9,1,6,5,5,5,5,5,5,5,5"]
+|====
+.2+h|Operation Name
+10+h|Operation Content
+
+h|OP Code
+h|Total Length
+8+h|Specific Content
+
+|Format Error
+|0x00
+|:= 5 + n +
+(4 byte)
+8+|Data +
+(n byte)
+
+|Header
+|0x10
+|:= 7 +
+(4 byte)
+|PID +
+(1 byte)
+7+|Response Data Length +
+(1 byte)
+
+|Response
+|0x11
+|:= 8 + DL +
+(4 byte)
+|PID +
+(1 byte)
+2+|Response Error +
+(1 byte)
+|DL +
+(1 byte)
+4+|Data +
+(n byte)
+
+|Header Response
+|0x12
+|:= 7 + DL +
+(4 byte)
+|PID +
+(1 byte)
+|DL +
+(1 byte)
+6+|Data +
+(n byte)
+
+|Bus Error
+|0x20
+|:= 12 +
+(4 byte)
+|ID +
+(4 byte)
+7+|Error Code +
+(1 byte)
+
+|Configuration
+|0x30
+|<Length> +
+(4 byte)
+|Kind +
+(1 byte)
+7+|_Dynamic Part_
+
+|Status
+|0x40
+|:= 6 +
+(4 byte)
+8+|Status +
+(1 byte)
+
+|Wakeup
+|0x41
+|:= 5 +
+(4 byte)
+8+|---
+
+|====
+
 ===== Operations
 This section defines the allowed operations for LIN.
 The following tables provides an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
@@ -36,7 +137,7 @@ Depending on the simulation details, the Bus Simulation might response with a <<
 [cols="5,4,3,20"]
 |====
 h|Name 3+| Response
-h|Description 3+| Represents an operation for the transmission of a LIN response from a LIN slave to the LIN Master.
+h|Description 3+| Represents an operation for the transmission of a LIN response from a LIN Slave to the LIN Master.
 h|OP Code [hex] 3+| 0x11
 .7+h|Content h|Argument h|Length h|Description
 | OP Code | 1 byte | Contains the OP Code of the specified operation.
@@ -220,9 +321,9 @@ h|Behavior
 The operation shall not be routed to other Network FMUs by the Bus Simulation.
 A Network FMU shall ignored this operation on consumer side.
 The configuration shall be completed by a specified Network FMU before it produces any <<low-cut-lin-transmit-operation, Transmission operation>>.
-Any configuration can be repeated multiple times during the runtime of a Network FMU.
+The configuration must not be repeated multiple times during the runtime of a Network FMU.
+A Bus Simulation should stop as soon as more than one `LIN_MASTER` is configured in a network.
 If required configuration parameters are not adjusted by a Network FMU the Bus Simulation shall choose a default behavior by itself.
-For a smooth simulation, it must be ensured that exactly one master node is configured.
 |====
 
 The following Kind values are allowed to be used: 
@@ -264,12 +365,12 @@ h|Name
 h|Description
 3+|Represents an operation for status handling.
 h|OP Code [hex]
-3+|0x31
+3+|0x40
 .4+h|Content h|Argument h|Length h|Description
 |OP Code
 |1 byte
 |Contains the OP Code of the specified operation.
-For this operation the OP Code always has the value 0x31.
+For this operation the OP Code always has the value 0x40.
 
 |Total Length
 |4 byte
@@ -302,7 +403,7 @@ h|Kind h|Value h|Description
 |SLEEP|0x04|Indicates that a simulated LIN controller within the Network FMU has currently the LIN node state: Sleep.
 |====
 
-====== Wake-up [[low-cut-lin-wakeup-operation]]
+====== Wake Up [[low-cut-lin-wake-up-operation]]
 By using the `Wakeup operation` the underlying Bus Simulation can trigger a bus-specific wake up.
 
 .Detailed description of the Wakeup operation.
@@ -314,12 +415,12 @@ h|Name
 h|Description
 3+|Represents an operation for triggering a bus-specific wake up.
 h|OP Code [hex]
-3+|0x32
+3+|0x41
 .3+h|Content h|Argument h|Length h|Description
 |OP Code
 |1 byte
 |Contains the OP Code of the specified operation.
-For this operation the OP Code always has the value 0x32.
+For this operation the OP Code always has the value 0x41.
 
 |Total Length
 |4 byte
@@ -332,3 +433,39 @@ If a Network FMU does not support wake-up this operation can be ignored on consu
 
 |====
 
+===== Transmission and Reception
+#TODO#
+
+===== Detection of Collisions
+#TODO#
+
+===== Configuration of Bus Simulation
+The configuration of the Bus Simulation is done by the Network FMUs itself.
+For this purpose, the <<low-cut-lin-configuration-operation, Configuration operation>> provides several configuration parameters.
+<<low-cut-lin-configuration-operation, Configuration operations>> can be produced multiple times during the runtime of a Network FMU.
+Because the Bus Simulation shall choose a default behavior, it might be useful in several scenarios that Network FMUs finish configuration before the production of <<low-cut-lin-transmit-operation, Transmit operations>>.
+
+====== Baudrate Handling
+In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation about the specified baud rate from a Network FMU.
+This baud rate information can be configured by using `LIN_BAUDRATE` configuration kind of the <<low-cut-lin-configuration-operation, Configuration operation>>.
+If the baud rate information is not adjusted by a specified Network FMU, the Bus Simulation shall choose a default behavior by itself.
+
+====== Node Definition
+By using the `LIN_NODE_DEFINITION` configuration kind of a <<low-cut-lin-configuration-operation, Configuration operation>>, the specified node type `LIN_MASTER` or `LIN_SLAVE` needs to be adjusted.
+This configuration must be done before the first exchange of <<low-cut-lin-transmit-operation, Transmit operations>>.
+A Bus Simulation should stop as soon as more than one LIN Master is configured in a network.
+
+===== Error Handling
+#TODO#
+
+===== Wake Up/Sleep
+This standard supports wake up and sleep for the LIN bus, whereby only the bus-specific parts are taken into account.
+This means that the realization of local virtual ECU wake-up and sleeping processes are internal parts of the respective FMU, which is not covered by this document.
+Because entering sleep state is a virtual ECU internal process always within LIN bus, this can be ignored.
+Also, the virtual ECU local wake-up process is ignored as well.
+The LIN-specific wake-up pulse can be simulated by using the <<low-cut-lin-wake-up-operation, Wakeup operation>>.
+A <<low-cut-lin-wake-up-operation, Wakeup operation>> is initiated by one Network FMU and shall be distributed to all participants of the bus,except the wake-up initiator, by the Bus Simulation.
+
+.Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.
+[#figure-lin-wake-up]
+image::lin_wake_up.svg[width=70%, align="center"]
