@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-4337375df15d0ae71c6197fb31d87adeb040cd67,</span>
+<span id="revnumber">version main-53f45fa68eb0b1be5e6e610a599ef26638c6e398,</span>
 <span id="revdate">2023-11-13</span>
 </div>
 <div id="toc" class="toc2">
@@ -646,13 +646,16 @@ document.addEventListener('keydown', (event) => {
 </li>
 <li><a href="#low-cut-variables">5.3. Variables</a>
 <ul class="sectlevel3">
-<li><a href="#low-cut-tx-rx-clock-variables">5.3.1. Tx/Rx Clock Variables</a>
+<li><a href="#low-cut-tx-clock-variables">5.3.1. Tx Clock Variables</a>
 <ul class="sectlevel4">
-<li><a href="#low-cut-bus-communication-points">5.3.1.1. Bus Communication Points</a></li>
+<li><a href="#low-cut-tx-time-based-clock-variables">5.3.1.1. Time-based Tx Clock Variables</a></li>
+<li><a href="#low-cut-tx-triggered-clock-variables">5.3.1.2. Triggered Tx Clock Variables</a></li>
 </ul>
 </li>
-<li><a href="#low-cut-tx-rx-data-variables">5.3.2. Tx/Rx Data Variables</a></li>
-<li><a href="#_mime_types">5.3.3. MIME Types</a></li>
+<li><a href="#low-cut-rx-clock-variables">5.3.2. Rx Clock Variables</a></li>
+<li><a href="#low-cut-tx-rx-data-variables">5.3.3. Tx/Rx Data Variables</a></li>
+<li><a href="#_selecting_the_type_of_tx_clock">5.3.4. Selecting the type of Tx Clock</a></li>
+<li><a href="#_mime_types">5.3.5. MIME Types</a></li>
 </ul>
 </li>
 <li><a href="#_terminal_definitions_2">5.4. Terminal Definitions</a>
@@ -1542,7 +1545,7 @@ Importers must know how to handle this, just like they must know how to handle f
 <h3 id="_overview_2">5.1. Overview</h3>
 <div class="paragraph">
 <p>The network abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
-Exchanging data in terms of the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a> via variables grouped by a dedicated bus terminal (see <a href="#low-cut-tx-rx-clock-variables">Section 5.3.1</a>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
+Exchanging data in terms of the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a> via variables grouped by a dedicated bus terminal (see <a href="#low-cut-tx-rx-clock-variables">[low-cut-tx-rx-clock-variables]</a>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
 During simulation, the network communication is controlled by send and receive bus operations.
 Based on these operations, Network FMUs have to react as specified by this layered standard depending on their role.
 This role can be a Bus Simulation FMU or an importer with bus simulation support on one side, and Network FMUs (e.g., virtual ECUs) on the other side (see <a href="#common-concepts-system-compositions">System Compositions</a>).
@@ -1819,24 +1822,148 @@ To summarize, four variables with the following name schema are used:</p>
 <p>The input variable <code>BusName::Rx_Data</code> is clocked by the clock variable <code>BusName::Rx_Clock</code>, both with <code>causality</code> set to <code>input</code>.</p>
 </div>
 <div class="paragraph">
-<p>The output variable <code>BusName::Tx_Data</code> is clocked by the clock variable <code>BusName::Tx_Clock</code>, both with <code>causality</code> set to <code>output</code>.</p>
+<p>The output variable <code>BusName::Tx_Data</code> is clocked by the clock variable <code>BusName::Tx_Clock</code>.
+The <code>causality</code> for the Tx_Data variable shall be <code>output</code>, but for the Tx_Clock variable it depends on the selected clock type (see <a href="#low-cut-tx-time-based-clock-variables">Tx Clock Variables</a>).</p>
 </div>
 <div class="paragraph">
 <p>Both variable pairs must be listed as member of its corresponding <a href="#low-cut-bus-terminal">Bus Terminal</a>.
 How to set the <code>BusName</code> placeholder is bus-type-specific and therefore described in the bus-specific chapters.</p>
 </div>
 <div class="sect3">
-<h4 id="low-cut-tx-rx-clock-variables">5.3.1. Tx/Rx Clock Variables</h4>
+<h4 id="low-cut-tx-clock-variables">5.3.1. Tx Clock Variables</h4>
 <div class="paragraph">
 <p>As described in the FMI 3.0 specification, clock variables are used to synchronize events between importer and across FMUs.
 Since clock variables are strictly related to the <code>Event Mode</code>, networked FMUs shall set the Co-Simulation attribute <code>hasEventMode = "true"</code> in the model description file.</p>
 </div>
 <div class="paragraph">
-<p>For simulating bus communication according to the network abstraction, a time-based clock is used for the <code>Tx_Clock</code> variable to signal the point in time when layered standard bus operations must be transferred by the importer to the receiver FMUs.
-It is up to the implementer to either use a <code>periodic</code> or <code>aperiodic</code> clock.</p>
+<p>The point in time where bus operations are transfered from the Tx_Data to the Rx_Data variables is defined by the Tx_Clock variable.
+This point is also referred to as the <code>bus communication point</code>.
+A bus communication point and a regular communication point can take place at the same time, but should be considered as independent by the importer.
+In contrast to a regular communication point where input/output variables used in step mode are exchanged, only the clocked Tx/Rx data variables needs to be considered by the importer.</p>
 </div>
 <div class="paragraph">
-<p>This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:</p>
+<p>For defining the point in time of a bus communication point, <code>time-based</code> or <code>triggered</code> clocks can be used for the Tx_Clock variable.
+Hence the clock type can influence the bus simulation significantly - the differences should be taken into account.</p>
+</div>
+<div class="sect4">
+<h5 id="low-cut-tx-time-based-clock-variables">5.3.1.1. Time-based Tx Clock Variables</h5>
+<div class="paragraph">
+<p>A time-based Tx Clock variable allows networked FMUs to annouce a bus communication point for the next simulation step in advance.</p>
+</div>
+<div id="low-cut-communication-points" class="imageblock text-center">
+<div class="content">
+<img src="images/low_cut_communication_points.svg" alt="low cut communication points" width="100%">
+</div>
+<div class="title">Figure 8. Example Bus Communication Points announced by aperiodic time-based Tx_Clock variables.</div>
+</div>
+<div class="paragraph">
+<p>The announced Tx time however does not mean that a bus operation really has to be transferred, but that the connected networked FMUs should enter the event mode at that time.
+An importer has to determine proper communication step sizes to synchronize networked FMUs at the announced Tx time.</p>
+</div>
+<div class="paragraph">
+<p><em>[Note: While simulation it can happen that no Tx_Data has to be transferred to the Rx_Data variable at the announced Tx time. In this case the retured 'valueSize' of the Tx_Data variable is 0.]</em></p>
+</div>
+<div class="paragraph">
+<p>Even the <code>causality</code> of a time-based Tx_Clock variable and a triggered Rx_Clock variable are each <code>input</code>. It is allowed to connect both, since a time-based clock variable of an FMU is considered only to be a request to the importer to provide an attendant clock source.</p>
+</div>
+<div id="low-cut-time-based-port-connection" class="imageblock text-center">
+<div class="content">
+<img src="images/low_cut_time_based_port_connection.svg" alt="low cut time based port connection" width="40%">
+</div>
+<div class="title">Figure 9. Consideration of time-base Tx_Clock connections.</div>
+</div>
+<div class="paragraph">
+<p>Because of the common clock source however, both clock variables (Rx/Tx) might get active at the same time.
+To make sure that the Rx_Data variables is set properly, an importer has to activate the Rx_Clock variable under consideration of Tx_Data/Rx_Data dependency.</p>
+</div>
+<div class="paragraph">
+<p><em>[Note: For clarity always a direct connection line between the Tx_Clock and Rx_Clock variables is shown in figures of this document.]</em></p>
+</div>
+<div class="paragraph">
+<p>A time-based clock can be <code>periodic</code> or <code>aperiodic</code>.
+Both allows to define bus communication points independently from the regular communication points with fixed or variable distances.
+The difference between the two clock types is listed in the following table.</p>
+</div>
+<table id="table-tx-clock-properties" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 6. Time-based clock properties.</caption>
+<colgroup>
+<col style="width: 27.2727%;">
+<col style="width: 9.0909%;">
+<col style="width: 63.6364%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Clock properties</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">intervalVariability</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">periodic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">constant</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The bus communication point interval is defined in the modelDescription.xml.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">periodic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fixed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The bus communication point interval is defined in the modelDescription.xml or must be provided in Initialization Mode.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">periodic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tunable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The bus communication point interval is defined in the modelDescription.xml or must be provided in Initialization Mode and can be changed in EventMode.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">aperiodic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">changing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The bus communication point interval must be provided in Initialization Mode and can be changed in EventMode if this clock ticked.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">aperiodic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">countdown</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The bus communication point interval must be provided in Initialization Mode and can be changed in every EventMode.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Network FMUs using a time-based Tx_Clock variable should set the Co-Simulation attribute <code>canHandleVariableCommunicationStepSize = "true"</code> in the model description file, since <code>fmi3DoStep</code> is typically called with variable <code>communicationStepSize</code>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="low-cut-tx-triggered-clock-variables">5.3.1.2. Triggered Tx Clock Variables</h5>
+<div class="paragraph">
+<p>A <code>triggered</code> clock basically allows to signal events when returning from <code>fmi3DoStep</code> either by using an <code>Early Return</code> or when the requested communication point at \(t_{i+1}\) was reached.
+Since signaling Tx_Clock events with an early return at \(t &lt; t_{i+1}\) would require to set connected networked FMUs back in time to reach bus communication points synchronously, a triggered Tx_Clock variable must only be set when returning from <code>fmi3DoStep</code> with the <code>earlyReturn</code> argument set to <code>fmi3False</code>.
+In consequence, bus communication points and regular communication points coincide and take place at the same time.
+The time of a bus communication point can therefore not be defined independently, but is given by the importer.
+Pending Tx data shall be signaled by returning from fmi3DoStep with the <code>eventHandlingNeeded</code> arguments set to <code>fmi3True</code>.</p>
+</div>
+<div id="low-cut-triggered-port-connection" class="imageblock text-center">
+<div class="content">
+<img src="images/low_cut_communication_with_triggered_tx_clock.svg" alt="low cut communication with triggered tx clock" width="100%">
+</div>
+<div class="title">Figure 10. Triggered Tx_Clock/Rx_Clock connection.</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="low-cut-rx-clock-variables">5.3.2. Rx Clock Variables</h4>
+<div class="paragraph">
+<p>The input clocks (<code>Rx_Clock</code>) shall be triggered clocks.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="low-cut-tx-rx-data-variables">5.3.3. Tx/Rx Data Variables</h4>
+<div class="paragraph">
+<p>The Tx/Rx variables are of type <code>fmi3Binary</code> and contain multiple bus operations, as sent or receive by the FMU.
+If no bus operations shall be sent by a specified Network FMU at a given bus communication point, the size of the corresponding binary <code>Tx_Data</code> variable shall be set to zero.
+The senders can choose how many bus operations are buffered and/or for how long operations are buffered before activating an output clock to trigger the actual sending of these operations.
+This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_selecting_the_type_of_tx_clock">5.3.4. Selecting the type of Tx Clock<a id="low-cut-selecting_tx_variables"></a></h4>
+<div class="paragraph">
+<p>Selecting suitable Tx variables allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1844,75 +1971,16 @@ It is up to the implementer to either use a <code>periodic</code> or <code>aperi
 <p>While aperiodic clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> will reduce the network simulation speed.</p>
 </li>
 <li>
-<p>Using periodic clocks and queuing the operations to be transmitted reduces the number of <code>Event Mode</code> entries and speeds up the simulation at the cost of simulation accuracy.</p>
+<p>Using periodic clocks and queueing the operations to be transmitted reduces the number of <code>Event Mode</code> entries and speeds up the simulation at the cost of simulation accuracy.</p>
 </li>
 <li>
 <p>One could use (structural) parameters to define the accuracy of aperiodic clocks, allowing control of the simulation accuracy and performance with the same FMU.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>The input clocks (<code>Rx_Clock</code>) shall be triggered clocks.</p>
-</div>
-<div class="paragraph">
-<p>The importer will then connect and merge output clock activations, even those of different clock types, and forward them to the input clocks, as required by the network semantics.</p>
-</div>
-<div class="sect4">
-<h5 id="low-cut-bus-communication-points">5.3.1.1. Bus Communication Points</h5>
-<div class="paragraph">
-<p>For transferring bus operations from the <code>Tx_Data</code> to the <code>Rx_Data</code> variables, networked FMUs must be synchronous in time.
-This point in time is also referred to as the Bus Communication Point.
-The importer must ensure that networked FMUs hit such points synchronously by calling <code>fmi3DoStep</code> with a proper <code>communicationStepSize</code> argument.
-To determine the <code>communicationStepSize</code> for the first simulation step, the importer gets the Tx clock time in <code>Initialization Mode</code> as follows:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>For aperiodic Tx clocks, the importer calls <code>fmi3GetInterval</code>.</p>
-</li>
-<li>
-<p>For periodic Tx clocks, the importer shall evaluate the clock attributes (e.g., <code>intervalDecimal</code>) as defined in the model description.
-If <code>intervalDecimal</code> is not defined, the importer shall call <code>fmi3GetShift</code>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Based on the Tx clock intervals received in the <code>Initialization Mode</code>, the importer calls <code>fmi3DoStep</code> with a determined <code>communicationStepSize</code> to reach the next Bus Communication Point.
-After returning from <code>fmi3DoStep</code>, the importer has to enter the <code>Event Mode</code> by calling <code>fmi3EnterEventMode</code>.
-In <code>Event Mode</code>, the importer activates the Tx and Rx clock by calling <code>fmi3SetClock</code>.
-The importer then starts to transfer bus operations from the <code>Tx_Data</code> to the <code>Rx_Data</code> variable (see <a href="#low-cut-tx-rx-data-variables">Communication Variables</a>).</p>
-</div>
-<div class="paragraph">
-<p>To determine the <code>communicationStepSize</code> for the next simulation step, the importer gets the Tx clock time as follows:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>For aperiodic Tx clocks, the importer calls <code>fmi3GetInterval</code>.</p>
-</li>
-<li>
-<p>For periodic Tx clocks, the importer shall evaluate the clock attributes as defined in the model description.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>If an FMU wants to respond to a received bus operation in the same time step, then <code>fmi3GetInterval</code> must return 0.
-In this case, the importer remains in <code>Event Mode</code> and starts a new iteration.
-If an FMU does not know the next Tx clock time for any reason, <code>fmi3GetInterval</code> shall return with <code>qualifier = fmi3IntervalNotYetKnown</code>.</p>
-</div>
-</div>
 </div>
 <div class="sect3">
-<h4 id="low-cut-tx-rx-data-variables">5.3.2. Tx/Rx Data Variables</h4>
-<div class="paragraph">
-<p>The Tx/Rx variables are of type <code>fmi3Binary</code> and contain multiple bus operations, as sent or receive by the FMU.
-If no bus operations shall be sent by a specified Network FMU at a given Bus Communication Point, the size of the corresponding binary <code>Tx_Data</code> variable shall be set to zero.
-The senders can choose how many bus operations are buffered and/or for how long operations are buffered before activating an output clock to trigger the actual sending of these operations.
-This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_mime_types">5.3.3. MIME Types</h4>
+<h4 id="_mime_types">5.3.5. MIME Types</h4>
 <div class="paragraph">
 <p>Within FMI, every binary FMI variable has a <code>mimeType</code>, which indicates the type of data passed as a binary.
 This type indicates which specific bus type is involved.
@@ -1920,7 +1988,7 @@ It ensures that only bus types of the same type can be interconnected, since FMI
 The following table lists the names of MIME types used for the Tx/Rx data variables:</p>
 </div>
 <table id="table-mime-types" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. Overview of the available MIME types for the supported several bus types.</caption>
+<caption class="title">Table 7. Overview of the available MIME types for the supported several bus types.</caption>
 <colgroup>
 <col style="width: 44.4444%;">
 <col style="width: 55.5556%;">
@@ -2018,7 +2086,7 @@ If the specified FMU is connected to more than one network, there shall be exact
 <div class="content">
 <img src="images/bus_terminal.svg" alt="bus terminal" width="30%">
 </div>
-<div class="title">Figure 8. Frame variables and terminals.</div>
+<div class="title">Figure 11. Frame variables and terminals.</div>
 </div>
 </div>
 <div class="sect3">
@@ -2128,7 +2196,7 @@ This operation is used to simulate triggering a wake up from bus side.</p>
 It shows all operations and the arguments they contain.</p>
 </div>
 <table id="table-operation-content-can" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. Overview of the available operations for CAN, CAN FD and CAN XL.</caption>
+<caption class="title">Table 8. Overview of the available operations for CAN, CAN FD and CAN XL.</caption>
 <colgroup>
 <col style="width: 16.0714%;">
 <col style="width: 1.7857%;">
@@ -2285,7 +2353,7 @@ The following tables provides an overview of all operations and specifies the po
 <p>There are three types of transmit operations for transmission of CAN, CAN FD and CAN XL frame.</p>
 </div>
 <table id="table-can-transmit-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. Detailed description of the CAN Transmit operation.</caption>
+<caption class="title">Table 9. Detailed description of the CAN Transmit operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -2360,7 +2428,7 @@ Depending on the <a href="#low-cut-can-status-operation">status</a> of the speci
 </tbody>
 </table>
 <table id="table-can-fd-transmit-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. Detailed description of the CAN FD Transmit operation.</caption>
+<caption class="title">Table 10. Detailed description of the CAN FD Transmit operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -2441,7 +2509,7 @@ Depending on the <a href="#low-cut-can-status-operation">status</a> of the speci
 </tbody>
 </table>
 <table id="table-can-xl-transmit-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. Detailed description of the CAN XL Transmit operation.</caption>
+<caption class="title">Table 11. Detailed description of the CAN XL Transmit operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -2537,7 +2605,7 @@ Depending on the <a href="#low-cut-can-status-operation">status</a> of the speci
 <p>The <code>Confirm operation</code> is used to signal the successful reception of a transmitted CAN frame (see <a href="#low-cut-can-transmit-operation">Transmit operation</a>) by at least one Network FMU.</p>
 </div>
 <table id="table-can-confirm-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. Detailed description of the Confirm operation.</caption>
+<caption class="title">Table 12. Detailed description of the Confirm operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -2602,7 +2670,7 @@ See <a href="#low-cut-format-error-operation">Format Error</a> for definition.</
 <p>The Arbitration Lost operation defines a feedback message from a Bus Simulation to a Network FMU that a <a href="#low-cut-can-transmit-operation">Transmit operation</a> could not be sent immediately due to a concurrent transmit request.</p>
 </div>
 <table id="table-can-arbitration-lost-error-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. Detailed description of the Arbitration Lost operation.</caption>
+<caption class="title">Table 13. Detailed description of the Arbitration Lost operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -2663,7 +2731,7 @@ In this case, Bus Simulations should not send Arbitration Lost operations to the
 <p>The Bus Error operation represents special bus communication errors, which are delivered to every participant in the network.</p>
 </div>
 <table id="table-can-bus-error-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. Detailed description of the Bus Error operation.</caption>
+<caption class="title">Table 14. Detailed description of the Bus Error operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -2714,7 +2782,7 @@ The following applies for this operation: <code>Total Length = 12</code>.</p></t
 <td class="tableblock halign-left valign-top"><p class="tableblock">Error Flag</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines whether the Error was detected by a specified Network FMU.
-For specification the boolean values <code>PRIMARY_ERROR_FLAG</code> and <code>SECONDARY_ERROR_FLAG</code> (see <a href="#table-can-bus-error-error-flag-kinds">Table 15</a>) shall be used.</p></td>
+For specification the boolean values <code>PRIMARY_ERROR_FLAG</code> and <code>SECONDARY_ERROR_FLAG</code> (see <a href="#table-can-bus-error-error-flag-kinds">Table 16</a>) shall be used.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is Sender</p></td>
@@ -2740,7 +2808,7 @@ In this case, Bus Simulations should not send Bus Error operations to the Networ
 <p>The following Error Codes are specified:</p>
 </div>
 <table id="table-can-error-codes" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. Overview of the available error codes.</caption>
+<caption class="title">Table 15. Overview of the available error codes.</caption>
 <colgroup>
 <col style="width: 4.1666%;">
 <col style="width: 12.5%;">
@@ -2790,7 +2858,7 @@ Within CAN, an Error frame is transmitted by any unit on detection of a bus erro
 <p>The following values for the Error Flag option are defined:</p>
 </div>
 <table id="table-can-bus-error-error-flag-kinds" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. Overview of the available Error Flag values.</caption>
+<caption class="title">Table 16. Overview of the available Error Flag values.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 12.5%;">
@@ -2822,7 +2890,7 @@ Within CAN, an Error frame is transmitted by any unit on detection of a bus erro
 The following information is included within this operation:</p>
 </div>
 <table id="table-can-configuration-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 16. Detailed description of the Configuration operation.</caption>
+<caption class="title">Table 17. Detailed description of the Configuration operation.</caption>
 <colgroup>
 <col style="width: 11.6279%;">
 <col style="width: 2.3255%;">
@@ -2917,7 +2985,7 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 <p>The following configuration parameters are defined:</p>
 </div>
 <table id="table-can-configuration-kinds" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 17. Overview of the available configuration parameters.</caption>
+<caption class="title">Table 18. Overview of the available configuration parameters.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -2948,7 +3016,7 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 <td class="tableblock halign-left valign-top"><p class="tableblock">ARBITRATION_LOST_BEHAVIOR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x04</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This code configures the behavior of a Bus Simulation if an arbitration is lost.
-See <a href="#table-can-configuration-arbitration-lost-behavior-kinds">Table 18</a>) for possible values.</p></td>
+See <a href="#table-can-configuration-arbitration-lost-behavior-kinds">Table 19</a>) for possible values.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2956,7 +3024,7 @@ See <a href="#table-can-configuration-arbitration-lost-behavior-kinds">Table 18<
 <p>The following values for the Arbitration Lost Behavior option are defined:</p>
 </div>
 <table id="table-can-configuration-arbitration-lost-behavior-kinds" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 18. Overview of the available Arbitration Lost Behavior values.</caption>
+<caption class="title">Table 19. Overview of the available Arbitration Lost Behavior values.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 12.5%;">
@@ -2988,7 +3056,7 @@ See <a href="#table-can-configuration-arbitration-lost-behavior-kinds">Table 18<
 The following information is included within this operation:</p>
 </div>
 <table id="table-can-status-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 19. Detailed description of the Status operation.</caption>
+<caption class="title">Table 20. Detailed description of the Status operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -3043,7 +3111,7 @@ A Network FMU shall report its status to the Bus Simulation after it changes.</p
 <p>The following status values can be used:</p>
 </div>
 <table id="table-can-status-values" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 20. Overview of the available status values.</caption>
+<caption class="title">Table 21. Overview of the available status values.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -3084,7 +3152,7 @@ If all Network FMUs, except the <a href="#low-cut-can-transmit-operation">Transm
 <p>By using the <code>Wakeup operation</code>, the underlying Bus Simulation can trigger a bus-specific wake up.</p>
 </div>
 <table id="table-can-wakeup-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 21. Detailed description of the Wakeup operation.</caption>
+<caption class="title">Table 22. Detailed description of the Wakeup operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -3207,27 +3275,27 @@ In this case, the bus simulation is idealized and takes place in a fire-and-forg
 If a specified Network FMU is depending on <a href="#low-cut-can-confirm-operation">Confirm operations</a> and <code>org.fmi_standard.fmi_ls_bus.Can_BusNotifications</code> is set to <code>false</code>, the self confirmation shall be realized internally within the respective Network FMU.</p>
 </div>
 <div class="paragraph">
-<p><a href="#figure-can-direct-communication">Figure 9</a> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
+<p><a href="#figure-can-direct-communication">Figure 12</a> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
 After that, the transmission is directly confirmed by FMU 1 itself, whereby FMU 1 handles that self confirmation internally.</p>
 </div>
 <div id="figure-can-direct-communication" class="imageblock text-center">
 <div class="content">
 <img src="images/can_direct_confirmation.svg" alt="can direct confirmation" width="40%">
 </div>
-<div class="title">Figure 9. Direct Confirmation of transmitted network data.</div>
+<div class="title">Figure 12. Direct Confirmation of transmitted network data.</div>
 </div>
 <div class="paragraph">
 <p>For a detailed simulation, Bus Simulations shall support <a href="#low-cut-can-confirm-operation">Confirm operations</a>.
 In this case, the <code>org.fmi_standard.fmi_ls_bus.Can_BusNotifications</code> parameter of the Network FMUs shall be set to <code>true</code> and Network FMUs can rely on receiving <a href="#low-cut-can-confirm-operation">Confirm operations</a>.</p>
 </div>
 <div class="paragraph">
-<p>The following <a href="#figure-can-confirmation-with-bus-simulation-fmu">Figure 10</a> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.</p>
+<p>The following <a href="#figure-can-confirmation-with-bus-simulation-fmu">Figure 13</a> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.</p>
 </div>
 <div id="figure-can-confirmation-with-bus-simulation-fmu" class="imageblock text-center">
 <div class="content">
 <img src="images/can_confirmation_with_bus_simulation_fmu.svg" alt="can confirmation with bus simulation fmu" width="70%">
 </div>
-<div class="title">Figure 10. Confirmation of transmitted network data via Bus Simulation.</div>
+<div class="title">Figure 13. Confirmation of transmitted network data via Bus Simulation.</div>
 </div>
 <div class="paragraph">
 <p>If all Network FMUs, except the <a href="#low-cut-can-transmit-operation">Transmit operation</a> initiating Network FMU, communicate the <a href="#low-cut-can-status-operation">status</a> <code>BUS_OFF</code>, the Bus Simulation shall not provide a <a href="#low-cut-can-confirm-operation">confirmation</a>.</p>
@@ -3251,7 +3319,7 @@ When a Network FMU has provided the status <code>BUS_OFF</code> to the Bus Simul
 <div class="content">
 <img src="images/can_error_handling_overview.svg" alt="can error handling overview" width="100%">
 </div>
-<div class="title">Figure 11. Architectural error handling overview.</div>
+<div class="title">Figure 14. Architectural error handling overview.</div>
 </div>
 </div>
 <div class="sect4">
@@ -3266,7 +3334,7 @@ As soon as an FMU loses arbitration in this way, it shall independently repeat t
 <div class="content">
 <img src="images/can_arbitration.svg" alt="can arbitration" width="70%">
 </div>
-<div class="title">Figure 12. Arbitration of two transmissions at the same time.</div>
+<div class="title">Figure 15. Arbitration of two transmissions at the same time.</div>
 </div>
 <div class="paragraph">
 <p>Within a <a href="#low-cut-can-configuration-operation">Configuration operation</a>, the <code>Arbitration Lost Behavior</code> argument can be specified.
@@ -3277,7 +3345,7 @@ Arbitration is available in communication cases with Bus Simulation only.</p>
 </div>
 <div class="paragraph">
 <p>In the case of arbitration, the Bus Simulation must also take the status of the respective Network FMU into account, which is communicated via a <a href="#low-cut-can-status-operation">Status operation</a>.
-To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN node is in Error Passive state, the Bus Simulation shall prefer Network FMUs whose status is <code>ERROR_ACTIVE</code> (see <a href="#table-can-status-values">Table 20</a>).</p>
+To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN node is in Error Passive state, the Bus Simulation shall prefer Network FMUs whose status is <code>ERROR_ACTIVE</code> (see <a href="#table-can-status-values">Table 21</a>).</p>
 </div>
 <div class="paragraph">
 <p>The <a href="https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams">FMI LS BUS Implementer’s Guide</a> contains examples of the presented arbitration cases and visualize them in the form of sequence diagrams.</p>
@@ -3297,7 +3365,7 @@ A <a href="#low-cut-can-wake-up-operation">Wakeup operation</a> is initiated by 
 <div class="content">
 <img src="images/can_wake_up.svg" alt="can wake up" width="70%">
 </div>
-<div class="title">Figure 13. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
+<div class="title">Figure 16. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
 </div>
 </div>
 </div>
@@ -3341,7 +3409,7 @@ This operation is used to simulate triggering a wake up from bus side.</p>
 It shows all operations and the arguments they contain.</p>
 </div>
 <table id="table-operation-content-lin" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 22. Overview of the available operations for LIN.</caption>
+<caption class="title">Table 23. Overview of the available operations for LIN.</caption>
 <colgroup>
 <col style="width: 16.0714%;">
 <col style="width: 1.7857%;">
@@ -3458,7 +3526,7 @@ The following tables provides an overview of all operations and specifies the po
 <p>There are three types of transmit operations, each representing the transmission of a LIN header, a response and a combination of a header and response.</p>
 </div>
 <table id="table-lin-header-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 23. Detailed description of the LIN Header operation.</caption>
+<caption class="title">Table 24. Detailed description of the LIN Header operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -3517,7 +3585,7 @@ Depending on the simulation details, the Bus Simulation might response with a <a
 </tbody>
 </table>
 <table id="table-lin-response-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 24. Detailed description of the LIN Response operation.</caption>
+<caption class="title">Table 25. Detailed description of the LIN Response operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -3587,7 +3655,7 @@ Depending on the simulation details, the Bus Simulation might response with a <a
 </tbody>
 </table>
 <table id="table-lin-header-response-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 25. Detailed description of the LIN Header Response operation.</caption>
+<caption class="title">Table 26. Detailed description of the LIN Header Response operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -3664,7 +3732,7 @@ See <a href="#low-cut-format-error-operation">Format Error</a> for definition.</
 <p>The Bus Error operation represents special bus communication errors, which are delivered to the LIN Master node in the network.</p>
 </div>
 <table id="table-lin-bus-error-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 26. Detailed description of the Bus Error operation.</caption>
+<caption class="title">Table 27. Detailed description of the Bus Error operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -3724,7 +3792,7 @@ Out of this Error operations are available in the <a href="#common-concepts-comp
 <p>The following codes are allowed to use as Error Code:</p>
 </div>
 <table id="table-lin-bus-error-codes" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 27. Overview of the available error states and codes.</caption>
+<caption class="title">Table 28. Overview of the available error states and codes.</caption>
 <colgroup>
 <col style="width: 4.1666%;">
 <col style="width: 12.5%;">
@@ -3785,7 +3853,7 @@ The given error is always related to a specific <a href="#low-cut-lin-transmit-o
 The following information are included within this operation:</p>
 </div>
 <table id="table-lin-configuration-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 28. Detailed description of the Configuration operation.</caption>
+<caption class="title">Table 29. Detailed description of the Configuration operation.</caption>
 <colgroup>
 <col style="width: 11.6279%;">
 <col style="width: 2.3255%;">
@@ -3848,7 +3916,7 @@ The required unit for the baudrate value is bit/s.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Node Definition</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Configures the required node type (Master or Slave) within a Bus Simulation.
-Possible values are: <code>LIN_MASTER</code> and <code>LIN_SLAVE</code> (see <a href="#table-lin-configuration-node-definition-kinds">Table 30</a>).</p></td>
+Possible values are: <code>LIN_MASTER</code> and <code>LIN_SLAVE</code> (see <a href="#table-lin-configuration-node-definition-kinds">Table 31</a>).</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
@@ -3866,7 +3934,7 @@ If required configuration parameters are not adjusted by a Network FMU the Bus S
 <p>The following Kind values are allowed to be used:</p>
 </div>
 <table id="table-lin-configuration-kinds" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 29. Overview of the available configuration kinds and values.</caption>
+<caption class="title">Table 30. Overview of the available configuration kinds and values.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -3894,7 +3962,7 @@ If required configuration parameters are not adjusted by a Network FMU the Bus S
 <p>The following values for the Arbitration Lost Behavior option are defined:</p>
 </div>
 <table id="table-lin-configuration-node-definition-kinds" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 30. Overview of the available node definition values for LIN.</caption>
+<caption class="title">Table 31. Overview of the available node definition values for LIN.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 12.5%;">
@@ -3926,7 +3994,7 @@ If required configuration parameters are not adjusted by a Network FMU the Bus S
 The following information are included within this operation:</p>
 </div>
 <table id="table-lin-status-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 31. Detailed description of the status operation.</caption>
+<caption class="title">Table 32. Detailed description of the status operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -3982,7 +4050,7 @@ A Network FMU shall report its status to the Bus Simulation after it changes.</p
 <p>The following status values are allowed to use:</p>
 </div>
 <table id="table-lin-status-values" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 32. Overview of the available status values.</caption>
+<caption class="title">Table 33. Overview of the available status values.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -4023,7 +4091,7 @@ A Network FMU shall report its status to the Bus Simulation after it changes.</p
 <p>By using the <code>Wakeup operation</code> the underlying Bus Simulation can trigger a bus-specific wake up.</p>
 </div>
 <table id="table-lin-wakeup-operation" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 33. Detailed description of the Wakeup operation.</caption>
+<caption class="title">Table 34. Detailed description of the Wakeup operation.</caption>
 <colgroup>
 <col style="width: 15.625%;">
 <col style="width: 12.5%;">
@@ -4127,7 +4195,7 @@ A <a href="#low-cut-lin-wake-up-operation">Wakeup operation</a> is initiated by 
 <div class="content">
 <img src="images/lin_wake_up.svg" alt="lin wake up" width="70%">
 </div>
-<div class="title">Figure 14. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
+<div class="title">Figure 17. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
 </div>
 </div>
 </div>
