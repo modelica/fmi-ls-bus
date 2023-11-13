@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-dddebc5c5eecd7b9948f0adc063363ae9e9d6388,</span>
+<span id="revnumber">version main-f6135b3497ef87fbce84db4c5f5c7dc1a624926f,</span>
 <span id="revdate">2023-11-13</span>
 </div>
 <div id="toc" class="toc2">
@@ -1226,7 +1226,7 @@ In any case, the attribute <code>name</code> of the <code>&lt;Terminal&gt;</code
 <p>There must be no <code>&lt;TerminalStreamMemberVariable&gt;</code> element.</p>
 </li>
 <li>
-<p>There must be one <code>&lt;Terminal&gt;</code> element per network frame described in the <a href="#high-cut-network-description-files">network description file</a>, if their signal and lock variables are present in the <code>modelDescription.xml</code>.</p>
+<p>There must be one <code>&lt;Terminal&gt;</code> element per network frame described in the <a href="#high-cut-network-description-files">network description file</a>, if their signal and clock variables are present in the <code>modelDescription.xml</code>.</p>
 </li>
 </ul>
 </div>
@@ -1236,9 +1236,10 @@ In any case, the attribute <code>name</code> of the <code>&lt;Terminal&gt;</code
 <div class="ulist">
 <ul>
 <li>
-<p>There must be an <code>&lt;Annotation&gt;</code> element defining which node or nodes (as comma-separated list without spaces) of the <a href="#high-cut-network-description-files">network description file</a> are wrapped inside the FMU.
+<p>If a <a href="#high-cut-network-description-files">network description file</a> is shipped with the specified FMU, there must be an <code>&lt;Annotation&gt;</code> element defining which node or nodes (as comma-separated list without spaces) of the <a href="#high-cut-network-description-files">network description file</a> are wrapped inside the FMU.
 If the combination of nodes specified for this FMU turns a frame and its signals into both input and output because sending and receiving nodes are specified, only the sending (output) role will be defined in the FMU interface.
-Receiving such frames must then be handled internally to the FMU.</p>
+Receiving such frames must then be handled internally to the FMU.
+If no <a href="#high-cut-network-description-files">network description file</a> is shipped with the specified FMU the <code>&lt;Annotation&gt;</code> shall not exist.</p>
 </li>
 </ul>
 </div>
