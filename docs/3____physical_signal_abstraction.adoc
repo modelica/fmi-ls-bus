@@ -85,12 +85,13 @@ Attribute definitions::
 
 Element definitions::
  * There must be no `<TerminalStreamMemberVariable>` element.
- * There must be one `<Terminal>` element per network frame described in the <<high-cut-network-description-files>>, if their signal and lock variables are present in the `modelDescription.xml`.
+ * There must be one `<Terminal>` element per network frame described in the <<high-cut-network-description-files>>, if their signal and clock variables are present in the `modelDescription.xml`.
 
 Annotation element::
- * There must be an `<Annotation>` element defining which node or nodes (as comma-separated list without spaces) of the <<high-cut-network-description-files>> are wrapped inside the FMU.
+ * If a <<high-cut-network-description-files,network description file>> is shipped with the specified FMU, there must be an `<Annotation>` element defining which node or nodes (as comma-separated list without spaces) of the <<high-cut-network-description-files>> are wrapped inside the FMU.
 If the combination of nodes specified for this FMU turns a frame and its signals into both input and output because sending and receiving nodes are specified, only the sending (output) role will be defined in the FMU interface.
 Receiving such frames must then be handled internally to the FMU.
+If no <<high-cut-network-description-files,network description file>> is shipped with the specified FMU the `<Annotation>` shall not exist.
 
 ==== Frame Terminal [[high-cut-frame-terminal,frame terminal]]
 
