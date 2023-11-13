@@ -27,6 +27,20 @@ Other FMUs that want to emulate bus communication provide and relate network inf
 This communication architecture can be operated by a common FMU importer and allows complex and detailed bus simulations.
 * Importer with Integrated Bus Simulation: Works analogously to the Composition with dedicated Bus Simulation FMU architecture, whereby the Bus Simulation FMU is directly integrated into an importer or other simulator.
 
+=== System Simulation Effects
+
+This standard allows a highly accurate bus simulation using FMI 3.0 mechanisms.
+To profit from such accuracy on a system level to predict system behavior, all system simulation components must provide at least that level of accuracy.
+Focusing on single-virtual-ECUs use cases, such as protocol validation, accuracy requirements for the "rest-bus" can be relaxed.
+
+Contrary, on system level, the accuracy of the simulation depends on the accuracy of all its components.
+These components can be virtual ECUs, plant models, rest-bus simulators, data replay components and, of course, the bus simulation.
+A single low-accuracy component limits the overall system simulation accuracy.
+The level of detail of these run-time models determine the size of the window for send-message events.
+With virtual ECUs using the zero-time execution model footnote:[Simulated tasks are executed infinitely fast.], the time of send-message events can only be determined to be somewhere within the given smallest granularity of the virtual ECU's internal scheduler.
+More detailed models (like instruction set simulators or even System-C models of the hardware) can narrow the window for these events significantly.
+However, current (as of writing this standard) modelling technologies do not allow practical (modelling time and run time) implementations of virtual ECUs that can be used to simulate all realistic bus simulation effects (e.g. collision/arbitration events).
+
 === How to Read This Document
 
 Conventions used in this document:
