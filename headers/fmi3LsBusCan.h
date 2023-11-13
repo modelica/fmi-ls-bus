@@ -169,8 +169,10 @@ typedef struct
     fmi3LsBusCanData data[];           /**< Data. */
 } fmi3LsBusCanOperationCanTransmit;
 
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusCanOperationCanTransmit) == (5 + 4 + 1 + 1 + 2),
               "'fmi3LsBusCanOperationCanTransmit' does not match the expected data size");
+#endif
 
 /**
  * \brief Data type indicating whether a Bit Rate Switch occurs during transmission.
@@ -196,8 +198,10 @@ typedef struct
     fmi3LsBusCanData data[];           /**< Data. */
 } fmi3LsBusCanOperationCanFdTransmit;
 
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusCanOperationCanFdTransmit) == (5 + 4 + 1 + 1 + 1 + 2),
               "'fmi3LsBusCanOperationCanFdTransmit' does not match the expected data size");
+#endif
 
 /**
  * \brief Data type representing the Simple Extended Content.
@@ -235,8 +239,10 @@ typedef struct
     fmi3LsBusCanData data[];           /**< Data.*/
 } fmi3LsBusCanOperationCanXlTransmit;
 
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusCanOperationCanXlTransmit) == (5 + 4 + 1 + 1 + 1 + 1 + 4 + 2),
               "'fmi3LsBusCanOperationCanXlTransmit' does not match the expected data size");
+#endif
 
 /**
  * \brief FMI virtual bus operation structure of type 'Confirm'.
@@ -247,8 +253,10 @@ typedef struct
     fmi3LsBusCanId id;               /**< CAN message ID. */
 } fmi3LsBusCanOperationConfirm;
 
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusCanOperationConfirm) == (5 + 4),
               "'fmi3LsBusCanOperationConfirm' does not match the expected data size");
+#endif
 
 /**
  * \brief FMI virtual bus operation structure of type 'Arbitration Lost'.
@@ -259,8 +267,10 @@ typedef struct
     fmi3LsBusCanId id;               /**< CAN message ID. */
 } fmi3LsBusCanOperationArbitrationLost;
 
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusCanOperationArbitrationLost) == (5 + 4),
               "'fmi3LsBusCanOperationArbitrationLost' does not match the expected data size");
+#endif
 
 /**
  * \brief Data type representing a CAN bus error code.
@@ -349,8 +359,10 @@ typedef struct
     fmi3LsBusCanIsSender isSender;   /**< Whether the error occurred in response to a transmission of this FMU. */
 } fmi3LsBusCanOperationBusError;
 
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusCanOperationBusError) == (5 + 4 + 1 + 1 + 1),
               "'fmi3LsBusCanOperationBusError' does not match the expected data size");
+#endif
 
 /**
  * \brief Data type indicating the status of a CAN node.
@@ -381,8 +393,10 @@ typedef struct
     fmi3LsBusCanStatusKind status;   /**< Status of the FMU. */
 } fmi3LsBusCanOperationStatus;
 
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusCanOperationStatus) == (5 + 1),
               "'fmi3LsBusCanOperationStatus' does not match the expected data size");
+#endif
 
 /**
  * \brief Data type representing a CAN baud rate in bit/s.
@@ -453,8 +467,10 @@ typedef struct
     };
 } fmi3LsBusOperationCanConfiguration;
 
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusOperationCanConfiguration) >= (5 + 4 + 1),
               "'fmi3LsBusOperationCanConfiguration' does not match the expected data size");
+#endif
 
 /**
  * \brief FMI virtual bus operation structure of type 'Wakeup'.
@@ -464,8 +480,10 @@ typedef struct
     fmi3LsBusOperationHeader header; /**< Operation header. */
 } fmi3LsBusCanOperationWakeup;
 
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 static_assert(sizeof(fmi3LsBusCanOperationWakeup) == (5),
               "'fmi3LsBusCanOperationWakeup' does not match the expected data size");
+#endif
 
 #pragma pack()
 
