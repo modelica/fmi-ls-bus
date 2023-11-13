@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-b3e9a693a7f4be121364e34c6ccc91811f12628d,</span>
-<span id="revdate">2023-11-10</span>
+<span id="revnumber">version main-dddebc5c5eecd7b9948f0adc063363ae9e9d6388,</span>
+<span id="revdate">2023-11-13</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -596,8 +596,9 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#_introduction">1. Introduction</a>
 <ul class="sectlevel2">
 <li><a href="#_intent_of_this_document">1.1. Intent of This Document</a></li>
-<li><a href="#_how_to_read_this_document">1.2. How to Read This Document</a></li>
-<li><a href="#_remarks">1.3. Remarks</a></li>
+<li><a href="#_system_simulation_effects">1.2. System Simulation Effects</a></li>
+<li><a href="#_how_to_read_this_document">1.3. How to Read This Document</a></li>
+<li><a href="#_remarks">1.4. Remarks</a></li>
 </ul>
 </li>
 <li><a href="#_layered_standard_manifest_file">2. Layered Standard Manifest File</a></li>
@@ -804,7 +805,24 @@ This communication architecture can be operated by a common FMU importer and all
 </div>
 </div>
 <div class="sect2">
-<h3 id="_how_to_read_this_document">1.2. How to Read This Document</h3>
+<h3 id="_system_simulation_effects">1.2. System Simulation Effects</h3>
+<div class="paragraph">
+<p>This standard allows a highly accurate bus simulation using FMI 3.0 mechanisms.
+To profit from such accuracy on a system level to predict system behavior, all system simulation components must provide at least that level of accuracy.
+Focusing on single-virtual-ECUs use cases, such as protocol validation, accuracy requirements for the "rest-bus" can be relaxed.</p>
+</div>
+<div class="paragraph">
+<p>Contrary, on system level, the accuracy of the simulation depends on the accuracy of all its components.
+These components can be virtual ECUs, plant models, rest-bus simulators, data replay components and, of course, the bus simulation.
+A single low-accuracy component limits the overall system simulation accuracy.
+The level of detail of these run-time models determine the size of the window for send-message events.
+With virtual ECUs using the zero-time execution model <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>, the time of send-message events can only be determined to be somewhere within the given smallest granularity of the virtual ECU&#8217;s internal scheduler.
+More detailed models (like instruction set simulators or even System-C models of the hardware) can narrow the window for these events significantly.
+However, current (as of writing this standard) modelling technologies do not allow practical (modelling time and run time) implementations of virtual ECUs that can be used to simulate all realistic bus simulation effects (e.g. collision/arbitration events).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_read_this_document">1.3. How to Read This Document</h3>
 <div class="paragraph">
 <p>Conventions used in this document:</p>
 </div>
@@ -826,7 +844,7 @@ Contrary to the standard, the FMI LS BUS Implementer’s Guide will be a living 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_remarks">1.3. Remarks</h3>
+<h3 id="_remarks">1.4. Remarks</h3>
 <div class="paragraph">
 <p>This layered standard currently only refers to the FMI for Co-Simulation (CS).
 At the current time, Model Exchange (ME) and Scheduled Execution (SE) are not taken into account.
@@ -946,7 +964,7 @@ Some clock types allow the FMU to specify the next send event efficiently and ac
 While "high cut" signal variables will miss all but the last value sent, "low cut" frame variables will buffer all payloads inside their value.</p>
 </div>
 <div class="paragraph">
-<p>If triggered output clocks are used, the importer must take create care to schedule and potentially roll-back FMUs that have advanced their doStep past such a (surprising) triggered clock activation from another FMU.
+<p>If triggered output clocks are used, the importer must take care to schedule and potentially roll-back FMUs that have advanced their <code>doStep</code> past such a (surprising) triggered clock activation from another FMU.
 It is strongly recommended to avoid using triggered output clocks and to instead use time-base clocks to avoid these complications and potential performance problems.</p>
 </div>
 <div class="paragraph">
@@ -1792,7 +1810,7 @@ These basic types are used in the bus-specific parts within the operation defini
 <div class="sect2">
 <h3 id="low-cut-variables">5.3. Variables</h3>
 <div class="paragraph">
-<p>This section explains how layered standard bus protocol operations are sent and received by FMUs using FMI 3.0 clock and clocked variables <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>.
+<p>This section explains how layered standard bus protocol operations are sent and received by FMUs using FMI 3.0 clock and clocked variables <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup>.
 While the former (see <a href="#low-cut-tx-rx-clock-variables">Tx/Rx Clock Variables</a>) are used for scheduling and time synchronization, the latter (see <a href="#low-cut-tx-rx-data-variables">Tx/Rx Data Variables</a>) are used to carry the layered standard bus protocol operations in binary form.
 To summarize, four variables with the following name schema are used:</p>
 </div>
@@ -4152,7 +4170,10 @@ A <a href="#low-cut-lin-wake-up-operation">Wakeup operation</a> is initiated by 
 <a href="#_footnoteref_1">1</a>. In AUTOSAR context this means a driver implementation within the MicroController Abstraction Layer (MCAL)
 </div>
 <div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. For details, refer to Functional Mock-up Interface Specification (fmi-standard.org) chapter 2.2.8 Clocks.
+<a href="#_footnoteref_2">2</a>. Simulated tasks are executed infinitely fast.
+</div>
+<div class="footnote" id="_footnotedef_3">
+<a href="#_footnoteref_3">3</a>. For details, refer to Functional Mock-up Interface Specification (fmi-standard.org) chapter 2.2.8 Clocks.
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
