@@ -3,7 +3,7 @@ This chapter describes the network abstraction or "low cut" in detail.
 
 === Overview
 The network abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
-Exchanging data in terms of the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> via variables grouped by a dedicated bus terminal (see <<low-cut-tx-rx-clock-variables>>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
+Exchanging data in terms of the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> via variables grouped by a dedicated bus terminal (see <<low-cut-variables>>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
 During simulation, the network communication is controlled by send and receive bus operations.
 Based on these operations, Network FMUs have to react as specified by this layered standard depending on their role.
 This role can be a Bus Simulation FMU or an importer with bus simulation support on one side, and Network FMUs (e.g., virtual ECUs) on the other side (see <<common-concepts-system-compositions, System Compositions>>).
@@ -173,7 +173,7 @@ h|Boolean h|Value h|Description
 
 === Variables [[low-cut-variables, Variables]]
 This section explains how layered standard bus protocol operations are sent and received by FMUs using FMI 3.0 clock and clocked variables footnote:[For details, refer to Functional Mock-up Interface Specification (fmi-standard.org) chapter 2.2.8 Clocks.].
-While the former (see <<low-cut-tx-rx-clock-variables, Tx/Rx Clock Variables>>) are used for scheduling and time synchronization, the latter (see <<low-cut-tx-rx-data-variables, Tx/Rx Data Variables>>) are used to carry the layered standard bus protocol operations in binary form.
+While the former (see <<low-cut-tx-clock-variables, Tx Clock Variables>> and <<low-cut-rx-clock-variables, Rx Clock Variables>>) are used for scheduling and time synchronization, the latter (see <<low-cut-tx-rx-data-variables, Tx/Rx Data Variables>>) are used to carry the layered standard bus protocol operations in binary form.
 To summarize, four variables with the following name schema are used:
 
 The input variable `BusName::Rx_Data` is clocked by the clock variable `BusName::Rx_Clock`, both with `causality` set to `input`.
