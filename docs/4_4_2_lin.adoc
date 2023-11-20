@@ -9,9 +9,9 @@ Overall, the following groups of operations exists:
 There are three specific operations that represent the different communication options between a LIN Master and one or more LIN Slaves.
 * Error: This group of operations is used for protocol format errors and to simulate bus failures.
 For example, the failure of a transmission can be indicated.
-* Configuration: The configuration operation enables the configuration of bus-specific parameters and options that are required to simulate the bus behavior properly.
+* Configuration: This operation enables the configuration of bus-specific parameters and options that are required to simulate the bus behavior properly.
 For example, it allows the specification of the baud rate.
-* Status: The Status operation is used by Networked FMUs to inform Bus Simulations about the internal state (Power Off/Initialization/Operation/Sleep) which concerns the reaction on bus errors.
+* Status: This operation is used by Networked FMUs to inform Bus Simulations about the internal state (Power Off/Initialization/Operation/Sleep) which concerns the reaction on bus errors.
 * Wake up: LIN supports wake up and sleep scenarios.
 Normally there are two ways to wake up from sleep mode: a local wake up on a specified wake-up pin, or a wake up on the LIN bus via a LIN specific wake-up pulse.
 This operation is used to simulate triggering a wake up from bus side.

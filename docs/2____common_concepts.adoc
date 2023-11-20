@@ -23,19 +23,19 @@ All variables have structured names that indicate how these variables are relate
 For the "high cut", variables represent signals and their clocks.
 For the "low cut", variables represent send and receive bus traffic and their respective clocks.
 Input and output variables show if these variables belong to signals or bus traffic that are received or sent, respectively.
-Input clocks must be triggered and are connected by the importer to their corresponding output clocks of potentially different clock types.
-For example, a periodic output clock indicates that the FMU can only send signals or frames periodically, while a countdown clock indicates that the FMU can send signals at varying time steps.
+Input clocks must be `triggered` and are connected by the importer to their corresponding output clocks of potentially different clock types.
+For example, a `periodic` output clock indicates that the FMU can only send signals or frames periodically, while a `countdown` clock indicates that the FMU can send signals at varying time steps.
 
 Using output clocks of different types allows simulations with different timing accuracy and performance.
 Some clock types allow the FMU to specify the next send event efficiently and accurately, the importer will trigger these clocks according to these clock specifications as accurately as it can.
 
 _[The alternative of using `nextEventTime` would force epsilon matching of event times.]_
 
-For any periodic (fixed-time) sending of messages, multiple message sends fall into one `doStep`.
+For any periodic (fixed-time) sending of messages, multiple message sends fall into one `fmi3DoStep`.
 While "high cut" signal variables will miss all but the last value sent, "low cut" frame variables will buffer all payloads inside their value.
 
-If triggered output clocks are used, the importer must take care to schedule and potentially roll-back FMUs that have advanced their `doStep` past such a (surprising) triggered clock activation from another FMU.
-It is strongly recommended to avoid using triggered output clocks and to instead use time-base clocks to avoid these complications and potential performance problems.
+If `triggered` output clocks are used, the importer must take care to schedule and potentially roll-back FMUs that have advanced their `fmi3DoStep` past such a (surprising) `triggered` clock activation from another FMU.
+It is strongly recommended to avoid using `triggered` output clocks and to instead use time-base clocks to avoid these complications and potential performance problems.
 
 If an FMU represents network nodes that are both sender and receiver of a signal, the receiver role will be removed from the FMU interface to allow the signals to have a unique role as output and the reading of such outputs must be handled internally to the FMU.
 

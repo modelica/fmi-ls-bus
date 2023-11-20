@@ -40,13 +40,13 @@ All signal variables are clocked to exactly indicate when they have been sent, s
 In order to use FMU input and output variables as transport layer for networks, input and output clocks are used.
 Such a clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.
 
-The output clock type, periodic or aperiodic, is defined by the sending FMU.
+The output clock type, `periodic` or `aperiodic`, is defined by the sending FMU.
 This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:
 
- - While aperiodic clocks allow very accurate network simulations, frequently entering `Event Mode` will reduce the network simulation speed.
- - Using periodic clocks reduces the number of `Event Modes` required and speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.
- - One could use (structural) parameters to define the accuracy of aperiodic clocks, allowing control of the simulation accuracy and performance with the same FMU.
- - The input clocks shall be triggered clocks.
+ - While `aperiodic` clocks allow very accurate network simulations, frequently entering `Event Mode` will reduce the network simulation speed.
+ - Using `periodic` clocks reduces the number of `Event Modes` required and speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.
+ - One could use (structural) parameters to define the accuracy of `aperiodic` clocks, allowing control of the simulation accuracy and performance with the same FMU.
+ - The input clocks shall be `triggered` clocks.
 
 The importer will then connect and merge output clock activations, even those of different clock types, and forwards them to the input clocks, as required by the network semantics.
 
@@ -108,7 +108,7 @@ Element definitions::
  * There must be one `<TerminalMemberVariable>` for the clock this frame is connected to.
    The name of this variable is composed as <<ClockVariable,`BusName::FrameName_Clock`>>, e.g., `Powertrain::tcuSensors_Clock`.
 
-The <<high-cut-terminal-member-variable-for-signals>> must have the same causality as all variables referenced in the <<high-cut-pdu-terminal,PDU Terminals>> included here.
+The <<high-cut-terminal-member-variable-for-signals>> must have the same `causality` as all variables referenced in the <<high-cut-pdu-terminal,PDU Terminals>> included here.
 
 ==== PDU Terminal [[high-cut-pdu-terminal,PDU terminal]]
 
@@ -125,7 +125,7 @@ Element definitions::
  * There must be no `<Terminal>` element.
  * There must be one `<TerminalMemberVariable>` per <<high-cut-terminal-member-variable-for-signals,signal>> of this PDU.
 
-All <<high-cut-terminal-member-variable-for-signals,`TerminalMemberVariables`>> must have the same causality of either `input` or `output`.
+All <<high-cut-terminal-member-variable-for-signals,`TerminalMemberVariables`>> must have the same `causality` of either `input` or `output`.
 
 ==== Terminal Member Variable for Signals [[high-cut-terminal-member-variable-for-signals,Terminal Member Variable]]
 

@@ -9,13 +9,13 @@ Overall, the following groups of operations exists:
 * Transmit: This group of operations is used to simulate a frame transmission.
 There are three specializations of this operation, one each for CAN, CAN FD and CAN XL frames.
 * Confirm: An acknowledgment of transmitted CAN frames is defined by the CAN standard.
-The confirm operation is used to simulate this behavior.
+This kind of operation is used to simulate this behavior.
 * Error: This group of operations is used for protocol format errors and to simulate bus failures.
 For example, the failure of a transmission can be indicated.
 * Arbitration Lost: The operation is used by Bus Simulations to inform Network FMUs that a frame could not be transmitted immediately.
-* Configuration: The configuration operation enables the configuration of bus-specific parameters and options that are required to simulate the bus behavior properly.
+* Configuration: This operation enables the configuration of bus-specific parameters and options that are required to simulate the bus behavior properly.
 For example, it allows the specification of the baud rate or influencing the buffer behavior.
-* Status: The Status operation is used by Networked FMUs to inform Bus Simulations about the internal state (Active/Passive/Bus Off) which concerns the reaction on bus errors.
+* Status: This operation is used by Networked FMUs to inform Bus Simulations about the internal state (Active/Passive/Bus Off) which concerns the reaction on bus errors.
 * Wake up: CAN supports wake up and sleep scenarios.
 Normally there are two ways to wake up from sleep mode: a local wake up on a specified wake-up pin, or a wake up on the CAN bus via a CAN specific wake-up pulse.
 This operation is used to simulate triggering a wake up from bus side.
@@ -404,7 +404,7 @@ Within CAN, an Error frame is transmitted by any unit on detection of a bus erro
 
 |====
 
-The following values for the Error Flag option are defined:
+The following values for the `Error Flag` option are defined:
 
 .Overview of the available Error Flag values.
 [#table-can-bus-error-error-flag-kinds]
@@ -501,7 +501,7 @@ See <<table-can-configuration-arbitration-lost-behavior-kinds>>) for possible va
 
 |====
 
-The following values for the Arbitration Lost Behavior option are defined:
+The following values for the `Arbitration Lost Behavior` option are defined:
 
 .Overview of the available Arbitration Lost Behavior values.
 [#table-can-configuration-arbitration-lost-behavior-kinds]
