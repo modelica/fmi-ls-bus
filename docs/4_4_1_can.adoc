@@ -35,7 +35,7 @@ h|Total Length
 8+h|Specific Content
 
 |Format Error
-|0x00
+|0x01
 |:= 5 + n +
 (4 byte)
 8+|Data +
