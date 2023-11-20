@@ -4,7 +4,7 @@ This chapter describes the network abstraction or "low cut" in detail.
 === Overview
 The network abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
 Exchanging data in terms of the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> via variables grouped by a dedicated bus terminal (see <<low-cut-variables>>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
-During simulation, the network communication is controlled by send and receive bus operations.
+During simulation, the network communication is controlled by send and receive Bus Operations.
 Based on these operations, Network FMUs have to react as specified by this layered standard depending on their role.
 This role can be a Bus Simulation FMU or an importer with bus simulation support on one side, and Network FMUs (e.g., virtual ECUs) on the other side (see <<common-concepts-system-compositions, System Compositions>>).
 The Layered Standard Bus Protocol in general is bus-type-specific, but has some similarities.
@@ -27,11 +27,11 @@ image::bus_simulation_example.svg[width=80%, align="center"]
 For simplification reasons or if a detailed bus simulation is not desired, fixed-step size FMUs can also be used with network abstraction.
 However, depending on the chosen simulation step-size, delay effects of the bus simulation have to be taken into account.
 Compositions with fixed-step size and variable-step size FMUs require the decoupling of the Bus Simulation logic and the Bus Simulation timing.
-This decoupling is realized by queuing Tx/Rx bus operations inside the Bus Simulation as well as queuing Tx bus operations inside Network FMUs.
-By queuing bus operations, System Compositions with variable-step size FMUs as well as fixed-step size FMUs can be simulated together without affecting each other.
+This decoupling is realized by queuing Tx/Rx Bus Operations inside the Bus Simulation as well as queuing Tx Bus Operations inside Network FMUs.
+By queuing Bus Operations, System Compositions with variable-step size FMUs as well as fixed-step size FMUs can be simulated together without affecting each other.
 
 === Layered Standard Bus Protocol [[low-cut-layered-standard-bus-protocol]]
-The Layered Standard Bus Protocol allows the transmission of bus operations between FMUs in binary form via clocks and clocked variables (see <<low-cut-variables>>).
+The Layered Standard Bus Protocol allows the transmission of Bus Operations between FMUs in binary form via clocks and clocked variables (see <<low-cut-variables>>).
 Depending on the role (Network or Bus Simulation), FMUs have to respond to received operations as specified by this layered standard.
 Operations and the reaction on receipt are bus-type-specific and therefore described in the bus-specific chapters.
 However, the description follows a uniform structure and consists of two parts, an overview table and a detailed description of all operations.
@@ -188,7 +188,7 @@ How to set the `BusName` placeholder is bus-type-specific and therefore describe
 As described in the FMI 3.0 specification, clock variables are used to synchronize events between importer and across FMUs.
 Since clock variables are strictly related to the `Event Mode`, networked FMUs shall set the Co-Simulation attribute `hasEventMode = "true"` in the model description file.
 
-The point in time where bus operations are transferred from the `Tx_Data` to the `Rx_Data` variables is defined by the `Tx_Clock` variable.
+The point in time where Bus Operations are transferred from the `Tx_Data` to the `Rx_Data` variables is defined by the `Tx_Clock` variable.
 This point is also referred to as the `Bus Communication Point`.
 A `Bus Communication Point` and a regular communication point can take place at the same time, but should be considered as independent by the importer.
 In contrast to a regular communication point where input/output variables used in step mode are exchanged, only the clocked Tx/Rx data variables needs to be considered by the importer.
@@ -203,7 +203,7 @@ A `time-based` `Tx_Clock` variable allows networked FMUs to announce a `Bus Comm
 [#low-cut-communication-points]
 image::low_cut_communication_points.svg[width=100%, align="center"]
 
-The announced Tx time however does not mean that a bus operation really has to be transferred, but that the connected networked FMUs should enter the event mode at that time.
+The announced Tx time however does not mean that a Bus Operation really has to be transferred, but that the connected networked FMUs should enter the event mode at that time.
 An importer has to determine proper communication step sizes to synchronize networked FMUs at the announced Tx time.
 
 _[Note: While simulation it can happen that no `Tx_Data` has to be transferred to the `Rx_Data` variable at the announced Tx time. In this case the returned 'valueSize' of the `Tx_Data` variable is 0.]_
@@ -253,9 +253,9 @@ image::low_cut_communication_with_triggered_tx_clock.svg[width=100%, align="cent
 The input clocks (`Rx_Clock`) shall be `triggered` clocks.
 
 ==== Tx/Rx Data Variables [[low-cut-tx-rx-data-variables, Communication Variables]]
-The Tx/Rx variables are of type `fmi3Binary` and contain multiple bus operations, as sent or receive by the FMU.
-If no bus operations shall be sent by a specified Network FMU at a given `Bus Communication Point`, the size of the corresponding binary `Tx_Data` variable shall be set to zero.
-The senders can choose how many bus operations are buffered and/or for how long operations are buffered before activating an output clock to trigger the actual sending of these operations.
+The Tx/Rx variables are of type `fmi3Binary` and contain multiple Bus Operations, as sent or receive by the FMU.
+If no Bus Operations shall be sent by a specified Network FMU at a given `Bus Communication Point`, the size of the corresponding binary `Tx_Data` variable shall be set to zero.
+The senders can choose how many Bus Operations are buffered and/or for how long operations are buffered before activating an output clock to trigger the actual sending of these operations.
 This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication.
 
 ==== Selecting the type of Tx Clock[[low-cut-selecting_tx_variables]]
