@@ -454,20 +454,20 @@ Note that only one parameter can be set per `Configuration operation`.
 |CAN_BAUDRATE
 |Baudrate
 |4 byte
-|The CAN baudrate value to configure.
-The required unit for the baudrate value is bit/s.
+|The CAN baud rate value to configure.
+The required unit for the baud rate value is bit/s.
 
 |CAN_FD_BAUDRATE
 |Baudrate
 |4 byte
-|The CAN FD baudrate value to configure.
-The required unit for the baudrate value is bit/s.
+|The CAN FD baud rate value to configure.
+The required unit for the baud rate value is bit/s.
 
 |CAN_XL_BAUDRATE
 |Baudrate
 |4 byte
-|The CAN XL baudrate value to configure.
-The required unit for the baudrate value is bit/s.
+|The CAN XL baud rate value to configure.
+The required unit for the baud rate value is bit/s.
 
 |ARBITRATION_LOST_BEHAVIOR
 |Arbitration Lost Behavior
@@ -494,8 +494,8 @@ The following configuration parameters are defined:
 
 h|Parameter h|Value h|Description
 |CAN_BAUDRATE|0x01|This code indicates that a CAN baud rate should be configured for the Bus Simulation.
-|CAN_FD_BAUDRATE|0x02|Allows the configuration of a CAN FD baudrate for the Bus Simulation.
-|CAN_XL_BAUDRATE|0x03|Allows the configuration of a CAN XL baudrate for the Bus Simulation.
+|CAN_FD_BAUDRATE|0x02|Allows the configuration of a CAN FD baud rate for the Bus Simulation.
+|CAN_XL_BAUDRATE|0x03|Allows the configuration of a CAN XL baud rate for the Bus Simulation.
 |ARBITRATION_LOST_BEHAVIOR|0x04|This code configures the behavior of a Bus Simulation if an arbitration is lost.
 See <<table-can-configuration-arbitration-lost-behavior-kinds>>) for possible values.
 
@@ -638,7 +638,7 @@ For this purpose, the <<low-cut-can-configuration-operation, Configuration opera
 <<low-cut-can-configuration-operation, Configuration operations>> can be produced multiple times during the runtime of a Network FMU.
 Because the Bus Simulation shall choose a default behavior, it might be useful in several scenarios that Network FMUs finish configuration before the production of <<low-cut-can-transmit-operation, Transmit operations>>.
 
-====== Baudrate Handling
+====== Baud Rate Handling
 In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation about the specified baud rate from a Network FMU.
 This baud rate information can be configured by using `CAN_BAUDRATE`, `CAN_FD_BAUDRATE` and `CAN_XL_BAUDRATE` configuration kind of the <<low-cut-can-configuration-operation, Configuration operation>>.
 In a CAN FD scenario, both the configuration for `CAN_BAUDRATE` and for `CAN_FD_BAUDRATE` shall be carried out if the CAN FD bit rate switch feature is used.
