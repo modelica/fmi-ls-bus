@@ -329,7 +329,7 @@ image::bus_terminal.svg[width=30%, align="center"]
 ==== Example [[low-cut-example]]
 The following excerpts from files are used throughout this document as examples and illustrate how the different concepts relate.
 
-.Example modelDescription.xml for ECU node
+.Example modelDescription.xml for ECU node.
 [#modelDescriptionLowCut.xml]
 [source, XML]
 ----
@@ -338,7 +338,7 @@ include::examples/X_network4FMI_modelDescription_lowCut.xml[]
 
 The following file shows the `<Terminal>` related definition:
 
-.Example terminalsAndIcons.xml file
+.Example terminalsAndIcons.xml file.
 [#terminalsAndIconLowCut.xml]
 [source, XML]
 ----
