@@ -173,7 +173,7 @@ h|Behavior
 3+|The CAN Transmit operation shall be provided by Network FMUs to initiate the transmission of a CAN frame.
 In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-can-confirm-operation, Confirm>>, <<low-cut-can-arbitration-lost-operation, Arbitration Lost>>, <<low-cut-can-bus-error-operation, Bus Error>> or <<low-cut-can-format-error-operation, Format Error>> operation.
+Depending on the simulation details, the Bus Simulation might response with a <<low-cut-can-confirm-operation, Confirm>>, <<low-cut-can-arbitration-lost-operation, Arbitration Lost>>, <<low-cut-can-bus-error-operation, Bus Error>> or <<low-cut-can-format-error-operation, Format Error>> operation.
 Depending on the <<low-cut-can-status-operation, status>> of the specified Network FMU further restrictions for CAN Transmit operations <<table-can-status-values, exist>>.
 
 |====
@@ -199,11 +199,8 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 | Data Length | 2 byte | Specifies the length of the Data argument in bytes.
 | Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN FD Format.
 h|Behavior
-3+|The CAN FD Transmit operation shall be provided by Network FMUs to initiate the transmission of a CAN FD frame.
-In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
-If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might response with a <<low-cut-can-confirm-operation, Confirm>>, <<low-cut-can-arbitration-lost-operation, Arbitration Lost>>, <<low-cut-can-bus-error-operation, Bus Error>> or <<low-cut-can-format-error-operation, Format Error>> operation.
-Depending on the <<low-cut-can-status-operation, status>> of the specified Network FMU further restrictions for CAN FD Transmit operations <<table-can-status-values, exist>>.
+3+|See <<table-can-transmit-operation, CAN Transmit>> behavior.
+The same circumstances also apply here.
 
 |====
 
@@ -229,11 +226,8 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 | Data Length | 2 byte | Specifies the length of the Data argument in bytes.
 | Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN XL Format.
 h|Behavior
-3+|The CAN XL Transmit operation shall be provided by Network FMUs to initiate the transmission of a CAN XL frame.
-In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
-If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might response with a <<low-cut-can-confirm-operation, Confirm>>, <<low-cut-can-arbitration-lost-operation, Arbitration Lost>>, <<low-cut-can-bus-error-operation, Bus Error>> or <<low-cut-can-format-error-operation, Format Error>> operation.
-Depending on the <<low-cut-can-status-operation, status>> of the specified Network FMU further restrictions for CAN XL Transmit operations <<table-can-status-values, exist>>.
+3+|See <<table-can-transmit-operation, CAN Transmit>> behavior.
+The same circumstances also apply here.
 
 |====
 
@@ -395,7 +389,7 @@ If the sent and received bits are not identical, this failure results in a Bit E
 
 |ACK_ERROR
 |0x05
-|At least one receiving node identifies an invalid CAN frame.
+|All receiving nodes identify an invalid CAN frame.
 
 |BROKEN_ERROR_FRAME
 |0x06
@@ -561,7 +555,7 @@ h|Kind h|Value h|Description
 |ERROR_ACTIVE
 |0x01
 |Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: ERROR ACTIVE.
-If required status is not adjusted by a Network FMU, the Bus Simulation shall choose `ERROR_ACTIVE` by itself for a specified Network FMU.
+If the status is not adjusted by a Network FMU, the Bus Simulation shall choose `ERROR_ACTIVE` by itself for a specified Network FMU.
 
 |ERROR_PASSIVE
 |0x02
@@ -629,7 +623,7 @@ Only if the Bus Simulation either supports <<low-cut-can-confirm-operation, Conf
         Start:        "false"
 ----
 
-This structural parameter shall only be available for Network FMUs.
+This structural parameter is mandatory for Network FMUs.
 A Bus Simulation (FMU) does not require this structural parameter.
 
 ===== Configuration of Bus Simulation
