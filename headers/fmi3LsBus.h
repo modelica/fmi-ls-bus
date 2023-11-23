@@ -56,6 +56,16 @@ extern "C"
 #endif
 
 /**
+ * \brief Defines the value 'TRUE' of the fmi-ls-bus. 
+ */
+#define FMI3_LS_BUS_TRUE ((fmi3UInt8)0x01)
+
+/**
+ * \brief Defines the value 'FALSE' of the fmi-ls-bus.
+ */
+#define FMI3_LS_BUS_FALSE ((fmi3UInt8)0x00)
+
+/**
  * \brief FMI virtual bus operation of type 'Format Error'.
  */
 #define FMI3_LS_BUS_OP_FORMAT_ERROR ((fmi3LsBusOperationType)0x0001)

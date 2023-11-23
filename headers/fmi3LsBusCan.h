@@ -99,7 +99,7 @@ extern "C"
  *
  * Indicates that an error occurred on the virtual bus.
  */
-#define FMI3_LS_BUS_CAN_OP_CAN_BUS_ERROR ((fmi3LsBusOperationType)0x0031)
+#define FMI3_LS_BUS_CAN_OP_BUS_ERROR ((fmi3LsBusOperationType)0x0031)
 
 /**
  * \brief FMI virtual bus operation of type 'Configuration'.
@@ -465,11 +465,11 @@ typedef struct
         fmi3LsBusCanBaudrate baudrate;                               /**< The configured baud rate. */
         fmi3LsBusCanArbitrationLostBehavior arbitrationLostBehavior; /**< The configured arbitration lost behavior. */
     };
-} fmi3LsBusOperationCanConfiguration;
+} fmi3LsBusCanOperationConfiguration;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusOperationCanConfiguration) >= (5 + 4 + 1),
-              "'fmi3LsBusOperationCanConfiguration' does not match the expected data size");
+static_assert(sizeof(fmi3LsBusCanOperationConfiguration) >= (5 + 4 + 1),
+              "'fmi3LsBusCanOperationConfiguration' does not match the expected data size");
 #endif
 
 /**
