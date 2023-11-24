@@ -42,4 +42,4 @@ Docs released under [Attribution-ShareAlike 4.0 International].
 [githubspec]: docs/index.adoc
 [spec]: https://modelica.github.io/fmi-ls-bus/main/
 [FMI LS Bus Implementers' Guide]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/
-[Getting started with CAN, CAN FD and CAN XL]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/
+[Getting started with CAN, CAN FD and CAN XL]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-getting-started-with-can
