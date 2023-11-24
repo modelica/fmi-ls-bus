@@ -199,8 +199,7 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 | Data Length | 2 byte | Specifies the length of the Data argument in bytes.
 | Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN FD Format.
 h|Behavior
-3+|See <<table-can-transmit-operation, CAN Transmit>> behavior.
-The same circumstances also apply here.
+3+|The behavior is identical to the <<table-can-transmit-operation, CAN Transmit>> behavior.
 
 |====
 
@@ -226,8 +225,7 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 | Data Length | 2 byte | Specifies the length of the Data argument in bytes.
 | Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN XL Format.
 h|Behavior
-3+|See <<table-can-transmit-operation, CAN Transmit>> behavior.
-The same circumstances also apply here.
+3+|The behavior is identical to the <<table-can-transmit-operation, CAN Transmit>> behavior.
 
 |====
 
