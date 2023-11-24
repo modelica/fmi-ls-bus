@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-95cd5fbfd979d1912b37c497b11f8215db259f50,</span>
+<span id="revnumber">version main-f7713e007d22b07dd41284dc1127c964e74a1805,</span>
 <span id="revdate">2023-11-24</span>
 </div>
 <div id="toc" class="toc2">
@@ -1836,7 +1836,7 @@ How to set the <code>BusName</code> placeholder is bus-type-specific and therefo
 Since clock variables are strictly related to the <code>Event Mode</code>, networked FMUs shall set the Co-Simulation attribute <code>hasEventMode = "true"</code> in the model description file.</p>
 </div>
 <div class="paragraph">
-<p>The point in time where bus operations are transfered from the Tx_Data to the Rx_Data variables is defined by the Tx_Clock variable.
+<p>The point in time where bus operations are transferred from the Tx_Data to the Rx_Data variables is defined by the Tx_Clock variable.
 This point is also referred to as the <code>bus communication point</code>.
 A bus communication point and a regular communication point can take place at the same time, but should be considered as independent by the importer.
 In contrast to a regular communication point where input/output variables used in step mode are exchanged, only the clocked Tx/Rx data variables needs to be considered by the importer.</p>
@@ -1848,7 +1848,7 @@ Hence the clock type can influence the bus simulation significantly - the differ
 <div class="sect4">
 <h5 id="low-cut-tx-time-based-clock-variables">5.3.1.1. Time-based Tx Clock Variables</h5>
 <div class="paragraph">
-<p>A time-based Tx Clock variable allows networked FMUs to annouce a bus communication point for the next simulation step in advance.</p>
+<p>A time-based Tx Clock variable allows networked FMUs to announce a bus communication point for the next simulation step in advance.</p>
 </div>
 <div id="low-cut-communication-points" class="imageblock text-center">
 <div class="content">
@@ -1861,7 +1861,7 @@ Hence the clock type can influence the bus simulation significantly - the differ
 An importer has to determine proper communication step sizes to synchronize networked FMUs at the announced Tx time.</p>
 </div>
 <div class="paragraph">
-<p><em>[Note: While simulation it can happen that no Tx_Data has to be transferred to the Rx_Data variable at the announced Tx time. In this case the retured 'valueSize' of the Tx_Data variable is 0.]</em></p>
+<p><em>[Note: While simulation it can happen that no Tx_Data has to be transferred to the Rx_Data variable at the announced Tx time. In this case the returned 'valueSize' of the Tx_Data variable is 0.]</em></p>
 </div>
 <div class="paragraph">
 <p>Even the <code>causality</code> of a time-based Tx_Clock variable and a triggered Rx_Clock variable are each <code>input</code>. It is allowed to connect both, since a time-based clock variable of an FMU is considered only to be a request to the importer to provide an attendant clock source.</p>
@@ -1961,7 +1961,7 @@ This allows senders to trade accuracy for speed: buffering more and interrupting
 </div>
 </div>
 <div class="sect3">
-<h4 id="_selecting_the_type_of_tx_clock">5.3.4. Selecting the type of Tx Clock<a id="low-cut-selecting_tx_variables"></a></h4>
+<h4 id="_selecting_the_type_of_tx_clock">5.3.4. Selecting the type of Tx Clock<a id="low-cut-selecting-tx-variables"></a></h4>
 <div class="paragraph">
 <p>Selecting suitable Tx variables allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:</p>
 </div>
