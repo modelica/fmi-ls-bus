@@ -22,14 +22,14 @@ based on the [FMI][] standard.
 - `schema` -- XSD schema for this FMI Layered
 Standard
 
-## FMI LS Bus Implementers' Guide
-The [FMI LS Bus Implementers' Guide] is a free resource intended to give non-normative recommendations and guidance to implementers of the Functional Mock-up Interface layered standard Network Communication (FMI-LS-BUS).
-
 ## Getting Started
 To help you get started, we provide introductory chapters.
 The following resources are currently available:
 
 * [Getting started with CAN, CAN FD and CAN XL]
+
+## FMI LS Bus Implementers' Guide
+The [FMI LS Bus Implementers' Guide] is a free resource intended to give non-normative recommendations and guidance to implementers of the Functional Mock-up Interface layered standard Network Communication (FMI-LS-BUS).
 
 ## Copyright and License
 Code and documentation copyright (C) 2008-2011 the MODELISAR consortium and 2012-2023 the Modelica Association Project FMI.
