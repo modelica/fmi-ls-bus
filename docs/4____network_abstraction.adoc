@@ -258,7 +258,7 @@ If no Bus Operations shall be sent by a specified Network FMU at a given `Bus Co
 The senders can choose how many Bus Operations are buffered and/or for how long operations are buffered before activating an output clock to trigger the actual sending of these operations.
 This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication.
 
-==== Selecting the type of Tx Clock[[low-cut-selecting_tx_variables]]
+==== Selecting the type of Tx Clock[[low-cut-selecting-tx-variables]]
 Selecting suitable Tx variables allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:
 
  - While `aperiodic` clocks allow very accurate network simulations, frequently entering `Event Mode` will reduce the network simulation speed.
