@@ -9,13 +9,13 @@ Overall, the following groups of operations exists:
 * Transmit: This group of operations is used to simulate a frame transmission.
 There are three specializations of this operation, one each for CAN, CAN FD and CAN XL frames.
 * Confirm: An acknowledgment of transmitted CAN frames is defined by the CAN standard.
-The confirm operation is used to simulate this behavior.
+This kind of operation is used to simulate this behavior.
 * Error: This group of operations is used for protocol format errors and to simulate bus failures.
 For example, the failure of a transmission can be indicated.
 * Arbitration Lost: The operation is used by Bus Simulations to inform Network FMUs that a frame could not be transmitted immediately.
-* Configuration: The configuration operation enables the configuration of bus-specific parameters and options that are required to simulate the bus behavior properly.
+* Configuration: This operation enables the configuration of bus-specific parameters and options that are required to simulate the bus behavior properly.
 For example, it allows the specification of the baud rate or influencing the buffer behavior.
-* Status: The Status operation is used by Networked FMUs to inform Bus Simulations about the internal state (Active/Passive/Bus Off) which concerns the reaction on bus errors.
+* Status: This operation is used by Networked FMUs to inform Bus Simulations about the internal state (Active/Passive/Bus Off) which concerns the reaction on bus errors.
 * Wake up: CAN supports wake up and sleep scenarios.
 Normally there are two ways to wake up from sleep mode: a local wake up on a specified wake-up pin, or a wake up on the CAN bus via a CAN specific wake-up pulse.
 This operation is used to simulate triggering a wake up from bus side.
@@ -35,7 +35,7 @@ h|Total Length
 8+h|Specific Content
 
 |Format Error
-|0x00
+|0x01
 |:= 5 + n +
 (4 byte)
 8+|Data +
@@ -173,7 +173,7 @@ h|Behavior
 3+|The CAN Transmit operation shall be provided by Network FMUs to initiate the transmission of a CAN frame.
 In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-can-confirm-operation, Confirm>>, <<low-cut-can-arbitration-lost-operation, Arbitration Lost>>, <<low-cut-can-bus-error-operation, Bus Error>> or <<low-cut-can-format-error-operation, Format Error>> operation.
+Depending on the simulation details, the Bus Simulation might response with a <<low-cut-can-confirm-operation, Confirm>>, <<low-cut-can-arbitration-lost-operation, Arbitration Lost>>, <<low-cut-can-bus-error-operation, Bus Error>> or <<low-cut-can-format-error-operation, Format Error>> operation.
 Depending on the <<low-cut-can-status-operation, status>> of the specified Network FMU further restrictions for CAN Transmit operations <<table-can-status-values, exist>>.
 
 |====
@@ -199,11 +199,7 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 | Data Length | 2 byte | Specifies the length of the Data argument in bytes.
 | Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN FD Format.
 h|Behavior
-3+|The CAN FD Transmit operation shall be provided by Network FMUs to initiate the transmission of a CAN FD frame.
-In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
-If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might response with a <<low-cut-can-confirm-operation, Confirm>>, <<low-cut-can-arbitration-lost-operation, Arbitration Lost>>, <<low-cut-can-bus-error-operation, Bus Error>> or <<low-cut-can-format-error-operation, Format Error>> operation.
-Depending on the <<low-cut-can-status-operation, status>> of the specified Network FMU further restrictions for CAN FD Transmit operations <<table-can-status-values, exist>>.
+3+|The behavior is identical to the <<table-can-transmit-operation, CAN Transmit>> behavior.
 
 |====
 
@@ -229,11 +225,7 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 | Data Length | 2 byte | Specifies the length of the Data argument in bytes.
 | Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN XL Format.
 h|Behavior
-3+|The CAN XL Transmit operation shall be provided by Network FMUs to initiate the transmission of a CAN XL frame.
-In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
-If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might response with a <<low-cut-can-confirm-operation, Confirm>>, <<low-cut-can-arbitration-lost-operation, Arbitration Lost>>, <<low-cut-can-bus-error-operation, Bus Error>> or <<low-cut-can-format-error-operation, Format Error>> operation.
-Depending on the <<low-cut-can-status-operation, status>> of the specified Network FMU further restrictions for CAN XL Transmit operations <<table-can-status-values, exist>>.
+3+|The behavior is identical to the <<table-can-transmit-operation, CAN Transmit>> behavior.
 
 |====
 
@@ -395,7 +387,7 @@ If the sent and received bits are not identical, this failure results in a Bit E
 
 |ACK_ERROR
 |0x05
-|At least one receiving node identifies an invalid CAN frame.
+|All receiving nodes identify an invalid CAN frame.
 
 |BROKEN_ERROR_FRAME
 |0x06
@@ -404,7 +396,7 @@ Within CAN, an Error frame is transmitted by any unit on detection of a bus erro
 
 |====
 
-The following values for the Error Flag option are defined:
+The following values for the `Error Flag` option are defined:
 
 .Overview of the available Error Flag values.
 [#table-can-bus-error-error-flag-kinds]
@@ -454,20 +446,20 @@ Note that only one parameter can be set per `Configuration operation`.
 |CAN_BAUDRATE
 |Baudrate
 |4 byte
-|The CAN baudrate value to configure.
-The required unit for the baudrate value is bit/s.
+|The CAN baud rate value to configure.
+The required unit for the baud rate value is bit/s.
 
 |CAN_FD_BAUDRATE
 |Baudrate
 |4 byte
-|The CAN FD baudrate value to configure.
-The required unit for the baudrate value is bit/s.
+|The CAN FD baud rate value to configure.
+The required unit for the baud rate value is bit/s.
 
 |CAN_XL_BAUDRATE
 |Baudrate
 |4 byte
-|The CAN XL baudrate value to configure.
-The required unit for the baudrate value is bit/s.
+|The CAN XL baud rate value to configure.
+The required unit for the baud rate value is bit/s.
 
 |ARBITRATION_LOST_BEHAVIOR
 |Arbitration Lost Behavior
@@ -494,14 +486,14 @@ The following configuration parameters are defined:
 
 h|Parameter h|Value h|Description
 |CAN_BAUDRATE|0x01|This code indicates that a CAN baud rate should be configured for the Bus Simulation.
-|CAN_FD_BAUDRATE|0x02|Allows the configuration of a CAN FD baudrate for the Bus Simulation.
-|CAN_XL_BAUDRATE|0x03|Allows the configuration of a CAN XL baudrate for the Bus Simulation.
+|CAN_FD_BAUDRATE|0x02|Allows the configuration of a CAN FD baud rate for the Bus Simulation.
+|CAN_XL_BAUDRATE|0x03|Allows the configuration of a CAN XL baud rate for the Bus Simulation.
 |ARBITRATION_LOST_BEHAVIOR|0x04|This code configures the behavior of a Bus Simulation if an arbitration is lost.
 See <<table-can-configuration-arbitration-lost-behavior-kinds>>) for possible values.
 
 |====
 
-The following values for the Arbitration Lost Behavior option are defined:
+The following values for the `Arbitration Lost Behavior` option are defined:
 
 .Overview of the available Arbitration Lost Behavior values.
 [#table-can-configuration-arbitration-lost-behavior-kinds]
@@ -561,7 +553,7 @@ h|Kind h|Value h|Description
 |ERROR_ACTIVE
 |0x01
 |Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: ERROR ACTIVE.
-If required status is not adjusted by a Network FMU, the Bus Simulation shall choose `ERROR_ACTIVE` by itself for a specified Network FMU.
+If the status is not adjusted by a Network FMU, the Bus Simulation shall choose `ERROR_ACTIVE` by itself for a specified Network FMU.
 
 |ERROR_PASSIVE
 |0x02
@@ -629,7 +621,7 @@ Only if the Bus Simulation either supports <<low-cut-can-confirm-operation, Conf
         Start:        "false"
 ----
 
-This structural parameter shall only be available for Network FMUs.
+This structural parameter is mandatory for Network FMUs.
 A Bus Simulation (FMU) does not require this structural parameter.
 
 ===== Configuration of Bus Simulation
@@ -638,7 +630,7 @@ For this purpose, the <<low-cut-can-configuration-operation, Configuration opera
 <<low-cut-can-configuration-operation, Configuration operations>> can be produced multiple times during the runtime of a Network FMU.
 Because the Bus Simulation shall choose a default behavior, it might be useful in several scenarios that Network FMUs finish configuration before the production of <<low-cut-can-transmit-operation, Transmit operations>>.
 
-====== Baudrate Handling
+====== Baud Rate Handling
 In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation about the specified baud rate from a Network FMU.
 This baud rate information can be configured by using `CAN_BAUDRATE`, `CAN_FD_BAUDRATE` and `CAN_XL_BAUDRATE` configuration kind of the <<low-cut-can-configuration-operation, Configuration operation>>.
 In a CAN FD scenario, both the configuration for `CAN_BAUDRATE` and for `CAN_FD_BAUDRATE` shall be carried out if the CAN FD bit rate switch feature is used.
