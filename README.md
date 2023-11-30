@@ -28,6 +28,13 @@ The following resources are currently available:
 
 * [Getting started with CAN, CAN FD and CAN XL]
 
+## Demos
+[Demo FMUs] are available within the [FMI LS Bus Implementers' Guide] to illustrate how to use and implement the fmi-ls bus.
+More demos will be added iteratively in the near future.
+See also the overview pages for the demos, categorized by the different supported bus types of the fmi-ls-bus.  
+
+* [CAN, CAN FD and CAN XL Demo Overview] 
+
 ## FMI LS Bus Implementers' Guide
 The [FMI LS Bus Implementers' Guide] is a free resource intended to give non-normative recommendations and guidance to implementers of the Functional Mock-up Interface layered standard Network Communication (FMI-LS-BUS).
 
@@ -37,9 +44,11 @@ Code released under the [2-Clause BSD License].
 Docs released under [Attribution-ShareAlike 4.0 International].
 
 [FMI]: https://fmi-standard.org/
+[Demo FMUs]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/demos
 [2-Clause BSD License]: https://opensource.org/licenses/BSD-2-Clause
 [Attribution-ShareAlike 4.0 International]: https://creativecommons.org/licenses/by-sa/4.0/
 [githubspec]: docs/index.adoc
 [spec]: https://modelica.github.io/fmi-ls-bus/main/
 [FMI LS Bus Implementers' Guide]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/
 [Getting started with CAN, CAN FD and CAN XL]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-getting-started-with-can
+[CAN, CAN FD and CAN XL Demo Overview]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-demos
