@@ -687,6 +687,8 @@ When a Network FMU has provided the status `BUS_OFF` to the Bus Simulation, then
 [#figure-can-architectural-error-handling-overview]
 image::can_error_handling_overview.svg[width=100%, align="center"]
 
+The https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-realization-of-can-error-handling[FMI LS BUS Implementer’s Guide] contains an example how to realize CAN error handling basing on the Bus Operations specified by this layered standard.
+
 ===== Arbitration [[low-cut-can-arbitration]]
 Arbitration is an instrument of the CAN standard to resolve the conflict of the simultaneous sending of messages from several CAN nodes without a collision.
 The arbitration is handled in the Bus Simulation and can be recognized by the fact that the Bus Simulation receives a <<low-cut-can-transmit-operation, Transmit operation>> from several FMUs at the same time.
