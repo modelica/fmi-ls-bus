@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-1a690c89cb602cfdade12483b605a75d3fbb8c83,</span>
-<span id="revdate">2023-11-30</span>
+<span id="revnumber">version main-3291db200b548955d8d526105610203d654c79b7,</span>
+<span id="revdate">2023-12-01</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -3237,8 +3237,7 @@ Because the Bus Simulation shall choose a default behavior, it might be useful i
 <div class="paragraph">
 <p>In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation about the specified baud rate from a Network FMU.
 This baud rate information can be configured by using <code>CAN_BAUDRATE</code>, <code>CAN_FD_BAUDRATE</code> and <code>CAN_XL_BAUDRATE</code> configuration kind of the <a href="#low-cut-can-configuration-operation">Configuration operation</a>.
-In a CAN FD scenario, both the configuration for <code>CAN_BAUDRATE</code> and for <code>CAN_FD_BAUDRATE</code> shall be carried out if the CAN FD bit rate switch feature is used.
-Otherwise the configuration of <code>CAN_BAUDRATE</code> is sufficient for CAN FD.
+In a CAN FD scenario, both the configuration for <code>CAN_BAUDRATE</code> and for <code>CAN_FD_BAUDRATE</code> shall be carried out.
 The Bus Simulation can derive the required CAN, CAN FD or CAN XL controller type from the baud rate configurations a Network FMU carried out.
 If the baud rate information is not adjusted by a specified Network FMU, the Bus Simulation shall choose a default behavior by itself.</p>
 </div>
