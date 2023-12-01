@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-3291db200b548955d8d526105610203d654c79b7,</span>
+<span id="revnumber">version main-a6dcbe6e1c306435254a1cd4174ac5e4997a70ce,</span>
 <span id="revdate">2023-12-01</span>
 </div>
 <div id="toc" class="toc2">
@@ -1714,7 +1714,7 @@ The following applies for this operation: <code>Total Length = 7 + &lt;Arg2_Leng
 <p>Numbers shall be transmitted with <code>little-endian</code> byte order.</p>
 </li>
 <li>
-<p>Since the standard allows to concatenate multiple operations (see <a href="#low-cut-tx-rx-data-variables">Tx/Rx Data Variables</a>), the <a href="#TotalLengthField">Total Length</a> field was introduced to allow the implementation of a generic parser for received operations.</p>
+<p>Since the standard allows to concatenate multiple operations (see <a href="#low-cut-tx-rx-data-variables">Tx/Rx Data Variables</a>), the <a href="#TotalLengthField">Total Length</a> field is introduced to allow the implementation of a generic parser for received operations.</p>
 </li>
 </ul>
 </div>
@@ -3257,8 +3257,8 @@ If the buffering is not adjusted by a specified Network FMU, the Bus Simulation 
 <p>The <a href="#low-cut-can-transmit-operation">Transmit operation</a> represents the sending of a CAN, CAN FD and CAN XL frame.
 With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g., Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
 In the real world, flawlessly transmitted CAN frames will be acknowledged by at least one receiver CAN node.
-To simulate this behavior, the <a href="#low-cut-can-confirm-operation">Confirm operations</a> were introduced.
-In addition to support lightweight bus simulations and <a href="#common-concepts-direct-communication">directly connected Network FMUs</a>, the structural parameter <code>org.fmi_standard.fmi_ls_bus.Can_BusNotifications</code> (see <a href="#low-cut-can-bus-notification-parameter">Section 5.5.1.3.1</a>) has been defined.</p>
+To simulate this behavior, the <a href="#low-cut-can-confirm-operation">Confirm operations</a> are introduced.
+In addition to support lightweight bus simulations and <a href="#common-concepts-direct-communication">directly connected Network FMUs</a>, the structural parameter <code>org.fmi_standard.fmi_ls_bus.Can_BusNotifications</code> (see <a href="#low-cut-can-bus-notification-parameter">Section 5.5.1.3.1</a>) is defined.</p>
 </div>
 <div class="paragraph">
 <p>If <code>org.fmi_standard.fmi_ls_bus.Can_BusNotifications</code> is set to <code>false</code> (default), then Network FMUs shall not rely on receiving <a href="#low-cut-can-confirm-operation">Confirm operations</a>.
@@ -3267,7 +3267,7 @@ If a specified Network FMU is depending on <a href="#low-cut-can-confirm-operati
 </div>
 <div class="paragraph">
 <p><a href="#figure-can-direct-communication">Figure 12</a> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
-After that, the transmission is directly confirmed by FMU 1 itself, whereby FMU 1 handles that self confirmation internally.</p>
+Subsequently, FMU 1 self-confirms the transmission internally.</p>
 </div>
 <div id="figure-can-direct-communication" class="imageblock text-center">
 <div class="content">
@@ -3276,7 +3276,7 @@ After that, the transmission is directly confirmed by FMU 1 itself, whereby FMU 
 <div class="title">Figure 12. Direct Confirmation of transmitted network data.</div>
 </div>
 <div class="paragraph">
-<p>For a detailed simulation, Bus Simulations shall support <a href="#low-cut-can-confirm-operation">Confirm operations</a>.
+<p>For a detailed simulation, the Bus Simulation shall support <a href="#low-cut-can-confirm-operation">Confirm operations</a>.
 In this case, the <code>org.fmi_standard.fmi_ls_bus.Can_BusNotifications</code> parameter of the Network FMUs shall be set to <code>true</code> and Network FMUs can rely on receiving <a href="#low-cut-can-confirm-operation">Confirm operations</a>.</p>
 </div>
 <div class="paragraph">
@@ -3289,10 +3289,10 @@ In this case, the <code>org.fmi_standard.fmi_ls_bus.Can_BusNotifications</code> 
 <div class="title">Figure 13. Confirmation of transmitted network data via Bus Simulation.</div>
 </div>
 <div class="paragraph">
-<p>If all Network FMUs, except the <a href="#low-cut-can-transmit-operation">Transmit operation</a> initiating Network FMU, communicate the <a href="#low-cut-can-status-operation">status</a> <code>BUS_OFF</code>, the Bus Simulation shall not provide a <a href="#low-cut-can-confirm-operation">confirmation</a>.</p>
+<p>If all Network FMUs, except the one initiating the <a href="#low-cut-can-transmit-operation">Transmit operation</a>, communicate the <a href="#low-cut-can-status-operation">status</a> <code>BUS_OFF</code>, the Bus Simulation shall not provide a <a href="#low-cut-can-confirm-operation">confirmation</a>.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams">FMI LS BUS Implementer’s Guide</a> contains an example of the possible transmission results and displays them in the form of a diagram.</p>
+<p>The <a href="https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams">FMI LS BUS Implementer’s Guide</a> contains an example of the possible transmission results and displays them in a diagram.</p>
 </div>
 </div>
 <div class="sect4">
@@ -3301,10 +3301,10 @@ In this case, the <code>org.fmi_standard.fmi_ls_bus.Can_BusNotifications</code> 
 <p>The CAN protocol includes a sophisticated fault confinement mechanism to prevent malfunctioning within CAN nodes.
 A Transmit Error Counter (TEC) and a Receive Error Counter (REC) represent a historical communication quality metric.
 To maintain the TEC and REC values, <a href="#low-cut-can-bus-error-operation">Bus Error operations</a> shall be provided to all Network FMUs by the Bus Simulation.
-The argument <code>Is Sender</code> shall be set to <code>TRUE</code> for the Network FMU that the <a href="#low-cut-can-transmit-operation">Transmit operation</a> originated from.
+The argument <code>Is Sender</code> shall be set to <code>TRUE</code> for the Network FMU the <a href="#low-cut-can-transmit-operation">Transmit operation</a> originated from.
 The argument <code>Error Flag</code> shall be set to <code>PRIMARY_ERROR_FLAG</code> if the Network FMU detects the transmission error.
 If a Network FMU changes its current CAN node state, the <a href="#low-cut-can-status-operation">Status operation</a> shall be provided to the Bus Simulation.
-When a Network FMU has provided the status <code>BUS_OFF</code> to the Bus Simulation, then it also shall not provide any new <a href="#low-cut-can-transmit-operation">Transmit operations</a> to the Bus Simulation to simulate a real bus off behavior.</p>
+When a Network FMU signals the <code>BUS_OFF</code> state to the Bus Simulation, it shall not provide any new Transmit operations in order to simulate a real "bus off" behavior.</p>
 </div>
 <div id="figure-can-architectural-error-handling-overview" class="imageblock text-center">
 <div class="content">
@@ -3313,7 +3313,7 @@ When a Network FMU has provided the status <code>BUS_OFF</code> to the Bus Simul
 <div class="title">Figure 14. Architectural error handling overview.</div>
 </div>
 <div class="paragraph">
-<p>The <a href="https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-realization-of-can-error-handling">FMI LS BUS Implementer’s Guide</a> contains an example how to realize CAN error handling basing on the Bus Operations specified by this layered standard.</p>
+<p>The <a href="https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-realization-of-can-error-handling">FMI LS BUS Implementer’s Guide</a> contains an example of how to realize CAN error handling based on the Bus Operations specified by this layered standard.</p>
 </div>
 </div>
 <div class="sect4">
@@ -3321,8 +3321,8 @@ When a Network FMU has provided the status <code>BUS_OFF</code> to the Bus Simul
 <div class="paragraph">
 <p>Arbitration is an instrument of the CAN standard to resolve the conflict of the simultaneous sending of messages from several CAN nodes without a collision.
 The arbitration is handled in the Bus Simulation and can be recognized by the fact that the Bus Simulation receives a <a href="#low-cut-can-transmit-operation">Transmit operation</a> from several FMUs at the same time.
-As soon as an arbitration is lost, an <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost operation</a> shall be returned to the respective sender within the next <code>Event Mode</code> step.
-As soon as an FMU loses arbitration in this way, it shall independently repeat the corresponding <a href="#low-cut-can-transmit-operation">Transmit operation</a>.</p>
+As soon as an arbitration is lost, an <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost operation</a> shall be returned to the respective sender within the next <code>Event Mode</code>.
+As soon as an FMU receives an Arbitration Lost operation, it can independently repeat the corresponding <a href="#low-cut-can-transmit-operation">Transmit operation</a>.</p>
 </div>
 <div id="figure-can-arbitration" class="imageblock text-center">
 <div class="content">
@@ -3333,27 +3333,28 @@ As soon as an FMU loses arbitration in this way, it shall independently repeat t
 <div class="paragraph">
 <p>Within a <a href="#low-cut-can-configuration-operation">Configuration operation</a>, the <code>Arbitration Lost Behavior</code> argument can be specified.
 Once this option is set to <code>BUFFER_AND_RETRANSMIT</code>, the Bus Simulation buffers the frame after losing arbitration and sends it as soon as possible.
-In this case, it is not necessary for the Network FMU to trigger the respective frame to be sent again and an <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost operation</a> shall not be returned to the specific Network FMU.
-If the <code>Arbitration Lost Behavior</code> is set to <code>DISCARD_AND_NOTIFY</code>, the specified Network FMU is informed by an <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost operation</a> and needs to repeat the corresponding <a href="#low-cut-can-transmit-operation">Transmit operation</a> itself.
-Arbitration is available in communication cases with Bus Simulation only.</p>
+In this case, it is not necessary for the Network FMU to re-send the respective frame and an <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost operation</a> shall not be returned to the specific Network FMU.
+If the <code>Arbitration Lost Behavior</code> is set to <code>DISCARD_AND_NOTIFY</code>, the specified Network FMU is informed by an <a href="#low-cut-can-arbitration-lost-operation">Arbitration Lost operation</a> and needs to repeat the corresponding <a href="#low-cut-can-transmit-operation">Transmit operation</a> by itself.
+Arbitration is available in communication architectures with Bus Simulation only, i.e. it is not available for <a href="#common-concepts-direct-communication">directly connected Network FMUs</a>.</p>
 </div>
 <div class="paragraph">
 <p>In the case of arbitration, the Bus Simulation must also take the status of the respective Network FMU into account, which is communicated via a <a href="#low-cut-can-status-operation">Status operation</a>.
 To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN node is in Error Passive state, the Bus Simulation shall prefer Network FMUs whose status is <code>ERROR_ACTIVE</code> (see <a href="#table-can-status-values">Table 21</a>).</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams">FMI LS BUS Implementer’s Guide</a> contains examples of the presented arbitration cases and visualize them in the form of sequence diagrams.</p>
+<p>The <a href="https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams">FMI LS BUS Implementer’s Guide</a> contains examples of the presented arbitration cases and visualizes them using sequence diagrams.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="_wake_upsleep">5.5.1.8. Wake Up/Sleep</h5>
 <div class="paragraph">
-<p>This standard supports wake up and sleep for the CAN bus, whereby only the bus-specific parts are taken into account.
-This means that the realization of local virtual ECU wake-up and sleeping processes are internal parts of the respective FMU, which is not covered by this document.
-Because entering sleep state is a virtual ECU internal process always within CAN bus, this can be ignored.
-Also, the virtual ECU local wake-up process is ignored as well.
-The CAN-specific wake-up pulse can be simulated by using the <a href="#low-cut-can-wake-up-operation">Wakeup operation</a>.
-A <a href="#low-cut-can-wake-up-operation">Wakeup operation</a> is initiated by one Network FMU and shall be distributed to all participants of the bus,except the wake-up initiator, by the Bus Simulation.</p>
+<p>This standard supports wake up and sleep functionality for the CAN bus.
+However, the realization of local virtual ECU wake-up and sleeping processes, i.e. the transition to the sleep state as well as the virtual ECU local wake-up process, is considered internal to the FMU implementation.
+Therefore, only the bus-related aspects are defined in this document.</p>
+</div>
+<div class="paragraph">
+<p>The CAN-specific wake-up pulse can be simulated by using the <a href="#low-cut-can-wake-up-operation">Wakeup operation</a>, initiated by one Network FMU.
+The Bus Simulation shall distribute this operation to all participants on the bus, excluding the wake-up initiator.</p>
 </div>
 <div id="figure-can-wake-up" class="imageblock text-center">
 <div class="content">
