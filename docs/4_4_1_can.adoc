@@ -633,8 +633,7 @@ Because the Bus Simulation shall choose a default behavior, it might be useful i
 ====== Baud Rate Handling
 In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation about the specified baud rate from a Network FMU.
 This baud rate information can be configured by using `CAN_BAUDRATE`, `CAN_FD_BAUDRATE` and `CAN_XL_BAUDRATE` configuration kind of the <<low-cut-can-configuration-operation, Configuration operation>>.
-In a CAN FD scenario, both the configuration for `CAN_BAUDRATE` and for `CAN_FD_BAUDRATE` shall be carried out if the CAN FD bit rate switch feature is used.
-Otherwise the configuration of `CAN_BAUDRATE` is sufficient for CAN FD.
+In a CAN FD scenario, both the configuration for `CAN_BAUDRATE` and for `CAN_FD_BAUDRATE` shall be carried out.
 The Bus Simulation can derive the required CAN, CAN FD or CAN XL controller type from the baud rate configurations a Network FMU carried out.
 If the baud rate information is not adjusted by a specified Network FMU, the Bus Simulation shall choose a default behavior by itself.
 
