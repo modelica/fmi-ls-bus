@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-a6dcbe6e1c306435254a1cd4174ac5e4997a70ce,</span>
+<span id="revnumber">version main-d23a530a898181ec193a6bb94303de3c7c13c12a,</span>
 <span id="revdate">2023-12-01</span>
 </div>
 <div id="toc" class="toc2">
@@ -2182,7 +2182,7 @@ For example, the failure of a transmission can be indicated.</p>
 For example, it allows the specification of the baud rate or influencing the buffer behavior.</p>
 </li>
 <li>
-<p>Status: This operation is used by Networked FMUs to inform Bus Simulations about the internal state (Active/Passive/Bus Off) which concerns the reaction on bus errors.</p>
+<p>Status: This operation is used by Networked FMUs to inform Bus Simulations about the internal state (Active/Passive/Bus-Off) which concerns the reaction on bus errors.</p>
 </li>
 <li>
 <p>Wake up: CAN supports wake up and sleep scenarios.
@@ -3131,7 +3131,7 @@ See <a href="#low-cut-can-arbitration">Section 5.5.1.7</a> for further details.<
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BUS_OFF</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x03</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: BUS OFF.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: Bus-Off.
 If a Network FMU communicates the status <code>BUS_OFF</code> to the Bus Simulation, the specified Network FMU shall not provide any new <a href="#low-cut-can-transmit-operation">Transmission operations</a> to the Bus Simulation.
 If all Network FMUs, except the <a href="#low-cut-can-transmit-operation">Transmit operation</a> initiating Network FMU, communicate the status <code>BUS_OFF</code>, the Bus Simulation shall not provide a <a href="#low-cut-can-confirm-operation">confirmation</a>.</p></td>
 </tr>
@@ -3304,7 +3304,7 @@ To maintain the TEC and REC values, <a href="#low-cut-can-bus-error-operation">B
 The argument <code>Is Sender</code> shall be set to <code>TRUE</code> for the Network FMU the <a href="#low-cut-can-transmit-operation">Transmit operation</a> originated from.
 The argument <code>Error Flag</code> shall be set to <code>PRIMARY_ERROR_FLAG</code> if the Network FMU detects the transmission error.
 If a Network FMU changes its current CAN node state, the <a href="#low-cut-can-status-operation">Status operation</a> shall be provided to the Bus Simulation.
-When a Network FMU signals the <code>BUS_OFF</code> state to the Bus Simulation, it shall not provide any new Transmit operations in order to simulate a real "bus off" behavior.</p>
+When a Network FMU signals the <code>BUS_OFF</code> state to the Bus Simulation, it shall not provide any new Transmit operations in order to simulate a real Bus-Off behavior.</p>
 </div>
 <div id="figure-can-architectural-error-handling-overview" class="imageblock text-center">
 <div class="content">
