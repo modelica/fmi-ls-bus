@@ -114,7 +114,7 @@ _e.g., The specified operation shall be produced by a Network FMU and consumed b
 Remarks:
 
 * Numbers shall be transmitted with `little-endian` byte order.
-* Since the standard allows to concatenate multiple operations (see <<low-cut-tx-rx-data-variables, Tx/Rx Data Variables>>), the <<TotalLengthField, Total Length>> field was introduced to allow the implementation of a generic parser for received operations.
+* Since the standard allows to concatenate multiple operations (see <<low-cut-tx-rx-data-variables, Tx/Rx Data Variables>>), the <<TotalLengthField, Total Length>> field is introduced to allow the implementation of a generic parser for received operations.
 
 ==== Format Error [[low-cut-format-error-operation]]
 The Format Error operation is independent from the bus type and shall be used when encountering a syntax or content error of received operations.
