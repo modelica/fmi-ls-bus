@@ -647,21 +647,21 @@ If the buffering is not adjusted by a specified Network FMU, the Bus Simulation 
 The <<low-cut-can-transmit-operation, Transmit operation>> represents the sending of a CAN, CAN FD and CAN XL frame.
 With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g., Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
 In the real world, flawlessly transmitted CAN frames will be acknowledged by at least one receiver CAN node.
-To simulate this behavior, the <<low-cut-can-confirm-operation, Confirm operations>> were introduced.
-In addition to support lightweight bus simulations and <<common-concepts-direct-communication, directly connected Network FMUs>>, the structural parameter `org.fmi_standard.fmi_ls_bus.Can_BusNotifications` (see <<low-cut-can-bus-notification-parameter>>) has been defined.
+To simulate this behavior, the <<low-cut-can-confirm-operation, Confirm operations>> are introduced.
+In addition to support lightweight bus simulations and <<common-concepts-direct-communication, directly connected Network FMUs>>, the structural parameter `org.fmi_standard.fmi_ls_bus.Can_BusNotifications` (see <<low-cut-can-bus-notification-parameter>>) is defined.
 
 If `org.fmi_standard.fmi_ls_bus.Can_BusNotifications` is set to `false` (default), then Network FMUs shall not rely on receiving <<low-cut-can-confirm-operation, Confirm operations>>.
 In this case, the bus simulation is idealized and takes place in a fire-and-forget manner.
 If a specified Network FMU is depending on <<low-cut-can-confirm-operation, Confirm operations>> and `org.fmi_standard.fmi_ls_bus.Can_BusNotifications` is set to `false`, the self confirmation shall be realized internally within the respective Network FMU. 
 
 <<#figure-can-direct-communication>> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
-After that, the transmission is directly confirmed by FMU 1 itself, whereby FMU 1 handles that self confirmation internally.
+Subsequently, FMU 1 self-confirms the transmission internally.
 
 .Direct Confirmation of transmitted network data.
 [#figure-can-direct-communication]
 image::can_direct_confirmation.svg[width=40%, align="center"]
 
-For a detailed simulation, Bus Simulations shall support <<low-cut-can-confirm-operation, Confirm operations>>.
+For a detailed simulation, the Bus Simulation shall support <<low-cut-can-confirm-operation, Confirm operations>>.
 In this case, the `org.fmi_standard.fmi_ls_bus.Can_BusNotifications` parameter of the Network FMUs shall be set to `true` and Network FMUs can rely on receiving <<low-cut-can-confirm-operation, Confirm operations>>.
 
 The following <<#figure-can-confirmation-with-bus-simulation-fmu>> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.
@@ -670,30 +670,30 @@ The following <<#figure-can-confirmation-with-bus-simulation-fmu>> illustrates t
 [#figure-can-confirmation-with-bus-simulation-fmu]
 image::can_confirmation_with_bus_simulation_fmu.svg[width=70%, align="center"]
 
-If all Network FMUs, except the <<low-cut-can-transmit-operation, Transmit operation>> initiating Network FMU, communicate the <<low-cut-can-status-operation, status>> `BUS_OFF`, the Bus Simulation shall not provide a <<low-cut-can-confirm-operation, confirmation>>.
+If all Network FMUs, except the one initiating the <<low-cut-can-transmit-operation, Transmit operation>>, communicate the <<low-cut-can-status-operation, status>> `BUS_OFF`, the Bus Simulation shall not provide a <<low-cut-can-confirm-operation, confirmation>>.
 
-The https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams[FMI LS BUS Implementer’s Guide] contains an example of the possible transmission results and displays them in the form of a diagram.
+The https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams[FMI LS BUS Implementer’s Guide] contains an example of the possible transmission results and displays them in a diagram.
 
 ===== Error Handling [[low-cut-can-error-handling]]
 The CAN protocol includes a sophisticated fault confinement mechanism to prevent malfunctioning within CAN nodes.
 A Transmit Error Counter (TEC) and a Receive Error Counter (REC) represent a historical communication quality metric.
 To maintain the TEC and REC values, <<low-cut-can-bus-error-operation, Bus Error operations>> shall be provided to all Network FMUs by the Bus Simulation.
-The argument `Is Sender` shall be set to `TRUE` for the Network FMU that the <<low-cut-can-transmit-operation, Transmit operation>> originated from.
+The argument `Is Sender` shall be set to `TRUE` for the Network FMU the <<low-cut-can-transmit-operation, Transmit operation>> originated from.
 The argument `Error Flag` shall be set to `PRIMARY_ERROR_FLAG` if the Network FMU detects the transmission error.
 If a Network FMU changes its current CAN node state, the <<low-cut-can-status-operation, Status operation>> shall be provided to the Bus Simulation.
-When a Network FMU has provided the status `BUS_OFF` to the Bus Simulation, then it also shall not provide any new <<low-cut-can-transmit-operation, Transmit operations>> to the Bus Simulation to simulate a real bus off behavior.
+When a Network FMU signals the `BUS_OFF` state to the Bus Simulation, it shall not provide any new Transmit operations in order to simulate a real "bus off" behavior.
 
 .Architectural error handling overview.
 [#figure-can-architectural-error-handling-overview]
 image::can_error_handling_overview.svg[width=100%, align="center"]
 
-The https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-realization-of-can-error-handling[FMI LS BUS Implementer’s Guide] contains an example how to realize CAN error handling basing on the Bus Operations specified by this layered standard.
+The https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-realization-of-can-error-handling[FMI LS BUS Implementer’s Guide] contains an example of how to realize CAN error handling based on the Bus Operations specified by this layered standard.
 
 ===== Arbitration [[low-cut-can-arbitration]]
 Arbitration is an instrument of the CAN standard to resolve the conflict of the simultaneous sending of messages from several CAN nodes without a collision.
 The arbitration is handled in the Bus Simulation and can be recognized by the fact that the Bus Simulation receives a <<low-cut-can-transmit-operation, Transmit operation>> from several FMUs at the same time.
-As soon as an arbitration is lost, an <<low-cut-can-arbitration-lost-operation, Arbitration Lost operation>> shall be returned to the respective sender within the next `Event Mode` step.
-As soon as an FMU loses arbitration in this way, it shall independently repeat the corresponding <<low-cut-can-transmit-operation, Transmit operation>>.
+As soon as an arbitration is lost, an <<low-cut-can-arbitration-lost-operation, Arbitration Lost operation>> shall be returned to the respective sender within the next `Event Mode`.
+As soon as an FMU receives an Arbitration Lost operation, it can independently repeat the corresponding <<low-cut-can-transmit-operation, Transmit operation>>.
 
 .Arbitration of two transmissions at the same time.
 [#figure-can-arbitration]
@@ -701,22 +701,22 @@ image::can_arbitration.svg[width=70%, align="center"]
 
 Within a <<low-cut-can-configuration-operation, Configuration operation>>, the `Arbitration Lost Behavior` argument can be specified.
 Once this option is set to `BUFFER_AND_RETRANSMIT`, the Bus Simulation buffers the frame after losing arbitration and sends it as soon as possible.
-In this case, it is not necessary for the Network FMU to trigger the respective frame to be sent again and an <<low-cut-can-arbitration-lost-operation, Arbitration Lost operation>> shall not be returned to the specific Network FMU.
-If the `Arbitration Lost Behavior` is set to `DISCARD_AND_NOTIFY`, the specified Network FMU is informed by an <<low-cut-can-arbitration-lost-operation, Arbitration Lost operation>> and needs to repeat the corresponding <<low-cut-can-transmit-operation, Transmit operation>> itself.
-Arbitration is available in communication cases with Bus Simulation only.
+In this case, it is not necessary for the Network FMU to re-send the respective frame and an <<low-cut-can-arbitration-lost-operation, Arbitration Lost operation>> shall not be returned to the specific Network FMU.
+If the `Arbitration Lost Behavior` is set to `DISCARD_AND_NOTIFY`, the specified Network FMU is informed by an <<low-cut-can-arbitration-lost-operation, Arbitration Lost operation>> and needs to repeat the corresponding <<low-cut-can-transmit-operation, Transmit operation>> by itself.
+Arbitration is available in communication architectures with Bus Simulation only, i.e. it is not available for <<common-concepts-direct-communication, directly connected Network FMUs>>.
 
 In the case of arbitration, the Bus Simulation must also take the status of the respective Network FMU into account, which is communicated via a <<low-cut-can-status-operation, Status operation>>.
 To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN node is in Error Passive state, the Bus Simulation shall prefer Network FMUs whose status is `ERROR_ACTIVE` (see <<table-can-status-values>>).
 
-The https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams[FMI LS BUS Implementer’s Guide] contains examples of the presented arbitration cases and visualize them in the form of sequence diagrams.
+The https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams[FMI LS BUS Implementer’s Guide] contains examples of the presented arbitration cases and visualizes them using sequence diagrams.
 
 ===== Wake Up/Sleep
-This standard supports wake up and sleep for the CAN bus, whereby only the bus-specific parts are taken into account.
-This means that the realization of local virtual ECU wake-up and sleeping processes are internal parts of the respective FMU, which is not covered by this document.
-Because entering sleep state is a virtual ECU internal process always within CAN bus, this can be ignored.
-Also, the virtual ECU local wake-up process is ignored as well.
-The CAN-specific wake-up pulse can be simulated by using the <<low-cut-can-wake-up-operation, Wakeup operation>>.
-A <<low-cut-can-wake-up-operation, Wakeup operation>> is initiated by one Network FMU and shall be distributed to all participants of the bus,except the wake-up initiator, by the Bus Simulation.
+This standard supports wake up and sleep functionality for the CAN bus.
+However, the realization of local virtual ECU wake-up and sleeping processes, i.e. the transition to the sleep state as well as the virtual ECU local wake-up process, is considered internal to the FMU implementation.
+Therefore, only the bus-related aspects are defined in this document.
+
+The CAN-specific wake-up pulse can be simulated by using the <<low-cut-can-wake-up-operation, Wakeup operation>>, initiated by one Network FMU.
+The Bus Simulation shall distribute this operation to all participants on the bus, excluding the wake-up initiator.
 
 .Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.
 [#figure-can-wake-up]
