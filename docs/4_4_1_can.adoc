@@ -15,7 +15,7 @@ For example, the failure of a transmission can be indicated.
 * Arbitration Lost: The operation is used by Bus Simulations to inform Network FMUs that a frame could not be transmitted immediately.
 * Configuration: This operation enables the configuration of bus-specific parameters and options that are required to simulate the bus behavior properly.
 For example, it allows the specification of the baud rate or influencing the buffer behavior.
-* Status: This operation is used by Networked FMUs to inform Bus Simulations about the internal state (Active/Passive/Bus Off) which concerns the reaction on bus errors.
+* Status: This operation is used by Networked FMUs to inform Bus Simulations about the internal state (Active/Passive/Bus-Off) which concerns the reaction on bus errors.
 * Wake up: CAN supports wake up and sleep scenarios.
 Normally there are two ways to wake up from sleep mode: a local wake up on a specified wake-up pin, or a wake up on the CAN bus via a CAN specific wake-up pulse.
 This operation is used to simulate triggering a wake up from bus side.
@@ -563,7 +563,7 @@ See <<low-cut-can-arbitration>> for further details.
 
 |BUS_OFF
 |0x03
-|Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: BUS OFF.
+|Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: Bus-Off.
 If a Network FMU communicates the status `BUS_OFF` to the Bus Simulation, the specified Network FMU shall not provide any new <<low-cut-can-transmit-operation, Transmission operations>> to the Bus Simulation.
 If all Network FMUs, except the <<low-cut-can-transmit-operation, Transmit operation>> initiating Network FMU, communicate the status `BUS_OFF`, the Bus Simulation shall not provide a <<low-cut-can-confirm-operation, confirmation>>.
 
@@ -680,7 +680,7 @@ To maintain the TEC and REC values, <<low-cut-can-bus-error-operation, Bus Error
 The argument `Is Sender` shall be set to `TRUE` for the Network FMU the <<low-cut-can-transmit-operation, Transmit operation>> originated from.
 The argument `Error Flag` shall be set to `PRIMARY_ERROR_FLAG` if the Network FMU detects the transmission error.
 If a Network FMU changes its current CAN node state, the <<low-cut-can-status-operation, Status operation>> shall be provided to the Bus Simulation.
-When a Network FMU signals the `BUS_OFF` state to the Bus Simulation, it shall not provide any new Transmit operations in order to simulate a real "bus off" behavior.
+When a Network FMU signals the `BUS_OFF` state to the Bus Simulation, it shall not provide any new Transmit operations in order to simulate a real Bus-Off behavior.
 
 .Architectural error handling overview.
 [#figure-can-architectural-error-handling-overview]
