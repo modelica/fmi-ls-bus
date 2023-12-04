@@ -38,8 +38,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----------------------------------------------------------------------------
 */
 
-#include <assert.h>
-
 #include "fmi3LsBus.h"
 
 #ifdef _MSC_VER
