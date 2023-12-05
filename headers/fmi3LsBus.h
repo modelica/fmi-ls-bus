@@ -37,10 +37,12 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----------------------------------------------------------------------------
 */
-#if !defined(FMI3_LS_BUS_CHECK_OPERATION_SIZE) && ((defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)) || (defined(__cplusplus) && (__cplusplus >= 201103L)))
+#if !defined(FMI3_LS_BUS_CHECK_OPERATION_SIZE)
+#if (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)) || (defined(__cplusplus) && (__cplusplus >= 201103L))
 #define FMI3_LS_BUS_CHECK_OPERATION_SIZE 1
 #else
 #define FMI3_LS_BUS_CHECK_OPERATION_SIZE 0
+#endif
 #endif
 
 #if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L) && (FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1)
