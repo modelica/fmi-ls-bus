@@ -115,8 +115,8 @@ The usage of this architecture type allows the integration of this layered stand
 In this case, it may also be possible to integrate other, for example manufacturer-specific, formats into a bus simulation.
 
 ===  Provided C-API [[common-concepts-provided-c-api]]
-This layered standard not only contains a textual specification for bus support, but also provides a C-API to make creation and use within FMUs as easy and generalized as possible.
-The standard differentiates between two groups of files within the C-API: Mandatory and optional files.
+Besides the textual specification for FMUs with bus support, this layered standard also provides a C API to make the creation of FMUs with bus support as easy and generalized as possible.
+The standard differentiates between two groups of files within the C API: Mandatory and optional files.
 
 * https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBus.h[fmi3LsBus.h] provides general macros, types and structures of common Bus Operations.
 These header file applies to all supported bus types of the layered standard.
