@@ -163,6 +163,9 @@ h|OP Code [hex] 3+| 0x10
 | Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Total Length = 13 + Data Length`.
 | ID | 4 byte | The specified ID of the CAN message.
+The ID must be considered here as a purely numerical value.
+This means that there is no need for separate segmentation between the 11-bit base CAN identifier and an 18-bit CAN identifier extension information that is known from the CAN protocol.
+Additional information such as Ide is also not part of the ID, but is treated separately.
 | Ide | 1 byte | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used. 
 | Rtr | 1 byte | Specifies whether the given frame represents a Remote Transmission Request frame.
@@ -190,6 +193,9 @@ h|OP Code [hex] 3+| 0x11
 | Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Total Length = 12 + Data Length`.
 | ID | 4 byte | The specified ID of the CAN message.
+The ID must be considered here as a purely numerical value.
+This means that there is no need for separate segmentation between the 11-bit base CAN identifier and an 18-bit CAN identifier extension information that is known from the CAN protocol.
+Additional information such as Ide is also not part of the ID, but is treated separately.
 | Ide | 1 byte | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Brs | 1 byte | Defines the Bit Rate Switch.
@@ -215,6 +221,9 @@ h|OP Code [hex] 3+| 0x12
 | Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Total Length = 19 + Data Length`.
 | ID | 4 byte | The specified ID of the CAN message.
+The ID must be considered here as a purely numerical value.
+This means that there is no need for separate segmentation between the 11-bit base CAN identifier and an 18-bit CAN identifier extension information that is known from the CAN protocol.
+Additional information such as Ide is also not part of the ID, but is treated separately.
 | Ide | 1 byte | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Sec | 1 byte | Simple Extended Content
