@@ -75,7 +75,7 @@ extern "C"
 /**
  * \brief Data type representing the type of a bus operation.
  */
-typedef fmi3UInt8 fmi3LsBusOperationType;
+typedef fmi3UInt8 fmi3LsBusOperationCode;
 
 /**
  * \brief Data type representing the length of a bus operation.
@@ -90,7 +90,7 @@ typedef fmi3UInt32 fmi3LsBusOperationLength;
  */
 typedef struct
 {
-    fmi3LsBusOperationType type;     /**< Type of the operation. */
+    fmi3LsBusOperationCode opCode;   /**< Type of the operation. */
     fmi3LsBusOperationLength length; /**< Total length of the operation. */
 } fmi3LsBusOperationHeader;
 
