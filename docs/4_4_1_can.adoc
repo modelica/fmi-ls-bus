@@ -31,7 +31,7 @@ It shows all operations and the arguments they contain.
 10+h|Operation Content
 
 h|OP Code
-h|Total Length
+h|Length
 8+h|Specific Content
 
 |Format Error
@@ -160,8 +160,8 @@ h|Description 3+| Initiates the transmission of CAN frames.
 h|OP Code [hex] 3+| 0x10
 .8+h|Content h|Argument h|Length h|Description
 | OP Code | 1 byte | Contains the OP Code (0x10) of the operation.
-| Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Total Length = 13 + Data Length`.
+| Length | 4 byte | Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 13 + Data Length`.
 | ID | 4 byte | The specified ID of the CAN message.
 | Ide | 1 byte | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used. 
@@ -187,8 +187,8 @@ h|Description 3+| Represents an operation for the transmission of a CAN FD frame
 h|OP Code [hex] 3+| 0x11
 .9+h|Content h|Argument h|Length h|Description
 | OP Code | 1 byte | Contains the OP Code (0x11) of the operation.
-| Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Total Length = 12 + Data Length`.
+| Length | 4 byte | Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 12 + Data Length`.
 | ID | 4 byte | The specified ID of the CAN message.
 | Ide | 1 byte | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
@@ -212,8 +212,8 @@ h|Description 3+| Represents an operation for the transmission of a CAN XL frame
 h|OP Code [hex] 3+| 0x12
 .11+h|Content h|Argument h|Length h|Description 
 | OP Code | 1 byte | Contains the OP Code (0x12) of the operation.
-| Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Total Length = 19 + Data Length`.
+| Length | 4 byte | Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 19 + Data Length`.
 | ID | 4 byte | The specified ID of the CAN message.
 | Ide | 1 byte | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
@@ -247,10 +247,10 @@ h|OP Code [hex]
 |1 byte
 |Contains the OP Code (0x20) of the operation.
 
-|Total Length
+|Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Total Length = 9`.
+The following applies for this operation: `Length = 9`.
 
 |ID
 |4 byte
@@ -287,10 +287,10 @@ h|OP Code [hex]
 |1 byte
 |Contains the OP Code (0x30) of the operation.
 
-|Total Length
+|Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Total Length = 9`.
+The following applies for this operation: `Length = 9`.
 
 |ID
 |4 byte
@@ -324,10 +324,10 @@ h|OP Code [hex]
 |1 byte
 |Contains the OP Code (0x31) of the operation.
 
-|Total Length
+|Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Total Length = 12`.
+The following applies for this operation: `Length = 12`.
 
 |ID
 |4 byte
@@ -430,10 +430,10 @@ h|OP Code [hex]
 |1 byte
 |Contains the OP Code (0x40) of the operation.
 
-3+|Total Length
+3+|Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Total Length = 6 + Length of parameter arguments in bytes`.
+The following applies for this operation: `Length = 6 + Length of parameter arguments in bytes`.
 
 3+|Parameter Type
 |1 byte
@@ -525,10 +525,10 @@ h|OP Code [hex]
 |1 byte
 |Contains the OP Code (0x41) of the operation.
 
-|Total Length
+|Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Total Length = 6`.
+The following applies for this operation: `Length = 6`.
 
 |Status
 |1 byte
@@ -587,10 +587,10 @@ h|OP Code [hex]
 |1 byte
 |Contains the OP Code (0x42) of the operation.
 
-|Total Length
+|Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Total Length = 5`.
+The following applies for this operation: `Length = 5`.
 
 h|Behavior
 3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the wake-up initiator, of the bus using the Bus Simulation.

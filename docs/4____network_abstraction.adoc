@@ -40,7 +40,7 @@ The overview table represents the binary format of operations and is structured 
 
 * OP Code: The operation code defines the unique value of the operation.
 It consists of one byte in length.
-* Total Length: A four byte total data length (OP Code + Total Length + Arguments) field following the OP Code.[[TotalLengthField]]
+* Length: A four byte total data length (OP Code + Length + Arguments) field following the OP Code.[[TotalLengthField]]
 For operation with variable size arguments, the total length can vary in value at runtime.
 * Arguments: The arguments of the respective operation.
 The number of arguments is defined for each operation within this standard.
@@ -58,7 +58,7 @@ The operation has three arguments _Arg1_ (2 bytes long), _Arg2_Length_ (1 byte l
 5+h|Operation Content
 
 h|OP Code
-h|Total Length
+h|Length
 3+h|Specific Content
 
 |OperationName
@@ -88,10 +88,10 @@ h|OP Code [hex]
 |1 byte
 |Contains the OP Code of the specified operation.
 
-|Total Length
+|Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Total Length = 7 + <Arg2_Length>`.
+The following applies for this operation: `Length = 7 + <Arg2_Length>`.
 
 |Arg1
 |1 byte
@@ -114,7 +114,7 @@ _e.g., The specified operation shall be produced by a Network FMU and consumed b
 Remarks:
 
 * Numbers shall be transmitted with `little-endian` byte order.
-* Since the standard allows to concatenate multiple operations (see <<low-cut-tx-rx-data-variables, Tx/Rx Data Variables>>), the <<TotalLengthField, Total Length>> field is introduced to allow the implementation of a generic parser for received operations.
+* Since the standard allows to concatenate multiple operations (see <<low-cut-tx-rx-data-variables, Tx/Rx Data Variables>>), the <<TotalLengthField, Length>> field is introduced to allow the implementation of a generic parser for received operations.
 
 ==== Format Error [[low-cut-format-error-operation]]
 The Format Error operation is independent from the bus type and shall be used when encountering a syntax or content error of received operations.
@@ -140,10 +140,10 @@ h|Description
 |Contains the OP Code of the specified operation.
 For this operation, the OP Code always has the value 0x01 within all bus types.
 
-|Total Length
+|Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Total Length = 5 + Length of Data argument in bytes`.
+The following applies for this operation: `Length = 5 + Length of Data argument in bytes`.
 
 |Data
 |n byte
