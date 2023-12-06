@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Network Communication and FMI 3.0, v1.0</h1>
 <div class="details">
-<span id="revnumber">version main-fd6f73ac259c6dc8564a213444da1e17178948af,</span>
+<span id="revnumber">version main-4680d63c0705fbf9076f97128e913f464b442f53,</span>
 <span id="revdate">2023-12-06</span>
 </div>
 <div id="toc" class="toc2">
@@ -611,6 +611,7 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#common-concepts-importer-with-integrated-bus-simulation">3.1.3. Importer with Integrated Bus Simulation</a></li>
 </ul>
 </li>
+<li><a href="#common-concepts-provided-c-api">3.2. Provided C-API</a></li>
 </ul>
 </li>
 <li><a href="#_physical_signal_abstraction_high_cut">4. Physical Signal Abstraction ("high cut")</a>
@@ -1082,6 +1083,35 @@ The following figure illustrates two FMUs, which are integrated by an importer t
 <p>The usage of this architecture type allows the integration of this layered standard into an already existing simulator, which implements network communication with proprietary interfaces.
 In this case, it may also be possible to integrate other, for example manufacturer-specific, formats into a bus simulation.</p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="common-concepts-provided-c-api">3.2. Provided C-API</h3>
+<div class="paragraph">
+<p>Besides the textual specification for FMUs with bus support, this layered standard also provides a C API to make the creation of FMUs with bus support as easy and generalized as possible.
+The standard differentiates between two groups of files within the C API: Mandatory and optional files.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBus.h">fmi3LsBus.h</a> provides general macros, types and structures of common Bus Operations.
+These header file applies to all supported bus types of the layered standard.
+The usage of this file is mandatory.</p>
+</li>
+<li>
+<p><a href="https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusCan.h">fmi3LsBusCan.h</a> provides macros, types and structures of Bus Operations explicit for CAN, CAN FD and CAN XL.
+Primarily, structures are included here that allow the Bus Operations specified by the layered standard to be easily created and used.
+The usage of this file is mandatory.</p>
+</li>
+<li>
+<p><a href="https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtil.h">fmi3LsBusUtil.h</a> provides common utility macros and structures for all supported bus types.
+The usage of this file is optional.</p>
+</li>
+<li>
+<p><a href="https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtilCan.h">fmi3LsBusUtilCan.h</a> provides CAN, CAN FD and CAN XL explicit utility macros.
+The usage of this file is optional</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
