@@ -315,7 +315,10 @@ Attribute definitions::
  * `name` is the network name, e.g., `Powertrain`, see <<low-cut-example, example>> and constraints.
 
 Element definitions::
- * `BusName::Rx_Data` and `BusName::Tx_Data` and their clocks `BusName::Rx_Clock` and `BusName::Tx_Clock` are exposed in the `modelDescription.xml`, they must be listed as `<TerminalMemberVariable>` elements here.
+ * Every Bus Terminal contains exactly four variables each in the role of: `Tx_Data`, `Tx_Clock`, `Rx_Data` or `Rx_Clock`.
+ * `BusName::Rx_Data` and `BusName::Tx_Data` and their clocks `BusName::Rx_Clock` and `BusName::Tx_Clock` are exposed in the `modelDescription.xml`, they must be listed as `<TerminalMemberVariable>` elements here, whereby `variableName` can be freely chosen.
+ It is recommended to use `BusName::Rx_Data` and `BusName::Tx_Data`, `BusName::Rx_Clock` and `BusName::Tx_Clock` as a `variableName`.
+ * `<TerminalMemberVariable>.memberName` defines the role of the variable within the Bus Terminal and shall be set to `Tx_Data`, `Tx_Clock`, `Rx_Data` or `Rx_Clock`.
  * There must be no `<TerminalStreamMemberVariable>` element.
 
 The `matchingRule` of type `org.fmi-ls-bus.transceiver` is specified as: `Tx_{Data|Clock}` variables shall be connected to `Rx_{Data|Clock}` variables and vice versa, whereby the variable type shall be equal.
