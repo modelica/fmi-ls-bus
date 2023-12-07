@@ -70,7 +70,13 @@ extern "C"
 /**
  * \brief FMI virtual bus operation of type 'Format Error'.
  */
-#define FMI3_LS_BUS_OP_FORMAT_ERROR ((fmi3LsBusOperationType)0x0001)
+#define FMI3_LS_BUS_OP_FORMAT_ERROR ((fmi3LsBusOperationCode)0x0001)
+
+
+/**
+ * Common operation types.
+ */
+#pragma pack(1)
 
 /**
  * \brief Data type representing the type of a bus operation.
@@ -82,9 +88,6 @@ typedef fmi3UInt8 fmi3LsBusOperationCode;
  */
 typedef fmi3UInt32 fmi3LsBusOperationLength;
 
-
-#pragma pack(1)
-
 /**
  * \brief FMI virtual bus operation header structure.
  */
@@ -94,12 +97,37 @@ typedef struct
     fmi3LsBusOperationLength length; /**< Total length of the operation. */
 } fmi3LsBusOperationHeader;
 
-#pragma pack()
-
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 /* Checks the size of 'fmi3LsBusOperationHeader' to make sure the instruction #pragma pack(1) is taken into account. */
 static_assert(sizeof(fmi3LsBusOperationHeader) == 5, "'fmi3LsBusOperationHeader' does not match the expected data size");
 #endif
+
+/**
+ * \brief Data type representing a common length for data.
+ */
+typedef fmi3UInt16 fmi3LsBusDataLength;
+
+/**
+ * \brief Data type representing common data.
+ */
+typedef fmi3UInt8 fmi3LsBusData;
+
+/**
+ * \brief FMI virtual bus operation structure of type 'Format Error'.
+ */
+typedef struct
+{
+    fmi3LsBusOperationHeader header;   /**< Operation header. */
+    fmi3LsBusDataLength dataLength;    /**< Data length. */
+    fmi3LsBusData data[];              /**< Data. */
+} fmi3LsBusOperationFormatError;
+
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
+/* Checks the size of 'fmi3LsBusOperationFormatError' to make sure the instruction #pragma pack(1) is taken into account. */
+static_assert(sizeof(fmi3LsBusOperationFormatError) == 7, "'fmi3LsBusOperationFormatError' does not match the expected data size");
+#endif
+
+#pragma pack()
 
 #ifdef __cplusplus
 } /* end of extern "C" { */

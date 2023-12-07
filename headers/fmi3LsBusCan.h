@@ -61,28 +61,28 @@ extern "C"
  *
  * Indicates the transmission of a single CAN frame.
  */
-#define FMI3_LS_BUS_CAN_OP_CAN_TRANSMIT ((fmi3LsBusOperationType)0x0010)
+#define FMI3_LS_BUS_CAN_OP_CAN_TRANSMIT ((fmi3LsBusOperationCode)0x0010)
 
 /**
  * \brief FMI virtual bus operation of type 'CAN FD Transmit'.
  *
  * Indicates the transmission of a single CAN FD frame.
  */
-#define FMI3_LS_BUS_CAN_OP_CANFD_TRANSMIT ((fmi3LsBusOperationType)0x0011)
+#define FMI3_LS_BUS_CAN_OP_CANFD_TRANSMIT ((fmi3LsBusOperationCode)0x0011)
 
  /**
   * \brief FMI virtual bus operation of type 'CAN XL Transmit'.
   *
   * Indicates the transmission of a single CAN XL frame.
   */
-#define FMI3_LS_BUS_CAN_OP_CANXL_TRANSMIT ((fmi3LsBusOperationType)0x0012)
+#define FMI3_LS_BUS_CAN_OP_CANXL_TRANSMIT ((fmi3LsBusOperationCode)0x0012)
 
 /**
  * \brief FMI virtual bus operation of type 'Confirm'.
  *
  * Indicates that a CAN frame was successfully transmitted on the virtual bus.
  */
-#define FMI3_LS_BUS_CAN_OP_CONFIRM ((fmi3LsBusOperationType)0x0020)
+#define FMI3_LS_BUS_CAN_OP_CONFIRM ((fmi3LsBusOperationCode)0x0020)
 
 /**
  * \brief FMI virtual bus operation of type 'Arbitration Lost'.
@@ -90,14 +90,14 @@ extern "C"
  * Indicates that a CAN frame could not be sent immediately and was therefore
  * discarded by the Bus Simulation.
  */
-#define FMI3_LS_BUS_CAN_OP_ARBITRATION_LOST ((fmi3LsBusOperationType)0x0030)
+#define FMI3_LS_BUS_CAN_OP_ARBITRATION_LOST ((fmi3LsBusOperationCode)0x0030)
 
 /**
  * \brief FMI virtual bus operation of type 'Bus Error'.
  *
  * Indicates that an error occurred on the virtual bus.
  */
-#define FMI3_LS_BUS_CAN_OP_BUS_ERROR ((fmi3LsBusOperationType)0x0031)
+#define FMI3_LS_BUS_CAN_OP_BUS_ERROR ((fmi3LsBusOperationCode)0x0031)
 
 /**
  * \brief FMI virtual bus operation of type 'Configuration'.
@@ -106,21 +106,21 @@ extern "C"
  * The configuration of a CAN, CAN FD and CAN XL baud rate
  * as well as further options, such as like arbitration behavior, is supported by this operation.
  */
-#define FMI3_LS_BUS_CAN_OP_CONFIGURATION ((fmi3LsBusOperationType)0x0040)
+#define FMI3_LS_BUS_CAN_OP_CONFIGURATION ((fmi3LsBusOperationCode)0x0040)
 
 /**
  * \brief FMI virtual bus operation of type 'Status'.
  *
  * Indicates a change in status of a Network FMU.
  */
-#define FMI3_LS_BUS_CAN_OP_STATUS ((fmi3LsBusOperationType)0x0041)
+#define FMI3_LS_BUS_CAN_OP_STATUS ((fmi3LsBusOperationCode)0x0041)
 
 /**
  * \brief FMI virtual bus operation of type 'Wakeup'.
  *
  * Triggers a bus-specific wake up.
  */
-#define FMI3_LS_BUS_CAN_OP_WAKEUP ((fmi3LsBusOperationType)0x0042)
+#define FMI3_LS_BUS_CAN_OP_WAKEUP ((fmi3LsBusOperationCode)0x0042)
 
 
 /**
