@@ -143,7 +143,7 @@ For this operation, the OP Code always has the value 0x01 within all bus types.
 |Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Length = 5 + Length of Data argument in bytes`.
+The following applies for this operation: `Length = 7 + Length of Data argument in bytes`.
 
 |Data Length
 |2 byte

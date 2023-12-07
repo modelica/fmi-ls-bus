@@ -36,9 +36,11 @@ h|Length
 
 |Format Error
 |0x01
-|:= 5 + n +
+|:= 7 + n +
 (4 byte)
-8+|Data +
+|DL +
+(2 byte)
+7+|Data +
 (n byte)
 
 |CAN Transmit
