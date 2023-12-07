@@ -130,7 +130,7 @@ h|Description
 This error shall be used when generally encountering a problem with the syntax or content of an operation.
 h|OP Code [hex]
 3+|0x01
-.4+h|Content
+.5+h|Content
 h|Argument
 h|Length
 h|Description
@@ -144,6 +144,10 @@ For this operation, the OP Code always has the value 0x01 within all bus types.
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 5 + Length of Data argument in bytes`.
+
+|Data Length
+|2 byte
+|Specifies the length of the Data argument in bytes.
 
 |Data
 |n byte
