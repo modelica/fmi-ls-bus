@@ -11,9 +11,9 @@ _[FMUs providing both abstraction layers can deduce from the fmi3Set() and fmi3G
 
 Since network communication is not continuous but time discrete, FMI 3.0 clocks are used to indicate when signals and/or frames are sent or received.
 All signal and frame variables are clocked variables.
-
-FMI 3.0 terminal definitions in the `terminalsAndIcons.xml` for each level of grouping (networks, frames and PDUs) allow system composition tools without knowledge of the network description format to semantically group signals.
-To uniquely map between the FMU variables and the network variables, FMU variable names are structured, e.g., `BusName::FrameName::PDUName::SignalName` for the "high cut" and simply `BusName` for the "low cut".
+ 
+FMI 3.0 terminal definitions in the `terminalsAndIcons.xml` are used to group related variables and present a comfortable opportunity to connect different FMUs between each other.
+Terminal definitions are used differently within the "high cut" and the "low cut":  
 
 .Relations between Bus-, Frame- and PDU Terminals.
 [#figure-terminal-relations]
