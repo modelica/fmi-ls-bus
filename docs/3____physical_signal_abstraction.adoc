@@ -50,7 +50,7 @@ This allows the FMU (or better the exporting tool) to balance the accuracy and p
 
 The importer will then connect and merge output clock activations, even those of different clock types, and forwards them to the input clocks, as required by the network semantics.
 
-Signal variables belonging to frame `BusName::FrameName` are triggered by the clock `BusName::FrameName_Clock` and all these variables and their corresponding clock must share the same `causality` (`input` or `output`).
+Signal variables belonging to frame `BusName.FrameName` are triggered by the clock `BusName.FrameName_Clock` and all these variables and their corresponding clock must share the same `causality` (`input` or `output`).
 
 === Network Description Files [[high-cut-network-description-files,network description file]]
 
@@ -106,7 +106,7 @@ Element definitions::
  * There must be no `<TerminalStreamMemberVariable>` element.
  * There must be one <<high-cut-pdu-terminal>> element per PDU of this frame.
  * There must be one `<TerminalMemberVariable>` for the clock this frame is connected to.
-   The name of this variable is composed as <<ClockVariable,`BusName::FrameName_Clock`>>, e.g., `Powertrain::tcuSensors_Clock`.
+   The name of this variable is composed as <<high-cut-clock-variables,`BusName.FrameName_Clock`>>, e.g., `Powertrain.tcuSensors_Clock`.
 
 The <<high-cut-terminal-member-variable-for-signals>> must have the same `causality` as all variables referenced in the <<high-cut-pdu-terminal,PDU Terminals>> included here.
 
@@ -132,7 +132,7 @@ All <<high-cut-terminal-member-variable-for-signals,`TerminalMemberVariables`>> 
 <<high-cut-pdu-terminal,PDU terminals>> list all the contained signals as `<TerminalMemberVariable>`.
 
 Attribute definitions::
- * `variableName` refers to the input or output variable name of the FMU and to enforce uniqueness is built as follows: `BusName::FrameName::PDUName::SignalName`, e.g., `Powertrain::tcuSensors::tcuSensors::vCar`.
+ * `variableName` refers to the input or output variable name of the FMU and to enforce uniqueness is built as follows: `BusName.FrameName.PDUName.SignalName`, e.g., `Powertrain.tcuSensors.tcuSensors.vCar`.
     These variables represent the signal abstraction layer ("high cut").
  * `memberName` is the `SignalName` as given in the <<high-cut-network-description-files>>, e.g., `vCar`, if given.
     This is redundant information but simplifies signal name extraction.
