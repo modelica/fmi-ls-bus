@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version main-0a14942e68dacb4d8611db50f3957f2dfca37143,</span>
-<span id="revdate">2023-12-06</span>
+<span id="revnumber">version main-7d277c5d55b294f69d61627b1968f39d7ff9fc4d,</span>
+<span id="revdate">2023-12-11</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -943,8 +943,8 @@ However, for versatility, having FMUs capable of communicating on both abstracti
 All signal and frame variables are clocked variables.</p>
 </div>
 <div class="paragraph">
-<p>FMI 3.0 terminal definitions in the <code>terminalsAndIcons.xml</code> for each level of grouping (networks, frames and PDUs) allow system composition tools without knowledge of the network description format to semantically group signals.
-To uniquely map between the FMU variables and the network variables, FMU variable names are structured, e.g., <code>BusName::FrameName::PDUName::SignalName</code> for the "high cut" and simply <code>BusName</code> for the "low cut".</p>
+<p>FMI 3.0 terminal definitions in the <code>terminalsAndIcons.xml</code> are used to group related variables and present a comfortable opportunity to connect different FMUs between each other.
+Terminal definitions are used differently within the "high cut" and the "low cut":</p>
 </div>
 <div id="figure-terminal-relations" class="imageblock text-center">
 <div class="content">
@@ -1199,7 +1199,7 @@ This allows the FMU (or better the exporting tool) to balance the accuracy and p
 <p>The importer will then connect and merge output clock activations, even those of different clock types, and forwards them to the input clocks, as required by the network semantics.</p>
 </div>
 <div class="paragraph">
-<p>Signal variables belonging to frame <code>BusName::FrameName</code> are triggered by the clock <code>BusName::FrameName_Clock</code> and all these variables and their corresponding clock must share the same <code>causality</code> (<code>input</code> or <code>output</code>).</p>
+<p>Signal variables belonging to frame <code>BusName.FrameName</code> are triggered by the clock <code>BusName.FrameName_Clock</code> and all these variables and their corresponding clock must share the same <code>causality</code> (<code>input</code> or <code>output</code>).</p>
 </div>
 </div>
 </div>
@@ -1319,7 +1319,7 @@ If no <a href="#high-cut-network-description-files">network description file</a>
 </li>
 <li>
 <p>There must be one <code>&lt;TerminalMemberVariable&gt;</code> for the clock this frame is connected to.
-The name of this variable is composed as <a href="#ClockVariable"><code>BusName::FrameName_Clock</code></a>, e.g., <code>Powertrain::tcuSensors_Clock</code>.</p>
+The name of this variable is composed as <a href="#high-cut-clock-variables"><code>BusName.FrameName_Clock</code></a>, e.g., <code>Powertrain.tcuSensors_Clock</code>.</p>
 </li>
 </ul>
 </div>
@@ -1388,7 +1388,7 @@ For network types not natively referencing a "PDU", like CAN, a synthetic PDU wi
 <div class="ulist">
 <ul>
 <li>
-<p><code>variableName</code> refers to the input or output variable name of the FMU and to enforce uniqueness is built as follows: <code>BusName::FrameName::PDUName::SignalName</code>, e.g., <code>Powertrain::tcuSensors::tcuSensors::vCar</code>.
+<p><code>variableName</code> refers to the input or output variable name of the FMU and to enforce uniqueness is built as follows: <code>BusName.FrameName.PDUName.SignalName</code>, e.g., <code>Powertrain.tcuSensors.tcuSensors.vCar</code>.
 These variables represent the signal abstraction layer ("high cut").</p>
 </li>
 <li>
@@ -1444,31 +1444,31 @@ BO_ 512 ecuState: 4 ECU
 &lt;fmiModelDescription fmiVersion="3.0" modelName="Network4FMI"
     instantiationToken="Network4FMI"&gt;
   &lt;ModelVariables&gt;
-    &lt;Clock   name="Powertrain::tcuSensors_Clock"                 valueReference="1007"
+    &lt;Clock name="Powertrain.tcuSensors_Clock" valueReference="1007"
         causality="input" variability="discrete" interval="triggered"/&gt;
-    &lt;Float64 name="Powertrain::tcuSensors::tcuSensors::vCar"     valueReference="1005"
-        causality="input" variability="discrete" start="0"  clocks="1007"/&gt;
-    &lt;Float64 name="Powertrain::tcuSensors::tcuSensors::oilTemp"  valueReference="1006"
+    &lt;Float64 name="Powertrain.tcuSensors.tcuSensors.vCar" valueReference="1005"
+        causality="input" variability="discrete" start="0" clocks="1007"/&gt;
+    &lt;Float64 name="Powertrain.tcuSensors.tcuSensors.oilTemp" valueReference="1006"
         causality="input" variability="discrete" start="20" clocks="1007"/&gt;
 
-    &lt;Clock   name="Powertrain::tcuState_Clock"                   valueReference="1011"
+    &lt;Clock name="Powertrain.tcuState_Clock" valueReference="1011"
         causality="input" variability="discrete" interval="triggered"/&gt;
-    &lt;Float64 name="Powertrain::tcuState::tcuState::state"        valueReference="1008"
+    &lt;Float64 name="Powertrain.tcuState.tcuState.state" valueReference="1008"
         causality="input" variability="discrete" start="0" clocks="1011"/&gt;
-    &lt;Float64 name="Powertrain::tcuState::tcuState::gear"         valueReference="1009"
+    &lt;Float64 name="Powertrain.tcuState.tcuState.gear" valueReference="1009"
         causality="input" variability="discrete" start="0" clocks="1011"/&gt;
-    &lt;Float64 name="Powertrain::tcuState::tcuState::targetGear"   valueReference="1010"
+    &lt;Float64 name="Powertrain.tcuState.tcuState.targetGear" valueReference="1010"
         causality="input" variability="discrete" start="0" clocks="1011"/&gt;
 
-    &lt;Clock   name="Powertrain::ecuState_Clock"                   valueReference="1016"
+    &lt;Clock name="Powertrain.ecuState_Clock" valueReference="1016"
         causality="output" variability="discrete" interval="triggered"/&gt;
-    &lt;Float64 name="Powertrain::ecuState::ecuState::accelPedal"   valueReference="1012"
+    &lt;Float64 name="Powertrain.ecuState.ecuState.accelPedal" valueReference="1012"
         causality="output" variability="discrete" start="0" clocks="1016"/&gt;
-    &lt;Float64 name="Powertrain::ecuState::ecuState::k15"          valueReference="1013"
+    &lt;Float64 name="Powertrain.ecuState.ecuState.k15" valueReference="1013"
         causality="output" variability="discrete" start="0" clocks="1016"/&gt;
-    &lt;Float64 name="Powertrain::ecuState::ecuState::oilTemp"      valueReference="1014"
+    &lt;Float64 name="Powertrain.ecuState.ecuState.oilTemp" valueReference="1014"
         causality="output" variability="discrete" start="0" clocks="1016"/&gt;
-    &lt;Float64 name="Powertrain::ecuState::ecuState::radiatorTemp" valueReference="1015"
+    &lt;Float64 name="Powertrain.ecuState.ecuState.radiatorTemp" valueReference="1015"
         causality="output" variability="discrete" start="0" clocks="1016"/&gt;
   &lt;/ModelVariables&gt;
   &lt;ModelStructure&gt;
@@ -1489,38 +1489,38 @@ BO_ 512 ecuState: 4 ECU
         description="Powertrain CAN bus defined with dbc file"&gt;
       &lt;Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="tcuSensors" matchingRule="bus"&gt;
         &lt;TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain::tcuSensors_Clock" /&gt;
+          variableName="Powertrain.tcuSensors_Clock" /&gt;
         &lt;Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="tcuSensors" matchingRule="bus"&gt;
           &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::tcuSensors::tcuSensors::vCar" memberName="vCar" /&gt;
+            variableName="Powertrain.tcuSensors.tcuSensors.vCar" memberName="vCar" /&gt;
           &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::tcuSensors::tcuSensors::oilTemp" memberName="oilTemp" /&gt;
+            variableName="Powertrain.tcuSensors.tcuSensors.oilTemp" memberName="oilTemp" /&gt;
         &lt;/Terminal&gt;
       &lt;/Terminal&gt;
       &lt;Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="tcuState" matchingRule="bus"&gt;
         &lt;TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain::tcuState_Clock" /&gt;
+          variableName="Powertrain.tcuState_Clock" /&gt;
         &lt;Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="tcuState" matchingRule="bus"&gt;
           &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::tcuState::tcuState::state" memberName="state" /&gt;
+            variableName="Powertrain.tcuState.tcuState.state" memberName="state" /&gt;
           &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::tcuState::tcuState::gear" memberName="gear" /&gt;
+            variableName="Powertrain.tcuState.tcuState.gear" memberName="gear" /&gt;
           &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::tcuState::tcuState::targetGear" memberName="targetGear" /&gt;
+            variableName="Powertrain.tcuState.tcuState.targetGear" memberName="targetGear" /&gt;
         &lt;/Terminal&gt;
       &lt;/Terminal&gt;
       &lt;Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="ecuState" matchingRule="bus"&gt;
         &lt;TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain::ecuState_Clock" /&gt;
+          variableName="Powertrain.ecuState_Clock" /&gt;
         &lt;Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="ecuState" matchingRule="bus"&gt;
           &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::ecuState::ecuState::accelPedal" memberName="accelPedal" /&gt;
+            variableName="Powertrain.ecuState.ecuState.accelPedal" memberName="accelPedal" /&gt;
           &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::ecuState::ecuState::k15" memberName="k15" /&gt;
+            variableName="Powertrain.ecuState.ecuState.k15" memberName="k15" /&gt;
           &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::ecuState::ecuState::oilTemp" memberName="oilTemp" /&gt;
+            variableName="Powertrain.ecuState.ecuState.oilTemp" memberName="oilTemp" /&gt;
           &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain::ecuState::ecuState::radiatorTemp" memberName="radiatorTemp" /&gt;
+            variableName="Powertrain.ecuState.ecuState.radiatorTemp" memberName="radiatorTemp" /&gt;
         &lt;/Terminal&gt;
       &lt;/Terminal&gt;
       &lt;Annotations&gt;
@@ -1850,18 +1850,21 @@ These basic types are used in the bus-specific parts within the operation defini
 <div class="paragraph">
 <p>This section explains how layered standard bus protocol operations are sent and received by FMUs using FMI 3.0 clock and clocked variables <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup>.
 While the former (see <a href="#low-cut-tx-clock-variables">Tx Clock Variables</a> and <a href="#low-cut-rx-clock-variables">Rx Clock Variables</a>) are used for scheduling and time synchronization, the latter (see <a href="#low-cut-tx-rx-data-variables">Tx/Rx Data Variables</a>) are used to carry the layered standard bus protocol operations in binary form.
-To summarize, four variables with the following name schema are used:</p>
+To summarize, four variables with the following characteristics and relations are used:</p>
 </div>
-<div class="paragraph">
-<p>The input variable <code>BusName::Rx_Data</code> is clocked by the clock variable <code>BusName::Rx_Clock</code>, both with <code>causality</code> set to <code>input</code>.</p>
-</div>
-<div class="paragraph">
-<p>The output variable <code>BusName::Tx_Data</code> is clocked by the clock variable <code>BusName::Tx_Clock</code>.
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>Rx_Data</code> variable is clocked by the <code>Rx_Clock</code> variable, both with <code>causality</code> set to <code>input</code>.</p>
+</li>
+<li>
+<p>The <code>Tx_Data</code> variable is clocked by the <code>Tx_Clock</code> variable.
 The <code>causality</code> for the <code>Tx_Data</code> variable shall be <code>output</code>, but for the <code>Tx_Clock</code> variable it depends on the selected clock type (see <a href="#low-cut-tx-time-based-clock-variables">Tx Clock Variables</a>).</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Both variable pairs must be listed as member of its corresponding <a href="#low-cut-bus-terminal">Bus Terminal</a>.
-How to set the <code>BusName</code> placeholder is bus-type-specific and therefore described in the bus-specific chapters.</p>
+<p>Both variable pairs must be listed as member of its corresponding <a href="#low-cut-bus-terminal">Bus Terminal</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="low-cut-tx-clock-variables">5.3.1. Tx Clock Variables</h4>
@@ -2100,7 +2103,13 @@ If the specified FMU is connected to more than one network, there shall be exact
 <div class="ulist">
 <ul>
 <li>
-<p><code>BusName::Rx_Data</code> and <code>BusName::Tx_Data</code> and their clocks <code>BusName::Rx_Clock</code> and <code>BusName::Tx_Clock</code> are exposed in the <code>modelDescription.xml</code>, they must be listed as <code>&lt;TerminalMemberVariable&gt;</code> elements here.</p>
+<p>Every Bus Terminal contains exactly four variables each in the role of: <code>Tx_Data</code>, <code>Tx_Clock</code>, <code>Rx_Data</code> or <code>Rx_Clock</code>.</p>
+</li>
+<li>
+<p>Variables in the role of <code>Rx_Data</code>, <code>Tx_Data</code>, <code>Rx_Clock</code> and <code>Tx_Clock</code> are exposed in the <code>modelDescription.xml</code> and must be listed as <code>&lt;TerminalMemberVariable&gt;</code> elements, whereby <code>variableName</code> can be freely chosen.</p>
+</li>
+<li>
+<p><code>&lt;TerminalMemberVariable&gt;.memberName</code> defines the role of the variable within the <code>&lt;Terminal&gt;</code> and shall be set to <code>Tx_Data</code>, <code>Tx_Clock</code>, <code>Rx_Data</code> or <code>Rx_Clock</code>.</p>
 </li>
 <li>
 <p>There must be no <code>&lt;TerminalStreamMemberVariable&gt;</code> element.</p>
@@ -2135,13 +2144,13 @@ If the specified FMU is connected to more than one network, there shall be exact
 &lt;fmiModelDescription fmiVersion="3.0" modelName="Network4FMI"
     instantiationToken="Network4FMI"&gt;
   &lt;ModelVariables&gt;
-    &lt;Clock name="Powertrain::Rx_Clock" valueReference="1002"
+    &lt;Clock name="Powertrain.Rx_Clock" valueReference="1002"
         causality="input" variability="discrete" interval="triggered"/&gt;
-    &lt;Binary name="Powertrain::Rx_Data" valueReference="1001" causality="input"
+    &lt;Binary name="Powertrain.Rx_Data" valueReference="1001" causality="input"
         mimeType="org.fmi-standard.fmi-ls-bus.v1.can" variability="discrete" clocks="1002"/&gt;
-    &lt;Clock name="Powertrain::Tx_Clock" valueReference="1004"
+    &lt;Clock name="Powertrain.Tx_Clock" valueReference="1004"
         causality="output" variability="discrete" interval="aperiodic"/&gt;
-    &lt;Binary name="Powertrain::Tx_Data" valueReference="1003" causality="output"
+    &lt;Binary name="Powertrain.Tx_Data" valueReference="1003" causality="output"
         mimeType="org.fmi-standard.fmi-ls-bus.v1.can" variability="discrete" clocks="1004"/&gt;
   &lt;/ModelVariables&gt;
   &lt;ModelStructure&gt;
@@ -2161,13 +2170,13 @@ If the specified FMU is connected to more than one network, there shall be exact
     &lt;Terminal terminalKind="org.fmi-ls-bus.network-terminal" name="Powertrain" matchingRule="org.fmi-ls-bus.transceiver"
         description="Powertrain CAN bus terminal definition"&gt;
       &lt;TerminalMemberVariable variableKind="signal"
-        variableName="Powertrain::Rx_Clock" /&gt;
+        variableName="Powertrain.Rx_Clock" memberName="Rx_Clock" /&gt;
       &lt;TerminalMemberVariable variableKind="signal"
-        variableName="Powertrain::Rx_Data" /&gt;
+        variableName="Powertrain.Rx_Data" memberName="Rx_Data" /&gt;
       &lt;TerminalMemberVariable variableKind="signal"
-        variableName="Powertrain::Tx_Clock" /&gt;
+        variableName="Powertrain.Tx_Clock" memberName="Tx_Clock" /&gt;
       &lt;TerminalMemberVariable variableKind="signal"
-        variableName="Powertrain::Tx_Data" /&gt;
+        variableName="Powertrain.Tx_Data" memberName="Tx_Data" /&gt;
       &lt;/Terminal&gt;
     &lt;/Terminal&gt;
   &lt;/Terminals&gt;

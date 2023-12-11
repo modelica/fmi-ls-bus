@@ -2,13 +2,13 @@
 <fmiModelDescription fmiVersion="3.0" modelName="Network4FMI"
     instantiationToken="Network4FMI">
   <ModelVariables>
-    <Clock name="Powertrain::Rx_Clock" valueReference="1002"
+    <Clock name="Powertrain.Rx_Clock" valueReference="1002"
         causality="input" variability="discrete" interval="triggered"/>
-    <Binary name="Powertrain::Rx_Data" valueReference="1001" causality="input"
+    <Binary name="Powertrain.Rx_Data" valueReference="1001" causality="input"
         mimeType="org.fmi-standard.fmi-ls-bus.v1.can" variability="discrete" clocks="1002"/>
-    <Clock name="Powertrain::Tx_Clock" valueReference="1004"
+    <Clock name="Powertrain.Tx_Clock" valueReference="1004"
         causality="output" variability="discrete" interval="aperiodic"/>
-    <Binary name="Powertrain::Tx_Data" valueReference="1003" causality="output"
+    <Binary name="Powertrain.Tx_Data" valueReference="1003" causality="output"
         mimeType="org.fmi-standard.fmi-ls-bus.v1.can" variability="discrete" clocks="1004"/>
   </ModelVariables>
   <ModelStructure>
