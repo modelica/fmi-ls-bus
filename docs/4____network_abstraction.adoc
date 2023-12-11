@@ -174,15 +174,13 @@ h|Boolean h|Value h|Description
 === Variables [[low-cut-variables, Variables]]
 This section explains how layered standard bus protocol operations are sent and received by FMUs using FMI 3.0 clock and clocked variables footnote:[For details, refer to Functional Mock-up Interface Specification (fmi-standard.org) chapter 2.2.8 Clocks.].
 While the former (see <<low-cut-tx-clock-variables, Tx Clock Variables>> and <<low-cut-rx-clock-variables, Rx Clock Variables>>) are used for scheduling and time synchronization, the latter (see <<low-cut-tx-rx-data-variables, Tx/Rx Data Variables>>) are used to carry the layered standard bus protocol operations in binary form.
-To summarize, four variables with the following name schema are used:
+To summarize, four variables with the following characteristics and relations are used:
 
-The input variable `BusName::Rx_Data` is clocked by the clock variable `BusName::Rx_Clock`, both with `causality` set to `input`.
-
-The output variable `BusName::Tx_Data` is clocked by the clock variable `BusName::Tx_Clock`. 
+* The `Rx_Data` variable is clocked by the `Rx_Clock` variable, both with `causality` set to `input`.
+* The `Tx_Data` variable is clocked by the `Tx_Clock` variable. 
 The `causality` for the `Tx_Data` variable shall be `output`, but for the `Tx_Clock` variable it depends on the selected clock type (see <<low-cut-tx-time-based-clock-variables, Tx Clock Variables>>).  
 
 Both variable pairs must be listed as member of its corresponding <<low-cut-bus-terminal, Bus Terminal>>.
-How to set the `BusName` placeholder is bus-type-specific and therefore described in the bus-specific chapters.
 
 ==== Tx Clock Variables [[low-cut-tx-clock-variables]]
 As described in the FMI 3.0 specification, clock variables are used to synchronize events between importer and across FMUs.
@@ -315,7 +313,9 @@ Attribute definitions::
  * `name` is the network name, e.g., `Powertrain`, see <<low-cut-example, example>> and constraints.
 
 Element definitions::
- * `BusName::Rx_Data` and `BusName::Tx_Data` and their clocks `BusName::Rx_Clock` and `BusName::Tx_Clock` are exposed in the `modelDescription.xml`, they must be listed as `<TerminalMemberVariable>` elements here.
+ * Every Bus Terminal contains exactly four variables each in the role of: `Tx_Data`, `Tx_Clock`, `Rx_Data` or `Rx_Clock`.
+ * Variables in the role of `Rx_Data`, `Tx_Data`, `Rx_Clock` and `Tx_Clock` are exposed in the `modelDescription.xml` and must be listed as `<TerminalMemberVariable>` elements, whereby `variableName` can be freely chosen.
+ * `<TerminalMemberVariable>.memberName` defines the role of the variable within the `<Terminal>` and shall be set to `Tx_Data`, `Tx_Clock`, `Rx_Data` or `Rx_Clock`.
  * There must be no `<TerminalStreamMemberVariable>` element.
 
 The `matchingRule` of type `org.fmi-ls-bus.transceiver` is specified as: `Tx_{Data|Clock}` variables shall be connected to `Rx_{Data|Clock}` variables and vice versa, whereby the variable type shall be equal.
