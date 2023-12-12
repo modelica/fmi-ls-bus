@@ -177,8 +177,8 @@ While the former (see <<low-cut-tx-clock-variables, Tx Clock Variables>> and <<l
 To summarize, four variables with the following characteristics and relations are used:
 
 * The `Rx_Data` variable is clocked by the `Rx_Clock` variable, both with `causality` set to `input`.
-* The `Tx_Data` variable is clocked by the `Tx_Clock` variable. 
-The `causality` for the `Tx_Data` variable shall be `output`, but for the `Tx_Clock` variable it depends on the selected clock type (see <<low-cut-tx-time-based-clock-variables, Tx Clock Variables>>).  
+* The `Tx_Data` variable is clocked by the `Tx_Clock` variable.
+The `causality` for the `Tx_Data` variable shall be `output`, but for the `Tx_Clock` variable it depends on the selected clock type (see <<low-cut-tx-time-based-clock-variables, Tx Clock Variables>>).
 
 Both variable pairs must be listed as member of its corresponding <<low-cut-bus-terminal, Bus Terminal>>.
 
@@ -207,10 +207,10 @@ An importer has to determine proper communication step sizes to synchronize netw
 _[Note: While simulation it can happen that no `Tx_Data` has to be transferred to the `Rx_Data` variable at the announced Tx time. In this case the returned 'valueSize' of the `Tx_Data` variable is 0.]_
 
 Although the `causality` of a `time-based` `Tx_Clock` variable and a `triggered` `Rx_Clock` variable are each `input`, it is allowed to connect both, since a `time-based` clock variable of an FMU is considered only to be a request to the importer to provide an attendant clock source.
-     
+
 .Consideration of time-base Tx_Clock connections.
 [#low-cut-time-based-port-connection]
-image::low_cut_time_based_port_connection.svg[width=50%, align="center"]  
+image::low_cut_time_based_port_connection.svg[width=50%, align="center"]
 
 Because of the common clock source however, both clock variables (Rx/Tx) might get active at the same time.
 To make sure that the `Rx_Data` variables is set properly, an importer has to activate the `Rx_Clock` variable under consideration of `Tx_Data` and `Rx_Data` dependency.
@@ -218,7 +218,7 @@ To make sure that the `Rx_Data` variables is set properly, an importer has to ac
 _[Note: For clarity always a direct connection line between the `Tx_Clock` and `Rx_Clock` variables is shown in figures of this document.]_
 
 A `time-based` clock can be `periodic` or `aperiodic`.
-Both allows to define `Bus Communication Points` independently from the regular communication points with fixed or variable distances. 
+Both allows to define `Bus Communication Points` independently from the regular communication points with fixed or variable distances.
 The difference between the two clock types is listed in the following table.
 
 .Time-based clock properties.
@@ -244,7 +244,7 @@ Pending Tx data shall be signaled by returning from `fmi3DoStep` with the `event
 
 .Triggered Tx_Clock/Rx_Clock connection.
 [#low-cut-triggered-port-connection]
-image::low_cut_communication_with_triggered_tx_clock.svg[width=100%, align="center"]  
+image::low_cut_communication_with_triggered_tx_clock.svg[width=100%, align="center"]
 
 
 ==== Rx Clock Variables [[low-cut-rx-clock-variables]]
