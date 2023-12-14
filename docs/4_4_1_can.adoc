@@ -504,10 +504,10 @@ h|Arbitration Lost Behavior h|Value h|Description
 |====
 
 ====== Status [[low-cut-can-status-operation]]
-By using the `Status operation`, a Network FMU can communicate the current CAN node state to the Bus Simulation.
+By using the <<low-cut-can-status-operation, `Status Operation`>>, a Network FMU can communicate the current CAN node state to the Bus Simulation.
 The following information is included within this operation: 
 
-.Detailed description of the Status operation.
+.Detailed description of the Status Operation.
 [#table-can-status-operation]
 [cols="5,4,3,20"]
 |====
@@ -681,7 +681,7 @@ A Transmit Error Counter (TEC) and a Receive Error Counter (REC) represent a his
 To maintain the TEC and REC values, <<low-cut-can-bus-error-operation, Bus Error operations>> shall be provided to all Network FMUs by the Bus Simulation.
 The argument `Is Sender` shall be set to `TRUE` for the Network FMU the <<low-cut-can-transmit-operation, `Transmit Operation`>> originated from.
 The argument `Error Flag` shall be set to `PRIMARY_ERROR_FLAG` if the Network FMU detects the transmission error.
-If a Network FMU changes its current CAN node state, the <<low-cut-can-status-operation, Status operation>> shall be provided to the Bus Simulation.
+If a Network FMU changes its current CAN node state, the <<low-cut-can-status-operation, `Status Operation`>> shall be provided to the Bus Simulation.
 When a Network FMU signals the `BUS_OFF` state to the Bus Simulation, it shall not provide any new <<low-cut-can-transmit-operation, `Transmit Operations`>> in order to simulate a real Bus-Off behavior.
 
 .Architectural error handling overview.
@@ -706,7 +706,7 @@ In this case, it is not necessary for the Network FMU to re-send the respective 
 If the `Arbitration Lost Behavior` is set to `DISCARD_AND_NOTIFY`, the specified Network FMU is informed by an <<low-cut-can-arbitration-lost-operation, Arbitration Lost operation>> and needs to repeat the corresponding <<low-cut-can-transmit-operation, `Transmit Operation`>> by itself.
 Arbitration is available in communication architectures with Bus Simulation only, i.e., it is not available for <<common-concepts-direct-communication, directly connected Network FMUs>>.
 
-In the case of arbitration, the Bus Simulation must also take the status of the respective Network FMU into account, which is communicated via a <<low-cut-can-status-operation, Status operation>>.
+In the case of arbitration, the Bus Simulation must also take the status of the respective Network FMU into account, which is communicated via a <<low-cut-can-status-operation, `Status Operation`>>.
 To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN node is in Error Passive state, the Bus Simulation shall prefer Network FMUs whose status is `ERROR_ACTIVE` (see <<table-can-status-values>>).
 
 The https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams[FMI LS BUS Implementer’s Guide] contains examples of the presented arbitration cases and visualizes them using sequence diagrams.

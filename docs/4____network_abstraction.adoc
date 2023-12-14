@@ -10,7 +10,7 @@ This role can be a Bus Simulation FMU or an importer with bus simulation support
 The Layered Standard Bus Protocol in general is bus-type-specific, but has some similarities.
 Bus communication often follows a Transmit/Confirm pattern, where a Network FMU sends a Transmit Operation containing the network message as payload.
 Depending on the <<common-concepts-system-compositions, System Composition>>, the importer forwards the Transmit Operation either directly to receiving FMUs or to a dedicated bus simulation.
-The Bus Simulation then might delay the transfer of the Transmit Operation to the receiving FMUs to simulate timing behavior, before sending a bus-specific Confirm operation back to the sending FMU.
+The Bus Simulation then might delay the transfer of the Transmit Operation to the receiving FMUs to simulate timing behavior, before sending a bus-specific Confirm Operation back to the sending FMU.
 
 .Transmission overview.
 [#figure-transmission-overview]
