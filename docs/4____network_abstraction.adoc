@@ -117,9 +117,9 @@ Remarks:
 * Since the standard allows to concatenate multiple operations (see <<low-cut-tx-rx-data-variables, Tx/Rx Data Variables>>), the <<TotalLengthField, Total Length>> field is introduced to allow the implementation of a generic parser for received operations.
 
 ==== Format Error [[low-cut-format-error-operation]]
-The Format Error operation is independent from the bus type and shall be used when encountering a syntax or content error of received operations.
+The <<low-cut-format-error-operation, `Format Error Operation`>> is independent from the bus type and shall be used when encountering a syntax or content error of received operations.
 
-.Detailed description of the Format Error operation.
+.Detailed description of the Format Error Operation.
 [#table-format-error-operation]
 [cols="5,4,3,20"]
 |====
