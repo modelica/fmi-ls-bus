@@ -87,6 +87,12 @@ This layered standard defines requires the use of a layered standard manifest fi
 | `Layered Standard for the simulation of bus communication on a signal or network abstraction based level.`
 | String with a brief description of the layered standard that is suitable for display to users.
 
+|`isBusSimulationFMU`
+|
+| `true` or `false`
+| If `true`, this FMU represents a Bus Simulation FMU.
+Default: `false`.
+
 |====
 
 An example of a manifest file for this layered standard is shown below:
