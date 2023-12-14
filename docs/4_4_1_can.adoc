@@ -305,9 +305,9 @@ If the structural parameter <<low-cut-can-bus-notification-parameter, `org.fmi_s
 |====
 
 ====== Bus Error [[low-cut-can-bus-error-operation]]
-The Bus Error operation represents special bus communication errors, which are delivered to every participant in the network.
+The <<low-cut-can-bus-error-operation, `Bus Error Operation`>> represents special bus communication errors, which are delivered to every participant in the network.
 
-.Detailed description of the Bus Error operation.
+.Detailed description of the Bus Error Operation.
 [#table-can-bus-error-operation]
 [cols="5,4,3,20"]
 |====
@@ -342,18 +342,18 @@ For specification the boolean values `PRIMARY_ERROR_FLAG` and `SECONDARY_ERROR_F
 
 |Is Sender
 |1 byte
-|Set if the Bus Error operation is a reaction to a <<low-cut-can-transmit-operation, `Transmit Operation`>> that was provided by the specified Network FMU from the Bus Simulation.
+|Set if the <<low-cut-can-bus-error-operation, `Bus Error Operation`>> is a reaction to a <<low-cut-can-transmit-operation, `Transmit Operation`>> that was provided by the specified Network FMU from the Bus Simulation.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
 h|Behavior
 3+|While transmitting CAN frames, various kinds of bus error may happen.
-A Bus Simulation can simulate such errors by providing Bus Error operations to the Network FMUs.
-Based on consumed Bus Error operations, Network FMUs shall maintain an internal CAN node state (see <<low-cut-can-error-handling>>).
+A Bus Simulation can simulate such errors by providing <<low-cut-can-bus-error-operation, `Bus Error Operations`>> to the Network FMUs.
+Based on consumed <<low-cut-can-bus-error-operation, `Bus Error Operations`>>, Network FMUs shall maintain an internal CAN node state (see <<low-cut-can-error-handling>>).
 To determine the CAN node state properly, Network FMUs need the information about their role at the time when the simulated error happened.
-For a Network FMU that initiated the <<low-cut-can-transmit-operation, `Transmit Operation`>>, the argument `Is Sender` shall be set to `TRUE` in the corresponding Bus Error operation.
+For a Network FMU that initiated the <<low-cut-can-transmit-operation, `Transmit Operation`>>, the argument `Is Sender` shall be set to `TRUE` in the corresponding <<low-cut-can-bus-error-operation, `Bus Error Operation`>>.
 For a Network FMU considered to be the one detecting the error first, the argument `Error Flag = PRIMARY_ERROR_FLAG` shall be set.
 The arguments `Is Sender = TRUE` and `Error Flag = PRIMARY_ERROR_FLAG` must only be set once per simulated error.
-If the structural parameter <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> of a Network FMU is set to `false`, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received Bus Error operations are discarded by the Network FMU.
+If the structural parameter <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> of a Network FMU is set to `false`, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-bus-error-operation, `Bus Error Operations`>> are discarded by the Network FMU.
 |====
 
 The following Error Codes are specified:
@@ -678,7 +678,7 @@ The https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequenc
 ===== Error Handling [[low-cut-can-error-handling]]
 The CAN protocol includes a sophisticated fault confinement mechanism to prevent malfunctioning within CAN nodes.
 A Transmit Error Counter (TEC) and a Receive Error Counter (REC) represent a historical communication quality metric.
-To maintain the TEC and REC values, <<low-cut-can-bus-error-operation, Bus Error operations>> shall be provided to all Network FMUs by the Bus Simulation.
+To maintain the TEC and REC values, <<low-cut-can-bus-error-operation, `Bus Error Operations`>> shall be provided to all Network FMUs by the Bus Simulation.
 The argument `Is Sender` shall be set to `TRUE` for the Network FMU the <<low-cut-can-transmit-operation, `Transmit Operation`>> originated from.
 The argument `Error Flag` shall be set to `PRIMARY_ERROR_FLAG` if the Network FMU detects the transmission error.
 If a Network FMU changes its current CAN node state, the <<low-cut-can-status-operation, `Status Operation`>> shall be provided to the Bus Simulation.
