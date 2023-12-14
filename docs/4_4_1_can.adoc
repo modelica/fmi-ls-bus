@@ -265,7 +265,7 @@ Depending on the <<low-cut-can-status-operation, status>> of the specified Netwo
 
 ====== Format Error [[low-cut-can-format-error-operation]]
 Represents a format error that indicates a syntax or content error of receiving operations.
-See <<low-cut-format-error-operation, Format Error>> for definition.
+See <<low-cut-format-error-operation, `Format Error`>> for definition.
 
 ====== Arbitration Lost [[low-cut-can-arbitration-lost-operation]]
 The <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operation defines a feedback message from a Bus Simulation to a Network FMU that a <<low-cut-can-transmit-operation, `Transmit`>> operation could not be sent immediately due to a concurrent transmit request.
