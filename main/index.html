@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version main-47634c779ef937993b1111938136368909f97996,</span>
-<span id="revdate">2023-12-13</span>
+<span id="revnumber">version main-afac684f250654ab86a6f46563cb357b873bbd8e,</span>
+<span id="revdate">2023-12-14</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -902,6 +902,13 @@ All explanations in this document are therefore to be understood in the context 
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Layered Standard for the simulation of bus communication on a signal or network abstraction based level.</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String with a brief description of the layered standard that is suitable for display to users.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>isBusSimulationFMU</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code> or <code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If <code>true</code>, this FMU represents a Bus Simulation FMU.
+Default: <code>false</code>.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -913,10 +920,11 @@ All explanations in this document are therefore to be understood in the context 
 &lt;fmiLayeredStandardManifest
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../schema/fmi3LayeredStandardBusManifest.xsd"
-	xmlns:fmi-ls="http://fmi-standard.org/fmi-ls-manifest"
-	fmi-ls:fmi-ls-name="org.fmi-standard.fmi-ls-bus"
-	fmi-ls:fmi-ls-version="1.0.0"
-	fmi-ls:fmi-ls-description="Layered Standard for the simulation of bus communication on a signal or network abstraction based level."/&gt;</code></pre>
+    xmlns:fmi-ls="http://fmi-standard.org/fmi-ls-manifest"
+    fmi-ls:fmi-ls-name="org.fmi-standard.fmi-ls-bus"
+    fmi-ls:fmi-ls-version="1.0.0"
+    fmi-ls:fmi-ls-description="Layered Standard for the simulation of bus communication on a signal or network abstraction based level."
+    isBusSimulationFMU="false"/&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1581,9 +1589,12 @@ Importers must know how to handle this, just like they must know how to handle f
 <p>The network abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
 Exchanging data in terms of the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a> via variables grouped by a dedicated bus terminal (see <a href="#low-cut-variables">Variables</a>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
 During simulation, the network communication is controlled by send and receive Bus Operations.
-Based on these operations, Network FMUs have to react as specified by this layered standard depending on their role.
+Based on these operations, FMUs implementing this layered standard have to react depending on their role as specified in this document.
 This role can be a Bus Simulation FMU or an importer with bus simulation support on one side, and Network FMUs (e.g., virtual ECUs) on the other side (see <a href="#common-concepts-system-compositions">System Compositions</a>).
-The Layered Standard Bus Protocol in general is bus-type-specific, but has some similarities.
+To allow importers an easy distinction between these FMU roles, for Bus Simulation FMUs the attribute <code>isBusSimulationFMU</code> shall be set to <code>true</code> in the Manifest file.</p>
+</div>
+<div class="paragraph">
+<p>In general, the Layered Standard Bus Protocol is bus-type-specific, but there are some similarities among different bus types.
 Bus communication often follows a Transmit/Confirm pattern, where a Network FMU sends a Transmit operation containing the network message as payload.
 Depending on the <a href="#common-concepts-system-compositions">System Composition</a>, the importer forwards the Transmit operation either directly to receiving FMUs or to a dedicated bus simulation.
 The Bus Simulation then might delay the transfer of the Transmit operation to the receiving FMUs to simulate timing behavior, before sending a bus-specific Confirm operation back to the sending FMU.</p>
