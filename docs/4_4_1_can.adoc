@@ -149,7 +149,7 @@ This section defines the specified operations for CAN, CAN FD and CAN XL.
 The following tables provides an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
 
 ====== Transmit [[low-cut-can-transmit-operation]]
-There are three types of transmit operations for transmission of CAN, CAN FD and CAN XL frame.
+There are three types of <<low-cut-can-transmit-operation, `Transmit`>> operations for transmission of CAN, CAN FD and CAN XL frames.
 
 .Detailed description of the CAN Transmit operation.
 [#table-can-transmit-operation]
