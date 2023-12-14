@@ -230,9 +230,9 @@ h|Behavior
 |====
 
 ====== Confirm [[low-cut-can-confirm-operation]]
-The `Confirm operation` is used to signal the successful reception of a transmitted CAN frame (see <<low-cut-can-transmit-operation, `Transmit Operation`>>) by at least one Network FMU.
+The <<low-cut-can-confirm-operation, `Confirm Operation`>> is used to signal the successful reception of a transmitted CAN frame (see <<low-cut-can-transmit-operation, `Transmit Operation`>>) by at least one Network FMU.
 
-.Detailed description of the Confirm operation.
+.Detailed description of the Confirm Operation.
 [#table-can-confirm-operation]
 [cols="5,4,3,20"]
 |====
@@ -258,8 +258,8 @@ The following applies for this operation: `Total Length = 9`.
 
 h|Behavior
 3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
-If the structural parameter <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> of a Network FMU is set to `false`, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received Confirm operations are discarded by the Network FMU.
-Depending on the <<low-cut-can-status-operation, status>> of the specified Network FMU further restrictions for Confirm operations <<table-can-status-values, exist>>.
+If the structural parameter <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> of a Network FMU is set to `false`, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-confirm-operation, `Confirm Operations`>> are discarded by the Network FMU.
+Depending on the <<low-cut-can-status-operation, status>> of the specified Network FMU further restrictions for <<low-cut-can-confirm-operation, `Confirm Operations`>> <<table-can-status-values, exist>>.
 
 |====
 
@@ -648,12 +648,12 @@ If the buffering is not adjusted by a specified Network FMU, the Bus Simulation 
 The <<low-cut-can-transmit-operation, `Transmit Operation`>> represents the sending of a CAN, CAN FD and CAN XL frame.
 With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g., Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
 In the real world, flawlessly transmitted CAN frames will be acknowledged by at least one receiver CAN node.
-To simulate this behavior, the <<low-cut-can-confirm-operation, Confirm operations>> are introduced.
+To simulate this behavior, the <<low-cut-can-confirm-operation, `Confirm Operations`>> are introduced.
 In addition, the structural parameter <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> is defined to support lightweight bus simulations and <<common-concepts-direct-communication, directly connected Network FMUs>>.
 
-If <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> is set to `false` (default), then Network FMUs must not rely on receiving <<low-cut-can-confirm-operation, Confirm operations>>.
+If <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> is set to `false` (default), then Network FMUs must not rely on receiving <<low-cut-can-confirm-operation, `Confirm Operations`>>.
 In this case, the bus simulation is idealized and takes place in a "fire-and-forget" manner.
-If a specified Network FMU is depending on <<low-cut-can-confirm-operation, Confirm operations>> and <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> is set to `false`, the self confirmation shall be realized internally within the respective Network FMU. 
+If a specified Network FMU is depending on <<low-cut-can-confirm-operation, `Confirm Operations`>> and <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> is set to `false`, the self confirmation shall be realized internally within the respective Network FMU. 
 
 <<#figure-can-direct-communication>> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
 Subsequently, FMU 1 self-confirms the transmission internally.
@@ -662,8 +662,8 @@ Subsequently, FMU 1 self-confirms the transmission internally.
 [#figure-can-direct-communication]
 image::can_direct_confirmation.svg[width=40%, align="center"]
 
-For a detailed simulation, the Bus Simulation has to support <<low-cut-can-confirm-operation, Confirm operations>>.
-In this case, the <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> parameter of the Network FMUs can be set to `true` as Network FMUs can rely on receiving <<low-cut-can-confirm-operation, Confirm operations>>.
+For a detailed simulation, the Bus Simulation has to support <<low-cut-can-confirm-operation, `Confirm Operations`>>.
+In this case, the <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> parameter of the Network FMUs can be set to `true` as Network FMUs can rely on receiving <<low-cut-can-confirm-operation, `Confirm Operations`>>.
 
 The following <<#figure-can-confirmation-with-bus-simulation-fmu>> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.
 
