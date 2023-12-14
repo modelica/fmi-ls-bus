@@ -567,9 +567,9 @@ If all Network FMUs, except the <<low-cut-can-transmit-operation, `Transmit Oper
 |====
 
 ====== Wake Up [[low-cut-can-wake-up-operation]]
-By using the `Wakeup operation`, the underlying Bus Simulation can trigger a bus-specific wake up.
+By using the <<low-cut-can-wake-up-operation, `Wakeup Operation`>>, the underlying Bus Simulation can trigger a bus-specific wake up.
 
-.Detailed description of the Wakeup operation.
+.Detailed description of the Wakeup Operation.
 [#table-can-wakeup-operation]
 [cols="5,4,3,20"]
 |====
@@ -716,7 +716,7 @@ This standard supports wake up and sleep functionality for the CAN bus.
 However, the realization of local virtual ECU wake-up and sleeping processes, i.e., the transition to the sleep state as well as the virtual ECU local wake-up process, is considered internal to the FMU implementation.
 Therefore, only the bus-related aspects are defined in this document.
 
-The CAN-specific wake-up pulse can be simulated by using the <<low-cut-can-wake-up-operation, Wakeup operation>>, initiated by one Network FMU.
+The CAN-specific wake-up pulse can be simulated by using the <<low-cut-can-wake-up-operation, `Wakeup Operation`>>, initiated by one Network FMU.
 The Bus Simulation shall distribute this operation to all participants on the bus, excluding the wake-up initiator.
 
 .Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.
