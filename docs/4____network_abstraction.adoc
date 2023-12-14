@@ -8,9 +8,9 @@ During simulation, the network communication is controlled by send and receive B
 Based on these operations, Network FMUs have to react as specified by this layered standard depending on their role.
 This role can be a Bus Simulation FMU or an importer with bus simulation support on one side, and Network FMUs (e.g., virtual ECUs) on the other side (see <<common-concepts-system-compositions, System Compositions>>).
 The Layered Standard Bus Protocol in general is bus-type-specific, but has some similarities.
-Bus communication often follows a Transmit/Confirm pattern, where a Network FMU sends a Transmit Operation containing the network message as payload.
-Depending on the <<common-concepts-system-compositions, System Composition>>, the importer forwards the Transmit Operation either directly to receiving FMUs or to a dedicated bus simulation.
-The Bus Simulation then might delay the transfer of the Transmit Operation to the receiving FMUs to simulate timing behavior, before sending a bus-specific Confirm Operation back to the sending FMU.
+Bus communication often follows a Transmit/Confirm pattern, where a Network FMU sends a Transmit operation containing the network message as payload.
+Depending on the <<common-concepts-system-compositions, System Composition>>, the importer forwards the Transmit operation either directly to receiving FMUs or to a dedicated bus simulation.
+The Bus Simulation then might delay the transfer of the Transmit operation to the receiving FMUs to simulate timing behavior, before sending a bus-specific Confirm operation back to the sending FMU.
 
 .Transmission overview.
 [#figure-transmission-overview]
@@ -117,9 +117,9 @@ Remarks:
 * Since the standard allows to concatenate multiple operations (see <<low-cut-tx-rx-data-variables, Tx/Rx Data Variables>>), the <<TotalLengthField, Total Length>> field is introduced to allow the implementation of a generic parser for received operations.
 
 ==== Format Error [[low-cut-format-error-operation]]
-The <<low-cut-format-error-operation, `Format Error Operation`>> is independent from the bus type and shall be used when encountering a syntax or content error of received operations.
+The <<low-cut-format-error-operation, `Format Error`>> operation is independent from the bus type and shall be used when encountering a syntax or content error of received operations.
 
-.Detailed description of the Format Error Operation.
+.Detailed description of the Format Error operation.
 [#table-format-error-operation]
 [cols="5,4,3,20"]
 |====
@@ -147,7 +147,7 @@ The following applies for this operation: `Total Length = 5 + Length of Data arg
 
 |Data
 |n byte
-|Stores the complete binary data of the operation that caused the specified format error.
+|Stores the complete binary data of the operation that caused the specified <<low-cut-format-error-operation, `Format Error`>>.
 
 h|Behavior
 3+|The specified operation shall be produced and consumed by Network FMUs and the Bus Simulation.
