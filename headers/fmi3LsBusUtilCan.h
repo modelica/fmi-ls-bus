@@ -51,7 +51,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN transmit operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *   
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -97,7 +97,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN FD transmit operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -142,7 +142,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN XL transmit operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -191,7 +191,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN confirm operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -224,7 +224,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN configuration operation for the baud rate setting.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -259,7 +259,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN configuration operation for the CAN FD baud rate setting.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -293,7 +293,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN configuration operation for the CAN XL baud rate setting.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -327,7 +327,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN configuration operation for the arbitration lost behavior setting.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo               Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -361,7 +361,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN arbitration lost operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -393,7 +393,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN bus error operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -433,7 +433,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN status operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -465,7 +465,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN wakeup operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.

@@ -73,7 +73,7 @@ typedef struct
  *
  *  This macro can be used to create a Format Error operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *   
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
