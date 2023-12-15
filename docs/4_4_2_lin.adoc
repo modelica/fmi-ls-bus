@@ -27,7 +27,7 @@ It shows all operations and the arguments they contain.
 10+h|Operation Content
 
 h|OP Code
-h|Total Length
+h|Length
 8+h|Specific Content
 
 |Format Error
@@ -119,8 +119,8 @@ h|OP Code [hex] 3+| 0x10
 .5+h|Content h|Argument h|Length h|Description
 | OP Code | 1 byte | Contains the OP Code of the specified operation.
 For this operation the OP Code always has the value 0x10.
-| Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
-For this operation always applies: `Total Length = 7`.
+| Length | 4 byte | Defines the cumulative length of all arguments in bytes.
+For this operation always applies: `Length = 7`.
 | PID | 1 byte | The specified protected ID (PID) of the LIN message.
 The maximum length of a PID is 8-bit.
 | Response Data Length | 1 byte | The size of the response in byte.
@@ -142,8 +142,8 @@ h|OP Code [hex] 3+| 0x11
 .7+h|Content h|Argument h|Length h|Description
 | OP Code | 1 byte | Contains the OP Code of the specified operation.
 For this operation the OP Code always has the value 0x11.
-| Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
-For this operation always applies: `Total Length = 8 + Data Length`.
+| Length | 4 byte | Defines the cumulative length of all arguments in bytes.
+For this operation always applies: `Length = 8 + Data Length`.
 | PID | 1 byte | The specified protected ID (PID) of the LIN message.
 The maximum length of a PID is 8-bit.
 | Response Error | 1 byte | Represents the Response Error field of a LIN frame.
@@ -168,8 +168,8 @@ h|OP Code [hex] 3+| 0x12
 .6+h|Content h|Argument h|Length h|Description
 | OP Code | 1 byte | Contains the OP Code of the specified operation.
 For this operation the OP Code always has the value 0x12.
-| Total Length | 4 byte | Defines the cumulative length of all arguments in bytes.
-For this operation always applies: `Total Length = 7 + Data Length`.
+| Length | 4 byte | Defines the cumulative length of all arguments in bytes.
+For this operation always applies: `Length = 7 + Data Length`.
 | PID | 1 byte | The specified protected ID (PID) of the LIN message.
 The maximum length of a PID is 8-bit.
 | Data Length | 1 byte | Specifies the length of the Data argument in bytes.
@@ -205,10 +205,10 @@ h|OP Code [hex]
 |Contains the OP Code of the specified operation.
 For this operation the OP Code always has the value 0x20.
 
-|Total Length
+|Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-For this operation always applies: `Total Length = 10`.
+For this operation always applies: `Length = 10`.
 
 |ID
 |4 byte
@@ -291,10 +291,10 @@ h|OP Code [hex]
 |1 byte
 |Contains the OP Code (0x30) of the operation.
 
-3+|Total Length
+3+|Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Total Length = 6 + Length of parameter arguments in bytes`.
+The following applies for this operation: `Length = 6 + Length of parameter arguments in bytes`.
 
 3+|Parameter Type
 |1 byte
@@ -372,10 +372,10 @@ h|OP Code [hex]
 |Contains the OP Code of the specified operation.
 For this operation the OP Code always has the value 0x40.
 
-|Total Length
+|Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-For this operation always applies: `Total Length = 6`.
+For this operation always applies: `Length = 6`.
 
 |Status
 |1 byte
@@ -422,10 +422,10 @@ h|OP Code [hex]
 |Contains the OP Code of the specified operation.
 For this operation the OP Code always has the value 0x41.
 
-|Total Length
+|Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-For this operation always applies: `Total Length = 5`.
+For this operation always applies: `Length = 5`.
 
 h|Behavior
 3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the wake-up initiator, of the bus by using the Bus Simulation.

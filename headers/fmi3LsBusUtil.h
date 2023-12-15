@@ -69,6 +69,43 @@ typedef struct
 
 
 /**
+ * \brief Creates a Format Error operation.
+ *
+ *  This macro can be used to create a Format Error operation.
+ *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
+ *  variable of the argument 'BufferInfo' is set to fmi3False.
+ *   
+ * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
+ * \param[in] DataLength  Operation data length (\ref fmi3LsBusDataLength).
+ * \param[in] Data        Operation data (\ref fmi3LsBusDataLength).
+ */
+#define FMI3_LS_BUS_CREATE_OP_FORMAT_ERROR(BufferInfo, DataLength, Data)                                \
+    do                                                                                                  \
+    {                                                                                                   \
+        fmi3LsBusOperationFormatError _op;                                                              \
+        _op.header.opCode = FMI3_LS_BUS_OP_FORMAT_ERROR;                                                \
+        _op.header.length = sizeof(fmi3LsBusOperationHeader) +                                          \
+                            sizeof(fmi3LsBusDataLength) +                                               \
+                            (DataLength);                                                               \
+                                                                                                        \
+        _op.dataLength = (DataLength);                                                                  \
+        if (_op.header.length <= (fmi3UInt32)((BufferInfo)->end - (BufferInfo)->writePos))              \
+        {                                                                                               \
+            memcpy((BufferInfo)->writePos, &_op, _op.header.length - (DataLength));                     \
+            (BufferInfo)->writePos += _op.header.length - (DataLength);                                 \
+            memcpy((BufferInfo)->writePos, (Data), (DataLength));                                       \
+            (BufferInfo)->writePos += (DataLength);                                                     \
+            (BufferInfo)->status = fmi3True;                                                            \
+        }                                                                                               \
+        else                                                                                            \
+        {                                                                                               \
+            (BufferInfo)->status = fmi3False;                                                           \
+        }                                                                                               \
+    }                                                                                                   \
+    while (0)
+
+/**
  * \brief Initializes a variable of type \ref fmi3LsBusUtilBufferInfo.
  *
  * This macro should be used to initialize variables of type \ref fmi3LsBusUtilBufferInfo.

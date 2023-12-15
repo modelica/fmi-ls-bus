@@ -51,7 +51,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN transmit operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *   
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -65,7 +65,7 @@ extern "C"
     do                                                                                                  \
     {                                                                                                   \
         fmi3LsBusCanOperationCanTransmit _op;                                                           \
-        _op.header.type = FMI3_LS_BUS_CAN_OP_CAN_TRANSMIT;                                              \
+        _op.header.opCode = FMI3_LS_BUS_CAN_OP_CAN_TRANSMIT;                                              \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) +                                          \
                             sizeof(fmi3LsBusCanId) +                                                    \
                             sizeof(fmi3LsBusCanIde) +                                                   \
@@ -97,7 +97,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN FD transmit operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -112,7 +112,7 @@ extern "C"
     do                                                                                                            \
     {                                                                                                             \
         fmi3LsBusCanOperationCanFdTransmit _op;                                                                   \
-        _op.header.type = FMI3_LS_BUS_CAN_OP_CANFD_TRANSMIT;                                                      \
+        _op.header.opCode = FMI3_LS_BUS_CAN_OP_CANFD_TRANSMIT;                                                      \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) + sizeof(fmi3LsBusCanId) + sizeof(fmi3LsBusCanIde) + \
                             sizeof(fmi3LsBusCanBrs) + sizeof(fmi3LsBusCanEsi) + sizeof(fmi3LsBusCanDataLength) +  \
                             (DataLength);                                                                         \
@@ -142,7 +142,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN XL transmit operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -159,7 +159,7 @@ extern "C"
     do                                                                                                            \
     {                                                                                                             \
         fmi3LsBusCanOperationCanXlTransmit _op;                                                                   \
-        _op.header.type = FMI3_LS_BUS_CAN_OP_CANXL_TRANSMIT;                                                      \
+        _op.header.opCode = FMI3_LS_BUS_CAN_OP_CANXL_TRANSMIT;                                                      \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) + sizeof(fmi3LsBusCanId) + sizeof(fmi3LsBusCanIde) + \
                             sizeof(fmi3LsBusCanSec) + sizeof(fmi3LsBusCanSdt) + sizeof(fmi3LsBusCanVcId) +        \
                             sizeof(fmi3LsBusCanAf) + sizeof(fmi3LsBusCanDataLength) + (DataLength);             \
@@ -191,7 +191,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN confirm operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -201,7 +201,7 @@ extern "C"
     do                                                                                     \
     {                                                                                      \
         fmi3LsBusCanOperationConfirm _op;                                                  \
-        _op.header.type = FMI3_LS_BUS_CAN_OP_CONFIRM;                                      \
+        _op.header.opCode = FMI3_LS_BUS_CAN_OP_CONFIRM;                                      \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) +                             \
                             sizeof(fmi3LsBusCanId);                                        \
         _op.id = (ID);                                                                     \
@@ -224,7 +224,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN configuration operation for the baud rate setting.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -234,7 +234,7 @@ extern "C"
     do                                                                                                  \
     {                                                                                                   \
         fmi3LsBusCanOperationConfiguration _op;                                                         \
-        _op.header.type = FMI3_LS_BUS_CAN_OP_CONFIGURATION;                                             \
+        _op.header.opCode = FMI3_LS_BUS_CAN_OP_CONFIGURATION;                                             \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) +                                          \
                             sizeof(fmi3LsBusCanConfigParameterType) +                                   \
                             sizeof(fmi3LsBusCanBaudrate);                                               \
@@ -259,7 +259,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN configuration operation for the CAN FD baud rate setting.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -269,7 +269,7 @@ extern "C"
     do                                                                                                                 \
     {                                                                                                                  \
         fmi3LsBusCanOperationConfiguration _op;                                                                        \
-        _op.header.type = FMI3_LS_BUS_CAN_OP_CONFIGURATION;                                                            \
+        _op.header.opCode = FMI3_LS_BUS_CAN_OP_CONFIGURATION;                                                            \
         _op.header.length =                                                                                            \
             sizeof(fmi3LsBusOperationHeader) + sizeof(fmi3LsBusCanConfigParameterType) + sizeof(fmi3LsBusCanBaudrate); \
         _op.parameterType = FMI3_LS_BUS_CAN_CONFIG_PARAM_TYPE_CANFD_BAUDRATE;                                          \
@@ -293,7 +293,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN configuration operation for the CAN XL baud rate setting.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -303,7 +303,7 @@ extern "C"
     do                                                                                                                 \
     {                                                                                                                  \
         fmi3LsBusCanOperationConfiguration _op;                                                                        \
-        _op.header.type = FMI3_LS_BUS_CAN_OP_CONFIGURATION;                                                            \
+        _op.header.opCode = FMI3_LS_BUS_CAN_OP_CONFIGURATION;                                                            \
         _op.header.length =                                                                                            \
             sizeof(fmi3LsBusOperationHeader) + sizeof(fmi3LsBusCanConfigParameterType) + sizeof(fmi3LsBusCanBaudrate); \
         _op.parameterType = FMI3_LS_BUS_CAN_CONFIG_PARAM_TYPE_CANXL_BAUDRATE;                                          \
@@ -327,7 +327,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN configuration operation for the arbitration lost behavior setting.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo               Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -337,7 +337,7 @@ extern "C"
     do                                                                                                                                \
     {                                                                                                                                 \
         fmi3LsBusCanOperationConfiguration _op;                                                                                       \
-        _op.header.type = FMI3_LS_BUS_CAN_OP_CONFIGURATION;                                                                           \
+        _op.header.opCode = FMI3_LS_BUS_CAN_OP_CONFIGURATION;                                                                           \
         _op.header.length =                                                                                                           \
             sizeof(fmi3LsBusOperationHeader) + sizeof(fmi3LsBusCanConfigParameterType) + sizeof(fmi3LsBusCanArbitrationLostBehavior); \
         _op.parameterType = FMI3_LS_BUS_CAN_CONFIG_PARAM_TYPE_ARBITRATION_LOST_BEHAVIOR;                                              \
@@ -361,7 +361,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN arbitration lost operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -371,7 +371,7 @@ extern "C"
     do                                                                                     \
     {                                                                                      \
         fmi3LsBusCanOperationArbitrationLost _op;                                          \
-        _op.header.type = FMI3_LS_BUS_CAN_OP_ARBITRATION_LOST;                             \
+        _op.header.opCode = FMI3_LS_BUS_CAN_OP_ARBITRATION_LOST;                             \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) + sizeof(fmi3LsBusCanId);     \
         _op.id = (ID);                                                                     \
                                                                                            \
@@ -393,7 +393,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN bus error operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -406,7 +406,7 @@ extern "C"
     do                                                                                             \
     {                                                                                              \
         fmi3LsBusCanOperationBusError _op;                                                         \
-        _op.header.type = FMI3_LS_BUS_CAN_OP_BUS_ERROR;                                        \
+        _op.header.opCode = FMI3_LS_BUS_CAN_OP_BUS_ERROR;                                        \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) + sizeof(fmi3LsBusCanId) +            \
            sizeof(fmi3LsBusCanErrorCode) + sizeof(fmi3LsBusCanErrorFlag) +                         \
            sizeof(fmi3LsBusCanIsSender);                                                           \
@@ -433,7 +433,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN status operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -443,7 +443,7 @@ extern "C"
     do                                                                                         \
     {                                                                                          \
         fmi3LsBusCanOperationStatus _op;                                                       \
-        _op.header.type = FMI3_LS_BUS_CAN_OP_STATUS;                                           \
+        _op.header.opCode = FMI3_LS_BUS_CAN_OP_STATUS;                                           \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) + sizeof(fmi3LsBusCanStatusKind); \
         _op.status = (Status);                                                                 \
                                                                                                \
@@ -465,7 +465,7 @@ extern "C"
  *
  *  This macro can be used to create a CAN wakeup operation.
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
- *  described by the argument 'BufferInfo'. If there is no enough buffer space available, the 'status'
+ *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -474,7 +474,7 @@ extern "C"
     do                                                                                     \
     {                                                                                      \
         fmi3LsBusCanOperationWakeup _op;                                                   \
-        _op.header.type = FMI3_LS_BUS_CAN_OP_WAKEUP;                                       \
+        _op.header.opCode = FMI3_LS_BUS_CAN_OP_WAKEUP;                                       \
         _op.header.length = sizeof(fmi3LsBusOperationHeader);                              \
                                                                                            \
         if (_op.header.length <= (fmi3UInt32)((BufferInfo)->end - (BufferInfo)->writePos)) \
