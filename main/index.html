@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version main-04d6bef12754be7c432b768bfa177d727c6e90a4,</span>
+<span id="revnumber">version main-0d5020ac3e3fb27cad08062f4679f23aa91b39d9,</span>
 <span id="revdate">2023-12-15</span>
 </div>
 <div id="toc" class="toc2">
@@ -1890,18 +1890,18 @@ Since clock variables are strictly related to the <code>Event Mode</code>, netwo
 </div>
 <div class="paragraph">
 <p>The point in time where Bus Operations are transferred from the <code>Tx_Data</code> to the <code>Rx_Data</code> variables is defined by the <code>Tx_Clock</code> variable.
-This point is also referred to as the <code>Bus Communication Point</code>.
-A <code>Bus Communication Point</code> and a regular communication point can take place at the same time, but should be considered as independent by the importer.
+This point is also referred to as the Bus Communication Point.
+A Bus Communication Point and a regular communication point can take place at the same time, but should be considered as independent by the importer.
 In contrast to a regular communication point where input/output variables used in step mode are exchanged, only the clocked Tx/Rx data variables needs to be considered by the importer.</p>
 </div>
 <div class="paragraph">
-<p>For defining the point in time of a <code>Bus Communication Point</code>, <code>time-based</code> or <code>triggered</code> clocks can be used for the <code>Tx_Clock</code> variable.
+<p>For defining the point in time of a Bus Communication Point, <code>time-based</code> or <code>triggered</code> clocks can be used for the <code>Tx_Clock</code> variable.
 Hence the clock type can influence the bus simulation significantly - the differences should be taken into account.</p>
 </div>
 <div class="sect4">
 <h5 id="low-cut-tx-time-based-clock-variables">5.3.1.1. Time-based Tx Clock Variables</h5>
 <div class="paragraph">
-<p>A <code>time-based</code> <code>Tx_Clock</code> variable allows networked FMUs to announce a <code>Bus Communication Point</code> for the next simulation step in advance.</p>
+<p>A <code>time-based</code> <code>Tx_Clock</code> variable allows networked FMUs to announce a Bus Communication Point for the next simulation step in advance.</p>
 </div>
 <div id="low-cut-communication-points" class="imageblock text-center">
 <div class="content">
@@ -1934,7 +1934,7 @@ To make sure that the <code>Rx_Data</code> variables is set properly, an importe
 </div>
 <div class="paragraph">
 <p>A <code>time-based</code> clock can be <code>periodic</code> or <code>aperiodic</code>.
-Both allows to define <code>Bus Communication Points</code> independently from the regular communication points with fixed or variable distances.
+Both allows to define Bus Communication Points independently from the regular communication points with fixed or variable distances.
 The difference between the two clock types is listed in the following table.</p>
 </div>
 <table id="table-tx-clock-properties" class="tableblock frame-all grid-all stretch">
@@ -1953,27 +1953,27 @@ The difference between the two clock types is listed in the following table.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>periodic</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>constant</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>Bus Communication Point</code> interval is defined in the <code>modelDescription.xml</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Bus Communication Point interval is defined in the <code>modelDescription.xml</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>periodic</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>fixed</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>Bus Communication Point</code> interval is defined in the <code>modelDescription.xml</code> or must be provided in <code>Initialization Mode</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Bus Communication Point interval is defined in the <code>modelDescription.xml</code> or must be provided in <code>Initialization Mode</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>periodic</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>tunable</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>Bus Communication Point</code> interval is defined in the <code>modelDescription.xml</code> or must be provided in <code>Initialization Mode</code> and can be changed in <code>Event Mode</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Bus Communication Point interval is defined in the <code>modelDescription.xml</code> or must be provided in <code>Initialization Mode</code> and can be changed in <code>Event Mode</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aperiodic</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>changing</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>Bus Communication Point</code> interval must be provided in <code>Initialization Mode</code> and can be changed in <code>Event Mode</code> if this clock ticked.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Bus Communication Point interval must be provided in <code>Initialization Mode</code> and can be changed in <code>Event Mode</code> if this clock ticked.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aperiodic</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>countdown</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>Bus Communication Point</code> interval must be provided in <code>Initialization Mode</code> and can be changed in every <code>Event Mode</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Bus Communication Point interval must be provided in <code>Initialization Mode</code> and can be changed in every <code>Event Mode</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1985,9 +1985,9 @@ The difference between the two clock types is listed in the following table.</p>
 <h5 id="low-cut-tx-triggered-clock-variables">5.3.1.2. Triggered Tx Clock Variables</h5>
 <div class="paragraph">
 <p>A <code>triggered</code> clock basically allows to signal events when returning from <code>fmi3DoStep</code> either by using an <code>Early Return</code> or when the requested communication point at \(t_{i+1}\) was reached.
-Since signaling <code>Tx_Clock</code> events with an early return at \(t &lt; t_{i+1}\) would require to set connected networked FMUs back in time to reach <code>Bus Communication Points</code> synchronously, a <code>triggered</code> <code>Tx_Clock</code> variable must only be set when returning from <code>fmi3DoStep</code> with the <code>earlyReturn</code> argument set to <code>fmi3False</code>.
-In consequence, <code>Bus Communication Points</code> and regular communication points coincide and take place at the same time.
-The time of a <code>Bus Communication Point</code> can therefore not be defined independently, but is given by the importer.
+Since signaling <code>Tx_Clock</code> events with an early return at \(t &lt; t_{i+1}\) would require to set connected networked FMUs back in time to reach Bus Communication Points synchronously, a <code>triggered</code> <code>Tx_Clock</code> variable must only be set when returning from <code>fmi3DoStep</code> with the <code>earlyReturn</code> argument set to <code>fmi3False</code>.
+In consequence, Bus Communication Points and regular communication points coincide and take place at the same time.
+The time of a Bus Communication Point can therefore not be defined independently, but is given by the importer.
 Pending Tx data shall be signaled by returning from <code>fmi3DoStep</code> with the <code>eventHandlingNeeded</code> arguments set to <code>fmi3True</code>.</p>
 </div>
 <div id="low-cut-triggered-port-connection" class="imageblock text-center">
@@ -2008,7 +2008,7 @@ Pending Tx data shall be signaled by returning from <code>fmi3DoStep</code> with
 <h4 id="low-cut-tx-rx-data-variables">5.3.3. Tx/Rx Data Variables</h4>
 <div class="paragraph">
 <p>The Tx/Rx variables are of type <code>fmi3Binary</code> and contain multiple Bus Operations, as sent or receive by the FMU.
-If no Bus Operations shall be sent by a specified Network FMU at a given <code>Bus Communication Point</code>, the size of the corresponding binary <code>Tx_Data</code> variable shall be set to zero.
+If no Bus Operations shall be sent by a specified Network FMU at a given Bus Communication Point, the size of the corresponding binary <code>Tx_Data</code> variable shall be set to zero.
 The senders can choose how many Bus Operations are buffered and/or for how long operations are buffered before activating an output clock to trigger the actual sending of these operations.
 This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication.</p>
 </div>
