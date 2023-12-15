@@ -37,20 +37,20 @@ All signal variables are clocked to exactly indicate when they have been sent, s
 
 
 ==== Clock Variables [[high-cut-clock-variables]]
-In order to use FMU input and output variables as transport layer for networks, input and output clocks are used.
-Such a clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.
+In order to use FMU input and output variables as transport layer for networks, input and output Clocks are used.
+Such a Clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.
 
-The output clock type, `periodic` or `aperiodic`, is defined by the sending FMU.
+The output Clock type, `periodic` or `aperiodic`, is defined by the sending FMU.
 This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:
 
- - While `aperiodic` clocks allow very accurate network simulations, frequently entering `Event Mode` will reduce the network simulation speed.
- - Using `periodic` clocks reduces the number of `Event Modes` required and speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.
- - One could use (structural) parameters to define the accuracy of `aperiodic` clocks, allowing control of the simulation accuracy and performance with the same FMU.
- - The input clocks shall be `triggered` clocks.
+ - While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` will reduce the network simulation speed.
+ - Using `periodic` Clocks reduces the number of `Event Modes` required and speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.
+ - One could use (structural) parameters to define the accuracy of `aperiodic` Clocks, allowing control of the simulation accuracy and performance with the same FMU.
+ - The input Clocks shall be `triggered` Clocks.
 
-The importer will then connect and merge output clock activations, even those of different clock types, and forwards them to the input clocks, as required by the network semantics.
+The importer will then connect and merge output Clock activations, even those of different Clock types, and forwards them to the input Clocks, as required by the network semantics.
 
-Signal variables belonging to frame `BusName.FrameName` are triggered by the clock `BusName.FrameName_Clock` and all these variables and their corresponding clock must share the same `causality` (`input` or `output`).
+Signal variables belonging to frame `BusName.FrameName` are triggered by the Clock `BusName.FrameName_Clock` and all these variables and their corresponding Clock must share the same `causality` (`input` or `output`).
 
 === Network Description Files [[high-cut-network-description-files,network description file]]
 
@@ -76,7 +76,7 @@ This section defines terminals for physical signal abstraction or "high cut".
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<high-cut-frame-terminal,frame terminals>>.
 The attribute `name` of the `<Terminal>` must match the root name of its <<high-cut-network-description-files>> if it exists
 _[e.g., `Powertrain`, if the file is `/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc`]_.
-In any case, the attribute `name` of the `<Terminal>` must be consistent with the `BusName` component of all its corresponding signal, frame and clock variables.
+In any case, the attribute `name` of the `<Terminal>` must be consistent with the `BusName` component of all its corresponding signal, frame and Clock variables.
 
 Attribute definitions::
  * `terminalKind` must be set to `org.fmi-ls-bus.network-terminal`.
@@ -85,7 +85,7 @@ Attribute definitions::
 
 Element definitions::
  * There must be no `<TerminalStreamMemberVariable>` element.
- * There must be one `<Terminal>` element per network frame described in the <<high-cut-network-description-files>>, if their signal and clock variables are present in the `modelDescription.xml`.
+ * There must be one `<Terminal>` element per network frame described in the <<high-cut-network-description-files>>, if their signal and Clock variables are present in the `modelDescription.xml`.
 
 Annotation element::
  * If a <<high-cut-network-description-files,network description file>> is shipped with the specified FMU, there must be an `<Annotation>` element defining which node or nodes (as comma-separated list without spaces) of the <<high-cut-network-description-files>> are wrapped inside the FMU.
@@ -105,7 +105,7 @@ Attribute definitions::
 Element definitions::
  * There must be no `<TerminalStreamMemberVariable>` element.
  * There must be one <<high-cut-pdu-terminal>> element per PDU of this frame.
- * There must be one `<TerminalMemberVariable>` for the clock this frame is connected to.
+ * There must be one `<TerminalMemberVariable>` for the Clock this frame is connected to.
    The name of this variable is composed as <<high-cut-clock-variables,`BusName.FrameName_Clock`>>, e.g., `Powertrain.tcuSensors_Clock`.
 
 The <<high-cut-terminal-member-variable-for-signals>> must have the same `causality` as all variables referenced in the <<high-cut-pdu-terminal,PDU Terminals>> included here.
