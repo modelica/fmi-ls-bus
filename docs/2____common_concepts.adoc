@@ -9,7 +9,7 @@ However, for versatility, having FMUs capable of communicating on both abstracti
 
 _[FMUs providing both abstraction layers can deduce from the fmi3Set() and fmi3Get() calls they receive, which abstraction layer the importer is using.]_
 
-Since network communication is not continuous but time discrete, FMI 3.0 clocks are used to indicate when signals and/or frames are sent or received.
+Since network communication is not continuous but time discrete, FMI 3.0 Clocks are used to indicate when signals and/or frames are sent or received.
 All signal and frame variables are clocked variables.
  
 FMI 3.0 terminal definitions in the `terminalsAndIcons.xml` are used to group related variables and present a comfortable opportunity to connect different FMUs between each other.
@@ -20,29 +20,29 @@ Terminal definitions are used differently within the "high cut" and the "low cut
 image::terminal_relations.svg[width=60%, align="center"]
 
 All variables have structured names or specific terminal `memberNames` that indicate how these variables are related and to which abstraction layer they belong.
-For the "high cut", variables represent signals and their clocks.
-For the "low cut", variables represent transmitted and received bus traffic (`Tx_Data`/`Rx_Data`) and their respective clocks (`Tx_Clock`/`Rx_Clock`).
+For the "high cut", variables represent signals and their Clocks.
+For the "low cut", variables represent transmitted and received bus traffic (`Tx_Data`/`Rx_Data`) and their respective Clocks (`Tx_Clock`/`Rx_Clock`).
 The `causality` of `Rx_Data` variables must be `input`, whereas the `causality` of `Tx_Data` variables must be `output`.
 `Rx_Clock` variables must be `triggered input` Clocks and are connected by the importer to their corresponding `Tx_Clocks`, which can have any `causality` and `intervalVariability`.
-For example, a `periodic` clock indicates that the FMU can only send signals or frames periodically, while a `changing` or `countdown` clock indicates that the FMU can send signals at varying time steps.
+For example, a `periodic` Clock indicates that the FMU can only send signals or frames periodically, while a `changing` or `countdown` Clock indicates that the FMU can send signals at varying time steps.
 
 Using `Tx_Clocks` of different types allows simulations with different timing accuracy and performance.
-Some clock types allow the FMU to specify the next send event efficiently and accurately.
-Hence, the importer will trigger these clocks according to the clock specifications as accurately as it can.
+Some Clock types allow the FMU to specify the next send event efficiently and accurately.
+Hence, the importer will trigger these Clocks according to the Clock specifications as accurately as it can.
 
 _[The alternative of using `nextEventTime` would force epsilon matching of event times.]_
 
 For any periodic (fixed-time) sending of messages, multiple message sends fall into one `fmi3DoStep`.
 While "high cut" signal variables will miss all but the last value sent, "low cut" frame variables will buffer all payloads inside their value.
 
-If `triggered` output clocks are used, the importer must take care to schedule and potentially roll-back FMUs that have advanced their `fmi3DoStep` past such a (surprising) `triggered` clock activation from another FMU.
-It is strongly recommended to avoid using `triggered` output clocks and to instead use `time-based` clocks to avoid these complications and potential performance problems.
+If `triggered` output Clocks are used, the importer must take care to schedule and potentially roll-back FMUs that have advanced their `fmi3DoStep` past such a (surprising) `triggered` Clock activation from another FMU.
+It is strongly recommended to avoid using `triggered` output Clocks and to instead use `time-based` Clocks to avoid these complications and potential performance problems.
 
 If an FMU represents network nodes that are both sender and receiver of a signal, the receiver role will be removed from the FMU interface to allow the signals to have a unique role as output and the reading of such outputs must be handled internally to the FMU.
 
 _[Rationale: The FMI standard requires a variable to be either input or output.]_
 
-While the values and semantic of the clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology.
+While the values and semantic of the Clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology.
 Frame variables do not just transport the network-specific payload, but also carry protocol-specific status information.
 Status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack about success or errors of a send request.
 
@@ -53,7 +53,7 @@ The interface of the FMU to the importer is always the same, but a different sub
 
 ==== Direct Communication [[common-concepts-direct-communication]]
 The first option is to use a common FMU importer.
-Within this configuration, the FMU importer does not require any special features for simulating buses, apart from supporting FMI variables, clocks and terminals.
+Within this configuration, the FMU importer does not require any special features for simulating buses, apart from supporting FMI variables, Clocks and terminals.
 The figure below illustrates the direct communication of two FMUs:
 
 .Direct communication of two FMUs.
@@ -88,7 +88,7 @@ The implementation of a Bus Simulation FMU can be dynamic or static, potentially
 Because the Bus Simulation FMU can provide the described functionality, all FMUs that want to transmit bus messages send their messages to the Bus Simulation FMU.
 The Bus Simulation FMU can then acknowledge, delay or even reject messages and forwards messages to recipients accordingly.
 Some features may depend on the abstraction layer that is used.
-Also in this case, the FMU importer does not require any special features for bus simulation, apart from supporting FMI variables, clocks and terminals.
+Also in this case, the FMU importer does not require any special features for bus simulation, apart from supporting FMI variables, Clocks and terminals.
 The figure below shows two FMUs which are connected to a specific Bus Simulation FMU.
 The total of three FMUs are executed on a common FMI 3.0 importer.
 
