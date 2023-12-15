@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version main-2e2f54e4d5a6dba59e81e9d6d461c61c14413701,</span>
-<span id="revdate">2023-12-14</span>
+<span id="revnumber">version main-04d6bef12754be7c432b768bfa177d727c6e90a4,</span>
+<span id="revdate">2023-12-15</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -1642,7 +1642,7 @@ However, the description follows a uniform structure and consists of two parts, 
 It consists of one byte in length.</p>
 </li>
 <li>
-<p>Total Length: A four byte total data length (OP Code + Total Length + Arguments) field following the OP Code.<a id="TotalLengthField"></a>
+<p>Length: A four byte total data length (OP Code + Length + Arguments) field following the OP Code.<a id="TotalLengthField"></a>
 For operation with variable size arguments, the total length can vary in value at runtime.</p>
 </li>
 <li>
@@ -1674,7 +1674,7 @@ The operation has three arguments <em>Arg1</em> (2 bytes long), <em>Arg2_Length<
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></th>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
 <th class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Specific Content</p></th>
 </tr>
 <tr>
@@ -1723,10 +1723,10 @@ The operation has three arguments <em>Arg1</em> (2 bytes long), <em>Arg2_Length<
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code of the specified operation.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: <code>Total Length = 7 + &lt;Arg2_Length&gt;</code>.</p></td>
+The following applies for this operation: <code>Length = 7 + &lt;Arg2_Length&gt;</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Arg1</p></td>
@@ -1759,7 +1759,7 @@ The following applies for this operation: <code>Total Length = 7 + &lt;Arg2_Leng
 <p>Numbers shall be transmitted with <code>little-endian</code> byte order.</p>
 </li>
 <li>
-<p>Since the standard allows to concatenate multiple operations (see <a href="#low-cut-tx-rx-data-variables">Tx/Rx Data Variables</a>), the <a href="#TotalLengthField">Total Length</a> field is introduced to allow the implementation of a generic parser for received operations.</p>
+<p>Since the standard allows to concatenate multiple operations (see <a href="#low-cut-tx-rx-data-variables">Tx/Rx Data Variables</a>), the <a href="#TotalLengthField">Length</a> field is introduced to allow the implementation of a generic parser for received operations.</p>
 </li>
 </ul>
 </div>
@@ -1791,7 +1791,7 @@ This error shall be used when generally encountering a problem with the syntax o
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x01</p></td>
 </tr>
 <tr>
-<th class="tableblock halign-left valign-top" rowspan="4"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top" rowspan="5"><p class="tableblock">Content</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Argument</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
@@ -1803,10 +1803,15 @@ This error shall be used when generally encountering a problem with the syntax o
 For this operation, the OP Code always has the value 0x01 within all bus types.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: <code>Total Length = 5 + Length of Data argument in bytes</code>.</p></td>
+The following applies for this operation: <code>Length = 7 + Length of Data argument in bytes</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the length of the Data argument in bytes.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Data</p></td>
@@ -2271,15 +2276,17 @@ It shows all operations and the arguments they contain.</p>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></th>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
 <th class="tableblock halign-left valign-top" colspan="8"><p class="tableblock">Specific Content</p></th>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Format Error</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x01</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">:= 5 + n<br>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 7 + n<br>
 (4 byte)</p></td>
-<td class="tableblock halign-left valign-top" colspan="8"><p class="tableblock">Data<br>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DL<br>
+(2 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="7"><p class="tableblock">Data<br>
 (n byte)</p></td>
 </tr>
 <tr>
@@ -2439,10 +2446,10 @@ The following tables provides an overview of all operations and specifies the po
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code (0x10) of the operation.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: <code>Total Length = 13 + Data Length</code>.</p></td>
+The following applies for this operation: <code>Length = 13 + Data Length</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
@@ -2514,10 +2521,10 @@ Depending on the <a href="#low-cut-can-status-operation">status</a> of the speci
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code (0x11) of the operation.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: <code>Total Length = 12 + Data Length</code>.</p></td>
+The following applies for this operation: <code>Length = 12 + Data Length</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
@@ -2591,10 +2598,10 @@ For specification the boolean values <code>TRUE</code> and <code>FALSE</code> (s
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code (0x12) of the operation.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: <code>Total Length = 19 + Data Length</code>.</p></td>
+The following applies for this operation: <code>Length = 19 + Data Length</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
@@ -2683,10 +2690,10 @@ For specification the boolean values <code>TRUE</code> and <code>FALSE</code> (s
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code (0x20) of the operation.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: <code>Total Length = 9</code>.</p></td>
+The following applies for this operation: <code>Length = 9</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
@@ -2748,10 +2755,10 @@ See <a href="#low-cut-can-arbitration">Section 5.5.1.7</a> for further details.<
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code (0x30) of the operation.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: <code>Total Length = 9</code>.</p></td>
+The following applies for this operation: <code>Length = 9</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
@@ -2807,10 +2814,10 @@ If the structural parameter <a href="#low-cut-can-bus-notification-parameter"><c
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code (0x31) of the operation.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: <code>Total Length = 12</code>.</p></td>
+The following applies for this operation: <code>Length = 12</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
@@ -2969,10 +2976,10 @@ Also the configuration of further options, like buffer handling, is supported by
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code (0x40) of the operation.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: <code>Total Length = 6 + Length of parameter arguments in bytes</code>.</p></td>
+The following applies for this operation: <code>Length = 6 + Length of parameter arguments in bytes</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Parameter Type</p></td>
@@ -3131,10 +3138,10 @@ The following information is included within this operation:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code (0x41) of the operation.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: <code>Total Length = 6</code>.</p></td>
+The following applies for this operation: <code>Length = 6</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
@@ -3227,10 +3234,10 @@ If all Network FMUs, except the <a href="#low-cut-can-transmit-operation"><code>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code (0x42) of the operation.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: <code>Total Length = 5</code>.</p></td>
+The following applies for this operation: <code>Length = 5</code>.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
@@ -3481,7 +3488,7 @@ It shows all operations and the arguments they contain.</p>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></th>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
 <th class="tableblock halign-left valign-top" colspan="8"><p class="tableblock">Specific Content</p></th>
 </tr>
 <tr>
@@ -3610,10 +3617,10 @@ The following tables provides an overview of all operations and specifies the po
 For this operation the OP Code always has the value 0x10.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-For this operation always applies: <code>Total Length = 7</code>.</p></td>
+For this operation always applies: <code>Length = 7</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PID</p></td>
@@ -3669,10 +3676,10 @@ Depending on the simulation details, the Bus Simulation might response with a <a
 For this operation the OP Code always has the value 0x11.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-For this operation always applies: <code>Total Length = 8 + Data Length</code>.</p></td>
+For this operation always applies: <code>Length = 8 + Data Length</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PID</p></td>
@@ -3739,10 +3746,10 @@ Depending on the simulation details, the Bus Simulation might response with a <a
 For this operation the OP Code always has the value 0x12.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-For this operation always applies: <code>Total Length = 7 + Data Length</code>.</p></td>
+For this operation always applies: <code>Length = 7 + Data Length</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PID</p></td>
@@ -3816,10 +3823,10 @@ See <a href="#low-cut-format-error-operation">Format Error</a> for definition.</
 For this operation the OP Code always has the value 0x20.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-For this operation always applies: <code>Total Length = 10</code>.</p></td>
+For this operation always applies: <code>Length = 10</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
@@ -3940,10 +3947,10 @@ Also the configuration of further options, like LIN Master or LIN Slave represen
 <td class="tableblock halign-left valign-top"><p class="tableblock">Contains the OP Code (0x30) of the operation.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: <code>Total Length = 6 + Length of parameter arguments in bytes</code>.</p></td>
+The following applies for this operation: <code>Length = 6 + Length of parameter arguments in bytes</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Parameter Type</p></td>
@@ -4078,10 +4085,10 @@ The following information are included within this operation:</p>
 For this operation the OP Code always has the value 0x40.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-For this operation always applies: <code>Total Length = 6</code>.</p></td>
+For this operation always applies: <code>Length = 6</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
@@ -4175,10 +4182,10 @@ A Network FMU shall report its status to the Bus Simulation after it changes.</p
 For this operation the OP Code always has the value 0x41.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Total Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-For this operation always applies: <code>Total Length = 5</code>.</p></td>
+For this operation always applies: <code>Length = 5</code>.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
