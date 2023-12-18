@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version main-0d5020ac3e3fb27cad08062f4679f23aa91b39d9,</span>
-<span id="revdate">2023-12-15</span>
+<span id="revnumber">version main-37970321337095e9881be0d0a323342aa209bb7a,</span>
+<span id="revdate">2023-12-18</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -799,7 +799,7 @@ Since the network abstraction layer is protocol-independent, it can also be used
 <div class="ulist">
 <ul>
 <li>
-<p>Direct Communication: Limited to exactly two FMUs, a common FMU importer that not require any special features for simulating buses, apart from supporting FMI variables, clocks and terminals can be use to emulate bus communication.</p>
+<p>Direct Communication: Limited to exactly two FMUs, a common FMU importer that not require any special features for simulating buses, apart from supporting FMI variables, Clocks and terminals can be use to emulate bus communication.</p>
 </li>
 <li>
 <p>Composition with dedicated Bus Simulation FMU: A separate Bus Simulation FMU is used to simulate the specific bus behavior.
@@ -947,7 +947,7 @@ However, for versatility, having FMUs capable of communicating on both abstracti
 <p><em>[FMUs providing both abstraction layers can deduce from the fmi3Set() and fmi3Get() calls they receive, which abstraction layer the importer is using.]</em></p>
 </div>
 <div class="paragraph">
-<p>Since network communication is not continuous but time discrete, FMI 3.0 clocks are used to indicate when signals and/or frames are sent or received.
+<p>Since network communication is not continuous but time discrete, FMI 3.0 Clocks are used to indicate when signals and/or frames are sent or received.
 All signal and frame variables are clocked variables.</p>
 </div>
 <div class="paragraph">
@@ -961,16 +961,17 @@ Terminal definitions are used differently within the "high cut" and the "low cut
 <div class="title">Figure 1. Relations between Bus-, Frame- and PDU Terminals.</div>
 </div>
 <div class="paragraph">
-<p>All variables have structured names that indicate how these variables are related and to which abstraction layer they belong.
-For the "high cut", variables represent signals and their clocks.
-For the "low cut", variables represent send and receive bus traffic and their respective clocks.
-Input and output variables show if these variables belong to signals or bus traffic that are received or sent, respectively.
-Input clocks must be <code>triggered</code> and are connected by the importer to their corresponding output clocks of potentially different clock types.
-For example, a <code>periodic</code> clock indicates that the FMU can only send signals or frames periodically, while a <code>countdown</code> clock indicates that the FMU can send signals at varying time steps.</p>
+<p>All variables have structured names or specific terminal <code>memberNames</code> that indicate how these variables are related and to which abstraction layer they belong.
+For the "high cut", variables represent signals and their Clocks.
+For the "low cut", variables represent transmitted and received bus traffic (<code>Tx_Data</code>/<code>Rx_Data</code>) and their respective Clocks (<code>Tx_Clock</code>/<code>Rx_Clock</code>).
+The <code>causality</code> of <code>Rx_Data</code> variables must be <code>input</code>, whereas the <code>causality</code> of <code>Tx_Data</code> variables must be <code>output</code>.
+<code>Rx_Clock</code> variables must be <code>triggered input</code> Clocks and are connected by the importer to their corresponding <code>Tx_Clocks</code>, which can have any <code>causality</code> and <code>intervalVariability</code>.
+For example, a <code>periodic</code> Clock indicates that the FMU can only send signals or frames periodically, while a <code>changing</code> or <code>countdown</code> Clock indicates that the FMU can send signals at varying time steps.</p>
 </div>
 <div class="paragraph">
-<p>Using output clocks of different types allows simulations with different timing accuracy and performance.
-Some clock types allow the FMU to specify the next send event efficiently and accurately, the importer will trigger these clocks according to these clock specifications as accurately as it can.</p>
+<p>Using <code>Tx_Clocks</code> of different types allows simulations with different timing accuracy and performance.
+Some Clock types allow the FMU to specify the next send event efficiently and accurately.
+Hence, the importer will trigger these Clocks according to the Clock specifications as accurately as it can.</p>
 </div>
 <div class="paragraph">
 <p><em>[The alternative of using <code>nextEventTime</code> would force epsilon matching of event times.]</em></p>
@@ -980,17 +981,17 @@ Some clock types allow the FMU to specify the next send event efficiently and ac
 While "high cut" signal variables will miss all but the last value sent, "low cut" frame variables will buffer all payloads inside their value.</p>
 </div>
 <div class="paragraph">
-<p>If <code>triggered</code> output clocks are used, the importer must take care to schedule and potentially roll-back FMUs that have advanced their <code>fmi3DoStep</code> past such a (surprising) <code>triggered</code> clock activation from another FMU.
-It is strongly recommended to avoid using <code>triggered</code> output clocks and to instead use <code>time-based</code> clocks to avoid these complications and potential performance problems.</p>
+<p>If <code>triggered</code> output Clocks are used, the importer must take care to schedule and potentially roll-back FMUs that have advanced their <code>fmi3DoStep</code> past such a (surprising) <code>triggered</code> Clock activation from another FMU.
+It is strongly recommended to avoid using <code>triggered</code> output Clocks and to instead use <code>time-based</code> Clocks to avoid these complications and potential performance problems.</p>
 </div>
 <div class="paragraph">
 <p>If an FMU represents network nodes that are both sender and receiver of a signal, the receiver role will be removed from the FMU interface to allow the signals to have a unique role as output and the reading of such outputs must be handled internally to the FMU.</p>
 </div>
 <div class="paragraph">
-<p><em>[The FMI standard requires a variable to be either input or output.]</em></p>
+<p><em>[Rationale: The FMI standard requires a variable to be either input or output.]</em></p>
 </div>
 <div class="paragraph">
-<p>While the values and semantic of the clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology.
+<p>While the values and semantic of the Clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology.
 Frame variables do not just transport the network-specific payload, but also carry protocol-specific status information.
 Status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack about success or errors of a send request.</p>
 </div>
@@ -1005,7 +1006,7 @@ The interface of the FMU to the importer is always the same, but a different sub
 <h4 id="common-concepts-direct-communication">3.1.1. Direct Communication</h4>
 <div class="paragraph">
 <p>The first option is to use a common FMU importer.
-Within this configuration, the FMU importer does not require any special features for simulating buses, apart from supporting FMI variables, clocks and terminals.
+Within this configuration, the FMU importer does not require any special features for simulating buses, apart from supporting FMI variables, Clocks and terminals.
 The figure below illustrates the direct communication of two FMUs:</p>
 </div>
 <div id="figure-direct-communication-of-two-fmus" class="imageblock text-center">
@@ -1055,7 +1056,7 @@ The implementation of a Bus Simulation FMU can be dynamic or static, potentially
 Because the Bus Simulation FMU can provide the described functionality, all FMUs that want to transmit bus messages send their messages to the Bus Simulation FMU.
 The Bus Simulation FMU can then acknowledge, delay or even reject messages and forwards messages to recipients accordingly.
 Some features may depend on the abstraction layer that is used.
-Also in this case, the FMU importer does not require any special features for bus simulation, apart from supporting FMI variables, clocks and terminals.
+Also in this case, the FMU importer does not require any special features for bus simulation, apart from supporting FMI variables, Clocks and terminals.
 The figure below shows two FMUs which are connected to a specific Bus Simulation FMU.
 The total of three FMUs are executed on a common FMI 3.0 importer.</p>
 </div>
@@ -1180,34 +1181,34 @@ The unit definition of the variable must match the one defined in the <a href="#
 <div class="sect3">
 <h4 id="high-cut-clock-variables">4.2.2. Clock Variables</h4>
 <div class="paragraph">
-<p>In order to use FMU input and output variables as transport layer for networks, input and output clocks are used.
-Such a clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.</p>
+<p>In order to use FMU input and output variables as transport layer for networks, input and output Clocks are used.
+Such a Clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.</p>
 </div>
 <div class="paragraph">
-<p>The output clock type, <code>periodic</code> or <code>aperiodic</code>, is defined by the sending FMU.
+<p>The output Clock type, <code>periodic</code> or <code>aperiodic</code>, is defined by the sending FMU.
 This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>While <code>aperiodic</code> clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> will reduce the network simulation speed.</p>
+<p>While <code>aperiodic</code> Clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> will reduce the network simulation speed.</p>
 </li>
 <li>
-<p>Using <code>periodic</code> clocks reduces the number of <code>Event Modes</code> required and speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.</p>
+<p>Using <code>periodic</code> Clocks reduces the number of <code>Event Modes</code> required and speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.</p>
 </li>
 <li>
-<p>One could use (structural) parameters to define the accuracy of <code>aperiodic</code> clocks, allowing control of the simulation accuracy and performance with the same FMU.</p>
+<p>One could use (structural) parameters to define the accuracy of <code>aperiodic</code> Clocks, allowing control of the simulation accuracy and performance with the same FMU.</p>
 </li>
 <li>
-<p>The input clocks shall be <code>triggered</code> clocks.</p>
+<p>The input Clocks shall be <code>triggered</code> Clocks.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The importer will then connect and merge output clock activations, even those of different clock types, and forwards them to the input clocks, as required by the network semantics.</p>
+<p>The importer will then connect and merge output Clock activations, even those of different Clock types, and forwards them to the input Clocks, as required by the network semantics.</p>
 </div>
 <div class="paragraph">
-<p>Signal variables belonging to frame <code>BusName.FrameName</code> are triggered by the clock <code>BusName.FrameName_Clock</code> and all these variables and their corresponding clock must share the same <code>causality</code> (<code>input</code> or <code>output</code>).</p>
+<p>Signal variables belonging to frame <code>BusName.FrameName</code> are triggered by the Clock <code>BusName.FrameName_Clock</code> and all these variables and their corresponding Clock must share the same <code>causality</code> (<code>input</code> or <code>output</code>).</p>
 </div>
 </div>
 </div>
@@ -1243,7 +1244,7 @@ These are technical and legal issues that need attention from standardization bo
 <p>Each network connected to the FMU must be described in <code>icons/terminalsAndIcons.xml</code> as a <code>&lt;Terminal&gt;</code> element of <code>&lt;fmiTerminalsAndIcons&gt;&lt;Terminals&gt;</code> that wraps all <a href="#high-cut-frame-terminal">frame terminals</a>.
 The attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> must match the root name of its <a href="#high-cut-network-description-files">network description file</a> if it exists
 <em>[e.g., <code>Powertrain</code>, if the file is <code>/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc</code>]</em>.
-In any case, the attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> must be consistent with the <code>BusName</code> component of all its corresponding signal, frame and clock variables.</p>
+In any case, the attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> must be consistent with the <code>BusName</code> component of all its corresponding signal, frame and Clock variables.</p>
 </div>
 <div class="dlist">
 <dl>
@@ -1271,7 +1272,7 @@ In any case, the attribute <code>name</code> of the <code>&lt;Terminal&gt;</code
 <p>There must be no <code>&lt;TerminalStreamMemberVariable&gt;</code> element.</p>
 </li>
 <li>
-<p>There must be one <code>&lt;Terminal&gt;</code> element per network frame described in the <a href="#high-cut-network-description-files">network description file</a>, if their signal and clock variables are present in the <code>modelDescription.xml</code>.</p>
+<p>There must be one <code>&lt;Terminal&gt;</code> element per network frame described in the <a href="#high-cut-network-description-files">network description file</a>, if their signal and Clock variables are present in the <code>modelDescription.xml</code>.</p>
 </li>
 </ul>
 </div>
@@ -1326,7 +1327,7 @@ If no <a href="#high-cut-network-description-files">network description file</a>
 <p>There must be one <a href="#high-cut-pdu-terminal">PDU terminal</a> element per PDU of this frame.</p>
 </li>
 <li>
-<p>There must be one <code>&lt;TerminalMemberVariable&gt;</code> for the clock this frame is connected to.
+<p>There must be one <code>&lt;TerminalMemberVariable&gt;</code> for the Clock this frame is connected to.
 The name of this variable is composed as <a href="#high-cut-clock-variables"><code>BusName.FrameName_Clock</code></a>, e.g., <code>Powertrain.tcuSensors_Clock</code>.</p>
 </li>
 </ul>
@@ -1606,7 +1607,7 @@ The Bus Simulation then might delay the transfer of the <code>Transmit</code> op
 <div class="title">Figure 6. Transmission overview.</div>
 </div>
 <div class="paragraph">
-<p>The point in time at which FMUs will (potentially) send new network messages can be given to the importer in advance with the proper clock type.
+<p>The point in time at which FMUs will (potentially) send new network messages can be given to the importer in advance with the proper Clock type.
 Based on these times, the importer has to calculate the next <code>communicationStepSize</code> for all networked FMUs.
 For simulating bus communication with timing effects, the FMUs should set the Co-Simulation attribute <code>canHandleVariableCommunicationStepSize = "true"</code>.</p>
 </div>
@@ -1627,7 +1628,7 @@ By queuing Bus Operations, System Compositions with variable-step size FMUs as w
 <div class="sect2">
 <h3 id="low-cut-layered-standard-bus-protocol">5.2. Layered Standard Bus Protocol</h3>
 <div class="paragraph">
-<p>The Layered Standard Bus Protocol allows the transmission of Bus Operations between FMUs in binary form via clocks and clocked variables (see <a href="#low-cut-variables">Variables</a>).
+<p>The Layered Standard Bus Protocol allows the transmission of Bus Operations between FMUs in binary form via Clocks and clocked variables (see <a href="#low-cut-variables">Variables</a>).
 Depending on the role (Network or Bus Simulation), FMUs have to respond to received operations as specified by this layered standard.
 Operations and the reaction on receipt are bus-type-specific and therefore described in the bus-specific chapters.
 However, the description follows a uniform structure and consists of two parts, an overview table and a detailed description of all operations.</p>
@@ -1864,7 +1865,7 @@ These basic types are used in the bus-specific parts within the operation defini
 <div class="sect2">
 <h3 id="low-cut-variables">5.3. Variables</h3>
 <div class="paragraph">
-<p>This section explains how layered standard bus protocol operations are sent and received by FMUs using FMI 3.0 clock and clocked variables <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup>.
+<p>This section explains how layered standard bus protocol operations are sent and received by FMUs using FMI 3.0 Clock and clocked variables <sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup>.
 While the former (see <a href="#low-cut-tx-clock-variables">Tx Clock Variables</a> and <a href="#low-cut-rx-clock-variables">Rx Clock Variables</a>) are used for scheduling and time synchronization, the latter (see <a href="#low-cut-tx-rx-data-variables">Tx/Rx Data Variables</a>) are used to carry the layered standard bus protocol operations in binary form.
 To summarize, four variables with the following characteristics and relations are used:</p>
 </div>
@@ -1875,7 +1876,7 @@ To summarize, four variables with the following characteristics and relations ar
 </li>
 <li>
 <p>The <code>Tx_Data</code> variable is clocked by the <code>Tx_Clock</code> variable.
-The <code>causality</code> for the <code>Tx_Data</code> variable shall be <code>output</code>, but for the <code>Tx_Clock</code> variable it depends on the selected clock type (see <a href="#low-cut-tx-time-based-clock-variables">Tx Clock Variables</a>).</p>
+The <code>causality</code> for the <code>Tx_Data</code> variable shall be <code>output</code>, but for the <code>Tx_Clock</code> variable it depends on the selected Clock type (see <a href="#low-cut-tx-time-based-clock-variables">Tx Clock Variables</a>).</p>
 </li>
 </ul>
 </div>
@@ -1885,8 +1886,8 @@ The <code>causality</code> for the <code>Tx_Data</code> variable shall be <code>
 <div class="sect3">
 <h4 id="low-cut-tx-clock-variables">5.3.1. Tx Clock Variables</h4>
 <div class="paragraph">
-<p>As described in the FMI 3.0 specification, clock variables are used to synchronize events between importer and across FMUs.
-Since clock variables are strictly related to the <code>Event Mode</code>, networked FMUs shall set the Co-Simulation attribute <code>hasEventMode = "true"</code> in the model description file.</p>
+<p>As described in the FMI 3.0 specification, Clock variables are used to synchronize events between importer and across FMUs.
+Since Clock variables are strictly related to the <code>Event Mode</code>, networked FMUs shall set the Co-Simulation attribute <code>hasEventMode = "true"</code> in the model description file.</p>
 </div>
 <div class="paragraph">
 <p>The point in time where Bus Operations are transferred from the <code>Tx_Data</code> to the <code>Rx_Data</code> variables is defined by the <code>Tx_Clock</code> variable.
@@ -1895,8 +1896,8 @@ A Bus Communication Point and a regular communication point can take place at th
 In contrast to a regular communication point where input/output variables used in step mode are exchanged, only the clocked Tx/Rx data variables needs to be considered by the importer.</p>
 </div>
 <div class="paragraph">
-<p>For defining the point in time of a Bus Communication Point, <code>time-based</code> or <code>triggered</code> clocks can be used for the <code>Tx_Clock</code> variable.
-Hence the clock type can influence the bus simulation significantly - the differences should be taken into account.</p>
+<p>For defining the point in time of a Bus Communication Point, <code>time-based</code> or <code>triggered</code> Clocks can be used for the <code>Tx_Clock</code> variable.
+Hence the Clock type can influence the bus simulation significantly - the differences should be taken into account.</p>
 </div>
 <div class="sect4">
 <h5 id="low-cut-tx-time-based-clock-variables">5.3.1.1. Time-based Tx Clock Variables</h5>
@@ -1917,7 +1918,7 @@ An importer has to determine proper communication step sizes to synchronize netw
 <p><em>[Note: While simulation it can happen that no <code>Tx_Data</code> has to be transferred to the <code>Rx_Data</code> variable at the announced Tx time. In this case the returned 'valueSize' of the <code>Tx_Data</code> variable is 0.]</em></p>
 </div>
 <div class="paragraph">
-<p>Although the <code>causality</code> of a <code>time-based</code> <code>Tx_Clock</code> variable and a <code>triggered</code> <code>Rx_Clock</code> variable are each <code>input</code>, it is allowed to connect both, since a <code>time-based</code> clock variable of an FMU is considered only to be a request to the importer to provide an attendant clock source.</p>
+<p>Although the <code>causality</code> of a <code>time-based</code> <code>Tx_Clock</code> variable and a <code>triggered</code> <code>Rx_Clock</code> variable are each <code>input</code>, it is allowed to connect both, since a <code>time-based</code> Clock variable of an FMU is considered only to be a request to the importer to provide an attendant Clock source.</p>
 </div>
 <div id="low-cut-time-based-port-connection" class="imageblock text-center">
 <div class="content">
@@ -1926,19 +1927,19 @@ An importer has to determine proper communication step sizes to synchronize netw
 <div class="title">Figure 9. Consideration of time-base Tx_Clock connections.</div>
 </div>
 <div class="paragraph">
-<p>Because of the common clock source however, both clock variables (Rx/Tx) might get active at the same time.
+<p>Because of the common Clock source however, both Clock variables (Rx/Tx) might get active at the same time.
 To make sure that the <code>Rx_Data</code> variables is set properly, an importer has to activate the <code>Rx_Clock</code> variable under consideration of <code>Tx_Data</code> and <code>Rx_Data</code> dependency.</p>
 </div>
 <div class="paragraph">
 <p><em>[Note: For clarity always a direct connection line between the <code>Tx_Clock</code> and <code>Rx_Clock</code> variables is shown in figures of this document.]</em></p>
 </div>
 <div class="paragraph">
-<p>A <code>time-based</code> clock can be <code>periodic</code> or <code>aperiodic</code>.
+<p>A <code>time-based</code> Clock can be <code>periodic</code> or <code>aperiodic</code>.
 Both allows to define Bus Communication Points independently from the regular communication points with fixed or variable distances.
-The difference between the two clock types is listed in the following table.</p>
+The difference between the two Clock types is listed in the following table.</p>
 </div>
 <table id="table-tx-clock-properties" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. Time-based clock properties.</caption>
+<caption class="title">Table 6. Time-based Clock properties.</caption>
 <colgroup>
 <col style="width: 27.2727%;">
 <col style="width: 9.0909%;">
@@ -1968,7 +1969,7 @@ The difference between the two clock types is listed in the following table.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aperiodic</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>changing</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Bus Communication Point interval must be provided in <code>Initialization Mode</code> and can be changed in <code>Event Mode</code> if this clock ticked.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Bus Communication Point interval must be provided in <code>Initialization Mode</code> and can be changed in <code>Event Mode</code> if this Clock ticked.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aperiodic</code></p></td>
@@ -1984,7 +1985,7 @@ The difference between the two clock types is listed in the following table.</p>
 <div class="sect4">
 <h5 id="low-cut-tx-triggered-clock-variables">5.3.1.2. Triggered Tx Clock Variables</h5>
 <div class="paragraph">
-<p>A <code>triggered</code> clock basically allows to signal events when returning from <code>fmi3DoStep</code> either by using an <code>Early Return</code> or when the requested communication point at \(t_{i+1}\) was reached.
+<p>A <code>triggered</code> Clock basically allows to signal events when returning from <code>fmi3DoStep</code> either by using an <code>Early Return</code> or when the requested communication point at \(t_{i+1}\) was reached.
 Since signaling <code>Tx_Clock</code> events with an early return at \(t &lt; t_{i+1}\) would require to set connected networked FMUs back in time to reach Bus Communication Points synchronously, a <code>triggered</code> <code>Tx_Clock</code> variable must only be set when returning from <code>fmi3DoStep</code> with the <code>earlyReturn</code> argument set to <code>fmi3False</code>.
 In consequence, Bus Communication Points and regular communication points coincide and take place at the same time.
 The time of a Bus Communication Point can therefore not be defined independently, but is given by the importer.
@@ -2001,7 +2002,7 @@ Pending Tx data shall be signaled by returning from <code>fmi3DoStep</code> with
 <div class="sect3">
 <h4 id="low-cut-rx-clock-variables">5.3.2. Rx Clock Variables</h4>
 <div class="paragraph">
-<p>The input clocks (<code>Rx_Clock</code>) shall be <code>triggered</code> clocks.</p>
+<p>The input Clocks (<code>Rx_Clock</code>) shall be <code>triggered</code> Clocks.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2009,7 +2010,7 @@ Pending Tx data shall be signaled by returning from <code>fmi3DoStep</code> with
 <div class="paragraph">
 <p>The Tx/Rx variables are of type <code>fmi3Binary</code> and contain multiple Bus Operations, as sent or receive by the FMU.
 If no Bus Operations shall be sent by a specified Network FMU at a given Bus Communication Point, the size of the corresponding binary <code>Tx_Data</code> variable shall be set to zero.
-The senders can choose how many Bus Operations are buffered and/or for how long operations are buffered before activating an output clock to trigger the actual sending of these operations.
+The senders can choose how many Bus Operations are buffered and/or for how long operations are buffered before activating an output Clock to trigger the actual sending of these operations.
 This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication.</p>
 </div>
 </div>
@@ -2021,13 +2022,13 @@ This allows senders to trade accuracy for speed: buffering more and interrupting
 <div class="ulist">
 <ul>
 <li>
-<p>While <code>aperiodic</code> clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> will reduce the network simulation speed.</p>
+<p>While <code>aperiodic</code> Clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> will reduce the network simulation speed.</p>
 </li>
 <li>
-<p>Using <code>periodic</code> clocks and queueing the operations to be transmitted reduces the number of <code>Event Mode</code> entries and speeds up the simulation at the cost of simulation accuracy.</p>
+<p>Using <code>periodic</code> Clocks and queueing the operations to be transmitted reduces the number of <code>Event Mode</code> entries and speeds up the simulation at the cost of simulation accuracy.</p>
 </li>
 <li>
-<p>One could use (structural) parameters to define the accuracy of <code>aperiodic</code> clocks, allowing control of the simulation accuracy and performance with the same FMU.</p>
+<p>One could use (structural) parameters to define the accuracy of <code>aperiodic</code> Clocks, allowing control of the simulation accuracy and performance with the same FMU.</p>
 </li>
 </ul>
 </div>
