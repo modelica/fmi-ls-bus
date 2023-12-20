@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version main-37970321337095e9881be0d0a323342aa209bb7a,</span>
-<span id="revdate">2023-12-18</span>
+<span id="revnumber">version main-6fd6ed1359112bccca6b6f43fe31c9079469ae72,</span>
+<span id="revdate">2023-12-20</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -2455,7 +2455,10 @@ The following applies for this operation: <code>Length = 13 + Data Length</code>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The specified ID of the CAN message.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The specified ID of the CAN message.
+The ID must be considered here as a purely numerical value.
+This means that there is no need for separate segmentation between the 11-bit base CAN identifier and an 18-bit CAN identifier extension information that is known from the CAN protocol.
+Additional information such as Ide is also not part of the ID, but is treated separately.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ide</p></td>
@@ -2530,7 +2533,10 @@ The following applies for this operation: <code>Length = 12 + Data Length</code>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The specified ID of the CAN message.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The specified ID of the CAN message.
+The ID must be considered here as a purely numerical value.
+This means that there is no need for separate segmentation between the 11-bit base CAN identifier and an 18-bit CAN identifier extension information that is known from the CAN protocol.
+Additional information such as Ide is also not part of the ID, but is treated separately.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ide</p></td>
@@ -2607,7 +2613,10 @@ The following applies for this operation: <code>Length = 19 + Data Length</code>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The specified ID of the CAN message.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The specified ID of the CAN message.
+The ID must be considered here as a purely numerical value.
+This means that there is no need for separate segmentation between the 11-bit base CAN identifier and an 18-bit CAN identifier extension information that is known from the CAN protocol.
+Additional information such as Ide is also not part of the ID, but is treated separately.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ide</p></td>
