@@ -6,7 +6,7 @@ _For further information on compatibility, see section https://fmi-standard.org/
 {empty} +
 {empty}
 
-Copyright (C) 2012-2023 The Modelica Association Project FMI.
+Copyright (C) 2012-2024 The Modelica Association Project FMI.
 
 This document is licensed under the Attribution-ShareAlike 4.0 International license.
 The code is released under the 2-Clause BSD License.
