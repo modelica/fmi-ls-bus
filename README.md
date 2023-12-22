@@ -3,7 +3,7 @@
 [![Build Specification](https://github.com/modelica/fmi-ls-bus/actions/workflows/build-ls-bus.yml/badge.svg)](https://github.com/modelica/fmi-ls-bus/actions/workflows/build-ls-bus.yml)
 
 This repository contains a current prototype draft for the FMI Layered
-Standard Network Communication (fmi-ls-bus) based on the upcoming
+Standard Network Communication (fmi-ls-bus) based on the 
 [Functional Mock-up Interface][FMI] 3.0 standard for the exchange of
 simulation models. Note that this draft is being worked on actively,
 and thus are subject to change without notice.
