@@ -356,3 +356,9 @@ For each supported bus type, the <<low-cut-layered-standard-bus-protocol, Layere
 This chapter describes the operations of the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> to enable the simulation of supported bus types.
 
 include::4_4_1_can.adoc[]
+
+include::4_4_2_lin.adoc[]
+
+include::4_4_3_flexray.adoc[]
+
+include::4_4_4_ethernet.adoc[]
