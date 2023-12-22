@@ -19,9 +19,9 @@ Terminal definitions are used differently within the "high cut" and the "low cut
 [#figure-terminal-relations]
 image::terminal_relations.svg[width=60%, align="center"]
 
-All variables have structured names or specific terminal `memberNames` that indicate how these variables are related and to which abstraction layer they belong.
+Variables are referenced in terminals and the `memberName` attribute indicates how a variable is meant to be used.
 For the "high cut", variables represent signals and their Clocks.
-For the "low cut", variables represent transmitted and received bus traffic (`Tx_Data`/`Rx_Data`) and their respective Clocks (`Tx_Clock`/`Rx_Clock`).
+For the "low cut", variables represent transmitted and received bus traffic (`memberName` = `Tx_Data`/`Rx_Data`) and their respective Clocks (`memberName` = `Tx_Clock`/`Rx_Clock`).
 The `causality` of `Rx_Data` variables must be `input`, whereas the `causality` of `Tx_Data` variables must be `output`.
 `Rx_Clock` variables must be `triggered input` Clocks and are connected by the importer to their corresponding `Tx_Clocks`, which can have any `causality` and `intervalVariability`.
 For example, a `periodic` Clock indicates that the FMU can only send signals or frames periodically, while a `changing` or `countdown` Clock indicates that the FMU can send signals at varying time steps.
