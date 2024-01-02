@@ -90,7 +90,9 @@ This layered standard defines requires the use of a layered standard manifest fi
 |`isBusSimulationFMU`
 |
 | `true` or `false`
-| If `true`, this FMU represents a Bus Simulation FMU.
+| Defines whether the respective FMU is a Bus Simulation FMU or not.
+The importer may use this information at the time of importing the FMU, depending on which <<common-concepts-system-compositions, System Compositions>> the FMUs are integrated into.
+If `true`, this FMU represents a Bus Simulation FMU.
 Default: `false`.
 
 |====
