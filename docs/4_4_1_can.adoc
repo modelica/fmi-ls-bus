@@ -452,19 +452,19 @@ Note that only one parameter can be set per <<low-cut-can-configuration-operatio
 4+h|Parameters
 
 |CAN_BAUDRATE
-|Baudrate
+|Baud Rate
 |4 byte
 |The CAN baud rate value to configure.
 The required unit for the baud rate value is bit/s.
 
 |CAN_FD_BAUDRATE
-|Baudrate
+|Baud Rate
 |4 byte
 |The CAN FD baud rate value to configure.
 The required unit for the baud rate value is bit/s.
 
 |CAN_XL_BAUDRATE
-|Baudrate
+|Baud Rate
 |4 byte
 |The CAN XL baud rate value to configure.
 The required unit for the baud rate value is bit/s.
