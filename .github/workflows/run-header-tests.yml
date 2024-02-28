@@ -14,7 +14,7 @@ jobs:
       with:
         fetch-depth: 2
     - name: Get changes
-      run: printf "git diff --name-only -r HEAD^1 HEAD"
+      run: printf $(git diff --name-only -r HEAD^1 HEAD)
     
   build:
     runs-on: ubuntu-latest
