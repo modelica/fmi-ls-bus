@@ -1,20 +1,20 @@
-#include "../../fmi3LsBusCan.h"
+#include "../../fmi3LsBusCan2.h"
 #include "../../fmi3LsBusUtil.h"
-#include "../../fmi3LsBusUtilCan.h"
+#include "../../fmi3LsBusUtilCan2.h"
 #include <iostream>
 
 
 /**
  * \brief Values that cause an overflow for the tested datatype.
  */
-#define WRONG_U_INT8 256
-#define WRONG_U_INT16 65536
-#define WRONG_U_INT32 0x100000000
+#define WRONG_U_INT82 256
+#define WRONG_U_INT162 65536
+#define WRONG_U_INT322 0x100000000
 
  /**
   * \brief Enum of the available operations by name.
   */
-enum Operation { CanTransmit, CanFdTransmit, CanXlTransmit, Confirm, ConfigurationBaudrate, ConfigurationFdBaudrate, ConfigurationXlBaudrate, ConfigurationArbitrationLostBehavior, ArbitrationLost, BusError, Status, Wakeup, FormatError };
+enum Operation2 { CanTransmit2, CanFdTransmit2, CanXlTransmit2, Confirm2, ConfigurationBaudrate2, ConfigurationFdBaudrate2, ConfigurationXlBaudrate2, ConfigurationArbitrationLostBehavior2, ArbitrationLost2, BusError2, Status2, Wakeup2, FormatError2 };
 
 /**
  * \brief Checks if the CAN Transmit operation is created correctly by the corresponding macro.
@@ -25,7 +25,7 @@ enum Operation { CanTransmit, CanFdTransmit, CanXlTransmit, Confirm, Configurati
  * \param[in] data        The data of the CAN Transmit operation.
  * \param[in] correctData Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
-void CheckCanTransmitOperation(long long int id, int ide, int rtr, fmi3UInt8 data[], bool correctData);
+void CheckCanTransmitOperation2(long long int id, int ide, int rtr, fmi3UInt8 data[], bool correctData);
 
 /**
  * \brief Checks if the CAN FD Transmit operation is created correctly by the corresponding macro.
@@ -37,7 +37,7 @@ void CheckCanTransmitOperation(long long int id, int ide, int rtr, fmi3UInt8 dat
  * \param[in] data        The data of the CAN FD Transmit operation.
  * \param[in] correctData Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
-void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fmi3UInt8 data[], bool correctData);
+void CheckCanFdTransmitOperation2(long long int id, int ide, int brs, int esi, fmi3UInt8 data[], bool correctData);
 
 /**
  * \brief Checks if the CAN XL Transmit operation is created correctly by the corresponding macro.
@@ -51,7 +51,7 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fm
  * \param[in] data        The data of the CAN XL Transmit operation.
  * \param[in] correctData Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
-void CheckCanXlTransmitOperation(long long int id, int ide, int sec, int sdt, int vcid, long long int af, fmi3UInt8 data[], bool correctData);
+void CheckCanXlTransmitOperation2(long long int id, int ide, int sec, int sdt, int vcid, long long int af, fmi3UInt8 data[], bool correctData);
 
 /**
  * \brief Checks if the Confirm operation is created correctly by the corresponding macro.
@@ -59,7 +59,7 @@ void CheckCanXlTransmitOperation(long long int id, int ide, int sec, int sdt, in
  * \param[in] id          The id of the Confirm operation.
  * \param[in] correctData Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
-void CheckConfirmOperation(long long int id, bool correctData);
+void CheckConfirmOperation2(long long int id, bool correctData);
 
 /**
  * \brief Checks if the Configuration Baudrate operation is created correctly by the corresponding macro.
@@ -67,7 +67,7 @@ void CheckConfirmOperation(long long int id, bool correctData);
  * \param[in] baudrate    The baud rate of the Configuration operation.
  * \param[in] correctData Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
-void CheckConfigurationBaudrateOperation(long long int baudrate, bool correctData);
+void CheckConfigurationBaudrateOperation2(long long int baudrate, bool correctData);
 
 /**
  * \brief Checks if the Configuration FD Baudrate operation is created correctly by the corresponding macro.
@@ -75,7 +75,7 @@ void CheckConfigurationBaudrateOperation(long long int baudrate, bool correctDat
  * \param[in] baudrate    The baud rate of the Configuration operation.
  * \param[in] correctData Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
-void CheckConfigurationFdBaudrateOperation(long long int baudrate, bool correctData);
+void CheckConfigurationFdBaudrateOperation2(long long int baudrate, bool correctData);
 
 /**
  * \brief Checks if the Configuration XL Baudrate operation is created correctly by the corresponding macro.
@@ -83,14 +83,14 @@ void CheckConfigurationFdBaudrateOperation(long long int baudrate, bool correctD
  * \param[in] baudrate    The baud rate of the Configuration operation.
  * \param[in] correctData Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
-void CheckConfigurationXlBaudrateOperation(long long int baudrate, bool correctData);
+void CheckConfigurationXlBaudrateOperation2(long long int baudrate, bool correctData);
 
 /**
  * \brief Checks if the Configuration Arbitration Lost Behavior operation is created correctly by the corresponding macro.
  *
  * \param[in] arbitrationLostBehavior    The arbitration lost behaviour of the Configuration operation.
  */
-void CheckConfigurationArbitrationLostBehaviorOperation(int arbitrationLostBehavior);
+void CheckConfigurationArbitrationLostBehaviorOperation2(int arbitrationLostBehavior);
 
 /**
  * \brief Checks if the Arbitration Lost Behavior operation is created correctly by the corresponding macro.
@@ -98,7 +98,7 @@ void CheckConfigurationArbitrationLostBehaviorOperation(int arbitrationLostBehav
  * \param[in] id          The id of the Arbitration Lost Behavior operation.
  * \param[in] correctData Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
-void CheckArbitrationLostBehaviorOperation(long long int id, bool correctData);
+void CheckArbitrationLostBehaviorOperation2(long long int id, bool correctData);
 
 /**
  * \brief Checks if the Bus Error operation is created correctly by the corresponding macro.
@@ -109,33 +109,33 @@ void CheckArbitrationLostBehaviorOperation(long long int id, bool correctData);
  * \param[in] isSender    The attribute 'Is Sender' of the Bus Error operation.
  * \param[in] correctData Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
-void CheckBusErrorOperation(long long int id, int errorCode, int errorFlag, fmi3UInt8 isSender, bool correctData);
+void CheckBusErrorOperation2(long long int id, int errorCode, int errorFlag, fmi3UInt8 isSender, bool correctData);
 
 /**
  * \brief Checks if the Status operation is created correctly by the corresponding macro.
  *
  * \param[in] status       The status of the Status operation.
  */
-void CheckStatusOperation(int status);
+void CheckStatusOperation2(int status);
 
 /**
  * \brief Checks if the WakeUp operation is created correctly by the corresponding macro.
  */
-void CheckWakeupOperation();
+void CheckWakeupOperation2();
 
 /**
  * \brief Checks if the Format Error operation is created correctly by the corresponding macro.
  *
  * \param[in] operationType  The type of operation of the Format Error operation.
  */
-void CheckFormatErrorOperation(Operation operationType);
+void CheckFormatErrorOperation2(Operation operationType);
 
 /**
  * \brief Checks if the corresponding macro returns fmi3False if the data for creation is too big.
  *
  * \param[in] operation  The type of operation to be checked.
  */
-void CheckDataSizeError(Operation operation);
+void CheckDataSizeError2(Operation operation);
 
-std::string sayHello();
+std::string sayHello2();
 
