@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.10.2)
-project (fmi_3_ls_bus_header_test)
+project (fmi_3_ls_bus_header_test CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -g")
