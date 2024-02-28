@@ -65,7 +65,7 @@ extern "C"
     do                                                                                                  \
     {                                                                                                   \
         fmi3LsBusCanOperationCanTransmit2 _op;                                                           \
-        _op.header.opCode = FMI3_LS_BUS_CAN_OP_CAN_TRANSMIT;                                              \
+        _op.header.opCode = FMI3_LS_BUS_CAN_OP_CAN_TRANSMIT2;                                              \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) +                                          \
                             sizeof(fmi3LsBusCanId2) +                                                    \
                             sizeof(fmi3LsBusCanIde2) +                                                   \
