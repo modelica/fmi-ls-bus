@@ -1,6 +1,6 @@
 set(header_path "${${PROJECT_NAME}_SOURCE_DIR}/include/${PROJECT_NAME}")
 set(canHeader ${header_path}/${PROJECT_NAME}_can.h)
-set(src ${PROJECT_NAME}.cpp)
+set(canSrc ${PROJECT_NAME}_can.cpp)
 
 
 add_library(${PROJECT_NAME} SHARED
