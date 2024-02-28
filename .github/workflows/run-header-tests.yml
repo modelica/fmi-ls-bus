@@ -21,4 +21,4 @@ jobs:
       run: cd build && make
       working-directory: ./headers/tests
     - name: Run Test
-      run: /home/runner/work/fmi-ls-bus/fmi-ls-bus/build/test/fmi_3_ls_bus_header_test.test
+      run: /home/runner/work/fmi-ls-bus/fmi-ls-bus/headers/tests/build/test/fmi_3_ls_bus_header_test.test
