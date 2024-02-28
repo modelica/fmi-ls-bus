@@ -6,15 +6,15 @@ set(canSrc ${PROJECT_NAME}_can.cpp)
 add_library(${PROJECT_NAME}_can SHARED
   ${canHeader}
   ${canSrc})
-target_include_directories(${PROJECT_NAME}
+target_include_directories(${PROJECT_NAME}_can
   PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
          ${${PROJECT_NAME}_SOURCE_DIR}/include)
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME}_can
   pthread)
 
 
 
-install(TARGETS ${PROJECT_NAME}
+install(TARGETS ${PROJECT_NAME}_can
 		LIBRARY DESTINATION "${lib_dest}"
     ARCHIVE DESTINATION "${lib_dest}"
     COMPONENT library)
