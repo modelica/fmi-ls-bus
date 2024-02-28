@@ -1,4 +1,4 @@
-name: fmi_3_ls_bus_header_test
+name: Run Tests for Module Header Files
 
 on:
   workflow_dispatch:
