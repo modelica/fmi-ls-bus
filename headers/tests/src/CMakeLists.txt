@@ -34,3 +34,5 @@ install(TARGETS ${PROJECT_NAME}_can2
     ARCHIVE DESTINATION "${lib_dest}"
     COMPONENT library)
 install(FILES ${canHeader2} DESTINATION "${include_dest}")
+
+add_definitions(-w)

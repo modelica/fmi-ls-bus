@@ -11,5 +11,3 @@ set(include_dest "include/${PROJECT_NAME}")
 
 add_subdirectory(src)
 add_subdirectory(test)
-
-add_definitions(-w)
