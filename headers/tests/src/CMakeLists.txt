@@ -3,7 +3,7 @@ set(canHeader ${header_path}/${PROJECT_NAME}_can.h)
 set(canSrc ${PROJECT_NAME}_can.cpp)
 
 
-add_library(${PROJECT_NAME} SHARED
+add_library(${PROJECT_NAME}_can SHARED
   ${canHeader}
   ${canSrc})
 target_include_directories(${PROJECT_NAME}
