@@ -5,7 +5,7 @@ set(canSrc ${PROJECT_NAME}_can.cpp)
 
 add_library(${PROJECT_NAME} SHARED
   ${canHeader}
-  ${src})
+  ${canSrc})
 target_include_directories(${PROJECT_NAME}
   PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
          ${${PROJECT_NAME}_SOURCE_DIR}/include)
