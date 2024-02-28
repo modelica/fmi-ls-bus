@@ -6,6 +6,16 @@ on:
     branches: [ main ]
 
 jobs:
+  changes-check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v1
+      with:
+        fetch-depth: 2
+    - name: Get changes
+      run: echo git diff --name-only -r HEAD^1 HEAD 
+    
   build:
     runs-on: ubuntu-latest
     steps:
