@@ -61,16 +61,16 @@ extern "C"
  * \param[in] DataLength  Message data length (\ref fmi3LsBusCanDataLength).
  * \param[in] Data        Message data (\ref fmi3LsBusCanDataLength).
  */
-#define FMI3_LS_BUS_CAN_CREATE_OP_CAN_TRANSMIT(BufferInfo, ID, Ide, Rtr, DataLength, Data)              \
+#define FMI3_LS_BUS_CAN_CREATE_OP_CAN_TRANSMIT2(BufferInfo, ID, Ide, Rtr, DataLength, Data)              \
     do                                                                                                  \
     {                                                                                                   \
-        fmi3LsBusCanOperationCanTransmit _op;                                                           \
+        fmi3LsBusCanOperationCanTransmit2 _op;                                                           \
         _op.header.opCode = FMI3_LS_BUS_CAN_OP_CAN_TRANSMIT;                                              \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) +                                          \
-                            sizeof(fmi3LsBusCanId) +                                                    \
-                            sizeof(fmi3LsBusCanIde) +                                                   \
-                            sizeof(fmi3LsBusCanRtr) +                                                   \
-                            sizeof(fmi3LsBusCanDataLength) +                                            \
+                            sizeof(fmi3LsBusCanId2) +                                                    \
+                            sizeof(fmi3LsBusCanIde2) +                                                   \
+                            sizeof(fmi3LsBusCanRtr2) +                                                   \
+                            sizeof(fmi3LsBusCanDataLength2) +                                            \
                             (DataLength);                                                               \
         _op.id = (ID);                                                                                  \
         _op.ide = (Ide);                                                                                \

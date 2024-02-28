@@ -46,6 +46,6 @@
 		}
 	}
 
-	std::string sayHello2() {
+	std::string sayHello() {
 		return "Hello world from 'github-actions-gtest-example' project";
 	}

@@ -63,6 +63,55 @@ extern "C"
  */
 #define FMI3_LS_BUS_CAN_OP_CAN_TRANSMIT2 ((fmi3LsBusOperationCode)0x0010)
 
+/**
+ * CAN bus-specific operation types.
+ */
+
+#pragma pack(1)
+
+/**
+ * \brief Data type representing a CAN identifier.
+ */
+typedef fmi3UInt32 fmi3LsBusCanId2;
+
+/**
+ * \brief Data type indicating whether a frame is a standard or extended message.
+ */
+typedef fmi3UInt8 fmi3LsBusCanIde2;
+
+/**
+ * \brief Data type indicating whether a frame is a Remote Transmission Request.
+ */
+typedef fmi3UInt8 fmi3LsBusCanRtr2;
+
+/**
+ * \brief Data type representing the CAN frame payload length.
+ */
+typedef fmi3UInt16 fmi3LsBusCanDataLength2;
+
+/**
+ * \brief Data type representing the CAN frame payload data.
+ */
+typedef fmi3UInt8 fmi3LsBusCanData2;
+
+/**
+ * \brief FMI virtual bus operation structure of type 'CAN Transmit'.
+ */
+typedef struct
+{
+    fmi3LsBusOperationHeader header;   /**< Operation header. */
+    fmi3LsBusCanId2  id;                /**< CAN message ID. */
+    fmi3LsBusCanIde2 ide;               /**< Standard (11-bit) or Extended (29-bit) message identifier. */
+    fmi3LsBusCanRtr2 rtr;               /**< Remote Transmission Request frame. */
+    fmi3LsBusCanDataLength2 dataLength; /**< Data length. */
+    fmi3LsBusCanData2 data[];           /**< Data. */
+} fmi3LsBusCanOperationCanTransmit2;
+
+#if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
+static_assert(sizeof(fmi3LsBusCanOperationCanTransmit2) == (5 + 4 + 1 + 1 + 2),
+              "'fmi3LsBusCanOperationCanTransmit' does not match the expected data size");
+#endif
+
 #pragma pack()
 
 #ifdef __cplusplus
