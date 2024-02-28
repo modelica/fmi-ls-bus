@@ -2,10 +2,8 @@ name: Run Tests for Module Header Files
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ master ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
