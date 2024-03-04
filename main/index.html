@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.21">
 <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 <title>Layered Standard for Network Communication</title>
 <style>
@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 6c4b6b2,</span>
-<span id="revdate">2024-01-03</span>
+<span id="revnumber">version 0fa6cc8,</span>
+<span id="revdate">2024-03-04</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -906,7 +906,9 @@ All explanations in this document are therefore to be understood in the context 
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>isBusSimulationFMU</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code> or <code>false</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">If <code>true</code>, this FMU represents a Bus Simulation FMU.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines whether the respective FMU is a Bus Simulation FMU or not.
+The importer may use this information at the time of importing the FMU, depending on which <a href="#common-concepts-system-compositions">System Compositions</a> the FMUs are integrated into.
+If <code>true</code>, this FMU represents a Bus Simulation FMU.
 Default: <code>false</code>.</p></td>
 </tr>
 </tbody>
