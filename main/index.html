@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 0fa6cc8,</span>
+<span id="revnumber">version 0136f07,</span>
 <span id="revdate">2024-03-04</span>
 </div>
 <div id="toc" class="toc2">
@@ -1142,7 +1142,8 @@ Changes to these clocked variables always reach the destination.</p>
 </div>
 <div class="paragraph">
 <p>The figure below shows an example architecture of a high-cut.
-Here the signals (<em>Signal 1&#8230;&#8203;8</em>) from PDUs, which in turn are assigned to frames, are modeled as clocked FMU variables of a specific type.
+The signals (<em>Signal 1&#8230;&#8203;8</em>) are modeled as clocked FMU variables of a specific type.
+The corresponding signals are structurally combined using Protocol Data Units (PDUs), which in turn are assigned to frames.
 The PDU and frame structuring is done via terminals (<em>PDU A, B, C</em> and <em>Frame X, Y</em>).
 The respective FMU variables are connected to a Bus Simulation, which emulates them according to their own needs for e.g., in accuracy.</p>
 </div>
