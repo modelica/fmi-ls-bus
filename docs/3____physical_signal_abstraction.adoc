@@ -8,7 +8,8 @@ Variables representing these physical signals are clocked to reflect the bus tim
 Changes to these clocked variables always reach the destination.
 
 The figure below shows an example architecture of a high-cut.
-Here the signals (_Signal 1...8_) from PDUs, which in turn are assigned to frames, are modeled as clocked FMU variables of a specific type.
+The signals (_Signal 1...8_) are modeled as clocked FMU variables of a specific type.
+The corresponding signals are structurally combined using Protocol Data Units (PDUs), which in turn are assigned to frames.
 The PDU and frame structuring is done via terminals (_PDU A, B, C_ and _Frame X, Y_).
 The respective FMU variables are connected to a Bus Simulation, which emulates them according to their own needs for e.g., in accuracy.
 
