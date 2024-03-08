@@ -9,8 +9,8 @@ foreach(module IN LISTS test_modules)
   set("${module}Src" ${PROJECT_NAME}_helper_${module}.cpp)
 
   add_library(${PROJECT_NAME}_${module} SHARED
-    ${"${module}"Header}
-    ${"${module}"Src})
+    ${${module}Header}
+    ${${module}Src})
   target_include_directories(${PROJECT_NAME}_${module}
     PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
     ${${PROJECT_NAME}_SOURCE_DIR}/helper/hdr)
