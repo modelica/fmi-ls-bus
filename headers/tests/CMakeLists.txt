@@ -13,3 +13,5 @@ add_subdirectory(helper/src)
 add_subdirectory(test)
 
 set (test_can "true")
+
+list(APPEND test_modules ${PROJECT_NAME}s_can.cpp ${PROJECT_NAME}s_can2.cpp)

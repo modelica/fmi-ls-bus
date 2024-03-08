@@ -1,5 +1,3 @@
-list(APPEND test_modules ${PROJECT_NAME}s_can.cpp ${PROJECT_NAME}s_can2.cpp)
-
 add_executable(${PROJECT_NAME}.test RunTests.cpp)
 target_sources(${PROJECT_NAME}.test PRIVATE ${test_modules})
 
