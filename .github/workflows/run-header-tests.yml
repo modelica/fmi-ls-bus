@@ -11,7 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Install gtest manually
-      run: set -e && sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make
+      run: | 
+      set -e
+      sudo apt-get install libgtest-dev
+      cd /usr/src/gtest
+      sudo cmake CMakeLists.txt
+      sudo make
     - uses: actions/checkout@v1
     - name: configure
       run: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release ..
