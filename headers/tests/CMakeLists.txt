@@ -12,7 +12,9 @@ set(include_dest "helper/hdr")
 add_subdirectory(helper/src)
 add_subdirectory(test)
 
-list(APPEND test_modules can can2)
+set(test_modules can can2)
+
+message(test_modules="${test_modules}")
 
 foreach(module IN LISTS test_modules)
   message(test_module="${module}")
