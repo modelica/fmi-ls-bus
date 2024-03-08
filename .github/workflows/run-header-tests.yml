@@ -21,7 +21,7 @@ jobs:
           **.h
     - name: Check for header files
       if: steps.changed-header-files.outputs.any_changed == 'true'
-      run: printf("Header Files vorhanden")
+      run: $printf "Header Files vorhanden"
   
   build:
     runs-on: ubuntu-latest
