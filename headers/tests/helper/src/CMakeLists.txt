@@ -17,8 +17,8 @@ target_link_libraries(${PROJECT_NAME}_can
   pthread)
 
   add_library(${PROJECT_NAME}_can2 SHARED
-  ${canHeader2}
-  ${canSrc2})
+  ${can2Header}
+  ${can2Src})
 target_include_directories(${PROJECT_NAME}_can2
   PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
          ${${PROJECT_NAME}_SOURCE_DIR}/helper/hdr)
