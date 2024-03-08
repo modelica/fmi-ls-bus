@@ -8,9 +8,8 @@ on:
 jobs:
 
   get-changed-header-files:
-    id: get-files
     runs-on: ubuntu-latest  # windows-latest || macos-latest
-    name: Test changed-files
+    name: Test changed header files
     steps:
       - uses: actions/checkout@v4
         with:
@@ -30,7 +29,7 @@ jobs:
         run: echo
 
   test-header-files:
-    if: jobs.get-files.steps.changed-markdown-files.outputs.any_changed == 'true'
+    if: jobs.get-changed-header-files.steps.changed-markdown-files.outputs.any_changed == 'true'
     runs-on: ubuntu-latest
     steps:
     - name: Install gtest manually
