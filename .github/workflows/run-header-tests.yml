@@ -12,7 +12,7 @@ jobs:
     name: Get changed header files
     outputs:
       any-header-files:
-        value: ${{ steps.step1.outputs.any-header-files }}
+        value: ${{ steps.check-for-header-files.outputs.any-header-files }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -23,7 +23,7 @@ jobs:
         uses: tj-actions/changed-files@v42
         with:
           files: |
-             **.h >> $GITHUB_OUTPUT
+             **.h
 
       - name: Check for header files
         id: check-for-header-files
