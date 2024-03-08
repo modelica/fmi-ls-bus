@@ -11,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest  # windows-latest || macos-latest
     name: Get changed header files
     outputs:
-      any-header-files:
-        value: ${{ steps.check-for-header-files.outputs.any-header-files }}
+      any-header-files: ${{ steps.check-for-header-files.outputs.any-header-files }}
     steps:
       - uses: actions/checkout@v4
         with:
