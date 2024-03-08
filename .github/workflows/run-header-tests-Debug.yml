@@ -3,13 +3,17 @@ name: Run Tests for Module Header Files
 on:
   workflow_dispatch:
     inputs:
-      name:
-        type: choice
-        required: false
-        description: Specify the modules you want to run tests for. Default case is all tests. Available modules are":"" Can, Can2.
-        options: 
-        - Can
-        - Can2
+      can: 
+        type: boolean
+        required: true
+        default: false
+        description: Run tests for 'Can' module.
+
+      can2: 
+        type: boolean
+        required: true
+        default: false
+        description: Run tests for 'Can2' module.
 
 jobs:
 
