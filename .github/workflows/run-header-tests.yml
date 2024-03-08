@@ -31,7 +31,7 @@ jobs:
   test-header-files:
     needs: header-file-collector
     name: Test changed header files
-    if: needs.header-file-collector.steps.check-for-header-files.outputs.any-header-files == 'true'
+    if: needs.header-file-collector.outputs.any-header-files == 'true'
     runs-on: ubuntu-latest
     steps:
     - name: Install gtest manually
