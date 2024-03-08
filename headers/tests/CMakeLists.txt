@@ -12,6 +12,4 @@ set(include_dest "helper/hdr")
 add_subdirectory(helper/src)
 add_subdirectory(test)
 
-list(APPEND tmp ${PROJECT_NAME}s_can.cpp ${PROJECT_NAME}s_can2.cpp)
-
-set(test_modules "tmp" PARENT_SCOPE)
+list(APPEND test_modules can can2)
