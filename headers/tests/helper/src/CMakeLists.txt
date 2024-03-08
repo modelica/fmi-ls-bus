@@ -7,12 +7,6 @@ foreach(module IN LISTS test_modules)
   set("${module}"Src ${PROJECT_NAME}_helper_${module}.cpp)
 endforeach()
 
-
-set(canHeader ${header_path}/${PROJECT_NAME}_helper_can.h)
-set(canSrc ${PROJECT_NAME}_helper_can.cpp)
-set(canHeader2 ${header_path}/${PROJECT_NAME}_helper_can2.h)
-set(canSrc2 ${PROJECT_NAME}_helper_can2.cpp)
-
 add_library(${PROJECT_NAME}_can SHARED
   ${canHeader}
   ${canSrc})
