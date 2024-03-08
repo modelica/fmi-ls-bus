@@ -1,4 +1,5 @@
-list(APPEND test_modules can can2)
+list(APPEND test_modules ${PROJECT_NAME}_can.cpp
+  ${PROJECT_NAME}_can2.cpp)
 
 add_executable(${PROJECT_NAME}.test
   RunTests.cpp ${APPEND})
