@@ -1,7 +1,6 @@
 name: Run Tests for Module Header Files
 
 on:
-  workflow_dispatch:
   pull_request:
     branches: [ main ]
 
