@@ -1,8 +1,5 @@
 list(APPEND test_modules can can2)
 
-foreach(X IN LISTS modules)
-  list(APPEND test_modules
-
 add_executable(${PROJECT_NAME}.test
   RunTests.cpp ${APPEND})
 
