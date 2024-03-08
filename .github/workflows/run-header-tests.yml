@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo
+      run: git diff --name-only origin/main origin/${GITHUB_HEAD_REF} 
     - uses: actions/checkout@v2
     - with:
-        fetch-depth: 0
-      run: git diff --name-only origin/main origin/${GITHUB_HEAD_REF}      
+        fetch-depth: 0    
 
   
   build:
