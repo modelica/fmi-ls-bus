@@ -7,9 +7,12 @@ on:
 
 jobs:
 
-  get-changed-header-files:
+  header-file-collector:
     runs-on: ubuntu-latest  # windows-latest || macos-latest
     name: Get changed header files
+    outputs:
+      any-header-files:
+        value: ${{ steps.step1.outputs.any-header-files }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -22,10 +25,14 @@ jobs:
           files: |
              **.h >> $GITHUB_OUTPUT
 
+      - name: Check for header files
+        id: check-for-header-files
+        run: echo "any-header-files=${{ steps.changed-header-files.outputs.any_changed }}" >> $GITHUB_OUTPUT
+
   test-header-files:
-    needs: get-changed-header-files
+    needs: header-file-collector
     name: Test changed header files
-    if: needs.get-changed-header-files.steps.changed-markdown-files.outputs.any_changed == 'true'
+    if: needs.header-file-collector.steps.check-for-header-files.outputs == 'true'
     runs-on: ubuntu-latest
     steps:
     - name: Install gtest manually
