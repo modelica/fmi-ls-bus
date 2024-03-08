@@ -19,6 +19,10 @@ jobs:
       with:
         files: |
           **.h
+      run: |
+        for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
     - name: Check for header files
       if: steps.changed-header-files.outputs.any_changed == 'true'
       run: $printf "Header Files vorhanden"
