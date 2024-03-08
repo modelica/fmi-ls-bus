@@ -3,7 +3,7 @@ set(test_modules can can2)
 set(header_path "${${PROJECT_NAME}_SOURCE_DIR}/helper/hdr")
 
 foreach(module IN LISTS test_modules)
-  set("${module}"Header ${header_path}/${PROJECT_NAME}_helper_${module}.h)
+  set("${module}Header" ${header_path}/${PROJECT_NAME}_helper_${module}.h)
   message(canHeader="${canHeader}")
   set("${module}"Src ${PROJECT_NAME}_helper_${module}.cpp)
 endforeach()
