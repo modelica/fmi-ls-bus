@@ -1,4 +1,4 @@
-#include <fmi_3_ls_bus_header_test__helper_can2.h>
+#include <fmi_3_ls_bus_header_test_helper_can2.h>
 #include <gtest/gtest.h>
 
 #ifdef _MSC_VER
