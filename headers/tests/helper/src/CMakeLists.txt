@@ -1,4 +1,4 @@
-set(header_path "${${PROJECT_NAME}_SOURCE_DIR}/helper/hdr/${PROJECT_NAME}")
+set(header_path "${${PROJECT_NAME}_SOURCE_DIR}/helper/hdr")
 set(canHeader ${header_path}/${PROJECT_NAME}_helper_can.h)
 set(canSrc ${PROJECT_NAME}_helper_can.cpp)
 set(canHeader2 ${header_path}/${PROJECT_NAME}_helper_can2.h)
