@@ -1,10 +1,18 @@
+set(test_modules can can2)
+
 set(header_path "${${PROJECT_NAME}_SOURCE_DIR}/helper/hdr")
+
+foreach(module IN LISTS test_modules)
+  set("${module}"Header ${header_path}/${PROJECT_NAME}_helper_${module}.h)
+  set("${module}"Src ${PROJECT_NAME}_helper_${module}.cpp)
+endforeach()
+
+
 set(canHeader ${header_path}/${PROJECT_NAME}_helper_can.h)
 set(canSrc ${PROJECT_NAME}_helper_can.cpp)
 set(canHeader2 ${header_path}/${PROJECT_NAME}_helper_can2.h)
 set(canSrc2 ${PROJECT_NAME}_helper_can2.cpp)
-set(test_modules can can2)
-message(test_moduleshths="${test_modules}")
+
 add_library(${PROJECT_NAME}_can SHARED
   ${canHeader}
   ${canSrc})
