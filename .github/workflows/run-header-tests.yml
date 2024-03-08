@@ -9,7 +9,7 @@ jobs:
 
   get-changed-header-files:
     runs-on: ubuntu-latest  # windows-latest || macos-latest
-    name: Test changed header files
+    name: Get changed header files
     steps:
       - uses: actions/checkout@v4
         with:
@@ -22,14 +22,9 @@ jobs:
           files: |
              **.h
 
-      - name: Check for header files
-        if: steps.changed-markdown-files.outputs.any_changed == 'true'
-        env:
-          ALL_CHANGED_FILES: ${{ steps.changed-markdown-files.outputs.all_changed_files }}
-        run: echo
-
   test-header-files:
     needs: get-changed-header-files
+    name: Test changed header files
     if: needs.get-changed-header-files.steps.changed-markdown-files.outputs.any_changed == 'true'
     runs-on: ubuntu-latest
     steps:
