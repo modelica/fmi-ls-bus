@@ -20,7 +20,7 @@ jobs:
         files: |
           fmi3LsBus*.h
     - name: Check for header files
-      if: ${{ hashFiles(steps.changed-header-files.outputs) != '' }}
+      if: steps.changed-header-files.outputs.any_changed == 'true'
       run: printf("Header Files vorhanden")
   
   build:
