@@ -29,7 +29,8 @@ jobs:
         run: echo
 
   test-header-files:
-    if: jobs.get-changed-header-files.steps.changed-markdown-files.outputs.any_changed == 'true'
+    needs: get-changed-header-files
+    if: needs.get-changed-header-files.steps.changed-markdown-files.outputs.any_changed == 'true'
     runs-on: ubuntu-latest
     steps:
     - name: Install gtest manually
