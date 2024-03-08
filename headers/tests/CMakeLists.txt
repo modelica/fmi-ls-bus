@@ -13,3 +13,4 @@ add_subdirectory(helper/src)
 add_subdirectory(test)
 
 list(APPEND test_modules can can2)
+message(test_modules="${test_modules}")
