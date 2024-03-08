@@ -14,7 +14,7 @@ jobs:
       run: sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make && sudo ln -s /usr/lib/libgtest.a /usr/local/lib/libgtest.a && sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/libgtest_main.a
     - uses: actions/checkout@v1
     - name: make
-      run: cd build && make
+      run: mkdir build && cd build && make
       working-directory: ./headers/tests
     - name: Run Test
       run: /home/runner/work/fmi-ls-bus/fmi-ls-bus/headers/tests/build/test/fmi_3_ls_bus_header_test.test
