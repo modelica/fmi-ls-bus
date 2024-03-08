@@ -20,7 +20,7 @@ jobs:
         uses: tj-actions/changed-files@v42
         with:
           files: |
-             **.h
+             **.h >> $GITHUB_OUTPUT
 
   test-header-files:
     needs: get-changed-header-files
