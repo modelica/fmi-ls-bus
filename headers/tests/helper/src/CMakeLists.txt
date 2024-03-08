@@ -1,8 +1,8 @@
-set(header_path "${${PROJECT_NAME}_SOURCE_DIR}/include/${PROJECT_NAME}")
-set(canHeader ${header_path}/${PROJECT_NAME}_can.h)
-set(canSrc ${PROJECT_NAME}_can.cpp)
-set(canHeader2 ${header_path}/${PROJECT_NAME}_can2.h)
-set(canSrc2 ${PROJECT_NAME}_can2.cpp)
+set(header_path "${${PROJECT_NAME}_SOURCE_DIR}/helper/hdr/${PROJECT_NAME}")
+set(canHeader ${header_path}/${PROJECT_NAME}_helper_can.h)
+set(canSrc ${PROJECT_NAME}_helper_can.cpp)
+set(canHeader2 ${header_path}/${PROJECT_NAME}_helper_can2.h)
+set(canSrc2 ${PROJECT_NAME}_helper_can2.cpp)
 
 
 add_library(${PROJECT_NAME}_can SHARED
@@ -10,7 +10,7 @@ add_library(${PROJECT_NAME}_can SHARED
   ${canSrc})
 target_include_directories(${PROJECT_NAME}_can
   PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
-         ${${PROJECT_NAME}_SOURCE_DIR}/include)
+         ${${PROJECT_NAME}_SOURCE_DIR}/helper/hdr)
 target_link_libraries(${PROJECT_NAME}_can
   pthread)
 
@@ -19,7 +19,7 @@ target_link_libraries(${PROJECT_NAME}_can
   ${canSrc2})
 target_include_directories(${PROJECT_NAME}_can2
   PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
-         ${${PROJECT_NAME}_SOURCE_DIR}/include)
+         ${${PROJECT_NAME}_SOURCE_DIR}/helper/hdr)
 target_link_libraries(${PROJECT_NAME}_can2
   pthread)
 
