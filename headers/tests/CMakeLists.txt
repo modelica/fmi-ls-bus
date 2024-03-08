@@ -13,7 +13,3 @@ add_subdirectory(helper/src)
 add_subdirectory(test)
 
 
-
-message(test_modulesht="${test_modules}")
-
-

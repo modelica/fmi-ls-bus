@@ -1,6 +1,5 @@
 add_executable(${PROJECT_NAME}.test RunTests.cpp)
 set(test_modules can can2)
-message(test_moduleshtt="${test_modules}")
 
 foreach(module IN LISTS test_modules)
   target_sources(${PROJECT_NAME}.test PRIVATE ${PROJECT_NAME}s_${module}.cpp)
