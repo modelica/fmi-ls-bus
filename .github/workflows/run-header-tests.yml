@@ -6,7 +6,17 @@ on:
     branches: [ main ]
 
 jobs:
-    
+
+  check-files:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+    - uses: actions/checkout@v2
+    - with:
+        fetch-depth: 0
+      run: git diff --name-only origin/main origin/${GITHUB_HEAD_REF}      
+
+  
   build:
     runs-on: ubuntu-latest
     steps:
