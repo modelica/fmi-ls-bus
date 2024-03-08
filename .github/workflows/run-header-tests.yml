@@ -18,7 +18,7 @@ jobs:
       uses: tj-actions/changed-files@v42
       with:
         files: |
-          fmi3LsBus**.h
+          **.h
     - name: Check for header files
       if: steps.changed-header-files.outputs.any_changed == 'true'
       run: printf("Header Files vorhanden")
