@@ -11,3 +11,5 @@ set(include_dest "helper/hdr")
 
 add_subdirectory(helper/src)
 add_subdirectory(test)
+
+set (test_can "true")
