@@ -4,7 +4,7 @@ set(canSrc ${PROJECT_NAME}_helper_can.cpp)
 set(canHeader2 ${header_path}/${PROJECT_NAME}_helper_can2.h)
 set(canSrc2 ${PROJECT_NAME}_helper_can2.cpp)
 
-
+message(test_moduleshths="${test_modules}")
 add_library(${PROJECT_NAME}_can SHARED
   ${canHeader}
   ${canSrc})
