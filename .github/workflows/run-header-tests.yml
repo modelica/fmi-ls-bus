@@ -8,10 +8,11 @@ on:
 jobs:
 
   header-file-collector:
-    runs-on: ubuntu-latest  # windows-latest || macos-latest
+    runs-on: ubuntu-latest
     name: Get changed header files
     outputs:
       any-header-files: ${{ steps.check-for-header-files.outputs.any-header-files }}
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -22,7 +23,7 @@ jobs:
         uses: tj-actions/changed-files@v42
         with:
           files: |
-             **.h
+            **.h
 
       - name: Check for header files
         id: check-for-header-files
@@ -33,15 +34,29 @@ jobs:
     name: Test changed header files
     if: needs.header-file-collector.outputs.any-header-files == 'true'
     runs-on: ubuntu-latest
+
     steps:
-    - name: Install gtest manually
-      run: set -e && sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make
+    - name: Install googletest
+      run: |
+        set -e
+        sudo apt-get install libgtest-dev
+        cd /usr/src/gtest
+        sudo cmake CMakeLists.txt
+        sudo make
     - uses: actions/checkout@v1
-    - name: configure
-      run: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release ..
+
+    - name: configure as Release
+      run: |
+        mkdir build
+        cd build
+        cmake -DCMAKE_BUILD_TYPE=Release ..
       working-directory: ./headers/tests
+
     - name: Build test project
-      run: cd build && make
+      run: |
+        cd build
+        make
       working-directory: ./headers/tests
+
     - name: Execute tests
       run: /home/runner/work/fmi-ls-bus/fmi-ls-bus/headers/tests/build/test/fmi_3_ls_bus_header_test.test
