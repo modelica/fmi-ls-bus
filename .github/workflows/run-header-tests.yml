@@ -10,11 +10,12 @@ jobs:
   check-files:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repo
-      run: git diff --name-only origin/main origin/${GITHUB_HEAD_REF} 
-    - uses: actions/checkout@v2
-    - with:
-        fetch-depth: 0    
+    - name: checkout
+      uses: actions/checkout@v1
+      with:
+        fetch-depth: 2
+    - name: Get changes
+      run: printf $(git diff --name-only -r HEAD^1 HEAD)   
 
   
   build:
