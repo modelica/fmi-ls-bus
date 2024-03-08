@@ -4,8 +4,6 @@ set(header_path "${${PROJECT_NAME}_SOURCE_DIR}/helper/hdr")
 
 foreach(module IN LISTS test_modules)
   set("${module}Header" ${header_path}/${PROJECT_NAME}_helper_${module}.h)
-  message(Mit Quotes="${module}Header")
-  message(Ohne Quotes=${module}Header)
   set("${module}Src" ${PROJECT_NAME}_helper_${module}.cpp)
 
   add_library(${PROJECT_NAME}_${module} SHARED
