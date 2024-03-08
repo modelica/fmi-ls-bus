@@ -1,5 +1,5 @@
 add_executable(${PROJECT_NAME}.test RunTests.cpp)
-target_sources(${PROJECT_NAME}.test PRIVATE ${test_modules})
+target_sources(${PROJECT_NAME}.test PUBLIC ${test_modules})
 
 target_link_libraries(${PROJECT_NAME}.test
   ${PROJECT_NAME}_can ${PROJECT_NAME}_can2 gtest pthread)
