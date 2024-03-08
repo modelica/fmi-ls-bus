@@ -1,7 +1,7 @@
 add_executable(${PROJECT_NAME}.test RunTests.cpp)
 
 foreach(module IN LISTS test_modules)
-  target_sources(${PROJECT_NAME}.test PRIVATE ${PROJECT_NAME}s_${can}.cpp)
+  target_sources(${PROJECT_NAME}.test PRIVATE ${PROJECT_NAME}s_${module}.cpp)
 endforeach()
 
 target_link_libraries(${PROJECT_NAME}.test
