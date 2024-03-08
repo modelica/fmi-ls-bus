@@ -3,7 +3,8 @@
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
 
-    std::cout << "Runnin tests in directory: " << TEST_DIR << "'" << std::endl;
+    std::cout << "Runnin tests in directory: " << TEST_DIR << std::endl;
+    
     for (int i = 1; i < argc; ++i) {
         std::cout << "Input[" << i << "]: " << argv[i] << std::endl;
     }
