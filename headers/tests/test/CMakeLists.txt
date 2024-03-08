@@ -1,8 +1,6 @@
-list(APPEND test_modules ${PROJECT_NAME}_can.cpp
-  ${PROJECT_NAME}_can2.cpp)
+list(APPEND test_modules RunTests.cpp ${PROJECT_NAME}_can.cpp ${PROJECT_NAME}_can2.cpp)
 
-add_executable(${PROJECT_NAME}.test
-  RunTests.cpp ${APPEND})
+add_executable(${PROJECT_NAME}.test ${APPEND})
 
 target_link_libraries(${PROJECT_NAME}.test
   ${PROJECT_NAME}_can ${PROJECT_NAME}_can2 gtest pthread)
