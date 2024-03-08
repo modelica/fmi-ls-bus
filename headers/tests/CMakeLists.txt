@@ -9,5 +9,5 @@ set(tool_dest "bin")
 set(lib_dest "lib")
 set(include_dest "helper/hdr")
 
-add_subdirectory(src)
+add_subdirectory(helper/src)
 add_subdirectory(test)
