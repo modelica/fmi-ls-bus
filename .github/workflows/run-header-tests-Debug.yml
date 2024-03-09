@@ -1,4 +1,4 @@
-name: Run Tests for Module Header Files
+name: Run Tests for Module Header Files (Debug)
 
 on:
   workflow_dispatch:
@@ -28,8 +28,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        printf "${{inputs.modules}}"
-        cmake -DCMAKE_BUILD_TYPE=Release -DMODULE_LIST="${{inputs.modules}}" ..
+        cmake -DCMAKE_BUILD_TYPE=Debug -DMODULE_LIST="${{inputs.modules}}" ..
       working-directory: ./headers/tests
 
     - name: Build test project

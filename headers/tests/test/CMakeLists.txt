@@ -16,5 +16,3 @@ install(TARGETS ${PROJECT_NAME}.test
         DESTINATION "${tool_dest}")
 
 add_definitions(-w)
-
-message("2. Ebene")

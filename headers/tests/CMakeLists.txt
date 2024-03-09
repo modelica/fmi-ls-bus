@@ -11,5 +11,3 @@ set(include_dest "helper/hdr")
 
 add_subdirectory(helper/src)
 add_subdirectory(test)
-
-message("1. Ebene")
