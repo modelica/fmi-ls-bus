@@ -1,4 +1,4 @@
-set(test_modules can can2)
+set(test_modules ${MODULE_LIST})
 
 set(header_path "${${PROJECT_NAME}_SOURCE_DIR}/helper/hdr")
 
