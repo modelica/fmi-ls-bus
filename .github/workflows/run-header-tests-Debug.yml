@@ -34,7 +34,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake -DCMAKE_BUILD_TYPE=Release -DMODULE_LIST={can can2} ..
+        cmake -DCMAKE_BUILD_TYPE=Release -DMODULE_LIST='can can2' ..
       working-directory: ./headers/tests
 
     - name: Build test project
