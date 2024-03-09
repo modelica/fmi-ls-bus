@@ -6,7 +6,7 @@ on:
       modules: 
         type: string
         required: true
-        default: can,can2
+        default: can;can2
         description: Specify the modules you want to run tests for. Available are 'can' and 'can2'. Example':' 'can';'can2' (case sensitive).
 
       can2: 
@@ -34,7 +34,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake -DCMAKE_BUILD_TYPE=Release -DMODULE_LIST=${inputs.modules} ..
+        cmake -DCMAKE_BUILD_TYPE=Release -DMODULE_LIST="${inputs.modules}" ..
       working-directory: ./headers/tests
 
     - name: Build test project
