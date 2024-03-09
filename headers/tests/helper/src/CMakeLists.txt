@@ -1,4 +1,3 @@
-message(${MODULE_LIST})
 set(test_modules ${MODULE_LIST})
 
 set(header_path "${${PROJECT_NAME}_SOURCE_DIR}/helper/hdr")

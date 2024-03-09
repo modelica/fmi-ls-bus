@@ -1,4 +1,4 @@
-set(test_modules can can2)
+set(test_modules ${MODULE_LIST})
 
 add_executable(${PROJECT_NAME}.test RunTests.cpp)
 
