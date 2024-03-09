@@ -28,7 +28,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        printf"${{inputs.modules}}
+        printf "${{inputs.modules}}"
         cmake -DCMAKE_BUILD_TYPE=Release -DMODULE_LIST="${{inputs.modules}}" ..
       working-directory: ./headers/tests
 
