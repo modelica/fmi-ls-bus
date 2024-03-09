@@ -23,3 +23,5 @@ foreach(module IN LISTS test_modules)
 endforeach()
 
 add_definitions(-w)
+
+message("3. Ebene")
