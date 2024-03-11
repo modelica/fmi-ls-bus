@@ -3,6 +3,7 @@ name: Run Tests for Module Header Files (Release)
 on:
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   header-file-collector:
