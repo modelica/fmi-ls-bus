@@ -14,7 +14,6 @@ foreach(module IN LISTS test_modules)
     ${${PROJECT_NAME}_SOURCE_DIR}/helper/hdr)
     target_link_libraries(${PROJECT_NAME}_${module}
     pthread)
-
   install(TARGETS ${PROJECT_NAME}_${module}
 		LIBRARY DESTINATION "${lib_dest}"
     ARCHIVE DESTINATION "${lib_dest}"
