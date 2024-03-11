@@ -6,7 +6,7 @@
 #pragma warning(disable : 4244)
 #endif
 
-	void CheckCanTransmitOperation(long long int id, int ide, int rtr, fmi3UInt8 data[], bool correctData)
+void CheckCanTransmitOperation(long long int id, int ide, int rtr, fmi3UInt8 data[], bool correctData)
 	{
 		// Create data needed for creation.
 		fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -90,7 +90,7 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fm
 		}
 	}
 
-	void CheckCanXlTransmitOperation(long long int id, int ide, int sec, int sdt, int vcid, long long int af, fmi3UInt8 data[], bool correctData)
+void CheckCanXlTransmitOperation(long long int id, int ide, int sec, int sdt, int vcid, long long int af, fmi3UInt8 data[], bool correctData)
 	{
 		// Create data needed for creation.
 		fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -132,7 +132,7 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fm
 		}
 	}
 
-	void CheckConfirmOperation(long long int id, bool correctData)
+void CheckConfirmOperation(long long int id, bool correctData)
 	{
 		// Create data needed for creation.
 		fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -164,7 +164,7 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fm
 		EXPECT_EQ(operation->id, id * multiplier);
 	}
 
-	void CheckConfigurationBaudrateOperation(long long int baudrate, bool correctData)
+void CheckConfigurationBaudrateOperation(long long int baudrate, bool correctData)
 	{
 		// Create data needed for creation.
 		fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -196,7 +196,7 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fm
 		EXPECT_EQ(operation->baudrate, baudrate * multiplier);
 	}
 
-	void CheckConfigurationFdBaudrateOperation(long long int baudrate, bool correctData)
+void CheckConfigurationFdBaudrateOperation(long long int baudrate, bool correctData)
 	{
 		// Create data needed for creation.
 		fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -228,7 +228,7 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fm
 		EXPECT_EQ(operation->baudrate, baudrate * multiplier);
 	}
 
-	void CheckConfigurationXlBaudrateOperation(long long int baudrate, bool correctData)
+void CheckConfigurationXlBaudrateOperation(long long int baudrate, bool correctData)
 	{
 		// Create data needed for creation.
 		fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -260,7 +260,7 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fm
 		EXPECT_EQ(operation->baudrate, baudrate * multiplier);
 	}
 
-	void CheckConfigurationArbitrationLostBehaviorOperation(int arbitrationLostBehavior)
+void CheckConfigurationArbitrationLostBehaviorOperation(int arbitrationLostBehavior)
 	{
 		// Create data needed for creation.
 		fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -289,7 +289,7 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fm
 		EXPECT_EQ(operation->arbitrationLostBehavior, arbitrationLostBehavior);
 	}
 
-	void CheckArbitrationLostBehaviorOperation(long long int id, bool correctData)
+void CheckArbitrationLostBehaviorOperation(long long int id, bool correctData)
 	{
 		// Create data needed for creation.
 		fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -321,7 +321,7 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fm
 		EXPECT_EQ(operation->id, id * multiplier);
 	}
 
-	void CheckBusErrorOperation(long long int id, int errorCode, int errorFlag, fmi3UInt8 isSender, bool correctData)
+void CheckBusErrorOperation(long long int id, int errorCode, int errorFlag, fmi3UInt8 isSender, bool correctData)
 	{
 		// Create data needed for creation.
 		fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -356,7 +356,7 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fm
 		EXPECT_EQ(operation->isSender, isSender);
 	}
 
-	void CheckStatusOperation(int status)
+void CheckStatusOperation(int status)
 	{
 		// Create data needed for creation.
 		fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -385,7 +385,7 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fm
 		EXPECT_EQ(operation->status, status);
 	}
 
-	void CheckWakeupOperation()
+void CheckWakeupOperation()
 	{
 		// Create data needed for creation.
 		fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -411,7 +411,7 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fm
 		EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_CAN_OP_WAKEUP);
 	}
 
-	void CheckFormatErrorOperation(Operation operationType)
+void CheckFormatErrorOperation(Operation operationType)
 	{
 		// Create data needed for creation.
 		fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -490,7 +490,7 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fm
 		}
 	}
 
-	void CheckDataSizeError(Operation operation)
+void CheckDataSizeError(Operation operation)
 	{
 		// Create data needed for creation.
 		fmi3LsBusUtilBufferInfo bufferInfo;
