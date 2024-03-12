@@ -1,6 +1,6 @@
-# Module Tests
+# Module Header Tests
 
-This directory
+This directory can be used to add tests for existing module header files. The files in this directory provide the resources to run the tests with the corresponding workflow in Github Actions ([run-header-tests-Debug][header-tests-debug]/[run-header-tests-Release][header-tests-release]).
 
 ## Adding Tests for a New Module
 To add tests for another module, a few files need to be added and altered.
@@ -58,12 +58,5 @@ Code and documentation copyright (C) 2008-2011 the MODELISAR consortium and 2012
 Code released under the [2-Clause BSD License].
 Docs released under [Attribution-ShareAlike 4.0 International].
 
-[FMI]: https://fmi-standard.org/
-[Demo FMUs]: https://github.com/modelica/fmi-guides/tree/main/ls-bus-guide/demos
-[2-Clause BSD License]: https://opensource.org/licenses/BSD-2-Clause
-[Attribution-ShareAlike 4.0 International]: https://creativecommons.org/licenses/by-sa/4.0/
-[githubspec]: docs/index.adoc
-[spec]: https://modelica.github.io/fmi-ls-bus/main/
-[FMI LS Bus Implementers' Guide]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/
-[Getting started with CAN, CAN FD and CAN XL]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-getting-started-with-can
-[CAN, CAN FD and CAN XL Demo Overview]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-demos
+[header-tests-debug]: https://github.com/emvahle/fmi-ls-bus/actions/workflows/run-header-tests-Debug.yml
+[header-tests-release]: https://github.com/emvahle/fmi-ls-bus/actions/workflows/run-header-tests-Release.yml
