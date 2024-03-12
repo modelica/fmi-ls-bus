@@ -47,7 +47,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DMODULE_LIST="" ..
+          cmake -DCMAKE_BUILD_TYPE=Release ..
         working-directory: ./headers/tests
 
       - name: Build test project
