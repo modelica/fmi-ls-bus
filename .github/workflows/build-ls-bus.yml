@@ -3,8 +3,6 @@ name: Build Layered Standard Network Communication
 on:
   push:
     branches-ignore: [ 'temp/*' ]
-    paths-ignore:
-      - 'headers/tests'
     tags:
       - '*'
   pull_request:
@@ -35,8 +33,9 @@ jobs:
       uses: avattathil/asciidoctor-action@master
       with:
         program: "asciidoctor -D build --backend=html5 --attribute=revnumber=${{ env.REVNUMBER }} --attribute=revdate=$(date +%F) docs/index.adoc"
+      
     - name: copy images and examples
-      run: tar cf - docs/images docs/examples headers | tar xfC - build
+      run: tar cf - docs/images docs/examples headers --exclude=headers/tests/* | tar xfC - build
     - name: archive layered standard Network Communication
       uses: actions/upload-artifact@v3
       with:
