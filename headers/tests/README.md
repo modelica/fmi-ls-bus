@@ -16,7 +16,11 @@ Depending on how the files were structured when the code was initially written, 
 ### Add Module as Option in Debug Workflow
 The debug workflow ([run-header-tests-Debug]) provides the possibility to choose a subset of available modules to run tests for. In file [run-header-tests-Debug.yml][header-tests-debug-file], the module name needs to be added. It is important that the name is added **without blankspaces** in order for the workflow to run succesfully (**Correct**: line 9 - 'default: can;lin' **Wrong**: line 9 - 'default: can; lin). Also make sure that the module names are written in lowercase. In addition to this, the name needs to be added to the description in line 10 to the list of available modules.
 
+### Add Module to List in Release Workflow
+The release workflow is built with an empty module list since this workflow does not provide the possibility to select a subset of modules. Thus, the makefile fills the list with all available modules. In the [root makefile][makefile], the new module name needs to be added in line 14. **It is important that the seperate modules are listed with a blank space inbetween for the workflow to work correctly**.
+
 [header-tests-debug]: https://github.com/emvahle/fmi-ls-bus/actions/workflows/run-header-tests-Debug.yml
 [header-tests-release]: https://github.com/emvahle/fmi-ls-bus/actions/workflows/run-header-tests-Release.yml
 [test-folder]: https://github.com/emvahle/fmi-ls-bus/tree/main/headers/tests/test
 [helper-folder]: https://github.com/emvahle/fmi-ls-bus/tree/main/headers/tests/helper
+[makefile]: https://github.com/emvahle/fmi-ls-bus/blob/main/headers/tests/CMakeLists.txt
