@@ -9,8 +9,9 @@ set(tool_dest "bin")
 set(lib_dest "lib")
 set(include_dest "helper/hdr")
 
-if("${MODULE_LIST}" EQUAL "")
-    list(APPEND MODULE_LIST can)
+message(${CMAKE_BUILD_TYPE})
+if(${CMAKE_BUILD_TYPE} STREQUAL Release)
+    list(APPEND MODULE_LIST can)    
 endif()
 
 add_subdirectory(helper/src)
