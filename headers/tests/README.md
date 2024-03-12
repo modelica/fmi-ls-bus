@@ -8,62 +8,10 @@ To add tests for another module, a few files need to be added and altered. This 
 The files containing the test definitions according to gtest can are added in the subdirectory [tests/test][test-folder]. Each module has one file with all tests. The naming convention for files in this directory is 'fmi_3_ls_bus_header_tests_<MODULE>.cpp' with a lowercase module name (e.g. 'fmi_3_ls_bus_header_tests_can.cpp'). **The naming convention needs to be followed in order for the tests to run.**
 
 ### Add Helper Files
-It is possible to add helper code for the tests in order to reduce complexity and line count in the main test code. Such files can be added to the subdirectory [tests/helper][helper-folder]. Each module can have one helper code-file (added to subdirectory 'src') and one helper header-file (added to subdirectory 'hdr'). The naming convention for files in these directories is 'fmi_3_ls_bus_header_test_helper_<MODULE>.\[cpp/h\]' with a lowercase module name (e.g. 'fmi_3_ls_bus_header_tests_can.cpp'). **The naming convention needs to be followed in order for the tests to run.**
+It is possible to add helper code for the tests in order to reduce complexity and line count in the main test code. Such files can be added to the subdirectory [tests/helper][helper-folder]. Each module can have one helper code-file (added to subdirectory 'src') and one helper header-file (added to subdirectory 'hdr'). The naming convention for files in these directories is 'fmi_3_ls_bus_header_test_helper_<MODULE>.\[cpp/h\]' with a lowercase module name (e.g. 'fmi_3_ls_bus_header_test-helper_can.\[cpp/h\]'). **The naming convention needs to be followed in order for the tests to run.**
 
+### Adjust References to Other Files
+Depending on how the files were structured when the code was initially written, the paths to e.g. header files might not be correct anymore. 
 
-
-
-
-
-
-
-
-
-
-[![Build Specification](https://github.com/modelica/fmi-ls-bus/actions/workflows/build-ls-bus.yml/badge.svg)](https://github.com/modelica/fmi-ls-bus/actions/workflows/build-ls-bus.yml)
-
-This repository contains a current prototype draft for the FMI Layered
-Standard Network Communication (fmi-ls-bus) based on the 
-[Functional Mock-up Interface][FMI] 3.0 standard for the exchange of
-simulation models. Note that this draft is being worked on actively,
-and thus are subject to change without notice.
-
-This is currently not normative, nor is this document to be considered
-officially endorsed by the Modelica Association or other involved
-organisations prior to official adoption.
-
-The [FMI 3.0 Layered Standard Network Communication][spec] is currently
-maintained on [GitHub][githubspec] and is published [here][spec]. It is
-based on the [FMI][] standard.
-
-## Repository Structure
-- `docs` -- Sources of the specification document
-- `headers` -- Header files of the C-API
-- `schema` -- XSD schema for this FMI Layered
-Standard
-
-## Getting Started
-To help you get started, we provide introductory chapters.
-The following resources are currently available:
-
-* [Getting started with CAN, CAN FD and CAN XL]
-
-## Demos
-[Demo FMUs] are available within the [FMI LS Bus Implementers' Guide] to illustrate how to use and implement the fmi-ls bus.
-More demos will be added iteratively in the near future.
-See also the overview pages for the demos, categorized by the different supported bus types of the fmi-ls-bus.  
-
-* [CAN, CAN FD and CAN XL Demo Overview] 
-
-## FMI LS Bus Implementers' Guide
-The [FMI LS Bus Implementers' Guide] is a free resource intended to give non-normative recommendations and guidance to implementers of the Functional Mock-up Interface layered standard Network Communication (FMI-LS-BUS).
-
-## Copyright and License
-Code and documentation copyright (C) 2008-2011 the MODELISAR consortium and 2012-2024 the Modelica Association Project FMI.
-Code released under the [2-Clause BSD License].
-Docs released under [Attribution-ShareAlike 4.0 International].
-
-[header-tests-debug]: https://github.com/emvahle/fmi-ls-bus/actions/workflows/run-header-tests-Debug.yml
-[header-tests-release]: https://github.com/emvahle/fmi-ls-bus/actions/workflows/run-header-tests-Release.yml
-[test-folder]: https://github.com/emvahle/fmi-ls-bus/tree/main/headers/tests/test
-[test-folder]: https://github.com/emvahle/fmi-ls-bus/tree/main/headers/tests/helper
+### Add Module as Option in Debug Workflow
+The debug workflow ([run-header-tests-Debug]) provides the possibility to choose a subset of available modules to run tests for. In file [run-header-tests-Debug.yml][header-tests-debug-file], the module name needs to be added.
