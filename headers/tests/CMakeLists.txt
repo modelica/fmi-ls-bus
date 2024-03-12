@@ -2,7 +2,8 @@ cmake_minimum_required (VERSION 3.10.2)
 project (fmi_3_ls_bus_header_test)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -g -Wno-overflow")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -g")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-overflow")
 
 set(tool_dest "bin")
 set(lib_dest "lib")
