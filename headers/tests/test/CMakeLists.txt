@@ -9,7 +9,7 @@ foreach(module IN LISTS test_modules)
 endforeach()
 
 target_compile_definitions(${PROJECT_NAME}.test 
-  PRIVATE TEST_DIR="${CMAKE_CURRENT_LIST_DIR}/test" -Wno-sign-conversion)
+  PRIVATE TEST_DIR="${CMAKE_CURRENT_LIST_DIR}/test")
 target_compile_definitions(${PROJECT_NAME}.test 
   PRIVATE -Wno-sign-conversion)
 
