@@ -9,7 +9,7 @@ set(tool_dest "bin")
 set(lib_dest "lib")
 set(include_dest "helper/hdr")
 
-if(${MODULE_LIST} STREQUAL "")
+if("${MODULE_LIST}" STREQUAL "")
     list(APPEND MODULE_LIST can)    
 endif()
 
