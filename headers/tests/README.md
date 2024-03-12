@@ -1,7 +1,9 @@
-# Adding Tests for a New Module
+# Module Tests
 
+This directory
 
-
+## Adding Tests for a New Module
+To add tests for another module, a few files need to be added and altered.
 
 
 
