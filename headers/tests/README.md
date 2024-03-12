@@ -14,4 +14,4 @@ It is possible to add helper code for the tests in order to reduce complexity an
 Depending on how the files were structured when the code was initially written, the paths to e.g. header files might not be correct anymore. 
 
 ### Add Module as Option in Debug Workflow
-The debug workflow ([run-header-tests-Debug]) provides the possibility to choose a subset of available modules to run tests for. In file [run-header-tests-Debug.yml][header-tests-debug-file], the module name needs to be added.
+The debug workflow ([run-header-tests-Debug]) provides the possibility to choose a subset of available modules to run tests for. In file [run-header-tests-Debug.yml][header-tests-debug-file], the module name needs to be added. It is important that the name is added **without blankspaces** in order for the workflow to run succesfully (**Correct**: line 9 - 'default: can;lin' **Wrong**: line 9 - 'default: can; lin). Also make sure that the module names are written in lowercase.
