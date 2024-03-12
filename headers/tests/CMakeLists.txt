@@ -10,9 +10,12 @@ set(lib_dest "lib")
 set(include_dest "helper/hdr")
 
 message(LIST="${MODULE_LIST}")
+message("${MODULE_LIST}")
 if(NOT "${MODULE_LIST}")
     list(APPEND MODULE_LIST can)
+    message(IF)
 endif()
+message(LISTDNACH="${MODULE_LIST}")
 
 add_subdirectory(helper/src)
 add_subdirectory(test)
