@@ -1,4 +1,4 @@
- name: Run Tests for Module Header Files (Release)
+name: Run Tests for Module Header Files (Release)
 
 on:
   pull_request:
