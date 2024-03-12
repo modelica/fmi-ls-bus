@@ -5,7 +5,7 @@ on:
     inputs:
       modules: 
         type: string
-        required: true
+        required: false
         default: can
         description: Specify the modules you want to run tests for. Available is 'can'. Example':' 'can' (case sensitive).
 
