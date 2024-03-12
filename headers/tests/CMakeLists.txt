@@ -9,6 +9,7 @@ set(tool_dest "bin")
 set(lib_dest "lib")
 set(include_dest "helper/hdr")
 
+message(LIST="${MODULE_LIST}")
 if(NOT "${MODULE_LIST}")
     list(APPEND MODULE_LIST can)
 endif()
