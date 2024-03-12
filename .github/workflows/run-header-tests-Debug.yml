@@ -6,8 +6,8 @@ on:
       modules: 
         type: string
         required: true
-        default: can;can2
-        description: Specify the modules you want to run tests for. Available are 'can' and 'can2'. Example':' 'can;can2' (case sensitive).
+        default: can
+        description: Specify the modules you want to run tests for. Available is 'can'. Example':' 'can' (case sensitive).
 
 jobs:
   test-header-files:
