@@ -1,4 +1,4 @@
-name: Run Tests for Module Header Files (Release)
+ name: Run Tests for Module Header Files (Release)
 
 on:
   pull_request:
@@ -47,7 +47,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DMODULE_LIST=""..
+          cmake -DCMAKE_BUILD_TYPE=Release -DMODULE_LIST="" ..
         working-directory: ./headers/tests
 
       - name: Build test project
