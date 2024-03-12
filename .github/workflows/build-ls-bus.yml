@@ -3,10 +3,14 @@ name: Build Layered Standard Network Communication
 on:
   push:
     branches-ignore: [ 'temp/*' ]
+    paths-ignore:
+      - 'headers/tests'
     tags:
       - '*'
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - 'headers/tests'
 
 jobs:
   build-ls-bus:
