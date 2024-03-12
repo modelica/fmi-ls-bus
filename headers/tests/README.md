@@ -14,4 +14,9 @@ It is possible to add helper code for the tests in order to reduce complexity an
 Depending on how the files were structured when the code was initially written, the paths to e.g. header files might not be correct anymore. 
 
 ### Add Module as Option in Debug Workflow
-The debug workflow ([run-header-tests-Debug]) provides the possibility to choose a subset of available modules to run tests for. In file [run-header-tests-Debug.yml][header-tests-debug-file], the module name needs to be added. It is important that the name is added **without blankspaces** in order for the workflow to run succesfully (**Correct**: line 9 - 'default: can;lin' **Wrong**: line 9 - 'default: can; lin). Also make sure that the module names are written in lowercase.
+The debug workflow ([run-header-tests-Debug]) provides the possibility to choose a subset of available modules to run tests for. In file [run-header-tests-Debug.yml][header-tests-debug-file], the module name needs to be added. It is important that the name is added **without blankspaces** in order for the workflow to run succesfully (**Correct**: line 9 - 'default: can;lin' **Wrong**: line 9 - 'default: can; lin). Also make sure that the module names are written in lowercase. In addition to this, the name needs to be added to the description in line 10 to the list of available modules.
+
+[header-tests-debug]: https://github.com/emvahle/fmi-ls-bus/actions/workflows/run-header-tests-Debug.yml
+[header-tests-release]: https://github.com/emvahle/fmi-ls-bus/actions/workflows/run-header-tests-Release.yml
+[test-folder]: https://github.com/emvahle/fmi-ls-bus/tree/main/headers/tests/test
+[helper-folder]: https://github.com/emvahle/fmi-ls-bus/tree/main/headers/tests/helper
