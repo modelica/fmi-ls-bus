@@ -9,7 +9,7 @@ set(tool_dest "bin")
 set(lib_dest "lib")
 set(include_dest "helper/hdr")
 
-if(NOT "${MODULE_LIST}")
+if("${MODULE_LIST}" EQUAL "")
     list(APPEND MODULE_LIST can)
 endif()
 
