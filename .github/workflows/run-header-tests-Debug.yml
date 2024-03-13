@@ -6,7 +6,7 @@ on:
       modules: 
         type: string
         required: false
-        default: can;can2
+        default: can
         description: Specify the modules you want to run tests for. Available is 'can'. Example':' 'can' (case sensitive).
 
 jobs:

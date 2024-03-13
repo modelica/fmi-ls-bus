@@ -10,7 +10,7 @@ set(lib_dest "lib")
 set(include_dest "helper/hdr")
 
 if("${MODULE_LIST}" STREQUAL "")
-    list(APPEND MODULE_LIST can can2)
+    list(APPEND MODULE_LIST can)
 endif()
 
 add_subdirectory(helper/src)
