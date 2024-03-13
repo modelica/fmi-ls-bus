@@ -1,6 +1,7 @@
 name: Build Layered Standard Network Communication
 
 on:
+  workflow_dispatch:
   push:
     branches-ignore: [ 'temp/*' ]
     tags:
