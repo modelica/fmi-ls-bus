@@ -6,7 +6,7 @@
 #pragma warning(disable : 4244)
 #endif
 
-void CheckCanTransmitOperation(long long int id, int ide, int rtr, fmi3UInt8 data[], bool correctData)
+void CheckCanTransmitOperation(long long int id, int ide, int rtr, int dataSize, fmi3UInt8 data[], bool correctData)
 	{
 		// Create data needed for creation.
 		fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -21,7 +21,7 @@ void CheckCanTransmitOperation(long long int id, int ide, int rtr, fmi3UInt8 dat
 		FMI3_LS_BUS_BUFFER_INFO_INIT(&secondBufferInfo, rxData, sizeof(rxData));
 
 		// Create operation.
-		FMI3_LS_BUS_CAN_CREATE_OP_CAN_TRANSMIT(&firstBufferInfo, id, ide, rtr, sizeof(data), data);
+		FMI3_LS_BUS_CAN_CREATE_OP_CAN_TRANSMIT(&firstBufferInfo, id, ide, rtr, dataSize, data);
 
 		// Write operation to a second buffer.
 		FMI3_LS_BUS_BUFFER_WRITE(&secondBufferInfo, txData, sizeof(txData));
@@ -39,8 +39,8 @@ void CheckCanTransmitOperation(long long int id, int ide, int rtr, fmi3UInt8 dat
 		EXPECT_EQ(operation->id, id * multiplier);
 		EXPECT_EQ(operation->ide, ide * multiplier);
 		EXPECT_EQ(operation->rtr, rtr * multiplier);
-		EXPECT_EQ(operation->dataLength, sizeof(data));
-		for (int i = 0; i < sizeof(data); i++)
+		EXPECT_EQ(operation->dataLength, dataSize);
+		for (int i = 0; i < dataSize; i++)
 		{
 			EXPECT_EQ(operation->data[i], data[i]);
 		}
@@ -50,7 +50,7 @@ void CheckCanTransmitOperation(long long int id, int ide, int rtr, fmi3UInt8 dat
 		return "Hello world from 'github-actions-gtest-example' project";
 	}
 
-void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fmi3UInt8 data[], bool correctData)
+void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, int dataSize, fmi3UInt8 data[], bool correctData)
 	{
 		// Create data needed for creation.
 		fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -64,7 +64,7 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fm
 		FMI3_LS_BUS_BUFFER_INFO_INIT(&secondBufferInfo, rxData, sizeof(rxData));
 
 		// Create operation.
-		FMI3_LS_BUS_CAN_CREATE_OP_CAN_FD_TRANSMIT(&firstBufferInfo, id, ide, brs, esi, sizeof(data), data);
+		FMI3_LS_BUS_CAN_CREATE_OP_CAN_FD_TRANSMIT(&firstBufferInfo, id, ide, brs, esi, dataSize, data);
 
 		// Write operation to a second buffer.
 		FMI3_LS_BUS_BUFFER_WRITE(&secondBufferInfo, txData, sizeof(txData));
@@ -83,14 +83,14 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, fm
 		EXPECT_EQ(operation->ide, ide * multiplier);
 		EXPECT_EQ(operation->brs, brs * multiplier);
 		EXPECT_EQ(operation->esi, esi * multiplier);
-		EXPECT_EQ(operation->dataLength, sizeof(data));
-		for (int i = 0; i < sizeof(data); i++)
+		EXPECT_EQ(operation->dataLength, dataSize);
+		for (int i = 0; i < dataSize; i++)
 		{
 			EXPECT_EQ(operation->data[i], data[i]);
 		}
 	}
 
-void CheckCanXlTransmitOperation(long long int id, int ide, int sec, int sdt, int vcid, long long int af, fmi3UInt8 data[], bool correctData)
+void CheckCanXlTransmitOperation(long long int id, int ide, int sec, int sdt, int vcid, long long int af, int dataSize, fmi3UInt8 data[], bool correctData)
 	{
 		// Create data needed for creation.
 		fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -104,7 +104,7 @@ void CheckCanXlTransmitOperation(long long int id, int ide, int sec, int sdt, in
 		FMI3_LS_BUS_BUFFER_INFO_INIT(&secondBufferInfo, rxData, sizeof(rxData));
 
 		// Create operation.
-		FMI3_LS_BUS_CAN_CREATE_OP_CAN_XL_TRANSMIT(&firstBufferInfo, id, ide, sec, sdt, vcid, af, sizeof(data), data);
+		FMI3_LS_BUS_CAN_CREATE_OP_CAN_XL_TRANSMIT(&firstBufferInfo, id, ide, sec, sdt, vcid, af, dataSize, data);
 
 		// Write operation to a second buffer.
 		FMI3_LS_BUS_BUFFER_WRITE(&secondBufferInfo, txData, sizeof(txData));
@@ -125,8 +125,8 @@ void CheckCanXlTransmitOperation(long long int id, int ide, int sec, int sdt, in
 		EXPECT_EQ(operation->sdt, sdt * multiplier);
 		EXPECT_EQ(operation->vcid, vcid * multiplier);
 		EXPECT_EQ(operation->af, af * multiplier);
-		EXPECT_EQ(operation->dataLength, sizeof(data));
-		for (int i = 0; i < sizeof(data); i++)
+		EXPECT_EQ(operation->dataLength, dataSize);
+		for (int i = 0; i < dataSize; i++)
 		{
 			EXPECT_EQ(operation->data[i], data[i]);
 		}
