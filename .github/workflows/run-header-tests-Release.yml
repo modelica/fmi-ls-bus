@@ -40,7 +40,7 @@ jobs:
           sudo apt-get install libgtest-dev
       - uses: actions/checkout@v1
 
-      - name: configure as Release
+      - name: Configure as Release
         run: |
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DMODULE_LIST="" ..
         working-directory: ./headers/tests
