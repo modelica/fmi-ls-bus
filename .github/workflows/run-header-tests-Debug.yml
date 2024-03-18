@@ -3,7 +3,7 @@ name: Run Tests for Module Header Files (Debug)
 on:
   workflow_dispatch:
     inputs:
-      modules: 
+      modules:
         type: string
         required: false
         default: can
@@ -28,14 +28,14 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake -DCMAKE_BUILD_TYPE=Debug -DMODULE_LIST="${{inputs.modules}}" ..
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DMODULE_LIST="${{inputs.modules}}" ..
       working-directory: ./headers/tests
 
     - name: Build test project
-      run: |
-        cd build
-        make
-      working-directory: ./headers/tests
+      run: cmake --build .
+      working-directory: ./headers/tests/build
 
     - name: Execute tests
-      run: /home/runner/work/fmi-ls-bus/fmi-ls-bus/headers/tests/build/test/fmi_3_ls_bus_header_test.test
+      run: |
+        ctest
+      working-directory: ./headers/tests/build

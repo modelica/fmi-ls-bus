@@ -1,4 +1,4 @@
-#include <../hdr/fmi_3_ls_bus_header_test_helper_can.h>
+#include "fmi_3_ls_bus_header_test_helper_can.h"
 #include <gtest/gtest.h>
 
 #ifdef _MSC_VER
@@ -84,7 +84,7 @@ TEST(Fmi3LsBusCanFdTransmit, sizeError)
 TEST(Fmi3LsBusCanXlTransmit, minValues) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckCanXlTransmitOperation(0, 0, 0, 0, 0, 0, sizeof(data), data, true);	
+	CheckCanXlTransmitOperation(0, 0, 0, 0, 0, 0, sizeof(data), data, true);
 }
 
 /**
