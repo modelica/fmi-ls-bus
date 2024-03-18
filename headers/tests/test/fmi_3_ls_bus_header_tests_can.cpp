@@ -10,6 +10,7 @@
 #ifdef __GNUC__
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Woverflow"
+#endif
 
 /**
  * \brief Test for the CAN Transmit operation with smallest valid values.
