@@ -46,9 +46,6 @@ void CheckCanTransmitOperation(long long int id, int ide, int rtr, int dataSize,
 		}
 	}
 
-	std::string sayHello() {
-		return "Hello world from 'github-actions-gtest-example' project";
-	}
 
 void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, int dataSize, fmi3UInt8 data[], bool correctData)
 	{

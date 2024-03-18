@@ -7,7 +7,7 @@ on:
         type: string
         required: false
         default: can
-        description: Specify the modules you want to run tests for. Available is 'can'. Example':' 'can' (case sensitive).
+        description: Specify the modules you want to run tests for seperated by semicolons. Available is 'can'. Example':' 'can' (case sensitive).
 
 jobs:
   test-header-files:

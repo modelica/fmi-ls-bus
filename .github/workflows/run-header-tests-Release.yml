@@ -48,9 +48,10 @@ jobs:
       - name: Build test project
         run: |
           cmake --build .
-        working-directory: ./headers/tests
+        working-directory: ./headers/tests/build
 
       - name: Execute tests
         run: |
           ctest
+          
         working-directory: ./headers/tests/build

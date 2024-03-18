@@ -140,5 +140,3 @@ void CheckFormatErrorOperation(Operation operationType);
  */
 void CheckDataSizeError(Operation operation);
 
-std::string sayHello();
-
