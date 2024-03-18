@@ -22,6 +22,7 @@ enum Operation { CanTransmit, CanFdTransmit, CanXlTransmit, Confirm, Configurati
  * \param[in] id          The id of the CAN Transmit operation.
  * \param[in] ide         The ide of the CAN Transmit operation.
  * \param[in] rtr         The rtr of the CAN Transmit operation.
+ * \param[in] dataSize    The size of array data.
  * \param[in] data        The data of the CAN Transmit operation.
  * \param[in] correctData Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
@@ -34,6 +35,7 @@ void CheckCanTransmitOperation(long long int id, int ide, int rtr, int dataSize,
  * \param[in] ide         The ide of the Can FD Transmit operation.
  * \param[in] brs         The brs of the Can FD Transmit operation.
  * \param[in] esi         The rtr of the CAN FD Transmit operation.
+ * \param[in] dataSize    The size of array data.
  * \param[in] data        The data of the CAN FD Transmit operation.
  * \param[in] correctData Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
@@ -48,6 +50,7 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, in
  * \param[in] sdt         The sdt of the CAN XL Transmit operation.
  * \param[in] vcid        The vcid of the CAN XL Transmit operation.
  * \param[in] af          The af of the CAN XL Transmit operation.
+ * \param[in] dataSize    The size of array data.
  * \param[in] data        The data of the CAN XL Transmit operation.
  * \param[in] correctData Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
