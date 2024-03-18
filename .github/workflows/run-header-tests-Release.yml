@@ -36,8 +36,8 @@ jobs:
     steps:
       - name: Install googletest
         run: |
-        set -e
-        sudo apt-get install libgtest-dev
+          set -e
+          sudo apt-get install libgtest-dev
       - uses: actions/checkout@v1
 
       - name: configure as Release
