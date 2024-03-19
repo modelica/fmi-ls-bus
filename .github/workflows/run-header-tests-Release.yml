@@ -3,34 +3,12 @@ name: Run Tests for Module Header Files (Release)
 on:
   pull_request:
     branches: [ main ]
+    paths:
+      - 'headers/test/*.h'
 
 jobs:
-  header-file-collector:
-    runs-on: ubuntu-latest
-    name: Get changed header files
-    outputs:
-      any-header-files: ${{ steps.check-for-header-files.outputs.any-header-files }}
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Get all changed header files
-        id: changed-header-files
-        uses: tj-actions/changed-files@v42
-        with:
-          files: |
-            **.h
-
-      - name: Check for header files
-        id: check-for-header-files
-        run: echo "any-header-files=${{ steps.changed-header-files.outputs.any_changed }}" >> $GITHUB_OUTPUT
-
-  test-header-files:
-    needs: header-file-collector
+    test-header-files:
     name: Test changed header files
-    if: needs.header-file-collector.outputs.any-header-files == 'true'
     runs-on: ubuntu-latest
 
     steps:
