@@ -1,0 +1,37 @@
+name: Run Tests for Module Header Files (Debug)
+
+on:
+  workflow_dispatch:
+    inputs:
+      modules:
+        type: string
+        required: false
+        default: can
+        description: Specify the modules you want to run tests for seperated by semicolons. Available is 'can'. Example':' 'can' (case sensitive).
+
+jobs:
+  test-header-files:
+    name: Test changed module header files
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install googletest
+      run: |
+        set -e
+        sudo apt-get install libgtest-dev
+    - uses: actions/checkout@v1
+
+    - name: Configure
+      run: |
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DMODULE_LIST="${{inputs.modules}}" ..
+      working-directory: ./headers/tests
+
+    - name: Build test project
+      run: |
+        cmake --build .
+      working-directory: ./headers/tests/build
+
+    - name: Execute tests
+      run: |
+        ctest
+      working-directory: ./headers/tests/build
