@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10.2)
 project(fmi_3_ls_bus_header_test)
 
 if("${MODULE_LIST}" STREQUAL "")
-    list(APPEND MODULE_LIST can)
+    list(APPEND MODULE_LIST can can2)
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
