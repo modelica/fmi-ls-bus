@@ -15,7 +15,7 @@ target_link_libraries(${PROJECT_NAME} GTest::gtest GTest::gtest_main)
 
 target_include_directories(${PROJECT_NAME} PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/helper/hdr
-  ${CMAKE_CURRENT_SOURCE_DIR}/..)
+  ${CMAKE_CURRENT_SOURCE_DIR}/../headers)
 
 foreach(module IN LISTS MODULE_LIST)
   # Add helper and test code for module

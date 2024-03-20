@@ -14,6 +14,7 @@ on:
       - main
     paths:
       - 'headers/**'
+      - 'tests/**'
 
 jobs:
   test-header-files:
@@ -30,14 +31,14 @@ jobs:
     - name: Configure
       run: |
         cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DMODULE_LIST="${{inputs.modules}}" ..
-      working-directory: ./headers/tests
+      working-directory: ./tests
 
     - name: Build test project
       run: |
         cmake --build .
-      working-directory: ./headers/tests/build
+      working-directory: ./tests/build
 
     - name: Execute tests
       run: |
         ctest
-      working-directory: ./headers/tests/build
+      working-directory: ./tests/build
