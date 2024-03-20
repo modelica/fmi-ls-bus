@@ -10,7 +10,6 @@ on:
 
   pull_request:
     branches:
-      - integrationtests-for-ls-bus-header
       - main
     paths:
       - 'headers/**'
@@ -27,6 +26,19 @@ jobs:
         set -e
         sudo apt-get install libgtest-dev
     - uses: actions/checkout@v1
+
+    - name: Partly checkout fmi-standard Repository
+      uses: actions/checkout@v4
+      with:
+        repository: modelica/fmi-standard
+        ref: refs/heads/main
+        path: fmi-standard
+        sparse-checkout: headers/fmi3PlatformTypes.h
+        sparse-checkout-cone-mode: false
+
+    - name: Copy fmi3PlatformTypes.h
+      run: |
+        cp $GITHUB_WORKSPACE/fmi-standard/headers/fmi3PlatformTypes.h $GITHUB_WORKSPACE/headers
 
     - name: Configure
       run: |
