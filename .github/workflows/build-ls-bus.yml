@@ -33,7 +33,7 @@ jobs:
         program: "asciidoctor -D build --backend=html5 --attribute=revnumber=${{ env.REVNUMBER }} --attribute=revdate=$(date +%F) docs/index.adoc"
       
     - name: copy images and examples
-      run: tar --exclude=headers/tests/* -c headers -C docs images examples | tar xfC - build
+      run: tar cfC - docs images examples | tar xfC - build
     - name: archive layered standard Network Communication
       uses: actions/upload-artifact@v3
       with:
