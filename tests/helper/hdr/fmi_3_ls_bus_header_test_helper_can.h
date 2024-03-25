@@ -26,7 +26,7 @@ enum Operation { CanTransmit, CanFdTransmit, CanXlTransmit, Confirm, Configurati
  * \param[in] data        The data of the CAN Transmit operation.
  * \param[in] correctData Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
-void CheckCanTransmitOperation(long long int id, int ide, int rtr, int dataSize, fmi3UInt8 data[], bool correctData);
+void CheckCanTransmitOperation(long long int id, int ide, int rtr, size_t dataSize, fmi3UInt8 data[], bool correctData);
 
 /**
  * \brief Checks if the CAN FD Transmit operation is created correctly by the corresponding macro.
@@ -39,7 +39,7 @@ void CheckCanTransmitOperation(long long int id, int ide, int rtr, int dataSize,
  * \param[in] data        The data of the CAN FD Transmit operation.
  * \param[in] correctData Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
-void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, int dataSize, fmi3UInt8 data[], bool correctData);
+void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, size_t dataSize, fmi3UInt8 data[], bool correctData);
 
 /**
  * \brief Checks if the CAN XL Transmit operation is created correctly by the corresponding macro.
@@ -54,7 +54,7 @@ void CheckCanFdTransmitOperation(long long int id, int ide, int brs, int esi, in
  * \param[in] data        The data of the CAN XL Transmit operation.
  * \param[in] correctData Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
-void CheckCanXlTransmitOperation(long long int id, int ide, int sec, int sdt, int vcid, long long int af, int dataSize, fmi3UInt8 data[], bool correctData);
+void CheckCanXlTransmitOperation(long long int id, int ide, int sec, int sdt, int vcid, long long int af, size_t dataSize, fmi3UInt8 data[], bool correctData);
 
 /**
  * \brief Checks if the Confirm operation is created correctly by the corresponding macro.

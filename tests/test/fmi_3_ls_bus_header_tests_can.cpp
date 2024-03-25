@@ -1083,7 +1083,7 @@ TEST(Fmi3LsBusCombinationTest, maxValues) {
 	EXPECT_EQ(canTransmitOperation->ide, UINT8_MAX);
 	EXPECT_EQ(canTransmitOperation->rtr, UINT8_MAX);
 	EXPECT_EQ(canTransmitOperation->dataLength, sizeof(data));
-	for (int i = 0; i < sizeof(data); i++)
+	for (size_t i = 0; i < sizeof(data); i++)
 	{
 		EXPECT_EQ(canTransmitOperation->data[i], data[i]);
 	}
@@ -1095,7 +1095,7 @@ TEST(Fmi3LsBusCombinationTest, maxValues) {
 	EXPECT_EQ(canFdTransmitOperation->brs, UINT8_MAX);
 	EXPECT_EQ(canFdTransmitOperation->esi, UINT8_MAX);
 	EXPECT_EQ(canFdTransmitOperation->dataLength, sizeof(data));
-	for (int i = 0; i < sizeof(data); i++)
+	for (size_t i = 0; i < sizeof(data); i++)
 	{
 		EXPECT_EQ(canFdTransmitOperation->data[i], data[i]);
 	}
@@ -1110,7 +1110,7 @@ TEST(Fmi3LsBusCombinationTest, maxValues) {
 	EXPECT_EQ(canXlTransmitOperation->vcid, UINT8_MAX);
 	EXPECT_EQ(canXlTransmitOperation->af, UINT32_MAX);
 	EXPECT_EQ(canXlTransmitOperation->dataLength, sizeof(data));
-	for (int i = 0; i < sizeof(data); i++)
+	for (size_t i = 0; i < sizeof(data); i++)
 	{
 		EXPECT_EQ(canXlTransmitOperation->data[i], data[i]);
 	}
@@ -1159,7 +1159,7 @@ TEST(Fmi3LsBusCombinationTest, maxValues) {
 	EXPECT_EQ(canTransmitOperation->ide, UINT8_MAX);
 	EXPECT_EQ(canTransmitOperation->rtr, UINT8_MAX);
 	EXPECT_EQ(canTransmitOperation->dataLength, sizeof(data));
-	for (int i = 0; i < sizeof(data); i++)
+	for (size_t i = 0; i < sizeof(data); i++)
 	{
 		EXPECT_EQ(canTransmitOperation->data[i], data[i]);
 	}
@@ -1216,7 +1216,7 @@ TEST(Fmi3LsBusCombinationTest, maxAndWrongValues) {
 	EXPECT_EQ(canTransmitOperation->ide, 0);
 	EXPECT_EQ(canTransmitOperation->rtr, 0);
 	EXPECT_EQ(canTransmitOperation->dataLength, sizeof(data));
-	for (int i = 0; i < sizeof(data); i++)
+	for (size_t i = 0; i < sizeof(data); i++)
 	{
 		EXPECT_EQ(canTransmitOperation->data[i], data[i]);
 	}
@@ -1228,7 +1228,7 @@ TEST(Fmi3LsBusCombinationTest, maxAndWrongValues) {
 	EXPECT_EQ(canFdTransmitOperation->brs, UINT8_MAX);
 	EXPECT_EQ(canFdTransmitOperation->esi, UINT8_MAX);
 	EXPECT_EQ(canFdTransmitOperation->dataLength, sizeof(data));
-	for (int i = 0; i < sizeof(data); i++)
+	for (size_t i = 0; i < sizeof(data); i++)
 	{
 		EXPECT_EQ(canFdTransmitOperation->data[i], data[i]);
 	}
@@ -1242,7 +1242,7 @@ TEST(Fmi3LsBusCombinationTest, maxAndWrongValues) {
 	EXPECT_EQ(canXlTransmitOperation->sdt, 0);
 	EXPECT_EQ(canXlTransmitOperation->af, 0);
 	EXPECT_EQ(canXlTransmitOperation->dataLength, sizeof(data));
-	for (int i = 0; i < sizeof(data); i++)
+	for (size_t i = 0; i < sizeof(data); i++)
 	{
 		EXPECT_EQ(canXlTransmitOperation->data[i], data[i]);
 	}
@@ -1291,7 +1291,7 @@ TEST(Fmi3LsBusCombinationTest, maxAndWrongValues) {
 	EXPECT_EQ(canTransmitOperation->ide, 0);
 	EXPECT_EQ(canTransmitOperation->rtr, 0);
 	EXPECT_EQ(canTransmitOperation->dataLength, sizeof(data));
-	for (int i = 0; i < sizeof(data); i++)
+	for (size_t i = 0; i < sizeof(data); i++)
 	{
 		EXPECT_EQ(canTransmitOperation->data[i], data[i]);
 	}

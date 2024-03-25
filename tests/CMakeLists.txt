@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.10.2)
 project(fmi_3_ls_bus_header_test)
 
-if("${MODULE_LIST}" STREQUAL "")
-    list(APPEND MODULE_LIST can)
+if("${MODULE_LIST}" STREQUAL "all")
+  list(REMOVE_ITEM MODULE_LIST all)
+  list(APPEND MODULE_LIST can)
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
@@ -12,7 +13,7 @@ find_package(GTest REQUIRED)
 
 add_executable(${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME} GTest::gtest GTest::gtest_main)
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)
+target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra)
 
 target_include_directories(${PROJECT_NAME} PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/helper/hdr

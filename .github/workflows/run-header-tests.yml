@@ -6,7 +6,8 @@ on:
       modules:
         type: string
         required: false
-        description: Specify the modules you want to run tests for seperated by semicolons. Available is 'can'. Example':' 'can' (case sensitive).
+        default: all
+        description: Specify the modules you want to run tests for seperated by semicolons. Available is 'can'. Example':' 'can' (case sensitive). If you want to run all available tests, the default option ('all') can be confirmed.
 
   pull_request:
     branches:
