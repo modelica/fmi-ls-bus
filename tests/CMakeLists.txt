@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10.2)
 project(fmi_3_ls_bus_header_test)
 
-if("${MODULE_LIST}" STREQUAL "all")
+if("${MODULE_LIST}" STREQUAL "all" OR "${MODULE_LIST}" STREQUAL "")
   list(REMOVE_ITEM MODULE_LIST all)
   list(APPEND MODULE_LIST can)
 endif()
