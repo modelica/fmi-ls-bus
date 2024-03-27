@@ -37,10 +37,6 @@ jobs:
         sparse-checkout: headers/fmi3PlatformTypes.h
         sparse-checkout-cone-mode: false
 
-    - name: Copy fmi3PlatformTypes.h
-      run: |
-        cp $GITHUB_WORKSPACE/fmi-standard/headers/fmi3PlatformTypes.h $GITHUB_WORKSPACE/headers
-
     - name: Configure
       run: |
         cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DMODULE_LIST="${{inputs.modules}}" ..
