@@ -1,0 +1,53 @@
+name: Run Tests for Module Header Files
+
+on:
+  workflow_dispatch:
+    inputs:
+      modules:
+        type: string
+        required: false
+        default: all
+        description: Specify the modules you want to run tests for seperated by semicolons. Available is 'can'. Example':' 'can' (case sensitive). If you want to run all available tests, the default option ('all') can be confirmed.
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'headers/**'
+      - 'tests/**'
+
+jobs:
+  test-header-files:
+    name: Test module header files
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install googletest
+      run: |
+        set -e
+        sudo apt-get install libgtest-dev
+    - uses: actions/checkout@v1
+
+    - name: Partly checkout fmi-standard Repository
+      uses: actions/checkout@v4
+      with:
+        repository: modelica/fmi-standard
+        ref: refs/heads/main
+        path: fmi-standard
+        sparse-checkout: headers/fmi3PlatformTypes.h
+        sparse-checkout-cone-mode: false
+
+    - name: Configure
+      run: |
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DMODULE_LIST="${{inputs.modules}}" ..
+      working-directory: ./tests
+
+    - name: Build test project
+      run: |
+        cmake --build .
+      working-directory: ./tests/build
+
+    - name: Execute tests
+      run: |
+        ctest
+      working-directory: ./tests/build
