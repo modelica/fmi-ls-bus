@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 638e3fa,</span>
-<span id="revdate">2024-03-27</span>
+<span id="revnumber">version 8219705,</span>
+<span id="revdate">2024-04-19</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -2169,7 +2169,7 @@ If the specified FMU is connected to more than one network, there shall be exact
     &lt;Binary name="Powertrain.Rx_Data" valueReference="1001" causality="input"
         mimeType="org.fmi-standard.fmi-ls-bus.v1.can" variability="discrete" clocks="1002"/&gt;
     &lt;Clock name="Powertrain.Tx_Clock" valueReference="1004"
-        causality="output" variability="discrete" interval="aperiodic"/&gt;
+        causality="input" variability="discrete" interval="aperiodic"/&gt;
     &lt;Binary name="Powertrain.Tx_Data" valueReference="1003" causality="output"
         mimeType="org.fmi-standard.fmi-ls-bus.v1.can" variability="discrete" clocks="1004"/&gt;
   &lt;/ModelVariables&gt;
