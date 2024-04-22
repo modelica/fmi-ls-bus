@@ -1,7 +1,7 @@
-== Network Abstraction ("low cut") [[network-abstraction]]
+== Network Abstraction ("low cut") [[low-cut]]
 This chapter describes the network abstraction or "low cut" in detail.
 
-=== Overview
+=== Overview [[low-cut-overview]]
 The network abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
 Exchanging data in terms of the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> via variables grouped by a dedicated bus terminal (see <<low-cut-variables>>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
 During simulation, the network communication is controlled by send and receive Bus Operations.
@@ -252,7 +252,6 @@ Pending Tx data shall be signaled by returning from `fmi3DoStep` with the `event
 [#low-cut-triggered-port-connection]
 image::low_cut_communication_with_triggered_tx_clock.svg[width=100%, align="center"]
 
-
 ==== Rx Clock Variables [[low-cut-rx-clock-variables]]
 The input Clocks (`Rx_Clock`) shall be `triggered` Clocks.
 
@@ -262,14 +261,14 @@ If no Bus Operations shall be sent by a specified Network FMU at a given Bus Com
 The senders can choose how many Bus Operations are buffered and/or for how long operations are buffered before activating an output Clock to trigger the actual sending of these operations.
 This allows senders to trade accuracy for speed: buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication.
 
-==== Selecting the type of Tx Clock[[low-cut-selecting-tx-variables]]
+==== Selecting the type of Tx Clock [[low-cut-selecting-tx-variables]]
 Selecting suitable Tx variables allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:
 
  - While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` will reduce the network simulation speed.
  - Using `periodic` Clocks and queueing the operations to be transmitted reduces the number of `Event Mode` entries and speeds up the simulation at the cost of simulation accuracy.
  - One could use (structural) parameters to define the accuracy of `aperiodic` Clocks, allowing control of the simulation accuracy and performance with the same FMU.
 
-==== MIME Types
+==== MIME Types [[low-cut-mime-types]]
 Within FMI, every binary FMI variable has a `mimeType`, which indicates the type of data passed as a binary.
 This type indicates which specific bus type is involved.
 It ensures that only bus types of the same type can be interconnected, since FMI only allows the connection of two MIME types of the same binary variables.
@@ -305,7 +304,7 @@ The version number marks the set of available operations.
 Only the major version is included by the specified MIME type.
 The versioning follows the rules of semantic versioning, as defined in <<PW13>>.
 
-=== Terminal Definitions
+=== Terminal Definitions [[low-cut-terminal-definitions]]
 This section defines terminals for network abstraction or "low cut".
 
 ==== Bus Terminal [[low-cut-bus-terminal,bus terminal]]

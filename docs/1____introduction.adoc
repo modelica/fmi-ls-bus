@@ -1,6 +1,6 @@
-== Introduction
+== Introduction [[introduction]]
 
-=== Intent of This Document
+=== Intent of This Document [[introduction-intent-of-this-document]]
 
 Automotive CAN, LIN, FlexRay, CAN FD, CAN XL and Ethernet are network technologies that have been applied successfully over many years by all automotive OEMs world wide.
 Virtualizing electronic control units (ECUs) and then simulating multiple such virtual ECUs requires connecting them using a virtual version of these network technologies.
@@ -27,7 +27,7 @@ Other FMUs that want to emulate bus communication provide and relate network inf
 This communication architecture can be operated by a common FMU importer and allows complex and detailed bus simulations.
 * Importer with Integrated Bus Simulation: Works analogously to the Composition with dedicated Bus Simulation FMU architecture, whereby the Bus Simulation FMU is directly integrated into an importer or other simulator.
 
-=== System Simulation Effects
+=== System Simulation Effects [[introduction-system-simulation-effects]]
 
 This standard allows a highly accurate bus simulation using FMI 3.0 mechanisms.
 To profit from such accuracy on a system level to predict system behavior, all system simulation components must provide at least that level of accuracy.
@@ -41,7 +41,7 @@ With virtual ECUs using the zero-time execution model footnote:[Simulated tasks 
 More detailed models (like instruction set simulators or even System-C models of the hardware) can narrow the window for these events significantly.
 However, current (as of writing this standard) modelling technologies do not allow practical (modelling time and run time) implementations of virtual ECUs that can be used to simulate all realistic bus simulation effects (e.g. collision/arbitration events).
 
-=== How to Read This Document
+=== How to Read This Document [[introduction-how-to-read-this-document]]
 
 Conventions used in this document:
 
@@ -53,13 +53,13 @@ To keep the standard itself brief, the https://modelica.github.io/fmi-guides/mai
 It contains further technical discussions and examples on how to implement certain aspects of the standard for both FMUs and importers.
 Contrary to the standard, the FMI LS BUS Implementer’s Guide will be a living document, enhanced with further tips and tricks as the FMI community encounters them.
 
-=== Remarks
+=== Remarks [[introduction-remarks]]
 
 This layered standard currently only refers to the FMI for Co-Simulation (CS).
 At the current time, Model Exchange (ME) and Scheduled Execution (SE) are not taken into account.
 All explanations in this document are therefore to be understood in the context of FMI for Co-Simulation (CS).
 
-== Layered Standard Manifest File
+== Layered Standard Manifest File [[layered-standard-manifest-file]]
 
 This layered standard defines requires the use of a layered standard manifest file and <<table-schema-fmi-ls-bus-attributes>> shows the content of `fmi-ls-manifest.xml`.
 

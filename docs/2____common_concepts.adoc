@@ -1,4 +1,4 @@
-== Common Concepts
+== Common Concepts [[common-concepts]]
 
 Physical signal abstraction ("high cut") and network abstraction ("low cut") layers represent different levels for the exchange of bus messages.
 Physical signal abstraction focuses primarily on the exchange of signal values, while network abstraction provides a complete way of implementing a virtual bus driver.
