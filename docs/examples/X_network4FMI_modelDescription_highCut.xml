@@ -3,14 +3,14 @@
     instantiationToken="Network4FMI">
   <ModelVariables>
     <Clock name="Powertrain.tcuSensors_Clock" valueReference="1007"
-        causality="input" variability="discrete" interval="triggered"/>
+        causality="input" variability="discrete" intervalVariability="triggered"/>
     <Float64 name="Powertrain.tcuSensors.tcuSensors.vCar" valueReference="1005"
         causality="input" variability="discrete" start="0" clocks="1007"/>
     <Float64 name="Powertrain.tcuSensors.tcuSensors.oilTemp" valueReference="1006"
         causality="input" variability="discrete" start="20" clocks="1007"/>
 
     <Clock name="Powertrain.tcuState_Clock" valueReference="1011"
-        causality="input" variability="discrete" interval="triggered"/>
+        causality="input" variability="discrete" intervalVariability="triggered"/>
     <Float64 name="Powertrain.tcuState.tcuState.state" valueReference="1008"
         causality="input" variability="discrete" start="0" clocks="1011"/>
     <Float64 name="Powertrain.tcuState.tcuState.gear" valueReference="1009"
@@ -19,7 +19,7 @@
         causality="input" variability="discrete" start="0" clocks="1011"/>
 
     <Clock name="Powertrain.ecuState_Clock" valueReference="1016"
-        causality="output" variability="discrete" interval="triggered"/>
+        causality="output" variability="discrete" intervalVariability="triggered"/>
     <Float64 name="Powertrain.ecuState.ecuState.accelPedal" valueReference="1012"
         causality="output" variability="discrete" start="0" clocks="1016"/>
     <Float64 name="Powertrain.ecuState.ecuState.k15" valueReference="1013"
