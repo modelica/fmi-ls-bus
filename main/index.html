@@ -587,22 +587,22 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version e870093,</span>
+<span id="revnumber">version c1c6145,</span>
 <span id="revdate">2024-04-22</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_introduction">1. Introduction</a>
+<li><a href="#introduction">1. Introduction</a>
 <ul class="sectlevel2">
-<li><a href="#_intent_of_this_document">1.1. Intent of This Document</a></li>
-<li><a href="#_system_simulation_effects">1.2. System Simulation Effects</a></li>
-<li><a href="#_how_to_read_this_document">1.3. How to Read This Document</a></li>
-<li><a href="#_remarks">1.4. Remarks</a></li>
+<li><a href="#introduction-intent-of-this-document">1.1. Intent of This Document</a></li>
+<li><a href="#introduction-system-simulation-effects">1.2. System Simulation Effects</a></li>
+<li><a href="#introduction-how-to-read-this-document">1.3. How to Read This Document</a></li>
+<li><a href="#introduction-remarks">1.4. Remarks</a></li>
 </ul>
 </li>
-<li><a href="#_layered_standard_manifest_file">2. Layered Standard Manifest File</a></li>
-<li><a href="#_common_concepts">3. Common Concepts</a>
+<li><a href="#layered-standard-manifest-file">2. Layered Standard Manifest File</a></li>
+<li><a href="#common-concepts">3. Common Concepts</a>
 <ul class="sectlevel2">
 <li><a href="#common-concepts-system-compositions">3.1. System Compositions</a>
 <ul class="sectlevel3">
@@ -614,17 +614,17 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#common-concepts-provided-c-api">3.2. Provided C-API</a></li>
 </ul>
 </li>
-<li><a href="#_physical_signal_abstraction_high_cut">4. Physical Signal Abstraction ("high cut")</a>
+<li><a href="#high-cut">4. Physical Signal Abstraction ("high cut")</a>
 <ul class="sectlevel2">
-<li><a href="#_overview">4.1. Overview</a></li>
-<li><a href="#_variables">4.2. Variables</a>
+<li><a href="#high-cut-overview">4.1. Overview</a></li>
+<li><a href="#high-cut-variables">4.2. Variables</a>
 <ul class="sectlevel3">
-<li><a href="#_signal_variables">4.2.1. Signal Variables</a></li>
+<li><a href="#high-cut-signal-variables">4.2.1. Signal Variables</a></li>
 <li><a href="#high-cut-clock-variables">4.2.2. Clock Variables</a></li>
 </ul>
 </li>
 <li><a href="#high-cut-network-description-files">4.3. Network Description Files</a></li>
-<li><a href="#_terminal_definitions">4.4. Terminal Definitions</a>
+<li><a href="#high-cut-terminal-definitions">4.4. Terminal Definitions</a>
 <ul class="sectlevel3">
 <li><a href="#high-cut-bus-terminal">4.4.1. Bus Terminal</a></li>
 <li><a href="#high-cut-frame-terminal">4.4.2. Frame Terminal</a></li>
@@ -633,12 +633,12 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#high-cut-example">4.4.5. Example</a></li>
 </ul>
 </li>
-<li><a href="#_limitations">4.5. Limitations</a></li>
+<li><a href="#high-cut-limitations">4.5. Limitations</a></li>
 </ul>
 </li>
-<li><a href="#network-abstraction">5. Network Abstraction ("low cut")</a>
+<li><a href="#low-cut">5. Network Abstraction ("low cut")</a>
 <ul class="sectlevel2">
-<li><a href="#_overview_2">5.1. Overview</a></li>
+<li><a href="#low-cut-overview">5.1. Overview</a></li>
 <li><a href="#low-cut-layered-standard-bus-protocol">5.2. Layered Standard Bus Protocol</a>
 <ul class="sectlevel3">
 <li><a href="#low-cut-format-error-operation">5.2.1. Format Error</a></li>
@@ -655,11 +655,11 @@ document.addEventListener('keydown', (event) => {
 </li>
 <li><a href="#low-cut-rx-clock-variables">5.3.2. Rx Clock Variables</a></li>
 <li><a href="#low-cut-tx-rx-data-variables">5.3.3. Tx/Rx Data Variables</a></li>
-<li><a href="#_selecting_the_type_of_tx_clock">5.3.4. Selecting the type of Tx Clock</a></li>
-<li><a href="#_mime_types">5.3.5. MIME Types</a></li>
+<li><a href="#low-cut-selecting-tx-variables">5.3.4. Selecting the type of Tx Clock</a></li>
+<li><a href="#low-cut-mime-types">5.3.5. MIME Types</a></li>
 </ul>
 </li>
-<li><a href="#_terminal_definitions_2">5.4. Terminal Definitions</a>
+<li><a href="#low-cut-terminal-definitions">5.4. Terminal Definitions</a>
 <ul class="sectlevel3">
 <li><a href="#low-cut-bus-terminal">5.4.1. Bus Terminal</a></li>
 <li><a href="#low-cut-example">5.4.2. Example</a></li>
@@ -667,10 +667,10 @@ document.addEventListener('keydown', (event) => {
 </li>
 <li><a href="#low-cut-bus-specific-details">5.5. Bus-Specific Details</a>
 <ul class="sectlevel3">
-<li><a href="#_can_can_fd_can_xl">5.5.1. CAN, CAN FD, CAN XL</a>
+<li><a href="#low-cut-can">5.5.1. CAN, CAN FD, CAN XL</a>
 <ul class="sectlevel4">
-<li><a href="#_overview_3">5.5.1.1. Overview</a></li>
-<li><a href="#_operations">5.5.1.2. Operations</a>
+<li><a href="#low-cut-can-overview">5.5.1.1. Overview</a></li>
+<li><a href="#low-cut-can-operations">5.5.1.2. Operations</a>
 <ul class="sectlevel5">
 <li><a href="#low-cut-can-transmit-operation">5.5.1.2.1. Transmit</a></li>
 <li><a href="#low-cut-can-confirm-operation">5.5.1.2.2. Confirm</a></li>
@@ -687,22 +687,22 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#low-cut-can-bus-notification-parameter">5.5.1.3.1. Bus Notification Parameter</a></li>
 </ul>
 </li>
-<li><a href="#_configuration_of_bus_simulation">5.5.1.4. Configuration of Bus Simulation</a>
+<li><a href="#low-cut-can-configuration-of-bus-simulation">5.5.1.4. Configuration of Bus Simulation</a>
 <ul class="sectlevel5">
-<li><a href="#_baud_rate_handling">5.5.1.4.1. Baud Rate Handling</a></li>
-<li><a href="#_buffer_handling">5.5.1.4.2. Buffer Handling</a></li>
+<li><a href="#low-cut-can-baud-rate-handling">5.5.1.4.1. Baud Rate Handling</a></li>
+<li><a href="#low-cut-can-buffer-handling">5.5.1.4.2. Buffer Handling</a></li>
 </ul>
 </li>
-<li><a href="#_transmission_and_acknowledge">5.5.1.5. Transmission and Acknowledge</a></li>
+<li><a href="#low-cut-can-transmission-and-acknowledge">5.5.1.5. Transmission and Acknowledge</a></li>
 <li><a href="#low-cut-can-error-handling">5.5.1.6. Error Handling</a></li>
 <li><a href="#low-cut-can-arbitration">5.5.1.7. Arbitration</a></li>
-<li><a href="#_wake_upsleep">5.5.1.8. Wake Up/Sleep</a></li>
+<li><a href="#low-cut-can-wakeup-sleep">5.5.1.8. Wake Up/Sleep</a></li>
 </ul>
 </li>
-<li><a href="#_lin">5.5.2. LIN</a>
+<li><a href="#low-cut-lin">5.5.2. LIN</a>
 <ul class="sectlevel4">
-<li><a href="#_overview_4">5.5.2.1. Overview</a></li>
-<li><a href="#_operations_2">5.5.2.2. Operations</a>
+<li><a href="#low-cut-lin-overview">5.5.2.1. Overview</a></li>
+<li><a href="#low-cut-lin-operations">5.5.2.2. Operations</a>
 <ul class="sectlevel5">
 <li><a href="#low-cut-lin-transmit-operation">5.5.2.2.1. Transmit</a></li>
 <li><a href="#low-cut-lin-format-error-operation">5.5.2.2.2. Format Error</a></li>
@@ -712,16 +712,16 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#low-cut-lin-wake-up-operation">5.5.2.2.6. Wake Up</a></li>
 </ul>
 </li>
-<li><a href="#_transmission_and_reception">5.5.2.3. Transmission and Reception</a></li>
-<li><a href="#_detection_of_collisions">5.5.2.4. Detection of Collisions</a></li>
-<li><a href="#_configuration_of_bus_simulation_2">5.5.2.5. Configuration of Bus Simulation</a>
+<li><a href="#low-cut-lin-transmission-and-reception">5.5.2.3. Transmission and Reception</a></li>
+<li><a href="#low-cut-lin-detection-of-collisions">5.5.2.4. Detection of Collisions</a></li>
+<li><a href="#low-cut-lin-configuration-of-bus-simulation">5.5.2.5. Configuration of Bus Simulation</a>
 <ul class="sectlevel5">
-<li><a href="#_baud_rate_handling_2">5.5.2.5.1. Baud Rate Handling</a></li>
-<li><a href="#_node_definition">5.5.2.5.2. Node Definition</a></li>
+<li><a href="#low-cut-lin-baud-rate-handling">5.5.2.5.1. Baud Rate Handling</a></li>
+<li><a href="#low-cut-lin-node-definition">5.5.2.5.2. Node Definition</a></li>
 </ul>
 </li>
-<li><a href="#_error_handling">5.5.2.6. Error Handling</a></li>
-<li><a href="#_wake_upsleep_2">5.5.2.7. Wake Up/Sleep</a></li>
+<li><a href="#low-cut-lin-error-handling">5.5.2.6. Error Handling</a></li>
+<li><a href="#low-cut-lin-wakeup-sleep">5.5.2.7. Wake Up/Sleep</a></li>
 </ul>
 </li>
 <li><a href="#_flexray">5.5.3. FlexRay</a></li>
@@ -762,10 +762,10 @@ The licenses text can be found in the <a href="https://raw.githubusercontent.com
 </div>
 </div>
 <div class="sect1">
-<h2 id="_introduction">1. Introduction</h2>
+<h2 id="introduction">1. Introduction</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_intent_of_this_document">1.1. Intent of This Document</h3>
+<h3 id="introduction-intent-of-this-document">1.1. Intent of This Document</h3>
 <div class="paragraph">
 <p>Automotive CAN, LIN, FlexRay, CAN FD, CAN XL and Ethernet are network technologies that have been applied successfully over many years by all automotive OEMs world wide.
 Virtualizing electronic control units (ECUs) and then simulating multiple such virtual ECUs requires connecting them using a virtual version of these network technologies.</p>
@@ -813,7 +813,7 @@ This communication architecture can be operated by a common FMU importer and all
 </div>
 </div>
 <div class="sect2">
-<h3 id="_system_simulation_effects">1.2. System Simulation Effects</h3>
+<h3 id="introduction-system-simulation-effects">1.2. System Simulation Effects</h3>
 <div class="paragraph">
 <p>This standard allows a highly accurate bus simulation using FMI 3.0 mechanisms.
 To profit from such accuracy on a system level to predict system behavior, all system simulation components must provide at least that level of accuracy.
@@ -830,7 +830,7 @@ However, current (as of writing this standard) modelling technologies do not all
 </div>
 </div>
 <div class="sect2">
-<h3 id="_how_to_read_this_document">1.3. How to Read This Document</h3>
+<h3 id="introduction-how-to-read-this-document">1.3. How to Read This Document</h3>
 <div class="paragraph">
 <p>Conventions used in this document:</p>
 </div>
@@ -852,7 +852,7 @@ Contrary to the standard, the FMI LS BUS Implementer’s Guide will be a living 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_remarks">1.4. Remarks</h3>
+<h3 id="introduction-remarks">1.4. Remarks</h3>
 <div class="paragraph">
 <p>This layered standard currently only refers to the FMI for Co-Simulation (CS).
 At the current time, Model Exchange (ME) and Scheduled Execution (SE) are not taken into account.
@@ -862,7 +862,7 @@ All explanations in this document are therefore to be understood in the context 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_layered_standard_manifest_file">2. Layered Standard Manifest File</h2>
+<h2 id="layered-standard-manifest-file">2. Layered Standard Manifest File</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This layered standard defines requires the use of a layered standard manifest file and <a href="#table-schema-fmi-ls-bus-attributes">Table 1</a> shows the content of <code>fmi-ls-manifest.xml</code>.</p>
@@ -935,7 +935,7 @@ Default: <code>false</code>.</p></td>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_common_concepts">3. Common Concepts</h2>
+<h2 id="common-concepts">3. Common Concepts</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Physical signal abstraction ("high cut") and network abstraction ("low cut") layers represent different levels for the exchange of bus messages.
@@ -1128,13 +1128,13 @@ The usage of this file is optional</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_physical_signal_abstraction_high_cut">4. Physical Signal Abstraction ("high cut")</h2>
+<h2 id="high-cut">4. Physical Signal Abstraction ("high cut")</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This chapter describes the physical signal abstraction or "high cut" in detail.</p>
 </div>
 <div class="sect2">
-<h3 id="_overview">4.1. Overview</h3>
+<h3 id="high-cut-overview">4.1. Overview</h3>
 <div class="paragraph">
 <p>Physical signal abstraction allows an idealized exchange of unit-based variables between FMUs.
 Variables representing these physical signals are clocked to reflect the bus timing aspects of the information flow.
@@ -1155,12 +1155,12 @@ The respective FMU variables are connected to a Bus Simulation, which emulates t
 </div>
 </div>
 <div class="sect2">
-<h3 id="_variables">4.2. Variables</h3>
+<h3 id="high-cut-variables">4.2. Variables</h3>
 <div class="paragraph">
 <p>This section explains the different variable types used to carry network traffic through FMI input and output variables.</p>
 </div>
 <div class="sect3">
-<h4 id="_signal_variables">4.2.1. Signal Variables</h4>
+<h4 id="high-cut-signal-variables">4.2.1. Signal Variables</h4>
 <div class="paragraph">
 <p>To define the signal abstraction layer (or "high cut"), signal variables are defined.</p>
 </div>
@@ -1237,7 +1237,7 @@ These are technical and legal issues that need attention from standardization bo
 </div>
 </div>
 <div class="sect2">
-<h3 id="_terminal_definitions">4.4. Terminal Definitions</h3>
+<h3 id="high-cut-terminal-definitions">4.4. Terminal Definitions</h3>
 <div class="paragraph">
 <p>This section defines terminals for physical signal abstraction or "high cut".</p>
 </div>
@@ -1546,7 +1546,7 @@ BO_ 512 ecuState: 4 ECU
 </div>
 </div>
 <div class="sect2">
-<h3 id="_limitations">4.5. Limitations</h3>
+<h3 id="high-cut-limitations">4.5. Limitations</h3>
 <div class="paragraph">
 <p>Physical signal abstraction maps several network protocols onto co-simulation variables as transport layer simulating in many ways an ideal network.
 Such an ideal network differs from physical networks in the following ways (and potentially others):</p>
@@ -1582,13 +1582,13 @@ Importers must know how to handle this, just like they must know how to handle f
 </div>
 </div>
 <div class="sect1">
-<h2 id="network-abstraction">5. Network Abstraction ("low cut")</h2>
+<h2 id="low-cut">5. Network Abstraction ("low cut")</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This chapter describes the network abstraction or "low cut" in detail.</p>
 </div>
 <div class="sect2">
-<h3 id="_overview_2">5.1. Overview</h3>
+<h3 id="low-cut-overview">5.1. Overview</h3>
 <div class="paragraph">
 <p>The network abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
 Exchanging data in terms of the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a> via variables grouped by a dedicated bus terminal (see <a href="#low-cut-variables">Variables</a>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
@@ -2018,7 +2018,7 @@ This allows senders to trade accuracy for speed: buffering more and interrupting
 </div>
 </div>
 <div class="sect3">
-<h4 id="_selecting_the_type_of_tx_clock">5.3.4. Selecting the type of Tx Clock<a id="low-cut-selecting-tx-variables"></a></h4>
+<h4 id="low-cut-selecting-tx-variables">5.3.4. Selecting the type of Tx Clock</h4>
 <div class="paragraph">
 <p>Selecting suitable Tx variables allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:</p>
 </div>
@@ -2037,7 +2037,7 @@ This allows senders to trade accuracy for speed: buffering more and interrupting
 </div>
 </div>
 <div class="sect3">
-<h4 id="_mime_types">5.3.5. MIME Types</h4>
+<h4 id="low-cut-mime-types">5.3.5. MIME Types</h4>
 <div class="paragraph">
 <p>Within FMI, every binary FMI variable has a <code>mimeType</code>, which indicates the type of data passed as a binary.
 This type indicates which specific bus type is involved.
@@ -2089,7 +2089,7 @@ The versioning follows the rules of semantic versioning, as defined in <a href="
 </div>
 </div>
 <div class="sect2">
-<h3 id="_terminal_definitions_2">5.4. Terminal Definitions</h3>
+<h3 id="low-cut-terminal-definitions">5.4. Terminal Definitions</h3>
 <div class="paragraph">
 <p>This section defines terminals for network abstraction or "low cut".</p>
 </div>
@@ -2212,13 +2212,13 @@ If the specified FMU is connected to more than one network, there shall be exact
 This chapter describes the operations of the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a> to enable the simulation of supported bus types.</p>
 </div>
 <div class="sect3">
-<h4 id="_can_can_fd_can_xl">5.5.1. CAN, CAN FD, CAN XL</h4>
+<h4 id="low-cut-can">5.5.1. CAN, CAN FD, CAN XL</h4>
 <div class="paragraph">
 <p>This chapter describes the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a> for CAN, CAN FD and CAN XL.
 The various CAN standards CAN, CAN FD and CAN XL are considered together, because they are very similar and can also be combined in certain scenarios.</p>
 </div>
 <div class="sect4">
-<h5 id="_overview_3">5.5.1.1. Overview</h5>
+<h5 id="low-cut-can-overview">5.5.1.1. Overview</h5>
 <div class="paragraph">
 <p>To simulate CAN, CAN FD and CAN XL buses, CAN-specific operations are specified based on the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a>.
 Overall, the following groups of operations exists:</p>
@@ -2407,7 +2407,7 @@ It shows all operations and the arguments they contain.</p>
 </table>
 </div>
 <div class="sect4">
-<h5 id="_operations">5.5.1.2. Operations</h5>
+<h5 id="low-cut-can-operations">5.5.1.2. Operations</h5>
 <div class="paragraph">
 <p>This section defines the specified operations for CAN, CAN FD and CAN XL.
 The following tables provides an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.</p>
@@ -3301,7 +3301,7 @@ A Bus Simulation (FMU) does not require this structural parameter.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_configuration_of_bus_simulation">5.5.1.4. Configuration of Bus Simulation</h5>
+<h5 id="low-cut-can-configuration-of-bus-simulation">5.5.1.4. Configuration of Bus Simulation</h5>
 <div class="paragraph">
 <p>The configuration of the Bus Simulation is done by the Network FMUs itself.
 For this purpose, the <a href="#low-cut-can-configuration-operation"><code>Configuration</code></a> operation provides several configuration parameters.
@@ -3309,7 +3309,7 @@ For this purpose, the <a href="#low-cut-can-configuration-operation"><code>Confi
 Because the Bus Simulation shall choose a default behavior, it might be useful in several scenarios that Network FMUs finish configuration before the production of <a href="#low-cut-can-transmit-operation"><code>Transmit</code></a> operations.</p>
 </div>
 <div class="sect5">
-<h6 id="_baud_rate_handling">5.5.1.4.1. Baud Rate Handling</h6>
+<h6 id="low-cut-can-baud-rate-handling">5.5.1.4.1. Baud Rate Handling</h6>
 <div class="paragraph">
 <p>In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation about the specified baud rate from a Network FMU.
 This baud rate information can be configured by using <code>CAN_BAUDRATE</code>, <code>CAN_FD_BAUDRATE</code> and <code>CAN_XL_BAUDRATE</code> configuration kind of the <a href="#low-cut-can-configuration-operation"><code>Configuration</code></a> operation.
@@ -3319,7 +3319,7 @@ If the baud rate information is not adjusted by a specified Network FMU, the Bus
 </div>
 </div>
 <div class="sect5">
-<h6 id="_buffer_handling">5.5.1.4.2. Buffer Handling</h6>
+<h6 id="low-cut-can-buffer-handling">5.5.1.4.2. Buffer Handling</h6>
 <div class="paragraph">
 <p>By using the <code>ARBITRATION_LOST_BEHAVIOR</code> configuration kind of a <a href="#low-cut-can-configuration-operation"><code>Configuration</code></a> operation, the buffer handling within the Bus Simulation can be adjusted.
 Using buffer handling is required in arbitration scenarios only and will be described <a href="#low-cut-can-arbitration">within this context</a>.
@@ -3328,7 +3328,7 @@ If the buffering is not adjusted by a specified Network FMU, the Bus Simulation 
 </div>
 </div>
 <div class="sect4">
-<h5 id="_transmission_and_acknowledge">5.5.1.5. Transmission and Acknowledge</h5>
+<h5 id="low-cut-can-transmission-and-acknowledge">5.5.1.5. Transmission and Acknowledge</h5>
 <div class="paragraph">
 <p>The <a href="#low-cut-can-transmit-operation"><code>Transmit</code></a> operation represents the sending of a CAN, CAN FD and CAN XL frame.
 With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g., Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
@@ -3422,7 +3422,7 @@ To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN n
 </div>
 </div>
 <div class="sect4">
-<h5 id="_wake_upsleep">5.5.1.8. Wake Up/Sleep</h5>
+<h5 id="low-cut-can-wakeup-sleep">5.5.1.8. Wake Up/Sleep</h5>
 <div class="paragraph">
 <p>This standard supports wake up and sleep functionality for the CAN bus.
 However, the realization of local virtual ECU wake-up and sleeping processes, i.e., the transition to the sleep state as well as the virtual ECU local wake-up process, is considered internal to the FMU implementation.
@@ -3441,12 +3441,12 @@ The Bus Simulation shall distribute this operation to all participants on the bu
 </div>
 </div>
 <div class="sect3">
-<h4 id="_lin">5.5.2. LIN</h4>
+<h4 id="low-cut-lin">5.5.2. LIN</h4>
 <div class="paragraph">
 <p>This chapter describes the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a> for LIN.</p>
 </div>
 <div class="sect4">
-<h5 id="_overview_4">5.5.2.1. Overview</h5>
+<h5 id="low-cut-lin-overview">5.5.2.1. Overview</h5>
 <div class="paragraph">
 <p>To simulate LIN buses, LIN-specific operations are specified based on the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a>.
 Overall, the following groups of operations exists:</p>
@@ -3586,7 +3586,7 @@ It shows all operations and the arguments they contain.</p>
 </table>
 </div>
 <div class="sect4">
-<h5 id="_operations_2">5.5.2.2. Operations</h5>
+<h5 id="low-cut-lin-operations">5.5.2.2. Operations</h5>
 <div class="paragraph">
 <p>This section defines the allowed operations for LIN.
 The following tables provides an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.</p>
@@ -4210,19 +4210,19 @@ If a Network FMU does not support wake-up this operation can be ignored on consu
 </div>
 </div>
 <div class="sect4">
-<h5 id="_transmission_and_reception">5.5.2.3. Transmission and Reception</h5>
+<h5 id="low-cut-lin-transmission-and-reception">5.5.2.3. Transmission and Reception</h5>
 <div class="paragraph">
 <p><mark>TODO</mark></p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_detection_of_collisions">5.5.2.4. Detection of Collisions</h5>
+<h5 id="low-cut-lin-detection-of-collisions">5.5.2.4. Detection of Collisions</h5>
 <div class="paragraph">
 <p><mark>TODO</mark></p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_configuration_of_bus_simulation_2">5.5.2.5. Configuration of Bus Simulation</h5>
+<h5 id="low-cut-lin-configuration-of-bus-simulation">5.5.2.5. Configuration of Bus Simulation</h5>
 <div class="paragraph">
 <p>The configuration of the Bus Simulation is done by the Network FMUs itself.
 For this purpose, the <a href="#low-cut-lin-configuration-operation"><code>Configuration</code></a> operation provides several configuration parameters.
@@ -4230,7 +4230,7 @@ For this purpose, the <a href="#low-cut-lin-configuration-operation"><code>Confi
 Because the Bus Simulation shall choose a default behavior, it might be useful in several scenarios that Network FMUs finish configuration before the production of <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operations.</p>
 </div>
 <div class="sect5">
-<h6 id="_baud_rate_handling_2">5.5.2.5.1. Baud Rate Handling</h6>
+<h6 id="low-cut-lin-baud-rate-handling">5.5.2.5.1. Baud Rate Handling</h6>
 <div class="paragraph">
 <p>In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation about the specified baud rate from a Network FMU.
 This baud rate information can be configured by using <code>LIN_BAUDRATE</code> configuration kind of the <a href="#low-cut-lin-configuration-operation"><code>Configuration</code></a> operation.
@@ -4238,7 +4238,7 @@ If the baud rate information is not adjusted by a specified Network FMU, the Bus
 </div>
 </div>
 <div class="sect5">
-<h6 id="_node_definition">5.5.2.5.2. Node Definition</h6>
+<h6 id="low-cut-lin-node-definition">5.5.2.5.2. Node Definition</h6>
 <div class="paragraph">
 <p>By using the <code>LIN_NODE_DEFINITION</code> configuration kind of a <a href="#low-cut-lin-configuration-operation"><code>Configuration</code></a> operation, the specified node type <code>LIN_MASTER</code> or <code>LIN_SLAVE</code> needs to be adjusted.
 This configuration must be done before the first exchange of <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operations.
@@ -4247,13 +4247,13 @@ A Bus Simulation should stop as soon as more than one LIN Master is configured i
 </div>
 </div>
 <div class="sect4">
-<h5 id="_error_handling">5.5.2.6. Error Handling</h5>
+<h5 id="low-cut-lin-error-handling">5.5.2.6. Error Handling</h5>
 <div class="paragraph">
 <p><mark>TODO</mark></p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_wake_upsleep_2">5.5.2.7. Wake Up/Sleep</h5>
+<h5 id="low-cut-lin-wakeup-sleep">5.5.2.7. Wake Up/Sleep</h5>
 <div class="paragraph">
 <p>This standard supports wake up and sleep for the LIN bus, whereby only the bus-specific parts are taken into account.
 This means that the realization of local virtual ECU wake-up and sleeping processes are internal parts of the respective FMU, which is not covered by this document.
