@@ -1,8 +1,8 @@
-==== CAN, CAN FD, CAN XL
+==== CAN, CAN FD, CAN XL [[low-cut-can]]
 This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for CAN, CAN FD and CAN XL.
 The various CAN standards CAN, CAN FD and CAN XL are considered together, because they are very similar and can also be combined in certain scenarios.
 
-===== Overview
+===== Overview [[low-cut-can-overview]]
 To simulate CAN, CAN FD and CAN XL buses, CAN-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
 Overall, the following groups of operations exists:
 
@@ -146,7 +146,7 @@ h|Length
 
 |====
 
-===== Operations
+===== Operations [[low-cut-can-operations]]
 This section defines the specified operations for CAN, CAN FD and CAN XL.
 The following tables provides an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
 
@@ -637,25 +637,25 @@ _A simple Network FMU might also choose to treat Bus Error or Arbitration operat
 This structural parameter is mandatory for Network FMUs.
 A Bus Simulation (FMU) does not require this structural parameter.
 
-===== Configuration of Bus Simulation
+===== Configuration of Bus Simulation [[low-cut-can-configuration-of-bus-simulation]]
 The configuration of the Bus Simulation is done by the Network FMUs itself.
 For this purpose, the <<low-cut-can-configuration-operation, `Configuration`>> operation provides several configuration parameters.
 <<low-cut-can-configuration-operation, `Configuration`>> operations can be produced multiple times during the runtime of a Network FMU.
 Because the Bus Simulation shall choose a default behavior, it might be useful in several scenarios that Network FMUs finish configuration before the production of <<low-cut-can-transmit-operation, `Transmit`>> operations.
 
-====== Baud Rate Handling
+====== Baud Rate Handling [[low-cut-can-baud-rate-handling]]
 In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation about the specified baud rate from a Network FMU.
 This baud rate information can be configured by using `CAN_BAUDRATE`, `CAN_FD_BAUDRATE` and `CAN_XL_BAUDRATE` configuration kind of the <<low-cut-can-configuration-operation, `Configuration`>> operation.
 In a CAN FD scenario, both the configuration for `CAN_BAUDRATE` and for `CAN_FD_BAUDRATE` shall be carried out.
 The Bus Simulation can derive the required CAN, CAN FD or CAN XL controller type from the baud rate configurations a Network FMU carried out.
 If the baud rate information is not adjusted by a specified Network FMU, the Bus Simulation shall choose a default behavior by itself.
 
-====== Buffer Handling
+====== Buffer Handling [[low-cut-can-buffer-handling]]
 By using the `ARBITRATION_LOST_BEHAVIOR` configuration kind of a <<low-cut-can-configuration-operation, `Configuration`>> operation, the buffer handling within the Bus Simulation can be adjusted.
 Using buffer handling is required in arbitration scenarios only and will be described <<low-cut-can-arbitration, within this context>>.
 If the buffering is not adjusted by a specified Network FMU, the Bus Simulation shall choose a default behavior by itself.
 
-===== Transmission and Acknowledge
+===== Transmission and Acknowledge [[low-cut-can-transmission-and-acknowledge]]
 The <<low-cut-can-transmit-operation, `Transmit`>> operation represents the sending of a CAN, CAN FD and CAN XL frame.
 With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g., Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
 In the real world, flawlessly transmitted CAN frames will be acknowledged by at least one receiver CAN node.
@@ -722,7 +722,7 @@ To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN n
 
 The https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams[FMI LS BUS Implementer’s Guide] contains examples of the presented arbitration cases and visualizes them using sequence diagrams.
 
-===== Wake Up/Sleep
+===== Wake Up/Sleep [[low-cut-can-wakeup-sleep]]
 This standard supports wake up and sleep functionality for the CAN bus.
 However, the realization of local virtual ECU wake-up and sleeping processes, i.e., the transition to the sleep state as well as the virtual ECU local wake-up process, is considered internal to the FMU implementation.
 Therefore, only the bus-related aspects are defined in this document.

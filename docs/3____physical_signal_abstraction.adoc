@@ -1,8 +1,7 @@
-== Physical Signal Abstraction ("high cut")
+== Physical Signal Abstraction ("high cut") [[high-cut]]
 This chapter describes the physical signal abstraction or "high cut" in detail.
 
-=== Overview
-
+=== Overview [[high-cut-overview]]
 Physical signal abstraction allows an idealized exchange of unit-based variables between FMUs.
 Variables representing these physical signals are clocked to reflect the bus timing aspects of the information flow.
 Changes to these clocked variables always reach the destination.
@@ -17,12 +16,10 @@ The respective FMU variables are connected to a Bus Simulation, which emulates t
 [#figure-transmission-high-cut-overview]
 image::high_cut_network_fmu.svg[width=80%, align="center"]
 
-=== Variables
-
+=== Variables [[high-cut-variables]]
 This section explains the different variable types used to carry network traffic through FMI input and output variables.
 
-==== Signal Variables
-
+==== Signal Variables [[high-cut-signal-variables]]
 To define the signal abstraction layer (or "high cut"), signal variables are defined.
 
 A signal variable carries the physical value of a network signal normally packaged inside a PDU or frame.
@@ -35,7 +32,6 @@ In case multiplexed signals are present in a frame/PDU/container PDU: all signal
 Generally, signal variables are optional, but they must either be all missing or all present to clearly indicate support for the signal abstraction layer.
 
 All signal variables are clocked to exactly indicate when they have been sent, see <<high-cut-clock-variables>>.
-
 
 ==== Clock Variables [[high-cut-clock-variables]]
 In order to use FMU input and output variables as transport layer for networks, input and output Clocks are used.
@@ -54,7 +50,6 @@ The importer will then connect and merge output Clock activations, even those of
 Signal variables belonging to frame `BusName.FrameName` are triggered by the Clock `BusName.FrameName_Clock` and all these variables and their corresponding Clock must share the same `causality` (`input` or `output`).
 
 === Network Description Files [[high-cut-network-description-files,network description file]]
-
 Standardized <<high-cut-network-description-files,network description files>> may optionally be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
 If these <<high-cut-network-description-files,network description files>> are shipped, they must be placed into the `/extra/org.fmi-standard.fmi-ls-bus` folder.
 DBC, LDF, Fibex and ARXML files are allowed, e.g., `Powertrain.dbc`.
@@ -69,11 +64,10 @@ This document does not address potential open points of these description format
 This document does not address IP protection or copyright issues.
 These are technical and legal issues that need attention from standardization bodies of the referenced description formats, tool vendors and end users.
 
-=== Terminal Definitions
+=== Terminal Definitions [[high-cut-terminal-definitions]]
 This section defines terminals for physical signal abstraction or "high cut".
 
 ==== Bus Terminal [[high-cut-bus-terminal,bus terminal]]
-
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<high-cut-frame-terminal,frame terminals>>.
 The attribute `name` of the `<Terminal>` must match the root name of its <<high-cut-network-description-files>> if it exists
 _[e.g., `Powertrain`, if the file is `/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc`]_.
@@ -95,7 +89,6 @@ Receiving such frames must then be handled internally to the FMU.
 If no <<high-cut-network-description-files,network description file>> is shipped with the specified FMU the `<Annotation>` shall not exist.
 
 ==== Frame Terminal [[high-cut-frame-terminal,frame terminal]]
-
 Each frame listed in the <<high-cut-network-description-files>> must be an element of its corresponding <<high-cut-bus-terminal>>.
 
 Attribute definitions::
@@ -112,7 +105,6 @@ Element definitions::
 The <<high-cut-terminal-member-variable-for-signals>> must have the same `causality` as all variables referenced in the <<high-cut-pdu-terminal,PDU Terminals>> included here.
 
 ==== PDU Terminal [[high-cut-pdu-terminal,PDU terminal]]
-
 Each PDU listed in the <<high-cut-network-description-files>> must be an element of its corresponding <<high-cut-frame-terminal>>.
 
 Attribute definitions::
@@ -129,7 +121,6 @@ Element definitions::
 All <<high-cut-terminal-member-variable-for-signals,`TerminalMemberVariables`>> must have the same `causality` of either `input` or `output`.
 
 ==== Terminal Member Variable for Signals [[high-cut-terminal-member-variable-for-signals,Terminal Member Variable]]
-
 <<high-cut-pdu-terminal,PDU terminals>> list all the contained signals as `<TerminalMemberVariable>`.
 
 Attribute definitions::
@@ -140,7 +131,6 @@ Attribute definitions::
  * `variableKind` is `signal`.
 
 ==== Example [[high-cut-example]]
-
 The following excerpts from files are used throughout this document as examples and should illustrate how the different concepts relate.
 
 The following partial DBC file lists merely the CAN message (frame) structure.
@@ -186,8 +176,7 @@ The following file shows the `<Terminal>` definition representing the network an
 include::examples/X_network4FMI_terminalsAndIcons_highCut.xml[]
 ----
 
-=== Limitations
-
+=== Limitations [[high-cut-limitations]]
 Physical signal abstraction maps several network protocols onto co-simulation variables as transport layer simulating in many ways an ideal network.
 Such an ideal network differs from physical networks in the following ways (and potentially others):
 

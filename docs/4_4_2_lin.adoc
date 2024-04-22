@@ -1,7 +1,7 @@
-==== LIN
+==== LIN [[low-cut-lin]]
 This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for LIN.
 
-===== Overview
+===== Overview [[low-cut-lin-overview]]
 To simulate LIN buses, LIN-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
 Overall, the following groups of operations exists:
 
@@ -102,7 +102,7 @@ h|Length
 
 |====
 
-===== Operations
+===== Operations [[low-cut-lin-operations]]
 This section defines the allowed operations for LIN.
 The following tables provides an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
 
@@ -433,32 +433,32 @@ If a Network FMU does not support wake-up this operation can be ignored on consu
 
 |====
 
-===== Transmission and Reception
+===== Transmission and Reception [[low-cut-lin-transmission-and-reception]]
 #TODO#
 
-===== Detection of Collisions
+===== Detection of Collisions [[low-cut-lin-detection-of-collisions]]
 #TODO#
 
-===== Configuration of Bus Simulation
+===== Configuration of Bus Simulation [[low-cut-lin-configuration-of-bus-simulation]]
 The configuration of the Bus Simulation is done by the Network FMUs itself.
 For this purpose, the <<low-cut-lin-configuration-operation, `Configuration`>> operation provides several configuration parameters.
 <<low-cut-lin-configuration-operation, `Configuration`>> operations can be produced multiple times during the runtime of a Network FMU.
 Because the Bus Simulation shall choose a default behavior, it might be useful in several scenarios that Network FMUs finish configuration before the production of <<low-cut-lin-transmit-operation, `Transmit`>> operations.
 
-====== Baud Rate Handling
+====== Baud Rate Handling [[low-cut-lin-baud-rate-handling]]
 In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation about the specified baud rate from a Network FMU.
 This baud rate information can be configured by using `LIN_BAUDRATE` configuration kind of the <<low-cut-lin-configuration-operation, `Configuration`>> operation.
 If the baud rate information is not adjusted by a specified Network FMU, the Bus Simulation shall choose a default behavior by itself.
 
-====== Node Definition
+====== Node Definition [[low-cut-lin-node-definition]]
 By using the `LIN_NODE_DEFINITION` configuration kind of a <<low-cut-lin-configuration-operation, `Configuration`>> operation, the specified node type `LIN_MASTER` or `LIN_SLAVE` needs to be adjusted.
 This configuration must be done before the first exchange of <<low-cut-lin-transmit-operation, `Transmit`>> operations.
 A Bus Simulation should stop as soon as more than one LIN Master is configured in a network.
 
-===== Error Handling
+===== Error Handling [[low-cut-lin-error-handling]]
 #TODO#
 
-===== Wake Up/Sleep
+===== Wake Up/Sleep [[low-cut-lin-wakeup-sleep]]
 This standard supports wake up and sleep for the LIN bus, whereby only the bus-specific parts are taken into account.
 This means that the realization of local virtual ECU wake-up and sleeping processes are internal parts of the respective FMU, which is not covered by this document.
 Because entering sleep state is a virtual ECU internal process always within LIN bus, this can be ignored.
