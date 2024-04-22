@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version c1c6145,</span>
+<span id="revnumber">version b4fc9e8,</span>
 <span id="revdate">2024-04-22</span>
 </div>
 <div id="toc" class="toc2">
@@ -1457,14 +1457,14 @@ BO_ 512 ecuState: 4 ECU
     instantiationToken="Network4FMI"&gt;
   &lt;ModelVariables&gt;
     &lt;Clock name="Powertrain.tcuSensors_Clock" valueReference="1007"
-        causality="input" variability="discrete" interval="triggered"/&gt;
+        causality="input" variability="discrete" intervalVariability="triggered"/&gt;
     &lt;Float64 name="Powertrain.tcuSensors.tcuSensors.vCar" valueReference="1005"
         causality="input" variability="discrete" start="0" clocks="1007"/&gt;
     &lt;Float64 name="Powertrain.tcuSensors.tcuSensors.oilTemp" valueReference="1006"
         causality="input" variability="discrete" start="20" clocks="1007"/&gt;
 
     &lt;Clock name="Powertrain.tcuState_Clock" valueReference="1011"
-        causality="input" variability="discrete" interval="triggered"/&gt;
+        causality="input" variability="discrete" intervalVariability="triggered"/&gt;
     &lt;Float64 name="Powertrain.tcuState.tcuState.state" valueReference="1008"
         causality="input" variability="discrete" start="0" clocks="1011"/&gt;
     &lt;Float64 name="Powertrain.tcuState.tcuState.gear" valueReference="1009"
@@ -1473,7 +1473,7 @@ BO_ 512 ecuState: 4 ECU
         causality="input" variability="discrete" start="0" clocks="1011"/&gt;
 
     &lt;Clock name="Powertrain.ecuState_Clock" valueReference="1016"
-        causality="output" variability="discrete" interval="triggered"/&gt;
+        causality="output" variability="discrete" intervalVariability="triggered"/&gt;
     &lt;Float64 name="Powertrain.ecuState.ecuState.accelPedal" valueReference="1012"
         causality="output" variability="discrete" start="0" clocks="1016"/&gt;
     &lt;Float64 name="Powertrain.ecuState.ecuState.k15" valueReference="1013"
@@ -2165,11 +2165,11 @@ If the specified FMU is connected to more than one network, there shall be exact
     instantiationToken="Network4FMI"&gt;
   &lt;ModelVariables&gt;
     &lt;Clock name="Powertrain.Rx_Clock" valueReference="1002"
-        causality="input" variability="discrete" interval="triggered"/&gt;
+        causality="input" variability="discrete" intervalVariability="triggered"/&gt;
     &lt;Binary name="Powertrain.Rx_Data" valueReference="1001" causality="input"
         mimeType="org.fmi-standard.fmi-ls-bus.v1.can" variability="discrete" clocks="1002"/&gt;
     &lt;Clock name="Powertrain.Tx_Clock" valueReference="1004"
-        causality="input" variability="discrete" interval="aperiodic"/&gt;
+        causality="input" variability="discrete" intervalVariability="changing"/&gt;
     &lt;Binary name="Powertrain.Tx_Data" valueReference="1003" causality="output"
         mimeType="org.fmi-standard.fmi-ls-bus.v1.can" variability="discrete" clocks="1004"/&gt;
   &lt;/ModelVariables&gt;
