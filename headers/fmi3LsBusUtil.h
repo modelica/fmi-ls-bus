@@ -60,11 +60,11 @@ extern "C"
 typedef struct
 {
     fmi3UInt8* start;     /**< The start address of the buffer variable. */
-    size_t size;          /**< The size of the buffer variable. */   
+    size_t size;          /**< The size of the buffer variable. */
     fmi3UInt8* end;       /**< The end address of the buffer variable. */
     fmi3UInt8* writePos;  /**< The current write position. */
-    fmi3UInt8* readPos;   /**< The current read position. */ 
-    fmi3Boolean status;   /**< Holds the status (fmi3True\fmi3False) of the last macro call. */
+    fmi3UInt8* readPos;   /**< The current read position. */
+    fmi3Boolean status;   /**< Holds the status (`fmi3True` or `fmi3False`) of the last macro call. */
 } fmi3LsBusUtilBufferInfo;
 
 
@@ -75,7 +75,7 @@ typedef struct
  *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
  *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
- *   
+ *
  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
  * \param[in] DataLength  Operation data length (\ref fmi3LsBusDataLength).
  * \param[in] Data        Operation data (\ref fmi3LsBusDataLength).
@@ -210,7 +210,7 @@ typedef struct
  *    ...
  *  }
  *  \endcode
- * 
+ *
  * \param[in] BufferInfo  Pointer to variable of type \ref fmi3LsBusUtilBufferInfo.
  * \param[out] Operation  Pointer of type \ref fmi3LsBusOperationHeader* set by the macro
  *                        to the address where the next bus operation can be read from.
@@ -251,6 +251,43 @@ typedef struct
       ((BufferLength) - (ReadPos)) >= ((fmi3LsBusOperationHeader*)((Buffer) + (ReadPos)))->length)             \
         ? ((Operation) = (fmi3LsBusOperationHeader*)((Buffer) + (ReadPos)), (ReadPos) += (Operation)->length), \
         fmi3True : fmi3False\
+
+
+/**
+ * \brief Submits a bus operation to the specified buffer.
+ *
+ * This macro can be used to submit an FMI-LS-BUS operation to the buffer described by `BufferInfo`.
+ * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
+ * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
+ *
+ * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
+ * \param[in] Operation   The operation structure to send. This must be the name of a packed struct where
+ *                        the first field is a \ref fmi3LsBusOperationHeader named `header`.
+ * \param[in] DataLength  Length of additional data sent after the operation structure.
+ * \param[in] Data        Additional data sent after the operation structure (may be `NULL`).
+ *
+ * \note This macro is reserved for internal use in the definition of other macros and it not considered
+ *       a part of the public interface of the headers and may change without notice.
+ */
+#define FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL(BufferInfo, Operation, DataLength, Data)                       \
+    do                                                                                                      \
+    {                                                                                                       \
+            if ((Operation).header.length <= (fmi3UInt32)((BufferInfo)->end - (BufferInfo)->writePos))      \
+            {                                                                                               \
+                memcpy((BufferInfo)->writePos, &(Operation), (Operation).header.length - (DataLength));     \
+                (BufferInfo)->writePos += (Operation).header.length - (DataLength);                         \
+                if ((DataLength) > 0)                                                                       \
+                {                                                                                           \
+                    memcpy((BufferInfo)->writePos, (Data), (DataLength));                                   \
+                    (BufferInfo)->writePos += (DataLength);                                                 \
+                }                                                                                           \
+                    (BufferInfo)->status = fmi3True;                                                        \
+            }                                                                                               \
+            else                                                                                            \
+            {                                                                                               \
+                (BufferInfo)->status = fmi3False;                                                           \
+            }                                                                                               \
+    } while (0)
 
 
 #ifdef __cplusplus

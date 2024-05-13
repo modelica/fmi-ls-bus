@@ -37,6 +37,7 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----------------------------------------------------------------------------
 */
+
 #if !defined(FMI3_LS_BUS_CHECK_OPERATION_SIZE)
 #if (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)) || (defined(__cplusplus) && (__cplusplus >= 201103L))
 #define FMI3_LS_BUS_CHECK_OPERATION_SIZE 1
@@ -45,6 +46,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 #endif
 
+
 #if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L) && (FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1)
 #include <assert.h>
 #endif
@@ -52,13 +54,32 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "fmi3PlatformTypes.h"
 
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4200)
+#pragma warning(disable : 4815)
+#endif
+
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
+
 /**
- * \brief Defines the value 'TRUE' of the fmi-ls-bus. 
+ * Common data types.
+ */
+
+/**
+ * \brief Data type representing a boolean value.
+ *
+ * \note The only valid values are FMI3_LS_BUS_TRUE and FMI3_LS_BUS_FALSE.
+ */
+typedef fmi3UInt8 fmi3LsBusBoolean;
+
+/**
+ * \brief Defines the value 'TRUE' of the fmi-ls-bus.
  */
 #define FMI3_LS_BUS_TRUE ((fmi3UInt8)0x01)
 
@@ -133,5 +154,8 @@ static_assert(sizeof(fmi3LsBusOperationFormatError) == 7, "'fmi3LsBusOperationFo
 } /* end of extern "C" { */
 #endif
 
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #endif /* fmi3LsBus_h */

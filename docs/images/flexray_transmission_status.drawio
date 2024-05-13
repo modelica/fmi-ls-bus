@@ -1,0 +1,60 @@
+<mxfile host="app.diagrams.net" modified="2024-05-02T12:15:43.422Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0" etag="GLqe07QZieMmZPPjP51i" version="24.2.8" type="device">
+  <diagram name="Page-1" id="dLMWYPuGLznFX2xjgWWH">
+    <mxGraphModel dx="1002" dy="577" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="K_93MQcQCd8FGHe1F_AO-3" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;:FMU 1&lt;/font&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};size=80;" parent="1" vertex="1">
+          <mxGeometry x="319.17" y="1040" width="240.83" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="K_93MQcQCd8FGHe1F_AO-4" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;:FMU 2&lt;/font&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};size=80;" parent="1" vertex="1">
+          <mxGeometry x="1040" y="1040" width="240.83" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="K_93MQcQCd8FGHe1F_AO-5" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;:Bus Simulation&lt;/font&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};size=80;" parent="1" vertex="1">
+          <mxGeometry x="679.59" y="1040" width="240.83" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="K_93MQcQCd8FGHe1F_AO-6" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=default;" parent="K_93MQcQCd8FGHe1F_AO-5" vertex="1">
+          <mxGeometry x="115.41" y="130" width="10" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="K_93MQcQCd8FGHe1F_AO-7" value="&lt;font style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;Transmit(Slot ID = n, Data = x&lt;/span&gt;&lt;sub style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;1&lt;/font&gt;&lt;/sub&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;)&lt;/span&gt;&lt;/font&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;dashed=1;dashPattern=8 8;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="439.99785714285713" y="1198" as="sourcePoint" />
+            <mxPoint x="795" y="1198" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="K_93MQcQCd8FGHe1F_AO-8" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Transmit&lt;/font&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;Slot ID = n, Data =&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;x&lt;/span&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;&lt;sub&gt;3&lt;/sub&gt;&lt;/font&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;)&lt;/span&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="805" y="1370.39" as="sourcePoint" />
+            <mxPoint x="1160" y="1370.39" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="K_93MQcQCd8FGHe1F_AO-17" value="" style="ellipse;whiteSpace=wrap;html=1;align=center;aspect=fixed;fillColor=none;strokeColor=none;resizable=0;perimeter=centerPerimeter;rotatable=0;allowArrows=0;points=[];outlineConnect=1;" parent="1" vertex="1">
+          <mxGeometry x="860" y="1263" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="Dh0hu46nk9tGdzloWWqa-1" value="&lt;font style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;Transmit(&lt;/span&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;Slot ID = n, Data =&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;x&lt;/span&gt;&lt;sub style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;2&lt;/font&gt;&lt;/sub&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;)&lt;/span&gt;&lt;/font&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;dashed=1;dashPattern=8 8;" parent="1" edge="1">
+          <mxGeometry x="0.0028" width="80" relative="1" as="geometry">
+            <mxPoint x="439.99785714285713" y="1251" as="sourcePoint" />
+            <mxPoint x="795" y="1251" as="targetPoint" />
+            <Array as="points" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dh0hu46nk9tGdzloWWqa-2" value="&lt;font style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;Transmit(&lt;/span&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;Slot ID = n, Data =&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;x&lt;/span&gt;&lt;sub style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;3&lt;/font&gt;&lt;/sub&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;)&lt;/span&gt;&lt;/font&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="439.99785714285713" y="1304" as="sourcePoint" />
+            <mxPoint x="795" y="1304" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Cm1iHxA_2tRSi1vT_pY1-1" value="&lt;span style=&quot;font-size: 18px;&quot;&gt;Confirm&lt;/span&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;Slot ID = n&lt;/span&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;)&lt;/span&gt;" style="html=1;verticalAlign=bottom;endArrow=none;curved=0;rounded=0;startArrow=block;startFill=1;endFill=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="439.99785714285713" y="1370" as="sourcePoint" />
+            <mxPoint x="795" y="1370" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
