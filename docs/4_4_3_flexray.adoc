@@ -709,7 +709,7 @@ If the value of the parameter is set to `false`, the Bus Simulation provides the
 See <<low-cut-flexray-static-segment>> and <<low-cut-flexray-dynamic-segment>> for details.
 The default value shall be `false`.
 
-.FMU parameter for the configuration of bus notifications within FlexRay.
+.FMU parameter for the configuration of delivery point within FlexRay slot.
 [[figure-fmu-flexray-delivery-on-boundary-parameter]]
 ----
     org.fmi_standard.fmi_ls_bus.FlexRay_DeliveryOnBoundary
