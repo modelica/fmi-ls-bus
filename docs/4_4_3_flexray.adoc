@@ -875,19 +875,19 @@ The starting point of the slot can be calculated at runtime based on the `FLEXRA
 
 [stem] 
 ++++
-    T_{Tx_{Static}}(tc, i_{Cycle}, i_{StaticSlot}) = T_{CycleStart}(tc, i_{Cycle}) + (i_{StaticSlot} - 1) * L_{StaticSlot}
+    T_{Tx_{Static}}(tc, i_{Cycle}, i_{Slot}) = T_{CycleStart}(tc, i_{Cycle}) + (i_{Slot} - 1) * L_{StaticSlot}
 ++++
 
 , whereby:
 
-* stem:[i_{StaticSlot}] represents the index of the static slot for transmission
+* stem:[i_{Slot}] represents the index of the static slot for transmission (see `Slot ID` argument of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation)
 * stem:[L_{StaticSlot}] defines the length of a static slot within the static segment in nanoseconds (see `Macrotick Duration` and `Static Slot Length` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation)
 
 This results in an interval in which a Network FMU shall provide a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation:
 
 [stem] 
 ++++
-    T_{Valid} = [ T_{Tx_{Static}}(tc, i_{Cycle}, i_{StaticSlot}), T_{Tx_{Static}}(tc, i_{Cycle}, i_{StaticSlot}) + T_{ActionPoint_{Static}} ]
+    T_{Valid} = [ T_{Tx_{Static}}(tc, i_{Cycle}, i_{Slot}), T_{Tx_{Static}}(tc, i_{Cycle}, i_{Slot}) + T_{ActionPoint_{Static}} ]
 ++++
 
 , whereby:
@@ -939,17 +939,32 @@ image::flexray_transmission_dynamic_segment.svg[width=90%, align="center"]
 
 If no Bus Simulation is involved, the transmission always applies: The length of a dynamic slot is exactly one minislot, since the transmission duration is not taken into account.
 
-Within a Network FMU the point in time when a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation shall be provided can be compute like:
+Within a Network FMU the first valid point in time when a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation, with respect to the specified `Slot ID` shall be provided can be compute like:
 
 [stem] 
 ++++
-   T_{Tx_{Dynamic}}(tc, i_{Cycle}, i) = T_{Tx_{Static}}(tc, i_{Cycle}, N_{StaticSlot})
-        + \sum_{j=N_{StaticSlot} + 1}^{i - 1} L_{DynamicSlot_j} * L_{Minislot}
+   T_{Tx_{DynamicFirst}}(tc, i_{Cycle}, i_{Slot}) = T_{Tx_{Static}}(tc, i_{Cycle}, N_{StaticSlot})
+        + i_{Slot} * L_{Minislot}
 ++++
 
 , whereby:
 
 * stem:[N_{StaticSlot}] represents the number of static slots within one FlexRay cycle (see `Number of Static Slots` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation)
+* stem:[i_{Slot}] represents the specified Slot ID for transmission within the dynamic segment (see `Slot ID` argument of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation)
+* stem:[L_{Minislot}] represents  the length of a minislot within a dynamic segment in macrotick (see `Minislot Length` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation)
+
+Within a Network FMU the latest valid point in time when a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation, with respect to the specified `Slot ID` shall be provided can be compute like:
+
+[stem] 
+++++
+   T_{Tx_{DynamicLast}}(tc, i_{Cycle}, i_{Slot}) = T_{Tx_{Static}}(tc, i_{Cycle}, N_{StaticSlot})
+        + \sum_{j=N_{StaticSlot} + 1}^{i_{Slot} - 1} L_{DynamicSlot_j} * L_{Minislot}
+++++
+
+, whereby:
+
+* stem:[N_{StaticSlot}] represents the number of static slots within one FlexRay cycle (see `Number of Static Slots` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation)
+* stem:[i_{Slot}] represents the specified Slot ID for transmission within the dynamic segment (see `Slot ID` argument of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation)
 * stem:[L_{DynamicSlot_j}] represents the number of used minislots for transmission of dynamic slot _j_, whereby also idled minislots are considered
 * stem:[L_{Minislot}] represents  the length of a minislot within a dynamic segment in macrotick (see `Minislot Length` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation)
 
@@ -959,7 +974,7 @@ This results in an interval in which a Network FMU shall provide a specified <<l
 
 [stem] 
 ++++
-    T_{Valid} = [ T_{Tx_{Dynamic}}(tc, i_{Cycle}, i), T_{Tx_{Dynamic}}(tc, i_{Cycle}, i) + T_{ActionPoint_{Dynamic}} ]
+    T_{Valid} = [ T_{Tx_{DynamicFirst}}(tc, i_{Cycle}, i_{Slot}), T_{Tx_{DynamicLast}}(tc, i_{Cycle}, i_{Slot}) + T_{ActionPoint_{Dynamic}} ]
 ++++
 
 , whereby:
