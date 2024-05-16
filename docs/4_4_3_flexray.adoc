@@ -20,7 +20,7 @@ It shows all operations and the arguments they contain.
 
 .Overview of the available operations for FlexRay.
 [#table-operation-content-flexray]
-[cols="12,1,6,7,5,9,5,2,7,5,5"]
+[cols="12,1,6,7,5,6,2,5,7,5,5"]
 |====
 .2+h|Operation Name
 10+h|Operation Content
@@ -46,14 +46,12 @@ h|Length
 (1 byte)
 |Slot ID +
 (2 byte)
-|Iteration +
-(8 byte)
 |Channel +
 (1 byte)
 |...
 |DL +
 (2 byte)
-2+|Data +
+3+|Data +
 (n byte)
 
 |Cancel
@@ -64,9 +62,7 @@ h|Length
 (1 byte)
 |Slot ID +
 (2 byte)
-|Iteration +
-(8 byte)
-5+|Channel +
+6+|Channel +
 (1 byte)
 
 |Confirm
@@ -77,9 +73,7 @@ h|Length
 (1 byte)
 |Slot ID +
 (2 byte)
-|Iteration +
-(8 byte)
-5+|Channel +
+6+|Channel +
 (1 byte)
 
 |Bus Error
@@ -90,9 +84,9 @@ h|Length
 (1 byte)
 |Cycle ID +
 (1 byte)
-|Segment Indicator +
+3+|Segment Indicator +
 (2 byte)
-5+|Channel +
+3+|Channel +
 (1 byte)
 
 |Configuration
@@ -155,7 +149,7 @@ The <<low-cut-flexray-transmit-operation, `Transmit`>> operation is used to simu
 h|Name 3+| Transmit
 h|Description 3+| Initiates the transmission of FlexRay frames.
 h|OP Code [hex] 3+| 0x10
-.14+h|Content h|Argument h|Length h|Description
+.13+h|Content h|Argument h|Length h|Description
 | OP Code 
 | 1 byte 
 | Contains the OP Code (0x10) of the operation.
@@ -163,7 +157,7 @@ h|OP Code [hex] 3+| 0x10
 | Length 
 | 4 byte 
 | Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Length = 26 + Data Length`.
+The following applies for this operation: `Length = 18 + Data Length`.
 
 | Cycle ID 
 | 1 byte 
@@ -172,11 +166,6 @@ The following applies for this operation: `Length = 26 + Data Length`.
 | Slot ID 
 | 2 byte 
 | Specifies the FlexRay Slot ID of the given frame.
-
-| Iteration
-| 8 byte 
-| Defines a continuous index of complete FlexRay cycles.
-The value of the argument is incremented as soon as the first cycle repeats; starting with zero.
 
 | Channel 
 | 1 byte 
@@ -241,7 +230,7 @@ The <<low-cut-flexray-cancel-operation, `Cancel`>> operation is used for cancell
 h|Name 3+| Cancel
 h|Description 3+| Initiates the cancellation transmission of FlexRay frames within a Bus Simulation.
 h|OP Code [hex] 3+| 0x11
-.7+h|Content h|Argument h|Length h|Description
+.6+h|Content h|Argument h|Length h|Description
 | OP Code 
 | 1 byte 
 | Contains the OP Code (0x11) of the operation.
@@ -249,7 +238,7 @@ h|OP Code [hex] 3+| 0x11
 | Length 
 | 4 byte 
 | Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Length = 17 + Data Length`.
+The following applies for this operation: `Length = 9 + Data Length`.
 
 | Cycle ID 
 | 1 byte 
@@ -258,10 +247,6 @@ The following applies for this operation: `Length = 17 + Data Length`.
 | Slot ID 
 | 2 byte 
 | Specifies the FlexRay Slot ID of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to cancel.
-
-| Iteration
-| 8 byte 
-| The continuous index of complete FlexRay cycles of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to cancel.
 
 | Channel 
 | 1 byte 
@@ -287,7 +272,7 @@ h|Description
 3+|Signals a successful transmitted FlexRay frame.
 h|OP Code [hex]
 3+|0x12
-.7+h|Content h|Argument h|Length h|Description
+.6+h|Content h|Argument h|Length h|Description
 |OP Code
 |1 byte
 |Contains the OP Code (0x12) of the operation.
@@ -295,7 +280,7 @@ h|OP Code [hex]
 |Length
 |4 byte
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Length = 17`.
+The following applies for this operation: `Length = 9`.
 
 | Cycle ID 
 | 1 byte 
@@ -304,10 +289,6 @@ The following applies for this operation: `Length = 17`.
 | Slot ID 
 | 2 byte 
 | Specifies the FlexRay Slot ID of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to confirm.
-
-| Iteration
-| 8 byte 
-| Defines a continuous index of complete FlexRay cycles.
 
 | Channel 
 | 1 byte 
