@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 4b1670f,</span>
+<span id="revnumber">version 3ac83d0,</span>
 <span id="revdate">2024-05-16</span>
 </div>
 <div id="toc" class="toc2">
@@ -963,12 +963,12 @@ Terminal definitions are used differently within the "high cut" and the "low cut
 <div class="title">Figure 1. Relations between Bus-, Frame- and PDU Terminals.</div>
 </div>
 <div class="paragraph">
-<p>All variables have structured names or specific terminal <code>memberNames</code> that indicate how these variables are related and to which abstraction layer they belong.
+<p>Variables are referenced in terminals and the <code>memberName</code> attribute indicates how a variable is meant to be used.
 For the "high cut", variables represent signals and their Clocks.
-For the "low cut", variables represent transmitted and received bus traffic (<code>Tx_Data</code>/<code>Rx_Data</code>) and their respective Clocks (<code>Tx_Clock</code>/<code>Rx_Clock</code>).
+For the "low cut", variables represent transmitted and received bus traffic (<code>memberName</code> = <code>Tx_Data</code>/<code>Rx_Data</code>) and their respective Clocks (<code>memberName</code> = <code>Tx_Clock</code>/<code>Rx_Clock</code>).
 The <code>causality</code> of <code>Rx_Data</code> variables must be <code>input</code>, whereas the <code>causality</code> of <code>Tx_Data</code> variables must be <code>output</code>.
-<code>Rx_Clock</code> variables must be <code>triggered input</code> Clocks and are connected by the importer to their corresponding <code>Tx_Clocks</code>, which can have any <code>causality</code> and <code>intervalVariability</code>.
-For example, a <code>periodic</code> Clock indicates that the FMU can only send signals or frames periodically, while a <code>changing</code> or <code>countdown</code> Clock indicates that the FMU can send signals at varying time steps.</p>
+<code>Rx_Clock</code> variables must be <code>triggered input</code> Clocks and are meant to be connected by the importer to the corresponding <code>Tx_Clock</code> variables.
+A <code>periodic</code> Clock indicates that the FMU can send signals or frames only periodically on a given time raster, while a <code>changing</code> or <code>countdown</code> Clock indicates that the FMU can send signals at varying time steps.</p>
 </div>
 <div class="paragraph">
 <p>Using <code>Tx_Clocks</code> of different types allows simulations with different timing accuracy and performance.
