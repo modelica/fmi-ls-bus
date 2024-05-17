@@ -14,13 +14,19 @@ organisations prior to official adoption.
 
 The [FMI 3.0 Layered Standard Network Communication][spec] is currently
 maintained on [GitHub][githubspec] and is based on the [FMI][] standard.
-The current state of development is published [here][spec]. This document status
+The current state of development is published [here][spec] and
 contains all bus types that are currently in development or are already final.
-Different types of buses are developed in different versions that build on each other.
-Corresponding [milestones][milestones] and a detailed [roadmap][roadmap] have
+[Official releases][releases] are directly published via GitHub.
+
+## Roadmap
+Different abstraction layers and types of buses are developed in different versions that build on each other.
+Corresponding [milestones][milestones] and a detailed roadmap have
 been defined for this purpose.
-Based on the defined [roadmap][roadmap], published [releases][releases] can be examined
-and downloaded.
+The following graphic provides an overview of the planned sequence of supported bus systems:
+
+![roadmap of fmi-ls-bus](roadmap_overview.svg)
+
+A detailed roadmap showing completed, current and future work can be accessed [here][roadmap].
 
 ## Repository Structure
 - `docs` -- Sources of the specification document
@@ -54,7 +60,7 @@ Docs released under [Attribution-ShareAlike 4.0 International].
 [2-Clause BSD License]: https://opensource.org/licenses/BSD-2-Clause
 [Attribution-ShareAlike 4.0 International]: https://creativecommons.org/licenses/by-sa/4.0/
 [githubspec]: docs/index.adoc
-[roadmap]: Roadmap.md
+[roadmap]: https://raw.githubusercontent.com/bmenne-dspace/fmi-ls-bus/main/roadmap.svg
 [spec]: https://modelica.github.io/fmi-ls-bus/main/
 [milestones]: https://github.com/modelica/fmi-ls-bus/milestones?direction=asc&sort=title&state=open
 [releases]: https://github.com/modelica/fmi-ls-bus/releases
