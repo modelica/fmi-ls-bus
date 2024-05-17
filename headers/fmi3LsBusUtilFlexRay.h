@@ -57,7 +57,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] BufferInfo                Pointer to \ref fmi3LsBusUtilBufferInfo.
  * \param[in] CycleId                   The cycle the message is transferred in (\ref fmi3LsBusFlexRayCycleId).
  * \param[in] SlotId                    The slot the message is transferred in (\ref fmi3LsBusFlexRaySlotId).
- * \param[in] Iteration                 The number of complete FlexRay cycles the message is transferred in (\ref fmi3LsBusFlexRayIteration).
  * \param[in] Channel                   The channel(s) on which the transmission takes place (\ref fmi3LsBusFlexRayChannel).
  * \param[in] Segment                   The data segment in which the frame is transmitted (\ref fmi3LsBusFlexRaySegmentType).
  * \param[in] StartupFrameIndicator     Indicates a startup frame (\ref fmi3LsBusBoolean).
@@ -69,9 +68,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] Data                      Message data (pointer to \ref fmi3LsBusFlexRayData).
  */
 #define FMI3_LS_BUS_FLEXRAY_CREATE_OP_FLEXRAY_TRANSMIT(BufferInfo, \
-            CycleId, SlotId, Iteration, Channel, \
-            StartupFrameIndicator, SyncFrameIndicator, NullFrameIndicator, PayloadPreambleIndicator, \
-            MinislotDuration, DataLength, Data) \
+            CycleId, SlotId, Channel, StartupFrameIndicator, SyncFrameIndicator, \
+            NullFrameIndicator, PayloadPreambleIndicator, MinislotDuration, DataLength, Data) \
     do                                                                                 \
     {                                                                                  \
         fmi3LsBusFlexRayOperationFlexRayTransmit _op;                                  \
@@ -79,7 +77,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.header.length = sizeof(_op) + (DataLength);                                \
         _op.cycleId = (CycleId);                                                       \
         _op.slotId = (SlotId);                                                         \
-        _op.iteration = (Iteration);                                               \
         _op.channel = (Channel);                                                       \
         _op.startupFrameIndicator = (StartupFrameIndicator);                           \
         _op.syncFrameIndicator = (SyncFrameIndicator);                                 \
@@ -104,18 +101,16 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   * \param[in] BufferInfo                Pointer to \ref fmi3LsBusUtilBufferInfo.
   * \param[in] CycleId                   The cycle the message is transferred in (\ref fmi3LsBusFlexRayCycleId).
   * \param[in] SlotId                    The slot the message is transferred in (\ref fmi3LsBusFlexRaySlotId).
-  * \param[in] Iteration                 The number of complete FlexRay cycles the message is transferred in (\ref fmi3LsBusFlexRayIteration).
   * \param[in] Channel                   The channel(s) on which the transmission takes place (\ref fmi3LsBusFlexRayChannel).
   */
-#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_FLEXRAY_CANCEL(BufferInfo, CycleId, SlotId, Iteration, Channel) \
+#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_FLEXRAY_CANCEL(BufferInfo, CycleId, SlotId, Channel) \
     do                                                                                 \
     {                                                                                  \
         fmi3LsBusFlexRayOperationFlexRayCancel _op;                                    \
         _op.header.opCode = FMI3_LS_BUS_FLEXRAY_OP_FLEXRAY_CANCEL;                     \
-        _op.header.length = sizeof(_op);                                \
+        _op.header.length = sizeof(_op);                                               \
         _op.cycleId = (CycleId);                                                       \
         _op.slotId = (SlotId);                                                         \
-        _op.iteration = (Iteration);                                               \
         _op.channel = (Channel);                                                       \
                                                                                        \
         FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, 0, NULL);              \
@@ -134,18 +129,16 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     * \param[in] BufferInfo                Pointer to \ref fmi3LsBusUtilBufferInfo.
     * \param[in] CycleId                   The cycle the message is transferred in (\ref fmi3LsBusFlexRayCycleId).
     * \param[in] SlotId                    The slot the message is transferred in (\ref fmi3LsBusFlexRaySlotId).
-    * \param[in] Iteration                 The number of complete FlexRay cycles the message is transferred in (\ref fmi3LsBusFlexRayIteration).
     * \param[in] Channel                   The channel(s) on which the transmission takes place (\ref fmi3LsBusFlexRayChannel).
     */
-#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_FLEXRAY_CONFIRM(BufferInfo, CycleId, SlotId, Iteration, Channel) \
+#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_FLEXRAY_CONFIRM(BufferInfo, CycleId, SlotId, Channel) \
     do                                                                                 \
     {                                                                                  \
         fmi3LsBusFlexRayOperationFlexRayConfirm _op;                                   \
         _op.header.opCode = FMI3_LS_BUS_FLEXRAY_OP_FLEXRAY_CONFIRM;                    \
-        _op.header.length = sizeof(_op);                                \
+        _op.header.length = sizeof(_op);                                               \
         _op.cycleId = (CycleId);                                                       \
         _op.slotId = (SlotId);                                                         \
-        _op.iteration = (Iteration);                                               \
         _op.channel = (Channel);                                                       \
                                                                                        \
         FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, 0, NULL);              \
@@ -168,7 +161,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] Iteration         The number of complete FlexRay cycles, where where the error occuredwhere the error occured (\ref fmi3LsBusFlexRayIteration).
  * \param[in] Channel           The channel(s) on which the error occurred (\ref fmi3LsBusFlexRayChannel).
  */
-#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(BufferInfo, ErrorFlags, CycleId, SegmentIndicator, Iteration, Channel) \
+#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(BufferInfo, ErrorFlags, CycleId, SegmentIndicator, Channel) \
     do                                                                    \
     {                                                                     \
         fmi3LsBusFlexRayOperationBusError _op;                            \
@@ -177,7 +170,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.errorFlags = (ErrorFlags);                                    \
         _op.cycleId = (CycleId);                                          \
         _op.segmentIndicator = (SegmentIndicator);                        \
-        _op.iteration = (Iteration);                                  \
         _op.channel = (Channel);                                          \
                                                                           \
         FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, 0, NULL); \
@@ -225,7 +217,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.parameterType = FMI3_LS_BUS_FLEXRAY_CONFIG_PARAMETER_TYPE_FLEXRAY_GLOBAL;  \
         _op.flexRayGlobal.macrotickDuration = (MacrotickDuration);                     \
         _op.flexRayGlobal.macroticksPerCycle = (MacroticksPerCycle);                   \
-        _op.flexRayGlobal.cycleCountMax = (CycleCountMax);                   \
+        _op.flexRayGlobal.cycleCountMax = (CycleCountMax);                             \
         _op.flexRayGlobal.actionPointOffset = (ActionPointOffset);                     \
         _op.flexRayGlobal.staticSlotLength = (StaticSlotLength);                       \
         _op.flexRayGlobal.numberOfStaticSlots = (NumberOfStaticSlots);                 \

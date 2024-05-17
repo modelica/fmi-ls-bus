@@ -187,11 +187,6 @@ typedef fmi3UInt8 fmi3LsBusFlexRayCycleId;
 typedef fmi3UInt16 fmi3LsBusFlexRaySlotId;
 
 /**
- * \brief Data type identifying the number of FlexRay cycle iterations.
- */
-typedef fmi3UInt64 fmi3LsBusFlexRayIteration;
-
-/**
  * \brief Data type Indicates how many minislots must pass after receiving the Transmit operation in order a Network FMU is allowed to provided the next Transmit operation.
  */
 typedef fmi3UInt32 fmi3LsBusFlexRayMinislotDuration;
@@ -359,7 +354,6 @@ typedef struct
     fmi3LsBusOperationHeader header;                    /**< Operation header. */
     fmi3LsBusFlexRayCycleId cycleId;                    /**< The cycle the message is transferred in. */
     fmi3LsBusFlexRaySlotId slotId;                      /**< The slot the message is transferred in. */
-    fmi3LsBusFlexRayIteration iteration;                /**< The number of cycle iterations the message is transferred in. */
     fmi3LsBusFlexRayChannel channel;                    /**< The channel(s) on which the transmission takes place. */
     fmi3LsBusBoolean startupFrameIndicator;             /**< Indicates a startup frame. */
     fmi3LsBusBoolean syncFrameIndicator;                /**< Indicates a sync frame. */
@@ -371,7 +365,7 @@ typedef struct
 } fmi3LsBusFlexRayOperationFlexRayTransmit;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayOperationFlexRayTransmit) == (5 + 1 + 2 + 8 + 1 + 1 + 1 + 1 + 1 + 4 + 1),
+static_assert(sizeof(fmi3LsBusFlexRayOperationFlexRayTransmit) == (5 + 1 + 2 + 1 + 1 + 1 + 1 + 1 + 4 + 1),
               "'fmi3LsBusFlexRayOperationFlexRayTransmit' does not match the expected data size");
 #endif
 
@@ -384,12 +378,11 @@ typedef struct
     fmi3LsBusOperationHeader header;                    /**< Operation header. */
     fmi3LsBusFlexRayCycleId cycleId;                    /**< The cycle the message is transferred in. */
     fmi3LsBusFlexRaySlotId slotId;                      /**< The slot the message is transferred in. */
-    fmi3LsBusFlexRayIteration iteration;                /**< The number of cycle iterations the message is transferred in. */
     fmi3LsBusFlexRayChannel channel;                    /**< The channel(s) on which the transmission takes place. */
 } fmi3LsBusFlexRayOperationFlexRayCancel;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayOperationFlexRayCancel) == (5 + 1 + 2 + 8 + 1),
+static_assert(sizeof(fmi3LsBusFlexRayOperationFlexRayCancel) == (5 + 1 + 2 + 1),
     "'fmi3LsBusFlexRayOperationFlexRayCancel' does not match the expected data size");
 #endif
 
@@ -402,12 +395,11 @@ typedef struct
     fmi3LsBusOperationHeader header;                    /**< Operation header. */
     fmi3LsBusFlexRayCycleId cycleId;                    /**< The cycle the message is transferred in. */
     fmi3LsBusFlexRaySlotId slotId;                      /**< The slot the message is transferred in. */
-    fmi3LsBusFlexRayIteration iteration;                /**< The number of cycle iterations the message is transferred in. */
     fmi3LsBusFlexRayChannel channel;                    /**< The channel(s) on which the transmission takes place. */
 } fmi3LsBusFlexRayOperationFlexRayConfirm;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayOperationFlexRayConfirm) == (5 + 1 + 2 + 8 + 1),
+static_assert(sizeof(fmi3LsBusFlexRayOperationFlexRayConfirm) == (5 + 1 + 2 + 1),
     "'fmi3LsBusFlexRayOperationFlexRayConfirm' does not match the expected data size");
 #endif
 
@@ -421,12 +413,11 @@ typedef struct
     fmi3LsBusFlexRayError errorFlags;                       /**< The error flags describing the error. */
     fmi3LsBusFlexRayCycleId cycleId;                        /**< The cycle in which the error occurred. */
     fmi3LsBusFlexRaySegmentIndicatorType segmentIndicator;  /**< The segment in which the error occurred. */
-    fmi3LsBusFlexRayIteration iteration;                    /**< The number of complete cycle iterations the error occurred. */
     fmi3LsBusFlexRayChannel channel;                        /**< The channel(s) on which the error occurred. */
 } fmi3LsBusFlexRayOperationBusError;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayOperationBusError) == (sizeof(fmi3LsBusOperationHeader) + (1 + 1 + 2 + 8 + 1)),
+static_assert(sizeof(fmi3LsBusFlexRayOperationBusError) == (sizeof(fmi3LsBusOperationHeader) + (1 + 1 + 2 + 1)),
               "'fmi3LsBusFlexRayOperationBusError' does not match the expected data size");
 #endif
 
