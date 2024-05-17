@@ -13,8 +13,14 @@ officially endorsed by the Modelica Association or other involved
 organisations prior to official adoption.
 
 The [FMI 3.0 Layered Standard Network Communication][spec] is currently
-maintained on [GitHub][githubspec] and is published [here][spec]. It is
-based on the [FMI][] standard.
+maintained on [GitHub][githubspec] and is based on the [FMI][] standard.
+The current state of development is published [here][spec]. This document status
+contains all bus types that are currently in development or are already final.
+Different types of buses are developed in different versions that build on each other.
+Corresponding [milestones][milestones] and a detailed [roadmap][roadmap] have
+been defined for this purpose.
+Based on the defined [roadmap][roadmap], published [releases][releases] can be examined
+and downloaded.
 
 ## Repository Structure
 - `docs` -- Sources of the specification document
@@ -48,7 +54,10 @@ Docs released under [Attribution-ShareAlike 4.0 International].
 [2-Clause BSD License]: https://opensource.org/licenses/BSD-2-Clause
 [Attribution-ShareAlike 4.0 International]: https://creativecommons.org/licenses/by-sa/4.0/
 [githubspec]: docs/index.adoc
+[roadmap]: Roadmap.md
 [spec]: https://modelica.github.io/fmi-ls-bus/main/
+[milestones]: https://github.com/modelica/fmi-ls-bus/milestones?direction=asc&sort=title&state=open
+[releases]: https://github.com/modelica/fmi-ls-bus/releases
 [FMI LS Bus Implementers' Guide]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/
 [Getting started with CAN, CAN FD and CAN XL]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-getting-started-with-can
 [CAN, CAN FD and CAN XL Demo Overview]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-demos
