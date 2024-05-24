@@ -309,7 +309,7 @@ typedef struct
     {                                                                                                       \
             if ((Operation).header.length <= (fmi3UInt32)((BufferInfo)->end - (BufferInfo)->writePos))      \
             {                                                                                               \
-                memcpy((BufferInfo)->writePos, &(Operation), (Operation).header.length);                     \
+                memcpy((BufferInfo)->writePos, &(Operation), (Operation).header.length);                    \
                 (BufferInfo)->writePos += (Operation).header.length;                                        \
                 (BufferInfo)->status = fmi3True;                                                            \
             }                                                                                               \

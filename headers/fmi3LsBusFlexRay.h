@@ -60,21 +60,21 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * Indicates the transmission of a single FlexRay frame.
  */
-#define FMI3_LS_BUS_FLEXRAY_OP_FLEXRAY_TRANSMIT ((fmi3LsBusOperationCode)0x0010)
+#define FMI3_LS_BUS_FLEXRAY_OP_TRANSMIT ((fmi3LsBusOperationCode)0x0010)
 
 /**
  * \brief FMI virtual bus operation of type 'FlexRay Cancel'.
  *
  * Indicates the cancellation of a single FlexRay frame transmission.
  */
-#define FMI3_LS_BUS_FLEXRAY_OP_FLEXRAY_CANCEL ((fmi3LsBusOperationCode)0x0011)
+#define FMI3_LS_BUS_FLEXRAY_OP_CANCEL ((fmi3LsBusOperationCode)0x0011)
 
 /**
  * \brief FMI virtual bus operation of type 'Confirm'.
  *
  * Indicates the confirmation of a single FlexRay frame transmission.
  */
-#define FMI3_LS_BUS_FLEXRAY_OP_FLEXRAY_CONFIRM ((fmi3LsBusOperationCode)0x0012)
+#define FMI3_LS_BUS_FLEXRAY_OP_CONFIRM ((fmi3LsBusOperationCode)0x0012)
 
 /**
  * \brief FMI virtual bus operation of type 'Bus Error'.
@@ -358,11 +358,11 @@ typedef struct
     fmi3LsBusFlexRayMinislotDuration minislotDuration;  /**< Indicates how many minislots must pass after a new message can be transmitted. */
     fmi3LsBusFlexRayDataLength dataLength;              /**< Data length. */
     fmi3LsBusFlexRayData data[];                        /**< Data. */
-} fmi3LsBusFlexRayOperationFlexRayTransmit;
+} fmi3LsBusFlexRayOperationTransmit;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayOperationFlexRayTransmit) == (5 + 1 + 2 + 1 + 1 + 1 + 1 + 1 + 4 + 1),
-              "'fmi3LsBusFlexRayOperationFlexRayTransmit' does not match the expected data size");
+static_assert(sizeof(fmi3LsBusFlexRayOperationTransmit) == (5 + 1 + 2 + 1 + 1 + 1 + 1 + 1 + 4 + 1),
+              "'fmi3LsBusFlexRayOperationTransmit' does not match the expected data size");
 #endif
 
 
@@ -375,11 +375,11 @@ typedef struct
     fmi3LsBusFlexRayCycleId cycleId;                    /**< The cycle the message is transferred in. */
     fmi3LsBusFlexRaySlotId slotId;                      /**< The slot the message is transferred in. */
     fmi3LsBusFlexRayChannel channel;                    /**< The channel(s) on which the transmission takes place. */
-} fmi3LsBusFlexRayOperationFlexRayCancel;
+} fmi3LsBusFlexRayOperationCancel;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayOperationFlexRayCancel) == (5 + 1 + 2 + 1),
-    "'fmi3LsBusFlexRayOperationFlexRayCancel' does not match the expected data size");
+static_assert(sizeof(fmi3LsBusFlexRayOperationCancel) == (5 + 1 + 2 + 1),
+    "'fmi3LsBusFlexRayOperationCancel' does not match the expected data size");
 #endif
 
 
@@ -392,11 +392,11 @@ typedef struct
     fmi3LsBusFlexRayCycleId cycleId;                    /**< The cycle the message is transferred in. */
     fmi3LsBusFlexRaySlotId slotId;                      /**< The slot the message is transferred in. */
     fmi3LsBusFlexRayChannel channel;                    /**< The channel(s) on which the transmission takes place. */
-} fmi3LsBusFlexRayOperationFlexRayConfirm;
+} fmi3LsBusFlexRayOperationConfirm;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayOperationFlexRayConfirm) == (5 + 1 + 2 + 1),
-    "'fmi3LsBusFlexRayOperationFlexRayConfirm' does not match the expected data size");
+static_assert(sizeof(fmi3LsBusFlexRayOperationConfirm) == (5 + 1 + 2 + 1),
+    "'fmi3LsBusFlexRayOperationConfirm' does not match the expected data size");
 #endif
 
 

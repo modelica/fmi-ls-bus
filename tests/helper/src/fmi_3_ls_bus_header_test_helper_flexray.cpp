@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "fmi_3_ls_bus_header_test_helper_flexray.h"
 #include <gtest/gtest.h>
 
@@ -16,13 +17,13 @@ void CheckFlexRayTransmitOperation(int cycleId, int slotId, int channel, fmi3UIn
 	fmi3UInt8 rxData[2048];
 
 	fmi3LsBusOperationHeader* operationHeader;
-	fmi3LsBusFlexRayOperationFlexRayTransmit* operation;
+	fmi3LsBusFlexRayOperationTransmit* operation;
 
 	FMI3_LS_BUS_BUFFER_INFO_INIT(&firstBufferInfo, txData, sizeof(txData));
 	FMI3_LS_BUS_BUFFER_INFO_INIT(&secondBufferInfo, rxData, sizeof(rxData));
 
 	// Create operation.
-	FMI3_LS_BUS_FLEXRAY_CREATE_OP_FLEXRAY_TRANSMIT(&firstBufferInfo, cycleId, slotId, channel,
+	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, cycleId, slotId, channel,
 		startUpFrameIndicator, syncFrameIndicator, nullFrameIndicator,
 		payloadPreambleIndicator, minislotDuration, dataSize, data);
 
@@ -32,7 +33,7 @@ void CheckFlexRayTransmitOperation(int cycleId, int slotId, int channel, fmi3UIn
 	// Read and check created method from second buffer.
 	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
 
-	operation = (fmi3LsBusFlexRayOperationFlexRayTransmit*)operationHeader;
+	operation = (fmi3LsBusFlexRayOperationTransmit*)operationHeader;
 
 	// Specify whether the created data are checked for correctness or an overflow.
 	int multiplier = (correctData) ? 1 : 0;
@@ -238,7 +239,7 @@ void CheckDataSizeError(FlexRayOperation operation)
 	switch (operation)
 	{
 	case FlexRayTransmit:
-		FMI3_LS_BUS_FLEXRAY_CREATE_OP_FLEXRAY_TRANSMIT(&bufferInfo, 0, 0, 0, 0,
+		FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&bufferInfo, 0, 0, 0, 0,
 			fmi3True, fmi3True, fmi3True, fmi3True, sizeof(data), data);
 		break;
 	case BusError:
@@ -251,6 +252,12 @@ void CheckDataSizeError(FlexRayOperation operation)
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&bufferInfo, 0);
 	case Symbol:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&bufferInfo, 0, 0, FMI3_LS_BUS_FLEXRAY_SYMBOL_COLLISION_AVOIDANCE_SYMBOL);
+		break;
+	case Cancel:
+		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CANCEL(&bufferInfo, 0, 0, 0);
+		break;
+	case Confirm:
+		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIRM(&bufferInfo, 0, 0, 0);
 		break;
 	}
 
@@ -281,7 +288,7 @@ void CheckFormatErrorOperation(FlexRayOperation operationType)
 	switch (operationType)
 	{
 	case FlexRayTransmit:
-		FMI3_LS_BUS_FLEXRAY_CREATE_OP_FLEXRAY_TRANSMIT(&thirdBufferInfo, 0, 0, 0, 0,
+		FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&thirdBufferInfo, 0, 0, 0, 0,
 			fmi3True, fmi3True, fmi3True,
 			fmi3True, sizeof(data), data);
 		break;
@@ -295,6 +302,12 @@ void CheckFormatErrorOperation(FlexRayOperation operationType)
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&thirdBufferInfo, 0);
 	case Symbol:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&thirdBufferInfo, 0, 0, FMI3_LS_BUS_FLEXRAY_SYMBOL_COLLISION_AVOIDANCE_SYMBOL);
+		break;
+	case Cancel:
+		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CANCEL(&thirdBufferInfo, 0, 0, 0);
+		break;
+	case Confirm:
+		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIRM(&thirdBufferInfo, 0, 0, 0);
 		break;
 	}
 

@@ -63,13 +63,13 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] DataLength                Message data length (\ref fmi3LsBusFlexRayDataLength).
  * \param[in] Data                      Message data (pointer to \ref fmi3LsBusFlexRayData).
  */
-#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_FLEXRAY_TRANSMIT(BufferInfo, \
+#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(BufferInfo, \
             CycleId, SlotId, Channel, StartupFrameIndicator, SyncFrameIndicator, \
             NullFrameIndicator, PayloadPreambleIndicator, MinislotDuration, DataLength, Data) \
     do                                                                                 \
     {                                                                                  \
-        fmi3LsBusFlexRayOperationFlexRayTransmit _op;                                  \
-        _op.header.opCode = FMI3_LS_BUS_FLEXRAY_OP_FLEXRAY_TRANSMIT;                   \
+        fmi3LsBusFlexRayOperationTransmit _op;                                  \
+        _op.header.opCode = FMI3_LS_BUS_FLEXRAY_OP_TRANSMIT;                           \
         _op.header.length = sizeof(_op) + (DataLength);                                \
         _op.cycleId = (CycleId);                                                       \
         _op.slotId = (SlotId);                                                         \
@@ -99,11 +99,11 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   * \param[in] SlotId                    The slot the message is transferred in (\ref fmi3LsBusFlexRaySlotId).
   * \param[in] Channel                   The channel(s) on which the transmission takes place (\ref fmi3LsBusFlexRayChannel).
   */
-#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_FLEXRAY_CANCEL(BufferInfo, CycleId, SlotId, Channel) \
+#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_CANCEL(BufferInfo, CycleId, SlotId, Channel) \
     do                                                                                 \
     {                                                                                  \
-        fmi3LsBusFlexRayOperationFlexRayCancel _op;                                    \
-        _op.header.opCode = FMI3_LS_BUS_FLEXRAY_OP_FLEXRAY_CANCEL;                     \
+        fmi3LsBusFlexRayOperationCancel _op;                                           \
+        _op.header.opCode = FMI3_LS_BUS_FLEXRAY_OP_CANCEL;                             \
         _op.header.length = sizeof(_op);                                               \
         _op.cycleId = (CycleId);                                                       \
         _op.slotId = (SlotId);                                                         \
@@ -127,11 +127,11 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     * \param[in] SlotId                    The slot the message is transferred in (\ref fmi3LsBusFlexRaySlotId).
     * \param[in] Channel                   The channel(s) on which the transmission takes place (\ref fmi3LsBusFlexRayChannel).
     */
-#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_FLEXRAY_CONFIRM(BufferInfo, CycleId, SlotId, Channel) \
+#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIRM(BufferInfo, CycleId, SlotId, Channel)    \
     do                                                                                 \
     {                                                                                  \
-        fmi3LsBusFlexRayOperationFlexRayConfirm _op;                                   \
-        _op.header.opCode = FMI3_LS_BUS_FLEXRAY_OP_FLEXRAY_CONFIRM;                    \
+        fmi3LsBusFlexRayOperationConfirm _op;                                          \
+        _op.header.opCode = FMI3_LS_BUS_FLEXRAY_OP_CONFIRM;                            \
         _op.header.length = sizeof(_op);                                               \
         _op.cycleId = (CycleId);                                                       \
         _op.slotId = (SlotId);                                                         \

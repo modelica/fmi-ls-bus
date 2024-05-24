@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "fmi_3_ls_bus_header_test_helper_flexray.h"
 #include <gtest/gtest.h>
 
@@ -460,7 +461,6 @@ TEST(Fmi3LsBusFlexRayTransmit, formatError)
  */
 TEST(Fmi3LsBusFlexRayBusError, minValues1) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_SYNTAX_ERROR, 0, 0, 0, true);
 }
 
@@ -469,7 +469,6 @@ TEST(Fmi3LsBusFlexRayBusError, minValues1) {
  */
 TEST(Fmi3LsBusFlexRayBusError, minValues2) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_SYNTAX_ERROR, 0, 0, 0, true);
 }
 
@@ -478,7 +477,6 @@ TEST(Fmi3LsBusFlexRayBusError, minValues2) {
  */
 TEST(Fmi3LsBusFlexRayBusError, minValues3) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_CONTENT_ERROR, 0, 0, 0, true);
 }
 
@@ -487,7 +485,6 @@ TEST(Fmi3LsBusFlexRayBusError, minValues3) {
  */
 TEST(Fmi3LsBusFlexRayBusError, minValues4) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_CONTENT_ERROR, 0, 0, 0, true);
 }
 
@@ -496,7 +493,6 @@ TEST(Fmi3LsBusFlexRayBusError, minValues4) {
  */
 TEST(Fmi3LsBusFlexRayBusError, minValues5) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_BOUNDARY_VIOLATION, 0, 0, 0, true);
 }
 
@@ -505,7 +501,6 @@ TEST(Fmi3LsBusFlexRayBusError, minValues5) {
  */
 TEST(Fmi3LsBusFlexRayBusError, minValues6) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_BOUNDARY_VIOLATION, 0, 0, 0, true);
 }
 
@@ -514,7 +509,6 @@ TEST(Fmi3LsBusFlexRayBusError, minValues6) {
  */
 TEST(Fmi3LsBusFlexRayBusError, minValues7) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_TX_CONFLICT, 0, 0, 0, true);
 }
 
@@ -523,7 +517,6 @@ TEST(Fmi3LsBusFlexRayBusError, minValues7) {
  */
 TEST(Fmi3LsBusFlexRayBusError, minValues8) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_TX_CONFLICT, 0, 0, 0, true);
 }
 
@@ -532,7 +525,6 @@ TEST(Fmi3LsBusFlexRayBusError, minValues8) {
  */
 TEST(Fmi3LsBusFlexRayBusError, maxValues1) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_SYNTAX_ERROR, UINT8_MAX, UINT16_MAX, UINT8_MAX, true);
 }
 
@@ -541,7 +533,6 @@ TEST(Fmi3LsBusFlexRayBusError, maxValues1) {
  */
 TEST(Fmi3LsBusFlexRayBusError, maxValues2) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_SYNTAX_ERROR, UINT8_MAX, UINT16_MAX, UINT8_MAX, true);
 }
 
@@ -550,7 +541,6 @@ TEST(Fmi3LsBusFlexRayBusError, maxValues2) {
  */
 TEST(Fmi3LsBusFlexRayBusError, maxValues3) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_CONTENT_ERROR, UINT8_MAX, UINT16_MAX, UINT8_MAX, true);
 }
 
@@ -559,7 +549,6 @@ TEST(Fmi3LsBusFlexRayBusError, maxValues3) {
  */
 TEST(Fmi3LsBusFlexRayBusError, maxValues4) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_CONTENT_ERROR, UINT8_MAX, UINT16_MAX, UINT8_MAX, true);
 }
 
@@ -568,7 +557,6 @@ TEST(Fmi3LsBusFlexRayBusError, maxValues4) {
  */
 TEST(Fmi3LsBusFlexRayBusError, maxValues5) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_BOUNDARY_VIOLATION, UINT8_MAX, UINT16_MAX, UINT8_MAX, true);
 }
 
@@ -577,7 +565,6 @@ TEST(Fmi3LsBusFlexRayBusError, maxValues5) {
  */
 TEST(Fmi3LsBusFlexRayBusError, maxValues6) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_BOUNDARY_VIOLATION, UINT8_MAX, UINT16_MAX, UINT8_MAX, true);
 }
 
@@ -586,7 +573,6 @@ TEST(Fmi3LsBusFlexRayBusError, maxValues6) {
  */
 TEST(Fmi3LsBusFlexRayBusError, maxValues7) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_TX_CONFLICT, UINT8_MAX, UINT16_MAX, UINT8_MAX, true);
 }
 
@@ -595,7 +581,6 @@ TEST(Fmi3LsBusFlexRayBusError, maxValues7) {
  */
 TEST(Fmi3LsBusFlexRayBusError, maxValues8) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_TX_CONFLICT, UINT8_MAX, UINT16_MAX, UINT8_MAX, true);
 }
 
@@ -604,7 +589,6 @@ TEST(Fmi3LsBusFlexRayBusError, maxValues8) {
  */
 TEST(Fmi3LsBusFlexRayBusError, wrongValues1) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_SYNTAX_ERROR, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, false);
 }
 
@@ -613,7 +597,6 @@ TEST(Fmi3LsBusFlexRayBusError, wrongValues1) {
  */
 TEST(Fmi3LsBusFlexRayBusError, wrongValues2) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_SYNTAX_ERROR, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, false);
 }
 
@@ -622,7 +605,6 @@ TEST(Fmi3LsBusFlexRayBusError, wrongValues2) {
  */
 TEST(Fmi3LsBusFlexRayBusError, wrongValues3) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_CONTENT_ERROR, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, false);
 }
 
@@ -631,7 +613,6 @@ TEST(Fmi3LsBusFlexRayBusError, wrongValues3) {
  */
 TEST(Fmi3LsBusFlexRayBusError, wrongValues4) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_CONTENT_ERROR, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, false);
 }
 
@@ -640,7 +621,6 @@ TEST(Fmi3LsBusFlexRayBusError, wrongValues4) {
  */
 TEST(Fmi3LsBusFlexRayBusError, wrongValues5) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_BOUNDARY_VIOLATION, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, false);
 }
 
@@ -649,7 +629,6 @@ TEST(Fmi3LsBusFlexRayBusError, wrongValues5) {
  */
 TEST(Fmi3LsBusFlexRayBusError, wrongValues6) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_BOUNDARY_VIOLATION, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, false);
 }
 
@@ -658,7 +637,6 @@ TEST(Fmi3LsBusFlexRayBusError, wrongValues6) {
  */
 TEST(Fmi3LsBusFlexRayBusError, wrongValues7) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_TX_CONFLICT, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, false);
 }
 
@@ -667,7 +645,6 @@ TEST(Fmi3LsBusFlexRayBusError, wrongValues7) {
  */
 TEST(Fmi3LsBusFlexRayBusError, wrongValues8) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 	CheckFlexRayBusErrorOperation(FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_TX_CONFLICT, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, false);
 }
 
@@ -685,6 +662,38 @@ TEST(Fmi3LsBusFlexRayBusError, sizeError)
 TEST(Fmi3LsBusFlexRayBusError, formatError)
 {
 	CheckFormatErrorOperation(BusError);
+}
+
+/**
+ * \brief Test for the Format Error operation with the FlexRay Cancel operation.
+ */
+TEST(Fmi3LsBusFlexRayCancel, formatError)
+{
+	CheckFormatErrorOperation(Cancel);
+}
+
+/**
+ * \brief Test for the FlexRay Cancel operation with data that is too big.
+ */
+TEST(Fmi3LsBusFlexRayCancel, sizeError)
+{
+	CheckDataSizeError(Cancel);
+}
+
+/**
+ * \brief Test for the Format Error operation with the FlexRay Confirm operation.
+ */
+TEST(Fmi3LsBusFlexRayConfirm, formatError)
+{
+	CheckFormatErrorOperation(Confirm);
+}
+
+/**
+ * \brief Test for the FlexRay Confirm operation with data that is too big.
+ */
+TEST(Fmi3LsBusFlexRayConfirm, sizeError)
+{
+	CheckDataSizeError(Confirm);
 }
 
 /**
@@ -834,7 +843,7 @@ TEST(Fmi3LsBusFlexRayCombinationTest, maxValues) {
 	fmi3UInt8 rxData[2048];
 	fmi3LsBusOperationHeader* operationHeader;
 
-	fmi3LsBusFlexRayOperationFlexRayTransmit* flexRayTransmitOperation;
+	fmi3LsBusFlexRayOperationTransmit* flexRayTransmitOperation;
 	fmi3LsBusFlexRayOperationBusError* flexRayBusErrorOperation;
 	fmi3LsBusFlexRayOperationConfiguration* flexRayConfigurationOperation;
 	fmi3LsBusFlexRayOperationStartCommunication* flexRayStatusOperation;
@@ -845,18 +854,18 @@ TEST(Fmi3LsBusFlexRayCombinationTest, maxValues) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 
-	FMI3_LS_BUS_FLEXRAY_CREATE_OP_FLEXRAY_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, UINT32_MAX, sizeof(data), data);
+	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, UINT32_MAX, sizeof(data), data);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(&firstBufferInfo, FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_CONTENT_ERROR, UINT8_MAX, UINT16_MAX, UINT8_MAX);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_GLOBAL(&firstBufferInfo, UINT32_MAX, UINT16_MAX, UINT8_MAX, UINT16_MAX, UINT16_MAX, UINT16_MAX, UINT8_MAX, UINT16_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT64_MAX, fmi3True);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&firstBufferInfo, UINT64_MAX);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&firstBufferInfo, UINT8_MAX, UINT8_MAX, FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL);
-	FMI3_LS_BUS_FLEXRAY_CREATE_OP_FLEXRAY_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, UINT32_MAX, sizeof(data), data);
+	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, UINT32_MAX, sizeof(data), data);
 
 	FMI3_LS_BUS_BUFFER_WRITE(&secondBufferInfo, txData, sizeof(txData));
 
 	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
-	flexRayTransmitOperation = (fmi3LsBusFlexRayOperationFlexRayTransmit*)operationHeader;
-	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_FLEXRAY_OP_FLEXRAY_TRANSMIT);
+	flexRayTransmitOperation = (fmi3LsBusFlexRayOperationTransmit*)operationHeader;
+	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_FLEXRAY_OP_TRANSMIT);
 	EXPECT_EQ(flexRayTransmitOperation->cycleId, UINT8_MAX);
 	EXPECT_EQ(flexRayTransmitOperation->slotId, UINT16_MAX);
 	EXPECT_EQ(flexRayTransmitOperation->channel, UINT8_MAX);
@@ -902,8 +911,8 @@ TEST(Fmi3LsBusFlexRayCombinationTest, maxValues) {
 	EXPECT_EQ(flexRaySymbolOperation->type, FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL);
 
 	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
-	flexRayTransmitOperation = (fmi3LsBusFlexRayOperationFlexRayTransmit*)operationHeader;
-	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_FLEXRAY_OP_FLEXRAY_TRANSMIT);
+	flexRayTransmitOperation = (fmi3LsBusFlexRayOperationTransmit*)operationHeader;
+	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_FLEXRAY_OP_TRANSMIT);
 	EXPECT_EQ(flexRayTransmitOperation->cycleId, UINT8_MAX);
 	EXPECT_EQ(flexRayTransmitOperation->slotId, UINT16_MAX);
 	EXPECT_EQ(flexRayTransmitOperation->channel, UINT8_MAX);
@@ -929,7 +938,7 @@ TEST(Fmi3LsBusFlexRayCombinationTest, maxAndWrongValues) {
 	fmi3UInt8 rxData[2048];
 	fmi3LsBusOperationHeader* operationHeader;
 
-	fmi3LsBusFlexRayOperationFlexRayTransmit* flexRayTransmitOperation;
+	fmi3LsBusFlexRayOperationTransmit* flexRayTransmitOperation;
 	fmi3LsBusFlexRayOperationBusError* flexRayBusErrorOperation;
 	fmi3LsBusFlexRayOperationConfiguration* flexRayConfigurationOperation;
 	fmi3LsBusFlexRayOperationStartCommunication* flexRayStatusOperation;
@@ -940,18 +949,18 @@ TEST(Fmi3LsBusFlexRayCombinationTest, maxAndWrongValues) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 
-	FMI3_LS_BUS_FLEXRAY_CREATE_OP_FLEXRAY_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, UINT32_MAX, sizeof(data), data);
+	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, UINT32_MAX, sizeof(data), data);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(&firstBufferInfo, FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_CONTENT_ERROR, UINT8_MAX, UINT16_MAX, UINT8_MAX);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_GLOBAL(&firstBufferInfo, FLEXRAY_WRONG_U_INT32, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT32, fmi3True);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&firstBufferInfo, (UINT64_MAX + 1));
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&firstBufferInfo, UINT8_MAX, UINT8_MAX, FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL);
-	FMI3_LS_BUS_FLEXRAY_CREATE_OP_FLEXRAY_TRANSMIT(&firstBufferInfo, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, fmi3True, fmi3True, fmi3True, fmi3True, FLEXRAY_WRONG_U_INT32, sizeof(data), data);
+	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, fmi3True, fmi3True, fmi3True, fmi3True, FLEXRAY_WRONG_U_INT32, sizeof(data), data);
 
 	FMI3_LS_BUS_BUFFER_WRITE(&secondBufferInfo, txData, sizeof(txData));
 
 	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
-	flexRayTransmitOperation = (fmi3LsBusFlexRayOperationFlexRayTransmit*)operationHeader;
-	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_FLEXRAY_OP_FLEXRAY_TRANSMIT);
+	flexRayTransmitOperation = (fmi3LsBusFlexRayOperationTransmit*)operationHeader;
+	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_FLEXRAY_OP_TRANSMIT);
 	EXPECT_EQ(flexRayTransmitOperation->cycleId, UINT8_MAX);
 	EXPECT_EQ(flexRayTransmitOperation->slotId, UINT16_MAX);
 	EXPECT_EQ(flexRayTransmitOperation->channel, UINT8_MAX);
@@ -997,8 +1006,8 @@ TEST(Fmi3LsBusFlexRayCombinationTest, maxAndWrongValues) {
 	EXPECT_EQ(flexRaySymbolOperation->type, FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL);
 
 	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
-	flexRayTransmitOperation = (fmi3LsBusFlexRayOperationFlexRayTransmit*)operationHeader;
-	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_FLEXRAY_OP_FLEXRAY_TRANSMIT);
+	flexRayTransmitOperation = (fmi3LsBusFlexRayOperationTransmit*)operationHeader;
+	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_FLEXRAY_OP_TRANSMIT);
 	EXPECT_EQ(flexRayTransmitOperation->cycleId, 0);
 	EXPECT_EQ(flexRayTransmitOperation->slotId, 0);
 	EXPECT_EQ(flexRayTransmitOperation->channel, 0);
@@ -1028,7 +1037,7 @@ TEST(Fmi3LsBusFlexRayCombinationTest, resetBuffer) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 
-	FMI3_LS_BUS_FLEXRAY_CREATE_OP_FLEXRAY_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, sizeof(data), data);
+	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, sizeof(data), data);
 
 	FMI3_LS_BUS_BUFFER_WRITE(&secondBufferInfo, txData, sizeof(txData));
 
