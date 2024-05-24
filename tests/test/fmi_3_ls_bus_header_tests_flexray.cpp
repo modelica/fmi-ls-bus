@@ -444,7 +444,7 @@ TEST(Fmi3LsBusFlexRayTransmit, wrongValues16) {
  */
 TEST(Fmi3LsBusFlexRayTransmit, sizeError)
 {
-	CheckDataSizeError(FlexRayTransmit);
+	CheckDataSizeError(Transmit);
 }
 
 /**
@@ -452,7 +452,7 @@ TEST(Fmi3LsBusFlexRayTransmit, sizeError)
  */
 TEST(Fmi3LsBusFlexRayTransmit, formatError)
 {
-	CheckFormatErrorOperation(FlexRayTransmit);
+	CheckFormatErrorOperation(Transmit);
 }
 
 /**

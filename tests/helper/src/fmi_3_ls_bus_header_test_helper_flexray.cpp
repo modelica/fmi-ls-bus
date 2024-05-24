@@ -237,7 +237,7 @@ void CheckDataSizeError(FlexRayOperation operation)
 	// Create operation based on which operation is requested with data that is too big.
 	switch (operation)
 	{
-	case FlexRayTransmit:
+	case Transmit:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&bufferInfo, 0, 0, 0, 0,
 			fmi3True, fmi3True, fmi3True, fmi3True, sizeof(data), data);
 		break;
@@ -249,6 +249,7 @@ void CheckDataSizeError(FlexRayOperation operation)
 		break;
 	case StartCommunication:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&bufferInfo, 0);
+		break;
 	case Symbol:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&bufferInfo, 0, 0, FMI3_LS_BUS_FLEXRAY_SYMBOL_COLLISION_AVOIDANCE_SYMBOL);
 		break;
@@ -286,7 +287,7 @@ void CheckFormatErrorOperation(FlexRayOperation operationType)
 	// Create operation depending on which operation is requested as data for the FormatError operation.
 	switch (operationType)
 	{
-	case FlexRayTransmit:
+	case Transmit:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&thirdBufferInfo, 0, 0, 0, 0,
 			fmi3True, fmi3True, fmi3True,
 			fmi3True, sizeof(data), data);
@@ -299,6 +300,7 @@ void CheckFormatErrorOperation(FlexRayOperation operationType)
 		break;
 	case StartCommunication:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&thirdBufferInfo, 0);
+		break;
 	case Symbol:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&thirdBufferInfo, 0, 0, FMI3_LS_BUS_FLEXRAY_SYMBOL_COLLISION_AVOIDANCE_SYMBOL);
 		break;
