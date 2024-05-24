@@ -1,7 +1,3 @@
-/**
- * \file fmi3LsBusFlexRay.h
- */
-
 #ifndef fmi3LsBusFlexRay_h
 #define fmi3LsBusFlexRay_h
 

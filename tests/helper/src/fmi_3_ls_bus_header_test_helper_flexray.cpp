@@ -6,7 +6,7 @@
 #pragma warning(disable : 4244)
 #endif
 
-void CheckFlexRayTransmitOperation(int cycleId, int slotId, int channel, int segment, fmi3UInt8 startUpFrameIndicator,
+void CheckFlexRayTransmitOperation(int cycleId, int slotId, int channel, fmi3UInt8 startUpFrameIndicator,
 	fmi3UInt8 syncFrameIndicator, fmi3UInt8 nullFrameIndicator,	fmi3UInt8 payloadPreambleIndicator, fmi3UInt64 minislotDuration, size_t dataSize, fmi3UInt8 data[], bool correctData)
 {
 	// Create data needed for creation.

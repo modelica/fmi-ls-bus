@@ -31,7 +31,7 @@ enum FlexRayOperation { FlexRayTransmit, BusError, ConfigurationGlobal, StartCom
  * \param[in] data                      The data for the FlexRay Transmit operation.
  * \param[in] correctData               Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
-void CheckFlexRayTransmitOperation(int cycleId, int slotId, int channel, int segment, fmi3UInt8 startUpFrameIndicator,
+void CheckFlexRayTransmitOperation(int cycleId, int slotId, int channel, fmi3UInt8 startUpFrameIndicator,
                                    fmi3UInt8 syncFrameIndicator, fmi3UInt8 nullFrameIndicator,
                                    fmi3UInt8 payloadPreambleIndicator, fmi3UInt64 minislotDuration, size_t dataSize, fmi3UInt8 data[],
                                    bool correctData);
