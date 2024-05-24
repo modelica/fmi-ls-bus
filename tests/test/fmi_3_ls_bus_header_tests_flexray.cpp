@@ -708,7 +708,7 @@ TEST(Fmi3LsBusFlexRayConfigurationGlobal, minValues)
  */
 TEST(Fmi3LsBusFlexRayConfigurationGlobal, maxValues)
 {
-	CheckFlexRayConfigurationOperation(ConfigurationGlobal, UINT32_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT64_MAX, true);
+	CheckFlexRayConfigurationOperation(ConfigurationGlobal, UINT32_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT32_MAX, UINT8_MAX, true);
 }
 
 /**
@@ -726,23 +726,7 @@ TEST(Fmi3LsBusFlexRayConfigurationGlobal, formatError)
 {
 	CheckFormatErrorOperation(ConfigurationGlobal);
 }
-
-/**
- * \brief Test for the FlexRay Configuration Startup operation with value fmi3True.
- */
-TEST(Fmi3LsBusFlexRayConfigurationGlobal, trueValue)
-{
-	CheckFlexRayConfigurationOperation(ConfigurationGlobal, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, fmi3True, NULL);
-}
-
-/**
- * \brief Test for the FlexRay Configuration Startup operation with value fmi3False.
- */
-TEST(Fmi3LsBusFlexRayConfigurationStartUp, falseValue)
-{
-	CheckFlexRayConfigurationOperation(ConfigurationGlobal, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, fmi3False, NULL);
-}
-
+ 
 /**
  * \brief Test for the FlexRay Transmit operation with data that is too big.
  */

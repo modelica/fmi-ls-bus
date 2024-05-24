@@ -144,7 +144,7 @@ void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long lon
 		EXPECT_EQ(operation->flexRayGlobal.symbolWindowLength, symbolWindowLength * multiplier);
 		EXPECT_EQ(operation->flexRayGlobal.nitLength, nitLength * multiplier);
 		EXPECT_EQ(operation->flexRayGlobal.dynamicSlotIdleTime, dynamicSlotIdleTime * multiplier);
-		EXPECT_EQ(operation->flexRayGlobal.coldstartNode, coldStartNode);
+		EXPECT_EQ(operation->flexRayGlobal.coldstartNode, coldStartNode * multiplier);
 		break;
 	}
 
