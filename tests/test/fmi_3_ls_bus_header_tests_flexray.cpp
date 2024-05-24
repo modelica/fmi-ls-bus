@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "fmi_3_ls_bus_header_test_helper_flexray.h"
 #include <gtest/gtest.h>
 
