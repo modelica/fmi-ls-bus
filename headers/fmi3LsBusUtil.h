@@ -276,7 +276,7 @@ typedef struct
             {                                                                                               \
                 memcpy((BufferInfo)->writePos, &(Operation), (Operation).header.length - (DataLength));     \
                 (BufferInfo)->writePos += (Operation).header.length - (DataLength);                         \
-                if ((DataLength) > 0 && nullptr != (Data))                                                     \
+                if (((DataLength) > 0) && (NULL != (Data)))                                                 \
                 {                                                                                           \
                     memcpy((BufferInfo)->writePos, (Data), (DataLength));                                   \
                     (BufferInfo)->writePos += (DataLength);                                                 \
@@ -289,6 +289,35 @@ typedef struct
             }                                                                                               \
     } while (0)
 
+
+ /**
+  * \brief Submits a bus operation to the specified buffer.
+  *
+  * This macro can be used to submit an FMI-LS-BUS operation to the buffer described by `BufferInfo`.
+  * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
+  * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
+  *
+  * \param[in] BufferInfo  Pointer to \ref fmi3LsBusUtilBufferInfo.
+  * \param[in] Operation   The operation structure to send. This must be the name of a packed struct where
+  *                        the first field is a \ref fmi3LsBusOperationHeader named `header`.
+  *
+  * \note This macro is reserved for internal use in the definition of other macros and it not considered
+  *       a part of the public interface of the headers and may change without notice.
+  */
+#define FMI_LS_BUS_SUBMIT_OPERATION_NO_DATA_INTERNAL(BufferInfo, Operation)                                 \
+    do                                                                                                      \
+    {                                                                                                       \
+            if ((Operation).header.length <= (fmi3UInt32)((BufferInfo)->end - (BufferInfo)->writePos))      \
+            {                                                                                               \
+                memcpy((BufferInfo)->writePos, &(Operation), (Operation).header.length);                     \
+                (BufferInfo)->writePos += (Operation).header.length;                                        \
+                (BufferInfo)->status = fmi3True;                                                            \
+            }                                                                                               \
+            else                                                                                            \
+            {                                                                                               \
+                (BufferInfo)->status = fmi3False;                                                           \
+            }                                                                                               \
+    } while (0)
 
 #ifdef __cplusplus
 } /* end of extern "C" { */

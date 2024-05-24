@@ -109,7 +109,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.slotId = (SlotId);                                                         \
         _op.channel = (Channel);                                                       \
                                                                                        \
-        FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, 0, NULL);              \
+        FMI_LS_BUS_SUBMIT_OPERATION_NO_DATA_INTERNAL((BufferInfo), _op);               \
     }                                                                                  \
     while (0)
 
@@ -137,7 +137,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.slotId = (SlotId);                                                         \
         _op.channel = (Channel);                                                       \
                                                                                        \
-        FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, 0, NULL);              \
+        FMI_LS_BUS_SUBMIT_OPERATION_NO_DATA_INTERNAL((BufferInfo), _op);               \
     }                                                                                  \
     while (0)
 
@@ -167,7 +167,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.segmentIndicator = (SegmentIndicator);                        \
         _op.channel = (Channel);                                          \
                                                                           \
-        FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, 0, NULL); \
+        FMI_LS_BUS_SUBMIT_OPERATION_NO_DATA_INTERNAL((BufferInfo), _op);  \
     }                                                                     \
     while (0)
 
@@ -226,7 +226,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.flexRayGlobal.dynamicSlotIdleTime = (DynamicSlotIdleTime);                 \
         _op.flexRayGlobal.coldstartNode = (ColdstartNode);                             \
                                                                                        \
-        FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, 0, NULL);              \
+        FMI_LS_BUS_SUBMIT_OPERATION_NO_DATA_INTERNAL((BufferInfo), _op);               \
     }                                                                                  \
     while (0)
 
@@ -250,7 +250,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.header.length = sizeof(_op);                                  \
         _op.startTime = (StartTime);                                      \
                                                                           \
-        FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, 0, NULL); \
+        FMI_LS_BUS_SUBMIT_OPERATION_NO_DATA_INTERNAL((BufferInfo), _op);  \
     }                                                                     \
     while (0)
 
@@ -278,7 +278,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.channel = (Channel);                                          \
         _op.type = (Type);                                                \
                                                                           \
-        FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, 0, NULL); \
+        FMI_LS_BUS_SUBMIT_OPERATION_NO_DATA_INTERNAL((BufferInfo), _op);  \
     }                                                                     \
     while (0)
 
