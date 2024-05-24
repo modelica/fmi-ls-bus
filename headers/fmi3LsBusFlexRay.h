@@ -218,32 +218,32 @@ typedef fmi3UInt8 fmi3LsBusFlexRayError;
 /**
  * \brief Indicates a valid Transmit operation and can be used to point out a valid FlexRay transmission in combination with another error.
  */
-#define FMI3_LS_BUS_FLEXRAY_ERROR_VALID_FRAME \
+#define FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_VALID_FRAME \
     ((fmi3LsBusFlexRayError)0x01)
 
 /**
  * \brief Indicates a syntactic error in a time slot of a 'Transmit' operation.
  */
-#define FMI3_LS_BUS_FLEXRAY_ERROR_SYNTAX_ERROR \
+#define FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_SYNTAX_ERROR \
     ((fmi3LsBusFlexRayError)0x02)
 
 /**
  * \brief Indicates a content error of a receiving 'Transmit' operation on the receiver side.
  */
-#define FMI3_LS_BUS_FLEXRAY_ERROR_CONTENT_ERROR \
+#define FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_CONTENT_ERROR \
     ((fmi3LsBusFlexRayError)0x04)
 
 /**
  * \brief Indicates that a boundary violation occurred at boundary of the corresponding slot.
  */
-#define FMI3_LS_BUS_FLEXRAY_ERROR_BOUNDARY_VIOLATION \
+#define FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_BOUNDARY_VIOLATION \
     ((fmi3LsBusFlexRayError)0x08)
 
 /**
  * \brief Indicates that a reception from another Network FMU is already ongoing while the specified
  *      Network FMU starts a transmission using a 'Transmit' operation.
  */
-#define FMI3_LS_BUS_FLEXRAY_ERROR_TX_CONFLICT \
+#define FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_TX_CONFLICT \
     ((fmi3LsBusFlexRayError)0x16)
 
 /** \} */
@@ -320,19 +320,19 @@ typedef fmi3UInt8 fmi3LsBusFlexRaySymbolType;
 /**
  * \brief The collision avoidance symbol is used to indicate the start of the first communication cycle.
  */
-#define FMI3_LS_BUS_SYMBOL_COLLISION_AVOIDANCE_SYMBOL \
+#define FMI3_LS_BUS_FLEXRAY_SYMBOL_COLLISION_AVOIDANCE_SYMBOL \
     ((fmi3LsBusFlexRaySymbolType)0x0)
 
 /**
  * \brief The media test symbol is used for testing of a bus guardian.
  */
-#define FMI3_LS_BUS_SYMBOL_MEDIA_TEST_SYMBOL \
+#define FMI3_LS_BUS_FLEXRAY_SYMBOL_MEDIA_TEST_SYMBOL \
     ((fmi3LsBusFlexRaySymbolType)0x1)
 
 /**
  * \brief The wake up symbol is used for waking up other FlexRay nodes of the specified network.
  */
-#define FMI3_LS_BUS_SYMBOL_WAKEUP_SYMBOL \
+#define FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL \
     ((fmi3LsBusFlexRaySymbolType)0x2)
 
 /** \} */

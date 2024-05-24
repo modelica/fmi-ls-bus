@@ -158,7 +158,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] ErrorFlags        The error flags describing the error (\ref fmi3LsBusFlexRayError).
  * \param[in] CycleId           The cycle in which the error occurred (\ref fmi3LsBusFlexRayCycleId).
  * \param[in] SegmentInicator   Identifies the specified FlexRay segment, where the error occured (\ref fmi3LsBusFlexRaySegmentInicatorType).
- * \param[in] Iteration         The number of complete FlexRay cycles, where where the error occuredwhere the error occured (\ref fmi3LsBusFlexRayIteration).
  * \param[in] Channel           The channel(s) on which the error occurred (\ref fmi3LsBusFlexRayChannel).
  */
 #define FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(BufferInfo, ErrorFlags, CycleId, SegmentIndicator, Channel) \
@@ -237,52 +236,23 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 /**
- * \brief Creates a FlexRay 'Configuration' operation for the parameter 'FLEXRAY_STARTUP'.
+ * \brief Creates a FlexRay 'Start Communication' operation.
  *
- * This macro can be used to create a FlexRay 'Configuration' operation.
- * The arguments are serialized according to the fmi-ls-bus specification and written to the buffer described by the argument `BufferInfo`.
- * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
- * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
- *
- * \param[in] BufferInfo                 Pointer to \ref fmi3LsBusUtilBufferInfo.
- * \param[in] ColdstartNode              Indicates whether the FlexRay node is a coldstart node or not (\ref fmi3LsBusBoolean).
- */
-#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_STARTUP(BufferInfo, ColdstartNode) \
-    do                                                                                  \
-    {                                                                                   \
-        fmi3LsBusFlexRayOperationConfiguration _op;                                     \
-        _op.header.opCode = FMI3_LS_BUS_FLEXRAY_OP_CONFIGURATION;                       \
-        _op.header.length = sizeof(fmi3LsBusOperationHeader) +                          \
-            sizeof(fmi3LsBusFlexRayConfigParameterType) +                               \
-            sizeof(fmi3LsBusFlexRayConfigurationFlexRayStartup);                        \
-        _op.parameterType = FMI3_LS_BUS_FLEXRAY_CONFIG_PARAMETER_TYPE_FLEXRAY_STARTUP;  \
-        _op.flexRayStartup.coldstartNode = (ColdstartNode);                             \
-                                                                                        \
-        FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, 0, NULL);               \
-    }                                                                                   \
-    while (0)
-
-
-/**
- * \brief Creates a FlexRay 'Bus Status' operation.
- *
- * This macro can be used to create a FlexRay 'Bus Status' operation.
+ * This macro can be used to create a FlexRay 'Start Communication' operation.
  * The arguments are serialized according to the fmi-ls-bus specification and written to the buffer described by the argument `BufferInfo`.
  * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
  * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
  *
  * \param[in] BufferInfo   Pointer to \ref fmi3LsBusUtilBufferInfo.
- * \param[in] Status       The current status of the FlexRay bus (\ref fmi3LsBusFlexRayBusStatus).
- * \param[in] CycleOffset  The offset of the first FlexRay cycle from the simulation start in macroticks (\ref fmi3LsBusFlexRayCycleOffset).
+ * \param[in] StartTime    Start time of the first FlexRay cycle in nanoseconds (\ref fmi3LsBusFlexRayStartTime).
  */
-#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_STATUS(BufferInfo, Status, CycleOffset) \
+#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(BufferInfo, StartTime) \
     do                                                                    \
     {                                                                     \
-        fmi3LsBusFlexRayOperationBusStatus _op;                           \
-        _op.header.opCode = FMI3_LS_BUS_FLEXRAY_OP_BUS_STATUS;            \
+        fmi3LsBusFlexRayOperationStartCommunication _op;                  \
+        _op.header.opCode = FMI3_LS_BUS_FLEXRAY_OP_START_COMMUNICATION;   \
         _op.header.length = sizeof(_op);                                  \
-        _op.status = (Status);                                            \
-        _op.cycleOffset = (CycleOffset);                                  \
+        _op.startTime = (StartTime);                                      \
                                                                           \
         FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, 0, NULL); \
     }                                                                     \
