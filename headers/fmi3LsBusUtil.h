@@ -276,7 +276,7 @@ typedef struct
             {                                                                                               \
                 memcpy((BufferInfo)->writePos, &(Operation), (Operation).header.length - (DataLength));     \
                 (BufferInfo)->writePos += (Operation).header.length - (DataLength);                         \
-                if ((DataLength) > 0 && NULL != (Data))                                                                       \
+                if ((DataLength) > 0 && nullptr != (Data))                                                     \
                 {                                                                                           \
                     memcpy((BufferInfo)->writePos, (Data), (DataLength));                                   \
                     (BufferInfo)->writePos += (DataLength);                                                 \
