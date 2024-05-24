@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "fmi_3_ls_bus_header_test_helper_flexray.h"
 #include <gtest/gtest.h>
 
@@ -90,7 +91,7 @@ void CheckFlexRayBusErrorOperation(int errorFlags, int cycleId, int segmentIndic
 	EXPECT_EQ(operation->channel, channel * multiplier);
 }
 
-void CheckFlexRayConfigurationOperation(Operation operationType, long long int macrotickDuration, int macroticksPerCycle, int maxCycleCount, int actionPointOffset, int staticSlotLength, int numberOfStaticSlots, int staticPayloadLength, int minislotActionPointOffset, int numberOfMinislots, int minislotLength, int symbolActionPointOffset, int symbolWindowLength, int nitLength, long long int dynamicSlotIdleTime, fmi3Boolean coldStartNode, bool correctData)
+void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long long int macrotickDuration, int macroticksPerCycle, int maxCycleCount, int actionPointOffset, int staticSlotLength, int numberOfStaticSlots, int staticPayloadLength, int minislotActionPointOffset, int numberOfMinislots, int minislotLength, int symbolActionPointOffset, int symbolWindowLength, int nitLength, long long int dynamicSlotIdleTime, fmi3Boolean coldStartNode, bool correctData)
 {
 	// Create data needed for creation.
 	fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -224,7 +225,7 @@ void CheckFlexRaySymbolOperation(int cycleId, int channel, fmi3LsBusFlexRaySymbo
 	EXPECT_EQ(operation->type, type);
 }
 
-void CheckDataSizeError(Operation operation)
+void CheckDataSizeError(FlexRayOperation operation)
 {
 	// Create data needed for creation.
 	fmi3LsBusUtilBufferInfo bufferInfo;
@@ -258,7 +259,7 @@ void CheckDataSizeError(Operation operation)
 	EXPECT_EQ(bufferInfo.status, fmi3False);
 }
 
-void CheckFormatErrorOperation(Operation operationType)
+void CheckFormatErrorOperation(FlexRayOperation operationType)
 {
 	// Create data needed for creation.
 	fmi3LsBusUtilBufferInfo firstBufferInfo;

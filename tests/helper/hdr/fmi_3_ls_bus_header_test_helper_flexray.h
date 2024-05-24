@@ -6,15 +6,15 @@
 /**
  * \brief Values that cause an overflow for the tested datatype.
  */
-#define WRONG_U_INT8 256
-#define WRONG_U_INT16 65536
-#define WRONG_U_INT32 0x100000000
-#define WRONG_U_INT64 0x10000000000000000
+#define FLEXRAY_WRONG_U_INT8 256
+#define FLEXRAY_WRONG_U_INT16 65536
+#define FLEXRAY_WRONG_U_INT32 0x100000000
+#define FLEXRAY_WRONG_U_INT64 0x10000000000000000
 
 /**
  * \brief Enum of the available operations by name.
  */
-enum Operation { FlexRayTransmit, BusError, ConfigurationGlobal, StartCommunication, Symbol };
+enum FlexRayOperation { FlexRayTransmit, BusError, ConfigurationGlobal, StartCommunication, Symbol };
 
 /**
  * \brief Checks if the FlexRay Transmit operation is created correctly by the corresponding macro.
@@ -64,7 +64,7 @@ void CheckFlexRayBusErrorOperation(int errorFlags, int cycleId, int segmentIndic
  * \param[in] coldStartNode             The coldStartNode of the FlexRay Configuration Startup operation.
  * \param[in] correctData               Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
-void CheckFlexRayConfigurationOperation(Operation operationType, long long int macrotickDuration,
+void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long long int macrotickDuration,
                                         int macroticksPerCycle, int maxCycleCount, int actionPointOffset, int staticSlotLength,
                                         int numberOfStaticSlots, int staticPayloadLength, int minislotActionPointOffset,
                                         int numberOfMinislots, int minislotLength, int symbolActionPointOffset, int symbolWindowLength,
@@ -93,11 +93,11 @@ void CheckFlexRaySymbolOperation(int cycleId, int channel, fmi3LsBusFlexRaySymbo
  *
  * \param[in] operation  The type of operation to be checked.
  */
-void CheckDataSizeError(Operation operation);
+void CheckDataSizeError(FlexRayOperation operation);
 
 /**
  * \brief Checks if the Format Error operation is created correctly by the corresponding macro.
  *
  * \param[in] operationType  The type of operation of the Format Error operation.
  */
-void CheckFormatErrorOperation(Operation operationType);
+void CheckFormatErrorOperation(FlexRayOperation operationType);
