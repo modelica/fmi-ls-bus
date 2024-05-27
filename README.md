@@ -48,14 +48,19 @@ See also the overview pages for the demos, categorized by the different supporte
 * [CAN, CAN FD and CAN XL Demo Overview] 
 
 ## FMI LS Bus Implementers' Guide
-The [FMI LS Bus Implementers' Guide] is a free resource intended to give non-normative recommendations and guidance to implementers of the Functional Mock-up Interface layered standard Network Communication (FMI-LS-BUS).
+The [FMI LS Bus Implementers' Guide] is a free resource intended to give non-normative recommendations and guidance to implementers of the Functional Mock-up Interface Layered Standard Network Communication (FMI-LS-BUS).
 
 ## Copyright and License
 Code and documentation copyright (C) 2008-2011 the MODELISAR consortium and 2012-2024 the Modelica Association Project FMI.
 Code released under the [2-Clause BSD License].
 Docs released under [Attribution-ShareAlike 4.0 International].
 
+## Other FMI Layered Standards
+If you are interested in the FMI Layered Standard for Network Communication, the [fmi-ls-xcp] could also be relevant to you.
+The [fmi-ls-xcp] specifies an FMI extension for using the XCP protocol and A2L variable description within FMUs.
+
 [FMI]: https://fmi-standard.org/
+[fmi-ls-xcp]: https://github.com/modelica/fmi-ls-xcp
 [Demo FMUs]: https://github.com/modelica/fmi-guides/tree/main/ls-bus-guide/demos
 [2-Clause BSD License]: https://opensource.org/licenses/BSD-2-Clause
 [Attribution-ShareAlike 4.0 International]: https://creativecommons.org/licenses/by-sa/4.0/
