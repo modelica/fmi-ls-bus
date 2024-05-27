@@ -7,7 +7,7 @@
 #endif
 
 void CheckFlexRayTransmitOperation(int cycleId, int slotId, int channel, fmi3UInt8 startUpFrameIndicator,
-	fmi3UInt8 syncFrameIndicator, fmi3UInt8 nullFrameIndicator,	fmi3UInt8 payloadPreambleIndicator, fmi3UInt64 minislotDuration, size_t dataSize, fmi3UInt8 data[], bool correctData)
+	fmi3UInt8 syncFrameIndicator, fmi3UInt8 nullFrameIndicator, fmi3UInt8 payloadPreambleIndicator, fmi3UInt64 minislotDuration, size_t dataSize, fmi3UInt8 data[], bool correctData)
 {
 	// Create data needed for creation.
 	fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -54,7 +54,7 @@ void CheckFlexRayTransmitOperation(int cycleId, int slotId, int channel, fmi3UIn
 	}
 }
 
-void CheckFlexRayBusErrorOperation(int errorFlags, int cycleId, int segmentIndicator, int channel,  bool correctData)
+void CheckFlexRayBusErrorOperation(int errorFlags, int cycleId, int segmentIndicator, int channel, bool correctData)
 {
 	// Create data needed for creation.
 	fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -90,6 +90,76 @@ void CheckFlexRayBusErrorOperation(int errorFlags, int cycleId, int segmentIndic
 	EXPECT_EQ(operation->channel, channel * multiplier);
 }
 
+void CheckFlexRayCancelOperation(int cycleId, int slotId, int channel, bool correctData)
+{
+	// Create data needed for creation.
+	fmi3LsBusUtilBufferInfo firstBufferInfo;
+	fmi3LsBusUtilBufferInfo secondBufferInfo;
+	fmi3UInt8 txData[2048];
+	fmi3UInt8 rxData[2048];
+
+	fmi3LsBusOperationHeader* operationHeader;
+	fmi3LsBusFlexRayOperationCancel* operation;
+
+	FMI3_LS_BUS_BUFFER_INFO_INIT(&firstBufferInfo, txData, sizeof(txData));
+	FMI3_LS_BUS_BUFFER_INFO_INIT(&secondBufferInfo, rxData, sizeof(rxData));
+
+	// Create operation.
+	FMI3_LS_BUS_FLEXRAY_CREATE_OP_CANCEL(&firstBufferInfo, cycleId, slotId, channel);
+
+	// Write operation to a second buffer.
+	FMI3_LS_BUS_BUFFER_WRITE(&secondBufferInfo, txData, sizeof(txData));
+
+	// Read and check created method from second buffer.
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
+
+	operation = (fmi3LsBusFlexRayOperationCancel*)operationHeader;
+
+	// Specify whether the created data are checked for correctness or an overflow.
+	int multiplier = (correctData) ? 1 : 0;
+
+	EXPECT_EQ(secondBufferInfo.status, fmi3True);
+
+	EXPECT_EQ(operation->cycleId, cycleId * multiplier);
+	EXPECT_EQ(operation->slotId, slotId * multiplier);
+	EXPECT_EQ(operation->channel, channel * multiplier);
+}
+
+void CheckFlexRayConfirmOperation(int cycleId, int slotId, int channel, bool correctData)
+{
+	// Create data needed for creation.
+	fmi3LsBusUtilBufferInfo firstBufferInfo;
+	fmi3LsBusUtilBufferInfo secondBufferInfo;
+	fmi3UInt8 txData[2048];
+	fmi3UInt8 rxData[2048];
+
+	fmi3LsBusOperationHeader* operationHeader;
+	fmi3LsBusFlexRayOperationConfirm* operation;
+
+	FMI3_LS_BUS_BUFFER_INFO_INIT(&firstBufferInfo, txData, sizeof(txData));
+	FMI3_LS_BUS_BUFFER_INFO_INIT(&secondBufferInfo, rxData, sizeof(rxData));
+
+	// Create operation.
+	FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIRM(&firstBufferInfo, cycleId, slotId, channel);
+
+	// Write operation to a second buffer.
+	FMI3_LS_BUS_BUFFER_WRITE(&secondBufferInfo, txData, sizeof(txData));
+
+	// Read and check created method from second buffer.
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
+
+	operation = (fmi3LsBusFlexRayOperationConfirm*)operationHeader;
+
+	// Specify whether the created data are checked for correctness or an overflow.
+	int multiplier = (correctData) ? 1 : 0;
+
+	EXPECT_EQ(secondBufferInfo.status, fmi3True);
+
+	EXPECT_EQ(operation->cycleId, cycleId * multiplier);
+	EXPECT_EQ(operation->slotId, slotId * multiplier);
+	EXPECT_EQ(operation->channel, channel * multiplier);
+}
+
 void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long long int macrotickDuration, int macroticksPerCycle, int maxCycleCount, int actionPointOffset, int staticSlotLength, int numberOfStaticSlots, int staticPayloadLength, int minislotActionPointOffset, int numberOfMinislots, int minislotLength, int symbolActionPointOffset, int symbolWindowLength, int nitLength, long long int dynamicSlotIdleTime, fmi3Boolean coldStartNode, bool correctData)
 {
 	// Create data needed for creation.
@@ -108,8 +178,8 @@ void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long lon
 	switch (operationType)
 	{
 	case ConfigurationGlobal:
-		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_GLOBAL(&firstBufferInfo, macrotickDuration, macroticksPerCycle, maxCycleCount, actionPointOffset, staticSlotLength, numberOfStaticSlots, staticPayloadLength, minislotActionPointOffset, numberOfMinislots, minislotLength, symbolActionPointOffset,symbolWindowLength, nitLength, dynamicSlotIdleTime, coldStartNode);
-		break; 
+		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_GLOBAL(&firstBufferInfo, macrotickDuration, macroticksPerCycle, maxCycleCount, actionPointOffset, staticSlotLength, numberOfStaticSlots, staticPayloadLength, minislotActionPointOffset, numberOfMinislots, minislotLength, symbolActionPointOffset, symbolWindowLength, nitLength, dynamicSlotIdleTime, coldStartNode);
+		break;
 	default:
 		break;
 	}
@@ -159,7 +229,7 @@ void CheckFlexRayStartCommunicationOperation(unsigned long long int startTime, b
 	fmi3UInt8 rxData[2048];
 
 	fmi3LsBusOperationHeader* operationHeader;
-	fmi3LsBusFlexRayOperationStartCommunication * operation;
+	fmi3LsBusFlexRayOperationStartCommunication* operation;
 
 	FMI3_LS_BUS_BUFFER_INFO_INIT(&firstBufferInfo, txData, sizeof(txData));
 	FMI3_LS_BUS_BUFFER_INFO_INIT(&secondBufferInfo, rxData, sizeof(rxData));

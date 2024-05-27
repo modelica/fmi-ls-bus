@@ -22,7 +22,7 @@ TEST(Fmi3LsBusFlexRayTransmit, minValues1) {
 TEST(Fmi3LsBusFlexRayTransmit, minValues2) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(0, 0, 0,  fmi3False, fmi3True, fmi3True, fmi3True, 0, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(0, 0, 0, fmi3False, fmi3True, fmi3True, fmi3True, 0, sizeof(data), data, true);
 }
 
 /**
@@ -31,7 +31,7 @@ TEST(Fmi3LsBusFlexRayTransmit, minValues2) {
 TEST(Fmi3LsBusFlexRayTransmit, minValues3) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(0, 0, 0,  fmi3True, fmi3False, fmi3True, fmi3True, 0, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(0, 0, 0, fmi3True, fmi3False, fmi3True, fmi3True, 0, sizeof(data), data, true);
 }
 
 /**
@@ -40,7 +40,7 @@ TEST(Fmi3LsBusFlexRayTransmit, minValues3) {
 TEST(Fmi3LsBusFlexRayTransmit, minValues4) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(0, 0, 0,   fmi3False, fmi3False, fmi3True, fmi3True, 0, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(0, 0, 0, fmi3False, fmi3False, fmi3True, fmi3True, 0, sizeof(data), data, true);
 }
 
 /**
@@ -49,7 +49,7 @@ TEST(Fmi3LsBusFlexRayTransmit, minValues4) {
 TEST(Fmi3LsBusFlexRayTransmit, minValues5) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(0, 0, 0,   fmi3True, fmi3True, fmi3False, fmi3True, 0, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(0, 0, 0, fmi3True, fmi3True, fmi3False, fmi3True, 0, sizeof(data), data, true);
 }
 
 /**
@@ -58,7 +58,7 @@ TEST(Fmi3LsBusFlexRayTransmit, minValues5) {
 TEST(Fmi3LsBusFlexRayTransmit, minValues6) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(0, 0, 0,  fmi3False, fmi3True, fmi3False, fmi3True, 0, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(0, 0, 0, fmi3False, fmi3True, fmi3False, fmi3True, 0, sizeof(data), data, true);
 }
 
 /**
@@ -67,7 +67,7 @@ TEST(Fmi3LsBusFlexRayTransmit, minValues6) {
 TEST(Fmi3LsBusFlexRayTransmit, minValues7) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(0, 0, 0,  fmi3True, fmi3False, fmi3False, fmi3True, 0, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(0, 0, 0, fmi3True, fmi3False, fmi3False, fmi3True, 0, sizeof(data), data, true);
 }
 
 /**
@@ -76,7 +76,7 @@ TEST(Fmi3LsBusFlexRayTransmit, minValues7) {
 TEST(Fmi3LsBusFlexRayTransmit, minValues8) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(0, 0, 0,  fmi3False, fmi3False, fmi3False, fmi3True, 0, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(0, 0, 0, fmi3False, fmi3False, fmi3False, fmi3True, 0, sizeof(data), data, true);
 }
 
 /**
@@ -85,7 +85,7 @@ TEST(Fmi3LsBusFlexRayTransmit, minValues8) {
 TEST(Fmi3LsBusFlexRayTransmit, minValues9) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(0, 0, 0,   fmi3True, fmi3True, fmi3True, fmi3False, 0, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(0, 0, 0, fmi3True, fmi3True, fmi3True, fmi3False, 0, sizeof(data), data, true);
 }
 
 /**
@@ -94,7 +94,7 @@ TEST(Fmi3LsBusFlexRayTransmit, minValues9) {
 TEST(Fmi3LsBusFlexRayTransmit, minValues10) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(0, 0, 0,   fmi3False, fmi3True, fmi3True, fmi3False, 0, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(0, 0, 0, fmi3False, fmi3True, fmi3True, fmi3False, 0, sizeof(data), data, true);
 }
 
 /**
@@ -103,7 +103,7 @@ TEST(Fmi3LsBusFlexRayTransmit, minValues10) {
 TEST(Fmi3LsBusFlexRayTransmit, minValues11) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(0, 0, 0,   fmi3True, fmi3False, fmi3True, fmi3False, 0, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(0, 0, 0, fmi3True, fmi3False, fmi3True, fmi3False, 0, sizeof(data), data, true);
 }
 
 /**
@@ -112,7 +112,7 @@ TEST(Fmi3LsBusFlexRayTransmit, minValues11) {
 TEST(Fmi3LsBusFlexRayTransmit, minValues12) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(0, 0, 0,  fmi3False, fmi3False, fmi3True, fmi3False, 0, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(0, 0, 0, fmi3False, fmi3False, fmi3True, fmi3False, 0, sizeof(data), data, true);
 }
 
 /**
@@ -121,7 +121,7 @@ TEST(Fmi3LsBusFlexRayTransmit, minValues12) {
 TEST(Fmi3LsBusFlexRayTransmit, minValues13) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(0, 0, 0,   fmi3True, fmi3True, fmi3False, fmi3False, 0, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(0, 0, 0, fmi3True, fmi3True, fmi3False, fmi3False, 0, sizeof(data), data, true);
 }
 
 /**
@@ -130,7 +130,7 @@ TEST(Fmi3LsBusFlexRayTransmit, minValues13) {
 TEST(Fmi3LsBusFlexRayTransmit, minValues14) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(0, 0, 0,  fmi3False, fmi3True, fmi3False, fmi3False, 0, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(0, 0, 0, fmi3False, fmi3True, fmi3False, fmi3False, 0, sizeof(data), data, true);
 }
 
 /**
@@ -139,7 +139,7 @@ TEST(Fmi3LsBusFlexRayTransmit, minValues14) {
 TEST(Fmi3LsBusFlexRayTransmit, minValues15) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(0, 0, 0,   fmi3True, fmi3False, fmi3False, fmi3False, 0, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(0, 0, 0, fmi3True, fmi3False, fmi3False, fmi3False, 0, sizeof(data), data, true);
 }
 
 /**
@@ -148,7 +148,7 @@ TEST(Fmi3LsBusFlexRayTransmit, minValues15) {
 TEST(Fmi3LsBusFlexRayTransmit, minValues16) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(0, 0, 0,  fmi3False, fmi3False, fmi3False, fmi3False, 0, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(0, 0, 0, fmi3False, fmi3False, fmi3False, fmi3False, 0, sizeof(data), data, true);
 }
 
 /**
@@ -157,7 +157,7 @@ TEST(Fmi3LsBusFlexRayTransmit, minValues16) {
 TEST(Fmi3LsBusFlexRayTransmit, maxValues1) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX,  fmi3True, fmi3True, fmi3True, fmi3True, UINT32_MAX, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, UINT32_MAX, sizeof(data), data, true);
 }
 
 /**
@@ -166,7 +166,7 @@ TEST(Fmi3LsBusFlexRayTransmit, maxValues1) {
 TEST(Fmi3LsBusFlexRayTransmit, maxValues2) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX,  fmi3False, fmi3True, fmi3True, fmi3True, UINT32_MAX, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3False, fmi3True, fmi3True, fmi3True, UINT32_MAX, sizeof(data), data, true);
 }
 
 /**
@@ -175,7 +175,7 @@ TEST(Fmi3LsBusFlexRayTransmit, maxValues2) {
 TEST(Fmi3LsBusFlexRayTransmit, maxValues3) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX,  fmi3True, fmi3False, fmi3True, fmi3True, UINT32_MAX, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3False, fmi3True, fmi3True, UINT32_MAX, sizeof(data), data, true);
 }
 
 /**
@@ -184,7 +184,7 @@ TEST(Fmi3LsBusFlexRayTransmit, maxValues3) {
 TEST(Fmi3LsBusFlexRayTransmit, maxValues4) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX,  fmi3False, fmi3False, fmi3True, fmi3True, UINT32_MAX, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3False, fmi3False, fmi3True, fmi3True, UINT32_MAX, sizeof(data), data, true);
 }
 
 /**
@@ -193,7 +193,7 @@ TEST(Fmi3LsBusFlexRayTransmit, maxValues4) {
 TEST(Fmi3LsBusFlexRayTransmit, maxValues5) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX,  fmi3True, fmi3True, fmi3False, fmi3True, UINT32_MAX, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3False, fmi3True, UINT32_MAX, sizeof(data), data, true);
 }
 
 /**
@@ -202,7 +202,7 @@ TEST(Fmi3LsBusFlexRayTransmit, maxValues5) {
 TEST(Fmi3LsBusFlexRayTransmit, maxValues6) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX,  fmi3False, fmi3True, fmi3False, fmi3True, UINT32_MAX, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3False, fmi3True, fmi3False, fmi3True, UINT32_MAX, sizeof(data), data, true);
 }
 
 /**
@@ -211,7 +211,7 @@ TEST(Fmi3LsBusFlexRayTransmit, maxValues6) {
 TEST(Fmi3LsBusFlexRayTransmit, maxValues7) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX,  fmi3True, fmi3False, fmi3False, fmi3True, UINT32_MAX, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3False, fmi3False, fmi3True, UINT32_MAX, sizeof(data), data, true);
 }
 
 /**
@@ -220,7 +220,7 @@ TEST(Fmi3LsBusFlexRayTransmit, maxValues7) {
 TEST(Fmi3LsBusFlexRayTransmit, maxValues8) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX,  fmi3False, fmi3False, fmi3False, fmi3True, UINT32_MAX, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3False, fmi3False, fmi3False, fmi3True, UINT32_MAX, sizeof(data), data, true);
 }
 
 /**
@@ -229,7 +229,7 @@ TEST(Fmi3LsBusFlexRayTransmit, maxValues8) {
 TEST(Fmi3LsBusFlexRayTransmit, maxValues9) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX,   fmi3True, fmi3True, fmi3True, fmi3False, UINT32_MAX, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3False, UINT32_MAX, sizeof(data), data, true);
 }
 
 /**
@@ -238,7 +238,7 @@ TEST(Fmi3LsBusFlexRayTransmit, maxValues9) {
 TEST(Fmi3LsBusFlexRayTransmit, maxValues10) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX,  fmi3False, fmi3True, fmi3True, fmi3False, UINT32_MAX, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3False, fmi3True, fmi3True, fmi3False, UINT32_MAX, sizeof(data), data, true);
 }
 
 /**
@@ -247,7 +247,7 @@ TEST(Fmi3LsBusFlexRayTransmit, maxValues10) {
 TEST(Fmi3LsBusFlexRayTransmit, maxValues11) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX,  fmi3True, fmi3False, fmi3True, fmi3False, UINT32_MAX, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3False, fmi3True, fmi3False, UINT32_MAX, sizeof(data), data, true);
 }
 
 /**
@@ -256,7 +256,7 @@ TEST(Fmi3LsBusFlexRayTransmit, maxValues11) {
 TEST(Fmi3LsBusFlexRayTransmit, maxValues12) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX,  fmi3False, fmi3False, fmi3True, fmi3False, UINT32_MAX, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3False, fmi3False, fmi3True, fmi3False, UINT32_MAX, sizeof(data), data, true);
 }
 
 /**
@@ -265,7 +265,7 @@ TEST(Fmi3LsBusFlexRayTransmit, maxValues12) {
 TEST(Fmi3LsBusFlexRayTransmit, maxValues13) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX,  fmi3True, fmi3True, fmi3False, fmi3False, UINT32_MAX, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3False, fmi3False, UINT32_MAX, sizeof(data), data, true);
 }
 
 /**
@@ -274,7 +274,7 @@ TEST(Fmi3LsBusFlexRayTransmit, maxValues13) {
 TEST(Fmi3LsBusFlexRayTransmit, maxValues14) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX,  fmi3False, fmi3True, fmi3False, fmi3False, UINT32_MAX, sizeof(data), data, true);
+	CheckFlexRayTransmitOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3False, fmi3True, fmi3False, fmi3False, UINT32_MAX, sizeof(data), data, true);
 }
 
 /**
@@ -310,7 +310,7 @@ TEST(Fmi3LsBusFlexRayTransmit, wrongValues1) {
 TEST(Fmi3LsBusFlexRayTransmit, wrongValues2) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8,  fmi3False, fmi3True, fmi3True, fmi3True, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
+	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, fmi3False, fmi3True, fmi3True, fmi3True, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
 }
 
 /**
@@ -328,7 +328,7 @@ TEST(Fmi3LsBusFlexRayTransmit, wrongValues3) {
 TEST(Fmi3LsBusFlexRayTransmit, wrongValues4) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8,  fmi3False, fmi3False, fmi3True, fmi3True, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
+	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, fmi3False, fmi3False, fmi3True, fmi3True, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
 }
 
 /**
@@ -337,7 +337,7 @@ TEST(Fmi3LsBusFlexRayTransmit, wrongValues4) {
 TEST(Fmi3LsBusFlexRayTransmit, wrongValues5) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8,  fmi3True, fmi3True, fmi3False, fmi3True, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
+	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, fmi3True, fmi3True, fmi3False, fmi3True, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
 }
 
 /**
@@ -346,7 +346,7 @@ TEST(Fmi3LsBusFlexRayTransmit, wrongValues5) {
 TEST(Fmi3LsBusFlexRayTransmit, wrongValues6) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8,  fmi3False, fmi3True, fmi3False, fmi3True, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
+	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, fmi3False, fmi3True, fmi3False, fmi3True, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
 }
 
 /**
@@ -364,7 +364,7 @@ TEST(Fmi3LsBusFlexRayTransmit, wrongValues7) {
 TEST(Fmi3LsBusFlexRayTransmit, wrongValues8) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8,  fmi3False, fmi3False, fmi3False, fmi3True, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
+	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, fmi3False, fmi3False, fmi3False, fmi3True, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
 }
 
 /**
@@ -373,7 +373,7 @@ TEST(Fmi3LsBusFlexRayTransmit, wrongValues8) {
 TEST(Fmi3LsBusFlexRayTransmit, wrongValues9) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16,  FLEXRAY_WRONG_U_INT8, fmi3True, fmi3True, fmi3True, fmi3False, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
+	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, fmi3True, fmi3True, fmi3True, fmi3False, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
 }
 
 /**
@@ -391,7 +391,7 @@ TEST(Fmi3LsBusFlexRayTransmit, wrongValues10) {
 TEST(Fmi3LsBusFlexRayTransmit, wrongValues11) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16,  FLEXRAY_WRONG_U_INT8, fmi3True, fmi3False, fmi3True, fmi3False, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
+	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, fmi3True, fmi3False, fmi3True, fmi3False, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
 }
 
 /**
@@ -399,8 +399,8 @@ TEST(Fmi3LsBusFlexRayTransmit, wrongValues11) {
  */
 TEST(Fmi3LsBusFlexRayTransmit, wrongValues12) {
 
-	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };  
-	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8,  fmi3False, fmi3False, fmi3True, fmi3False, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
+	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
+	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, fmi3False, fmi3False, fmi3True, fmi3False, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
 }
 
 /**
@@ -418,7 +418,7 @@ TEST(Fmi3LsBusFlexRayTransmit, wrongValues13) {
 TEST(Fmi3LsBusFlexRayTransmit, wrongValues14) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16,  FLEXRAY_WRONG_U_INT8, fmi3False, fmi3True, fmi3False, fmi3False, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
+	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, fmi3False, fmi3True, fmi3False, fmi3False, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
 }
 
 /**
@@ -427,7 +427,7 @@ TEST(Fmi3LsBusFlexRayTransmit, wrongValues14) {
 TEST(Fmi3LsBusFlexRayTransmit, wrongValues15) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8,  fmi3True, fmi3False, fmi3False, fmi3False, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
+	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, fmi3True, fmi3False, fmi3False, fmi3False, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
 }
 
 /**
@@ -436,7 +436,7 @@ TEST(Fmi3LsBusFlexRayTransmit, wrongValues15) {
 TEST(Fmi3LsBusFlexRayTransmit, wrongValues16) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8,  fmi3False, fmi3False, fmi3False, fmi3False, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
+	CheckFlexRayTransmitOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, fmi3False, fmi3False, fmi3False, fmi3False, FLEXRAY_WRONG_U_INT32, sizeof(data), data, false);
 }
 
 /**
@@ -664,6 +664,30 @@ TEST(Fmi3LsBusFlexRayBusError, formatError)
 }
 
 /**
+ * \brief Test for the FlexRay Cancel operation with smallest valid values.
+ */
+TEST(Fmi3LsBusFlexRayCancel, minValues1)
+{
+	CheckFlexRayCancelOperation(0, 0, 0, true);
+}
+
+/**
+ * \brief Test for the FlexRay Cancel operation with valid values.
+ */
+TEST(Fmi3LsBusFlexRayCancel, minValues2)
+{
+	CheckFlexRayCancelOperation(5, 34, FMI3_LS_BUS_FLEXRAY_CHANNEL_A, true);
+}
+
+/**
+ * \brief Test for the FlexRay Cancel operation with valid values.
+ */
+TEST(Fmi3LsBusFlexRayCancel, minValues3)
+{
+	CheckFlexRayCancelOperation(54, 19, FMI3_LS_BUS_FLEXRAY_CHANNEL_B, true);
+}
+
+/**
  * \brief Test for the Format Error operation with the FlexRay Cancel operation.
  */
 TEST(Fmi3LsBusFlexRayCancel, formatError)
@@ -677,6 +701,30 @@ TEST(Fmi3LsBusFlexRayCancel, formatError)
 TEST(Fmi3LsBusFlexRayCancel, sizeError)
 {
 	CheckDataSizeError(Cancel);
+}
+
+/**
+ * \brief Test for the FlexRay Confirm operation with smallest valid values.
+ */
+TEST(Fmi3LsBusFlexRayConfirm, minValues1)
+{
+	CheckFlexRayConfirmOperation(0, 0, 0, true);
+}
+
+/**
+ * \brief Test for the FlexRay Confirm operation with valid values.
+ */
+TEST(Fmi3LsBusFlexRayConfirm, minValues2)
+{
+	CheckFlexRayConfirmOperation(13, 9, FMI3_LS_BUS_FLEXRAY_CHANNEL_A, true);
+}
+
+/**
+ * \brief Test for the FlexRay Confirm operation with valid values.
+ */
+TEST(Fmi3LsBusFlexRayConfirm, minValues3)
+{
+	CheckFlexRayConfirmOperation(63, 19, FMI3_LS_BUS_FLEXRAY_CHANNEL_B, true);
 }
 
 /**
@@ -726,9 +774,9 @@ TEST(Fmi3LsBusFlexRayConfigurationGlobal, formatError)
 {
 	CheckFormatErrorOperation(ConfigurationGlobal);
 }
- 
+
 /**
- * \brief Test for the FlexRay Transmit operation with data that is too big.
+ * \brief Test for the FlexRay Transmit operation with smallest valid values.
  */
 TEST(Fmi3LsBusFlexRaySymbol, minValues1)
 {
@@ -736,7 +784,7 @@ TEST(Fmi3LsBusFlexRaySymbol, minValues1)
 }
 
 /**
- * \brief Test for the FlexRay Transmit operation with data that is too big.
+ * \brief Test for the FlexRay Transmit operation with smallest valid values.
  */
 TEST(Fmi3LsBusFlexRaySymbol, minValues2)
 {
@@ -744,7 +792,7 @@ TEST(Fmi3LsBusFlexRaySymbol, minValues2)
 }
 
 /**
- * \brief Test for the FlexRay Transmit operation with data that is too big.
+ * \brief Test for the FlexRay Transmit operation with smallest valid values.
  */
 TEST(Fmi3LsBusFlexRaySymbol, minValues3)
 {
@@ -839,7 +887,7 @@ TEST(Fmi3LsBusFlexRayCombinationTest, maxValues) {
 
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, UINT32_MAX, sizeof(data), data);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(&firstBufferInfo, FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_CONTENT_ERROR, UINT8_MAX, UINT16_MAX, UINT8_MAX);
-	FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_GLOBAL(&firstBufferInfo, UINT32_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX,UINT16_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT32_MAX, fmi3True);
+	FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_GLOBAL(&firstBufferInfo, UINT32_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT32_MAX, fmi3True);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&firstBufferInfo, UINT64_MAX);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&firstBufferInfo, UINT8_MAX, UINT8_MAX, FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, UINT32_MAX, sizeof(data), data);

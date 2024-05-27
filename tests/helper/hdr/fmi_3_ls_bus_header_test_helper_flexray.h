@@ -11,18 +11,18 @@
 #define FLEXRAY_WRONG_U_INT32 0x100000000
 #define FLEXRAY_WRONG_U_INT64 0x10000000000000000
 
-/**
- * \brief Enum of the available operations by name.
- */
+ /**
+  * \brief Enum of the available operations by name.
+  */
 enum FlexRayOperation { Transmit, BusError, ConfigurationGlobal, StartCommunication, Symbol, Confirm, Cancel };
 
 /**
  * \brief Checks if the FlexRay Transmit operation is created correctly by the corresponding macro.
 */
 void CheckFlexRayTransmitOperation(int cycleId, int slotId, int channel, fmi3UInt8 startUpFrameIndicator,
-                                   fmi3UInt8 syncFrameIndicator, fmi3UInt8 nullFrameIndicator,
-                                   fmi3UInt8 payloadPreambleIndicator, fmi3UInt64 minislotDuration, size_t dataSize, fmi3UInt8 data[],
-                                   bool correctData);
+	fmi3UInt8 syncFrameIndicator, fmi3UInt8 nullFrameIndicator,
+	fmi3UInt8 payloadPreambleIndicator, fmi3UInt64 minislotDuration, size_t dataSize, fmi3UInt8 data[],
+	bool correctData);
 
 /**
  * \brief Checks if the FlexRay Bus Error operation is created correctly by the corresponding macro.
@@ -33,10 +33,20 @@ void CheckFlexRayBusErrorOperation(int errorFlags, int cycleId, int segmentIndic
  * \brief Checks if the FlexRay Configuration operation is created correctly by the corresponding macro.
  */
 void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long long int macrotickDuration,
-                                        int macroticksPerCycle, int maxCycleCount, int actionPointOffset, int staticSlotLength,
-                                        int numberOfStaticSlots, int staticPayloadLength, int minislotActionPointOffset,
-                                        int numberOfMinislots, int minislotLength, int symbolActionPointOffset, int symbolWindowLength,
-                                        int nitLength, long long int dynamicSlotIdleTime,   fmi3Boolean coldStartNode, bool correctData);
+	int macroticksPerCycle, int maxCycleCount, int actionPointOffset, int staticSlotLength,
+	int numberOfStaticSlots, int staticPayloadLength, int minislotActionPointOffset,
+	int numberOfMinislots, int minislotLength, int symbolActionPointOffset, int symbolWindowLength,
+	int nitLength, long long int dynamicSlotIdleTime, fmi3Boolean coldStartNode, bool correctData);
+
+/**
+ * \brief Checks if the FlexRay Confirm operation is created correctly by the corresponding macro.
+ */
+void CheckFlexRayConfirmOperation(int cycleId, int slotId, int channel, bool correctData);
+
+/**
+ * \brief Checks if the FlexRay Cancel operation is created correctly by the corresponding macro.
+ */
+void CheckFlexRayCancelOperation(int cycleId, int slotId, int channel, bool correctData);
 
 /**
  * \brief Checks if the FlexRay Start Communication operation is created correctly by the corresponding macro.
