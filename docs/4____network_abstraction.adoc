@@ -287,7 +287,7 @@ The following table lists the names of MIME types used for the Tx/Rx data variab
 |org.fmi-standard.fmi-ls-bus.v1.lin
 |Binary variables simulating the automotive LIN network
 
-|org.fmi-standard.fmi-ls-bus.v1.flexray
+|org.fmi-standard.fmi-ls-bus.v1.1.0-alpha.flexray
 |Binary variables simulating the automotive FlexRay network
 
 |org.fmi-standard.fmi-ls-bus.v1.ethernet
