@@ -319,7 +319,7 @@ h|Description
 3+|Represents an operation for simulated bus errors.
 h|OP Code [hex]
 3+|0x20
-.8+h|Content h|Argument h|Length h|Description
+.7+h|Content h|Argument h|Length h|Description
 |OP Code
 |1 byte
 |Contains the OP Code (0x20) of the operation.
@@ -343,10 +343,6 @@ The allowed combinations are defined by the FlexRay specification itself.
 |Identifies the specified FlexRay segment, where the <<low-cut-flexray-bus-error-operation, `Bus Error`>> occurs.
 Within the static or dynamic segment, the value of `Segment Indicator` shall be the Slot ID of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to react.
 Within a Symbol Window or Network Idle Time segment the values of <<table-flexray-segment-types-values>> shall be used instead of the specified Slot ID.
-
-|Iteration
-|8 byte
-|Defines a continuous index of complete FlexRay cycles.
 
 |Channel
 |1 byte
