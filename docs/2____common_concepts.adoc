@@ -19,12 +19,12 @@ Terminal definitions are used differently within the "high cut" and the "low cut
 [#figure-terminal-relations]
 image::terminal_relations.svg[width=60%, align="center"]
 
-All variables have structured names or specific terminal `memberNames` that indicate how these variables are related and to which abstraction layer they belong.
+Variables are referenced in terminals and the `memberName` attribute indicates how a variable is meant to be used.
 For the "high cut", variables represent signals and their Clocks.
-For the "low cut", variables represent transmitted and received bus traffic (`Tx_Data`/`Rx_Data`) and their respective Clocks (`Tx_Clock`/`Rx_Clock`).
+For the "low cut", variables represent transmitted and received bus traffic (`memberName` = `Tx_Data`/`Rx_Data`) and their respective Clocks (`memberName` = `Tx_Clock`/`Rx_Clock`).
 The `causality` of `Rx_Data` variables must be `input`, whereas the `causality` of `Tx_Data` variables must be `output`.
-`Rx_Clock` variables must be `triggered input` Clocks and are connected by the importer to their corresponding `Tx_Clocks`, which can have any `causality` and `intervalVariability`.
-For example, a `periodic` Clock indicates that the FMU can only send signals or frames periodically, while a `changing` or `countdown` Clock indicates that the FMU can send signals at varying time steps.
+`Rx_Clock` variables must be `triggered input` Clocks and are meant to be connected by the importer to the corresponding `Tx_Clock` variables.
+A `periodic` Clock indicates that the FMU can send signals or frames only periodically on a given time raster, while a `changing` or `countdown` Clock indicates that the FMU can send signals at varying time steps.
 
 Using `Tx_Clocks` of different types allows simulations with different timing accuracy and performance.
 Some Clock types allow the FMU to specify the next send event efficiently and accurately.
@@ -116,16 +116,13 @@ The usage of this architecture type allows the integration of this layered stand
 In this case, it may also be possible to integrate other, for example manufacturer-specific, formats into a bus simulation.
 
 ===  Provided C-API [[common-concepts-provided-c-api]]
-Besides the textual specification for FMUs with bus support, this layered standard also provides a C-API to make the creation of FMUs with bus support as easy and generalized as possible.
-The standard differentiates between two groups of files within the C-API: Mandatory and optional files.
+Besides the textual specification for FMUs with bus support, this layered standard also provides a C header files to simplify the creation of FMUs with bus support.
+The following header files are provided:
 
 * https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBus.h[fmi3LsBus.h] provides general macros, types and structures of common Bus Operations.
 These header file applies to all supported bus types of the layered standard.
-The usage of this file is mandatory.
 * https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusCan.h[fmi3LsBusCan.h] provides macros, types and structures of Bus Operations explicit for CAN, CAN FD and CAN XL.
 Primarily, structures are included here that allow the Bus Operations specified by the layered standard to be easily created and used.
-The usage of this file is mandatory.
 * https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtil.h[fmi3LsBusUtil.h] provides common utility macros and structures for all supported bus types.
-The usage of this file is optional.
 * https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtilCan.h[fmi3LsBusUtilCan.h] provides CAN, CAN FD and CAN XL explicit utility macros.
-The usage of this file is optional
+
