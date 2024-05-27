@@ -423,7 +423,7 @@ The following information is included within this operation:
 
 .Detailed description of the Configuration operation.
 [#table-can-configuration-operation]
-[cols="5,1,10,4,3,20"]
+[cols="7,1,10,4,3,20"]
 |====
 h|Name
 5+|Configuration
