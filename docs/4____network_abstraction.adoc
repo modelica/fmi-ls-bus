@@ -281,20 +281,17 @@ The following table lists the names of MIME types used for the Tx/Rx data variab
 |MIME type
 |Description
 
-|org.fmi-standard.fmi-ls-bus.v1.can
+|org.fmi-standard.fmi-ls-bus.v1.0.0-alpha.can
 |Binary variables simulating the automotive CAN network including CAN, CAN FD and CAN XL
 
-|org.fmi-standard.fmi-ls-bus.v1.lin
+|org.fmi-standard.fmi-ls-bus.v1.3.0-alpha.lin
 |Binary variables simulating the automotive LIN network
 
-|org.fmi-standard.fmi-ls-bus.v1.flexray
+|org.fmi-standard.fmi-ls-bus.v1.1.0-alpha.flexray
 |Binary variables simulating the automotive FlexRay network
 
-|org.fmi-standard.fmi-ls-bus.v1.ethernet
+|org.fmi-standard.fmi-ls-bus.v1.2.0-alpha.ethernet
 |Binary variables simulating the automotive Ethernet network
-
-|org.fmi-standard.fmi-ls-bus.v1.spi
-|Binary variables simulating the automotive SPI network
 
 |====
 
