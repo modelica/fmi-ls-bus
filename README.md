@@ -32,7 +32,7 @@ A detailed roadmap showing completed, current and future work can be accessed [h
 - `docs` -- Sources of the specification document
 - `headers` -- Header files of the C-API
 - `schema` -- XSD schema for this FMI Layered
-Standard
+- `tests` -- Contains unit tests for the provided header files
 
 ## Getting Started
 To help you get started, we provide introductory chapters.
