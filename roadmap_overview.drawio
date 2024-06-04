@@ -1,0 +1,55 @@
+<mxfile host="app.diagrams.net" modified="2024-05-27T13:03:36.278Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 Edg/125.0.0.0" etag="zs66KITHGIoQBEm2jwwH" version="24.4.8" type="device">
+  <diagram id="yPxyJZ8AM_hMuL3Unpa9" name="complex gitflow">
+    <mxGraphModel dx="1020" dy="-251" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="3dxxPQ7Z966OyGFVeyM--26" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.partConcEllipse;startAngle=0.25;endAngle=0.75;arcWidth=0.25;fillColor=#10739E;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="414.1807906347057" y="1137.7751196172248" width="171.26449596735435" height="179.35406698564594" as="geometry" />
+        </mxCell>
+        <mxCell id="3dxxPQ7Z966OyGFVeyM--27" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.partConcEllipse;startAngle=0.75;endAngle=0.25;arcWidth=0.25;fillColor=#F2931E;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="564.0372246061407" y="1137.7751196172248" width="171.26449596735435" height="179.35406698564594" as="geometry" />
+        </mxCell>
+        <mxCell id="3dxxPQ7Z966OyGFVeyM--28" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.partConcEllipse;startAngle=0.25;endAngle=0.75;arcWidth=0.25;fillColor=#AE4132;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="713.8936585775759" y="1137.7751196172248" width="171.26449596735435" height="179.35406698564594" as="geometry" />
+        </mxCell>
+        <mxCell id="3dxxPQ7Z966OyGFVeyM--29" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.partConcEllipse;startAngle=0.75;endAngle=0.25;arcWidth=0.25;fillColor=#23445D;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="863.750092549011" y="1137.7751196172248" width="171.26449596735435" height="179.35406698564594" as="geometry" />
+        </mxCell>
+        <mxCell id="3dxxPQ7Z966OyGFVeyM--31" value="Version 1.0" style="shape=ellipse;strokeWidth=6;strokeColor=#10739E;fontSize=10;html=1;whiteSpace=wrap;fontStyle=1;fontColor=#10739E;" parent="1" vertex="1">
+          <mxGeometry x="464.13293529185074" y="1190.0867224880383" width="71.36020665306432" height="74.73086124401914" as="geometry" />
+        </mxCell>
+        <mxCell id="3dxxPQ7Z966OyGFVeyM--32" value="Version 1.1" style="shape=ellipse;strokeWidth=6;strokeColor=#F2931E;fontSize=10;html=1;whiteSpace=wrap;fontStyle=1;fontColor=#F2931E;" parent="1" vertex="1">
+          <mxGeometry x="613.9893692632859" y="1190.0867224880383" width="71.36020665306432" height="74.73086124401914" as="geometry" />
+        </mxCell>
+        <mxCell id="3dxxPQ7Z966OyGFVeyM--33" value="Version 1.2" style="shape=ellipse;strokeWidth=6;strokeColor=#AE4132;fontSize=10;html=1;whiteSpace=wrap;fontStyle=1;fontColor=#AE4132;" parent="1" vertex="1">
+          <mxGeometry x="763.8458032347208" y="1190.0867224880383" width="71.36020665306432" height="74.73086124401914" as="geometry" />
+        </mxCell>
+        <mxCell id="3dxxPQ7Z966OyGFVeyM--34" value="Version 1.3" style="shape=ellipse;strokeWidth=6;strokeColor=#23445D;fontSize=10;html=1;whiteSpace=wrap;fontStyle=1;fontColor=#23445D;" parent="1" vertex="1">
+          <mxGeometry x="913.702237206156" y="1190.0867224880383" width="71.36020665306432" height="74.73086124401914" as="geometry" />
+        </mxCell>
+        <mxCell id="3dxxPQ7Z966OyGFVeyM--36" value="&lt;font style=&quot;&quot;&gt;&lt;font style=&quot;&quot; color=&quot;#10739E&quot;&gt;&lt;b&gt;Physical Signal Abstraction and&amp;nbsp;Network Abstraction: CAN support&lt;/b&gt;&lt;b style=&quot;font-size: 12px;&quot;&gt;&amp;nbsp;&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;Specification and verification&lt;br&gt;of the complete&amp;nbsp;&lt;/font&gt;&lt;/font&gt;&lt;font size=&quot;1&quot;&gt;Physical Signal Abstraction&lt;br&gt;and CAN, CAN FD, CAN XL support&lt;br&gt;for&amp;nbsp;Network Abstraction&lt;/font&gt;" style="rounded=1;strokeColor=none;fillColor=#EEEEEE;align=center;arcSize=12;verticalAlign=top;whiteSpace=wrap;html=1;fontSize=12;" parent="1" vertex="1">
+          <mxGeometry x="370" y="1332.07" width="259.62" height="127.93" as="geometry" />
+        </mxCell>
+        <mxCell id="3dxxPQ7Z966OyGFVeyM--37" value="&lt;font style=&quot;font-size: 10px&quot;&gt;&lt;font style=&quot;font-size: 12px&quot; color=&quot;#F2931E&quot;&gt;&lt;b&gt;FlexRay&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;&lt;font size=&quot;1&quot;&gt;Specification and verification of FlexRay&lt;/font&gt;&lt;/font&gt;&lt;font size=&quot;1&quot;&gt;&amp;nbsp;support for&amp;nbsp;Network Abstraction&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="rounded=1;strokeColor=none;fillColor=#EEEEEE;align=center;arcSize=12;verticalAlign=top;whiteSpace=wrap;html=1;fontSize=12;" parent="1" vertex="1">
+          <mxGeometry x="526.57" y="1046" width="259.62" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="3dxxPQ7Z966OyGFVeyM--38" value="&lt;font style=&quot;font-size: 10px&quot;&gt;&lt;font style=&quot;font-size: 12px&quot; color=&quot;#AE4132&quot;&gt;&lt;b&gt;Ethernet&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;&lt;font size=&quot;1&quot;&gt;Specification and verification of Ethernet&lt;/font&gt;&lt;/font&gt;&amp;nbsp;support for&amp;nbsp;Network Abstraction&lt;br&gt;&lt;/font&gt;" style="rounded=1;strokeColor=none;fillColor=#EEEEEE;align=center;arcSize=12;verticalAlign=top;whiteSpace=wrap;html=1;fontSize=12;" parent="1" vertex="1">
+          <mxGeometry x="672.83" y="1332.07" width="259.62" height="87.93" as="geometry" />
+        </mxCell>
+        <mxCell id="3dxxPQ7Z966OyGFVeyM--39" value="&lt;font style=&quot;&quot;&gt;&lt;b style=&quot;&quot;&gt;&lt;font color=&quot;#23445d&quot;&gt;LIN&lt;/font&gt;&lt;/b&gt;&lt;br style=&quot;font-size: 10px;&quot;&gt;&lt;br style=&quot;font-size: 10px;&quot;&gt;&lt;font size=&quot;1&quot;&gt;Specification and verification of Ethernet&lt;/font&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;&amp;nbsp;support for&amp;nbsp;Network Abstraction&lt;/span&gt;&lt;br&gt;&lt;/font&gt;" style="rounded=1;strokeColor=none;fillColor=#EEEEEE;align=center;arcSize=12;verticalAlign=top;whiteSpace=wrap;html=1;fontSize=12;" parent="1" vertex="1">
+          <mxGeometry x="819.09" y="1046" width="259.62" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="d6mSQOqPAX1S2WBqcgU_-3" value="&lt;b style=&quot;&quot;&gt;&lt;font color=&quot;#82b366&quot;&gt;Future&lt;/font&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;Maintenance and identification phase for other bus systems to be supported&lt;/font&gt;" style="rounded=1;strokeColor=none;fillColor=#EEEEEE;align=center;arcSize=12;verticalAlign=top;whiteSpace=wrap;html=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="969" y="1332.07" width="259.62" height="87.93" as="geometry" />
+        </mxCell>
+        <mxCell id="d6mSQOqPAX1S2WBqcgU_-1" value="&lt;span style=&quot;&quot;&gt;Future&lt;/span&gt;" style="shape=ellipse;strokeWidth=6;strokeColor=#82B366;fontSize=10;html=1;whiteSpace=wrap;fontStyle=1;fontColor=#82B366;" vertex="1" parent="1">
+          <mxGeometry x="1063.5521446571452" y="1190.0867224880383" width="71.36020665306432" height="74.73086124401914" as="geometry" />
+        </mxCell>
+        <mxCell id="d6mSQOqPAX1S2WBqcgU_-2" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.partConcEllipse;startAngle=0.25;endAngle=0.75;arcWidth=0.25;fillColor=#82B366;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1013.6" y="1137.7751196172248" width="171.26449596735435" height="179.35406698564594" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
