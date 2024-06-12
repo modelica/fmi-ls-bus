@@ -295,6 +295,10 @@ typedef fmi3UInt16 fmi3LsBusFlexRaySlotCount;
  */
 typedef fmi3UInt8 fmi3LsBusFlexRayMaxCycleCount;
 
+/**
+ * \brief Data type representing the length of the Network Management Vector.
+ */
+typedef fmi3UInt8 NetworkManagementVectorLength;
 
 /**
  * \brief Data type representing the start time of the first FlexRay cycle in nanoseconds.
@@ -436,6 +440,7 @@ typedef struct
     fmi3LsBusFlexRayDurationMt8 symbolActionPointOffset;    /**< The action point offset of a symbol window in macroticks. */
     fmi3LsBusFlexRayDurationMt8 symbolWindowLength;         /**< The length of the symbol window in macroticks. */
     fmi3LsBusFlexRayDurationMt8 nitLength;                  /**< The length of the NIT in macroticks. */
+    NetworkManagementVectorLength nmVectorLength;           /**< The length of the Network Management Vector. */
     fmi3LsBusFlexRayDurationMt32 dynamicSlotIdleTime;       /**< The length of dynamic slot idle time within a dynamic segment in macroticks. */  
     fmi3LsBusBoolean coldstartNode;                         /**< Indicates whether the FlexRay node is a coldstart node or not. */
 } fmi3LsBusFlexRayConfigurationFlexRayGlobal;

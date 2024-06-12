@@ -427,7 +427,7 @@ It contains necessary parameters for timing calculations of transmissions and fo
 Also the configuration of further options is supported by this operation.
 h|OP Code [hex]
 5+|0x30
-.20+h|Content 3+h|Argument h|Length h|Description
+.21+h|Content 3+h|Argument h|Length h|Description
 3+|OP Code
 |1 byte
 |Contains the OP Code (0x30) of the operation.
@@ -442,10 +442,10 @@ The following applies for this operation: `Length = 6 + Length of parameter argu
 |Defines the current configuration parameter.
 Note that only one parameter can be set per <<low-cut-flexray-configuration-operation, `Configuration`>> operation.
 
-.16+h|
+.17+h|
 4+h|Parameters
 
-.15+|FLEXRAY_GLOBAL
+.16+|FLEXRAY_GLOBAL
 |Macrotick Duration
 |4 byte
 |Specifies the duration of one macrotick in nanoseconds.
@@ -510,6 +510,11 @@ See `gdSymbolWindow` parameter within FlexRay specification for further informat
 |1 byte
 |Specifies the length of the Network Idle Time in macroticks.
 See `gdNIT` parameter within FlexRay specification for further information.
+
+|NM Vector Length
+|1 byte
+|Specifies the length of the Network Management Vector.
+See `gNetworkManagementVectorLength` parameter within FlexRay specification for further information.
 
 |Dynamic Slot Idle Time
 |4 byte

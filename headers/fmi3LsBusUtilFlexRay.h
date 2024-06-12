@@ -201,7 +201,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             MacrotickDuration, MacroticksPerCycle, CycleCountMax, ActionPointOffset, StaticSlotLength, \
             NumberOfStaticSlots, StaticPayloadLength, MinislotActionPointOffset, \
             NumberOfMinislots, MinislotLength, SymbolActionPointOffset, SymbolWindowLength, \
-            NitLength, DynamicSlotIdleTime, ColdstartNode) \
+            NitLength, NMVectorLength, DynamicSlotIdleTime, ColdstartNode) \
     do                                                                                 \
     {                                                                                  \
         fmi3LsBusFlexRayOperationConfiguration _op;                                    \
@@ -223,6 +223,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.flexRayGlobal.symbolActionPointOffset = (SymbolActionPointOffset);         \
         _op.flexRayGlobal.symbolWindowLength = (SymbolWindowLength);                   \
         _op.flexRayGlobal.nitLength = (NitLength);                                     \
+        _op.flexRayGlobal.nmVectorLength = (NMVectorLength);                           \
         _op.flexRayGlobal.dynamicSlotIdleTime = (DynamicSlotIdleTime);                 \
         _op.flexRayGlobal.coldstartNode = (ColdstartNode);                             \
                                                                                        \
