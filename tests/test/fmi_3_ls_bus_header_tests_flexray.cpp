@@ -748,7 +748,7 @@ TEST(Fmi3LsBusFlexRayConfirm, sizeError)
  */
 TEST(Fmi3LsBusFlexRayConfigurationGlobal, minValues)
 {
-	CheckFlexRayConfigurationOperation(ConfigurationGlobal, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, fmi3False, true);
+	CheckFlexRayConfigurationOperation(ConfigurationGlobal, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, fmi3False, true);
 }
 
 /**
@@ -756,7 +756,7 @@ TEST(Fmi3LsBusFlexRayConfigurationGlobal, minValues)
  */
 TEST(Fmi3LsBusFlexRayConfigurationGlobal, maxValues)
 {
-	CheckFlexRayConfigurationOperation(ConfigurationGlobal, UINT32_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT32_MAX, UINT8_MAX, true);
+	CheckFlexRayConfigurationOperation(ConfigurationGlobal, UINT32_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT32_MAX, UINT8_MAX, true);
 }
 
 /**
