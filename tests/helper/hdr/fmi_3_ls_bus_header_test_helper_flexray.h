@@ -36,7 +36,7 @@ void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long lon
 	int macroticksPerCycle, int maxCycleCount, int actionPointOffset, int staticSlotLength,
 	int numberOfStaticSlots, int staticPayloadLength, int minislotActionPointOffset,
 	int numberOfMinislots, int minislotLength, int symbolActionPointOffset, int symbolWindowLength,
-	int nitLength, long long int dynamicSlotIdleTime, fmi3Boolean coldStartNode, bool correctData);
+	int nitLength, int nmVectorLength, long long int dynamicSlotIdleTime, fmi3Boolean coldStartNode, bool correctData);
 
 /**
  * \brief Checks if the FlexRay Confirm operation is created correctly by the corresponding macro.
