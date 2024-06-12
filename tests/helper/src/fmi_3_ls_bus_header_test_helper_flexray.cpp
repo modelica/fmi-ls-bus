@@ -160,7 +160,7 @@ void CheckFlexRayConfirmOperation(int cycleId, int slotId, int channel, bool cor
 	EXPECT_EQ(operation->channel, channel * multiplier);
 }
 
-void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long long int macrotickDuration, int macroticksPerCycle, int maxCycleCount, int actionPointOffset, int staticSlotLength, int numberOfStaticSlots, int staticPayloadLength, int minislotActionPointOffset, int numberOfMinislots, int minislotLength, int symbolActionPointOffset, int symbolWindowLength, int nitLength, long long int dynamicSlotIdleTime, fmi3Boolean coldStartNode, bool correctData)
+void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long long int macrotickDuration, int macroticksPerCycle, int maxCycleCount, int actionPointOffset, int staticSlotLength, int numberOfStaticSlots, int staticPayloadLength, int minislotActionPointOffset, int numberOfMinislots, int minislotLength, int symbolActionPointOffset, int symbolWindowLength, int nitLength, int nmVectorLength, long long int dynamicSlotIdleTime, fmi3Boolean coldStartNode, bool correctData)
 {
 	// Create data needed for creation.
 	fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -178,7 +178,7 @@ void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long lon
 	switch (operationType)
 	{
 	case ConfigurationGlobal:
-		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_GLOBAL(&firstBufferInfo, macrotickDuration, macroticksPerCycle, maxCycleCount, actionPointOffset, staticSlotLength, numberOfStaticSlots, staticPayloadLength, minislotActionPointOffset, numberOfMinislots, minislotLength, symbolActionPointOffset, symbolWindowLength, nitLength, dynamicSlotIdleTime, coldStartNode);
+		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_GLOBAL(&firstBufferInfo, macrotickDuration, macroticksPerCycle, maxCycleCount, actionPointOffset, staticSlotLength, numberOfStaticSlots, staticPayloadLength, minislotActionPointOffset, numberOfMinislots, minislotLength, symbolActionPointOffset, symbolWindowLength, nitLength, nmVectorLength, dynamicSlotIdleTime, coldStartNode);
 		break;
 	default:
 		break;
@@ -213,6 +213,7 @@ void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long lon
 		EXPECT_EQ(operation->flexRayGlobal.symbolActionPointOffset, symbolActionPointOffset * multiplier);
 		EXPECT_EQ(operation->flexRayGlobal.symbolWindowLength, symbolWindowLength * multiplier);
 		EXPECT_EQ(operation->flexRayGlobal.nitLength, nitLength * multiplier);
+		EXPECT_EQ(operation->flexRayGlobal.nmVectorLength, nmVectorLength * multiplier);
 		EXPECT_EQ(operation->flexRayGlobal.dynamicSlotIdleTime, dynamicSlotIdleTime * multiplier);
 		EXPECT_EQ(operation->flexRayGlobal.coldstartNode, coldStartNode * multiplier);
 		break;
