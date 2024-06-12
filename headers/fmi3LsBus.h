@@ -81,7 +81,7 @@ extern "C"
 /**
  * \brief Data type representing the type of a bus operation.
  */
-typedef fmi3UInt8 fmi3LsBusOperationCode;
+typedef fmi3UInt32 fmi3LsBusOperationCode;
 
 /**
  * \brief Data type representing the length of a bus operation.
@@ -99,7 +99,7 @@ typedef struct
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 /* Checks the size of 'fmi3LsBusOperationHeader' to make sure the instruction #pragma pack(1) is taken into account. */
-static_assert(sizeof(fmi3LsBusOperationHeader) == 5, "'fmi3LsBusOperationHeader' does not match the expected data size");
+static_assert(sizeof(fmi3LsBusOperationHeader) == 8, "'fmi3LsBusOperationHeader' does not match the expected data size");
 #endif
 
 /**
@@ -124,7 +124,7 @@ typedef struct
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
 /* Checks the size of 'fmi3LsBusOperationFormatError' to make sure the instruction #pragma pack(1) is taken into account. */
-static_assert(sizeof(fmi3LsBusOperationFormatError) == 7, "'fmi3LsBusOperationFormatError' does not match the expected data size");
+static_assert(sizeof(fmi3LsBusOperationFormatError) == 10, "'fmi3LsBusOperationFormatError' does not match the expected data size");
 #endif
 
 #pragma pack()
