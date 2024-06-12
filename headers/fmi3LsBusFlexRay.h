@@ -365,7 +365,7 @@ typedef struct
 } fmi3LsBusFlexRayOperationTransmit;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayOperationTransmit) == (5 + 1 + 2 + 1 + 1 + 1 + 1 + 1 + 4 + 1),
+static_assert(sizeof(fmi3LsBusFlexRayOperationTransmit) == (8 + 1 + 2 + 1 + 1 + 1 + 1 + 1 + 4 + 1),
               "'fmi3LsBusFlexRayOperationTransmit' does not match the expected data size");
 #endif
 
@@ -382,7 +382,7 @@ typedef struct
 } fmi3LsBusFlexRayOperationCancel;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayOperationCancel) == (5 + 1 + 2 + 1),
+static_assert(sizeof(fmi3LsBusFlexRayOperationCancel) == (8 + 1 + 2 + 1),
     "'fmi3LsBusFlexRayOperationCancel' does not match the expected data size");
 #endif
 
@@ -399,7 +399,7 @@ typedef struct
 } fmi3LsBusFlexRayOperationConfirm;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayOperationConfirm) == (5 + 1 + 2 + 1),
+static_assert(sizeof(fmi3LsBusFlexRayOperationConfirm) == (8 + 1 + 2 + 1),
     "'fmi3LsBusFlexRayOperationConfirm' does not match the expected data size");
 #endif
 
@@ -464,7 +464,7 @@ typedef struct
 } fmi3LsBusFlexRayOperationConfiguration;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayOperationConfiguration) == (5 + 1 + sizeof(fmi3LsBusFlexRayConfigurationFlexRayGlobal)),
+static_assert(sizeof(fmi3LsBusFlexRayOperationConfiguration) == (8 + 1 + sizeof(fmi3LsBusFlexRayConfigurationFlexRayGlobal)),
               "'fmi3LsBusFlexRayOperationConfiguration' does not match the expected data size");
 #endif
 
@@ -479,7 +479,7 @@ typedef struct
 } fmi3LsBusFlexRayOperationStartCommunication;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayOperationStartCommunication) == (5 + 8),
+static_assert(sizeof(fmi3LsBusFlexRayOperationStartCommunication) == (8 + 8),
               "'fmi3LsBusFlexRayOperationStartCommunication' does not match the expected data size");
 #endif
 
@@ -496,7 +496,7 @@ typedef struct
 } fmi3LsBusFlexRayOperationSymbol;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayOperationSymbol) == (5 + 1 + 1 + 1),
+static_assert(sizeof(fmi3LsBusFlexRayOperationSymbol) == (8 + 1 + 1 + 1),
               "'fmi3LsBusFlexRayOperationSymbol' does not match the expected data size");
 #endif
 
