@@ -446,7 +446,7 @@ typedef struct
 } fmi3LsBusFlexRayConfigurationFlexRayGlobal;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayConfigurationFlexRayGlobal) == (4 + 2 + 1 + 1 + 2 + 2 + 1 + 1 + 2 + 1 + 1 + 1 + 1 + 4 + 1),
+static_assert(sizeof(fmi3LsBusFlexRayConfigurationFlexRayGlobal) == (4 + 2 + 1 + 1 + 1 + 2 + 2 + 1 + 1 + 2 + 1 + 1 + 1 + 1 + 4 + 1),
               "'fmi3LsBusFlexRayConfigurationFlexRayGlobal' does not match the expected data size");
 #endif
 
