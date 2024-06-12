@@ -1,3 +1,10 @@
+== Contributions
+#TODO: Add contributions here#
+
+- ...
+
+Contributions to this layered standard to the FMI standard are covered by the https://github.com/modelica/fmi-standard.org/blob/main/static/assets/FMI_CCLA_v1.0_2016_06_21.pdf[Corporate Contributors License Agreement (CCLA)] of the Modelica Association Project FMI.
+
 [bibliography]
 == References
 
