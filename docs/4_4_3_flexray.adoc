@@ -926,7 +926,7 @@ Within a Network FMU the first valid point in time when a specified <<low-cut-fl
 [stem] 
 ++++
    T_{Tx_{DynamicFirst}}(tc, i_{Cycle}, i_{Slot}) = T_{Tx_{Static}}(tc, i_{Cycle}, N_{StaticSlot})
-        + i_{Slot} * L_{Minislot}
+        + (i_{Slot} - N_{StaticSlot} - 1) * L_{Minislot}
 ++++
 
 , whereby:
