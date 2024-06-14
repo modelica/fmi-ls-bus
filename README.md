@@ -51,7 +51,7 @@ See also the overview pages for the demos, categorized by the different supporte
 The [FMI LS Bus Implementers' Guide] is a free resource intended to give non-normative recommendations and guidance to implementers of the Functional Mock-up Interface Layered Standard Network Communication (FMI-LS-BUS).
 
 ## Copyright and License
-Code and documentation copyright (C) 2008-2011 the MODELISAR consortium and 2012-2024 the Modelica Association Project FMI.
+Code and documentation copyright (C) 2023-2024 The Modelica Association Project FMI.
 Code released under the [2-Clause BSD License].
 Docs released under [Attribution-ShareAlike 4.0 International].
 
