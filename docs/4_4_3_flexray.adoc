@@ -925,7 +925,7 @@ Within a Network FMU the first valid point in time when a specified <<low-cut-fl
 
 [stem] 
 ++++
-   T_{Tx_{DynamicFirst}}(tc, i_{Cycle}, i_{Slot}) = T_{Tx_{Static}}(tc, i_{Cycle}, N_{StaticSlot})
+   T_{Tx_{DynamicFirst}}(tc, i_{Cycle}, i_{Slot}) = T_{Tx_{Static}}(tc, i_{Cycle}, N_{StaticSlot} + 1)
         + (i_{Slot} - N_{StaticSlot} - 1) * L_{Minislot}
 ++++
 
@@ -939,7 +939,7 @@ Within a Network FMU the latest valid point in time when a specified <<low-cut-f
 
 [stem] 
 ++++
-   T_{Tx_{DynamicLast}}(tc, i_{Cycle}, i_{Slot}) = T_{Tx_{Static}}(tc, i_{Cycle}, N_{StaticSlot})
+   T_{Tx_{DynamicLast}}(tc, i_{Cycle}, i_{Slot}) = T_{Tx_{Static}}(tc, i_{Cycle}, N_{StaticSlot} + 1)
         + \sum_{j=N_{StaticSlot} + 1}^{i_{Slot} - 1} L_{DynamicSlot_j} * L_{Minislot}
 ++++
 
