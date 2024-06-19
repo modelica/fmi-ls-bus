@@ -24,3 +24,4 @@ The removal takes place on the created side branch.
 * [ ] **Copyright Date:** Checking and adjusting the copyright date of the FMI-LS-BUS document and corresponding header files (see https://github.com/modelica/fmi-ls-bus/tree/main/headers); if necessary.
 * [ ] **Roadmap:** If the release to be created relates to a milestone within the roadmap, the roadmap (`roadmap.drawio`) must be updated accordingly.
 After this the `roadmap.svg` file must then also be regenerated.
+* [ ] **FMI LS BUS Implementer's Guide:** Update demos of FMI LS BUS Implementer's Guide (see https://github.com/modelica/fmi-guides/tree/main/ls-bus-guide/demos) if necessary.
