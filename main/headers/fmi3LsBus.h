@@ -51,6 +51,11 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "fmi3PlatformTypes.h"
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4200)
+#pragma warning(disable : 4815)
+#endif
 
 #ifdef __cplusplus
 extern "C"
@@ -133,5 +138,8 @@ static_assert(sizeof(fmi3LsBusOperationFormatError) == 10, "'fmi3LsBusOperationF
 } /* end of extern "C" { */
 #endif
 
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #endif /* fmi3LsBus_h */
