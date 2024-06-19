@@ -53,7 +53,7 @@ Signal variables belonging to frame `BusName.FrameName` are triggered by the Clo
 Standardized <<high-cut-network-description-files,network description files>> may optionally be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
 If these <<high-cut-network-description-files,network description files>> are shipped, they must be placed into the `/extra/org.fmi-standard.fmi-ls-bus` folder.
 DBC, LDF, Fibex and ARXML files are allowed, e.g., `Powertrain.dbc`.
-The case sensitive root name of the <<high-cut-network-description-files>> must be used as network identifier in the bus terminal type and prefix in the variable names.
+The case sensitive root name of the <<high-cut-network-description-files>> must be used as network identifier in the Bus Terminal type and prefix in the variable names.
 
 Multiple files can be specified, each one defining one network used by the FMU.
 This standard does not support composing one network from multiple <<high-cut-network-description-files,network description files>>, even if using internal include mechanisms, it rather enforces the rule: one network - one file.
@@ -67,7 +67,7 @@ These are technical and legal issues that need attention from standardization bo
 === Terminal Definitions [[high-cut-terminal-definitions]]
 This section defines terminals for physical signal abstraction or "high cut".
 
-==== Bus Terminal [[high-cut-bus-terminal,bus terminal]]
+==== Bus Terminal [[high-cut-bus-terminal,Bus Terminal]]
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<high-cut-frame-terminal,frame terminals>>.
 The attribute `name` of the `<Terminal>` must match the root name of its <<high-cut-network-description-files>> if it exists
 _[e.g., `Powertrain`, if the file is `/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc`]_.

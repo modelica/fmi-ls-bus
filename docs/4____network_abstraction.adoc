@@ -3,7 +3,7 @@ This chapter describes the network abstraction or "low cut" in detail.
 
 === Overview [[low-cut-overview]]
 The network abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
-Exchanging data in terms of the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> via variables grouped by a dedicated bus terminal (see <<low-cut-variables>>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
+Exchanging data in terms of the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> via variables grouped by a dedicated Bus Terminal (see <<low-cut-variables>>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
 During simulation, the network communication is controlled by send and receive Bus Operations.
 Based on these operations, FMUs implementing this layered standard have to react depending on their role as specified in this document.
 This role can be a Bus Simulation FMU or an importer with bus simulation support on one side, and Network FMUs (e.g., virtual ECUs) on the other side (see <<common-concepts-system-compositions, System Compositions>>).
@@ -307,7 +307,7 @@ The versioning follows the rules of semantic versioning, as defined in <<PW13>>.
 === Terminal Definitions [[low-cut-terminal-definitions]]
 This section defines terminals for network abstraction or "low cut".
 
-==== Bus Terminal [[low-cut-bus-terminal,bus terminal]]
+==== Bus Terminal [[low-cut-bus-terminal,Bus Terminal]]
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>`.
 The attribute `name` of the `<Terminal>` must match the name of the specified network _[e.g., the name of the CAN channel: Powertrain]_ within a "low cut".
 If the specified FMU is connected to more than one network, there shall be exactly one `<Terminal>` for each network.
