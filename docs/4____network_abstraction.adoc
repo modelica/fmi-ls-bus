@@ -272,7 +272,7 @@ Selecting suitable Tx variables allows the FMU (or better the exporting tool) to
 Within FMI, every binary FMI variable has a `mimeType`, which indicates the type of data passed as a binary.
 This type indicates which specific bus type is involved.
 It ensures that only bus types of the same type can be interconnected, since FMI only allows the connection of two MIME types of the same binary variables.
-The following table lists the names of MIME types used for the Tx/Rx data variables:
+The following table lists the MIME types to use for the Tx/Rx data variables within a <<low-cut-bus-terminal, Bus Terminal>>:
 
 .Overview of the available MIME types for the supported several bus types.
 [#table-mime-types]
@@ -281,27 +281,23 @@ The following table lists the names of MIME types used for the Tx/Rx data variab
 |MIME type
 |Description
 
-|org.fmi-standard.fmi-ls-bus.v1.can
-|Binary variables simulating the automotive CAN network including CAN, CAN FD and CAN XL
+|application/org.fmi-standard.fmi-ls-bus.can; version="1.0.0-beta.1"
+|Binary variables simulating a CAN network including CAN, CAN FD and CAN XL
 
-|org.fmi-standard.fmi-ls-bus.v1.lin
-|Binary variables simulating the automotive LIN network
+|application/org.fmi-standard.fmi-ls-bus.lin; version="1.0.0-alpha.1"
+|Binary variables simulating a LIN network
 
-|org.fmi-standard.fmi-ls-bus.v1.flexray
-|Binary variables simulating the automotive FlexRay network
+|application/org.fmi-standard.fmi-ls-bus.flexray; version="1.0.0-alpha.1"
+|Binary variables simulating a FlexRay network
 
-|org.fmi-standard.fmi-ls-bus.v1.ethernet
-|Binary variables simulating the automotive Ethernet network
-
-|org.fmi-standard.fmi-ls-bus.v1.spi
-|Binary variables simulating the automotive SPI network
+|application/org.fmi-standard.fmi-ls-bus.ethernet; version="1.0.0-alpha.1"
+|Binary variables simulating an Ethernet network
 
 |====
 
 As in the table, above the version of a specified bus type is integrated within the MIME type.
 The MIME type and the associated versioning ensure that only compatible bus types can be connected to each other.
-The version number marks the set of available operations.
-Only the major version is included by the specified MIME type.
+The version number marks the set of available operations for a specified bus type.
 The versioning follows the rules of semantic versioning, as defined in <<PW13>>.
 
 === Terminal Definitions [[low-cut-terminal-definitions]]
