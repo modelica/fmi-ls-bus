@@ -15,7 +15,7 @@
 :favicon: images/favicon.ico
 :icons: font
 :revdate: unreleased
-:revnumber: 1.0.0-alpha.1
+:revnumber: 1.0.0-beta.1
 
 include::0____preamble.adoc[]
 
