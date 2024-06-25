@@ -281,16 +281,16 @@ The following table lists the MIME types to use for the Tx/Rx data variables wit
 |MIME type
 |Description
 
-|org.fmi-standard.fmi-ls-bus.can; version="1.0.0-beta.1"
+|application/org.fmi-standard.fmi-ls-bus.can; version="1.0.0-beta.1"
 |Binary variables simulating a CAN network including CAN, CAN FD and CAN XL
 
-|org.fmi-standard.fmi-ls-bus.lin; version="1.0.0-alpha.1"
+|application/org.fmi-standard.fmi-ls-bus.lin; version="1.0.0-alpha.1"
 |Binary variables simulating a LIN network
 
-|org.fmi-standard.fmi-ls-bus.flexray; version="1.0.0-alpha.1"
+|application/org.fmi-standard.fmi-ls-bus.flexray; version="1.0.0-alpha.1"
 |Binary variables simulating a FlexRay network
 
-|org.fmi-standard.fmi-ls-bus.ethernet; version="1.0.0-alpha.1"
+|application/org.fmi-standard.fmi-ls-bus.ethernet; version="1.0.0-alpha.1"
 |Binary variables simulating an Ethernet network
 
 |====
