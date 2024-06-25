@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 8fc7b42,</span>
-<span id="revdate">2024-06-19</span>
+<span id="revnumber">version 69340b8,</span>
+<span id="revdate">2024-06-25</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -2039,7 +2039,7 @@ This allows senders to trade accuracy for speed: buffering more and interrupting
 <p>Within FMI, every binary FMI variable has a <code>mimeType</code>, which indicates the type of data passed as a binary.
 This type indicates which specific bus type is involved.
 It ensures that only bus types of the same type can be interconnected, since FMI only allows the connection of two MIME types of the same binary variables.
-The following table lists the names of MIME types used for the Tx/Rx data variables:</p>
+The following table lists the MIME types to use for the Tx/Rx data variables within a <a href="#low-cut-bus-terminal">Bus Terminal</a>:</p>
 </div>
 <table id="table-mime-types" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 7. Overview of the available MIME types for the supported several bus types.</caption>
@@ -2055,32 +2055,27 @@ The following table lists the names of MIME types used for the Tx/Rx data variab
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">org.fmi-standard.fmi-ls-bus.v1.can</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Binary variables simulating the automotive CAN network including CAN, CAN FD and CAN XL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/org.fmi-standard.fmi-ls-bus.can; version="1.0.0-beta.1"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binary variables simulating a CAN network including CAN, CAN FD and CAN XL</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">org.fmi-standard.fmi-ls-bus.v1.lin</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Binary variables simulating the automotive LIN network</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/org.fmi-standard.fmi-ls-bus.lin; version="1.0.0-alpha.1"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binary variables simulating a LIN network</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">org.fmi-standard.fmi-ls-bus.v1.flexray</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Binary variables simulating the automotive FlexRay network</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/org.fmi-standard.fmi-ls-bus.flexray; version="1.0.0-alpha.1"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binary variables simulating a FlexRay network</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">org.fmi-standard.fmi-ls-bus.v1.ethernet</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Binary variables simulating the automotive Ethernet network</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">org.fmi-standard.fmi-ls-bus.v1.spi</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Binary variables simulating the automotive SPI network</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/org.fmi-standard.fmi-ls-bus.ethernet; version="1.0.0-alpha.1"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Binary variables simulating an Ethernet network</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
 <p>As in the table, above the version of a specified bus type is integrated within the MIME type.
 The MIME type and the associated versioning ensure that only compatible bus types can be connected to each other.
-The version number marks the set of available operations.
-Only the major version is included by the specified MIME type.
+The version number marks the set of available operations for a specified bus type.
 The versioning follows the rules of semantic versioning, as defined in <a href="#PW13">[PW13]</a>.</p>
 </div>
 </div>
