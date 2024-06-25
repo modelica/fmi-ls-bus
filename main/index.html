@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 69340b8,</span>
+<span id="revnumber">version a73c68f,</span>
 <span id="revdate">2024-06-25</span>
 </div>
 <div id="toc" class="toc2">
@@ -925,7 +925,7 @@ Default: <code>false</code>.</p></td>
     xsi:noNamespaceSchemaLocation="../../schema/fmi3LayeredStandardBusManifest.xsd"
     xmlns:fmi-ls="http://fmi-standard.org/fmi-ls-manifest"
     fmi-ls:fmi-ls-name="org.fmi-standard.fmi-ls-bus"
-    fmi-ls:fmi-ls-version="1.0.0-alpha.1"
+    fmi-ls:fmi-ls-version="1.0.0-beta.1"
     fmi-ls:fmi-ls-description="Layered Standard for the simulation of bus communication on a signal or network abstraction based level."
     isBusSimulationFMU="false"/&gt;</code></pre>
 </div>
@@ -2159,11 +2159,11 @@ If the specified FMU is connected to more than one network, there shall be exact
     &lt;Clock name="Powertrain.Rx_Clock" valueReference="1002"
         causality="input" variability="discrete" intervalVariability="triggered"/&gt;
     &lt;Binary name="Powertrain.Rx_Data" valueReference="1001" causality="input"
-        mimeType="org.fmi-standard.fmi-ls-bus.v1.can" variability="discrete" clocks="1002"/&gt;
+        mimeType="application/org.fmi-standard.fmi-ls-bus.can; version=&amp;quot1.0.0-beta.1&amp;quot" variability="discrete" clocks="1002"/&gt;
     &lt;Clock name="Powertrain.Tx_Clock" valueReference="1004"
         causality="input" variability="discrete" intervalVariability="changing"/&gt;
     &lt;Binary name="Powertrain.Tx_Data" valueReference="1003" causality="output"
-        mimeType="org.fmi-standard.fmi-ls-bus.v1.can" variability="discrete" clocks="1004"/&gt;
+        mimeType="application/org.fmi-standard.fmi-ls-bus.can; version=&amp;quot1.0.0-beta.1&amp;quot" variability="discrete" clocks="1004"/&gt;
   &lt;/ModelVariables&gt;
   &lt;ModelStructure&gt;
   &lt;/ModelStructure&gt;
