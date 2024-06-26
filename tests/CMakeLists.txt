@@ -4,6 +4,7 @@ project(fmi_3_ls_bus_header_test)
 if("${MODULE_LIST}" STREQUAL "all" OR "${MODULE_LIST}" STREQUAL "")
   list(REMOVE_ITEM MODULE_LIST all)
   list(APPEND MODULE_LIST can)
+  list(APPEND MODULE_LIST flexray)
 endif()
 
 set(CMAKE_CXX_STANDARD 17)

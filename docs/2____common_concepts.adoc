@@ -123,6 +123,8 @@ The following header files are provided:
 These header file applies to all supported bus types of the layered standard.
 * https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusCan.h[fmi3LsBusCan.h] provides macros, types and structures of Bus Operations explicit for CAN, CAN FD and CAN XL.
 Primarily, structures are included here that allow the Bus Operations specified by the layered standard to be easily created and used.
+* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusFlexRay.h[fmi3LsBusFlexRay.h] provides macros, types and structures of Bus Operations explicit for FlexRay.
+Primarily, structures are included here that allow the Bus Operations specified by the layered standard to be easily created and used.
 * https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtil.h[fmi3LsBusUtil.h] provides common utility macros and structures for all supported bus types.
 * https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtilCan.h[fmi3LsBusUtilCan.h] provides CAN, CAN FD and CAN XL explicit utility macros.
-
+* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtilFlexRay.h[fmi3LsBusUtilFlexRay.h] provides FlexRay explicit utility macros.
