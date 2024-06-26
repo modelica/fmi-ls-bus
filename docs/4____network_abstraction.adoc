@@ -276,7 +276,7 @@ The following table lists the MIME types to use for the Tx/Rx data variables wit
 
 .Overview of the available MIME types for the supported several bus types.
 [#table-mime-types]
-[cols="4,5",options="header"]
+[cols="4,3",options="header"]
 |====
 |MIME type
 |Description
