@@ -256,7 +256,7 @@ h|Behavior
 3+|The <<low-cut-flexray-cancel-operation, `Cancel`>> operation shall be provided by Network FMUs to indicate a cancellation the <<low-cut-flexray-transmit-operation, `Transmit`>> operation that is buffered by a Bus Simulation.
 A Network FMU shall ignore this operation on the consumer side.
 A <<low-cut-flexray-cancel-operation, `Cancel`>> operation is possible as long as the Bus Simulation has not yet started to simulate the transmission of the specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation.
-
+A <<low-cut-flexray-cancel-operation, `Cancel`>> operation must be related to a complete <<low-cut-flexray-transmit-operation, `Transmit`>> operation and not just to a part of it.
 |====
 
 ====== Confirm [[low-cut-flexray-confirm-operation]]
