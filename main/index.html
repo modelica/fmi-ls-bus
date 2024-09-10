@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 687bdd6,</span>
-<span id="revdate">2024-06-26</span>
+<span id="revnumber">version cc4659f,</span>
+<span id="revdate">2024-09-10</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -2122,6 +2122,9 @@ If the specified FMU is connected to more than one network, there shall be exact
 </li>
 <li>
 <p><code>&lt;TerminalMemberVariable&gt;.memberName</code> defines the role of the variable within the <code>&lt;Terminal&gt;</code> and shall be set to <code>Tx_Data</code>, <code>Tx_Clock</code>, <code>Rx_Data</code> or <code>Rx_Clock</code>.</p>
+</li>
+<li>
+<p>Multiple use of the same variable within different Bus Terminals is not allowed.</p>
 </li>
 <li>
 <p>There must be no <code>&lt;TerminalStreamMemberVariable&gt;</code> element.</p>
