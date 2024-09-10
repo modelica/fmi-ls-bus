@@ -317,6 +317,7 @@ Element definitions::
  * Every Bus Terminal contains exactly four variables each in the role of: `Tx_Data`, `Tx_Clock`, `Rx_Data` or `Rx_Clock`.
  * Variables in the role of `Rx_Data`, `Tx_Data`, `Rx_Clock` and `Tx_Clock` are exposed in the `modelDescription.xml` and must be listed as `<TerminalMemberVariable>` elements, whereby `variableName` can be freely chosen.
  * `<TerminalMemberVariable>.memberName` defines the role of the variable within the `<Terminal>` and shall be set to `Tx_Data`, `Tx_Clock`, `Rx_Data` or `Rx_Clock`.
+ * Multiple use of the same variable within different Bus Terminals is not allowed.
  * There must be no `<TerminalStreamMemberVariable>` element.
 
 The `matchingRule` of type `org.fmi-ls-bus.transceiver` is specified as: `Tx_{Data|Clock}` variables shall be connected to `Rx_{Data|Clock}` variables and vice versa, whereby the variable type shall be equal.
