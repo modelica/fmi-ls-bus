@@ -5,7 +5,7 @@
 This header file contains utility macros to read and write fmi-ls-bus
 FlexRay specific bus operations from / to dedicated buffer variables.
 
-This header file can be used when creating fmi-ls-bus netowrk FMUs with FlexRay busses.
+This header file can be used when creating fmi-ls-bus network FMUs with FlexRay busses.
 
 Copyright (C) 2024 Modelica Association Project "FMI"
               All rights reserved.
@@ -283,5 +283,30 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     }                                                                     \
     while (0)
 
+
+/**
+ * \brief Gets the current global time
+ *
+ * \param[in] simulationTime       Simulation time (in ns).
+ * \param[in] startTime            Start time of the first FlexRay cycle (in ns).
+ * \param[in] macroTickDuration    Macro tick duration (in ns).
+ * \param[in] macroTicksPerCycle   Macro ticks per cycle.
+ * \param[in] cycleCount           Cycle count.
+ * \param[out] cycle               Returns the current cycle.
+ * \param[out] macroTick           Returns the current macro tick.
+ */
+#define FMI3_LS_BUS_FLEXRAY_GET_GLOBAL_TIME(                                                                    \
+    simulationTime, startTime, macroTickDuration, macroTicksPerCycle, cycleCount, cycle, macroTick)             \
+    do                                                                                                          \
+    {                                                                                                           \
+        /* Calculate the number of macro ticks since the start of the simulation */                             \
+        const uint64 frSimulationTimeMt = (uint64)(((simulationTime) - (startTime) + ((macroTickDuration) / 2)) \
+            / (macroTickDuration));                                                                             \
+                                                                                                                \
+        /* Calculate the current cycle and macro tick */                                                        \
+        *(cycle) = (uint8)(frSimulationTimeMt / (macroTicksPerCycle) % (cycleCount));                           \
+        *(macroTick) = (uint16)(frSimulationTimeMt % (macroTicksPerCycle));                                     \
+    }                                                                                                           \
+    while (0)
 
 #endif /* fmi3LsBusUtilFlexRay_h */
