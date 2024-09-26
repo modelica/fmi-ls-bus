@@ -2,15 +2,15 @@
 This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for FlexRay.
 
 ===== Overview [[low-cut-flexray-overview]]
-This specification basically relies on FlexRay CCs compliant to the FlexRay specification <<ISO-17458-2>>.
-Additionally older FlexRay controllers compliant to FlexRay specification are supported by this specification.
+This specification refers primary to the data link layer specification of FlexRay communications systems defined by <<ISO-17458-2,  ISO 17458-2:2013(en)>>.
+Furthermore, essential elements from previous FlexRay specifications are covered so that these can also be mapped using this layered standard.
 
 To simulate FlexRay communication between Networked FMUs, FlexRay-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
 Overall, the following operations and groups of operations exists:
 
 * Transmit, Cancel and Confirm: This operations are used to simulate a FlexRay frame transmission.
 * Bus- and Format Error: This group of operations is used for protocol format errors and to simulate bus failures.
-* Configuration: This operation enables the configuration of bus-specific parameters and options that are required to simulate the bus behavior properly.
+* Configuration: This operation enables the controller to publish bus-specific parameters and options that are required to simulate the bus behavior properly.
 For example, it allows the specification of a macrotick duration or the length of static/dynamic slots.
 * Start Communication: This operation is used by Networked FMUs or Bus Simulations to start the FlexRay communication.
 * Symbol: Represents a set of operations that are used for transmission of FlexRay-specific symbols, like for wake-up, startup or media testing.
@@ -803,7 +803,7 @@ For simulation scenarios it is *highly recommended* that <<low-cut-flexray-trans
 This minimizes the Bus Communication Points of the overall simulation system and usually increases the performance of the whole simulation.
 This behavior is defined more specifically and slightly differently depending on whether it is a static or dynamic segment.
 
-What both segments have in common is that the Network FMU itself must and knows the appropriate time of a <<low-cut-flexray-transmit-operation, `Transmit`>> operation basing on the FlexRay cycle and slot principle.
+What both segments have in common is that the Network FMU itself must know the appropriate time of a <<low-cut-flexray-transmit-operation, `Transmit`>> operation basing on the FlexRay cycle and slot principle.
 In concrete terms, this means that a Network FMU itself must provide the expected <<low-cut-flexray-transmit-operation, `Transmit`>> operation at the appropriate time via <<low-cut-tx-clock-variables, Tx Clock Variables>>.
 The start time of the first FlexRay cycle is defined by the `Start Time` argument value of the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation.
 
@@ -826,12 +826,12 @@ The point in time for the start of FlexRay cycle of the current iteration with f
  
 [stem] 
 ++++
-    T_{CycleStart}(tc, i_{Cycle}) = T_{Start} + L_{Cycle} * (ceil((tc - T_{Start}) / N_{Cycle}) + i_{Cycle})
+    T_{CycleStart}(t, i_{Cycle}) = T_{Start} + L_{Cycle} * (ceil((t - T_{Start}) / N_{Cycle}) + i_{Cycle})
 ++++
 
 , whereby:
 
-* stem:[tc] represents the current simulation time in nanoseconds for stem:[tc >= T_{Start}]
+* stem:[t] represents the current simulation time in nanoseconds for stem:[t >= T_{Start}]
 
 ====== Static Segment [[low-cut-flexray-static-segment]]
 For a static segment, a Network FMU shall provide the respective <<low-cut-flexray-transmit-operation, `Transmit`>> operation in an interval starting at the beginning of a slot and ending at the action point (see `ActionPoint Offset` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation) of a slot.
@@ -848,7 +848,7 @@ The starting point of the slot can be calculated at runtime based on the `FLEXRA
 
 [stem] 
 ++++
-    T_{Tx_{Static}}(tc, i_{Cycle}, i_{Slot}) = T_{CycleStart}(tc, i_{Cycle}) + (i_{Slot} - 1) * L_{StaticSlot}
+    T_{Tx_{Static}}(t, i_{Cycle}, i_{Slot}) = T_{CycleStart}(t, i_{Cycle}) + (i_{Slot} - 1) * L_{StaticSlot}
 ++++
 
 , whereby:
@@ -860,7 +860,7 @@ This results in an interval in which a Network FMU shall provide a specified <<l
 
 [stem] 
 ++++
-    T_{Valid} = [ T_{Tx_{Static}}(tc, i_{Cycle}, i_{Slot}), T_{Tx_{Static}}(tc, i_{Cycle}, i_{Slot}) + T_{ActionPoint_{Static}} ]
+    T_{Valid} = [ T_{Tx_{Static}}(t, i_{Cycle}, i_{Slot}), T_{Tx_{Static}}(t, i_{Cycle}, i_{Slot}) + T_{ActionPoint_{Static}} ]
 ++++
 
 , whereby:
@@ -913,7 +913,7 @@ Within a Network FMU the first valid point in time when a specified <<low-cut-fl
 
 [stem] 
 ++++
-   T_{Tx_{DynamicFirst}}(tc, i_{Cycle}, i_{Slot}) = T_{Tx_{Static}}(tc, i_{Cycle}, N_{StaticSlot} + 1)
+   T_{Tx_{DynamicFirst}}(t, i_{Cycle}, i_{Slot}) = T_{Tx_{Static}}(t, i_{Cycle}, N_{StaticSlot} + 1)
         + (i_{Slot} - N_{StaticSlot} - 1) * L_{Minislot}
 ++++
 
@@ -927,7 +927,7 @@ Within a Network FMU the latest valid point in time when a specified <<low-cut-f
 
 [stem] 
 ++++
-   T_{Tx_{DynamicLast}}(tc, i_{Cycle}, i_{Slot}) = T_{Tx_{Static}}(tc, i_{Cycle}, N_{StaticSlot} + 1)
+   T_{Tx_{DynamicLast}}(t, i_{Cycle}, i_{Slot}) = T_{Tx_{Static}}(t, i_{Cycle}, N_{StaticSlot} + 1)
         + \sum_{j=N_{StaticSlot} + 1}^{i_{Slot} - 1} L_{DynamicSlot_j} * L_{Minislot}
 ++++
 
@@ -944,7 +944,7 @@ This results in an interval in which a Network FMU shall provide a specified <<l
 
 [stem] 
 ++++
-    T_{Valid} = [ T_{Tx_{DynamicFirst}}(tc, i_{Cycle}, i_{Slot}), T_{Tx_{DynamicLast}}(tc, i_{Cycle}, i_{Slot}) + T_{ActionPoint_{Dynamic}} ]
+    T_{Valid} = [ T_{Tx_{DynamicFirst}}(t, i_{Cycle}, i_{Slot}), T_{Tx_{DynamicLast}}(t, i_{Cycle}, i_{Slot}) + T_{ActionPoint_{Dynamic}} ]
 ++++
 
 , whereby:
