@@ -159,7 +159,7 @@ void CheckFlexRayConfirmOperation(int cycleId, int slotId, int channel, bool cor
 	EXPECT_EQ(operation->channel, channel * multiplier);
 }
 
-void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long long int macrotickDuration, int macroticksPerCycle, int maxCycleCount, int actionPointOffset, int staticSlotLength, int numberOfStaticSlots, int staticPayloadLength, int minislotActionPointOffset, int numberOfMinislots, int minislotLength, int symbolActionPointOffset, int symbolWindowLength, int nitLength, int nmVectorLength, long long int dynamicSlotIdleTime, fmi3Boolean coldStartNode, bool correctData)
+void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long long int macrotickDuration, int macroticksPerCycle, int maxCycleCount, int actionPointOffset, int staticSlotLength, int numberOfStaticSlots, int staticPayloadLength, int minislotActionPointOffset, int numberOfMinislots, int minislotLength, int symbolActionPointOffset, int symbolWindowLength, int nitLength, int nmVectorLength, long long int dynamicSlotIdleTime, fmi3LsBusFlexRayColdstartNodeType coldStartNode, bool correctData)
 {
 	// Create data needed for creation.
 	fmi3LsBusUtilBufferInfo firstBufferInfo;

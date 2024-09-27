@@ -746,33 +746,33 @@ TEST(Fmi3LsBusFlexRayConfirm, sizeError)
 /**
  * \brief Test for the FlexRay Configuration Global operation with smallest valid values.
  */
-TEST(Fmi3LsBusFlexRayConfigurationGlobal, minValues)
+TEST(Fmi3LsBusFlexRayConfigurationConfig, minValues)
 {
-	CheckFlexRayConfigurationOperation(ConfigurationGlobal, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, fmi3False, true);
+	CheckFlexRayConfigurationOperation(ConfigurationConfig, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, fmi3False, true);
 }
 
 /**
  * \brief Test for the FlexRay Configuration Global operation with biggest valid values.
  */
-TEST(Fmi3LsBusFlexRayConfigurationGlobal, maxValues)
+TEST(Fmi3LsBusFlexRayConfigurationConfig, maxValues)
 {
-	CheckFlexRayConfigurationOperation(ConfigurationGlobal, UINT32_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT32_MAX, UINT8_MAX, true);
+	CheckFlexRayConfigurationOperation(ConfigurationConfig, UINT32_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT32_MAX, UINT8_MAX, true);
 }
 
 /**
  * \brief Test for the FlexRay Configuration Global operation with data that is too big.
  */
-TEST(Fmi3LsBusFlexRayConfigurationGlobal, sizeError)
+TEST(Fmi3LsBusFlexRayConfigurationConfig, sizeError)
 {
-	CheckDataSizeError(ConfigurationGlobal);
+	CheckDataSizeError(ConfigurationConfig);
 }
 
 /**
  * \brief Test for the Format Error operation with the FlexRay Configuration Global operation.
  */
-TEST(Fmi3LsBusFlexRayConfigurationGlobal, formatError)
+TEST(Fmi3LsBusFlexRayConfigurationConfig, formatError)
 {
-	CheckFormatErrorOperation(ConfigurationGlobal);
+	CheckFormatErrorOperation(ConfigurationConfig);
 }
 
 /**
@@ -887,7 +887,7 @@ TEST(Fmi3LsBusFlexRayCombinationTest, maxValues) {
 
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, sizeof(data), data);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(&firstBufferInfo, FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_CONTENT_ERROR, UINT8_MAX, UINT16_MAX, UINT8_MAX);
-	FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&firstBufferInfo, UINT32_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT32_MAX, fmi3True);
+	FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&firstBufferInfo, UINT32_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT32_MAX, FMI3_LS_BUS_FLEXRAY_CONFIG_PARAM_COLDSTART_NODE_TYPE_NONE);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&firstBufferInfo, UINT64_MAX);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&firstBufferInfo, UINT8_MAX, UINT8_MAX, FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, sizeof(data), data);
@@ -982,7 +982,7 @@ TEST(Fmi3LsBusFlexRayCombinationTest, maxAndWrongValues) {
 
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, sizeof(data), data);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(&firstBufferInfo, FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_CONTENT_ERROR, UINT8_MAX, UINT16_MAX, UINT8_MAX);
-	FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&firstBufferInfo, FLEXRAY_WRONG_U_INT32, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT32, fmi3True);
+	FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&firstBufferInfo, FLEXRAY_WRONG_U_INT32, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT32, FMI3_LS_BUS_FLEXRAY_CONFIG_PARAM_COLDSTART_NODE_TYPE_NONE);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&firstBufferInfo, (UINT64_MAX + 1));
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&firstBufferInfo, UINT8_MAX, UINT8_MAX, FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, fmi3True, fmi3True, fmi3True, fmi3True, sizeof(data), data);

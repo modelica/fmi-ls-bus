@@ -151,7 +151,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] BufferInfo        Pointer to \ref fmi3LsBusUtilBufferInfo.
  * \param[in] ErrorFlags        The error flags describing the error (\ref fmi3LsBusFlexRayError).
  * \param[in] CycleId           The cycle in which the error occurred (\ref fmi3LsBusFlexRayCycleId).
- * \param[in] SegmentInicator   Identifies the specified FlexRay segment, where the error occured (\ref fmi3LsBusFlexRaySegmentInicatorType).
+ * \param[in] SegmentIndicator  Identifies the specified FlexRay segment, where the error occurred (\ref fmi3LsBusFlexRaySegmentIndicator).
  * \param[in] Channel           The channel(s) on which the error occurred (\ref fmi3LsBusFlexRayChannel).
  */
 #define FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(BufferInfo, ErrorFlags, CycleId, SegmentIndicator, Channel) \
@@ -193,7 +193,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] SymbolWindowLength         The length of the symbol window in macroticks (\ref fmi3LsBusFlexRayDurationMt8).
  * \param[in] NitLength                  The length of the NIT in macroticks (\ref fmi3LsBusFlexRayDurationMt8).
  * \param[in] DynamicSlotIdleTime        The length of dynamic slot idle time within a dynamic segment in macroticks (\ref fmi3LsBusFlexRayDurationMt32).
- * \param[in] ColdstartNode              Specifies if the given FlexRay note represents a coldstart node or not (\ref fmi3LsBusBoolean).
+ * \param[in] ColdstartNode              Specifies the coldstart capabilities of a FlexRay node (\ref fmi3LsBusFlexRayColdstartNodeType).
  */
 #define FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(BufferInfo, \
             MacrotickDuration, MacroticksPerCycle, CycleCountMax, ActionPointOffset, StaticSlotLength, \

@@ -472,7 +472,7 @@ typedef struct
     fmi3LsBusFlexRayDurationMt8 nitLength;                  /**< The length of the NIT in macroticks. */
     NetworkManagementVectorLength nmVectorLength;           /**< The length of the Network Management Vector. */
     fmi3LsBusFlexRayDurationMt32 dynamicSlotIdleTime;       /**< The length of dynamic slot idle time within a dynamic segment in macroticks. */  
-    fmi3LsBusBoolean coldstartNode;                         /**< Indicates whether the FlexRay node is a coldstart node or not. */
+    fmi3LsBusFlexRayColdstartNodeType coldstartNode;        /**< Specifies the coldstart capabilities of a FlexRay node. */
 } fmi3LsBusFlexRayConfigurationFlexRayConfig;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
