@@ -1,6 +1,16 @@
 == Contributions
-#TODO: Add contributions here#
 
+- Christian Bertsch, Robert Bosch GmbH, Germany
+- Clemens Boos, dSPACE GmbH, Germany
+- Martin Engel, dSPACE GmbH, Germany
+- Andreas Junghanns, Synopsys, Germany
+- Pierre R. Mai, PMSF IT Consulting, Germany
+- Benedikt Menne, dSPACE GmbH, Germany
+- Jan Ribbe, Synopsys, Germany
+- Klaus Schuch, AVL List GmbH, Austria
+- Markus S&#252;vern, dSPACE GmbH, Germany
+- Tim Pfitzer, Robert Bosch GmbH, Germany 
+- Patrick T&#228;uber, dSPACE GmbH, Germany
 - ...
 
 Contributions to this layered standard to the FMI standard are covered by the https://github.com/modelica/fmi-standard.org/blob/main/static/assets/FMI_CCLA_v1.0_2016_06_21.pdf[Corporate Contributors License Agreement (CCLA)] of the Modelica Association Project FMI.
