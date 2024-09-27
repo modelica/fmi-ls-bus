@@ -513,8 +513,8 @@ See `gNetworkManagementVectorLength` parameter within FlexRay specification for 
 
 |Coldstart Node
 |1 byte
-|Specifies if the given FlexRay node represents a coldstart node or not.
-For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+|Specifies if the given FlexRay node represents a coldstart node or not, by using <<table-flexray-coldstart-node-types>>.
+If a specified node has coldstart capabilities, additionally the type of coldstart shall be defined.
 
 // .1+|tbd
 // |tbd
@@ -541,6 +541,21 @@ The following configuration parameters are defined:
 
 h|Parameter h|Value h|Description
 |FLEXRAY_CONFIG|0x01|Indicates global FlexRay parameters used by the Network FMU.
+
+|====
+
+The following coldstart node types are defined:
+
+.Overview of the available coldstart node types.
+[#table-flexray-coldstart-node-types]
+[cols="2,1,5"]
+|====
+
+h|Coldstart Node Type h|Value h|Description
+|None|0x01|Describes that the current node has no coldstart capabilities.
+|TT-D coldstart node|0x02|Indicates a TT-D coldstart node.
+|TT-E coldstart node|0x03|Indicates a TT-E coldstart node.
+|TT-L coldstart node|0x04|Indicates a TT-L coldstart node.
 
 |====
 
@@ -630,15 +645,15 @@ The following symbol type values can be used:
 
 h|Kind h|Value h|Description
 |COLLISION_AVOIDANCE_SYMBOL
-|0x00
+|0x01
 |The collision avoidance symbol is used to indicate the start of the first communication cycle.
 
 |MEDIA_TEST_SYMBOL
-|0x01
+|0x02
 |The media test symbol is used for testing of a bus guardian.
 
 |WAKEUP_SYMBOL
-|0x02
+|0x03
 |The wake up symbol is used for waking up other FlexRay nodes of the specified network.
 
 |====

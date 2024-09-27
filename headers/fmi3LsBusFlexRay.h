@@ -150,19 +150,19 @@ typedef fmi3UInt8 fmi3LsBusFlexRayChannel;
 /**
  * \brief Data type identifying a part of the FlexRay cycle.
  */
-typedef fmi3UInt16 fmi3LsBusFlexRaySegmentIndicatorType;
+typedef fmi3UInt16 fmi3LsBusFlexRaySegmentIndicator;
 
 /**
  * \brief Represents the FlexRay symbol window.
  */
 #define FMI3_LS_BUS_FLEXRAY_SEGMENT_INDICATOR_SYMBOL_WINDOW \
-    ((fmi3LsBusFlexRaySegmentIndicatorType)0xFFFE)
+    ((fmi3LsBusFlexRaySegmentIndicator)0xFFFE)
 
  /**
   * \brief Represents the FlexRay NIT segment.
   */
 #define FMI3_LS_BUS_FLEXRAY_SEGMENT_INDICATOR_NIT \
-    ((fmi3LsBusFlexRaySegmentIndicatorType)0xFFFF)
+    ((fmi3LsBusFlexRaySegmentIndicator)0xFFFF)
 
 /** \} */
 
@@ -254,11 +254,47 @@ typedef fmi3UInt8 fmi3LsBusFlexRayConfigParameterType;
 /**
  * \brief Indicates the global FlexRay parameters configured for this node.
  */
-#define FMI3_LS_BUS_FLEXRAY_CONFIG_PARAMETER_TYPE_FLEXRAY_CONFIG \
+#define FMI3_LS_BUS_FLEXRAY_CONFIG_PARAM_TYPE_FLEXRAY_CONFIG \
     ((fmi3LsBusFlexRayConfigParameterType)0x01)
 
 /** \} */
 
+/**
+ * \defgroup FLEXRAY_TYPE_COLDSTART_NODE_TYPE fmi3LsBusFlexRayColdstartNodeType
+ * \brief Data type and macros specifying coldstart capabilities of a specified FlexRay node.
+ * \{
+ */
+
+/**
+ * \brief Data type representing the type of coldstart capabilities.
+ */
+typedef fmi3UInt8 fmi3LsBusFlexRayColdstartNodeType;
+
+/**
+ * \brief Describes that the current node has no coldstart capabilities.
+ */
+#define FMI3_LS_BUS_FLEXRAY_CONFIG_PARAM_COLDSTART_NODE_TYPE_NONE \
+    ((fmi3LsBusFlexRayColdstartNodeType)0x1)
+
+/**
+ * \brief Indicates a TT-D coldstart node.
+ */
+#define FMI3_LS_BUS_FLEXRAY_CONFIG_PARAM_COLDSTART_NODE_TYPE_TT_D_COLDSTART_NODE \
+    ((fmi3LsBusFlexRayColdstartNodeType)0x2)
+
+/**
+ * \brief Indicates a TT-E coldstart node.
+ */
+#define FMI3_LS_BUS_FLEXRAY_CONFIG_PARAM_COLDSTART_NODE_TYPE_TT_E_COLDSTART_NODE \
+    ((fmi3LsBusFlexRayColdstartNodeType)0x3)
+
+/**
+ * \brief Indicates a TT-L coldstart node.
+ */
+#define FMI3_LS_BUS_FLEXRAY_CONFIG_PARAM_COLDSTART_NODE_TYPE_TT_L_COLDSTART_NODE \
+    ((fmi3LsBusFlexRayColdstartNodeType)0x4)
+
+/** \} */
 
 /**
  * \brief Data type representing a macrotick duration in nanoseconds.
@@ -316,19 +352,19 @@ typedef fmi3UInt8 fmi3LsBusFlexRaySymbolType;
  * \brief The collision avoidance symbol is used to indicate the start of the first communication cycle.
  */
 #define FMI3_LS_BUS_FLEXRAY_SYMBOL_COLLISION_AVOIDANCE_SYMBOL \
-    ((fmi3LsBusFlexRaySymbolType)0x0)
+    ((fmi3LsBusFlexRaySymbolType)0x1)
 
 /**
  * \brief The media test symbol is used for testing of a bus guardian.
  */
 #define FMI3_LS_BUS_FLEXRAY_SYMBOL_MEDIA_TEST_SYMBOL \
-    ((fmi3LsBusFlexRaySymbolType)0x1)
+    ((fmi3LsBusFlexRaySymbolType)0x2)
 
 /**
  * \brief The wake up symbol is used for waking up other FlexRay nodes of the specified network.
  */
 #define FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL \
-    ((fmi3LsBusFlexRaySymbolType)0x2)
+    ((fmi3LsBusFlexRaySymbolType)0x3)
 
 /** \} */
 
@@ -406,7 +442,7 @@ typedef struct
     fmi3LsBusOperationHeader header;                        /**< Operation header. */
     fmi3LsBusFlexRayError errorFlags;                       /**< The error flags describing the error. */
     fmi3LsBusFlexRayCycleId cycleId;                        /**< The cycle in which the error occurred. */
-    fmi3LsBusFlexRaySegmentIndicatorType segmentIndicator;  /**< The segment in which the error occurred. */
+    fmi3LsBusFlexRaySegmentIndicator segmentIndicator;      /**< The segment in which the error occurred. */
     fmi3LsBusFlexRayChannel channel;                        /**< The channel(s) on which the error occurred. */
 } fmi3LsBusFlexRayOperationBusError;
 
