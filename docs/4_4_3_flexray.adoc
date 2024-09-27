@@ -241,7 +241,7 @@ The following applies for this operation: `Length = 9 + Data Length`.
 
 | Channel
 | 1 byte
-| The specified channel type value, based on <<table-flexray-channel-kinds>> of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to cancel.
+| The specified channel type value, based on <<table-flexray-channel-kinds>> of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to cancel, whereby the combination of more than one channel is allowed.
 
 h|Behavior
 3+|The <<low-cut-flexray-cancel-operation, `Cancel`>> operation shall be provided by Network FMUs to indicate a cancellation of a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation that is buffered by a Bus Simulation.
