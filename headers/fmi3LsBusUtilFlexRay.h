@@ -207,7 +207,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.header.length = sizeof(fmi3LsBusOperationHeader) +                         \
             sizeof(fmi3LsBusFlexRayConfigParameterType) +                              \
             sizeof(fmi3LsBusFlexRayConfigurationFlexRayConfig);                        \
-        _op.parameterType = FMI3_LS_BUS_FLEXRAY_CONFIG_PARAMETER_TYPE_FLEXRAY_CONFIG;  \
+        _op.parameterType = FMI3_LS_BUS_FLEXRAY_CONFIG_PARAM_TYPE_FLEXRAY_CONFIG;  \
         _op.flexRayConfig.macrotickDuration = (MacrotickDuration);                     \
         _op.flexRayConfig.macroticksPerCycle = (MacroticksPerCycle);                   \
         _op.flexRayConfig.cycleCountMax = (CycleCountMax);                             \
