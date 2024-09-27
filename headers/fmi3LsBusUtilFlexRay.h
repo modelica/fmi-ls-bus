@@ -181,7 +181,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] BufferInfo                 Pointer to \ref fmi3LsBusUtilBufferInfo.
  * \param[in] MacrotickDuration          Duration of a macrotick in ns (\ref fmi3LsBusFlexRayMacrotickDurationNs).
  * \param[in] MacroticksPerCycle         The length of the cycle in macroticks (\ref fmi3LsBusFlexRayDurationMt16).
- * \param[in] CycleCountMax              The maxmimum number of cycles (\ref fmi3LsBusFlexRayMaxCycleCount).
+ * \param[in] CycleCountMax              The maximum number of cycles (\ref fmi3LsBusFlexRayMaxCycleCount).
  * \param[in] ActionPointOffset          The action point offset of a static slot in macroticks (\ref fmi3LsBusFlexRayDurationMt8).
  * \param[in] StaticSlotLength           The length of a slot in the static segment in macroticks (\ref fmi3LsBusFlexRayDurationMt16).
  * \param[in] NumberOfStaticSlots        The number of static slots in a cycle (\ref fmi3LsBusFlexRaySlotCount).

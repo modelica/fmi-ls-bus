@@ -308,7 +308,7 @@ void CheckDataSizeError(FlexRayOperation operation)
 	switch (operation)
 	{
 	case Transmit:
-		FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&bufferInfo, 0, 0, 0, 0,
+		FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&bufferInfo, 0, 0, 0,
 			fmi3True, fmi3True, fmi3True, fmi3True, sizeof(data), data);
 		break;
 	case BusError:
