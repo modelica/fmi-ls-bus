@@ -183,11 +183,6 @@ typedef fmi3UInt8 fmi3LsBusFlexRayCycleId;
 typedef fmi3UInt16 fmi3LsBusFlexRaySlotId;
 
 /**
- * \brief Data type Indicates how many minislots must pass after receiving the Transmit operation in order a Network FMU is allowed to provided the next Transmit operation.
- */
-typedef fmi3UInt32 fmi3LsBusFlexRayMinislotDuration;
-
-/**
  * \brief Data type representing the FlexRay frame payload length.
  */
 typedef fmi3UInt8 fmi3LsBusFlexRayDataLength;
@@ -359,13 +354,12 @@ typedef struct
     fmi3LsBusBoolean syncFrameIndicator;                /**< Indicates a sync frame. */
     fmi3LsBusBoolean nullFrameIndicator;                /**< Indicates a null frame. */
     fmi3LsBusBoolean payloadPreambleIndicator;          /**< Indicates whether the frame contains a NM vector or message ID. */
-    fmi3LsBusFlexRayMinislotDuration minislotDuration;  /**< Indicates how many minislots must pass after a new message can be transmitted. */
     fmi3LsBusFlexRayDataLength dataLength;              /**< Data length. */
     fmi3LsBusFlexRayData data[];                        /**< Data. */
 } fmi3LsBusFlexRayOperationTransmit;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayOperationTransmit) == (8 + 1 + 2 + 1 + 1 + 1 + 1 + 1 + 4 + 1),
+static_assert(sizeof(fmi3LsBusFlexRayOperationTransmit) == (8 + 1 + 2 + 1 + 1 + 1 + 1 + 1 + 1),
               "'fmi3LsBusFlexRayOperationTransmit' does not match the expected data size");
 #endif
 

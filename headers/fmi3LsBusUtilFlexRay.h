@@ -59,16 +59,15 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] SyncFrameIndicator        Indicates a sync frame (\ref fmi3LsBusBoolean).
  * \param[in] NullFrameIndicator        Indicates a null frame (\ref fmi3LsBusBoolean).
  * \param[in] PayloadPreambleIndicator  Indicates whether the frame contains a NM vector or message ID (\ref fmi3LsBusBoolean).
- * \param[in] MinislotDuration          Indicates how many minislots must pass after a new message can be transmitted. (\ref fmi3LsBusFlexRayMinislotDuration).
  * \param[in] DataLength                Message data length (\ref fmi3LsBusFlexRayDataLength).
  * \param[in] Data                      Message data (pointer to \ref fmi3LsBusFlexRayData).
  */
-#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(BufferInfo, \
-            CycleId, SlotId, Channel, StartupFrameIndicator, SyncFrameIndicator, \
-            NullFrameIndicator, PayloadPreambleIndicator, MinislotDuration, DataLength, Data) \
+#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(BufferInfo,                             \
+            CycleId, SlotId, Channel, StartupFrameIndicator, SyncFrameIndicator,       \
+            NullFrameIndicator, PayloadPreambleIndicator, DataLength, Data)            \
     do                                                                                 \
     {                                                                                  \
-        fmi3LsBusFlexRayOperationTransmit _op;                                  \
+        fmi3LsBusFlexRayOperationTransmit _op;                                         \
         _op.header.opCode = FMI3_LS_BUS_FLEXRAY_OP_TRANSMIT;                           \
         _op.header.length = sizeof(_op) + (DataLength);                                \
         _op.cycleId = (CycleId);                                                       \
@@ -78,7 +77,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.syncFrameIndicator = (SyncFrameIndicator);                                 \
         _op.nullFrameIndicator = (NullFrameIndicator);                                 \
         _op.payloadPreambleIndicator = (PayloadPreambleIndicator);                     \
-        _op.minislotDuration = (MinislotDuration);                                     \
         _op.dataLength = (DataLength);                                                 \
                                                                                        \
         FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, (DataLength), (Data)); \
@@ -99,7 +97,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   * \param[in] SlotId                    The slot the message is transferred in (\ref fmi3LsBusFlexRaySlotId).
   * \param[in] Channel                   The channel(s) on which the transmission takes place (\ref fmi3LsBusFlexRayChannel).
   */
-#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_CANCEL(BufferInfo, CycleId, SlotId, Channel) \
+#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_CANCEL(BufferInfo, CycleId, SlotId, Channel)     \
     do                                                                                 \
     {                                                                                  \
         fmi3LsBusFlexRayOperationCancel _op;                                           \
