@@ -7,7 +7,7 @@
 #endif
 
 void CheckFlexRayTransmitOperation(int cycleId, int slotId, int channel, fmi3UInt8 startUpFrameIndicator,
-	fmi3UInt8 syncFrameIndicator, fmi3UInt8 nullFrameIndicator, fmi3UInt8 payloadPreambleIndicator, fmi3UInt64 minislotDuration, size_t dataSize, fmi3UInt8 data[], bool correctData)
+	fmi3UInt8 syncFrameIndicator, fmi3UInt8 nullFrameIndicator, fmi3UInt8 payloadPreambleIndicator, size_t dataSize, fmi3UInt8 data[], bool correctData)
 {
 	// Create data needed for creation.
 	fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -24,7 +24,7 @@ void CheckFlexRayTransmitOperation(int cycleId, int slotId, int channel, fmi3UIn
 	// Create operation.
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, cycleId, slotId, channel,
 		startUpFrameIndicator, syncFrameIndicator, nullFrameIndicator,
-		payloadPreambleIndicator, minislotDuration, dataSize, data);
+		payloadPreambleIndicator, dataSize, data);
 
 	// Write operation to a second buffer.
 	FMI3_LS_BUS_BUFFER_WRITE(&secondBufferInfo, txData, sizeof(txData));
@@ -46,7 +46,6 @@ void CheckFlexRayTransmitOperation(int cycleId, int slotId, int channel, fmi3UIn
 	EXPECT_EQ(operation->syncFrameIndicator, syncFrameIndicator);
 	EXPECT_EQ(operation->nullFrameIndicator, nullFrameIndicator);
 	EXPECT_EQ(operation->payloadPreambleIndicator, payloadPreambleIndicator);
-	EXPECT_EQ(operation->minislotDuration, minislotDuration * multiplier);
 	EXPECT_EQ(operation->dataLength, dataSize);
 	for (size_t i = 0; i < dataSize; i++)
 	{
