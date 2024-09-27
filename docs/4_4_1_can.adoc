@@ -626,7 +626,7 @@ _A simple Network FMU might also choose to treat Bus Error or Arbitration operat
 [[figure-fmu-bus-notifications-parameter]]
 ----
     org.fmi_standard.fmi_ls_bus.Can_BusNotifications
-        Description:  "Specifies whether the respective Network FMU waits for a Confirm,
+        Description:  "Specifies whether the respective Network FMU can rely on a Confirm,
                       Bus Error or Arbitration Lost operation after sending a message."
         Type:         Boolean
         Causality:    structuralParameter
