@@ -171,7 +171,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 /**
- * \brief Creates a FlexRay 'Configuration' operation for the parameter 'FLEXRAY_GLOBAL'.
+ * \brief Creates a FlexRay 'Configuration' operation for the parameter 'FLEXRAY_CONFIG'.
  *
  * This macro can be used to create a FlexRay 'Configuration' operation.
  * The arguments are serialized according to the fmi-ls-bus specification and written to the buffer described by the argument `BufferInfo`.
@@ -195,7 +195,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] DynamicSlotIdleTime        The length of dynamic slot idle time within a dynamic segment in macroticks (\ref fmi3LsBusFlexRayDurationMt32).
  * \param[in] ColdstartNode              Specifies if the given FlexRay note represents a coldstart node or not (\ref fmi3LsBusBoolean).
  */
-#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_GLOBAL(BufferInfo, \
+#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(BufferInfo, \
             MacrotickDuration, MacroticksPerCycle, CycleCountMax, ActionPointOffset, StaticSlotLength, \
             NumberOfStaticSlots, StaticPayloadLength, MinislotActionPointOffset, \
             NumberOfMinislots, MinislotLength, SymbolActionPointOffset, SymbolWindowLength, \
@@ -206,24 +206,24 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.header.opCode = FMI3_LS_BUS_FLEXRAY_OP_CONFIGURATION;                      \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) +                         \
             sizeof(fmi3LsBusFlexRayConfigParameterType) +                              \
-            sizeof(fmi3LsBusFlexRayConfigurationFlexRayGlobal);                        \
-        _op.parameterType = FMI3_LS_BUS_FLEXRAY_CONFIG_PARAMETER_TYPE_FLEXRAY_GLOBAL;  \
-        _op.flexRayGlobal.macrotickDuration = (MacrotickDuration);                     \
-        _op.flexRayGlobal.macroticksPerCycle = (MacroticksPerCycle);                   \
-        _op.flexRayGlobal.cycleCountMax = (CycleCountMax);                             \
-        _op.flexRayGlobal.actionPointOffset = (ActionPointOffset);                     \
-        _op.flexRayGlobal.staticSlotLength = (StaticSlotLength);                       \
-        _op.flexRayGlobal.numberOfStaticSlots = (NumberOfStaticSlots);                 \
-        _op.flexRayGlobal.staticPayloadLength = (StaticPayloadLength);                 \
-        _op.flexRayGlobal.minislotActionPointOffset = (MinislotActionPointOffset);     \
-        _op.flexRayGlobal.numberOfMinislots = (NumberOfMinislots);                     \
-        _op.flexRayGlobal.minislotLength = (MinislotLength);                           \
-        _op.flexRayGlobal.symbolActionPointOffset = (SymbolActionPointOffset);         \
-        _op.flexRayGlobal.symbolWindowLength = (SymbolWindowLength);                   \
-        _op.flexRayGlobal.nitLength = (NitLength);                                     \
-        _op.flexRayGlobal.nmVectorLength = (NMVectorLength);                           \
-        _op.flexRayGlobal.dynamicSlotIdleTime = (DynamicSlotIdleTime);                 \
-        _op.flexRayGlobal.coldstartNode = (ColdstartNode);                             \
+            sizeof(fmi3LsBusFlexRayConfigurationFlexRayConfig);                        \
+        _op.parameterType = FMI3_LS_BUS_FLEXRAY_CONFIG_PARAMETER_TYPE_FLEXRAY_CONFIG;  \
+        _op.flexRayConfig.macrotickDuration = (MacrotickDuration);                     \
+        _op.flexRayConfig.macroticksPerCycle = (MacroticksPerCycle);                   \
+        _op.flexRayConfig.cycleCountMax = (CycleCountMax);                             \
+        _op.flexRayConfig.actionPointOffset = (ActionPointOffset);                     \
+        _op.flexRayConfig.staticSlotLength = (StaticSlotLength);                       \
+        _op.flexRayConfig.numberOfStaticSlots = (NumberOfStaticSlots);                 \
+        _op.flexRayConfig.staticPayloadLength = (StaticPayloadLength);                 \
+        _op.flexRayConfig.minislotActionPointOffset = (MinislotActionPointOffset);     \
+        _op.flexRayConfig.numberOfMinislots = (NumberOfMinislots);                     \
+        _op.flexRayConfig.minislotLength = (MinislotLength);                           \
+        _op.flexRayConfig.symbolActionPointOffset = (SymbolActionPointOffset);         \
+        _op.flexRayConfig.symbolWindowLength = (SymbolWindowLength);                   \
+        _op.flexRayConfig.nitLength = (NitLength);                                     \
+        _op.flexRayConfig.nmVectorLength = (NMVectorLength);                           \
+        _op.flexRayConfig.dynamicSlotIdleTime = (DynamicSlotIdleTime);                 \
+        _op.flexRayConfig.coldstartNode = (ColdstartNode);                             \
                                                                                        \
         FMI_LS_BUS_SUBMIT_OPERATION_NO_DATA_INTERNAL((BufferInfo), _op);               \
     }                                                                                  \

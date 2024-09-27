@@ -887,7 +887,7 @@ TEST(Fmi3LsBusFlexRayCombinationTest, maxValues) {
 
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, sizeof(data), data);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(&firstBufferInfo, FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_CONTENT_ERROR, UINT8_MAX, UINT16_MAX, UINT8_MAX);
-	FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_GLOBAL(&firstBufferInfo, UINT32_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT32_MAX, fmi3True);
+	FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&firstBufferInfo, UINT32_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT8_MAX, UINT32_MAX, fmi3True);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&firstBufferInfo, UINT64_MAX);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&firstBufferInfo, UINT8_MAX, UINT8_MAX, FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, sizeof(data), data);
@@ -919,17 +919,17 @@ TEST(Fmi3LsBusFlexRayCombinationTest, maxValues) {
 
 	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
 	flexRayConfigurationOperation = (fmi3LsBusFlexRayOperationConfiguration*)operationHeader;
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.macrotickDuration, UINT32_MAX);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.macroticksPerCycle, UINT16_MAX);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.actionPointOffset, UINT8_MAX);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.staticSlotLength, UINT16_MAX);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.numberOfStaticSlots, UINT16_MAX);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.staticPayloadLength, UINT8_MAX);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.minislotActionPointOffset, UINT8_MAX);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.numberOfMinislots, UINT16_MAX);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.minislotLength, UINT8_MAX);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.symbolWindowLength, UINT8_MAX);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.coldstartNode, fmi3True);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.macrotickDuration, UINT32_MAX);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.macroticksPerCycle, UINT16_MAX);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.actionPointOffset, UINT8_MAX);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.staticSlotLength, UINT16_MAX);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.numberOfStaticSlots, UINT16_MAX);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.staticPayloadLength, UINT8_MAX);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.minislotActionPointOffset, UINT8_MAX);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.numberOfMinislots, UINT16_MAX);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.minislotLength, UINT8_MAX);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.symbolWindowLength, UINT8_MAX);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.coldstartNode, fmi3True);
 
 	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
 	flexRayStatusOperation = (fmi3LsBusFlexRayOperationStartCommunication*)operationHeader;
@@ -982,7 +982,7 @@ TEST(Fmi3LsBusFlexRayCombinationTest, maxAndWrongValues) {
 
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, sizeof(data), data);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(&firstBufferInfo, FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_CONTENT_ERROR, UINT8_MAX, UINT16_MAX, UINT8_MAX);
-	FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_GLOBAL(&firstBufferInfo, FLEXRAY_WRONG_U_INT32, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT32, fmi3True);
+	FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&firstBufferInfo, FLEXRAY_WRONG_U_INT32, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT32, fmi3True);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&firstBufferInfo, (UINT64_MAX + 1));
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&firstBufferInfo, UINT8_MAX, UINT8_MAX, FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL);
 	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, fmi3True, fmi3True, fmi3True, fmi3True, sizeof(data), data);
@@ -1014,17 +1014,17 @@ TEST(Fmi3LsBusFlexRayCombinationTest, maxAndWrongValues) {
 
 	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
 	flexRayConfigurationOperation = (fmi3LsBusFlexRayOperationConfiguration*)operationHeader;
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.macrotickDuration, 0);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.macroticksPerCycle, 0);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.actionPointOffset, 0);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.staticSlotLength, 0);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.numberOfStaticSlots, 0);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.staticPayloadLength, 0);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.minislotActionPointOffset, 0);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.numberOfMinislots, 0);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.minislotLength, 0);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.symbolWindowLength, 0);
-	EXPECT_EQ(flexRayConfigurationOperation->flexRayGlobal.coldstartNode, fmi3True);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.macrotickDuration, 0);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.macroticksPerCycle, 0);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.actionPointOffset, 0);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.staticSlotLength, 0);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.numberOfStaticSlots, 0);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.staticPayloadLength, 0);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.minislotActionPointOffset, 0);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.numberOfMinislots, 0);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.minislotLength, 0);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.symbolWindowLength, 0);
+	EXPECT_EQ(flexRayConfigurationOperation->flexRayConfig.coldstartNode, fmi3True);
 
 	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
 	flexRayStatusOperation = (fmi3LsBusFlexRayOperationStartCommunication*)operationHeader;

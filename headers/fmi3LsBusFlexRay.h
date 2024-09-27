@@ -254,7 +254,7 @@ typedef fmi3UInt8 fmi3LsBusFlexRayConfigParameterType;
 /**
  * \brief Indicates the global FlexRay parameters configured for this node.
  */
-#define FMI3_LS_BUS_FLEXRAY_CONFIG_PARAMETER_TYPE_FLEXRAY_GLOBAL \
+#define FMI3_LS_BUS_FLEXRAY_CONFIG_PARAMETER_TYPE_FLEXRAY_CONFIG \
     ((fmi3LsBusFlexRayConfigParameterType)0x01)
 
 /** \} */
@@ -417,7 +417,7 @@ static_assert(sizeof(fmi3LsBusFlexRayOperationBusError) == (sizeof(fmi3LsBusOper
 
 
 /**
- * \brief Configuration data sent with 'Configuration' operation of type 'FLEXRAY_GLOBAL'.
+ * \brief Configuration data sent with 'Configuration' operation of type 'FLEXRAY_CONFIG'.
  */
 typedef struct
 {
@@ -437,11 +437,11 @@ typedef struct
     NetworkManagementVectorLength nmVectorLength;           /**< The length of the Network Management Vector. */
     fmi3LsBusFlexRayDurationMt32 dynamicSlotIdleTime;       /**< The length of dynamic slot idle time within a dynamic segment in macroticks. */  
     fmi3LsBusBoolean coldstartNode;                         /**< Indicates whether the FlexRay node is a coldstart node or not. */
-} fmi3LsBusFlexRayConfigurationFlexRayGlobal;
+} fmi3LsBusFlexRayConfigurationFlexRayConfig;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayConfigurationFlexRayGlobal) == (4 + 2 + 1 + 1 + 1 + 2 + 2 + 1 + 1 + 2 + 1 + 1 + 1 + 1 + 4 + 1),
-              "'fmi3LsBusFlexRayConfigurationFlexRayGlobal' does not match the expected data size");
+static_assert(sizeof(fmi3LsBusFlexRayConfigurationFlexRayConfig) == (4 + 2 + 1 + 1 + 1 + 2 + 2 + 1 + 1 + 2 + 1 + 1 + 1 + 1 + 4 + 1),
+              "'fmi3LsBusFlexRayConfigurationFlexRayConfig' does not match the expected data size");
 #endif
 
 /**
@@ -453,12 +453,12 @@ typedef struct
     fmi3LsBusFlexRayConfigParameterType parameterType;            /**< Defines the configuration parameter sent with this operation. */
     union
     {
-        fmi3LsBusFlexRayConfigurationFlexRayGlobal flexRayGlobal;   /**< Configuration data for parameter 'FLEXRAY_GLOBAL'. */
+        fmi3LsBusFlexRayConfigurationFlexRayConfig flexRayConfig; /**< Configuration data for parameter 'FLEXRAY_CONFIG'. */
     };
 } fmi3LsBusFlexRayOperationConfiguration;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayOperationConfiguration) == (8 + 1 + sizeof(fmi3LsBusFlexRayConfigurationFlexRayGlobal)),
+static_assert(sizeof(fmi3LsBusFlexRayOperationConfiguration) == (8 + 1 + sizeof(fmi3LsBusFlexRayConfigurationFlexRayConfig)),
               "'fmi3LsBusFlexRayOperationConfiguration' does not match the expected data size");
 #endif
 

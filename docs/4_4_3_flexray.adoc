@@ -436,7 +436,7 @@ Note that only one parameter can be set per <<low-cut-flexray-configuration-oper
 .17+h|
 4+h|Parameters
 
-.16+|FLEXRAY_GLOBAL
+.16+|FLEXRAY_CONFIG
 |Macrotick Duration
 |4 byte
 |Specifies the duration of one macrotick in nanoseconds.
@@ -524,11 +524,11 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 h|Behavior
 5+|The specified operation shall be produced by a Network FMU.
 In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), Network FMUs also receive <<low-cut-flexray-configuration-operation, `Configuration`>> operations from other nodes.
-Therefore, Network FMUs shall check receiving <<low-cut-flexray-configuration-operation, `Configuration`>> operation of type `FLEXRAY_GLOBAL` for compatibility.
+Therefore, Network FMUs shall check receiving <<low-cut-flexray-configuration-operation, `Configuration`>> operation of type `FLEXRAY_CONFIG` for compatibility.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the compatibility check should be done by the Bus Simulation.
 In this case, the Bus Simulation must not forward the <<low-cut-flexray-configuration-operation, `Configuration`>> to Network FMUs.
-The configuration of the `FLEXRAY_GLOBAL` parameters must be completed by all Network FMUs before any <<low-cut-flexray-transmit-operation, `Transmit`>> operation is produced.
-The reconfiguration of `FLEXRAY_GLOBAL` parameters during the runtime of a Network FMU is not allowed.
+The configuration of the `FLEXRAY_CONFIG` parameters must be completed by all Network FMUs before any <<low-cut-flexray-transmit-operation, `Transmit`>> operation is produced.
+The reconfiguration of `FLEXRAY_CONFIG` parameters during the runtime of a Network FMU is not allowed.
 
 |====
 
@@ -540,7 +540,7 @@ The following configuration parameters are defined:
 |====
 
 h|Parameter h|Value h|Description
-|FLEXRAY_GLOBAL|0x01|Indicates global FlexRay parameters used by the Network FMU.
+|FLEXRAY_CONFIG|0x01|Indicates global FlexRay parameters used by the Network FMU.
 
 |====
 
@@ -701,9 +701,9 @@ Network FMUs does not require this structural parameter.
 The timing behavior of FlexRay communication is typically defined globally in a design phase of the FlexRay network.
 At runtime, the globally defined communication parameters must be used by all network nodes to communicate successfully.
 To ensure that all Network FMUs use compatible parameters and to tell Bus Simulations how to simulate the FlexRay communication, Network FMUs shall send the <<low-cut-flexray-configuration-operation, `Configuration`>> operation.
-Configuration parameters which are mandatory to provide when first entering the `Event Mode` immediately after leaving the `Initialization Mode` are of type `FLEXRAY_GLOBAL`.
-Network FMUs receiving <<low-cut-flexray-configuration-operation, `Configuration`>> operations of type `FLEXRAY_GLOBAL` shall check its compatibility.
-Bus Simulations are also allowed to perform compatibility checks of `FLEXRAY_GLOBAL` parameters.
+Configuration parameters which are mandatory to provide when first entering the `Event Mode` immediately after leaving the `Initialization Mode` are of type `FLEXRAY_CONFIG`.
+Network FMUs receiving <<low-cut-flexray-configuration-operation, `Configuration`>> operations of type `FLEXRAY_CONFIG` shall check its compatibility.
+Bus Simulations are also allowed to perform compatibility checks of `FLEXRAY_CONFIG` parameters.
 In this case, a Bus Simulations must not forward <<low-cut-flexray-configuration-operation, `Configuration`>> operations to Network FMUs.
 In cases of detected incompatibilities, the simulation shall be refused accordingly.
 
@@ -854,7 +854,7 @@ If the parameter is set to `true`, the corresponding operations are only provide
 [#figure-flexray-static-segment-bus-communication-points]
 image::flexray_static_segment_bus_communication_points.svg[width=70%, align="center"]
 
-The starting point of the slot can be calculated at runtime based on the `FLEXRAY_GLOBAL` configuration parameters as
+The starting point of the slot can be calculated at runtime based on the `FLEXRAY_CONFIG` configuration parameters as
 
 [stem]
 ++++
