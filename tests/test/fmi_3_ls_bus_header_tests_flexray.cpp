@@ -1068,7 +1068,7 @@ TEST(Fmi3LsBusFlexRayCombinationTest, resetBuffer) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
 
-	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, sizeof(data), data);
+	FMI3_LS_BUS_FLEXRAY_CREATE_OP_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT16_MAX, UINT8_MAX, fmi3True, fmi3True, fmi3True, fmi3True, sizeof(data), data);
 
 	FMI3_LS_BUS_BUFFER_WRITE(&secondBufferInfo, txData, sizeof(txData));
 
