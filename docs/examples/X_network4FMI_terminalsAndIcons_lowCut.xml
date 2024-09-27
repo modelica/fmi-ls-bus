@@ -2,7 +2,7 @@
 <fmiTerminalsAndIcons fmiVersion="3.0">
   <Terminals>
     <Terminal terminalKind="org.fmi-ls-bus.network-terminal" name="Powertrain" matchingRule="org.fmi-ls-bus.transceiver"
-        description="Powertrain CAN bus terminal definition">
+        description="Powertrain CAN Bus Terminal definition">
       <TerminalMemberVariable variableKind="signal"
         variableName="Powertrain.Rx_Clock" memberName="Rx_Clock" />
       <TerminalMemberVariable variableKind="signal"

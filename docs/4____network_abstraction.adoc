@@ -3,7 +3,7 @@ This chapter describes the network abstraction or "low cut" in detail.
 
 === Overview [[low-cut-overview]]
 The network abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
-Exchanging data in terms of the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> via variables grouped by a dedicated bus terminal (see <<low-cut-variables>>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
+Exchanging data in terms of the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> via variables grouped by a dedicated Bus Terminal (see <<low-cut-variables>>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
 During simulation, the network communication is controlled by send and receive Bus Operations.
 Based on these operations, FMUs implementing this layered standard have to react depending on their role as specified in this document.
 This role can be a Bus Simulation FMU or an importer with bus simulation support on one side, and Network FMUs (e.g., virtual ECUs) on the other side (see <<common-concepts-system-compositions, System Compositions>>).
@@ -272,42 +272,38 @@ Selecting suitable Tx variables allows the FMU (or better the exporting tool) to
 Within FMI, every binary FMI variable has a `mimeType`, which indicates the type of data passed as a binary.
 This type indicates which specific bus type is involved.
 It ensures that only bus types of the same type can be interconnected, since FMI only allows the connection of two MIME types of the same binary variables.
-The following table lists the names of MIME types used for the Tx/Rx data variables:
+The following table lists the MIME types to use for the Tx/Rx data variables within a <<low-cut-bus-terminal, Bus Terminal>>:
 
 .Overview of the available MIME types for the supported several bus types.
 [#table-mime-types]
-[cols="4,5",options="header"]
+[cols="4,3",options="header"]
 |====
 |MIME type
 |Description
 
-|org.fmi-standard.fmi-ls-bus.v1.can
-|Binary variables simulating the automotive CAN network including CAN, CAN FD and CAN XL
+|application/org.fmi-standard.fmi-ls-bus.can; version="1.0.0-beta.1"
+|Binary variables simulating a CAN network including CAN, CAN FD and CAN XL
 
-|org.fmi-standard.fmi-ls-bus.v1.lin
-|Binary variables simulating the automotive LIN network
+|application/org.fmi-standard.fmi-ls-bus.lin; version="1.0.0-alpha.1"
+|Binary variables simulating a LIN network
 
-|org.fmi-standard.fmi-ls-bus.v1.flexray
-|Binary variables simulating the automotive FlexRay network
+|application/org.fmi-standard.fmi-ls-bus.flexray; version="1.0.0-alpha.1"
+|Binary variables simulating a FlexRay network
 
-|org.fmi-standard.fmi-ls-bus.v1.ethernet
-|Binary variables simulating the automotive Ethernet network
-
-|org.fmi-standard.fmi-ls-bus.v1.spi
-|Binary variables simulating the automotive SPI network
+|application/org.fmi-standard.fmi-ls-bus.ethernet; version="1.0.0-alpha.1"
+|Binary variables simulating an Ethernet network
 
 |====
 
 As in the table, above the version of a specified bus type is integrated within the MIME type.
 The MIME type and the associated versioning ensure that only compatible bus types can be connected to each other.
-The version number marks the set of available operations.
-Only the major version is included by the specified MIME type.
+The version number marks the set of available operations for a specified bus type.
 The versioning follows the rules of semantic versioning, as defined in <<PW13>>.
 
 === Terminal Definitions [[low-cut-terminal-definitions]]
 This section defines terminals for network abstraction or "low cut".
 
-==== Bus Terminal [[low-cut-bus-terminal,bus terminal]]
+==== Bus Terminal [[low-cut-bus-terminal,Bus Terminal]]
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>`.
 The attribute `name` of the `<Terminal>` must match the name of the specified network _[e.g., the name of the CAN channel: Powertrain]_ within a "low cut".
 If the specified FMU is connected to more than one network, there shall be exactly one `<Terminal>` for each network.
@@ -321,6 +317,7 @@ Element definitions::
  * Every Bus Terminal contains exactly four variables each in the role of: `Tx_Data`, `Tx_Clock`, `Rx_Data` or `Rx_Clock`.
  * Variables in the role of `Rx_Data`, `Tx_Data`, `Rx_Clock` and `Tx_Clock` are exposed in the `modelDescription.xml` and must be listed as `<TerminalMemberVariable>` elements, whereby `variableName` can be freely chosen.
  * `<TerminalMemberVariable>.memberName` defines the role of the variable within the `<Terminal>` and shall be set to `Tx_Data`, `Tx_Clock`, `Rx_Data` or `Rx_Clock`.
+ * Multiple use of the same variable within different Bus Terminals is not allowed.
  * There must be no `<TerminalStreamMemberVariable>` element.
 
 The `matchingRule` of type `org.fmi-ls-bus.transceiver` is specified as: `Tx_{Data|Clock}` variables shall be connected to `Rx_{Data|Clock}` variables and vice versa, whereby the variable type shall be equal.

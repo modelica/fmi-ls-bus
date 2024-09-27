@@ -634,7 +634,7 @@ _A simple Network FMU might also choose to treat Bus Error or Arbitration operat
         Start:        "false"
 ----
 
-This structural parameter is mandatory for Network FMUs.
+This structural parameter is mandatory for Network FMUs only.
 A Bus Simulation (FMU) does not require this structural parameter.
 
 ===== Configuration of Bus Simulation [[low-cut-can-configuration-of-bus-simulation]]
