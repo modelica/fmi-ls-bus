@@ -21,8 +21,7 @@ enum FlexRayOperation { Transmit, BusError, ConfigurationGlobal, StartCommunicat
 */
 void CheckFlexRayTransmitOperation(int cycleId, int slotId, int channel, fmi3UInt8 startUpFrameIndicator,
 	fmi3UInt8 syncFrameIndicator, fmi3UInt8 nullFrameIndicator,
-	fmi3UInt8 payloadPreambleIndicator, fmi3UInt64 minislotDuration, size_t dataSize, fmi3UInt8 data[],
-	bool correctData);
+	fmi3UInt8 payloadPreambleIndicator, size_t dataSize, fmi3UInt8 data[], bool correctData);
 
 /**
  * \brief Checks if the FlexRay Bus Error operation is created correctly by the corresponding macro.
