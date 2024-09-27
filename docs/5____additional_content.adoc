@@ -10,6 +10,7 @@
 - Klaus Schuch, AVL List GmbH, Austria
 - Markus S&#252;vern, dSPACE GmbH, Germany
 - Tim Pfitzer, Robert Bosch GmbH, Germany 
+- Sonja Pusch, dSPACE GmbH, Germany
 - Patrick T&#228;uber, dSPACE GmbH, Germany
 - ...
 
