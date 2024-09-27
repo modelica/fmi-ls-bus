@@ -203,7 +203,7 @@ h|Behavior
 3+|The <<low-cut-flexray-transmit-operation, `Transmit`>> operation shall be provided by Network FMUs to indicate the transmission of a FlexRay frame.
 In the case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might response with a <<low-cut-flexray-confirmation-operation, `Confirmation`>>, <<low-cut-flexray-bus-error-operation, `Bus Error`>> or <<low-cut-flexray-format-error-operation, `Format Error`>> operation.
+Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-flexray-confirmation-operation, `Confirmation`>>, <<low-cut-flexray-bus-error-operation, `Bus Error`>> or <<low-cut-flexray-format-error-operation, `Format Error`>> operation.
 If the specific <<low-cut-flexray-transmit-operation, `Transmit`>> operation is to be set across multiple channels, the channel argument can combine both channels.
 The point in time at which a Network FMU provides a <<low-cut-flexray-transmit-operation, `Transmit`>> operation must be within a valid provision time window.
 For the static segment, this circumstance is dealt within <<low-cut-flexray-static-segment>>, for the dynamic segment in <<low-cut-flexray-dynamic-segment>>.
@@ -631,7 +631,7 @@ If a FlexRay cycle is not yet running (for example when initiating a startup thr
 
 h|Behavior
 3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the <<low-cut-flexray-symbol-operation, `Symbol`>> operation initiator, of the bus using the Bus Simulation.
-Depending on the simulation details, the Bus Simulation might response with a <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation.
+Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation.
 If a Network FMU does not support a specified `Type` of a <<low-cut-flexray-symbol-operation, `Symbol`>> operation, this operation can be ignored on the consumer side.
 
 |====
@@ -756,7 +756,7 @@ After the <<low-cut-flexray-start-communication-operation, `Start Communication`
 ====== Emulating Coldstart Nodes [[low-cut-flexray-emulating-coldstart-nodes]]
 Normally, the startup process requires at least two coldstart nodes.
 For simulation systems coldstart Network FMUs are missing (because only a subset of nodes is to be simulated), a Bus Simulation is allowed to start the FlexRay communication by emulating the behavior of missing coldstart nodes.
-For this purpose, structural parameters e.g. for defining the startup time (stem:[T_{Start}]) or the `Slot ID` for startup frames can be provide by the Bus Simulation.
+For this purpose, structural parameters e.g. for defining the startup time (stem:[T_{Start}]) or the `Slot ID` for startup frames can be provided by the Bus Simulation.
 Because those parameters are Bus Simulation specific, they are not further defined in the specification.
 
 .Startup initiated by the Bus Simulation
