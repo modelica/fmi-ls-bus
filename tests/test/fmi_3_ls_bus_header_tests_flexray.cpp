@@ -744,7 +744,7 @@ TEST(Fmi3LsBusFlexRayConfirm, sizeError)
 }
 
 /**
- * \brief Test for the FlexRay Configuration Global operation with smallest valid values.
+ * \brief Test for the FlexRay Configuration Config operation with smallest valid values.
  */
 TEST(Fmi3LsBusFlexRayConfigurationConfig, minValues)
 {
@@ -752,7 +752,7 @@ TEST(Fmi3LsBusFlexRayConfigurationConfig, minValues)
 }
 
 /**
- * \brief Test for the FlexRay Configuration Global operation with biggest valid values.
+ * \brief Test for the FlexRay Configuration Config operation with biggest valid values.
  */
 TEST(Fmi3LsBusFlexRayConfigurationConfig, maxValues)
 {
@@ -760,7 +760,7 @@ TEST(Fmi3LsBusFlexRayConfigurationConfig, maxValues)
 }
 
 /**
- * \brief Test for the FlexRay Configuration Global operation with data that is too big.
+ * \brief Test for the FlexRay Configuration Config operation with data that is too big.
  */
 TEST(Fmi3LsBusFlexRayConfigurationConfig, sizeError)
 {
@@ -768,7 +768,7 @@ TEST(Fmi3LsBusFlexRayConfigurationConfig, sizeError)
 }
 
 /**
- * \brief Test for the Format Error operation with the FlexRay Configuration Global operation.
+ * \brief Test for the Format Error operation with the FlexRay Configuration Config operation.
  */
 TEST(Fmi3LsBusFlexRayConfigurationConfig, formatError)
 {

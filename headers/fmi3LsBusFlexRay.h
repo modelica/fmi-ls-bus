@@ -252,7 +252,7 @@ typedef fmi3UInt8 fmi3LsBusFlexRayError;
 typedef fmi3UInt8 fmi3LsBusFlexRayConfigParameterType;
 
 /**
- * \brief Indicates the global FlexRay parameters configured for this node.
+ * \brief Indicates the FlexRay bus-specific parameters configured for this node.
  */
 #define FMI3_LS_BUS_FLEXRAY_CONFIG_PARAM_TYPE_FLEXRAY_CONFIG \
     ((fmi3LsBusFlexRayConfigParameterType)0x01)

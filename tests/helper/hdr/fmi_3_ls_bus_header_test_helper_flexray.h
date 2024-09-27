@@ -14,7 +14,7 @@
  /**
   * \brief Enum of the available operations by name.
   */
-enum FlexRayOperation { Transmit, BusError, ConfigurationGlobal, StartCommunication, Symbol, Confirm, Cancel };
+enum FlexRayOperation { Transmit, BusError, ConfigurationConfig, StartCommunication, Symbol, Confirm, Cancel };
 
 /**
  * \brief Checks if the FlexRay Transmit operation is created correctly by the corresponding macro.

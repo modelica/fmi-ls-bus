@@ -176,7 +176,7 @@ void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long lon
 	// Create operation.
 	switch (operationType)
 	{
-	case ConfigurationGlobal:
+	case ConfigurationConfig:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&firstBufferInfo, macrotickDuration, macroticksPerCycle, maxCycleCount, actionPointOffset, staticSlotLength, numberOfStaticSlots, staticPayloadLength, minislotActionPointOffset, numberOfMinislots, minislotLength, symbolActionPointOffset, symbolWindowLength, nitLength, nmVectorLength, dynamicSlotIdleTime, coldStartNode);
 		break;
 	default:
@@ -198,7 +198,7 @@ void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long lon
 
 	switch (operationType)
 	{
-	case ConfigurationGlobal:
+	case ConfigurationConfig:
 		EXPECT_EQ(operation->flexRayConfig.macrotickDuration, macrotickDuration * multiplier);
 		EXPECT_EQ(operation->flexRayConfig.macroticksPerCycle, macroticksPerCycle * multiplier);
 		EXPECT_EQ(operation->flexRayConfig.cycleCountMax, maxCycleCount * multiplier);
@@ -314,7 +314,7 @@ void CheckDataSizeError(FlexRayOperation operation)
 	case BusError:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(&bufferInfo, 0, 0, 0, 0);
 		break;
-	case ConfigurationGlobal:
+	case ConfigurationConfig:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&bufferInfo, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, fmi3True);
 		break;
 	case StartCommunication:
@@ -365,7 +365,7 @@ void CheckFormatErrorOperation(FlexRayOperation operationType)
 	case BusError:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(&thirdBufferInfo, 0, 0, 0, 0);
 		break;
-	case ConfigurationGlobal:
+	case ConfigurationConfig:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&thirdBufferInfo, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, fmi3True);
 		break;
 	case StartCommunication:
