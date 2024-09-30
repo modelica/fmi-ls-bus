@@ -563,7 +563,7 @@ h|Coldstart Node Type h|Value h|Description
 By using the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation, a Network FMU or Bus Simulation communicates the start of the first communication cycle.
 The following information is included within this operation:
 
-.Detailed description of the Start communication operation.
+.Detailed description of the Start Communication operation.
 [#table-flexray-bus-start-communication-operation]
 [cols="5,4,3,20"]
 |====
