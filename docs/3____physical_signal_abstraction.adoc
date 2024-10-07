@@ -124,6 +124,9 @@ All <<high-cut-terminal-member-variable-for-signals,`TerminalMemberVariables`>> 
 <<high-cut-pdu-terminal,PDU terminals>> list all the contained signals as `<TerminalMemberVariable>`.
 
 Attribute definitions::
+ * `variableName` refers to the input or output variable name of the FMU.
+    These variables represent the signal abstraction layer ("high cut").
+    Unless there are other requirements, it is recommended to build the variable names as follows: `BusName.FrameName.PDUName.SignalName`, e.g., `Powertrain.tcuSensors.tcuSensors.vCar`.
  * `variableName` refers to the input or output variable name of the FMU and to enforce uniqueness is built as follows: `BusName.FrameName.PDUName.SignalName`, e.g., `Powertrain.tcuSensors.tcuSensors.vCar`.
     These variables represent the signal abstraction layer ("high cut").
  * `memberName` is the `SignalName` as given in the <<high-cut-network-description-files>>, e.g., `vCar`, if given.
