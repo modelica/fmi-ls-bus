@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 0091854,</span>
-<span id="revdate">2024-09-30</span>
+<span id="revnumber">version 63f87d7,</span>
+<span id="revdate">2024-10-08</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -1328,7 +1328,7 @@ If no <a href="#high-cut-network-description-files">network description file</a>
 </li>
 <li>
 <p>There must be one <code>&lt;TerminalMemberVariable&gt;</code> for the Clock this frame is connected to.
-The name of this variable is composed as <a href="#high-cut-clock-variables"><code>BusName.FrameName_Clock</code></a>, e.g., <code>Powertrain.tcuSensors_Clock</code>.</p>
+The <code>memberName</code> of this variable must be "Clock".</p>
 </li>
 </ul>
 </div>
@@ -1498,7 +1498,7 @@ BO_ 512 ecuState: 4 ECU
         description="Powertrain CAN bus defined with dbc file"&gt;
       &lt;Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="tcuSensors" matchingRule="bus"&gt;
         &lt;TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain.tcuSensors_Clock" /&gt;
+          variableName="Powertrain.tcuSensors_Clock" memberName="Clock" /&gt;
         &lt;Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="tcuSensors" matchingRule="bus"&gt;
           &lt;TerminalMemberVariable variableKind="signal"
             variableName="Powertrain.tcuSensors.tcuSensors.vCar" memberName="vCar" /&gt;
@@ -1508,7 +1508,7 @@ BO_ 512 ecuState: 4 ECU
       &lt;/Terminal&gt;
       &lt;Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="tcuState" matchingRule="bus"&gt;
         &lt;TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain.tcuState_Clock" /&gt;
+          variableName="Powertrain.tcuState_Clock" memberName="Clock" /&gt;
         &lt;Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="tcuState" matchingRule="bus"&gt;
           &lt;TerminalMemberVariable variableKind="signal"
             variableName="Powertrain.tcuState.tcuState.state" memberName="state" /&gt;
@@ -1520,7 +1520,7 @@ BO_ 512 ecuState: 4 ECU
       &lt;/Terminal&gt;
       &lt;Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="ecuState" matchingRule="bus"&gt;
         &lt;TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain.ecuState_Clock" /&gt;
+          variableName="Powertrain.ecuState_Clock" memberName="Clock" /&gt;
         &lt;Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="ecuState" matchingRule="bus"&gt;
           &lt;TerminalMemberVariable variableKind="signal"
             variableName="Powertrain.ecuState.ecuState.accelPedal" memberName="accelPedal" /&gt;
