@@ -38,7 +38,7 @@ h|Length
 |0x01
 |:= 10 + n +
 (4 byte)
-|DL +
+|DL footnote:[DL is used as an abbreviation for Data Length throughout the document] +
 (2 byte)
 7+|Data +
 (n byte)

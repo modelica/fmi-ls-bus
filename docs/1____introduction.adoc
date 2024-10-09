@@ -79,7 +79,7 @@ This layered standard defines requires the use of a layered standard manifest fi
 
 |`fmi-ls-version`
 | `\http://fmi-standard.org/fmi-ls-manifest`
-| `1.0.0-beta.1`
+| `1.1.0-alpha.1`
 | Version of the layered standard. This layered standard uses semantic versioning, as defined in <<PW13>>.
 
 |`fmi-ls-description`

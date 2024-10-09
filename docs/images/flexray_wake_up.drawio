@@ -1,0 +1,38 @@
+<mxfile host="app.diagrams.net" modified="2024-04-23T14:59:11.677Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0" etag="66C6B5u4I4AN49m4JdqT" version="24.2.8" type="device">
+  <diagram id="kgpKYQtTHZ0yAKxKKP6v" name="Page-1">
+    <mxGraphModel dx="-698" dy="-523" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="od-dk-tfpZx7mSIlCZZn-1" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;:FMU 1&lt;/font&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};size=80;" parent="1" vertex="1">
+          <mxGeometry x="1919" y="1999.13" width="241" height="280.87" as="geometry" />
+        </mxCell>
+        <mxCell id="od-dk-tfpZx7mSIlCZZn-2" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;:FMU 2&lt;/font&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};size=80;" parent="1" vertex="1">
+          <mxGeometry x="2639.83" y="1999.56" width="240.83" height="280.44" as="geometry" />
+        </mxCell>
+        <mxCell id="od-dk-tfpZx7mSIlCZZn-3" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;:Bus Simulation&lt;/font&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};size=80;" parent="1" vertex="1">
+          <mxGeometry x="2279.42" y="1999.13" width="240.83" height="280.87" as="geometry" />
+        </mxCell>
+        <mxCell id="od-dk-tfpZx7mSIlCZZn-4" value="" style="ellipse;whiteSpace=wrap;html=1;align=center;aspect=fixed;fillColor=none;strokeColor=none;resizable=0;perimeter=centerPerimeter;rotatable=0;allowArrows=0;points=[];outlineConnect=1;" parent="od-dk-tfpZx7mSIlCZZn-3" vertex="1">
+          <mxGeometry x="180.46000000000004" y="280" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="od-dk-tfpZx7mSIlCZZn-5" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=default;" parent="od-dk-tfpZx7mSIlCZZn-3" vertex="1">
+          <mxGeometry x="115.41" y="190" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="od-dk-tfpZx7mSIlCZZn-12" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Symbol(WAKEUP_SYMBOL)&lt;/font&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="2040" y="2207" as="sourcePoint" />
+            <mxPoint x="2393.925" y="2207" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="od-dk-tfpZx7mSIlCZZn-13" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Symbol(WAKEUP_SYMBOL)&lt;/font&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="2404.83" y="2251" as="sourcePoint" />
+            <mxPoint x="2759.7449999999994" y="2251" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
