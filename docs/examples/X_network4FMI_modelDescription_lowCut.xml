@@ -5,11 +5,11 @@
     <Clock name="Powertrain.Rx_Clock" valueReference="1002"
         causality="input" variability="discrete" intervalVariability="triggered"/>
     <Binary name="Powertrain.Rx_Data" valueReference="1001" causality="input"
-        mimeType="application/org.fmi-standard.fmi-ls-bus.can; version=&quot1.0.0-beta.1&quot" variability="discrete" clocks="1002"/>
+        mimeType="application/org.fmi-standard.fmi-ls-bus.can; version=&quot;1.0.0-beta.1&quot;" variability="discrete" clocks="1002"/>
     <Clock name="Powertrain.Tx_Clock" valueReference="1004"
         causality="input" variability="discrete" intervalVariability="changing"/>
     <Binary name="Powertrain.Tx_Data" valueReference="1003" causality="output"
-        mimeType="application/org.fmi-standard.fmi-ls-bus.can; version=&quot1.0.0-beta.1&quot" variability="discrete" clocks="1004"/>
+        mimeType="application/org.fmi-standard.fmi-ls-bus.can; version=&quot;1.0.0-beta.1&quot;" variability="discrete" clocks="1004"/>
   </ModelVariables>
   <ModelStructure>
   </ModelStructure>
