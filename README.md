@@ -55,6 +55,26 @@ See also the overview pages for the demos, categorized by the different supporte
 
 The [FMI LS Bus Implementers' Guide] is a free resource intended to give non-normative recommendations and guidance to implementers of the Functional Mock-up Interface Layered Standard for Network Communication (FMI-LS-BUS).
 
+## Tools
+
+The following list shows importers that currently support the fmi-ls-bus layered standard and that have been validated by a cross-check.
+It should be noted that the implementation in some tools is either in prototype status or shipped within the normal release.
+Feel free to contact the specified tool vendors if you are interested in using the fmi-ls-bus layered standard.
+Additionally, any FMU importer that supports the necessary FMI 3.0 features, such as clocks and binary variables, has generic fmi-ls-bus support and can be used.
+
+|Name|Exporter|Importer|Features|Contact
+|---|:-:|:-:|---|---|
+Altair Activate<sup>**</sup>|-|X|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)| [http://www.altair.de](https://www.altair.de/activate/)
+AVL FMU Sim<sup>**</sup>|-|X|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|[http://www.avl.de](https://www.avl.de/)
+dSPACE SystemDesk|X|-|![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|[https://www.dspace.com](https://www.dspace.com/en/pub/home/products/sw/system_architecture_software/systemdesk.cfm)
+dSPACE VEOS|-|X|![Integrated Bus Simulation](landingpage/IBS.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|[https://www.dspace.com](https://www.dspace.com/en/pub/home/products/sw/simulation_software/veos.cfm)
+Synopsys Silver<sup>*</sup>|-|X|![Integrated Bus Simulation](landingpage/IBS.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg)|[https://www.synopsys.com](https://www.synopsys.com/verification/virtual-prototyping/silver.html)
+
+<sup><sup>*</sup> Implementation has prototype state and is not part of the release</sup>
+<sup><sup>**</sup> Own Bus Simulation FMU required (in case of BSF)</sup>
+
+![Legend of supported system compositions of tools](landingpage/tool_legend.svg)
+
 ## Copyright and License
 
 Code and documentation copyright (C) 2023-2024 The Modelica Association Project FMI.
