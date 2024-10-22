@@ -8,7 +8,7 @@ Furthermore, essential elements from previous FlexRay specifications are covered
 To simulate FlexRay communication between Networked FMUs, FlexRay-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
 Overall, the following operations and groups of operations exists:
 
-* Transmit, Cancel and Confirm: This operations are used to simulate a FlexRay frame transmission.
+* Transmit, Cancel and Confirm: These operations are used to simulate a FlexRay frame transmission.
 * Bus- and Format Error: This group of operations is used for protocol format errors and to simulate bus failures.
 * Configuration: This operation enables the controller to publish bus-specific parameters and options that are required to simulate the bus behavior properly.
 For example, it allows the specification of a macrotick duration or the length of static/dynamic slots.
