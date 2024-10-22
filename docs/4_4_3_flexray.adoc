@@ -3,7 +3,7 @@ This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Stan
 
 ===== Overview [[low-cut-flexray-overview]]
 This specification refers primary to the data link layer specification of FlexRay communications systems defined by <<ISO-17458-2,  ISO 17458-2:2013(en)>>.
-Furthermore, essential elements from previous FlexRay specifications are covered so that these can also be mapped using this layered standard.
+Furthermore, essential elements from previous FlexRay specifications are covered so that they can also be realized using this layered standard.
 
 To simulate FlexRay communication between Networked FMUs, FlexRay-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
 Overall, the following operations and groups of operations exists:
