@@ -1,3 +1,1004 @@
-==== FlexRay
+==== FlexRay [[low-cut-flexray]]
+This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for FlexRay.
 
-#TODO#
+===== Overview [[low-cut-flexray-overview]]
+This specification refers primary to the data link layer specification of FlexRay communications systems defined by <<ISO-17458-2,  ISO 17458-2:2013(en)>>.
+Furthermore, essential elements from previous FlexRay specifications are covered so that they can also be realized using this layered standard.
+
+To simulate FlexRay communication between Networked FMUs, FlexRay-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
+Overall, the following operations and groups of operations exists:
+
+* Transmit, Cancel and Confirm: These operations are used to simulate a FlexRay frame transmission.
+* Bus- and Format Error: This group of operations is used for protocol format errors and to simulate bus failures.
+* Configuration: This operation enables the controller to publish bus-specific parameters and options that are required to simulate the bus behavior properly.
+For example, it allows the specification of a macrotick duration or the length of static/dynamic slots.
+* Start Communication: This operation is used by Networked FMUs or Bus Simulations to start the FlexRay communication.
+* Symbol: Represents a set of operations that are used for transmission of FlexRay-specific symbols, like for wake-up, startup or media testing.
+
+The following table gives a detailed overview of the available operations.
+It shows all operations and the arguments they contain.
+
+.Overview of the available operations for FlexRay.
+[#table-operation-content-flexray]
+[cols="12,1,6,7,5,6,2,5,7,5,5"]
+|====
+.2+h|Operation Name
+10+h|Operation Content
+
+h|OP Code
+h|Length
+8+h|Specific Content
+
+|Format Error
+|0x01
+|:= 7 + n +
+(4 byte)
+|DL +
+(2 byte)
+7+|Data +
+(n byte)
+
+|Transmit
+|0x10
+|:= 26 + DL +
+(4 byte)
+|Cycle ID +
+(1 byte)
+|Slot ID +
+(2 byte)
+|Channel +
+(1 byte)
+|...
+|DL +
+(2 byte)
+3+|Data +
+(n byte)
+
+|Cancel
+|0x11
+|:= 17 +
+(4 byte)
+|Cycle ID +
+(1 byte)
+|Slot ID +
+(2 byte)
+6+|Channel +
+(1 byte)
+
+|Confirm
+|0x12
+|:= 17 +
+(4 byte)
+|Cycle ID +
+(1 byte)
+|Slot ID +
+(2 byte)
+6+|Channel +
+(1 byte)
+
+|Bus Error
+|0x20
+|:= 10 +
+(4 byte)
+|Error Flags +
+(1 byte)
+|Cycle ID +
+(1 byte)
+3+|Segment Indicator +
+(2 byte)
+3+|Channel +
+(1 byte)
+
+|Configuration
+|0x30
+|<Length> +
+(4 byte)
+|Kind +
+(1 byte)
+7+|_Dynamic Part_
+
+|Start Communication
+|0x40
+|:= 13 +
+(4 byte)
+8+|Start Time +
+(8 byte)
+
+|Symbol
+|0x50
+|:= 12 +
+(4 byte)
+|Cycle ID +
+(1 byte)
+|Channel +
+(1 byte)
+6+|Type +
+(1 byte)
+
+|====
+
+===== Basic Type Definitions [[low-cut-flexray-basic-type-definitions]]
+The following basic types are defined for the FlexRay section and are used within the operation definitions as operation arguments.
+
+====== Channel Type [[low-cut-flexray-basic-type-definitions-channel-type]]
+The following values for the channel type are defined:
+
+.Overview of the available channel type values.
+[#table-flexray-channel-kinds]
+[cols="2,1,5"]
+|====
+
+h|[Flag] Channel h|Value h|Description
+|CHANNEL_A|0x01|Describes the FlexRay Channel A.
+|CHANNEL_B|0x02|Describes the FlexRay Channel B.
+
+|====
+
+===== Operations [[low-cut-flexray-operations]]
+This section defines the specified operations for FlexRay.
+The following tables provide an overview of all operations and specify the position and length of the corresponding arguments.
+Also a detailed description of the operations is provided.
+
+====== Transmit [[low-cut-flexray-transmit-operation]]
+The <<low-cut-flexray-transmit-operation, `Transmit`>> operation is used to simulate the transmission of FlexRay frames.
+
+.Detailed description of the Transmit operation.
+[#table-flexray-transmit-operation]
+[cols="5,4,3,20"]
+|====
+h|Name 3+| Transmit
+h|Description 3+| Initiates the transmission of FlexRay frames.
+h|OP Code [hex] 3+| 0x10
+.12+h|Content h|Argument h|Length h|Description
+| OP Code
+| 1 byte
+| Contains the OP Code (0x10) of the operation.
+
+| Length
+| 4 byte
+| Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 14 + Data Length`.
+
+| Cycle ID
+| 1 byte
+| The specified Cycle ID of the FlexRay message.
+
+| Slot ID
+| 2 byte
+| Specifies the FlexRay Slot ID of the given frame.
+
+| Channel
+| 1 byte
+| The specified channel type value, based on <<table-flexray-channel-kinds>>, whereby the combination of more than one channel is allowed.
+
+| Startup Frame Indicator
+| 1 byte
+| Specifies whether the given frame represents a startup frame.
+The boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+
+| Sync Frame Indicator
+| 1 byte
+| Specifies whether the given frame represents a sync frame.
+The boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+
+| Null Frame Indicator
+| 1 byte
+| Specifies whether the payload contains valid data (= `FALSE`) or is composed of zero values only (= `TRUE`).
+The boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+
+| Payload Preamble Indicator
+| 1 byte
+| Indicates whether the payload contains a network management vector (= `TRUE`) or a message identifier (= `FALSE`).
+The boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+
+| Data Length
+| 1 byte
+| Specifies the length of the Data argument in bytes.
+
+| Data
+| n byte
+| Stores the given frame data to transfer, whereby the valid length of the data depends on the FlexRay Format.
+
+h|Behavior
+3+|The <<low-cut-flexray-transmit-operation, `Transmit`>> operation shall be provided by Network FMUs to indicate the transmission of a FlexRay frame.
+In the case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
+Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-flexray-confirmation-operation, `Confirmation`>>, <<low-cut-flexray-bus-error-operation, `Bus Error`>> or <<low-cut-flexray-format-error-operation, `Format Error`>> operation.
+If the specific <<low-cut-flexray-transmit-operation, `Transmit`>> operation is to be set across multiple channels, the channel argument can combine both channels.
+The point in time at which a Network FMU provides a <<low-cut-flexray-transmit-operation, `Transmit`>> operation must be within a valid provision time window.
+For the static segment, this circumstance is dealt within <<low-cut-flexray-static-segment>>, for the dynamic segment in <<low-cut-flexray-dynamic-segment>>.
+The point in time at which a Bus Simulation shall provide <<low-cut-flexray-transmit-operation, `Transmit`>> operations depends on the <<low-cut-flexray-delivery-on-boundary-parameter, `org.fmi_standard.fmi_ls_bus.FlexRay_DeliveryOnBoundary`>> parameter.
+
+|====
+
+====== Cancel [[low-cut-flexray-cancel-operation]]
+The <<low-cut-flexray-cancel-operation, `Cancel`>> operation is used for cancellation of a FlexRay frame transmission.
+
+.Detailed description of the Cancel operation.
+[#table-flexray-cancel-operation]
+[cols="5,4,3,20"]
+|====
+h|Name 3+| Cancel
+h|Description 3+| Initiates the cancellation transmission of FlexRay frames within a Bus Simulation.
+h|OP Code [hex] 3+| 0x11
+.6+h|Content h|Argument h|Length h|Description
+| OP Code
+| 1 byte
+| Contains the OP Code (0x11) of the operation.
+
+| Length
+| 4 byte
+| Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 9 + Data Length`.
+
+| Cycle ID
+| 1 byte
+| The specified Cycle ID of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to cancel.
+
+| Slot ID
+| 2 byte
+| Specifies the FlexRay Slot ID of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to cancel.
+
+| Channel
+| 1 byte
+| The specified channel type value, based on <<table-flexray-channel-kinds>> of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to cancel, whereby the combination of more than one channel is allowed.
+
+h|Behavior
+3+|The <<low-cut-flexray-cancel-operation, `Cancel`>> operation shall be provided by Network FMUs to indicate a cancellation of a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation that is buffered by a Bus Simulation.
+A Network FMU shall ignore this operation on the consumer side.
+A <<low-cut-flexray-cancel-operation, `Cancel`>> operation is possible as long as the Bus Simulation has not yet started to simulate the transmission of the specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation.
+A <<low-cut-flexray-cancel-operation, `Cancel`>> operation must be related to a complete <<low-cut-flexray-transmit-operation, `Transmit`>> operation and not just to a part of it.
+|====
+
+====== Confirm [[low-cut-flexray-confirm-operation]]
+The <<low-cut-flexray-confirm-operation, `Confirm`>> operation is used to signal a transmitted FlexRay frame (see <<low-cut-flexray-transmit-operation, `Transmit`>> operation).
+
+.Detailed description of the Confirm operation.
+[#table-flexray-confirm-operation]
+[cols="5,4,3,20"]
+|====
+h|Name
+3+|Confirm
+h|Description
+3+|Signals a successful transmitted FlexRay frame.
+h|OP Code [hex]
+3+|0x12
+.6+h|Content h|Argument h|Length h|Description
+|OP Code
+|1 byte
+|Contains the OP Code (0x12) of the operation.
+
+|Length
+|4 byte
+|Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 9`.
+
+| Cycle ID
+| 1 byte
+| The specified Cycle ID of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to confirm.
+
+| Slot ID
+| 2 byte
+| Specifies the FlexRay Slot ID of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to confirm.
+
+| Channel
+| 1 byte
+| The specified channel type value, based on <<table-flexray-channel-kinds>>, whereby the combination of more than one channel is allowed.
+
+h|Behavior
+3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
+The Bus Simulation provides the <<low-cut-flexray-confirm-operation, `Confirm`>> operation for the Network FMU, which has previously provided the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to be confirmed.
+If the structural parameter <<low-cut-flexray-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.FlexRay_BusNotifications`>> of a Network FMU is set to `false`, the Network FMU must not wait for <<low-cut-flexray-confirm-operation, `Confirm`>> operations.
+
+|====
+
+====== Format Error [[low-cut-flexray-format-error-operation]]
+A format error indicates a syntax or content error in response to a received operation.
+See <<low-cut-format-error-operation, `Format Error`>> for definition.
+
+====== Bus Error [[low-cut-flexray-bus-error-operation]]
+The <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation represents a feedback of a Bus Simulation for a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation in case of an unsuccessful transmission.
+The following information is included within this operation:
+
+.Detailed description of the Bus Error operation.
+[#table-flexray-bus-error-operation]
+[cols="5,4,3,20"]
+|====
+h|Name
+3+|Bus Error
+h|Description
+3+|Represents an operation for simulated bus errors.
+h|OP Code [hex]
+3+|0x20
+.7+h|Content h|Argument h|Length h|Description
+|OP Code
+|1 byte
+|Contains the OP Code (0x20) of the operation.
+
+|Length
+|4 byte
+|Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 10`.
+
+|Error Flags
+|1 byte
+|The specified error flag(s), based on <<table-flexray-error-code-values, the table below>>.
+The allowed combinations are defined by the FlexRay specification itself.
+
+|Cycle ID
+|1 byte
+|The specified FlexRay Cycle ID.
+
+|Segment Indicator
+|2 byte
+|Identifies the specified FlexRay segment, where the <<low-cut-flexray-bus-error-operation, `Bus Error`>> occurs.
+Within the static or dynamic segment, the value of `Segment Indicator` shall be the Slot ID of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to react.
+Within a Symbol Window or Network Idle Time segment the values of <<table-flexray-segment-types-values>> shall be used instead of the specified Slot ID.
+
+|Channel
+|1 byte
+|The specified channel type value, based on <<table-flexray-channel-kinds>>.
+
+h|Behavior
+3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
+It represents a direct feedback corresponding to a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation.
+Depending on the type of <<low-cut-flexray-bus-error-operation, `Bus Error`>>, either only the <<low-cut-flexray-transmit-operation, `Transmit`>> producing or all Network FMUs must be notified via <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation (see description column of <<table-flexray-error-code-values>>).
+If the structural parameter <<low-cut-flexray-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.FlexRay_BusNotifications`>> of a Network FMU is set to `false`, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations are discarded by the Network FMU.
+
+|====
+
+The following Error Flags can be used:
+
+.Overview of the available error flag values.
+[#table-flexray-error-code-values]
+[cols="1,1,5"]
+|====
+
+h|[Flag] Kind h|Value h|Description
+
+|VALID_FRAME
+|0x01
+|Indicates a valid <<low-cut-flexray-transmit-operation, `Transmit`>> operation and can be used to point out a valid FlexRay transmission in combination with another error, for example within the FlexRay Symbol Window.
+This type of <<low-cut-flexray-bus-error-operation, `Bus Error`>> is possible for both <<low-cut-flexray-transmit-operation, `Transmit`>> producing and <<low-cut-flexray-transmit-operation, `Transmit`>> consuming Network FMUs.
+
+|SYNTAX_ERROR
+|0x02
+|Indicates a syntactic error in a time slot of a <<low-cut-flexray-transmit-operation, `Transmit`>> operation.
+This type of <<low-cut-flexray-bus-error-operation, `Bus Error`>> is possible for both <<low-cut-flexray-transmit-operation, `Transmit`>> producing and <<low-cut-flexray-transmit-operation, `Transmit`>> consuming Network FMUs.
+
+|CONTENT_ERROR
+|0x04
+|Indicates a content error of a receiving <<low-cut-flexray-transmit-operation, `Transmit`>> operation on the receiver side.
+This type of <<low-cut-flexray-bus-error-operation, `Bus Error`>> is possible for both <<low-cut-flexray-transmit-operation, `Transmit`>> producing and <<low-cut-flexray-transmit-operation, `Transmit`>> consuming Network FMUs.
+
+|BOUNDARY_VIOLATION
+|0x08
+|Indicates that a boundary violation occurred at a boundary of the corresponding slot.
+This type of <<low-cut-flexray-bus-error-operation, `Bus Error`>> is possible for both <<low-cut-flexray-transmit-operation, `Transmit`>> producing and <<low-cut-flexray-transmit-operation, `Transmit`>> consuming Network FMUs.
+
+|TX_CONFLICT
+|0x16
+|Indicates that a reception from another Network FMU is already ongoing while the specified Network FMU starts a transmission via a <<low-cut-flexray-transmit-operation, `Transmit`>> operation.
+This type of <<low-cut-flexray-bus-error-operation, `Bus Error`>> is possible for <<low-cut-flexray-transmit-operation, `Transmit`>> producing Network FMUs only.
+
+|====
+
+The following segment types can be used:
+
+.Overview of the available segment type values.
+[#table-flexray-segment-types-values]
+[cols="1,1,5"]
+|====
+
+h|Kind h|Value h|Description
+
+|SYMBOL_WINDOW
+|0xFFFE
+|Indicates the FlexRay Symbol Window segment.
+
+|NIT
+|0xFFFF
+|Indicates the FlexRay Network Idle Time (NIT) segment.
+
+|====
+
+====== Configuration [[low-cut-flexray-configuration-operation]]
+The <<low-cut-flexray-configuration-operation, `Configuration`>> operation allows Network FMUs the configuration of the Bus Simulation with parameters like the length of a slot or the duration of a macrotick and further options.
+The following information are included within this operation:
+
+.Detailed description of the Configuration operation.
+[#table-flexray-configuration-operation]
+[cols="6,1,5,4,3,20"]
+|====
+h|Name
+5+|Configuration
+h|Description
+5+|Represents an operation for the configuration of a Bus Simulation.
+It contains necessary parameters for timing calculations of transmissions and for node compatibility checks across the whole FlexRay network.
+Also the configuration of further options is supported by this operation.
+h|OP Code [hex]
+5+|0x30
+.21+h|Content 3+h|Argument h|Length h|Description
+3+|OP Code
+|1 byte
+|Contains the OP Code (0x30) of the operation.
+
+3+|Length
+|4 byte
+|Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 6 + Length of parameter arguments in bytes`.
+
+3+|Parameter Type
+|1 byte
+|Defines the current configuration parameter.
+Note that only one parameter can be set per <<low-cut-flexray-configuration-operation, `Configuration`>> operation.
+
+.17+h|
+4+h|Parameters
+
+.16+|FLEXRAY_CONFIG
+|Macrotick Duration
+|4 byte
+|Specifies the duration of one macrotick in nanoseconds.
+See `gdMacrotick` parameter within FlexRay specification for further information.
+
+|Macroticks per Cycle
+|2 byte
+|Defines the length of a cycle in macroticks.
+See `gMacroPerCycle` parameter within FlexRay specification for further information.
+
+|Cycle Count Max
+|1 byte
+|Defines the maximum cycle counter value in a given FlexRay cluster.
+See `gCycleCountMax` parameter within FlexRay specification for further information.
+
+|ActionPoint Offset
+|1 byte
+|Defines the action point offset of a static slot in macroticks.
+See `gdActionPointOffset` parameter within FlexRay specification for further information.
+
+|Static Slot Length
+|2 byte
+|Defines the length of a static slot within the static segment in macroticks.
+See `gdStaticSlot` parameter within FlexRay specification for further information.
+
+|Number of Static Slots
+|2 byte
+|Specifies the number of static slots within one FlexRay cycle.
+See `gNumberOfStaticSlots` parameter within FlexRay specification for further information.
+
+|Static Payload Length
+|1 byte
+|Specifies the length of static slot payload in bytes.
+See `gPayloadLengthStatic` parameter within FlexRay specification for further information.
+
+|Minislot ActionPoint Offset
+|1 byte
+|Defines the action point offset of a minislot in macroticks.
+See `gdMinislotActionPointOffset` parameter within FlexRay specification for further information.
+
+|Number of Minislots
+|2 byte
+|Specifies the number of minislots within one FlexRay cycle.
+See `gNumberOfMinislots` parameter within FlexRay specification for further information.
+
+|Minislot Length
+|1 byte
+|Defines the length of a minislot within a dynamic segment in macroticks.
+See `gdMinislot` parameter within FlexRay specification for further information.
+
+|Symbol ActionPoint Offset
+|1 byte
+|Defines the action point offset within the symbol window in macroticks.
+See `gdSymbolWindowActionPointOffset` parameter within FlexRay specification for further information.
+
+|Symbol Window Length
+|1 byte
+|Specifies the length of symbol window in macroticks, whereby a zero value is allowed.
+See `gdSymbolWindow` parameter within FlexRay specification for further information.
+
+|NIT Length
+|1 byte
+|Specifies the length of the Network Idle Time in macroticks.
+See `gdNIT` parameter within FlexRay specification for further information.
+
+|NM Vector Length
+|1 byte
+|Specifies the length of the Network Management Vector.
+See `gNetworkManagementVectorLength` parameter within FlexRay specification for further information.
+
+|Dynamic Slot Idle Time
+|4 byte
+|Defines the length of dynamic slot idle time within a dynamic segment in macroticks, whereby zero defines that is not used.
+
+|Coldstart Node
+|1 byte
+|Specifies if the given FlexRay node represents a coldstart node or not, by using <<table-flexray-coldstart-node-types>>.
+If a specified node has coldstart capabilities, additionally the type of coldstart shall be defined.
+
+// .1+|tbd
+// |tbd
+// |tbd
+// |tbd
+
+h|Behavior
+5+|The specified operation shall be produced by a Network FMU.
+In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), Network FMUs also receive <<low-cut-flexray-configuration-operation, `Configuration`>> operations from other nodes.
+Therefore, Network FMUs shall check receiving <<low-cut-flexray-configuration-operation, `Configuration`>> operation of type `FLEXRAY_CONFIG` for compatibility.
+If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the compatibility check should be done by the Bus Simulation.
+In this case, the Bus Simulation must not forward the <<low-cut-flexray-configuration-operation, `Configuration`>> to Network FMUs.
+The configuration of the `FLEXRAY_CONFIG` parameters must be completed by all Network FMUs before any <<low-cut-flexray-transmit-operation, `Transmit`>> operation is produced.
+The reconfiguration of `FLEXRAY_CONFIG` parameters during the runtime of a Network FMU is not allowed.
+
+|====
+
+The following configuration parameters are defined:
+
+.Overview of the available configuration parameters.
+[#table-flexray-configuration-kinds]
+[cols="1,1,5"]
+|====
+
+h|Parameter h|Value h|Description
+|FLEXRAY_CONFIG|0x01|Indicates global FlexRay parameters used by the Network FMU.
+
+|====
+
+The following coldstart node types are defined:
+
+.Overview of the available coldstart node types.
+[#table-flexray-coldstart-node-types]
+[cols="2,1,5"]
+|====
+
+h|Coldstart Node Type h|Value h|Description
+|None|0x01|Describes that the current node has no coldstart capabilities.
+|TT-D coldstart node|0x02|Indicates a TT-D coldstart node.
+|TT-E coldstart node|0x03|Indicates a TT-E coldstart node.
+|TT-L coldstart node|0x04|Indicates a TT-L coldstart node.
+
+|====
+
+====== Start Communication [[low-cut-flexray-start-communication-operation]]
+By using the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation, a Network FMU or Bus Simulation communicates the start of the first communication cycle.
+The following information is included within this operation:
+
+.Detailed description of the Start Communication operation.
+[#table-flexray-bus-start-communication-operation]
+[cols="5,4,3,20"]
+|====
+h|Name
+3+|Start Communication
+h|Description
+3+|Starts the FlexRay communication.
+h|OP Code [hex]
+3+|0x40
+.4+h|Content h|Argument h|Length h|Description
+|OP Code
+|1 byte
+|Contains the OP Code (0x40) of the operation.
+
+|Length
+|4 byte
+|Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 13`.
+
+|Start Time [[table-flexray-bus-start-start-time-parameter]]
+|8 byte
+|Defines the absolute simulation time in nanoseconds when the first FlexRay cycle has started.
+
+h|Behavior
+3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation initiator, by using the Bus Simulation to distribute the start time of the first communication cycle.
+Network FMUs must synchronize their internal FlexRay clock when receiving a <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation.
+
+|====
+
+====== Symbol [[low-cut-flexray-symbol-operation]]
+The <<low-cut-flexray-symbol-operation, `Symbol`>> operation is used for transmission of FlexRay-specific symbols, e.g. for wake-up, startup or media testing in the symbol window.
+
+.Detailed description of the Symbol operation.
+[#table-flexray-symbol-operation]
+[cols="5,4,3,20"]
+|====
+h|Name
+3+|Symbol
+h|Description
+3+|Operation representing a symbol transmitted in the FlexRay symbol window.
+h|OP Code [hex]
+3+|0x50
+.6+h|Content h|Argument h|Length h|Description
+|OP Code
+|1 byte
+|Contains the OP Code (0x50) of the operation.
+
+|Length
+|4 byte
+|Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 8`.
+
+|Cycle ID
+|1 byte
+|The specified FlexRay Cycle ID.
+If a FlexRay cycle is not yet running (for example when initiating a startup through a collision avoidance symbol), the value 0 should be used.
+
+|Channel
+|1 byte
+|The specified channel type value, based on <<table-flexray-channel-kinds>>.
+
+|Type
+|1 byte
+|The specified symbol type, based on <<table-flexray-symbol-type-values, the table below>>.
+
+h|Behavior
+3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the <<low-cut-flexray-symbol-operation, `Symbol`>> operation initiator, of the bus using the Bus Simulation.
+Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation.
+If a Network FMU does not support a specified `Type` of a <<low-cut-flexray-symbol-operation, `Symbol`>> operation, this operation can be ignored on the consumer side.
+
+|====
+
+The following symbol type values can be used:
+
+.Overview of the available symbol type values.
+[#table-flexray-symbol-type-values]
+[cols="1,1,5"]
+|====
+
+h|Kind h|Value h|Description
+|COLLISION_AVOIDANCE_SYMBOL
+|0x01
+|The collision avoidance symbol is used to indicate the start of the first communication cycle.
+
+|MEDIA_TEST_SYMBOL
+|0x02
+|The media test symbol is used for testing of a bus guardian.
+
+|WAKEUP_SYMBOL
+|0x03
+|The wake up symbol is used for waking up other FlexRay nodes of the specified network.
+
+|====
+
+===== Network Parameters [[low-cut-flexray-network-parameters]]
+Using structural parameters, FMUs can be parameterized according to importer specifications.
+This chapter specifies the structural parameters that each FlexRay-specific Network FMU shall provide.
+
+====== Bus Notification Parameter [[low-cut-flexray-bus-notification-parameter]]
+For a detailed simulation, a Network FMU needs information about whether the message sent has arrived or whether a bus error has occurred.
+A Bus Simulation can simulate these effects by sending bus notifications in terms of <<low-cut-flexray-confirm-operation, `Confirm-`>> and <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations to the Network FMUs.
+
+However, in scenarios where Network FMUs are connected directly to each other, or where the Bus Simulation does not simulate such effects, it must be possible to configure the Network FMU such that it does not wait for any response after a <<low-cut-flexray-transmit-operation, `Transmit`>> operation.
+Therefore, the <<low-cut-flexray-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.FlexRay_BusNotifications`>> parameter is introduced.
+If the value of the parameter is set to `false`, the Network FMU must not wait for any response after a <<low-cut-flexray-transmit-operation, `Transmit`>> operation ("fire-and-forget").
+The default value shall be `false` to allow the Network FMU to be run natively in each simulation scenario.
+If the Network FMU shall be configured to handle responses in the form of <<low-cut-flexray-confirm-operation, `Confirm-`>> and <<low-cut-can-bus-error-operation, `Bus Error`>> operations, the <<low-cut-flexray-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.FlexRay_BusNotifications`>> parameter shall be set to `true`.
+
+.FMU parameter for the configuration of bus notifications within FlexRay.
+[[figure-fmu-flexray-bus-notifications-parameter]]
+----
+    org.fmi_standard.fmi_ls_bus.FlexRay_BusNotifications
+        Description:  "Specifies whether the respective Network FMU can rely on a Confirm,
+                      or Bus Error operation after sending a message."
+        Type:         Boolean
+        Causality:    structuralParameter
+        Variability:  fixed
+        Start:        "false"
+----
+
+This structural parameter is mandatory for Network FMUs.
+A Bus Simulation (FMU) does not require this structural parameter.
+
+====== Delivery on Boundary Parameter [[low-cut-flexray-delivery-on-boundary-parameter]]
+In order to minimize the number of Bus Communication Points of an entire simulation system, it can make sense that the Bus Simulation always deliver <<low-cut-flexray-transmit-operation, `Transmit`>> operations on a concrete slot boundary.
+Under the condition that participating Network FMUs also provide their <<low-cut-flexray-transmit-operation, `Transmit`>> operations on a slot boundary, the behavior means that the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to be received, the next <<low-cut-flexray-transmit-operation, `Transmit`>> operation to be sent and a <<low-cut-flexray-confirm-operation, `Confirm`>> or <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation are provided and exchanged at exactly one Bus Communication Point.
+
+Parameter <<low-cut-flexray-delivery-on-boundary-parameter, `org.fmi_standard.fmi_ls_bus.FlexRay_DeliveryOnBoundary`>> was introduced to switch the behavior in the Bus Simulation.
+If the value of the parameter is set to `true`, the Bus Simulation provides <<low-cut-flexray-transmit-operation, `Transmit`>> operations and also resulting <<low-cut-flexray-confirm-operation, `Confirm-`>> or <<low-cut-can-bus-error-operation, `Bus Error`>> operations at a concrete slot boundary.
+If the value of the parameter is set to `false`, the Bus Simulation provides the respective operations after the calculated transfer time.
+See <<low-cut-flexray-static-segment>> and <<low-cut-flexray-dynamic-segment>> for details.
+The default value shall be `true`.
+
+.FMU parameter for the configuration of delivery point within FlexRay slot.
+[[figure-fmu-flexray-delivery-on-boundary-parameter]]
+----
+    org.fmi_standard.fmi_ls_bus.FlexRay_DeliveryOnBoundary
+        Description:  "Specifies whether the respective Bus Simulation (FMU) delivers
+                      Transmit, Confirm- and Bus Error operations on a concrete slot boundary."
+        Type:         Boolean
+        Causality:    structuralParameter
+        Variability:  fixed
+        Start:        "true"
+----
+
+This structural parameter is mandatory for a Bus Simulation (FMU).
+Network FMUs does not require this structural parameter.
+
+===== Configuration of Bus Simulation [[low-cut-flexray-configuration-of-bus-simulation]]
+The timing behavior of FlexRay communication is typically defined globally in a design phase of the FlexRay network.
+At runtime, the globally defined communication parameters must be used by all network nodes to communicate successfully.
+To ensure that all Network FMUs use compatible parameters and to tell Bus Simulations how to simulate the FlexRay communication, Network FMUs shall send the <<low-cut-flexray-configuration-operation, `Configuration`>> operation.
+Configuration parameters which are mandatory to provide when first entering the `Event Mode` immediately after leaving the `Initialization Mode` are of type `FLEXRAY_CONFIG`.
+Network FMUs receiving <<low-cut-flexray-configuration-operation, `Configuration`>> operations of type `FLEXRAY_CONFIG` shall check its compatibility.
+Bus Simulations are also allowed to perform compatibility checks of `FLEXRAY_CONFIG` parameters.
+In this case, a Bus Simulations must not forward <<low-cut-flexray-configuration-operation, `Configuration`>> operations to Network FMUs.
+In cases of detected incompatibilities, the simulation shall be refused accordingly.
+
+===== Wake Up/Sleep [[low-cut-flexray-wakeup-sleep]]
+This standard supports wake up and sleep functionality for the FlexRay bus.
+However, the realization of local virtual ECU wake-up and sleeping processes, i.e., the transition to the sleep state as well as the virtual ECU local wake-up process, is considered internal to the FMU implementation.
+Therefore, only the bus-related aspects are defined in this document.
+
+The FlexRay-specific wake-up pulse can be simulated by using the <<low-cut-flexray-symbol-operation, `Symbol`>> operation, initiated by one Network FMU, whereby `Type` is set to `WAKEUP_SYMBOL`.
+The Bus Simulation shall distribute this operation to all participants on the bus, excluding the <<low-cut-flexray-symbol-operation, `Symbol`>> operation initiator.
+
+.Wake up initiated by FMU 1 wakes up FMU 2 via bus.
+[#figure-flexray-wake-up]
+image::flexray_wake_up.svg[width=70%, align="center"]
+
+===== Startup [[low-cut-flexray-startup]]
+Before frames can be transferred, the communication must be started.
+The startup process follows a defined sequence in which FlexRay nodes synchronizes step by step (for a detailed description refer to <<ISO-17458-2>>).
+FlexRay nodes, that are allowed to start the FlexRay communication, are referred to as coldstart nodes.
+The coldstart ability of a Network FMU must be communicated by the `Coldstart Node` parameter of the <<low-cut-flexray-configuration-operation, `Configuration`>> operation.
+For starting the FlexRay communication, a coldstart Network FMU shall sent a <<low-cut-flexray-symbol-operation, `Symbol`>> operation whereby the `Type` argument is set to `COLLISION_AVOIDANCE_SYMBOL` to announce the start of the first FlexRay communication cycle.
+A Bus Simulation must forward the <<low-cut-flexray-symbol-operation, `Symbol`>> operation immediately to the other Network FMUs.
+Network FMUs receiving a `COLLISION_AVOIDANCE_SYMBOL` are not allowed to send the <<low-cut-flexray-symbol-operation, `Symbol`>> operation likewise from this point onwards.
+The first communication cycle is then started by sending the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation.
+Network FMUs must synchronize their internal FlexRay clock based on the received <<table-flexray-bus-start-start-time-parameter,`Start Time`>>.
+
+.Startup initiated by a coldstart Network FMU.
+[#figure-flexray-startup]
+image::flexray_startup.svg[width=75%, align="center"]
+
+The start time of the first communication cycle is defined to be stem:[T_{Start}] in this specification.
+
+After the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation has been sent, the Network FMU starts sending <<low-cut-flexray-transmit-operation, `Transmit`>> operations, whereby the `Startup Frame Indicator` argument is set to `TRUE`.
+
+====== Emulating Coldstart Nodes [[low-cut-flexray-emulating-coldstart-nodes]]
+Normally, the startup process requires at least two coldstart nodes.
+For simulation systems coldstart Network FMUs are missing (because only a subset of nodes is to be simulated), a Bus Simulation is allowed to start the FlexRay communication by emulating the behavior of missing coldstart nodes.
+For this purpose, structural parameters e.g. for defining the startup time (stem:[T_{Start}]) or the `Slot ID` for startup frames can be provided by the Bus Simulation.
+Because those parameters are Bus Simulation specific, they are not further defined in the specification.
+
+.Startup initiated by the Bus Simulation
+[#figure-flexray-startup-by-bus-simulation]
+image::flexray_startup_coldstart_emulation.svg[width=75%, align="center"]
+
+===== Transmission and Reception [[low-cut-flexray-transmission-and-reception]]
+The exact time or permitted range for sending a message is essential for FlexRay, as this is a scheduled bus protocol.
+Within this section the data flow is first described in more detail.
+After this temporal aspects for data transmission are explained.
+
+Similar to the other buses, the <<low-cut-flexray-transmit-operation, `Transmit`>> operation represents the core of a bus transmission.
+It contains all relevant frame data and is provided by a Network FMU in the role of a sender, potentially via a Bus Simulation, to one or more Network FMUs in the role of a receiver.
+
+A <<low-cut-flexray-confirmation-operation, `Confirmation-`>> and <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation represents a feedback from a Bus Simulation for a previously carried out <<low-cut-flexray-transmit-operation, `Transmit`>> operation.
+Depending on the <<low-cut-flexray-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.FlexRay_BusNotifications`>> parameter, a successful transmission of a <<low-cut-flexray-transmit-operation, `Transmit`>> operation results for a Network FMU in a <<low-cut-flexray-confirmation-operation, `Confirmation`>> operation, an unsuccessful <<low-cut-flexray-transmit-operation, `Transmit`>> operation in a <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation.
+If <<low-cut-flexray-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.FlexRay_BusNotifications`>> is set to `false` (default), then Network FMUs must not rely on receiving <<low-cut-flexray-confirm-operation, `Confirm`>> operations.
+If a specified Network FMU is depending on <<low-cut-flexray-confirm-operation, `Confirm`>> operations and <<low-cut-flexray-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.FlexRay_BusNotifications`>> is set to `false`, the self confirmation shall be realized internally within the respective Network FMU.
+
+If a Bus Simulation is involved, the following applies: A Network FMU can update a <<low-cut-flexray-transmit-operation, `Transmit`>> operation in a Bus Simulation as long as the same value is used for the `Slot ID` argument.
+The last <<low-cut-flexray-transmit-operation, `Transmit`>> operation is always valid (last is best semantics).
+A <<low-cut-flexray-transmit-operation, `Transmit`>> operation can be updated as long as the Bus Simulation has not yet started to simulate the transmission of the representing FlexRay frame.
+The <<low-cut-flexray-cancel-operation, `Cancel`>> operation allows the cancellation of such buffered <<low-cut-flexray-transmit-operation, `Transmit`>> operations within a Bus Simulation.
+
+<<figure-flexray-transmission-status>> illustrates the sequence of the operations mentioned.
+First, FMU 1 provides a <<low-cut-flexray-transmit-operation, `Transmit`>> operation for the Bus Simulation.
+Within the next two steps, FMU 1 updates the specified <<low-cut-flexray-transmit-operation, `Transmit`>> again.
+In the next step, the last <<low-cut-flexray-transmit-operation, `Transmit`>> operation, provided by FMU 1, is transferred to FMU 2 by the Bus Simulation.
+Also the Bus Simulation provides a <<low-cut-flexray-confirm-operation, `Confirm`>> operation for FMU 1.
+
+.General transmission mechanism for FlexRay.
+[#figure-flexray-transmission-status]
+image::flexray_transmission_status.svg[width=80%, align="center"]
+
+<<figure-flexray-transmission-cancel>> illustrates a sequence with focus to the <<low-cut-flexray-cancel-operation, `Cancel`>> operation.
+First, FMU 1 provides a <<low-cut-flexray-transmit-operation, `Transmit`>> operation for the Bus Simulation.
+Within the next step, FMU 1 updates the specified <<low-cut-flexray-transmit-operation, `Transmit`>> again.
+In the next step, the transmission ist canceled via <<low-cut-flexray-cancel-operation, `Cancel`>> operation.
+By using the <<low-cut-flexray-cancel-operation, `Cancel`>> operation, the <<low-cut-flexray-transmit-operation, `Transmit`>> operation will not redirected by the Bus Simulation to other Network FMUs.
+No transmission takes place within the simulation system.
+
+.Cancellation of a transmission for FlexRay via Cancel operation.
+[#figure-flexray-transmission-cancel]
+image::flexray_transmission_cancel.svg[width=50%, align="center"]
+
+At bus level, the macrotick represents the smallest time unit on a FlexRay bus.
+A total of four protocol parts are logically mapped onto this: The static and the dynamic segment, the so-called symbol window and the Network Idle Time (NIT).
+The static and dynamic segment is in turn divided into different sections, so-called FlexRay slots.
+These segments repeat themselves in certain FlexRay cycles.
+<<figure-flexray-macroticks-segments-general>> visualizes the segmentation of a cycle.
+
+.Segmentation of a FlexRay cycle.
+[#figure-flexray-macroticks-segments-general]
+image::flexray_macroticks_segments_general.svg[width=70%, align="center"]
+
+Within a real FlexRay bus, every macrotick represents a potential temporal synchronization point for the respective segments and frames to be transmitted.
+During a simulation, however, this type of synchronization would be unnecessarily inefficient.
+For simulation scenarios it is *highly recommended* that <<low-cut-flexray-transmit-operation, `Transmit`>> operations always be provided at the beginning of a slot.
+This minimizes the Bus Communication Points of the overall simulation system and usually increases the performance of the whole simulation.
+This behavior is defined more specifically and slightly differently depending on whether it is a static or dynamic segment.
+
+What both segments have in common is that the Network FMU itself must know the appropriate time of a <<low-cut-flexray-transmit-operation, `Transmit`>> operation basing on the FlexRay cycle and slot principle.
+In concrete terms, this means that a Network FMU itself must provide the expected <<low-cut-flexray-transmit-operation, `Transmit`>> operation at the appropriate time via <<low-cut-tx-clock-variables, Tx Clock Variables>>.
+The start time of the first FlexRay cycle is defined by the `Start Time` argument value of the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation.
+
+That concrete means that the point in time for the start of FlexRay cycle in nanoseconds can be computed within a Network FMU as
+
+[stem]
+++++
+    T_{\mathrm{CycleStart}}(i_{\mathrm{Iteration}}, i_{\mathrm{Cycle}})
+        = T_{\mathrm{Start}}
+        + L_{\mathrm{Cycle}} \cdot (N_{\mathrm{Cycle}} \cdot i_{\mathrm{Iteration}} + i_{\mathrm{Cycle}})
+++++
+
+, where:
+
+* stem:[T_{\mathrm{Start}}] represents the start time of the first FlexRay cycle (see `Start Time` argument within the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation) in nanoseconds.
+* stem:[L_{\mathrm{Cycle}}] defines length of FlexRay cycle in nanoseconds (see `Macrotick Duration` and `Macroticks per Cycle` arguments within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
+* stem:[N_{\mathrm{Cycle}}] specifies the number of cycles per iteration (see `Cycle Count Max` argument within the the <<low-cut-flexray-configuration-operation, `Configuration`>> operation, whereas stem:[N_{\mathrm{Cycle}} = \mathrm{gCycleCountMax} + 1]).
+* stem:[i_{\mathrm{Iteration}}] represents the desired iteration of complete FlexRay cycles (in this context see also `Iteration` argument within the <<low-cut-flexray-transmit-operation, `Transmit`>> operation).
+* stem:[i_{\mathrm{Cycle}}] represents the cycle within the given iteration with stem:[i_{Cycle} \lt N_{Cycle}].
+
+The point in time for the start of FlexRay cycle of the current iteration with focus to the simulation time can be computed within a Network FMU as
+
+[stem]
+++++
+    T_{\mathrm{CycleStart}}(t, i_{\mathrm{Cycle}})
+        = T_{\mathrm{Start}}
+        + L_{\mathrm{Cycle}}
+            \cdot \left(
+                \left\lceil
+                    \frac{t - T_{\mathrm{Start}}}{N_{\mathrm{Cycle}}}
+                \right\rceil
+                + i_{\mathrm{Cycle}}
+            \right)
+++++
+
+, where:
+
+* stem:[t] represents the current simulation time in nanoseconds with stem:[t \geq T_{\mathrm{Start}}.]
+
+====== Static Segment [[low-cut-flexray-static-segment]]
+For a static segment, a Network FMU shall provide the respective <<low-cut-flexray-transmit-operation, `Transmit`>> operation in an interval starting at the beginning of a slot and ending at the action point (see `ActionPoint Offset` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation) of a slot.
+Within this time window, the Network FMU must provide the respective <<low-cut-flexray-transmit-operation, `Transmit`>> operation for a specific slot.
+The point in time at which a Bus Simulation shall provide <<low-cut-flexray-transmit-operation, `Transmit`>> operations and also resulting <<low-cut-flexray-confirm-operation, `Confirm-`>> or <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations depends on the <<low-cut-flexray-delivery-on-boundary-parameter, `org.fmi_standard.fmi_ls_bus.FlexRay_DeliveryOnBoundary`>> parameter.
+If the parameter is set to `false`, the Bus Simulation provides the respective operations directly after the calculated transmission time (see orange arrow in <<figure-flexray-static-segment-bus-communication-points>>).
+If the parameter is set to `true`, the corresponding operations are only provided at the slot boundary (green arrow in <<figure-flexray-static-segment-bus-communication-points>>).
+
+.Bus Communication Points within static segment.
+[#figure-flexray-static-segment-bus-communication-points]
+image::flexray_static_segment_bus_communication_points.svg[width=70%, align="center"]
+
+The starting point of the slot can be calculated at runtime based on the `FLEXRAY_CONFIG` configuration parameters as
+
+[stem]
+++++
+    T_{\mathrm{Tx}_{\mathrm{Static}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+        = T_{\mathrm{CycleStart}}(t, i_{\mathrm{Cycle}})
+        + (i_{\mathrm{Slot}} - 1) \cdot L_{\mathrm{StaticSlot}}
+++++
+
+, where:
+
+* stem:[i_{\mathrm{Slot}}] represents the index of the static slot for transmission (see `Slot ID` argument of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation).
+* stem:[L_{\mathrm{StaticSlot}}] defines the length of a static slot within the static segment in nanoseconds (see `Macrotick Duration` and `Static Slot Length` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
+
+This results in an interval in which a Network FMU shall provide a specified <<low-cut-flexray-transmit-operation, `Transmit`>> of
+
+[stem]
+++++
+    T_{\mathrm{Valid}}
+        = \left[
+            T_{\mathrm{Tx}_{\mathrm{Static}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}),
+            \;
+            T_{\mathrm{Tx}_{\mathrm{Static}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+                + T_{\mathrm{ActionPoint}_{\mathrm{Static}}}
+        \right]
+++++
+
+, where:
+
+* stem:[T_{\mathrm{ActionPoint}_{\mathrm{Static}}}] represents the action point offset of a static and symbol slot in nanoseconds (see `Macrotick Duration` and `ActionPoint Offset` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
+
+In a sequence of operations to the respective actors and focus to the FlexRay slot counter, communication is presented as shown in <<figure-flexray-transmission-static-segment>>.
+At the beginning of slot 6, FMU 1 provides a frame to be sent in the form of a <<low-cut-flexray-transmit-operation, `Transmit`>> operation for the Bus Simulation.
+After simulation of the specified transmission time, the Bus Simulation provisions the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to FMU 2 and a <<low-cut-flexray-confirm-operation, `Confirm`>> operation to FMU 1.
+
+.Transmission sequence within a static FlexRay segment with an involved Bus Simulation.
+[#figure-flexray-transmission-static-segment]
+image::flexray_transmission_static_segment.svg[width=90%, align="center"]
+
+====== Dynamic Segment [[low-cut-flexray-dynamic-segment]]
+When using the dynamic segment, the use is analogous to the use of <<low-cut-flexray-transmit-operation, `Transmit`>> operations in the static segment.
+Network FMUs need to provide a <<low-cut-flexray-transmit-operation, `Transmit`>> operation within a well defined time window and with respect to the designated minislot.
+Since the dynamic FlexRay segment works more event-based, it can happen that a transmission is already ongoing at the current time.
+For this reason, the slot counter within Network FMUs are important, especially in the dynamic segment.
+
+Within the dynamic segment, _Slot ID = n + m_ represents the first valid point in time when a Network FMU is allowed to provide the respective <<low-cut-flexray-transmit-operation, `Transmit`>> operation, whereby _n_ indicates the number of <<low-cut-flexray-transmit-operation, `Transmit`>> operations provided within the ahead static segment and _m_ the number of past minislots within the current dynamic segment.
+As in the static segment, a permitted interval is defined between the concrete start of the minislot and the `Minislot ActionPoint Offset` (see <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
+The point in time at which a Bus Simulation shall provide operations, analogous to the static segment, depends on the <<low-cut-flexray-delivery-on-boundary-parameter, `org.fmi_standard.fmi_ls_bus.FlexRay_DeliveryOnBoundary`>> parameter.
+If the parameter is set to `false`, the Bus Simulation provides the respective operation directly after the calculated transmission time (see orange arrow in <<figure-flexray-dynamic-segment-bus-communication-points>>).
+If the parameter is set to `true`, the corresponding operations are only provided at the slot boundary (green arrow in <<figure-flexray-dynamic-segment-bus-communication-points>>).
+
+.Bus Communication Points within dynamic segment.
+[#figure-flexray-dynamic-segment-bus-communication-points]
+image::flexray_dynamic_segment_bus_communication_points.svg[width=70%, align="center"]
+
+In sequence <<figure-flexray-transmission-dynamic-segment>> multiple transmissions of FlexRay frames within the dynamic segment are shown.
+At the beginning the internal slot counters of FMU 1 and FMU 2 are equal to 8.
+Within the first and the second minislot, neither FMU 1 nor FMU 2 wants to transmit a frame.
+After the second elapsed minislot the internal slot counter values of FMU 1 and FMU 2 are equal to 10.
+Subsequently this FMU 1 provides a <<low-cut-flexray-transmit-operation, `Transmit`>> operation to the Bus Simulation for a transmission that uses the dynamic segment and `Slot ID = 10`.
+After this the Bus Simulation provides the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to FMU 2 and in the same step a <<low-cut-flexray-confirm-operation, `Confirm`>> operation for FMU 1.
+All in all the transmission will take two minislots.
+Minislot 5 expires without a Network FMU wanting to make a transmission again and the internal slot counters are set to 11.
+In minislot 6 FMU 2 initiates a transmission via <<low-cut-flexray-transmit-operation, `Transmit`>> operation for `Slot ID = 12`.
+Afterwards the Bus Simulation provides the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to FMU 1 and in the same step a <<low-cut-flexray-confirm-operation, `Confirm`>> operation for FMU 2.
+This transmission will take three minislots.
+
+.Provision and delivery of Transmit operations with an involved Bus Simulation.
+[#figure-flexray-transmission-dynamic-segment]
+image::flexray_transmission_dynamic_segment.svg[width=90%, align="center"]
+
+If no Bus Simulation is involved, the transmission always applies: The length of a dynamic slot is exactly one minislot, since the transmission duration is not taken into account.
+
+Within a Network FMU the first valid point in time when a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation, with respect to the specified `Slot ID` shall be provided can be computed as
+
+[stem]
+++++
+    T_{\mathrm{Tx}_{\mathrm{DynamicFirst}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+        = T_{\mathrm{Tx}_{\mathrm{Static}}}(t, i_{\mathrm{Cycle}}, N_{\mathrm{StaticSlot}} + 1)
+        + (i_{\mathrm{Slot}} - N_{\mathrm{StaticSlot}} - 1) \cdot L_{\mathrm{Minislot}}
+++++
+
+, where:
+
+* stem:[N_{\mathrm{StaticSlot}}] represents the number of static slots within one FlexRay cycle (see `Number of Static Slots` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
+* stem:[i_{\mathrm{Slot}}] represents the specified Slot ID for transmission within the dynamic segment (see `Slot ID` argument of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation).
+* stem:[L_{\mathrm{Minislot}}] represents  the length of a minislot within a dynamic segment in macrotick (see `Minislot Length` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
+
+Within a Network FMU the latest valid point in time when a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation, with respect to the specified `Slot ID` shall be provided can be computed as
+
+[stem]
+++++
+    T_{\mathrm{Tx}_{\mathrm{DynamicLast}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+        = T_{\mathrm{Tx}_{\mathrm{Static}}}(t, i_{\mathrm{Cycle}}, N_{\mathrm{StaticSlot}} + 1)
+        + \sum_{j=N_{\mathrm{StaticSlot}} + 1}^{i_{\mathrm{Slot}} - 1}
+            L_{\mathrm{DynamicSlot}_j} \cdot L_{\mathrm{Minislot}}
+++++
+
+, where:
+
+* stem:[N_{\mathrm{StaticSlot}}] represents the number of static slots within one FlexRay cycle (see `Number of Static Slots` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
+* stem:[i_{\mathrm{Slot}}] represents the specified Slot ID for transmission within the dynamic segment (see `Slot ID` argument of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation).
+* stem:[L_{\mathrm{DynamicSlot}_j}] represents the number of used minislots for transmission of dynamic slot _j_, where also idled minislots are considered.
+* stem:[L_{\mathrm{Minislot}}] represents  the length of a minislot within a dynamic segment in macrotick (see `Minislot Length` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
+
+_[It should be noted that stem:[T_{\mathrm{Start}}] is already taken into account in stem:[T_{\mathrm{Tx}_{\mathrm{Static}}}(...)] and doesn't need to be considered a second time.]_
+
+This results in an interval in which a Network FMU shall provide a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation of
+
+[stem]
+++++
+    T_{\mathrm{Valid}}
+        = \left[
+            T_{\mathrm{Tx}_{\mathrm{DynamicFirst}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}),
+            \;
+            T_{\mathrm{Tx}_{\mathrm{DynamicLast}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+                + T_{\mathrm{ActionPoint}_{\mathrm{Dynamic}}}
+        \right]
+++++
+
+, where:
+
+* stem:[T_{\mathrm{ActionPoint}_{\mathrm{Dynamic}}}] represents the minislot action point offset of a dynamic slot in macroticks (see `Minislot ActionPoint Offset` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
+
+===== Error Handling [[low-cut-flexray-error-handling]]
+FlexRay provides extensive options for detecting bus errors.
+Overall, the respective bus errors affect the internal controller status within the Network FMUs.
+To maintain the internal controller status, <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations shall be provided to all relevant Network FMUs by the Bus Simulation.
+Depending on the type of <<low-cut-flexray-bus-error-operation, `Bus Error`>>, either only the <<low-cut-flexray-transmit-operation, `Transmit`>> producing or all Network FMUs must be notified via <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation (see <<table-flexray-error-code-values>> for details).
+
+.Architectural error handling overview.
+[#figure-flexray-architectural-error-handling-overview]
+image::flexray_error_handling_overview.svg[width=80%, align="center"]
