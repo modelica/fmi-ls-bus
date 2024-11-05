@@ -4,6 +4,7 @@
 - Clemens Boos, dSPACE GmbH, Germany
 - Martin Engel, dSPACE GmbH, Germany
 - Andreas Junghanns, Synopsys, Germany
+- Kahramon Jumayev, Akkodis, Germany
 - Pierre R. Mai, PMSF IT Consulting, Germany
 - Benedikt Menne, dSPACE GmbH, Germany
 - Jan Ribbe, Synopsys, Germany
