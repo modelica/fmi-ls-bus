@@ -2,10 +2,10 @@
 #define fmi3LsBusUtilFlexRay_h
 
 /*
-This header file contains utility macros to read and write fmi-ls-bus
+This header file contains utility macros to read and write FMI-LS-BUS
 FlexRay specific bus operations from / to dedicated buffer variables.
 
-This header file can be used when creating fmi-ls-bus network FMUs with FlexRay busses.
+This header file can be used when creating FMI-LS-BUS network FMUs with FlexRay busses.
 
 Copyright (C) 2024 Modelica Association Project "FMI"
               All rights reserved.
@@ -46,7 +46,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief Creates a FlexRay 'Transmit' operation.
  *
  * This macro can be used to create a FlexRay 'Transmit' operation.
- * The arguments are serialized according to the fmi-ls-bus specification and written to the buffer described by the argument `BufferInfo`.
+ * The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer described by the argument `BufferInfo`.
  * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
  * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
  *
@@ -88,7 +88,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   * \brief Creates a FlexRay 'Cancel' operation.
   *
   * This macro can be used to create a FlexRay 'Cancel' operation.
-  * The arguments are serialized according to the fmi-ls-bus specification and written to the buffer described by the argument `BufferInfo`.
+  * The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer described by the argument `BufferInfo`.
   * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
   * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
   *
@@ -116,7 +116,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     * \brief Creates a FlexRay 'Confirm' operation.
     *
     * This macro can be used to create a FlexRay 'Confirm' operation.
-    * The arguments are serialized according to the fmi-ls-bus specification and written to the buffer described by the argument `BufferInfo`.
+    * The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer described by the argument `BufferInfo`.
     * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
     * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
     *
@@ -144,7 +144,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief Creates a FlexRay 'Bus Error' operation.
  *
  * This macro can be used to create a FlexRay 'Bus Error' operation.
- * The arguments are serialized according to the fmi-ls-bus specification and written to the buffer described by the argument `BufferInfo`.
+ * The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer described by the argument `BufferInfo`.
  * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
  * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
  *
@@ -174,7 +174,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief Creates a FlexRay 'Configuration' operation for the parameter 'FLEXRAY_CONFIG'.
  *
  * This macro can be used to create a FlexRay 'Configuration' operation.
- * The arguments are serialized according to the fmi-ls-bus specification and written to the buffer described by the argument `BufferInfo`.
+ * The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer described by the argument `BufferInfo`.
  * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
  * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
  *
@@ -234,7 +234,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief Creates a FlexRay 'Start Communication' operation.
  *
  * This macro can be used to create a FlexRay 'Start Communication' operation.
- * The arguments are serialized according to the fmi-ls-bus specification and written to the buffer described by the argument `BufferInfo`.
+ * The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer described by the argument `BufferInfo`.
  * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
  * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
  *
@@ -258,7 +258,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief Creates a FlexRay 'Symbol' operation.
  *
  * This macro can be used to create a FlexRay 'Symbol' operation.
- * The arguments are serialized according to the fmi-ls-bus specification and written to the buffer described by the argument `BufferInfo`.
+ * The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer described by the argument `BufferInfo`.
  * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
  * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
  *

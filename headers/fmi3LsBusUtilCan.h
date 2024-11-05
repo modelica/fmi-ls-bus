@@ -2,10 +2,10 @@
 #define fmi3LsBusUtilCan_h
 
 /*
-This header file contains utility macros to read and write fmi-ls-bus
+This header file contains utility macros to read and write FMI-LS-BUS
 CAN specific bus operations from\to dedicated buffer variables.
 
-This header file can be used when creating Network fmi-ls-bus FMUs with CAN busses.
+This header file can be used when creating Network FMI-LS-BUS FMUs with CAN busses.
 
 Copyright (C) 2024 Modelica Association Project "FMI"
               All rights reserved.
@@ -50,7 +50,7 @@ extern "C"
  * \brief Creates a CAN transmit operation.
  *
  *  This macro can be used to create a CAN transmit operation.
- *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
+ *  The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer
  *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *   
@@ -96,7 +96,7 @@ extern "C"
  * \brief Creates a CAN FD transmit operation.
  *
  *  This macro can be used to create a CAN FD transmit operation.
- *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
+ *  The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer
  *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
@@ -141,7 +141,7 @@ extern "C"
  * \brief Creates a CAN XL transmit operation.
  *
  *  This macro can be used to create a CAN XL transmit operation.
- *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
+ *  The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer
  *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
@@ -190,7 +190,7 @@ extern "C"
  * \brief Creates a CAN confirm operation.
  *
  *  This macro can be used to create a CAN confirm operation.
- *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
+ *  The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer
  *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
@@ -223,7 +223,7 @@ extern "C"
  * \brief Creates a CAN configuration operation for the baud rate setting.
  *
  *  This macro can be used to create a CAN configuration operation for the baud rate setting.
- *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
+ *  The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer
  *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
@@ -258,7 +258,7 @@ extern "C"
  * \brief Creates a CAN configuration operation for the CAN FD baud rate setting.
  *
  *  This macro can be used to create a CAN configuration operation for the CAN FD baud rate setting.
- *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
+ *  The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer
  *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
@@ -292,7 +292,7 @@ extern "C"
  * \brief Creates a CAN configuration operation for the CAN XL baud rate setting.
  *
  *  This macro can be used to create a CAN configuration operation for the CAN XL baud rate setting.
- *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
+ *  The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer
  *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
@@ -326,7 +326,7 @@ extern "C"
  * \brief Creates a CAN configuration operation for the arbitration lost behavior setting.
  *
  *  This macro can be used to create a CAN configuration operation for the arbitration lost behavior setting.
- *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
+ *  The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer
  *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
@@ -360,7 +360,7 @@ extern "C"
  * \brief Creates a CAN arbitration lost operation.
  *
  *  This macro can be used to create a CAN arbitration lost operation.
- *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
+ *  The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer
  *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
@@ -392,7 +392,7 @@ extern "C"
  * \brief Creates a CAN bus error operation.
  *
  *  This macro can be used to create a CAN bus error operation.
- *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
+ *  The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer
  *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
@@ -432,7 +432,7 @@ extern "C"
  * \brief Creates a CAN status operation.
  *
  *  This macro can be used to create a CAN status operation.
- *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
+ *  The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer
  *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
@@ -464,7 +464,7 @@ extern "C"
  * \brief Creates a CAN wakeup operation.
  *
  *  This macro can be used to create a CAN wakeup operation.
- *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
+ *  The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer
  *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
