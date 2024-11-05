@@ -3,9 +3,9 @@
 
 /*
 This header file declares bus independent constants and data types as defined by the
-fmi-ls-bus layered standard specification (https://github.com/modelica/fmi-ls-bus).
+FMI-LS-BUS layered standard specification (https://github.com/modelica/fmi-ls-bus).
 
-It should be used when creating Network FMUs according to the fmi-ls-bus layered standard.
+It should be used when creating Network FMUs according to the FMI-LS-BUS layered standard.
 
 Copyright (C) 2024 Modelica Association Project "FMI"
               All rights reserved.
@@ -84,12 +84,12 @@ extern "C"
 typedef fmi3UInt8 fmi3LsBusBoolean;
 
 /**
- * \brief Defines the value 'TRUE' of the fmi-ls-bus.
+ * \brief Defines the value 'TRUE' of the FMI-LS-BUS.
  */
 #define FMI3_LS_BUS_TRUE ((fmi3UInt8)0x01)
 
 /**
- * \brief Defines the value 'FALSE' of the fmi-ls-bus.
+ * \brief Defines the value 'FALSE' of the FMI-LS-BUS.
  */
 #define FMI3_LS_BUS_FALSE ((fmi3UInt8)0x00)
 

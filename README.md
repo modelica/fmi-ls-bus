@@ -3,7 +3,7 @@
 [![Build Specification](https://github.com/modelica/fmi-ls-bus/actions/workflows/build-ls-bus.yml/badge.svg)](https://github.com/modelica/fmi-ls-bus/actions/workflows/build-ls-bus.yml)
 
 This repository contains a current prototype draft of the FMI Layered
-Standard for Network Communication (fmi-ls-bus) based on the
+Standard for Network Communication (FMI-LS-BUS) based on the
 [Functional Mock-up Interface][FMI] 3.0 standard for the exchange of
 simulation models. Note that this draft is being worked on actively,
 and thus are subject to change without notice.
@@ -25,7 +25,7 @@ Corresponding [milestones][milestones] and a detailed roadmap have
 been defined for this purpose.
 The following graphic provides an overview of the planned sequence of supported bus systems:
 
-![roadmap of fmi-ls-bus](roadmap_overview.svg)
+![roadmap of FMI-LS-BUS](roadmap_overview.svg)
 
 A detailed roadmap showing completed, current and future work can be accessed [here][roadmap].
 
@@ -45,15 +45,15 @@ The following resources are currently available:
 
 ## Demos
 
-[Demo FMUs] are available within the [FMI LS Bus Implementers' Guide] to illustrate how to use and implement the fmi-ls bus.
+[Demo FMUs] are available within the [FMI-LS-BUS Implementers' Guide] to illustrate how to use and implement the FMI-LS-BUS.
 More demos will be added iteratively in the near future.
-See also the overview pages for the demos, categorized by the different supported bus types of the fmi-ls-bus.  
+See also the overview pages for the demos, categorized by the different supported bus types of the FMI-LS-BUS.  
 
 - [CAN, CAN FD and CAN XL Demo Overview]
 
-## FMI LS Bus Implementers' Guide
+## FMI-LS-BUS Implementers' Guide
 
-The [FMI LS Bus Implementers' Guide] is a free resource intended to give non-normative recommendations and guidance to implementers of the Functional Mock-up Interface Layered Standard for Network Communication (FMI-LS-BUS).
+The [FMI-LS-BUS Implementers' Guide] is a free resource intended to give non-normative recommendations and guidance to implementers of the Functional Mock-up Interface Layered Standard for Network Communication (FMI-LS-BUS).
 
 ## Copyright and License
 
@@ -63,11 +63,11 @@ Docs released under [Attribution-ShareAlike 4.0 International].
 
 ## Other FMI Layered Standards
 
-If you are interested in the FMI Layered Standard for Network Communication, the [fmi-ls-xcp] could also be relevant to you.
-The [fmi-ls-xcp] specifies an FMI extension for using the XCP protocol and A2L variable description within FMUs.
+If you are interested in the FMI Layered Standard for Network Communication, the [FMI-LS-XCP] could also be relevant to you.
+The [FMI-LS-XCP] specifies an FMI extension for using the XCP protocol and A2L variable description within FMUs.
 
 [FMI]: https://fmi-standard.org/
-[fmi-ls-xcp]: https://github.com/modelica/fmi-ls-xcp
+[FMI-LS-XCP]: https://github.com/modelica/fmi-ls-xcp
 [Demo FMUs]: https://github.com/modelica/fmi-guides/tree/main/ls-bus-guide/demos
 [2-Clause BSD License]: https://opensource.org/licenses/BSD-2-Clause
 [Attribution-ShareAlike 4.0 International]: https://creativecommons.org/licenses/by-sa/4.0/
@@ -76,6 +76,6 @@ The [fmi-ls-xcp] specifies an FMI extension for using the XCP protocol and A2L v
 [spec]: https://modelica.github.io/fmi-ls-bus/main/
 [milestones]: https://github.com/modelica/fmi-ls-bus/milestones?direction=asc&sort=title&state=open
 [releases]: https://github.com/modelica/fmi-ls-bus/releases
-[FMI LS Bus Implementers' Guide]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/
+[FMI-LS-BUS Implementers' Guide]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/
 [Getting started with CAN, CAN FD and CAN XL]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-getting-started-with-can
 [CAN, CAN FD and CAN XL Demo Overview]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-demos
