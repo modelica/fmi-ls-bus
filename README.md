@@ -64,7 +64,7 @@ Additionally, any FMU importer that supports the necessary FMI 3.0 features, suc
 
 |Name|Type|Features|Contact|Remarks
 |---|---|---|---|---|
-Altair Activate|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)| [http://www.altair.de](https://www.altair.de/activate/)|-
+Altair Twin Activate|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)| [http://www.altair.com](https://www.altair.com/twin-activate/)|Fmi3-Terminals are not supported
 AVL FMU Sim|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|[http://www.avl.de](https://www.avl.de/)|-
 dSPACE SystemDesk|Exporter|![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|[https://www.dspace.com](https://www.dspace.com/en/pub/home/products/sw/system_architecture_software/systemdesk.cfm)|-
 dSPACE VEOS|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|[https://www.dspace.com](https://www.dspace.com/en/pub/home/products/sw/simulation_software/veos.cfm)|-
