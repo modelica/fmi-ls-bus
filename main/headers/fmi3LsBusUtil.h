@@ -3,7 +3,7 @@
 
 /*
 
-This header file contains utility macros to read and write fmi-ls-bus
+This header file contains utility macros to read and write FMI-LS-BUS
 bus operations from\to dedicated buffer variables.
 
 This header can be used when creating Network FMUs.
@@ -72,7 +72,7 @@ typedef struct
  * \brief Creates a Format Error operation.
  *
  *  This macro can be used to create a Format Error operation.
- *  The arguments are serialized according to the fmi-ls-bus specification and written to the buffer
+ *  The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer
  *  described by the argument 'BufferInfo'. If there is not enough buffer space available, the 'status'
  *  variable of the argument 'BufferInfo' is set to fmi3False.
  *
