@@ -3,6 +3,7 @@
 - Christian Bertsch, Robert Bosch GmbH, Germany
 - Clemens Boos, dSPACE GmbH, Germany
 - Martin Engel, dSPACE GmbH, Germany
+- Nikolai Fast, Beckhoff Automation GmbH & Co. KG, Germany
 - Andreas Junghanns, Synopsys, Germany
 - Kahramon Jumayev, Akkodis, Germany
 - Pierre R. Mai, PMSF IT Consulting, Germany
