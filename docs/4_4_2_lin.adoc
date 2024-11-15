@@ -1,5 +1,6 @@
 ==== LIN [[low-cut-lin]]
 This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for LIN.
+#The LIN chapter is currently only a preview and will be further adapted during the development of this standard.#
 
 ===== Overview [[low-cut-lin-overview]]
 To simulate LIN buses, LIN-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
@@ -434,10 +435,10 @@ If a Network FMU does not support wake-up this operation can be ignored on consu
 |====
 
 ===== Transmission and Reception [[low-cut-lin-transmission-and-reception]]
-#TODO#
+#To be defined.#
 
 ===== Detection of Collisions [[low-cut-lin-detection-of-collisions]]
-#TODO#
+#To be defined.#
 
 ===== Configuration of Bus Simulation [[low-cut-lin-configuration-of-bus-simulation]]
 The configuration of the Bus Simulation is done by the Network FMUs itself.
@@ -456,7 +457,7 @@ This configuration must be done before the first exchange of <<low-cut-lin-trans
 A Bus Simulation should stop as soon as more than one LIN Master is configured in a network.
 
 ===== Error Handling [[low-cut-lin-error-handling]]
-#TODO#
+#To be defined.#
 
 ===== Wake Up/Sleep [[low-cut-lin-wakeup-sleep]]
 This standard supports wake up and sleep for the LIN bus, whereby only the bus-specific parts are taken into account.
