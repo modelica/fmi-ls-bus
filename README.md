@@ -31,8 +31,8 @@ A detailed roadmap showing completed, current and future work can be accessed [h
 
 ## News
 
-Looking forwared to our joint presentation and demo "FMI, Layered Standards and ASAM Standards - Enabling Seamless SiL Simulation of Virtual ECUs" from the FMI Project at the coming ASAM International Conference, 2024 in Munich. 
-You can meet us also at the ModelicaAssociation booth there!
+Looking forward to our joint presentation and demo "FMI, Layered Standards and ASAM Standards - Enabling Seamless SiL Simulation of Virtual ECUs" from the FMI Project at the coming ASAM International Conference, 2024 in Munich.
+You can meet us also at the Modelica Association booth there!
 
 We will present three new layered standards for simulating virtual ECUs with FMI 3.0:
 
