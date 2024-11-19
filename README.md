@@ -73,6 +73,23 @@ See also the overview pages for the demos, categorized by the different supporte
 
 The [FMI-LS-BUS Implementers' Guide] is a free resource intended to give non-normative recommendations and guidance to implementers of the Functional Mock-up Interface Layered Standard for Network Communication (FMI-LS-BUS).
 
+## Tools
+
+The following list shows importers and exporters that currently support the FMI-LS-BUS layered standard and that have been validated by a cross-check.
+It should be noted that tool implementations in some cases might be experimental, because the FMI-LS-BUS layered standard is currently not in a finale state.
+Feel free to contact the specified tool vendors if you are interested in using the FMI-LS-BUS layered standard.
+Additionally, any FMU importer that supports the necessary FMI 3.0 features, such as clocks and binary variables, has generic FMI-LS-BUS support and can be used.
+
+|Tool|Type|Features|Remarks
+|---|---|---|---|
+[Altair Twin Activate](https://www.altair.com/twin-activate/)|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) <br> ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|Fmi3-Terminals are not supported
+[dSPACE SystemDesk](https://www.dspace.com/en/pub/home/products/sw/system_architecture_software/systemdesk.cfm)|Exporter|![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|Available since RLS 2024-B
+[dSPACE VEOS](https://www.dspace.com/en/pub/home/products/sw/simulation_software/veos.cfm)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|Available since RLS 2024-B
+[Model.CONNECT&trade;](https://www.avl.com/de-at/simulation-solutions/software-offering/simulation-tools-a-z/modelconnect)|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) <br> ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|-
+[Synopsys Silver](https://www.synopsys.com/verification/virtual-prototyping/silver.html)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg)|-
+
+![Legend of supported system compositions of tools](landingpage/tool_legend.svg)
+
 ## Copyright and License
 
 Code and documentation copyright (C) 2023-2024 The Modelica Association Project FMI.
