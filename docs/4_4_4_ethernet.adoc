@@ -1,3 +1,0 @@
-==== Ethernet
-
-#This chapter is currently under development.#
