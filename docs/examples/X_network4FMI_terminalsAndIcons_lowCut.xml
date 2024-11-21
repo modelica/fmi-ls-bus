@@ -11,7 +11,6 @@
         variableName="Powertrain.Tx_Clock" memberName="Tx_Clock" />
       <TerminalMemberVariable variableKind="signal"
         variableName="Powertrain.Tx_Data" memberName="Tx_Data" />
-      </Terminal>
     </Terminal>
   </Terminals>
 </fmiTerminalsAndIcons>
