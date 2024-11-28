@@ -65,7 +65,7 @@ The following resources are currently available:
 
 [Demo FMUs] are available within the [FMI-LS-BUS Implementers' Guide] to illustrate how to use and implement the FMI-LS-BUS.
 More demos will be added iteratively in the near future.
-See also the overview pages for the demos, categorized by the different supported bus types of the FMI-LS-BUS.  
+See also the overview pages for the demos, categorized by the different supported bus types of the FMI-LS-BUS.
 
 - [CAN, CAN FD and CAN XL Demo Overview]
 
@@ -88,7 +88,30 @@ Additionally, any FMU importer that supports the necessary FMI 3.0 features, suc
 [Model.CONNECT&trade;](https://www.avl.com/de-at/simulation-solutions/software-offering/simulation-tools-a-z/modelconnect)|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) <br> ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|-
 [Synopsys Silver](https://www.synopsys.com/verification/virtual-prototyping/silver.html)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg)|-
 
-![Legend of supported system compositions of tools](landingpage/tool_legend.svg)
+<table>
+  <tr>
+    <th colspan="2">Supported system compositions</td>
+    <th colspan="2">Supported bus types</td>
+  </tr>
+  <tr>
+    <td><img src="landingpage/DC.svg"/></td>
+    <td>Direct communication</td>
+    <td><img src="landingpage/HC.svg"/></td>
+    <td>High-cut</td>
+  </tr>
+  <tr>
+    <td><img src="landingpage/BSF.svg"/></td>
+    <td>Composition with dedicated bus simulation FMU</td>
+    <td><img src="landingpage/LC_CAN.svg"/></td>
+    <td>Low-cut CAN</td>
+  </tr>
+  <tr>
+    <td><img src="landingpage/IBS.svg"/></td>
+    <td>Importer with integrated bus simulation</td>
+    <td><img src="landingpage/LC_FR.svg"/></td>
+    <td>Low-cut FlexRay</td>
+  </tr>
+</table>
 
 ## Copyright and License
 
