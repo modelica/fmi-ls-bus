@@ -4,7 +4,7 @@
     <Terminal terminalKind="org.fmi-ls-bus.network-terminal" name="Powertrain" matchingRule="bus"
         description="Powertrain CAN bus defined with dbc file">
       <Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="tcuSensors" matchingRule="bus">
-        <TerminalMemberVariable variableKind="signal"
+        <TerminalMemberVariable variableKind="org.fmi-ls-bus.frame-terminal.clock"
           variableName="Powertrain.tcuSensors_Clock" memberName="Clock" />
         <Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="tcuSensors" matchingRule="bus">
           <TerminalMemberVariable variableKind="signal"
@@ -14,7 +14,7 @@
         </Terminal>
       </Terminal>
       <Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="tcuState" matchingRule="bus">
-        <TerminalMemberVariable variableKind="signal"
+        <TerminalMemberVariable variableKind="org.fmi-ls-bus.frame-terminal.clock"
           variableName="Powertrain.tcuState_Clock" memberName="Clock" />
         <Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="tcuState" matchingRule="bus">
           <TerminalMemberVariable variableKind="signal"
@@ -26,7 +26,7 @@
         </Terminal>
       </Terminal>
       <Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="ecuState" matchingRule="bus">
-        <TerminalMemberVariable variableKind="signal"
+        <TerminalMemberVariable variableKind="org.fmi-ls-bus.frame-terminal.clock"
           variableName="Powertrain.ecuState_Clock" memberName="Clock" />
         <Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="ecuState" matchingRule="bus">
           <TerminalMemberVariable variableKind="signal"
