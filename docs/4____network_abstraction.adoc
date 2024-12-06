@@ -306,6 +306,7 @@ This section defines terminals for network abstraction or "low cut".
 ==== Bus Terminal [[low-cut-bus-terminal,Bus Terminal]]
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>`.
 The attribute `name` of the `<Terminal>` must match the name of the specified network _[e.g., the name of the CAN channel: Powertrain]_ within a "low cut".
+Specific bus systems can add their own configuration parameters within a Bus Terminal.
 If the specified FMU is connected to more than one network, there shall be exactly one `<Terminal>` for each network.
 
 Attribute definitions::
@@ -314,9 +315,10 @@ Attribute definitions::
  * `name` is the network name, e.g., `Powertrain`, see <<low-cut-example, example>> and constraints.
 
 Element definitions::
- * Every Bus Terminal contains exactly four variables each in the role of: `Tx_Data`, `Tx_Clock`, `Rx_Data` or `Rx_Clock`.
+ * Every Bus Terminal contains at least four variables each in the role of: `Tx_Data`, `Tx_Clock`, `Rx_Data` or `Rx_Clock`.
  * Variables in the role of `Rx_Data`, `Tx_Data`, `Rx_Clock` and `Tx_Clock` are exposed in the `modelDescription.xml` and must be listed as `<TerminalMemberVariable>` elements, whereby `variableName` can be freely chosen.
  * `<TerminalMemberVariable>.memberName` defines the role of the variable within the `<Terminal>` and shall be set to `Tx_Data`, `Tx_Clock`, `Rx_Data` or `Rx_Clock`.
+* The `name` of a `<Terminal>` for additional configuration parameters is equal to `Configuration` and is nested within the actual Bus Terminal.
  * Multiple use of the same variable within different Bus Terminals is not allowed.
  * There must be no `<TerminalStreamMemberVariable>` element.
 
