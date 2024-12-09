@@ -173,7 +173,9 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 | Rtr | 1 byte | Specifies whether the given frame represents a Remote Transmission Request frame.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Data Length | 2 byte | Specifies the length of the Data argument in bytes.
+Note: The argument value describes the actual data length and not the CAN Data Length Code (DLC).
 | Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN Format.
+Note: The value of this argument also includes padding bytes if these are required by the CAN format in the respective situation.
 h|Behavior
 3+|The <<low-cut-can-transmit-operation, `CAN Transmit`>> operation shall be provided by Network FMUs to initiate the transmission of a CAN frame.
 In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
@@ -205,7 +207,9 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 | Esi | 1 byte | Error State indicator.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Data Length | 2 byte | Specifies the length of the Data argument in bytes.
+Note: The argument value describes the actual data length and not the CAN Data Length Code (DLC).
 | Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN FD Format.
+Note: The value of this argument also includes padding bytes if these are required by the CAN format in the respective situation.
 h|Behavior
 3+|The behavior is identical to the <<table-can-transmit-operation, CAN Transmit>> behavior.
 
@@ -234,7 +238,9 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 | VCID | 1 byte | Represents the virtual CAN network ID.
 | AF | 4 byte | Represents the CAN XL Acceptance Field (AF).
 | Data Length | 2 byte | Specifies the length of the Data argument in bytes.
+Note: The argument value describes the actual data length and not the CAN Data Length Code (DLC).
 | Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN XL Format.
+Note: The value of this argument also includes padding bytes if these are required by the CAN format in the respective situation.
 h|Behavior
 3+|The behavior is identical to the <<table-can-transmit-operation, CAN Transmit>> behavior.
 
