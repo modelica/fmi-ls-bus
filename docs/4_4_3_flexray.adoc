@@ -836,7 +836,7 @@ That concrete means that the point in time for the start of FlexRay cycle in nan
 * stem:[T_{\mathrm{Start}}] represents the start time of the first FlexRay cycle (see `Start Time` argument within the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation) in nanoseconds.
 * stem:[L_{\mathrm{Cycle}}] defines length of FlexRay cycle in nanoseconds (see `Macrotick Duration` and `Macroticks per Cycle` arguments within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
 * stem:[N_{\mathrm{Cycle}}] specifies the number of cycles per iteration (see `Cycle Count Max` argument within the the <<low-cut-flexray-configuration-operation, `Configuration`>> operation, whereas stem:[N_{\mathrm{Cycle}} = \mathrm{gCycleCountMax} + 1]).
-* stem:[i_{\mathrm{Iteration}}] represents the desired iteration of complete FlexRay cycles (in this context see also `Iteration` argument within the <<low-cut-flexray-transmit-operation, `Transmit`>> operation).
+* stem:[i_{\mathrm{Iteration}}] represents the desired iteration of complete FlexRay cycles.
 * stem:[i_{\mathrm{Cycle}}] represents the cycle within the given iteration with stem:[i_{Cycle} \lt N_{Cycle}].
 
 The point in time for the start of FlexRay cycle of the current iteration with focus to the simulation time can be computed within a Network FMU as
