@@ -318,7 +318,8 @@ Element definitions::
  * Every Bus Terminal contains at least four variables each in the role of: `Tx_Data`, `Tx_Clock`, `Rx_Data` or `Rx_Clock`.
  * Variables in the role of `Rx_Data`, `Tx_Data`, `Rx_Clock` and `Tx_Clock` are exposed in the `modelDescription.xml` and must be listed as `<TerminalMemberVariable>` elements, whereby `variableName` can be freely chosen.
  * `<TerminalMemberVariable>.memberName` defines the role of the variable within the `<Terminal>` and shall be set to `Tx_Data`, `Tx_Clock`, `Rx_Data` or `Rx_Clock`.
-* The `name` of a `<Terminal>` for additional configuration parameters is equal to `Configuration` and is nested within the actual Bus Terminal.
+ * The `name` of a `<Terminal>` for additional configuration parameters is equal to `Configuration` and is nested within the actual Bus Terminal.
+ * The `<TerminalMemberVariable>.memberName` of a configuration parameter is fixed and defines it's functionality.  
  * Multiple use of the same variable within different Bus Terminals is not allowed.
  * There must be no `<TerminalStreamMemberVariable>` element.
 

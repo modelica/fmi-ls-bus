@@ -269,7 +269,7 @@ The following applies for this operation: `Length = 12`.
 
 h|Behavior
 3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
-If the structural parameter <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> of a Network FMU is set to `false`, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-confirm-operation, `Confirm`>> operations are discarded by the Network FMU.
+If the configuration parameter <<low-cut-can-bus-notification-parameter, `Can_BusNotifications`>> of a CAN Bus Terminal is set to `false`, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-confirm-operation, `Confirm`>> operations are discarded by the Network FMU.
 Depending on the <<low-cut-can-status-operation, status>> of the specified Network FMU further restrictions for <<low-cut-can-confirm-operation, `Confirm`>> operations <<table-can-status-values, exist>>.
 
 |====
@@ -311,7 +311,7 @@ h|Behavior
 In such case, the Bus Simulation has to decide which <<low-cut-can-transmit-operation, `Transmit`>> operation should be processed first.
 Depending on the configuration (see the `Arbitration Lost Behavior` argument of the <<low-cut-can-configuration-operation, `Configuration`>> operation), the deferred <<low-cut-can-transmit-operation, `Transmit`>> operations shall either be buffered or they shall be discarded and the <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operation shall be sent back to the respective Network FMUs.
 A Network FMU receiving the <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operation can decide to provide the <<low-cut-can-transmit-operation, `Transmit`>> operation again or e.g., to raise an internal transmit timeout failure after a while.
-If the structural parameter <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> of a Network FMU is set to `false`, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations are discarded by the Network FMU.
+If the configuration parameter <<low-cut-can-bus-notification-parameter, `Can_BusNotifications`>> of a CAN Bus Terminal is set to `false`, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations are discarded by the Network FMU.
 
 |====
 
@@ -364,7 +364,7 @@ To determine the CAN node state properly, Network FMUs need the information abou
 For a Network FMU that initiated the <<low-cut-can-transmit-operation, `Transmit`>> operation, the argument `Is Sender` shall be set to `TRUE` in the corresponding <<low-cut-can-bus-error-operation, `Bus Error`>> operation.
 For a Network FMU considered to be the one detecting the error first, the argument `Error Flag = PRIMARY_ERROR_FLAG` shall be set.
 The arguments `Is Sender = TRUE` and `Error Flag = PRIMARY_ERROR_FLAG` must only be set once per simulated error.
-If the structural parameter <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> of a Network FMU is set to `false`, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-bus-error-operation, `Bus Error`>> operations are discarded by the Network FMU.
+If the configuration parameter <<low-cut-can-bus-notification-parameter, `Can_BusNotifications`>> of a CAN Bus Terminal is set to `false`, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-bus-error-operation, `Bus Error`>> operations are discarded by the Network FMU.
 |====
 
 The following Error Codes are specified:
@@ -615,27 +615,28 @@ For a detailed simulation, the CAN bus behavior regarding acknowledgment, bus er
 A Bus Simulation can simulate these effects by sending bus notifications in terms of <<low-cut-can-confirm-operation, `Confirm-`>>, <<low-cut-can-bus-error-operation, `Bus Error-`>> and <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations to the Network FMUs.
 
 However, in scenarios where Network FMUs are connected directly to each other, or where the Bus Simulation does not simulate such effects, it must be possible to configure the Network FMU such that it does not wait for any response after a <<low-cut-can-transmit-operation, `Transmit`>> operation.
-Therefore, the <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> parameter is introduced.
-If the value of the parameter is set to `false`, the Network FMU must not wait for any response after a <<low-cut-can-transmit-operation, `Transmit`>> operation ("fire-and-forget").
+Therefore, the <<low-cut-can-bus-notification-parameter, `Can_BusNotifications`>> configuration parameter is introduced for a CAN Bus Terminal.
+If the value of the configuration parameter is set to `false`, the Network FMU must not wait for any response after a <<low-cut-can-transmit-operation, `Transmit`>> operation ("fire-and-forget").
 The default value shall be `false` to allow the Network FMU to be run natively in each simulation scenario.
-If the Network FMU shall be configured to handle responses in the form of <<low-cut-can-confirm-operation, `Confirm-`>>, <<low-cut-can-bus-error-operation, `Bus Error-`>> and <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations, the <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> parameter shall be set to `true`. +
+If the configuration parameter is completely missing, the situation is analogous to the value `false`.
+If the Network FMU shall be configured to handle responses in the form of <<low-cut-can-confirm-operation, `Confirm-`>>, <<low-cut-can-bus-error-operation, `Bus Error-`>> and <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations, the <<low-cut-can-bus-notification-parameter, `Can_BusNotifications`>> within a specified Bus Terminal context the configuration parameter shall be set to `true`. +
 _[This does not necessarily mean the FMU must fully support CAN error handling or sophisticated arbitration mechanisms._
 _A simple Network FMU might also choose to treat Bus Error or Arbitration operations in a simplified manner, e.g., by treating them as a positive confirmation.]_
 
-.FMU parameter for the configuration of bus notifications.
+.Configuration parameter to configure bus notifications within a CAN Bus Terminal.
 [[figure-fmu-bus-notifications-parameter]]
 ----
-    org.fmi_standard.fmi_ls_bus.Can_BusNotifications
-        Description:  "Specifies whether the respective Network FMU can rely on a Confirm,
-                      Bus Error or Arbitration Lost operation after sending a message."
-        Type:         Boolean
-        Causality:    structuralParameter
-        Variability:  fixed
-        Start:        "false"
+        MemberName:    Can_BusNotifications
+        Description:   "Specifies whether the respective Network FMU can rely on a Confirm,
+                       Bus Error or Arbitration Lost operation after sending a message."
+        Type:          Boolean
+        Causality:     structuralParameter
+        Variability:   fixed
+        Start:         "false"
 ----
 
-This structural parameter is mandatory for Network FMUs only.
-A Bus Simulation (FMU) does not require this structural parameter.
+This configuration parameter is only intended for CAN Bus Terminals of Network FMUs, but is completely optional in this context.
+CAN Bus Terminals of a Bus Simulation (FMU) does not include this configuration parameter.
 
 ===== Configuration of Bus Simulation [[low-cut-can-configuration-of-bus-simulation]]
 The configuration of the Bus Simulation is done by the Network FMUs itself.
@@ -660,11 +661,11 @@ The <<low-cut-can-transmit-operation, `Transmit`>> operation represents the send
 With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g., Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
 In the real world, flawlessly transmitted CAN frames will be acknowledged by at least one receiver CAN node.
 To simulate this behavior, the <<low-cut-can-confirm-operation, `Confirm`>> operations are introduced.
-In addition, the structural parameter <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> is defined to support lightweight bus simulations and <<common-concepts-direct-communication, directly connected Network FMUs>>.
+In addition, the configuration parameter <<low-cut-can-bus-notification-parameter, `Can_BusNotifications`>> of a CAN Bus Terminal is defined to support lightweight bus simulations and <<common-concepts-direct-communication, directly connected Network FMUs>>.
 
-If <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> is set to `false` (default), then Network FMUs must not rely on receiving <<low-cut-can-confirm-operation, `Confirm`>> operations.
+If <<low-cut-can-bus-notification-parameter, `Can_BusNotifications`>> is set to `false` (default), then Network FMUs must not rely on receiving <<low-cut-can-confirm-operation, `Confirm`>> operations for the specified Bus Terminal.
 In this case, the bus simulation is idealized and takes place in a "fire-and-forget" manner.
-If a specified Network FMU is depending on <<low-cut-can-confirm-operation, `Confirm`>> operations and <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> is set to `false`, the self confirmation shall be realized internally within the respective Network FMU. 
+If a specified Network FMU is depending on <<low-cut-can-confirm-operation, `Confirm`>> operations and <<low-cut-can-bus-notification-parameter, `Can_BusNotifications`>> is set to `false`, the self confirmation shall be realized internally within the respective Network FMU for the specified Bus Terminal. 
 
 <<#figure-can-direct-communication>> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
 Subsequently, FMU 1 self-confirms the transmission internally.
@@ -674,7 +675,7 @@ Subsequently, FMU 1 self-confirms the transmission internally.
 image::can_direct_confirmation.svg[width=40%, align="center"]
 
 For a detailed simulation, the Bus Simulation has to support <<low-cut-can-confirm-operation, `Confirm`>> operations.
-In this case, the <<low-cut-can-bus-notification-parameter, `org.fmi_standard.fmi_ls_bus.Can_BusNotifications`>> parameter of the Network FMUs can be set to `true` as Network FMUs can rely on receiving <<low-cut-can-confirm-operation, `Confirm`>> operations.
+In this case, the <<low-cut-can-bus-notification-parameter, `Can_BusNotifications`>> parameter of the Network FMUs can be set to `true` as Network FMUs can rely on receiving <<low-cut-can-confirm-operation, `Confirm`>> operations for the specified Bus Terminal.
 
 The following <<#figure-can-confirmation-with-bus-simulation-fmu>> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.
 
