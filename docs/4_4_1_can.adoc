@@ -607,8 +607,8 @@ If a Network FMU does not support wake up, this operation can be ignored on the 
 |====
 
 ===== Network Parameters [[low-cut-can-network-parameters]]
-Using configuration parameters on Bus Terminal level, FMUs can be parameterized according to importer specifications.
-This chapter specifies the structural parameters that each CAN-specific Network FMU shall provide.
+By using configuration parameters on Bus Terminal level, FMUs can be parameterized by the user or the Bus Simulation (by using e.g. the parameter propagation mechanism).
+This chapter specifies the configuration parameters that each CAN-specific Network FMU shall provide.
 
 ====== Bus Notification Parameter [[low-cut-can-bus-notification-parameter]]
 For a detailed simulation, the CAN bus behavior regarding acknowledgment, bus errors and arbitration losses must be considered.
@@ -618,25 +618,35 @@ However, in scenarios where Network FMUs are connected directly to each other, o
 Therefore, the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> configuration parameter is introduced for a CAN Bus Terminal.
 If the value of the configuration parameter is set to `false`, the Network FMU must not wait for any response after a <<low-cut-can-transmit-operation, `Transmit`>> operation ("fire-and-forget").
 The default value shall be `false` to allow the Network FMU to be run natively in each simulation scenario.
-If a Network FMU is not supporting bus notifications, the configuration parameter shall either be omitted or the `variability` shall be set to `constant`.
+If a Network FMU is not supporting bus notifications, the configuration parameter shall be omitted.
 If the Network FMU shall be configured to handle responses in the form of <<low-cut-can-confirm-operation, `Confirm-`>>, <<low-cut-can-bus-error-operation, `Bus Error-`>> and <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations, the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> configuration parameter within a specified Bus Terminal context shall be set to `true`. +
 _[This does not necessarily mean the FMU must fully support CAN error handling or sophisticated arbitration mechanisms._
 _A simple Network FMU might also choose to treat Bus Error or Arbitration operations in a simplified manner, e.g., by treating them as a positive confirmation.]_
 
-.Configuration parameter to configure bus notifications within a CAN Bus Terminal.
+.Configuration parameter to configure bus notifications within a CAN Bus Terminal of Network FMUs.
 [[figure-fmu-bus-notifications-parameter]]
 ----
-        MemberName:    BusNotifications
-        Description:   "Specifies whether the respective Network FMU can rely on a Confirm,
-                       Bus Error or Arbitration Lost operation after sending a message."
-        Type:          Boolean
-        Causality:     parameter
-        Variability:   fixed or constant
-        Start:         "false"
+ MemberName:    BusNotifications
+ Description:   "Specifies whether the respective Network FMU can rely on a Confirm,
+                Bus Error or Arbitration Lost operation after sending a message."
+ Type:          Boolean
+ Causality:     parameter
+ Variability:   fixed
+ Start:         "false"
 ----
 
-This configuration parameter is only intended for CAN Bus Terminals of Network FMUs, but is completely optional in this context.
-CAN Bus Terminals of a Bus Simulation (FMU) may include this configuration parameter, by using a `calculatedParameter` instead of a `parameter` to participate in an importer parameter propagation feature.
+CAN Bus Terminals of a Bus Simulation (FMU) might include this configuration parameter, by using a `calculatedParameter` or `constant output` to participate in an importer parameter propagation feature.
+
+.Configuration parameter to configure bus notifications within a CAN Bus Terminal of the Bus Simulation.
+[[figure-fmu-bus-notifications-bus-simulation-parameter]]
+----
+ MemberName:    BusNotifications
+ Description:   "Specifies whether the respective Bus Simulation provides bus notifications
+                to Network FMUs."
+ Type:          Boolean
+ Causality:     calculatedParameter/output
+ Variability:   fixed/constant
+----
 
 ===== Configuration of Bus Simulation [[low-cut-can-configuration-of-bus-simulation]]
 The configuration of the Bus Simulation is done by the Network FMUs itself.
