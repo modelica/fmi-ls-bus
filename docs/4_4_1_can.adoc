@@ -615,7 +615,7 @@ For a detailed simulation, the CAN bus behavior regarding acknowledgment, bus er
 A Bus Simulation can simulate these effects by sending bus notifications in terms of <<low-cut-can-confirm-operation, `Confirm-`>>, <<low-cut-can-bus-error-operation, `Bus Error-`>> and <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations to the Network FMUs.
 
 However, in scenarios where Network FMUs are connected directly to each other, or where the Bus Simulation does not simulate such effects, it must be possible to configure the Network FMU such that it does not wait for any response after a <<low-cut-can-transmit-operation, `Transmit`>> operation.
-Therefore, the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> configuration parameter is introduced for a CAN Bus Terminal.
+Therefore, the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> configuration parameter is introduced for each CAN Bus Terminal.
 If the value of the configuration parameter is set to `false`, the Network FMU must not wait for any response after a <<low-cut-can-transmit-operation, `Transmit`>> operation ("fire-and-forget").
 The default value shall be `false` to allow the Network FMU to be run natively in each simulation scenario.
 If a Network FMU is not supporting bus notifications, the configuration parameter shall be omitted.
@@ -624,7 +624,7 @@ _[This does not necessarily mean the FMU must fully support CAN error handling o
 _A simple Network FMU might also choose to treat Bus Error or Arbitration operations in a simplified manner, e.g., by treating them as a positive confirmation.]_
 
 .Configuration parameter to configure bus notifications within a CAN Bus Terminal of Network FMUs.
-[[figure-fmu-bus-notifications-parameter]]
+[[figure-fmu--can-bus-notifications-parameter]]
 ----
  MemberName:    BusNotifications
  Description:   "Specifies whether the respective Network FMU can rely on a Confirm,
@@ -638,7 +638,7 @@ _A simple Network FMU might also choose to treat Bus Error or Arbitration operat
 CAN Bus Terminals of a Bus Simulation (FMU) might include this configuration parameter, by using a `calculatedParameter` or `constant output` to participate in an importer parameter propagation feature.
 
 .Configuration parameter to configure bus notifications within a CAN Bus Terminal of the Bus Simulation.
-[[figure-fmu-bus-notifications-bus-simulation-parameter]]
+[[figure-fmu-can-bus-notifications-parameter-in-bus-simulation]]
 ----
  MemberName:    BusNotifications
  Description:   "Specifies whether the respective Bus Simulation provides bus notifications
