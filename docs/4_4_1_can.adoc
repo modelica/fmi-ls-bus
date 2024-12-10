@@ -618,8 +618,8 @@ However, in scenarios where Network FMUs are connected directly to each other, o
 Therefore, the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> configuration parameter is introduced for a CAN Bus Terminal.
 If the value of the configuration parameter is set to `false`, the Network FMU must not wait for any response after a <<low-cut-can-transmit-operation, `Transmit`>> operation ("fire-and-forget").
 The default value shall be `false` to allow the Network FMU to be run natively in each simulation scenario.
-If the configuration parameter is completely missing, the situation is analogous to the value `false`.
-If the Network FMU shall be configured to handle responses in the form of <<low-cut-can-confirm-operation, `Confirm-`>>, <<low-cut-can-bus-error-operation, `Bus Error-`>> and <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations, the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> within a specified Bus Terminal context the configuration parameter shall be set to `true`. +
+If a Network FMU is not supporting bus notifications, the configuration parameter shall either be omitted or the `variability` shall be set to `constant`.
+If the Network FMU shall be configured to handle responses in the form of <<low-cut-can-confirm-operation, `Confirm-`>>, <<low-cut-can-bus-error-operation, `Bus Error-`>> and <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations, the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> the configuration parameter within a specified Bus Terminal context shall be set to `true`. +
 _[This does not necessarily mean the FMU must fully support CAN error handling or sophisticated arbitration mechanisms._
 _A simple Network FMU might also choose to treat Bus Error or Arbitration operations in a simplified manner, e.g., by treating them as a positive confirmation.]_
 
@@ -631,7 +631,7 @@ _A simple Network FMU might also choose to treat Bus Error or Arbitration operat
                        Bus Error or Arbitration Lost operation after sending a message."
         Type:          Boolean
         Causality:     parameter
-        Variability:   fixed
+        Variability:   fixed or constant
         Start:         "false"
 ----
 
