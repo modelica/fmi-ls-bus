@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version f4e0992,</span>
-<span id="revdate">2024-12-03</span>
+<span id="revnumber">version 897bf76,</span>
+<span id="revdate">2024-12-10</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -2520,12 +2520,14 @@ For specification the boolean values <code>TRUE</code> and <code>FALSE</code> (s
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Data Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2 byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the length of the Data argument in bytes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the length of the Data argument in bytes.
+Note: The argument value describes the actual data length and not the CAN Data Length Code (DLC).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Data</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">n byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN Format.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN Format.
+Note: The value of this argument also includes padding bytes if these are required by the CAN format in the respective situation.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
@@ -2604,12 +2606,14 @@ For specification the boolean values <code>TRUE</code> and <code>FALSE</code> (s
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Data Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2 byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the length of the Data argument in bytes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the length of the Data argument in bytes.
+Note: The argument value describes the actual data length and not the CAN Data Length Code (DLC).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Data</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">n byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN FD Format.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN FD Format.
+Note: The value of this argument also includes padding bytes if these are required by the CAN format in the respective situation.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
@@ -2693,12 +2697,14 @@ For specification the boolean values <code>TRUE</code> and <code>FALSE</code> (s
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Data Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2 byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the length of the Data argument in bytes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the length of the Data argument in bytes.
+Note: The argument value describes the actual data length and not the CAN Data Length Code (DLC).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Data</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">n byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN XL Format.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN XL Format.
+Note: The value of this argument also includes padding bytes if these are required by the CAN format in the respective situation.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
