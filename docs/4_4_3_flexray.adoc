@@ -707,7 +707,7 @@ If the value of the parameter is set to `true`, the Bus Simulation provides <<lo
 If the value of the parameter is set to `false`, the Bus Simulation provides the respective operations after the calculated transfer time.
 See <<low-cut-flexray-static-segment>> and <<low-cut-flexray-dynamic-segment>> for details.
 The default value shall be `true`.
-If a Network FMU is supporting the delivery on a concrete slot boundary only, the configuration parameter shall be omitted.
+If a Network FMU is supporting the delivery on slot boundaries only, the configuration parameter shall be omitted.
 
 .Configuration parameter to configure the delivery point of reception within a FlexRay slot for Network FMUs.
 [[figure-fmu-flexray-delivery-on-boundary-parameter]]
