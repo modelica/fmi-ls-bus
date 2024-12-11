@@ -659,7 +659,7 @@ h|Kind h|Value h|Description
 |====
 
 ===== Network Parameters [[low-cut-flexray-network-parameters]]
-By using configuration parameters on Bus Terminal level, FMUs can be parameterized by the user or the Bus Simulation (by using e.g. the parameter propagation mechanism).
+By using configuration parameters on Bus Terminal level, Network FMUs can be parameterized by the user or the Bus Simulation (by using e.g. the parameter propagation mechanism).
 This chapter specifies the configuration parameters that each FlexRay-specific Network FMU shall provide.
 
 ====== Bus Notification Parameter [[low-cut-flexray-bus-notification-parameter]]
