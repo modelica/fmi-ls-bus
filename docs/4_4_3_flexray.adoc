@@ -673,7 +673,7 @@ The default value shall be `false` to allow the Network FMU to be run natively i
 If a Network FMU is not supporting bus notifications, the configuration parameter shall be omitted.
 If the Network FMU shall be configured to handle responses in the form of <<low-cut-flexray-confirm-operation, `Confirm-`>> and <<low-cut-can-bus-error-operation, `Bus Error`>> operations, the <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> parameter shall be set to `true`.
 
-.FMU configuration parameter to configure bus notifications within a FlexRay Bus Terminal of Network FMUs.
+.Configuration parameter to configure bus notifications within a FlexRay Bus Terminal of Network FMUs.
 [[figure-fmu-flexray-bus-notifications-parameter]]
 ----
  MemberName:    BusNotifications
@@ -702,7 +702,7 @@ FlexRay Bus Terminals of a Bus Simulation (FMU) might include this configuration
 In order to minimize the number of Bus Communication Points of an entire simulation system, it can make sense that the Bus Simulation always deliver <<low-cut-flexray-transmit-operation, `Transmit`>> operations on a concrete slot boundary.
 Under the condition that participating Network FMUs also provide their <<low-cut-flexray-transmit-operation, `Transmit`>> operations on a slot boundary, the behavior means that the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to be received, the next <<low-cut-flexray-transmit-operation, `Transmit`>> operation to be sent and a <<low-cut-flexray-confirm-operation, `Confirm`>> or <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation are provided and exchanged at exactly one Bus Communication Point.
 
-The configuration parameter <<low-cut-flexray-delivery-on-boundary-parameter, `org.fmi_standard.fmi_ls_bus.FlexRay_DeliveryOnBoundary`>> was introduced within a FlexRay Bus Terminal to switch the behavior in the Bus Simulation.
+The configuration parameter <<low-cut-flexray-delivery-on-boundary-parameter, `DeliveryOnBoundary`>> was introduced within a FlexRay Bus Terminal to switch the behavior in the Bus Simulation.
 If the value of the parameter is set to `true`, the Bus Simulation provides <<low-cut-flexray-transmit-operation, `Transmit`>> operations and also resulting <<low-cut-flexray-confirm-operation, `Confirm-`>> or <<low-cut-can-bus-error-operation, `Bus Error`>> operations at a concrete slot boundary.
 If the value of the parameter is set to `false`, the Bus Simulation provides the respective operations after the calculated transfer time.
 See <<low-cut-flexray-static-segment>> and <<low-cut-flexray-dynamic-segment>> for details.
@@ -713,8 +713,8 @@ If a Network FMU is supporting the delivery on a concrete slot boundary only, th
 [[figure-fmu-flexray-delivery-on-boundary-parameter]]
 ----
  MemberName:    DeliveryOnBoundary
- Description:   "Specifies whether the respective Network FMU expects
-                Transmit, Confirm- and Bus Error operations on a concrete slot boundary."
+ Description:   "Specifies whether the respective Network FMU expects Transmit, 
+                Confirm- and Bus Error operations on a concrete slot boundary."
  Type:          Boolean
  Causality:     parameter
  Variability:   fixed
