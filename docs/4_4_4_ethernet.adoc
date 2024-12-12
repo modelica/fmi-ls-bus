@@ -3,6 +3,11 @@ This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Stan
 
 ===== Overview [[low-cut-ethernet-overview]]
 ===== Operations [[low-cut-ethernet-operations]]
+
+====== Format Error [[low-cut-ethernet-format-error-operation]]
+Represents a format error that indicates a syntax or content error of receiving operations.
+See <<low-cut-format-error-operation, `Format Error`>> for definition.
+
 ===== Network Parameters [[low-cut-ethernet-network-parameters]]
 ===== Configuration of Bus Simulation [[low-cut-ethernet-configuration-of-bus-simulation]]
 ===== Transmission [[low-cut-ethernet-transmission]]
