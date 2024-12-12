@@ -169,7 +169,7 @@ The ID must be considered here as a purely numerical value.
 This means that there is no need for separate segmentation between the 11-bit base CAN identifier and an 18-bit CAN identifier extension information that is known from the CAN protocol.
 Additional information such as Ide is also not part of the ID, but is treated separately.
 | Ide | 1 byte | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
-For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used. 
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Rtr | 1 byte | Specifies whether the given frame represents a Remote Transmission Request frame.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Data Length | 2 byte | Specifies the length of the Data argument in bytes.
@@ -617,8 +617,10 @@ A Bus Simulation can simulate these effects by sending bus notifications in term
 However, in scenarios where Network FMUs are connected directly to each other, or where the Bus Simulation does not simulate such effects, it must be possible to configure the Network FMU such that it does not wait for any response after a <<low-cut-can-transmit-operation, `Transmit`>> operation.
 Therefore, the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> configuration parameter is introduced for each CAN Bus Terminal.
 If the value of the configuration parameter is set to `false`, the Network FMU must not wait for any response after a <<low-cut-can-transmit-operation, `Transmit`>> operation ("fire-and-forget").
+A Network FMU must always be able to handle the case that the Bus Simulation does not provide <<low-cut-can-confirm-operation, `Confirm-`>>, <<low-cut-can-bus-error-operation, `Bus Error-`>> or <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations.
 The default value shall be `false` to allow the Network FMU to be run natively in each simulation scenario.
 If a Network FMU is not supporting bus notifications, the configuration parameter shall be omitted.
+A Network FMU that does not support <<low-cut-can-confirm-operation, `Confirm-`>>, <<low-cut-can-bus-error-operation, `Bus Error-`>> or <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations must silently ignore them.
 If the Network FMU shall be configured to handle responses in the form of <<low-cut-can-confirm-operation, `Confirm-`>>, <<low-cut-can-bus-error-operation, `Bus Error-`>> and <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations, the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> configuration parameter within a specified Bus Terminal context shall be set to `true`. +
 _[This does not necessarily mean the FMU must fully support CAN error handling or sophisticated arbitration mechanisms._
 _A simple Network FMU might also choose to treat Bus Error or Arbitration operations in a simplified manner, e.g., by treating them as a positive confirmation.]_
@@ -675,7 +677,7 @@ In addition, the configuration parameter <<low-cut-can-bus-notification-paramete
 
 If <<low-cut-can-bus-notification-parameter, `BusNotifications`>> is set to `false` (default), then Network FMUs must not rely on receiving <<low-cut-can-confirm-operation, `Confirm`>> operations for the specified Bus Terminal.
 In this case, the bus simulation is idealized and takes place in a "fire-and-forget" manner.
-If a specified Network FMU is depending on <<low-cut-can-confirm-operation, `Confirm`>> operations and <<low-cut-can-bus-notification-parameter, `BusNotifications`>> is set to `false`, the self confirmation shall be realized internally within the respective Network FMU for the specified Bus Terminal. 
+If a specified Network FMU is depending on <<low-cut-can-confirm-operation, `Confirm`>> operations and <<low-cut-can-bus-notification-parameter, `BusNotifications`>> is set to `false`, the self confirmation shall be realized internally within the respective Network FMU for the specified Bus Terminal.
 
 <<#figure-can-direct-communication>> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
 Subsequently, FMU 1 self-confirms the transmission internally.
