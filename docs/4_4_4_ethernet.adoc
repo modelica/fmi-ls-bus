@@ -2,6 +2,42 @@
 This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for Ethernet.
 
 ===== Overview [[low-cut-ethernet-overview]]
+
+====== Scope of this standard
+
+Ethernet support in the LS-BUS should cover both normal and automotive Ethernet.
+
+In the Ethernet stack, similar to other busses, the LS-BUS for Ethernet cuts right above the MAC layer. Though, effects on lower layers are also modeled at an abstracted level.
+
+TODO:
+
+* PHY compatibility
+* Link establishment
+* PLCA
+
+This standard should cover all variants of Ethernet described in IEEE 802.3-2022 while being flexible enough to support future versions without adaption.
+Specifically, 100BASE-TX, 1000BASE-T, 100BASE-T1, 1000BASE-T1 and 10BASE-T1S have been evaluated in detail for this standard.
+In addition, common extensions are considered.
+
+TODO:
+
+* Mention AVB/TSN (e.g., preemption)
+* Mention OpenAlliance (e.g., TC10 wakeup/sleep)
+* Reference what exactly is part of the standard, and what can be achieved on higher layers. (table?)
+
+====== Ethernet topologies
+
+Ethernet support both point-to-point and multidrop topologies.
+In a point-to-point topology, Ethernet devices are either connected directly and more than two devices are connected using and Ethernet switch.
+This topology is used for all modern Ethernet variants except 10BASE-T1S.
+In a multidrop topology, multiple devices are connected to the same segment either directly, daisy-chained or interconnected via hubs.
+This topology is used for legacy Ethernet standards as well as 10BASE-T1S.
+
+In terms of the LS-BUS, each point-to-point connection or multidrop segment represents a dedicated virtual bus, which may be simulated by an independent bus simulation or combined into an consolidated simuation.
+Ethernet switches can be modeled as normal FMUs, where switch ports correspond to LS-BUS terminals, to allow simulating any kind of Ethernet switch.
+To simplify interconnecting Ethernet FMUs, a bus simulation may decide to incorporate the Ethernet switching instead of delegating it to a dedicated FMU.
+
+
 ===== Operations [[low-cut-ethernet-operations]]
 This section defines the specified operations for Ethernet.
 The following tables provides an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
@@ -71,6 +107,13 @@ If a Network FMU does not support sleep requests, this operation can be ignored 
 ===== Network Parameters [[low-cut-ethernet-network-parameters]]
 ===== Configuration of Bus Simulation [[low-cut-ethernet-configuration-of-bus-simulation]]
 ===== Transmission [[low-cut-ethernet-transmission]]
+
+A transmission of an Ethernet frame is modeled by a transmit operation.
+The transmit operation is received by the bus simulation and forwarded to the communication partner after the transmission delay.
+The bus operation then sends a confirm operation to the sender, if TODO is configured.
+In case of an error, a bus error operation may be returned instead.
+
+
 ===== Error Handling [[low-cut-ethernet-error-handling]]
 ===== Wake Up/Sleep [[low-cut-ethernet-wakeup-sleep]]
 This standard supports wake up and sleep functionality for the Ethernet bus, based on the TC10 Sleep/Wake-up 
