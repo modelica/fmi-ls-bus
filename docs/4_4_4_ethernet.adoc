@@ -46,6 +46,143 @@ The following tables provides an overview of all operations and specifies the po
 Represents a format error that indicates a syntax or content error of receiving operations.
 See <<low-cut-format-error-operation, `Format Error`>> for definition.
 
+====== Transmit [[low-cut-ethernet-transmit]]
+Represents the transmission of an Ethernet frame or MAC Merge Packet (mPacket).
+
+.Detailed description of the Transmit operation.
+[#table-fmi3-ls-bus-ethernet-transmit-operation]
+[cols="6,1,5,4,3,20"]
+|====
+h|Name 5+| Transmit
+h|Description 5+| Indicates the transmission of an Ethernet frame or mPacket.
+h|OP Code [hex] 5+| 0x10
+.21+h|Content 3+h|Argument h|Length h|Description
+
+
+3+| OP Code
+| 4 bytes
+| Type of the operation.
+
+3+| Length
+| 4 bytes
+| Total length of the operation.
+
+
+3+| Start delimiter
+| 1 byte
+| The start frame (SFD) or start mPacket (SMD) delimiter. Always set to 0xD5 for ordinary Ethernet frames when not using preemption.
+
+3+| Destination address
+| 6 bytes
+| The destination address of the frame.
+
+3+| Source address
+| 6 bytes
+| The destination address of the frame.
+
+3+| EtherType or length
+| 2 bytes
+| Indicates the type of Ethernet frame (Ethernet II) or frame length (802.3).
+
+3+| CRC
+| 4 bytes
+| The checksum of this Ethernet frame or mPacket.
+
+3+| DataLength
+| 1 byte
+| The length of the data of this Ethernet frame or mPacket. Note that this does not correspond to a field in the Ethernet frame.
+
+3+| Data
+| n bytes
+| The payload data of the Ethernet frame or mPacket.
+
+|====
+
+
+====== Transmit verify/respond [[low-cut-ethernet-transmit-verify-respond-operation]]
+Represents the transmission of a verify or reponse mPacket.
+
+.Detailed description of the Transmit verify/respond operation.
+[#table-fmi3-ls-bus-ethernet-transmit-verify-respond-operation]
+[cols="6,1,5,4,3,20"]
+|====
+h|Name 5+| TransmitVerifyRespond
+h|Description 5+| Indicates the transmission of a verify or respond mPacket.
+h|OP Code [hex] 5+| 0x11
+.21+h|Content 3+h|Argument h|Length h|Description
+
+
+3+| OP Code
+| 4 bytes
+| Type of the operation.
+
+3+| Length
+| 4 bytes
+| Total length of the operation.
+
+
+3+| SMD
+| 1 byte
+| The delimiter indicating the type of mPacket.
+
+3+| CRC
+| 4 bytes
+| The checksum of the mPacket.
+
+3+| DataLength
+| 1 byte
+| The length of the data of this mPacket. Note that this does not correspond to a field in the Ethernet frame.
+
+3+| Data
+| n bytes
+| The payload data of the Ethernet mPacket.
+
+|====
+
+====== Transmit continuation [[low-cut-ethernet-transmit-continuation-operation]]
+Represents the transmission of a continuation mPacket.
+
+.Detailed description of the Transmit continuation operation.
+[#table-fmi3-ls-bus-ethernet-transmit-continuation-operation]
+[cols="6,1,5,4,3,20"]
+|====
+h|Name 5+| TransmitContinuation
+h|Description 5+| Indicates the transmission of a continuation mPacket of a fragmented Ethernet frame.
+h|OP Code [hex] 5+| 0x12
+.21+h|Content 3+h|Argument h|Length h|Description
+
+
+3+| OP Code
+| 4 bytes
+| Type of the operation.
+
+3+| Length
+| 4 bytes
+| Total length of the operation.
+
+
+3+| SMD
+| 1 byte
+| The delimiter indicating the type of mPacket.
+
+3+| FragmentCounter
+| 1 byte
+| Fragment counter of the continuation mPacket.
+
+3+| CRC
+| 4 bytes
+| The checksum of the mPacket.
+
+3+| DataLength
+| 1 byte
+| The length of the data of this mPacket. Note that this does not correspond to a field in the Ethernet frame.
+
+3+| Data
+| n bytes
+| The payload data of the Ethernet mPacket.
+
+|====
+
 ====== Wake Up [[low-cut-ethernet-wake-up-operation]]
 By using <<low-cut-ethernet-wake-up-operation, `Wakeup`>> and <<low-cut-ethernet-sleep-operation, `Sleep`>> operations, the underlying Bus Simulation can trigger a bus-specific wake up and sleep requests.
 
@@ -113,10 +250,14 @@ The transmit operation is received by the bus simulation and forwarded to the co
 The bus operation then sends a confirm operation to the sender, if TODO is configured.
 In case of an error, a bus error operation may be returned instead.
 
+When using the MAC Merge sublayer (See chapter 99 of 802.3-2022),
+the transmit operation can also indicate the transmission of Express frames and the initial fragment of preempted frames.
+Continuation packets of a preempted frame are transmitted using the transmit continuation operation.
+
 
 ===== Error Handling [[low-cut-ethernet-error-handling]]
 ===== Wake Up/Sleep [[low-cut-ethernet-wakeup-sleep]]
-This standard supports wake up and sleep functionality for the Ethernet bus, based on the TC10 Sleep/Wake-up 
+This standard supports wake up and sleep functionality for the Ethernet bus, based on the TC10 Sleep/Wake-up
 Specification.
 Note that Wake Up/Sleep is not available for all Ethernet variants, but only for 10BASE-T1S, 100BASE-T1, 1000BASE-T1 and Multi-G BASE-T1.
 However, the realization of local virtual ECU wake-up and sleeping processes, i.e., the transition to the sleep state as well as the virtual ECU local wake-up process, is considered internal to the FMU implementation.
