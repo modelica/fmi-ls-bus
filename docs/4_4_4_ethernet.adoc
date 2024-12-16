@@ -5,25 +5,18 @@ This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Stan
 
 ====== Scope of this standard
 
-Ethernet support in the LS-BUS should cover both normal and automotive Ethernet.
+This standard should allows simulation of Ethernet bus systems and shall cover commercial, industrial and automotive use cases.
 
-In the Ethernet stack, similar to other busses, the LS-BUS for Ethernet cuts right above the MAC layer. Though, effects on lower layers are also modeled at an abstracted level.
+This standard should cover all variants of Ethernet described in <<IEEE-802.3-2022>> while being flexible enough to support future versions without adaption due to the high cadence of the Ethernet standarization process.
+In addition, common supplementary standards are considered, including the following:
 
-TODO:
+* <<OpenAlliance-TC10-100BASE-T1, Open Alliance TC10 sleep/wake-up>> (including <<OpenAlliance-TC10-100BASE-T1, 100BASE-T>>, <<OpenAlliance-TC10-1000BASE-T1, 1000BASE-T1>> and <<OpenAlliance-TC10-10BASE-T1S, 10BASE-T1S>>)
 
-* PHY compatibility
-* Link establishment
-* PLCA
+Especially the physical layers 100BASE-TX, 1000BASE-T, 10GBASE-T, 100BASE-T1, 1000BASE-T1 and 10BASE-T1S have been evaluated in detail for this standard.
+In addition, it should consider requirements for time-sensitive networking (TSN), specifically the use of the MAC Merge sublayer (also known as Ethernet Frame Preemption).
 
-This standard should cover all variants of Ethernet described in IEEE 802.3-2022 while being flexible enough to support future versions without adaption.
-Specifically, 100BASE-TX, 1000BASE-T, 100BASE-T1, 1000BASE-T1 and 10BASE-T1S have been evaluated in detail for this standard.
-In addition, common extensions are considered.
-
-TODO:
-
-* Mention AVB/TSN (e.g., preemption)
-* Mention OpenAlliance (e.g., TC10 wakeup/sleep)
-* Reference what exactly is part of the standard, and what can be achieved on higher layers. (table?)
+In the 802.3 architecture, the layered standard aims to provide an abstraction of the Ethernet controller on the Media Access Control (MAC) sublayer.
+Effects on lower layers are modeled on a simplified level.
 
 
 ====== Ethernet topologies
@@ -70,7 +63,19 @@ Continuation packets of a preempted frame are transmitted using the transmit con
 TODO: Examples
 
 
-===== Configuration of bus Simulation [[low-cut-ethernet-configuration-of-bus-simulation]]
+===== Configuration of bus simulation [[low-cut-ethernet-configuration-of-bus-simulation]]
+
+To initialize the Ethernet communication, the network FMUs need to exchange
+their capabilities and link state.
+This serves to properly simulate compatibility of the used PHY and to determine the correct link speed and behavior.
+In addition, simulation of auto-negotiation, auto MDI-X, and configuration of other lower layer mechanisms like PLCA is facilitated using this mechanism.
+
+Before an Ethernet network FMU may communicate, it must send a configuration operation (TODO: reference).
+Only after also receiving a bus configuration operation and evaluating it against its own configuration for compatibility, it may start transmitting frames.
+
+In a direct connection scenario, configuration operations are exchanged as-is.
+With a bus simulation, configuration operations may either be forwarded by a bus simulation or the bus simulation may supply its own configuration operation to each node.
+In a multidrop configuration, the bus simulation shall not forward configuration operations but should supply a single configuration operation to each network FMU.
 
 
 ===== Error Handling [[low-cut-ethernet-error-handling]]
