@@ -79,6 +79,13 @@ In a multidrop configuration, the bus simulation shall not forward configuration
 
 
 ===== Error Handling [[low-cut-ethernet-error-handling]]
+
+#TODO#
+
+.Architectural error handling overview.
+[#figure-ethernet-architectural-error-handling-overview]
+image::ethernet_error_handling_overview.svg[width=100%, align="center"]
+
 ===== Wake Up/Sleep [[low-cut-ethernet-wakeup-sleep]]
 This standard supports wake up and sleep functionality for the Ethernet bus, based on the TC10 Sleep/Wake-up
 Specification.
