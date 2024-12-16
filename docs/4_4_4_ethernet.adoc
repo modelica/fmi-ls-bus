@@ -93,10 +93,6 @@ The Bus Simulation shall distribute this operation to all participants on the bu
 [#figure-ethernet-wake-up]
 image::ethernet_wake_up.svg[width=70%, align="center"]
 
-Analogously, the <<low-cut-ethernet-sleep-operation, `Sleep`>> operation is used to prompt corresponding receivers to go to sleep.
-The flow direction is analogous to the <<low-cut-ethernet-wake-up-operation, `Wakeup`>> operation.
-
-
 ===== Network parameters [[low-cut-ethernet-network-parameters]]
 By using configuration parameters on bus terminal-level, network FMUs can be parameterized by the user or bus simulation (e.g., by using the parameter propagation mechanism).
 This chapter specifies the configuration parameters that should exist on an Ethernet bus terminal.

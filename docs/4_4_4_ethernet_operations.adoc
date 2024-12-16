@@ -192,7 +192,7 @@ h|OP Code [hex] 5+| 0x20
 
 
 ====== Wake Up [[low-cut-ethernet-wake-up-operation]]
-By using <<low-cut-ethernet-wake-up-operation, `Wakeup`>> and <<low-cut-ethernet-sleep-operation, `Sleep`>> operations, the underlying Bus Simulation can trigger a bus-specific wake up and sleep requests.
+By using the <<low-cut-ethernet-wake-up-operation, `Wakeup`>> operation, the underlying Bus Simulation can trigger bus-specific wake up requests.
 
 .Detailed description of the Wakeup operation.
 [#table-ethernet-wakeup-operation]
@@ -220,32 +220,3 @@ If a Network FMU does not support wake up, this operation can be ignored on the 
 
 |====
 
-
-====== Sleep [[low-cut-ethernet-sleep-operation]]
-By using <<low-cut-ethernet-wake-up-operation, `Wakeup`>> and <<low-cut-ethernet-sleep-operation, `Sleep`>> operations, the underlying Bus Simulation can trigger a bus-specific wake up and sleep requests.
-
-.Detailed description of the Sleep operation.
-[#table-ethernet-sleep-operation]
-[cols="5,4,3,20"]
-|====
-h|Name
-3+|Sleep
-h|Description
-3+|Represents an operation for triggering a bus-specific sleep.
-h|OP Code [hex]
-3+|0x43
-.3+h|Content h|Argument h|Length h|Description
-|OP Code
-|4 byte
-|Contains the OP Code (0x43) of the operation.
-
-|Length
-|4 byte
-|Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Length = 8`.
-
-h|Behavior
-3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the sleep requesting initiator, of the bus using the Bus Simulation.
-If a Network FMU does not support sleep requests, this operation can be ignored on the consumer side.
-
-|====
