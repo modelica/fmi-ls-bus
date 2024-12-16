@@ -88,7 +88,7 @@ h|OP Code [hex] 5+| 0x10
 | 4 bytes
 | The checksum of this Ethernet frame or mPacket.
 
-3+| DataLength
+3+| Data length
 | 1 byte
 | The length of the data of this Ethernet frame or mPacket. Note that this does not correspond to a field in the Ethernet frame.
 
@@ -121,7 +121,7 @@ h|OP Code [hex] 5+| 0x11
 | Total length of the operation.
 
 
-3+| SMD
+3+| Start delimiter
 | 1 byte
 | The delimiter indicating the type of mPacket.
 
@@ -129,7 +129,7 @@ h|OP Code [hex] 5+| 0x11
 | 4 bytes
 | The checksum of the mPacket.
 
-3+| DataLength
+3+| Data length
 | 1 byte
 | The length of the data of this mPacket. Note that this does not correspond to a field in the Ethernet frame.
 
@@ -161,11 +161,11 @@ h|OP Code [hex] 5+| 0x12
 | Total length of the operation.
 
 
-3+| SMD
+3+| Start delimiter
 | 1 byte
 | The delimiter indicating the type of mPacket.
 
-3+| FragmentCounter
+3+| Fragment counter
 | 1 byte
 | Fragment counter of the continuation mPacket.
 
@@ -173,7 +173,7 @@ h|OP Code [hex] 5+| 0x12
 | 4 bytes
 | The checksum of the mPacket.
 
-3+| DataLength
+3+| Data length
 | 1 byte
 | The length of the data of this mPacket. Note that this does not correspond to a field in the Ethernet frame.
 
