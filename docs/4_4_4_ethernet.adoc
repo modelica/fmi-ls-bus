@@ -25,6 +25,7 @@ TODO:
 * Mention OpenAlliance (e.g., TC10 wakeup/sleep)
 * Reference what exactly is part of the standard, and what can be achieved on higher layers. (table?)
 
+
 ====== Ethernet topologies
 
 Ethernet support both point-to-point and multidrop topologies.
@@ -38,19 +39,38 @@ Ethernet switches can be modeled as normal FMUs, where switch ports correspond t
 To simplify interconnecting Ethernet FMUs, a bus simulation may decide to incorporate the Ethernet switching instead of delegating it to a dedicated FMU.
 
 
-===== Network Parameters [[low-cut-ethernet-network-parameters]]
-===== Configuration of Bus Simulation [[low-cut-ethernet-configuration-of-bus-simulation]]
 ===== Transmission [[low-cut-ethernet-transmission]]
 
 A transmission of an Ethernet frame is modeled by a transmit operation.
 The transmit operation is received by the bus simulation and forwarded to the communication partner after the transmission delay which should be calculated by the bus simulation.
 
-The bus simulation then sends a confirm operation to the sender, if TODO is configured.
-In case of an error, a bus error operation may be returned instead.
+The bus simulation then sends a confirm operation to the sender, if the <<low-cut-ethernet-bus-notification-parameter, Bus Notification parameter>> is configured.
+In the case of an error or collision, a bus error operation may be returned instead.
+
+The following sections will describe special transmission scenarios.
+
+====== Normal transmission
+
+TODO
+
+====== Transmission with avoided collision
+
+TODO
+
+====== Transmission with collision
+
+TODO
+
+====== Fragmented transmission using the MAC Merge sublayer
 
 When using the MAC Merge sublayer (See chapter 99 of 802.3-2022),
 the transmit operation can also indicate the transmission of Express frames and the initial fragment of preempted frames.
 Continuation packets of a preempted frame are transmitted using the transmit continuation operation.
+
+TODO: Examples
+
+
+===== Configuration of bus Simulation [[low-cut-ethernet-configuration-of-bus-simulation]]
 
 
 ===== Error Handling [[low-cut-ethernet-error-handling]]
@@ -70,6 +90,15 @@ image::ethernet_wake_up.svg[width=70%, align="center"]
 
 Analogously, the <<low-cut-ethernet-sleep-operation, `Sleep`>> operation is used to prompt corresponding receivers to go to sleep.
 The flow direction is analogous to the <<low-cut-ethernet-wake-up-operation, `Wakeup`>> operation.
+
+
+===== Network parameters [[low-cut-ethernet-network-parameters]]
+By using configuration parameters on bus terminal-level, network FMUs can be parameterized by the user or bus simulation (e.g., by using the parameter propagation mechanism).
+This chapter specifies the configuration parameters that should exist on an Ethernet bus terminal.
+
+====== Bus notification parameter [[low-cut-ethernet-bus-notification-parameter]]
+For a detailed simulation, a network FMU needs information about whether a frame has been sent or whether a bus error has occurred.
+A bus simulation can simulate these effects by sending bus notifications in terms of <<low-cut-ethernet-confirm-operation, `Confirm-`>> and <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operations to the network FMUs.
 
 
 include::4_4_4_ethernet_operations.adoc[]
