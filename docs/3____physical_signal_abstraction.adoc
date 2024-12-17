@@ -74,8 +74,8 @@ _[e.g., `Powertrain`, if the file is `/extra/org.fmi-standard.fmi-ls-bus/Powertr
 In any case, the attribute `name` of the `<Terminal>` must be consistent with the `BusName` component of all its corresponding signal, frame and Clock variables.
 
 Attribute definitions::
- * `terminalKind` must be set to `org.fmi-ls-bus.network-terminal`.
- * `matchingRule` must be set to `bus`.
+ * `terminalKind` must be `org.fmi-ls-bus.network-terminal`.
+ * `matchingRule` must be `bus`.
  * `name` is the network name, e.g., `Powertrain`, see <<high-cut-example, example>> and constraints above.
 
 Element definitions::
@@ -92,15 +92,15 @@ If no <<high-cut-network-description-files,network description file>> is shipped
 Each frame listed in the <<high-cut-network-description-files>> must be an element of its corresponding <<high-cut-bus-terminal>>.
 
 Attribute definitions::
- * `terminalKind` must be set to `org.fmi-ls-bus.frame-terminal`.
- * `matchingRule` must be set to `bus`.
+ * `terminalKind` must be `org.fmi-ls-bus.frame-terminal`.
+ * `matchingRule` must be `bus`.
  * `name` must match the frame name as defined in the <<high-cut-network-description-files>> in `/extra/org.fmi-standard.fmi-ls-bus`.
 
 Element definitions::
  * There must be no `<TerminalStreamMemberVariable>` element.
  * There must be one <<high-cut-pdu-terminal>> element per PDU of this frame.
  * There must be one `<TerminalMemberVariable>` for the Clock this frame is connected to.
-   The `memberName` of this variable must be "Clock".
+   The `memberName` of this variable must be `TransmissionClock`.
 
 The <<high-cut-terminal-member-variable-for-signals>> must have the same `causality` as all variables referenced in the <<high-cut-pdu-terminal,PDU Terminals>> included here.
 
@@ -108,8 +108,8 @@ The <<high-cut-terminal-member-variable-for-signals>> must have the same `causal
 Each PDU listed in the <<high-cut-network-description-files>> must be an element of its corresponding <<high-cut-frame-terminal>>.
 
 Attribute definitions::
- * `terminalKind` must be set to `org.fmi-ls-bus.pdu-terminal`.
- * `matchingRule` must be set to `bus`.
+ * `terminalKind` must be `org.fmi-ls-bus.pdu-terminal`.
+ * `matchingRule` must be `bus`.
  * `name` must match a PDU name of the <<high-cut-network-description-files>> in `/extra/org.fmi-standard.fmi-ls-bus`, if given.
     For network types not natively referencing a "PDU", like CAN, a synthetic PDU with the same name as its frame is inserted.
 
