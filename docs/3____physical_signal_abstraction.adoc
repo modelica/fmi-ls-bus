@@ -100,7 +100,7 @@ Element definitions::
  * There must be no `<TerminalStreamMemberVariable>` element.
  * There must be one <<high-cut-pdu-terminal>> element per PDU of this frame.
  * There must be one `<TerminalMemberVariable>` for the Clock this frame is connected to.
-   The `memberName` of this variable shall be equal to the value `TransmissionClock`.
+   The `memberName` of this variable must be `TransmissionClock`.
 
 The <<high-cut-terminal-member-variable-for-signals>> must have the same `causality` as all variables referenced in the <<high-cut-pdu-terminal,PDU Terminals>> included here.
 
