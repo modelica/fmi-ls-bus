@@ -32,27 +32,55 @@ Ethernet switches can be modeled as normal FMUs, where switch ports correspond t
 To simplify interconnecting Ethernet FMUs, a bus simulation may decide to incorporate the Ethernet switching instead of delegating it to a dedicated FMU.
 
 
-===== Transmission [[low-cut-ethernet-transmission]]
+===== Transmission and reception [[low-cut-ethernet-transmission]]
 
 A transmission of an Ethernet frame is modeled by a transmit operation.
 The transmit operation is received by the bus simulation and forwarded to the communication partner after the transmission delay which should be calculated by the bus simulation.
 
-The bus simulation then sends a confirm operation to the sender, if the <<low-cut-ethernet-bus-notification-parameter, Bus Notification parameter>> is configured.
-In the case of an error or collision, a bus error operation may be returned instead.
+The bus simulation then sends a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation to the sender, if the <<low-cut-ethernet-bus-notification-parameter, Bus Notification parameter>> is configured.
+In the case of an error or collision, a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation may be returned instead.
 
-The following sections will describe special transmission scenarios.
+The following sections will describe different transmission scenarios in detail.
 
 ====== Normal transmission
 
-TODO
+In a normal transmission, the Network FMU sends a transmit operation which is
+forwarded to the communication partner after the calculated transmit time.
+The bus operation confirm the transmission with a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation.
+
+.Normal transmission.
+[#figure-ethernet-transmit]
+image::ethernet_transmit.svg[width=80%, align="center"]
+
 
 ====== Transmission with avoided collision
 
-TODO
+On a real Ethernet bus, an Ethernet node can use carrier sensing to detect on going transmissions to defer its own transmission until the medium is free.
+In the LS-BUS, this is not possible, thus a special bus error is introduced to indicate when the medium is busy.
+
+When a Network FMU starts a transmission in this case, the bus simulation returns a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with error code _MediumBusy_ (TODO: Make sure this matches the enum).
+The Network FMU should the re-attempt the transmission at a later point in time.
+
+Note: In this scenario the ongoing transmission can continue.
+
+.Transmission with avoided collision.
+[#figure-ethernet-transmit-collision-avoided]
+image::ethernet_transmit_collision_avoided.svg[width=80%, align="center"]
+
 
 ====== Transmission with collision
 
-TODO
+If the Ethernet node does not the detect an ongoing transmission in time, the Ethernet frames collide causing both transmissions to be destroyed.
+
+When a Network FMU starts a transmission in this case, the bus simulation returns a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with error code _Collision_ (TODO: Make sure this matches the enum).
+This is also sent to other nodes on the bus including the sender of the other transmission.
+
+Note: In this scenario the ongoing transmission is destroyed as well.
+
+.Transmission with collision.
+[#figure-ethernet-transmit-collision]
+image::ethernet_transmit_collision.svg[width=80%, align="center"]
+
 
 ====== Fragmented transmission using the MAC Merge sublayer
 

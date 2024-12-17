@@ -149,11 +149,11 @@ h|OP Code [hex] 5+| 0x12
 
 
 ====== Confirm [[low-cut-ethernet-confirm-operation]]
-The <<low-cut-ethernet-confirm-operation, `Confirm`>> operation is used to signal the successful reception of a transmitted Ethernet frame by at least one Network FMU.
+The <<low-cut-ethernet-confirm-operation, `Confirm`>> operation is used to indicate the successful transmission of an Ethernet frame by a Network FMU.
 
 
 ====== Bus Error [[low-cut-ethernet-bus-error-operation]]
-The <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation represents special bus communication errors, which are delivered to every participant in the network.
+The <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation is used to indicate a bus communication error. Bus errors are delivered to every participant in the network.
 
 
 ====== Configuration [[low-cut-ethernet-configuration-operation]]

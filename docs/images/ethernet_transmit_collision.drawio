@@ -1,0 +1,98 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+  <diagram name="Page-1" id="uWt0DXkAwFjxTNQVACbC">
+    <mxGraphModel dx="915" dy="771" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="540" pageHeight="280" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="NAyeFVG812MS7HLilraX-1" value="Node 1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="100" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="NAyeFVG812MS7HLilraX-2" value="Bus" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="280" y="40" width="100" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="NAyeFVG812MS7HLilraX-3" value="Node 3" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="400" y="40" width="100" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="NAyeFVG812MS7HLilraX-4" value="Transmit(1)" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="NAyeFVG812MS7HLilraX-1" target="NAyeFVG812MS7HLilraX-2">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="210" y="160" as="sourcePoint" />
+            <mxPoint x="290" y="160" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="270" y="160" />
+              <mxPoint x="290" y="160" />
+              <mxPoint x="150" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NAyeFVG812MS7HLilraX-5" value="Node 2" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="160" y="40" width="100" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="NAyeFVG812MS7HLilraX-6" value="Transmit(2)" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="NAyeFVG812MS7HLilraX-5">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="110" y="170" as="sourcePoint" />
+            <mxPoint x="330" y="180" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="290" y="180" />
+              <mxPoint x="280" y="170" />
+              <mxPoint x="300" y="170" />
+              <mxPoint x="160" y="170" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NAyeFVG812MS7HLilraX-7" value="Error(Collision)" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="NAyeFVG812MS7HLilraX-2" target="NAyeFVG812MS7HLilraX-1">
+          <mxGeometry x="0.3343" y="20" width="80" relative="1" as="geometry">
+            <mxPoint x="300" y="210" as="sourcePoint" />
+            <mxPoint x="100" y="230" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="180" y="200" />
+              <mxPoint x="300" y="210" />
+              <mxPoint x="310" y="260" />
+              <mxPoint x="290" y="270" />
+              <mxPoint x="170" y="230" />
+              <mxPoint x="280" y="240" />
+              <mxPoint x="300" y="240" />
+              <mxPoint x="270" y="220" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NAyeFVG812MS7HLilraX-8" value="Error(Collision)" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" source="NAyeFVG812MS7HLilraX-2">
+          <mxGeometry x="-0.1667" y="20" width="80" relative="1" as="geometry">
+            <mxPoint x="300" y="230" as="sourcePoint" />
+            <mxPoint x="210" y="220" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="210" y="220" />
+              <mxPoint x="280" y="210" />
+              <mxPoint x="280" y="220" />
+              <mxPoint x="300" y="230" />
+              <mxPoint x="310" y="280" />
+              <mxPoint x="290" y="290" />
+              <mxPoint x="170" y="250" />
+              <mxPoint x="280" y="260" />
+              <mxPoint x="300" y="260" />
+              <mxPoint x="270" y="240" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="NAyeFVG812MS7HLilraX-9" value="Error(Collision)" style="html=1;verticalAlign=bottom;endArrow=block;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;" edge="1" parent="1" target="NAyeFVG812MS7HLilraX-3">
+          <mxGeometry x="0.7163" y="-20" width="80" relative="1" as="geometry">
+            <mxPoint x="330" y="200" as="sourcePoint" />
+            <mxPoint x="90" y="200" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="180" y="200" />
+              <mxPoint x="300" y="210" />
+              <mxPoint x="310" y="260" />
+              <mxPoint x="290" y="270" />
+              <mxPoint x="170" y="230" />
+              <mxPoint x="280" y="240" />
+              <mxPoint x="300" y="240" />
+              <mxPoint x="270" y="220" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
