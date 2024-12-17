@@ -269,7 +269,7 @@ The following applies for this operation: `Length = 12`.
 
 h|Behavior
 3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
-If the configuration parameter <<low-cut-can-bus-notification-parameter, `BusNotifications`>> of a CAN Bus Terminal is set to `false`, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-confirm-operation, `Confirm`>> operations are discarded by the Network FMU.
+If the configuration parameter <<low-cut-can-bus-notification-parameter, `BusNotifications`>> of a CAN Bus Terminal is set to `false` or omitted, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-confirm-operation, `Confirm`>> operations are discarded by the Network FMU.
 Depending on the <<low-cut-can-status-operation, status>> of the specified Network FMU further restrictions for <<low-cut-can-confirm-operation, `Confirm`>> operations <<table-can-status-values, exist>>.
 
 |====
@@ -311,7 +311,7 @@ h|Behavior
 In such case, the Bus Simulation has to decide which <<low-cut-can-transmit-operation, `Transmit`>> operation should be processed first.
 Depending on the configuration (see the `Arbitration Lost Behavior` argument of the <<low-cut-can-configuration-operation, `Configuration`>> operation), the deferred <<low-cut-can-transmit-operation, `Transmit`>> operations shall either be buffered or they shall be discarded and the <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operation shall be sent back to the respective Network FMUs.
 A Network FMU receiving the <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operation can decide to provide the <<low-cut-can-transmit-operation, `Transmit`>> operation again or e.g., to raise an internal transmit timeout failure after a while.
-If the configuration parameter <<low-cut-can-bus-notification-parameter, `BusNotifications`>> of a CAN Bus Terminal is set to `false`, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations are discarded by the Network FMU.
+If the configuration parameter <<low-cut-can-bus-notification-parameter, `BusNotifications`>> of a CAN Bus Terminal is set to `false` or omitted, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations are discarded by the Network FMU.
 
 |====
 
@@ -364,7 +364,7 @@ To determine the CAN node state properly, Network FMUs need the information abou
 For a Network FMU that initiated the <<low-cut-can-transmit-operation, `Transmit`>> operation, the argument `Is Sender` shall be set to `TRUE` in the corresponding <<low-cut-can-bus-error-operation, `Bus Error`>> operation.
 For a Network FMU considered to be the one detecting the error first, the argument `Error Flag = PRIMARY_ERROR_FLAG` shall be set.
 The arguments `Is Sender = TRUE` and `Error Flag = PRIMARY_ERROR_FLAG` must only be set once per simulated error.
-If the configuration parameter <<low-cut-can-bus-notification-parameter, `BusNotifications`>> of a CAN Bus Terminal is set to `false`, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-bus-error-operation, `Bus Error`>> operations are discarded by the Network FMU.
+If the configuration parameter <<low-cut-can-bus-notification-parameter, `BusNotifications`>> of a CAN Bus Terminal is set to `false` or omitted, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-bus-error-operation, `Bus Error`>> operations are discarded by the Network FMU.
 |====
 
 The following Error Codes are specified:
