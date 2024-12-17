@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 897bf76,</span>
-<span id="revdate">2024-12-10</span>
+<span id="revnumber">version 66af1a1,</span>
+<span id="revdate">2024-12-17</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -1299,10 +1299,10 @@ In any case, the attribute <code>name</code> of the <code>&lt;Terminal&gt;</code
 <div class="ulist">
 <ul>
 <li>
-<p><code>terminalKind</code> must be set to <code>org.fmi-ls-bus.network-terminal</code>.</p>
+<p><code>terminalKind</code> must be <code>org.fmi-ls-bus.network-terminal</code>.</p>
 </li>
 <li>
-<p><code>matchingRule</code> must be set to <code>bus</code>.</p>
+<p><code>matchingRule</code> must be <code>bus</code>.</p>
 </li>
 <li>
 <p><code>name</code> is the network name, e.g., <code>Powertrain</code>, see <a href="#high-cut-example">example</a> and constraints above.</p>
@@ -1351,10 +1351,10 @@ If no <a href="#high-cut-network-description-files">network description file</a>
 <div class="ulist">
 <ul>
 <li>
-<p><code>terminalKind</code> must be set to <code>org.fmi-ls-bus.frame-terminal</code>.</p>
+<p><code>terminalKind</code> must be <code>org.fmi-ls-bus.frame-terminal</code>.</p>
 </li>
 <li>
-<p><code>matchingRule</code> must be set to <code>bus</code>.</p>
+<p><code>matchingRule</code> must be <code>bus</code>.</p>
 </li>
 <li>
 <p><code>name</code> must match the frame name as defined in the <a href="#high-cut-network-description-files">network description file</a> in <code>/extra/org.fmi-standard.fmi-ls-bus</code>.</p>
@@ -1374,7 +1374,7 @@ If no <a href="#high-cut-network-description-files">network description file</a>
 </li>
 <li>
 <p>There must be one <code>&lt;TerminalMemberVariable&gt;</code> for the Clock this frame is connected to.
-The <code>memberName</code> of this variable must be "Clock".</p>
+The <code>memberName</code> of this variable must be <code>TransmissionClock</code>.</p>
 </li>
 </ul>
 </div>
@@ -1397,10 +1397,10 @@ The <code>memberName</code> of this variable must be "Clock".</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>terminalKind</code> must be set to <code>org.fmi-ls-bus.pdu-terminal</code>.</p>
+<p><code>terminalKind</code> must be <code>org.fmi-ls-bus.pdu-terminal</code>.</p>
 </li>
 <li>
-<p><code>matchingRule</code> must be set to <code>bus</code>.</p>
+<p><code>matchingRule</code> must be <code>bus</code>.</p>
 </li>
 <li>
 <p><code>name</code> must match a PDU name of the <a href="#high-cut-network-description-files">network description file</a> in <code>/extra/org.fmi-standard.fmi-ls-bus</code>, if given.
