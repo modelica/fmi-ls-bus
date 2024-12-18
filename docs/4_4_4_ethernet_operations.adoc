@@ -186,6 +186,10 @@ h|OP Code [hex] 5+| 0x20
 4+h|Parameter
 
 .16+|SUPPORTED_PHY_TYPES
+| MDI Mode
+| 1 bytes
+| The configuration of the node's media-dependent interface.
+
 | Number of supported PHY types
 | 1 bytes
 | The number of characters in the list of supported PHY types.
@@ -198,6 +202,19 @@ h|OP Code [hex] 5+| 0x20
 
 |====
 
+
+.Valid values for the MDI mode.
+[#table-fmi3-ls-bus-ethernet-mdi-mode-values]
+[cols="2,1,5"]
+|====
+
+h|Name h|Value h|Description
+|NONE|0x0|Not applicable
+|MDI|0x1|The MDI is wired in normal configuration.
+|MDI_X|0x2|The MDI is wired in crossover configuration.
+|AUTO_MDI_X|0x3|The node supports auto MDI/MDI-X.
+
+|====
 
 ====== Auto-Negotiation Base Page [[low-cut-ethernet-auto-negotatiation-base-page-operation]]
 Represents the transmission of an auto-negotiation base page according to section 28 of <<IEEE-802.3-2022>>.
@@ -549,6 +566,22 @@ If auto-negotiation is enabled but has not yet been performed, the value "unknow
 3+| Heartbeat
 | 1 byte
 | Indicates that the node is sending a regular normal link pulse or IDLE symbol.
+
+3+| Master slave mode
+| 1 byte
+| Indicates whether the node is operating as MASTER or SLAVE.
+
+|====
+
+.Valid values for the master slave mode.
+[#table-fmi3-ls-bus-ethernet-master-slave-mode-values]
+[cols="2,1,5"]
+|====
+
+h|Name h|Value h|Description
+|NONE|0x0|Not applicable
+|MASTER|0x1|Node is operating as MASTER.
+|SLAVE|0x2|Node is operating as SLAVE.
 
 |====
 
