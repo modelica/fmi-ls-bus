@@ -88,9 +88,11 @@ image::ethernet_transmit_collision.svg[width=80%, align="center"]
 
 When using the MAC Merge sublayer (See chapter 99 of 802.3-2022),
 the transmit operation can also indicate the transmission of Express frames and the initial fragment of preempted frames.
-Continuation packets of a preempted frame are transmitted using the transmit continuation operation.
+Continuation packets of a preempted frame are transmitted using the <<low-cut-ethernet-transmit-continuation-operation, Transmit Continuation Operation>>.
 
-TODO: Examples
+.Fragmented transmission. The frame 1 is fragmented into two fragments 1.1 and 1.2 due to a transmission of an Express frame 2.
+[#figure-ethernet-transmit-fragmented]
+image::ethernet_transmit_fragmented.svg[width=80%, align="center"]
 
 
 ===== Configuration of bus simulation [[low-cut-ethernet-configuration-of-bus-simulation]]
