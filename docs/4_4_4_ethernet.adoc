@@ -1,3 +1,5 @@
+:imagesdir: images
+
 ==== Ethernet [[low-cut-ethernet]]
 This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for Ethernet.
 
@@ -96,15 +98,39 @@ TODO: Examples
 To initialize the Ethernet communication, the network FMUs need to exchange
 their capabilities and link state.
 This serves to properly simulate compatibility of the used PHY and to determine the correct link speed and behavior.
+
 In addition, simulation of auto-negotiation, auto MDI-X, and configuration of other lower layer mechanisms like PLCA is facilitated using this mechanism.
 
-Before an Ethernet network FMU may communicate, it must send a configuration operation (TODO: reference).
+TODO: MDI-X / PLCA
+
+===== Configuration Phase
+
+Before an Ethernet network FMU may communicate, it must send a <<table-fmi3-ls-bus-ethernet-configuration-operation, Configuration Operation>>.
 Only after also receiving a bus configuration operation and evaluating it against its own configuration for compatibility, it may start transmitting frames.
 
 In a direct connection scenario, configuration operations are exchanged as-is.
 With a bus simulation, configuration operations may either be forwarded by a bus simulation or the bus simulation may supply its own configuration operation to each node.
 In a multidrop configuration, the bus simulation shall not forward configuration operations but should supply a single configuration operation to each network FMU.
 
+In addition to a configuraition operation the link state should be indicated with a <<low-cut-ethernet-link-state-indication-operation, Link State Indication Operation>>.
+This may be done right after the configuration operation or at the latest after receiving the communication operation of the connected FMU.
+
+
+====== Auto-Negotiation
+
+If auto-negotiation is enabled for the Network FMU, it should perform it after the configuration phase.
+The initial link indication should set a physical medium attachment of "unknown" and
+
+Both auto-negotiation according to <<IEEE-802.3-2022, IEEE 802.3>> section 28 (e.g., for 10BASE-T, 100BASE-TX, 1000BASE-T, 10GBASE-T) and <<IEEE-802.3-2022, IEEE 802.3>>  section 98 (e.g., for 100BASE-T1, 1000BASE-T1, 10BASE-T1S) are supported.
+Auto-negotiation according to <<IEEE-802.3-2022, IEEE 802.3>> section 37 (e.g., for 1000BASE-LX, 1000BASE-CX) is currently not explicitly supported.
+
+This standard defines a simplified auto-negotiation procedure in which all pages are exchanged at the same time.
+
+To perform auto-negotiation, the Network FMU should send a <<low-cut-ethernet-auto-negotatiation-base-page-operation, Section 28 Base Page Operation>> or <<low-cut-ethernet-single-differential-pair-auto-negotatiation-base-page-operation, Section 98 Base Page Operation>> optionally followed by one more <<low-cut-ethernet-auto-negotatiation-message-page-operation, Message Page Operations>> (for section 28), <<low-cut-ethernet-auto-negotatiation-unformatted-page-operation, Unformatted Page Operations>> (for section 28), <<low-cut-ethernet-auto-negotatiation-extended-unformatted-page-operation, Extended Message Page Operations>> (for section 28 and section 98), or <<low-cut-ethernet-auto-negotatiation-extended-message-page-operation, Extended Unformatted Page Operations>> (for section 28 and section 98).
+Note that the section 28 extended next pages and section 98 next pages have the same structure and are thus represented by the same bus operations.
+
+After both sending and receiving the auto-negotiation pages, the Network FMU should determine the highest-common-denominator physical medium attachment and enable communication if compatible with the connected node.
+This should be indicated with a <<low-cut-ethernet-link-state-indication-operation, Link State Indication Operation>>.
 
 ===== Error Handling [[low-cut-ethernet-error-handling]]
 
@@ -113,6 +139,7 @@ In a multidrop configuration, the bus simulation shall not forward configuration
 .Architectural error handling overview.
 [#figure-ethernet-architectural-error-handling-overview]
 image::ethernet_error_handling_overview.svg[width=100%, align="center"]
+
 
 ===== Wake Up/Sleep [[low-cut-ethernet-wakeup-sleep]]
 This standard supports wake up and sleep functionality for the Ethernet bus, based on the TC10 Sleep/Wake-up

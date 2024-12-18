@@ -199,32 +199,380 @@ h|OP Code [hex] 5+| 0x20
 |====
 
 
-====== Wake Up [[low-cut-ethernet-wake-up-operation]]
-By using the <<low-cut-ethernet-wake-up-operation, `Wakeup`>> operation, the underlying Bus Simulation can trigger bus-specific wake up requests.
+====== Auto-Negotiation Base Page [[low-cut-ethernet-auto-negotatiation-base-page-operation]]
+Represents the transmission of an auto-negotiation base page according to section 28 of <<IEEE-802.3-2022>>.
+
+.Detailed description of the Auto-Negotiation Base Page operation.
+[#table-fmi3-ls-bus-ethernet-auto-negotatiation-base-page-operation]
+[cols="6,1,5,4,3,20"]
+|====
+h|Name 5+| AutoNegotatiationBasePage
+h|Description 5+| Base page
+h|OP Code [hex] 5+| 0x30
+.21+h|Content 3+h|Argument h|Length h|Description
+
+
+3+| OP Code
+| 4 bytes
+| Type of the operation.
+
+3+| Length
+| 4 bytes
+| Total length of the operation.
+
+
+3+| Selector
+| 1 byte
+| Selector field (5 bits for section 28)
+
+3+| Technology ability
+| 4 bytes
+| Technology ability (7 bits for section 28)
+
+3+| Extended next page
+| 1 byte
+| Indicates the support for extended next pages. (1 bit for section 28)
+
+3+| Remote fault
+| 1 byte
+| Remote fault indicator. (1 bit for section 28)
+
+3+| Ack
+| 1 byte
+| Acknowledgement. (1 bit for section 28) Reserved. Must be FALSE.
+
+3+| Next page
+| 1 byte
+| Indicates the presence of a next page. (1 bit for section 28)
+
+|====
+
+
+====== Auto-Negotiation Message Page [[low-cut-ethernet-auto-negotatiation-message-page-operation]]
+Represents the transmission of an auto-negotiation message page according to section 28 of <<IEEE-802.3-2022>>.
+
+.Detailed description of the Auto-Negotiation Message Page operation.
+[#table-fmi3-ls-bus-ethernet-auto-negotatiation-message-page-operation]
+[cols="6,1,5,4,3,20"]
+|====
+h|Name 5+| AutoNegotatiationMessagePage
+h|Description 5+| Message page
+h|OP Code [hex] 5+| 0x31
+.21+h|Content 3+h|Argument h|Length h|Description
+
+
+3+| OP Code
+| 4 bytes
+| Type of the operation.
+
+3+| Length
+| 4 bytes
+| Total length of the operation.
+
+
+3+| Message code
+| 2 bytes
+| Message code field (11 bits for section 28)
+
+3+| Toggle
+| 1 byte
+| Toggle bit for synchronization. (1 bit for section 28) Reserved. Must be FALSE.
+
+3+| Ack2
+| 1 byte
+| Acknowledgement 2. (1 bit for section 28) Reserved. Must be FALSE.
+
+3+| Message page
+| 1 byte
+| Indicates a message page. (1 bit for section 28) Must be TRUE.
+
+3+| Ack
+| 1 byte
+| Acknowledgement. (1 bit for section 28) Reserved. Must be FALSE.
+
+3+| Next page
+| 1 byte
+| Indicates the presence of a next page. (1 bit for section 28)
+
+|====
+
+
+====== Auto-Negotiation Unformatted Page [[low-cut-ethernet-auto-negotatiation-unformatted-page-operation]]
+Represents the transmission of an auto-negotiation message page according to section 28 of <<IEEE-802.3-2022>>.
+
+.Detailed description of the Auto-Negotiation Unformatted Page operation.
+[#table-fmi3-ls-bus-ethernet-auto-negotatiation-unformatted-page-operation]
+[cols="6,1,5,4,3,20"]
+|====
+h|Name 5+| AutoNegotatiationUnformattedPage
+h|Description 5+| Unformatted page
+h|OP Code [hex] 5+| 0x32
+.21+h|Content 3+h|Argument h|Length h|Description
+
+
+3+| OP Code
+| 4 bytes
+| Type of the operation.
+
+3+| Length
+| 4 bytes
+| Total length of the operation.
+
+
+3+| Unformatted code
+| 2 bytes
+| Unformatted code field (11 bits for section 28)
+
+3+| Toggle
+| 1 byte
+| Toggle bit for synchronization. (1 bit for section 28) Reserved. Must be FALSE.
+
+3+| Ack2
+| 1 byte
+| Acknowledgement 2. (1 bit for section 28) Reserved. Must be FALSE.
+
+3+| Message page
+| 1 byte
+| Indicates a message page. (1 bit for section 28) Must be FALSE.
+
+3+| Ack
+| 1 byte
+| Acknowledgement. (1 bit for section 28) Reserved. Must be FALSE.
+
+3+| Next page
+| 1 byte
+| Indicates the presence of a next page. (1 bit for section 28)
+
+|====
+
+
+====== Auto-Negotiation Extended Message Page [[low-cut-ethernet-auto-negotatiation-extended-message-page-operation]]
+Represents the transmission of an auto-negotiation extended message page according to section 28 of <<IEEE-802.3-2022>>
+or a message page according to section 98 of <<IEEE-802.3-2022>>.
+
+.Detailed description of the Auto-Negotiation Extended Message Page operation.
+[#table-fmi3-ls-bus-ethernet-auto-negotatiation-extended-message-page-operation]
+[cols="6,1,5,4,3,20"]
+|====
+h|Name 5+| AutoNegotatiationExtendedMessagePage
+h|Description 5+| Extended Message page (section 28) and message page (section 98)
+h|OP Code [hex] 5+| 0x33
+.21+h|Content 3+h|Argument h|Length h|Description
+
+
+3+| OP Code
+| 4 bytes
+| Type of the operation.
+
+3+| Length
+| 4 bytes
+| Total length of the operation.
+
+
+3+| Message code
+| 2 bytes
+| Message code field (11 bits for section 28)
+
+3+| Toggle
+| 1 byte
+| Toggle bit for synchronization. (1 bit for section 28) Reserved. Must be FALSE.
+
+3+| Ack2
+| 1 byte
+| Acknowledgement 2. (1 bit for section 28) Reserved. Must be FALSE.
+
+3+| Message page
+| 1 byte
+| Indicates a message page. (1 bit for section 28) Must be TRUE.
+
+3+| Ack
+| 1 byte
+| Acknowledgement. (1 bit for section 28) Reserved. Must be FALSE.
+
+3+| Next page
+| 1 byte
+| Indicates the presence of a next page. (1 bit for section 28)
+
+3+| Unformatted code
+| 2 bytes
+| Unformatted code field (32 bit for section 28)
+
+|====
+
+
+====== Auto-Negotiation Extended Unformatted Page [[low-cut-ethernet-auto-negotatiation-extended-unformatted-page-operation]]
+Represents the transmission of an auto-negotiation extended unformatted page according to section 28 of <<IEEE-802.3-2022>>
+or an unformatted page according to section 98 of <<IEEE-802.3-2022>>.
+
+.Detailed description of the Auto-Negotiation Extended Unformatted Page operation.
+[#table-fmi3-ls-bus-ethernet-auto-negotatiation-extended-unformatted-page-operation]
+[cols="6,1,5,4,3,20"]
+|====
+h|Name 5+| AutoNegotatiationExtendedUnformattedPage
+h|Description 5+| Extended Unformatted Page (section 28) and unformatted page (section 98)
+h|OP Code [hex] 5+| 0x34
+.21+h|Content 3+h|Argument h|Length h|Description
+
+
+3+| OP Code
+| 4 bytes
+| Type of the operation.
+
+3+| Length
+| 4 bytes
+| Total length of the operation.
+
+
+3+| Unformatted code 1
+| 2 bytes
+| Unformatted code field 1 (11 bits for section 28)
+
+3+| Toggle
+| 1 byte
+| Toggle bit for synchronization. (1 bit for section 28) Reserved. Must be FALSE.
+
+3+| Ack2
+| 1 byte
+| Acknowledgement 2. (1 bit for section 28) Reserved. Must be FALSE.
+
+3+| Message page
+| 1 byte
+| Indicates a message page. (1 bit for section 28) Must be FALSE.
+
+3+| Ack
+| 1 byte
+| Acknowledgement. (1 bit for section 28) Reserved. Must be FALSE.
+
+3+| Next page
+| 1 byte
+| Indicates the presence of a next page. (1 bit for section 28)
+
+3+| Unformatted code 2
+| 2 bytes
+| Unformatted code field 2 (32 bit for section 28)
+
+|====
+
+
+====== Single Differential Pair Auto-Negotiation Base Page [[low-cut-ethernet-single-differential-pair-auto-negotatiation-base-page-operation]]
+Represents the transmission of an auto-negotiation base page according to section 98 of <<IEEE-802.3-2022>>.
+
+.Detailed description of the Single Differential Pair Auto-Negotiation Base Page operation.
+[#table-fmi3-ls-bus-ethernet-single-differential-pair-auto-negotatiation-base-page-operation]
+[cols="6,1,5,4,3,20"]
+|====
+h|Name 5+| SingleDifferentialPairAutoNegotatiationBasePage
+h|Description 5+| Base page
+h|OP Code [hex] 5+| 0x35
+.21+h|Content 3+h|Argument h|Length h|Description
+
+
+3+| OP Code
+| 4 bytes
+| Type of the operation.
+
+3+| Length
+| 4 bytes
+| Total length of the operation.
+
+
+3+| Selector
+| 1 byte
+| Selector field (5 bits for section 98)
+
+3+| Echoed nonce
+| 1 byte
+| Echoed nonce (5 bits for section 98) Reserved. Must be zeros.
+
+3+| Symmetric Pause capability indication
+| 1 byte
+| Symmetric Pause capability (2 bits for section 98) Bit 0
+
+3+| Asymmetric Pause capability indication
+| 1 byte
+| Asymmetric Pause capability (2 bits for section 98) Bit 1
+
+3+| Force master/slave
+| 1 byte
+| Force master/slave (1 bit for section 98)
+
+3+| Remote fault
+| 1 byte
+| Indicates a remote fault. (1 bit for section 98)
+
+3+| Ack
+| 1 byte
+| Acknowledgement. (1 bit for section 98) Reserved. Must be FALSE.
+
+3+| Next page
+| 1 byte
+| Indicates the presence of a next page (1 bit for section 98)
+
+3+| Transmitted nonce
+| 1 byte
+| Transmitted nonce (5 bits for section 98)
+
+3+| Technology ability
+| 4 bytes
+| Technology ability (27 bits for section 98)
+
+|====
+
+
+====== Link State Indication [[low-cut-ethernet-link-state-indication-operation]]
+Indicates the state of the physical medium attachment.
+
+.Detailed description of the Link State Indication operation.
+[#table-fmi3-ls-bus-ethernet-link-state-indication-operation]
+[cols="6,1,5,4,3,20"]
+|====
+h|Name 5+| LinkStateIndication
+h|Description 5+| Provides information to indicate link state.
+h|OP Code [hex] 5+| 0x40
+.21+h|Content 3+h|Argument h|Length h|Description
+
+
+3+| OP Code
+| 4 bytes
+| Type of the operation.
+
+3+| Length
+| 4 bytes
+| Total length of the operation.
+
+
+3+| Physical medium attachment
+| 64 bytes
+| The currently used physical medium attachment as null-terminated string. Elements describing a PHY standarized by 802.3 or an amendment must use the value described in the chapter "30.3.2.1.2 aPhyType" of the standard. Otherwise, a vendor-defined value may be used.
+If auto-negotiation is enabled but has not yet been performed, the value "unknown" should be used.
+
+3+| Heartbeat
+| 1 byte
+| Indicates that the node is sending a regular normal link pulse or IDLE symbol.
+
+|====
+
+====== Wake Up [[low-cut-ethernet-wakeup-operation]]
+Indicates wake up pulse according to TC10.
 
 .Detailed description of the Wakeup operation.
-[#table-ethernet-wakeup-operation]
-[cols="5,4,3,20"]
+[#table-fmi3-ls-bus-ethernet-wakeup-operation]
+[cols="6,1,5,4,3,20"]
 |====
-h|Name
-3+|Wakeup
-h|Description
-3+|Represents an operation for triggering a bus-specific wake up.
-h|OP Code [hex]
-3+|0x42
-.3+h|Content h|Argument h|Length h|Description
-|OP Code
-|4 byte
-|Contains the OP Code (0x42) of the operation.
+h|Name 5+| Wakeup
+h|Description 5+| Indicates a wakeup.
+h|OP Code [hex] 5+| 0x50
+.21+h|Content 3+h|Argument h|Length h|Description
 
-|Length
-|4 byte
-|Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Length = 8`.
 
-h|Behavior
-3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the wake-up initiator, of the bus using the Bus Simulation.
-If a Network FMU does not support wake up, this operation can be ignored on the consumer side.
+3+| OP Code
+| 4 bytes
+| Type of the operation.
+
+3+| Length
+| 4 bytes
+| Total length of the operation.
+
 
 |====
 
