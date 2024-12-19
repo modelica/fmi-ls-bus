@@ -288,7 +288,8 @@ The following applies for this operation: `Length = 9`.
 h|Behavior
 3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
 The Bus Simulation provides the <<low-cut-flexray-confirm-operation, `Confirm`>> operation for the Network FMU, which has previously provided the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to be confirmed.
-If the configuration parameter <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> of a FlexRay Bus Terminal is set to `false` or omitted, the Network FMU must not wait for <<low-cut-flexray-confirm-operation, `Confirm`>> operations.
+Only Network FMUs with the corresponding optionally exposed <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> parameter set to `true` might wait for this operation.
+A Network FMU shall ignore this operation if it doesn't wait for this operation.
 
 |====
 
@@ -343,7 +344,8 @@ h|Behavior
 3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
 It represents a direct feedback corresponding to a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation.
 Depending on the type of <<low-cut-flexray-bus-error-operation, `Bus Error`>>, either only the <<low-cut-flexray-transmit-operation, `Transmit`>> producing or all Network FMUs must be notified via <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation (see description column of <<table-flexray-error-code-values>>).
-If the configuration parameter <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> of a FlexRay Bus Terminal is set to `false` or omitted, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations are discarded by the Network FMU.
+Only Network FMUs with the corresponding optionally exposed <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> parameter set to `true` might wait for this operation.
+A Network FMU shall ignore this operation if it doesn't wait for this operation.
 
 |====
 

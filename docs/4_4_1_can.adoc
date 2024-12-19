@@ -268,8 +268,9 @@ The following applies for this operation: `Length = 12`.
 |The ID of the confirmed CAN message.
 
 h|Behavior
-3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
-If the configuration parameter <<low-cut-can-bus-notification-parameter, `BusNotifications`>> of a CAN Bus Terminal is set to `false` or omitted, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-confirm-operation, `Confirm`>> operations are discarded by the Network FMU.
+3+|This operation shall be produced by the Bus Simulation and consumed by Network FMUs.
+Only Network FMUs with the corresponding optionally exposed <<low-cut-can-bus-notification-parameter, `BusNotifications`>> parameter set to `true` might wait for this operation.
+A Network FMU shall ignore this operation if it doesn't wait for this operation.
 Depending on the <<low-cut-can-status-operation, status>> of the specified Network FMU further restrictions for <<low-cut-can-confirm-operation, `Confirm`>> operations <<table-can-status-values, exist>>.
 
 |====
@@ -311,7 +312,8 @@ h|Behavior
 In such case, the Bus Simulation has to decide which <<low-cut-can-transmit-operation, `Transmit`>> operation should be processed first.
 Depending on the configuration (see the `Arbitration Lost Behavior` argument of the <<low-cut-can-configuration-operation, `Configuration`>> operation), the deferred <<low-cut-can-transmit-operation, `Transmit`>> operations shall either be buffered or they shall be discarded and the <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operation shall be sent back to the respective Network FMUs.
 A Network FMU receiving the <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operation can decide to provide the <<low-cut-can-transmit-operation, `Transmit`>> operation again or e.g., to raise an internal transmit timeout failure after a while.
-If the configuration parameter <<low-cut-can-bus-notification-parameter, `BusNotifications`>> of a CAN Bus Terminal is set to `false` or omitted, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations are discarded by the Network FMU.
+Only Network FMUs with the corresponding optionally exposed <<low-cut-can-bus-notification-parameter, `BusNotifications`>> parameter set to `true` might wait for this operation.
+A Network FMU shall ignore this operation if it doesn't wait for this operation.
 
 |====
 
@@ -364,7 +366,9 @@ To determine the CAN node state properly, Network FMUs need the information abou
 For a Network FMU that initiated the <<low-cut-can-transmit-operation, `Transmit`>> operation, the argument `Is Sender` shall be set to `TRUE` in the corresponding <<low-cut-can-bus-error-operation, `Bus Error`>> operation.
 For a Network FMU considered to be the one detecting the error first, the argument `Error Flag = PRIMARY_ERROR_FLAG` shall be set.
 The arguments `Is Sender = TRUE` and `Error Flag = PRIMARY_ERROR_FLAG` must only be set once per simulated error.
-If the configuration parameter <<low-cut-can-bus-notification-parameter, `BusNotifications`>> of a CAN Bus Terminal is set to `false` or omitted, the Network FMU does not wait for any responses from a Bus Simulation, i.e., potentially received <<low-cut-can-bus-error-operation, `Bus Error`>> operations are discarded by the Network FMU.
+Only Network FMUs with the corresponding optionally exposed <<low-cut-can-bus-notification-parameter, `BusNotifications`>> parameter set to `true` might wait for this operation.
+A Network FMU shall ignore this operation if it doesn't wait for this operation.
+
 |====
 
 The following Error Codes are specified:
@@ -483,6 +487,7 @@ A Network FMU shall ignore this operation on the consumer side.
 <<low-cut-can-configuration-operation, `Configuration`>> operations can be produced multiple times during the runtime of a Network FMU.
 In context of CAN FD, also a CAN baud rate should be configured by using `Parameter Type = CAN_BAUDRATE`.
 If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.
+
 |====
 
 The following configuration parameters are defined:
