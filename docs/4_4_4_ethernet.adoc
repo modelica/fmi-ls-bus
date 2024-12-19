@@ -7,9 +7,9 @@ This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Stan
 
 ====== Scope of this standard
 
-This standard should allows simulation of Ethernet bus systems and shall cover commercial, industrial and automotive use cases.
+This standard should allow simulation of Ethernet bus systems and shall cover commercial, industrial and automotive use cases.
 
-This standard should cover all variants of Ethernet described in <<IEEE-802.3-2022>> while being flexible enough to support future versions without adaption due to the high cadence of the Ethernet standarization process.
+This standard should cover all variants of Ethernet described in <<IEEE-802.3-2022>> while being flexible enough to support future versions without adaption due to the high cadence of the Ethernet standardization process.
 In addition, common supplementary standards are considered, including the following:
 
 * <<OpenAlliance-TC10-100BASE-T1, Open Alliance TC10 sleep/wake-up>> (including <<OpenAlliance-TC10-100BASE-T1, 100BASE-T>>, <<OpenAlliance-TC10-1000BASE-T1, 1000BASE-T1>> and <<OpenAlliance-TC10-10BASE-T1S, 10BASE-T1S>>)
@@ -29,7 +29,7 @@ This topology is used for all modern Ethernet variants except 10BASE-T1S.
 In a multidrop topology, multiple devices are connected to the same segment either directly, daisy-chained or interconnected via hubs.
 This topology is used for legacy Ethernet standards as well as 10BASE-T1S.
 
-In terms of the LS-BUS, each point-to-point connection or multidrop segment represents a dedicated virtual bus, which may be simulated by an independent bus simulation or combined into an consolidated simuation.
+In terms of the LS-BUS, each point-to-point connection or multidrop segment represents a dedicated virtual bus, which may be simulated by an independent bus simulation or combined into a consolidated simulation.
 Ethernet switches can be modeled as normal FMUs, where switch ports correspond to LS-BUS terminals, to allow simulating any kind of Ethernet switch.
 To simplify interconnecting Ethernet FMUs, a bus simulation may decide to incorporate the Ethernet switching instead of delegating it to a dedicated FMU.
 
@@ -57,7 +57,7 @@ image::ethernet_transmit.svg[width=80%, align="center"]
 
 ====== Transmission with avoided collision
 
-On a real Ethernet bus, an Ethernet node can use carrier sensing to detect on going transmissions to defer its own transmission until the medium is free.
+On a real Ethernet bus, an Ethernet node can use carrier sensing to detect ongoing transmissions to defer its own transmission until the medium is free.
 In the LS-BUS, this is not possible, thus a special bus error is introduced to indicate when the medium is busy.
 
 When a Network FMU starts a transmission in this case, the bus simulation returns a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with error code _MediumBusy_ (TODO: Make sure this matches the enum).
@@ -72,7 +72,7 @@ image::ethernet_transmit_collision_avoided.svg[width=80%, align="center"]
 
 ====== Transmission with collision
 
-If the Ethernet node does not the detect an ongoing transmission in time, the Ethernet frames collide causing both transmissions to be destroyed.
+If the Ethernet node does not detect an ongoing transmission in time, the Ethernet frames collide causing both transmissions to be destroyed.
 
 When a Network FMU starts a transmission in this case, the bus simulation returns a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with error code _Collision_ (TODO: Make sure this matches the enum).
 This is also sent to other nodes on the bus including the sender of the other transmission.
@@ -132,7 +132,7 @@ This may be done right after the configuration operation or at the latest after 
 If auto-negotiation is enabled for the Network FMU, it should perform it after the configuration phase.
 The initial link indication should set a physical medium attachment of "unknown" and
 
-Both auto-negotiation according to <<IEEE-802.3-2022, IEEE 802.3>> section 28 (e.g., for 10BASE-T, 100BASE-TX, 1000BASE-T, 10GBASE-T) and <<IEEE-802.3-2022, IEEE 802.3>>  section 98 (e.g., for 100BASE-T1, 1000BASE-T1, 10BASE-T1S) are supported.
+Both auto-negotiation according to <<IEEE-802.3-2022, IEEE 802.3>> section 28 (e.g., for 10BASE-T, 100BASE-TX, 1000BASE-T, 10GBASE-T) and <<IEEE-802.3-2022, IEEE 802.3>> section 98 (e.g., for 100BASE-T1, 1000BASE-T1, 10BASE-T1S) are supported.
 Auto-negotiation according to <<IEEE-802.3-2022, IEEE 802.3>> section 37 (e.g., for 1000BASE-LX, 1000BASE-CX) is currently not explicitly supported.
 
 This standard defines a simplified auto-negotiation procedure in which all pages are exchanged at the same time.
