@@ -633,13 +633,11 @@ _A simple Network FMU might also choose to treat Bus Error or Arbitration operat
 .Configuration parameter to configure bus notifications within a CAN Bus Terminal of Network FMUs.
 [[figure-fmu--can-bus-notifications-parameter]]
 ----
- MemberName:    BusNotifications
- Description:   "Specifies whether the respective Network FMU can rely on a Confirm,
-                Bus Error or Arbitration Lost operation after sending a message."
- Type:          Boolean
- Causality:     parameter
- Variability:   fixed
- Start:         "false"
+ memberName:    BusNotifications
+ type:          Boolean
+ causality:     parameter
+ variability:   fixed
+ start:         "false"
 ----
 
 CAN Bus Terminals of a Bus Simulation (FMU) might include this configuration parameter, by using a `calculatedParameter` or `constant output` to participate in an importer parameter propagation feature.
@@ -647,12 +645,10 @@ CAN Bus Terminals of a Bus Simulation (FMU) might include this configuration par
 .Configuration parameter to configure bus notifications within a CAN Bus Terminal of the Bus Simulation.
 [[figure-fmu-can-bus-notifications-parameter-in-bus-simulation]]
 ----
- MemberName:    BusNotifications
- Description:   "Specifies whether the respective Bus Simulation provides bus notifications
-                to Network FMUs."
- Type:          Boolean
- Causality:     calculatedParameter/output
- Variability:   fixed/constant
+ memberName:    BusNotifications
+ type:          Boolean
+ causality:     calculatedParameter/output
+ variability:   fixed/constant
 ----
 
 ===== Configuration of Bus Simulation [[low-cut-can-configuration-of-bus-simulation]]

@@ -679,13 +679,11 @@ Since a Bus Simulation is allowed to provide bus notification regardless of the 
 .Configuration parameter to configure bus notifications within a FlexRay Bus Terminal of Network FMUs.
 [[figure-fmu-flexray-bus-notifications-parameter]]
 ----
- MemberName:    BusNotifications
- Description:   "Specifies whether the respective Network FMU can rely on a Confirm,
-                or Bus Error operation after sending a message."
- Type:          Boolean
- Causality:     parameter
- Variability:   fixed
- Start:         "false"
+ memberName:    BusNotifications
+ type:          Boolean
+ causality:     parameter
+ variability:   fixed
+ start:         "false"
 ----
 
 FlexRay Bus Terminals of a Bus Simulation (FMU) might include this configuration parameter, by using a `calculatedParameter` or `constant output` to participate in an importer parameter propagation feature.
@@ -693,12 +691,10 @@ FlexRay Bus Terminals of a Bus Simulation (FMU) might include this configuration
 .Configuration parameter to configure bus notifications within a FlexRay Bus Terminal of the Bus Simulation.
 [[figure-fmu-flexray-bus-notifications-parameter-in-bus-simulation]]
 ----
- MemberName:    BusNotifications
- Description:   "Specifies whether the respective Bus Simulation provides bus notifications
-                to Network FMUs."
- Type:          Boolean
- Causality:     calculatedParameter/output
- Variability:   fixed/constant
+ memberName:    BusNotifications
+ type:          Boolean
+ causality:     calculatedParameter/output
+ variability:   fixed/constant
 ----
 
 ====== Delivery on Boundary Parameter [[low-cut-flexray-delivery-on-boundary-parameter]]
@@ -715,13 +711,11 @@ If a Network FMU is supporting the delivery on slot boundaries only, the configu
 .Configuration parameter to configure the delivery point of reception within a FlexRay slot for Network FMUs.
 [[figure-fmu-flexray-delivery-on-boundary-parameter]]
 ----
- MemberName:    DeliveryOnBoundary
- Description:   "Specifies whether the respective Network FMU expects Transmit, 
-                Confirm- and Bus Error operations on a concrete slot boundary."
- Type:          Boolean
- Causality:     parameter
- Variability:   fixed
- Start:         "true"
+ memberName:    DeliveryOnBoundary
+ type:          Boolean
+ causality:     parameter
+ variability:   fixed
+ start:         "true"
 ----
 
 FlexRay Bus Terminals of a Bus Simulation (FMU) might include this configuration parameter, by using a `calculatedParameter` or `constant output` to participate in an importer parameter propagation feature.
@@ -729,12 +723,10 @@ FlexRay Bus Terminals of a Bus Simulation (FMU) might include this configuration
 .Configuration parameter to configure the delivery point of reception within a FlexRay slot by the Bus Simulation.
 [[figure-fmu-flexray-delivery-on-boundary-parameter-in-bus-simulation]]
 ----
- MemberName:    DeliveryOnBoundary
- Description:   "Specifies whether the respective Bus Simulation (FMU) delivers
-                Transmit, Confirm- and Bus Error operations on a concrete slot boundary."
- Type:          Boolean
- Causality:     calculatedParameter/output
- Variability:   fixed/constant
+ memberName:    DeliveryOnBoundary
+ type:          Boolean
+ causality:     calculatedParameter/output
+ variability:   fixed/constant
 ----
 
 ===== Configuration of Bus Simulation [[low-cut-flexray-configuration-of-bus-simulation]]
