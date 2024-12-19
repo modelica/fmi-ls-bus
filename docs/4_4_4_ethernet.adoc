@@ -24,7 +24,7 @@ Effects on lower layers are modeled on a simplified level.
 ====== Ethernet topologies
 
 Ethernet support both point-to-point and multidrop topologies.
-In a point-to-point topology, Ethernet devices are either connected directly and more than two devices are connected using and Ethernet switch.
+In a point-to-point topology, Ethernet devices are either connected directly or more than two devices are connected using an Ethernet switch.
 This topology is used for all modern Ethernet variants except 10BASE-T1S.
 In a multidrop topology, multiple devices are connected to the same segment either directly, daisy-chained or interconnected via hubs.
 This topology is used for legacy Ethernet standards as well as 10BASE-T1S.
