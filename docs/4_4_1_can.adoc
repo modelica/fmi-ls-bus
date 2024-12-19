@@ -637,7 +637,8 @@ _A simple Network FMU might also choose to treat Bus Error or Arbitration operat
  start:         "false"
 ----
 
-CAN Bus Terminals of a Bus Simulation (FMU) might include this configuration parameter, by using a `calculatedParameter` or `constant output` to participate in an importer parameter propagation feature.
+A Bus Simulation FMU might indicate via a variable with memberName=<<low-cut-can-bus-notification-parameter, `BusNotifications`>> in the CAN Bus Terminals whether it sends bus notifications or not.
+If the sending of bus notifications can be configured (e.g., via a structural parameter), the attributes of the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> variable shall contain `causality="calculatedParameter"` and `variability="fixed"`; or `causality="output"` and `variability="constant"` otherwise.
 
 .Parameter to configure bus notifications within a CAN Bus Terminal of the Bus Simulation.
 [[figure-fmu-can-bus-notifications-parameter-in-bus-simulation]]
