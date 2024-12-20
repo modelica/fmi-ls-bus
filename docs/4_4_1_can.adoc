@@ -633,7 +633,7 @@ The parameter doesn't define in any way on how to react upon receiving notificat
  type:          Boolean
  causality:     parameter
  variability:   fixed
- start:         "false"
+ start:         false
 ----
 
 A Bus Simulation FMU shall indicate via a variable with `memberName = "BusNotifications"` within the CAN-specific  <<low-cut-configuration-terminal,Configuration Terminal>> whether it provides bus notifications or not.
