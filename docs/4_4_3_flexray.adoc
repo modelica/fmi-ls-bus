@@ -702,7 +702,7 @@ In order to minimize the number of Bus Communication Points of an entire simulat
 Under the condition that participating Network FMUs also provide their <<low-cut-flexray-transmit-operation, `Transmit`>> operations on a slot boundary, the behavior means that the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to be received, the next <<low-cut-flexray-transmit-operation, `Transmit`>> operation to be sent and a <<low-cut-flexray-confirm-operation, `Confirm`>> and <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation are provided and exchanged at exactly one Bus Communication Point.
 
 Therefore, a parameter with `memberName = "DeliveryOnBoundary"` can be added within the !!! FlexRay-specific Configuration Terminal !!! to switch the behavior in the Bus Simulation.
-If the value of the parameter is set to `true`, the Bus Simulation provides <<low-cut-flexray-transmit-operation, `Transmit`>> operations and also resulting <<low-cut-flexray-confirm-operation, `Confirm-`>> or <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations at a concrete slot boundary.
+If the value of the parameter is set to `true`, the Bus Simulation provides <<low-cut-flexray-transmit-operation, `Transmit`>> operations and also resulting <<low-cut-flexray-confirm-operation, `Confirm-`>> and <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations at a concrete slot boundary.
 If the value of the parameter is set to `false`, the Bus Simulation provides the respective operations after the calculated transfer time.
 See <<low-cut-flexray-static-segment>> and <<low-cut-flexray-dynamic-segment>> for details.
 The default value shall be `true`.
@@ -718,8 +718,8 @@ If a Network FMU is supporting the delivery on slot boundaries only, the paramet
  start:         "true"
 ----
 
-A Bus Simulation FMU shall indicate via a variable with `memberName = "DeliveryOnBoundary"` within the !!! flexray-specific Configuration Terminals !!! whether it provides operation on a concrete slot boundary or not.
-If the provision of bus notifications can be configured (e.g., via a structural parameter), the attributes of the <<low-cut-flexray-delivery-on-boundary-parameter, `DeliveryOnBoundary`>> variable shall contain `causality = "calculatedParameter"` and `variability = "fixed"`; or `causality = "output"` and `variability = "constant"` otherwise.
+A Bus Simulation FMU shall indicate via a variable with `memberName = "DeliveryOnBoundary"` within the !!! flexray-specific Configuration Terminals !!! whether it provides operations on a concrete slot boundary or not.
+If the delivery on slot boundaries can be configured (e.g., via a structural parameter), the attributes of the <<low-cut-flexray-delivery-on-boundary-parameter, `DeliveryOnBoundary`>> variable shall contain `causality = "calculatedParameter"` and `variability = "fixed"`; or `causality = "output"` and `variability = "constant"` otherwise.
 
 .Parameter to configure the delivery point of reception within a FlexRay slot by the Bus Simulation.
 [[figure-fmu-flexray-delivery-on-boundary-parameter-in-bus-simulation]]
