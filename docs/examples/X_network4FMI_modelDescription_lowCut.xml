@@ -10,6 +10,7 @@
         causality="input" variability="discrete" intervalVariability="changing"/>
     <Binary name="Powertrain.Tx_Data" valueReference="1003" causality="output"
         mimeType="application/org.fmi-standard.fmi-ls-bus.can; version=&quot;1.0.0-beta.1&quot;" variability="discrete" clocks="1004"/>
+    <Boolean name="BusNotification" valueReference="1005" causality="parameter" variability="fixed" start="false"/>
   </ModelVariables>
   <ModelStructure>
   </ModelStructure>

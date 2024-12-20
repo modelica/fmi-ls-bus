@@ -69,9 +69,9 @@ This section defines terminals for physical signal abstraction or "high cut".
 
 ==== Bus Terminal [[high-cut-bus-terminal,Bus Terminal]]
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<high-cut-frame-terminal,frame terminals>>.
-The attribute `name` of the `<Terminal>` must match the root name of its <<high-cut-network-description-files>> if it exists
+The attribute `name` of the `<Terminal>` element must match the root name of its <<high-cut-network-description-files>> if it exists
 _[e.g., `Powertrain`, if the file is `/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc`]_.
-In any case, the attribute `name` of the `<Terminal>` must be consistent with the `BusName` component of all its corresponding signal, frame and Clock variables.
+In any case, the attribute `name` of the `<Terminal>` element must be consistent with the `BusName` component of all its corresponding signal, frame and Clock variables.
 
 Attribute definitions::
  * `terminalKind` must be `org.fmi-ls-bus.network-terminal`.
@@ -79,7 +79,6 @@ Attribute definitions::
  * `name` is the network name, e.g., `Powertrain`, see <<high-cut-example, example>> and constraints above.
 
 Element definitions::
- * There must be no `<TerminalStreamMemberVariable>` element.
  * There must be one `<Terminal>` element per network frame described in the <<high-cut-network-description-files>>, if their signal and Clock variables are present in the `modelDescription.xml`.
 
 Annotation element::
@@ -97,7 +96,6 @@ Attribute definitions::
  * `name` must match the frame name as defined in the <<high-cut-network-description-files>> in `/extra/org.fmi-standard.fmi-ls-bus`.
 
 Element definitions::
- * There must be no `<TerminalStreamMemberVariable>` element.
  * There must be one <<high-cut-pdu-terminal>> element per PDU of this frame.
  * There must be one `<TerminalMemberVariable>` for the Clock this frame is connected to.
    The `memberName` of this variable must be `TransmissionClock`.
@@ -114,8 +112,6 @@ Attribute definitions::
     For network types not natively referencing a "PDU", like CAN, a synthetic PDU with the same name as its frame is inserted.
 
 Element definitions::
- * There must be no `<TerminalStreamMemberVariable>` element.
- * There must be no `<Terminal>` element.
  * There must be one `<TerminalMemberVariable>` per <<high-cut-terminal-member-variable-for-signals,signal>> of this PDU.
 
 All <<high-cut-terminal-member-variable-for-signals,`TerminalMemberVariables`>> must have the same `causality` of either `input` or `output`.
@@ -169,7 +165,7 @@ The `modelDescription.xml` excerpt listed below shows which variables would exis
 include::examples/X_network4FMI_modelDescription_highCut.xml[]
 ----
 
-The following file shows the `<Terminal>` definition representing the network and frame structure defined with `Powertrain.dbc` above.
+The following file shows the <<high-cut-bus-terminal,Bus Terminal>> definition representing the network and frame structure defined with `Powertrain.dbc` above.
 
 .Example terminalsAndIcons.xml file.
 [#terminalsAndIconHighCut.xml]
