@@ -69,9 +69,9 @@ This section defines terminals for physical signal abstraction or "high cut".
 
 ==== Bus Terminal [[high-cut-bus-terminal,Bus Terminal]]
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<high-cut-frame-terminal,frame terminals>>.
-The attribute `name` of the `<Terminal>` must match the root name of its <<high-cut-network-description-files>> if it exists
+The attribute `name` of the `<Terminal>` element must match the root name of its <<high-cut-network-description-files>> if it exists
 _[e.g., `Powertrain`, if the file is `/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc`]_.
-In any case, the attribute `name` of the `<Terminal>` must be consistent with the `BusName` component of all its corresponding signal, frame and Clock variables.
+In any case, the attribute `name` of the `<Terminal>` element must be consistent with the `BusName` component of all its corresponding signal, frame and Clock variables.
 
 Attribute definitions::
  * `terminalKind` must be set to `org.fmi-ls-bus.network-terminal`.
@@ -165,7 +165,7 @@ The `modelDescription.xml` excerpt listed below shows which variables would exis
 include::examples/X_network4FMI_modelDescription_highCut.xml[]
 ----
 
-The following file shows the `<Terminal>` definition representing the network and frame structure defined with `Powertrain.dbc` above.
+The following file shows the <<high-cut-bus-terminal,Bus Terminal>> definition representing the network and frame structure defined with `Powertrain.dbc` above.
 
 .Example terminalsAndIcons.xml file.
 [#terminalsAndIconHighCut.xml]

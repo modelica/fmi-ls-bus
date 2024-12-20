@@ -345,7 +345,7 @@ The following excerpts from files are used throughout this document as examples 
 include::examples/X_network4FMI_modelDescription_lowCut.xml[]
 ----
 
-The following file shows the `<Terminal>` related definition:
+The following file shows the <<low-cut-bus-terminal,Bus Terminal>> related definition:
 
 .Example terminalsAndIcons.xml file.
 [#terminalsAndIconLowCut.xml]
