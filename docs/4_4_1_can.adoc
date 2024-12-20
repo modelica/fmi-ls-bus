@@ -178,7 +178,7 @@ h|Behavior
 3+|The <<low-cut-can-transmit-operation, `CAN Transmit`>> operation shall be provided by Network FMUs to initiate the transmission of a CAN frame.
 In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might response with a <<low-cut-can-confirm-operation, `Confirm`>>, <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>>, <<low-cut-can-bus-error-operation, `Bus Error`>> or <<low-cut-can-format-error-operation, `Format Error`>> operation.
+Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-can-confirm-operation, `Confirm`>>, <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>>, <<low-cut-can-bus-error-operation, `Bus Error`>> or <<low-cut-can-format-error-operation, `Format Error`>> operation.
 Depending on the <<low-cut-can-status-operation, status>> of the specified Network FMU further restrictions for <<low-cut-can-transmit-operation, `CAN Transmit`>> operations <<table-can-status-values, exist>>.
 
 |====
