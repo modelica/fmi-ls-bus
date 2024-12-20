@@ -671,7 +671,7 @@ The <<low-cut-can-transmit-operation, `Transmit`>> operation represents the send
 With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g., Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
 In the real world, flawlessly transmitted CAN frames will be acknowledged by at least one receiver CAN node.
 To simulate this behavior, the <<low-cut-can-confirm-operation, `Confirm`>> operations are introduced.
-In addition, the parameter <<low-cut-can-bus-notification-parameter, `BusNotifications`>> of a CAN Bus Terminal is defined to support lightweight bus simulations and <<common-concepts-direct-communication, directly connected Network FMUs>>.
+In addition, the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> parameter is defined to support lightweight bus simulations and <<common-concepts-direct-communication, directly connected Network FMUs>>.
 
 If <<low-cut-can-bus-notification-parameter, `BusNotifications`>> is `false` (default), then Network FMUs must not rely on receiving <<low-cut-can-confirm-operation, `Confirm`>> operations for the specified Bus Terminal.
 In this case, the bus simulation is idealized and takes place in a "fire-and-forget" manner.
