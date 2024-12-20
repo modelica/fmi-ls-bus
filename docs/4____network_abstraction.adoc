@@ -309,7 +309,6 @@ A schematic representation of an FMU with a Bus Terminal is shown in the <<#figu
 [#figure-frame-variables-terminals-lowcut]
 image::bus_terminal.svg[width=30%, align="center"]
 
-
 ==== Bus Terminal [[low-cut-bus-terminal,Bus Terminal]]
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>`.
 There shall be exactly one `<Terminal>` element for each network of the FMU.
@@ -317,19 +316,18 @@ There shall be exactly one `<Terminal>` element for each network of the FMU.
 Attributes of a Bus Terminal::
  * `terminalKind` must be `org.fmi-ls-bus.network-terminal`.
  * `matchingRule` must be `org.fmi-ls-bus.transceiver`. +
- Terminal member variables with memberName `Tx_{Data|Clock}` variables shall be connected to Terminal member variables with memberName `Rx_{Data|Clock}`, and vice versa. +
+Terminal member variables with memberName `Tx_{Data|Clock}` variables shall be connected to Terminal member variables with memberName `Rx_{Data|Clock}`, and vice versa. +
 The variable type shall be equal.
-
  * `name` should be the network name, e.g., "Powertrain", see <<low-cut-example, example>>.
 
 Elements of a Bus Terminal::
  * A Bus Terminal shall contain four `<TerminalMemberVariable>` elements with the following `memberName` attributes: +
- `Tx_Data`, `Tx_Clock`, `Rx_Data` and `Rx_Clock`. +
- The `memberName` attribute is used to define the role of the referred variable in the Bus Terminal. +
- The `variableKind` of these four members must be `signal`.
+`Tx_Data`, `Tx_Clock`, `Rx_Data` and `Rx_Clock`. +
+The `memberName` attribute is used to define the role of the referred variable in the Bus Terminal. +
+The `variableKind` of these four members must be `signal`.
  * The use of the same variable within different Bus Terminals is not allowed.
  * Bus systems can add specific configuration parameters in a nested <<low-cut-configuration-terminal,Configuration Terminal>>. +
- Empty Configuration Terminals can be omitted.
+Empty Configuration Terminals can be omitted.
 
 ===== Configuration Terminal [[low-cut-configuration-terminal,Configuration Terminal]]
 
