@@ -239,7 +239,7 @@ h|Clock properties h|intervalVariability h|Description
 |`aperiodic`|`countdown`|The Bus Communication Point interval must be provided in `Initialization Mode` and can be changed in every `Event Mode`.
 |====
 
-Network FMUs using a `time-based` `Tx_Clock` variable should set the Co-Simulation attribute `canHandleVariableCommunicationStepSize = "true"` inthe model description file, since `fmi3DoStep` is typically called with variable `communicationStepSize`.
+Network FMUs using a `time-based` `Tx_Clock` variable should set the Co-Simulation attribute `canHandleVariableCommunicationStepSize = "true"` in the model description file, since `fmi3DoStep` is typically called with variable `communicationStepSize`.
 
 ===== Triggered Tx Clock Variables [[low-cut-tx-triggered-clock-variables]]
 A `triggered` Clock basically allows to signal events when returning from `fmi3DoStep` either by using an `Early Return` or when the requested communication point at latexmath:[t_{i+1}] was reached.
