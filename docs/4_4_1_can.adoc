@@ -615,7 +615,7 @@ For a detailed simulation, the CAN bus behavior regarding acknowledgment, bus er
 A Bus Simulation can simulate these effects by sending bus notifications in terms of <<low-cut-can-confirm-operation, `Confirm-`>>, <<low-cut-can-bus-error-operation, `Bus Error-`>> and <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations to the Network FMUs.
 
 However, in scenarios where Network FMUs are connected directly to each other, or where the Bus Simulation does not simulate such effects, it must be possible to configure the Network FMU such that it does not wait for any response after a <<low-cut-can-transmit-operation, `Transmit`>> operation.
-Therefore, a parameter with `memberName = "BusNotifications"` can be added within the !!! CAN-specific Configuration Terminal !!!. +
+Therefore, a parameter with `memberName = "BusNotifications"` can be added within the CAN-specific  <<low-cut-configuration-terminal,Configuration Terminal>>. +
 If a Network FMU supports bus notifications, the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> parameter shall be exposed.
 The default value of this parameter shall be `false`. +
 _[The default value `false` allows a simple integration of Network FMUs to simulation scenarios where <<low-cut-can-confirm-operation, `Confirm-`>>, <<low-cut-can-bus-error-operation, `Bus Error-`>> or <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations are not used.]_
@@ -636,7 +636,7 @@ The parameter doesn't define in any way on how to react upon receiving notificat
  start:         "false"
 ----
 
-A Bus Simulation FMU shall indicate via a variable with `memberName = "BusNotifications"` within the !!! CAN-specific Configuration Terminals !!! whether it provides bus notifications or not.
+A Bus Simulation FMU shall indicate via a variable with `memberName = "BusNotifications"` within the CAN-specific  <<low-cut-configuration-terminal,Configuration Terminal>> whether it provides bus notifications or not.
 If the provision of bus notifications can be configured (e.g., via a structural parameter), the attributes of the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> variable shall contain `causality = "calculatedParameter"` and `variability = "fixed"`; or `causality = "output"` and `variability = "constant"` otherwise.
 
 .Parameter to configure bus notifications within a CAN Bus Terminal of the Bus Simulation.
