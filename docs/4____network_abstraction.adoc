@@ -281,7 +281,7 @@ The following table lists the MIME types to use for the Tx/Rx data variables wit
 |MIME type
 |Description
 
-|application/org.fmi-standard.fmi-ls-bus.can; version="1.0.0-beta.1"
+|application/org.fmi-standard.fmi-ls-bus.can; version="1.0.0-rc.1"
 |Binary variables simulating a CAN network including CAN, CAN FD and CAN XL
 
 |application/org.fmi-standard.fmi-ls-bus.lin; version="1.0.0-alpha.1"
@@ -301,32 +301,40 @@ The version number marks the set of available operations for a specified bus typ
 The versioning follows the rules of semantic versioning, as defined in <<PW13>>.
 
 === Terminal Definitions [[low-cut-terminal-definitions]]
-This section defines terminals for network abstraction or "low cut".
+This section defines terminals for network abstraction (also called "low cut").
 
-==== Bus Terminal [[low-cut-bus-terminal,Bus Terminal]]
-Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>`.
-The attribute `name` of the `<Terminal>` must match the name of the specified network _[e.g., the name of the CAN channel: Powertrain]_ within a "low cut".
-If the specified FMU is connected to more than one network, there shall be exactly one `<Terminal>` for each network.
-
-Attribute definitions::
- * `terminalKind` must be set to `org.fmi-ls-bus.network-terminal`.
- * `matchingRule` must be set to `org.fmi-ls-bus.transceiver`.
- * `name` is the network name, e.g., `Powertrain`, see <<low-cut-example, example>> and constraints.
-
-Element definitions::
- * Every Bus Terminal contains exactly four variables each in the role of: `Tx_Data`, `Tx_Clock`, `Rx_Data` or `Rx_Clock`.
- * Variables in the role of `Rx_Data`, `Tx_Data`, `Rx_Clock` and `Tx_Clock` are exposed in the `modelDescription.xml` and must be listed as `<TerminalMemberVariable>` elements, whereby `variableName` can be freely chosen.
- * `<TerminalMemberVariable>.memberName` defines the role of the variable within the `<Terminal>` and shall be set to `Tx_Data`, `Tx_Clock`, `Rx_Data` or `Rx_Clock`.
- * Multiple use of the same variable within different Bus Terminals is not allowed.
- * There must be no `<TerminalStreamMemberVariable>` element.
-
-The `matchingRule` of type `org.fmi-ls-bus.transceiver` is specified as: `Tx_{Data|Clock}` variables shall be connected to `Rx_{Data|Clock}` variables and vice versa, whereby the variable type shall be equal.
-
-The <<#figure-frame-variables-terminals-lowcut, following figure>> shows a FMU with four variables `Tx_Data`, `Tx_Clock`, `Rx_Data`, `Rx_Clock` that are aggregated to a `<Terminal>` named _Bus Terminal_:
+A schematic representation of an FMU with a Bus Terminal is shown in the <<#figure-frame-variables-terminals-lowcut, following figure>>:
 
 .Frame variables and terminals.
 [#figure-frame-variables-terminals-lowcut]
 image::bus_terminal.svg[width=30%, align="center"]
+
+==== Bus Terminal [[low-cut-bus-terminal,Bus Terminal]]
+Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>`.
+There shall be exactly one `<Terminal>` element for each network of the FMU.
+
+Attributes of a Bus Terminal::
+ * `terminalKind` must be `org.fmi-ls-bus.network-terminal`.
+ * `matchingRule` must be `org.fmi-ls-bus.transceiver`. +
+Terminal member variables with memberName `Tx_{Data|Clock}` variables shall be connected to Terminal member variables with memberName `Rx_{Data|Clock}`, and vice versa. +
+The variable type shall be equal.
+ * `name` should be the network name, e.g., "Powertrain", see <<low-cut-example, example>>.
+
+Elements of a Bus Terminal::
+ * A Bus Terminal shall contain four `<TerminalMemberVariable>` elements with the following `memberName` attributes: +
+`Tx_Data`, `Tx_Clock`, `Rx_Data` and `Rx_Clock`. +
+The `memberName` attribute is used to define the role of the referred variable in the Bus Terminal. +
+The `variableKind` of these four members must be `signal`.
+ * The use of the same variable within different Bus Terminals is not allowed.
+ * Bus systems can add specific configuration parameters in a nested <<low-cut-configuration-terminal,Configuration Terminal>>. +
+Empty Configuration Terminals can be omitted.
+
+===== Configuration Terminal [[low-cut-configuration-terminal,Configuration Terminal]]
+
+Attributes of the nested Configuration Terminal::
+ * `name` must be "Configuration".
+ * `terminalKind` must be `org.fmi-ls-bus.network-terminal.configuration`.
+ * `matchingRule` must be `bus`.
 
 ==== Example [[low-cut-example]]
 The following excerpts from files are used throughout this document as examples and illustrate how the different concepts relate.
@@ -338,7 +346,7 @@ The following excerpts from files are used throughout this document as examples 
 include::examples/X_network4FMI_modelDescription_lowCut.xml[]
 ----
 
-The following file shows the `<Terminal>` related definition:
+The following file shows the <<low-cut-bus-terminal,Bus Terminal>> related definition:
 
 .Example terminalsAndIcons.xml file.
 [#terminalsAndIconLowCut.xml]
