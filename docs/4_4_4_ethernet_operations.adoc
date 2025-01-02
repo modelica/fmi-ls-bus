@@ -151,9 +151,68 @@ h|OP Code [hex] 5+| 0x12
 ====== Confirm [[low-cut-ethernet-confirm-operation]]
 The <<low-cut-ethernet-confirm-operation, `Confirm`>> operation is used to indicate the successful transmission of an Ethernet frame by a Network FMU.
 
+.Detailed description of the Confirm operation.
+[#table-fmi3-ls-bus-ethernet-confirm-operation]
+[cols="6,1,5,4,3,20"]
+|====
+h|Name 5+| Confirm
+h|Description 5+| Indicates the successful transmission of an Ethernet frame.
+h|OP Code [hex] 5+| 0x15
+.21+h|Content 3+h|Argument h|Length h|Description
+
+
+3+| OP Code
+| 4 bytes
+| Type of the operation.
+
+3+| Length
+| 4 bytes
+| Total length of the operation.
+
+
+|====
 
 ====== Bus Error [[low-cut-ethernet-bus-error-operation]]
 The <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation is used to indicate a bus communication error. Bus errors are delivered to every participant in the network.
+
+.Detailed description of the Bus Error operation.
+[#table-fmi3-ls-bus-ethernet-bus-error-operation]
+[cols="6,1,5,4,3,20"]
+|====
+h|Name 5+| BusError
+h|Description 5+| Indicates an error during the transmission of an Ethernet frame. TODO. To be defined.
+h|OP Code [hex] 5+| 0x16
+.21+h|Content 3+h|Argument h|Length h|Description
+
+
+3+| OP Code
+| 4 bytes
+| Type of the operation.
+
+3+| Length
+| 4 bytes
+| Total length of the operation.
+
+
+3+| Error code
+| 1 byte
+| The error code.
+
+3+| Is Sender
+| 1 byte
+| Indicates whether this bus error occurs in response to a transmission of this FMU.
+
+|====
+
+.Valid values for the bus error code.
+[#table-fmi3-ls-bus-ethernet-bus-error-code-values]
+[cols="2,1,5"]
+|====
+
+h|Name h|Value h|Description
+|UNKNOWN|0x0|Unknown error.
+
+|====
 
 
 ====== Configuration [[low-cut-ethernet-configuration-operation]]
@@ -579,7 +638,7 @@ If auto-negotiation is enabled but has not yet been performed, the value "unknow
 |====
 
 h|Name h|Value h|Description
-|NONE|0x0|Not applicable
+|NONE|0x0|Not applicable.
 |MASTER|0x1|Node is operating as MASTER.
 |SLAVE|0x2|Node is operating as SLAVE.
 
