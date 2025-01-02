@@ -210,7 +210,9 @@ h|OP Code [hex] 5+| 0x16
 |====
 
 h|Name h|Value h|Description
-|UNKNOWN|0x0|Unknown error.
+|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-unknown]]UNKNOWN|0x0|Unknown error. TODO.
+|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy]]MEDIUM_BUSY|0x1|The medium is currently busy.
+|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-collision]]COLLISION|0x2|A frame collided during transmission.
 
 |====
 
@@ -268,10 +270,10 @@ h|OP Code [hex] 5+| 0x20
 |====
 
 h|Name h|Value h|Description
-|NONE|0x0|Not applicable
-|MDI|0x1|The MDI is wired in normal configuration.
-|MDI_X|0x2|The MDI is wired in crossover configuration.
-|AUTO_MDI_X|0x3|The node supports auto MDI/MDI-X.
+|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-none]]NONE|0x0|Not applicable
+|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-mdi]]MDI|0x1|The MDI is wired in normal configuration.
+|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-mdi-x]]MDI_X|0x2|The MDI is wired in crossover configuration.
+|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-auto-mdi-x]]AUTO_MDI_X|0x3|The node supports auto MDI/MDI-X.
 
 |====
 
@@ -638,9 +640,9 @@ If auto-negotiation is enabled but has not yet been performed, the value "unknow
 |====
 
 h|Name h|Value h|Description
-|NONE|0x0|Not applicable.
-|MASTER|0x1|Node is operating as MASTER.
-|SLAVE|0x2|Node is operating as SLAVE.
+|[[table-fmi3-ls-bus-ethernet-master-slave-mode-values-none]]NONE|0x0|Not applicable.
+|[[table-fmi3-ls-bus-ethernet-master-slave-mode-values-master]]MASTER|0x1|Node is operating as MASTER.
+|[[table-fmi3-ls-bus-ethernet-master-slave-mode-values-slave]]SLAVE|0x2|Node is operating as SLAVE.
 
 |====
 

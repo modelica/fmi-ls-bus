@@ -27,7 +27,7 @@ Ethernet support both point-to-point and multidrop topologies.
 In a point-to-point topology, Ethernet devices are either connected directly or more than two devices are connected using an Ethernet switch.
 This topology is used for all modern Ethernet variants except 10BASE-T1S.
 In a multidrop topology, multiple devices are connected to the same segment either directly, daisy-chained or interconnected via hubs.
-This topology is used for legacy Ethernet standards as well as 10BASE-T1S.
+This topology is used in legacy Ethernet systems as well as 10BASE-T1S networks.
 
 In terms of the LS-BUS, each point-to-point connection or multidrop segment represents a dedicated virtual bus, which may be simulated by an independent bus simulation or combined into a consolidated simulation.
 Ethernet switches can be modeled as normal FMUs, where switch ports correspond to LS-BUS terminals, to allow simulating any kind of Ethernet switch.
@@ -60,10 +60,10 @@ image::ethernet_transmit.svg[width=80%, align="center"]
 On a real Ethernet bus, an Ethernet node can use carrier sensing to detect ongoing transmissions to defer its own transmission until the medium is free.
 In the LS-BUS, this is not possible, thus a special bus error is introduced to indicate when the medium is busy.
 
-When a Network FMU starts a transmission in this case, the bus simulation returns a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with error code _MediumBusy_ (TODO: Make sure this matches the enum).
+When a Network FMU starts a transmission in this case, the bus simulation returns a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with error code <<table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy, _MediumBusy_>>.
 The Network FMU should the re-attempt the transmission at a later point in time.
 
-Note: In this scenario the ongoing transmission can continue.
+Note: In this scenario the ongoing transmission continues.
 
 .Transmission with avoided collision.
 [#figure-ethernet-transmit-collision-avoided]
@@ -74,7 +74,7 @@ image::ethernet_transmit_collision_avoided.svg[width=80%, align="center"]
 
 If the Ethernet node does not detect an ongoing transmission in time, the Ethernet frames collide causing both transmissions to be destroyed.
 
-When a Network FMU starts a transmission in this case, the bus simulation returns a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with error code _Collision_ (TODO: Make sure this matches the enum).
+When a Network FMU starts a transmission in this case, the bus simulation returns a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with error code <<table-fmi3-ls-bus-ethernet-bus-error-code-values-collision, _Collision_>>.
 This is also sent to other nodes on the bus including the sender of the other transmission.
 
 Note: In this scenario the ongoing transmission is destroyed as well.
@@ -86,9 +86,11 @@ image::ethernet_transmit_collision.svg[width=80%, align="center"]
 
 ====== Fragmented transmission using the MAC Merge sublayer
 
-When using the MAC Merge sublayer (See chapter 99 of 802.3-2022),
+When using the MAC Merge sublayer (See chapter 99 of <<IEEE-802.3-2022>>),
 the transmit operation can also indicate the transmission of Express frames and the initial fragment of preempted frames.
 Continuation packets of a preempted frame are transmitted using the <<low-cut-ethernet-transmit-continuation-operation, Transmit Continuation Operation>>.
+
+Before the MAC Merge sublayer is used, _Verify_ and _Respond_ frames are used to verify that the link partner supports this functionality, these are indicated by an <<low-cut-ethernet-transmit-verify-respond-operation, Transmit Verify/Respond Operation>>.
 
 .Fragmented transmission. The frame 1 is fragmented into two fragments 1.1 and 1.2 due to a transmission of an Express frame 2.
 [#figure-ethernet-transmit-fragmented]
@@ -123,14 +125,14 @@ In a direct connection scenario, configuration operations are exchanged as-is.
 With a bus simulation, configuration operations may either be forwarded by a bus simulation or the bus simulation may supply its own configuration operation to each node.
 In a multidrop configuration, the bus simulation shall not forward configuration operations but should supply a single configuration operation to each network FMU.
 
-In addition to a configuraition operation the link state should be indicated with a <<low-cut-ethernet-link-state-indication-operation, Link State Indication Operation>>.
+In addition to the configuration operation, the link state should be indicated with a <<low-cut-ethernet-link-state-indication-operation, Link State Indication Operation>>.
 This may be done right after the configuration operation or at the latest after receiving the communication operation of the connected FMU.
 
 
 ====== Auto-Negotiation [[low-cut-ethernet-auto-negotiation]]
 
 If auto-negotiation is enabled for the Network FMU, it should perform it after the configuration phase.
-The initial link indication should set a physical medium attachment of "unknown" and
+The initial link indication should set a physical medium attachment of "unknown".
 
 Both auto-negotiation according to <<IEEE-802.3-2022, IEEE 802.3>> section 28 (e.g., for 10BASE-T, 100BASE-TX, 1000BASE-T, 10GBASE-T) and <<IEEE-802.3-2022, IEEE 802.3>> section 98 (e.g., for 100BASE-T1, 1000BASE-T1, 10BASE-T1S) are supported.
 Auto-negotiation according to <<IEEE-802.3-2022, IEEE 802.3>> section 37 (e.g., for 1000BASE-LX, 1000BASE-CX) is currently not explicitly supported.
@@ -145,11 +147,16 @@ This should be indicated with a <<low-cut-ethernet-link-state-indication-operati
 
 ===== Error Handling [[low-cut-ethernet-error-handling]]
 
-#TODO#
+To model errors on the Ethernet bus, <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operations are used.
+These operations may be sent by a bus simulation to all FMUs which may detect that errors.
+
+A bus simulation may also inject errors into the simulation, by sending a bus error operation.
 
 .Architectural error handling overview.
 [#figure-ethernet-architectural-error-handling-overview]
 image::ethernet_error_handling_overview.svg[width=100%, align="center"]
+
+TODO: Extend and specify error scenarios
 
 
 ===== Wake Up/Sleep [[low-cut-ethernet-wakeup-sleep]]
