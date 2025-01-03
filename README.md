@@ -44,7 +44,7 @@ A demo from tool vendors (Akkodis, Altair, AVL, Bosch, dSPACE, PMSF, SYNOPSYS) i
 
 ![AIC Announcemet Speakers FMI](landingpage/AIC_Announcemet_Speaker_Single_FMI.jpg)
 
-Looking forward to meet you in Munich!
+Looking forward to meeting you in Munich!
 More information on the conference: <https://www.asam.net/conferences-events/detail/asam-international-conference-2024/>
 
 ## Repository Structure
@@ -115,7 +115,7 @@ Additionally, any FMU importer that supports the necessary FMI 3.0 features, suc
 
 ## Copyright and License
 
-Code and documentation copyright (C) 2023-2024 The Modelica Association Project FMI.
+Code and documentation copyright (C) 2023-2025 The Modelica Association Project FMI.
 Code released under the [2-Clause BSD License].
 Docs released under [Attribution-ShareAlike 4.0 International].
 

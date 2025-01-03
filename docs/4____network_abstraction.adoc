@@ -87,11 +87,11 @@ h|OP Code [hex]
 3+|OP code of the operation _(e.g., 0x01)_
 .6+h|Content h|Argument h|Length h|Description
 |OP Code
-|4 byte
+|4 bytes
 |Contains the OP Code of the specified operation.
 
 |Length
-|4 byte
+|4 bytes
 |Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 10 + <Arg2_Length>`.
 
@@ -116,10 +116,10 @@ _e.g., The specified operation shall be produced by a Network FMU and consumed b
 Remarks:
 
 * Numbers shall be transmitted with `little-endian` byte order.
-* Since the standard allows to concatenate multiple operations (see <<low-cut-tx-rx-data-variables, Tx/Rx Data Variables>>), the <<TotalLengthField, Length>> field is introduced to allow the implementation of a generic parser for received operations.
+* Since the standard allows concatenating multiple operations (see <<low-cut-tx-rx-data-variables, Tx/Rx Data Variables>>), the <<TotalLengthField, Length>> field is introduced to allow the implementation of a generic parser for received operations.
 
 ==== Format Error [[low-cut-format-error-operation]]
-The <<low-cut-format-error-operation, `Format Error`>> operation is independent from the bus type and shall be used when encountering a syntax or content error of received operations.
+The <<low-cut-format-error-operation, `Format Error`>> operation is independent of the bus type and shall be used when encountering a syntax or content error of received operations.
 
 .Detailed description of the Format Error operation.
 [#table-format-error-operation]
@@ -138,17 +138,17 @@ h|Length
 h|Description
 
 |OP Code
-|4 byte
+|4 bytes
 |Contains the OP Code of the specified operation.
 For this operation, the OP Code always has the value 0x01 within all bus types.
 
 |Length
-|4 byte
+|4 bytes
 |Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 10 + Length of Data argument in bytes`.
 
 |Data Length
-|2 byte
+|2 bytes
 |Specifies the length of the Data argument in bytes.
 
 |Data
@@ -224,7 +224,7 @@ To make sure that the `Rx_Data` variables is set properly, an importer has to ac
 _[Note: For clarity always a direct connection line between the `Tx_Clock` and `Rx_Clock` variables is shown in figures of this document.]_
 
 A `time-based` Clock can be `periodic` or `aperiodic`.
-Both allows to define Bus Communication Points independently from the regular communication points with fixed or variable distances.
+Both allow defining Bus Communication Points independently of the regular communication points with fixed or variable distances.
 The difference between the two Clock types is listed in the following table.
 
 .Time-based Clock properties.
@@ -242,7 +242,7 @@ h|Clock properties h|intervalVariability h|Description
 Network FMUs using a `time-based` `Tx_Clock` variable should set the Co-Simulation attribute `canHandleVariableCommunicationStepSize = "true"` in the model description file, since `fmi3DoStep` is typically called with variable `communicationStepSize`.
 
 ===== Triggered Tx Clock Variables [[low-cut-tx-triggered-clock-variables]]
-A `triggered` Clock basically allows to signal events when returning from `fmi3DoStep` either by using an `Early Return` or when the requested communication point at latexmath:[t_{i+1}] was reached.
+A `triggered` Clock basically allows signalling events when returning from `fmi3DoStep` either by using an `Early Return` or when the requested communication point at latexmath:[t_{i+1}] was reached.
 Since signaling `Tx_Clock` events with an early return at latexmath:[t < t_{i+1}] would require to set connected networked FMUs back in time to reach Bus Communication Points synchronously, a `triggered` `Tx_Clock` variable must only be set when returning from `fmi3DoStep` with the `earlyReturn` argument set to `fmi3False`.
 In consequence, Bus Communication Points and regular communication points coincide and take place at the same time.
 The time of a Bus Communication Point can therefore not be defined independently, but is given by the importer.
@@ -329,7 +329,7 @@ The `variableKind` of these four members must be `signal`.
  * Bus systems can add specific configuration parameters in a nested <<low-cut-configuration-terminal,Configuration Terminal>>. +
 Empty Configuration Terminals can be omitted.
 
-===== Configuration Terminal [[low-cut-configuration-terminal,Configuration Terminal]]
+===== Configuration Terminal [[low-cut-configuration-terminal, Configuration Terminal]]
 
 Attributes of the nested Configuration Terminal::
  * `name` must be "Configuration".
@@ -346,7 +346,7 @@ The following excerpts from files are used throughout this document as examples 
 include::examples/X_network4FMI_modelDescription_lowCut.xml[]
 ----
 
-The following file shows the <<low-cut-bus-terminal,Bus Terminal>> related definition:
+The following file shows the <<low-cut-bus-terminal, Bus Terminal>>-related definition:
 
 .Example terminalsAndIcons.xml file.
 [#terminalsAndIconLowCut.xml]
