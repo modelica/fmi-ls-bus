@@ -172,7 +172,7 @@ Additional information such as Ide is also not part of the ID, but is treated se
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Rtr | 1 byte | Specifies whether the given frame represents a Remote Transmission Request frame.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
-| Data Length | 2 byte | Specifies the length of the Data argument in bytes.
+| Data Length | 2 bytes | Specifies the length of the Data argument in bytes.
 Note: The argument value describes the actual data length and not the CAN Data Length Code (DLC).
 | Data | n bytes | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN Format.
 Note: The value of this argument also includes padding bytes if these are required by the CAN format in the respective situation.
