@@ -206,7 +206,7 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Esi | 1 byte | Error State indicator.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
-| Data Length | 2 byte | Specifies the length of the Data argument in bytes.
+| Data Length | 2 bytes | Specifies the length of the Data argument in bytes.
 Note: The argument value describes the actual data length and not the CAN Data Length Code (DLC).
 | Data | n bytes | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN FD Format.
 Note: The value of this argument also includes padding bytes if these are required by the CAN format in the respective situation.
@@ -236,8 +236,8 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | SDT | 1 byte | Describes the structure of the frames Data Field content (SDU type).
 | VCID | 1 byte | Represents the virtual CAN network ID.
-| AF | 4 byte | Represents the CAN XL Acceptance Field (AF).
-| Data Length | 2 byte | Specifies the length of the Data argument in bytes.
+| AF | 4 bytes | Represents the CAN XL Acceptance Field (AF).
+| Data Length | 2 bytes | Specifies the length of the Data argument in bytes.
 Note: The argument value describes the actual data length and not the CAN Data Length Code (DLC).
 | Data | n bytes | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN XL Format.
 Note: The value of this argument also includes padding bytes if these are required by the CAN format in the respective situation.

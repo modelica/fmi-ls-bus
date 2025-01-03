@@ -36,7 +36,7 @@ h|Length
 |:= 5 + n +
 (4 bytes)
 8+|Data +
-(n byte)
+(n bytes)
 
 |Header
 |0x10
@@ -124,7 +124,7 @@ For this operation the OP Code always has the value 0x10.
 For this operation always applies: `Length = 7`.
 | PID | 1 byte | The specified protected ID (PID) of the LIN message.
 The maximum length of a PID is 8-bit.
-| Response Data Length | 1 byte | The size of the response in byte.
+| Response Data Length | 1 byte | The size of the response in bytes.
 h|Behavior
 3+|The Header operation shall be provided by Network FMUs to initiate the transmission of a LIN header.
 In case of direct connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
