@@ -1,7 +1,7 @@
 ===== Operations [[low-cut-ethernet-operations]]
 
 This section defines the specified operations for Ethernet.
-The following tables provides an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
+The following tables provide an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
 
 
 ====== Format Error [[low-cut-ethernet-format-error-operation]]
@@ -63,7 +63,7 @@ h|OP Code [hex] 5+| 0x10
 
 
 ====== Transmit verify/respond [[low-cut-ethernet-transmit-verify-respond-operation]]
-Represents the transmission of a verify or reponse mPacket.
+Represents the transmission of a verify or response mPacket.
 
 .Detailed description of the Transmit verify/respond operation.
 [#table-fmi3-ls-bus-ethernet-transmit-verify-respond-operation]
