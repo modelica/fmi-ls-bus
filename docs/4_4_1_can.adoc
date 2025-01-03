@@ -17,8 +17,8 @@ For example, the failure of a transmission can be indicated.
 For example, it allows the specification of the baud rate or influencing the buffer behavior.
 * Status: This operation is used by Networked FMUs to inform Bus Simulations about the internal state (Active/Passive/Bus-Off) which concerns the reaction on bus errors.
 * Wake up: CAN supports wake up and sleep scenarios.
-Normally there are two ways to wake up from sleep mode: a local wake up on a specified wake-up pin, or a wake up on the CAN bus via a CAN specific wake-up pulse.
-This operation is used to simulate triggering a wake up from bus side.
+Normally there are two ways to wake up from sleep mode: a local wake up on a specified wake-up pin, or a wake-up on the CAN bus via a CAN specific wake-up pulse.
+This operation is used to simulate triggering a wake-up from bus side.
 
 The following table gives a detailed overview of the available operations.
 It shows all operations and the arguments they contain.
@@ -37,33 +37,33 @@ h|Length
 |Format Error
 |0x01
 |:= 10 + n +
-(4 byte)
+(4 bytes)
 |DL footnote:[DL is used as an abbreviation for Data Length throughout the document] +
-(2 byte)
+(2 bytes)
 7+|Data +
-(n byte)
+(n bytes)
 
 |CAN Transmit
 |0x10
 |:= 16 + DL +
-(4 byte)
+(4 bytes)
 |ID +
-(4 byte)
+(4 bytes)
 |Ide +
 (1 byte)
 |Rtr +
 (1 byte)
 |DL +
-(2 byte)
+(2 bytes)
 4+|Data +
-(n byte)
+(n bytes)
 
 |CAN FD Transmit
 |0x11
 |:= 17 + DL +
-(4 byte)
+(4 bytes)
 |ID +
-(4 byte)
+(4 bytes)
 |Ide +
 (1 byte)
 |Brs +
@@ -71,16 +71,16 @@ h|Length
 |Esi +
 (1 byte)
 |DL +
-(2 byte)
+(2 bytes)
 3+|Data +
-(n byte)
+(n bytes)
 
 |CAN XL Transmit
 |0x12
 |:= 22 + DL +
-(4 byte)
+(4 bytes)
 |ID +
-(4 byte)
+(4 bytes)
 |Ide +
 (1 byte)
 |Sec +
@@ -90,32 +90,32 @@ h|Length
 |VCID +
 (1 byte)
 |AF +
-(4 byte)
+(4 bytes)
 |DL +
-(2 byte)
+(2 bytes)
 |Data +
-(n byte)
+(n bytes)
 
 |Confirm
 |0x20
 |:= 12 +
-(4 byte)
+(4 bytes)
 8+|ID +
-(4 byte)
+(4 bytes)
 
 |Arbitration Lost
 |0x30
 |:= 12 +
-(4 byte)
+(4 bytes)
 8+|ID +
-(4 byte)
+(4 bytes)
 
 |Bus Error
 |0x31
 |:= 15 +
 (4 byte)
 |ID +
-(4 byte)
+(4 bytes)
 2+|Error Code +
 (1 byte)
 2+|Error Flag +
@@ -126,7 +126,7 @@ h|Length
 |Configuration
 |0x40
 |<Length> +
-(4 byte)
+(4 bytes)
 |Kind +
 (1 byte)
 7+|_Dynamic Part_
@@ -134,21 +134,21 @@ h|Length
 |Status
 |0x41
 |:= 9 +
-(4 byte)
+(4 bytes)
 8+|Status +
 (1 byte)
 
 |Wakeup
 |0x42
 |:= 8 +
-(4 byte)
+(4 bytes)
 8+|---
 
 |====
 
 ===== Operations [[low-cut-can-operations]]
 This section defines the specified operations for CAN, CAN FD and CAN XL.
-The following tables provides an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
+The following tables provide an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
 
 ====== Transmit [[low-cut-can-transmit-operation]]
 There are three types of <<low-cut-can-transmit-operation, `Transmit`>> operations for transmission of CAN, CAN FD and CAN XL frames.
@@ -161,10 +161,10 @@ h|Name 3+| CAN Transmit
 h|Description 3+| Initiates the transmission of CAN frames.
 h|OP Code [hex] 3+| 0x10
 .8+h|Content h|Argument h|Length h|Description
-| OP Code | 4 byte | Contains the OP Code (0x10) of the operation.
-| Length | 4 byte | Defines the cumulative length of all arguments in bytes.
+| OP Code | 4 bytes | Contains the OP Code (0x10) of the operation.
+| Length | 4 bytes | Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 16 + Data Length`.
-| ID | 4 byte | The specified ID of the CAN message.
+| ID | 4 bytes | The specified ID of the CAN message.
 The ID must be considered here as a purely numerical value.
 This means that there is no need for separate segmentation between the 11-bit base CAN identifier and an 18-bit CAN identifier extension information that is known from the CAN protocol.
 Additional information such as Ide is also not part of the ID, but is treated separately.
@@ -174,7 +174,7 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Data Length | 2 byte | Specifies the length of the Data argument in bytes.
 Note: The argument value describes the actual data length and not the CAN Data Length Code (DLC).
-| Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN Format.
+| Data | n bytes | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN Format.
 Note: The value of this argument also includes padding bytes if these are required by the CAN format in the respective situation.
 h|Behavior
 3+|The <<low-cut-can-transmit-operation, `CAN Transmit`>> operation shall be provided by Network FMUs to initiate the transmission of a CAN frame.
@@ -193,10 +193,10 @@ h|Name 3+| CAN FD Transmit
 h|Description 3+| Represents an operation for the transmission of a CAN FD frame.
 h|OP Code [hex] 3+| 0x11
 .9+h|Content h|Argument h|Length h|Description
-| OP Code | 4 byte | Contains the OP Code (0x11) of the operation.
-| Length | 4 byte | Defines the cumulative length of all arguments in bytes.
+| OP Code | 4 bytes | Contains the OP Code (0x11) of the operation.
+| Length | 4 bytes | Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 17 + Data Length`.
-| ID | 4 byte | The specified ID of the CAN message.
+| ID | 4 bytes | The specified ID of the CAN message.
 The ID must be considered here as a purely numerical value.
 This means that there is no need for separate segmentation between the 11-bit base CAN identifier and an 18-bit CAN identifier extension information that is known from the CAN protocol.
 Additional information such as Ide is also not part of the ID, but is treated separately.
@@ -206,9 +206,9 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Esi | 1 byte | Error State indicator.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
-| Data Length | 2 byte | Specifies the length of the Data argument in bytes.
+| Data Length | 2 bytes | Specifies the length of the Data argument in bytes.
 Note: The argument value describes the actual data length and not the CAN Data Length Code (DLC).
-| Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN FD Format.
+| Data | n bytes | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN FD Format.
 Note: The value of this argument also includes padding bytes if these are required by the CAN format in the respective situation.
 h|Behavior
 3+|The behavior is identical to the <<table-can-transmit-operation, CAN Transmit>> behavior.
@@ -222,11 +222,11 @@ h|Behavior
 h|Name 3+| CAN XL Transmit
 h|Description 3+| Represents an operation for the transmission of a CAN XL frame.
 h|OP Code [hex] 3+| 0x12
-.11+h|Content h|Argument h|Length h|Description 
-| OP Code | 4 byte | Contains the OP Code (0x12) of the operation.
-| Length | 4 byte | Defines the cumulative length of all arguments in bytes.
+.11+h|Content h|Argument h|Length h|Description
+| OP Code | 4 bytes | Contains the OP Code (0x12) of the operation.
+| Length | 4 bytes | Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 22 + Data Length`.
-| ID | 4 byte | The specified ID of the CAN message.
+| ID | 4 bytes | The specified ID of the CAN message.
 The ID must be considered here as a purely numerical value.
 This means that there is no need for separate segmentation between the 11-bit base CAN identifier and an 18-bit CAN identifier extension information that is known from the CAN protocol.
 Additional information such as Ide is also not part of the ID, but is treated separately.
@@ -236,10 +236,10 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | SDT | 1 byte | Describes the structure of the frames Data Field content (SDU type).
 | VCID | 1 byte | Represents the virtual CAN network ID.
-| AF | 4 byte | Represents the CAN XL Acceptance Field (AF).
-| Data Length | 2 byte | Specifies the length of the Data argument in bytes.
+| AF | 4 bytes | Represents the CAN XL Acceptance Field (AF).
+| Data Length | 2 bytes | Specifies the length of the Data argument in bytes.
 Note: The argument value describes the actual data length and not the CAN Data Length Code (DLC).
-| Data | n byte | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN XL Format.
+| Data | n bytes | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN XL Format.
 Note: The value of this argument also includes padding bytes if these are required by the CAN format in the respective situation.
 h|Behavior
 3+|The behavior is identical to the <<table-can-transmit-operation, CAN Transmit>> behavior.
@@ -261,16 +261,16 @@ h|OP Code [hex]
 3+|0x20
 .4+h|Content h|Argument h|Length h|Description
 |OP Code
-|4 byte
+|4 bytes
 |Contains the OP Code (0x20) of the operation.
 
 |Length
-|4 byte
+|4 bytes
 |Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 12`.
 
 |ID
-|4 byte
+|4 bytes
 |The ID of the confirmed CAN message.
 
 h|Behavior
@@ -300,17 +300,17 @@ h|OP Code [hex]
 3+|0x30
 .4+h|Content h|Argument h|Length h|Description
 |OP Code
-|4 byte
+|4 bytes
 |Contains the OP Code (0x30) of the operation.
 
 |Length
-|4 byte
+|4 bytes
 |Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 12`.
 
 |ID
-|4 byte
-|The ID of the CAN message which which could not be transmitted immediately, because it loses arbitration.
+|4 bytes
+|The ID of the CAN message which could not be transmitted immediately because it lost arbitration.
 
 h|Behavior
 3+|During simulation, several <<low-cut-can-transmit-operation, `Transmit`>> operations can be sent by Network FMUs to a Bus Simulation at the same time.
@@ -336,16 +336,16 @@ h|OP Code [hex]
 3+|0x31
 .7+h|Content h|Argument h|Length h|Description
 |OP Code
-|4 byte
+|4 bytes
 |Contains the OP Code (0x31) of the operation.
 
 |Length
-|4 byte
+|4 bytes
 |Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 15`.
 
 |ID
-|4 byte
+|4 bytes
 |The ID of the CAN message that was transmitted while the error happened.
 
 |Error Code
@@ -426,7 +426,7 @@ h|Error Flag h|Value h|Description
 
 ====== Configuration [[low-cut-can-configuration-operation]]
 The <<low-cut-can-configuration-operation, `Configuration`>> operation is used by Network FMUs to send simulation specific options like baud rate settings to Bus Simulations.
-The following information is included within this operation: 
+The following information is included within this operation:
 
 .Detailed description of the Configuration operation.
 [#table-can-configuration-operation]
@@ -442,11 +442,11 @@ h|OP Code [hex]
 5+|0x40
 .9+h|Content 3+h|Argument h|Length h|Description
 3+|OP Code
-|4 byte
+|4 bytes
 |Contains the OP Code (0x40) of the operation.
 
 3+|Length
-|4 byte
+|4 bytes
 |Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 9 + Length of parameter arguments in bytes`.
 
@@ -460,19 +460,19 @@ Note that only one parameter can be set per <<low-cut-can-configuration-operatio
 
 |CAN_BAUDRATE
 |Baud Rate
-|4 byte
+|4 bytes
 |The CAN baud rate value to configure.
 The required unit for the baud rate value is bit/s.
 
 |CAN_FD_BAUDRATE
 |Baud Rate
-|4 byte
+|4 bytes
 |The CAN FD baud rate value to configure.
 The required unit for the baud rate value is bit/s.
 
 |CAN_XL_BAUDRATE
 |Baud Rate
-|4 byte
+|4 bytes
 |The CAN XL baud rate value to configure.
 The required unit for the baud rate value is bit/s.
 
@@ -504,7 +504,7 @@ h|Parameter h|Value h|Description
 |CAN_FD_BAUDRATE|0x02|Allows the configuration of a CAN FD baud rate for the Bus Simulation.
 |CAN_XL_BAUDRATE|0x03|Allows the configuration of a CAN XL baud rate for the Bus Simulation.
 |ARBITRATION_LOST_BEHAVIOR|0x04|This code configures the behavior of a Bus Simulation if an arbitration is lost.
-See <<table-can-configuration-arbitration-lost-behavior-kinds>>) for possible values.
+See <<table-can-configuration-arbitration-lost-behavior-kinds>> for possible values.
 
 |====
 
@@ -523,7 +523,7 @@ h|Arbitration Lost Behavior h|Value h|Description
 
 ====== Status [[low-cut-can-status-operation]]
 By using the <<low-cut-can-status-operation, `Status`>> operation, a Network FMU can communicate the current CAN node state to the Bus Simulation.
-The following information is included within this operation: 
+The following information is included within this operation:
 
 .Detailed description of the Status operation.
 [#table-can-status-operation]
@@ -537,11 +537,11 @@ h|OP Code [hex]
 3+|0x41
 .4+h|Content h|Argument h|Length h|Description
 |OP Code
-|4 byte
+|4 bytes
 |Contains the OP Code (0x41) of the operation.
 
 |Length
-|4 byte
+|4 bytes
 |Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 9`.
 
@@ -585,7 +585,7 @@ If all Network FMUs, except the <<low-cut-can-transmit-operation, `Transmit`>> o
 |====
 
 ====== Wake Up [[low-cut-can-wake-up-operation]]
-By using the <<low-cut-can-wake-up-operation, `Wakeup`>> operation, the underlying Bus Simulation can trigger a bus-specific wake up.
+By using the <<low-cut-can-wake-up-operation, `Wakeup`>> operation, the underlying Bus Simulation can trigger a bus-specific wake-up.
 
 .Detailed description of the Wakeup operation.
 [#table-can-wakeup-operation]
@@ -594,16 +594,16 @@ By using the <<low-cut-can-wake-up-operation, `Wakeup`>> operation, the underlyi
 h|Name
 3+|Wakeup
 h|Description
-3+|Represents an operation for triggering a bus-specific wake up.
+3+|Represents an operation for triggering a bus-specific wake-up.
 h|OP Code [hex]
 3+|0x42
 .3+h|Content h|Argument h|Length h|Description
 |OP Code
-|4 byte
+|4 bytes
 |Contains the OP Code (0x42) of the operation.
 
 |Length
-|4 byte
+|4 bytes
 |Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 8`.
 
@@ -668,7 +668,7 @@ The Bus Simulation can derive the required CAN, CAN FD or CAN XL controller type
 If the baud rate information is not adjusted by a specified Network FMU, the Bus Simulation shall choose a default behavior by itself.
 
 ====== Buffer Handling [[low-cut-can-buffer-handling]]
-By using the `ARBITRATION_LOST_BEHAVIOR` configuration kind of a <<low-cut-can-configuration-operation, `Configuration`>> operation, the buffer handling within the Bus Simulation can be adjusted.
+By using the `ARBITRATION_LOST_BEHAVIOR` kind of <<low-cut-can-configuration-operation, `Configuration`>> operation, the buffer handling within the Bus Simulation can be adjusted.
 Using buffer handling is required in arbitration scenarios only and will be described <<low-cut-can-arbitration, within this context>>.
 If the buffering is not adjusted by a specified Network FMU, the Bus Simulation shall choose a default behavior by itself.
 

@@ -1,5 +1,5 @@
 # Module Header Tests
-This directory can be used to add tests for existing module header files. The files in this directory provide the resources to run the tests with the corresponding workflow in Github Actions ([run-header-tests-Debug][header-tests-debug] and [run-header-tests-Release][header-tests-release]). The release workflow is run automatically for pull requests to the main branch. The debug workflow can be used by developers on their respective branches for testing in between.
+This directory can be used to add tests for existing module header files. The files in this directory provide the resources to run the tests with the corresponding workflow in GitHub Actions ([run-header-tests-Debug][header-tests-debug] and [run-header-tests-Release][header-tests-release]). The release workflow is run automatically for pull requests to the main branch. The debug workflow can be used by developers on their respective branches for testing in between.
 
 ## Adding Tests for a New Module
 To add tests for another module, a few files need to be added and altered. This description assumes that the module's header files (fmi3LsBus<MODULE>.h and fmi3LsBusUtil<MODULE>.h) have already been added.
