@@ -2,7 +2,7 @@
 
 === Intent of This Document [[introduction-intent-of-this-document]]
 
-Automotive CAN, LIN, FlexRay, CAN FD, CAN XL and Ethernet are network technologies that have been applied successfully over many years by all automotive OEMs world wide.
+Automotive CAN, LIN, FlexRay, CAN FD, CAN XL and Ethernet are network technologies that have been applied successfully over many years by all automotive OEMs worldwide.
 Virtualizing electronic control units (ECUs) and then simulating multiple such virtual ECUs requires connecting them using a virtual version of these network technologies.
 
 This layered standard defines what input and output variables and which FMI 3.0 features are used and how to emulate a transport layer for such network traffic.
@@ -21,7 +21,7 @@ Since the network abstraction layer is protocol-independent, it can also be used
 
 So that this layered standard can be supported in a variety of FMU importers and other types of simulators three possible communication architectures for bus communication are specified:
 
-* Direct Communication: Limited to exactly two FMUs, a common FMU importer that not require any special features for simulating buses, apart from supporting FMI variables, Clocks and terminals can be use to emulate bus communication.
+* Direct Communication: Limited to exactly two FMUs, a common FMU importer that not require any special features for simulating buses, apart from supporting FMI variables, Clocks and terminals can be used to emulate bus communication.
 * Composition with dedicated Bus Simulation FMU: A separate Bus Simulation FMU is used to simulate the specific bus behavior.
 Other FMUs that want to emulate bus communication provide and relate network information via this Bus Simulation FMU.
 This communication architecture can be operated by a common FMU importer and allows complex and detailed bus simulations.
@@ -46,7 +46,7 @@ However, current (as of writing this standard) modelling technologies do not all
 Conventions used in this document:
 
  - Non-normative text is given in square brackets in italic font: _[Especially examples are defined in this style.]_
- - The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <<RFC2119>> (regardless of formatting and capitalization).
+ - The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <<RFC2119>> (regardless of formatting and capitalization).
 
 In key parts of this document, non-normative examples are used to help understand the standard.
 To keep the standard itself brief, the https://modelica.github.io/fmi-guides/main/ls-bus-guide/[FMI LS BUS Implementer’s Guide] was created.
