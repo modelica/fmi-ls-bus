@@ -46,7 +46,7 @@ However, current (as of writing this standard) modelling technologies do not all
 Conventions used in this document:
 
  - Non-normative text is given in square brackets in italic font: _[Especially examples are defined in this style.]_
- - The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <<RFC2119>> (regardless of formatting and capitalization).
+ - The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <<RFC2119>> (regardless of formatting and capitalization).
 
 In key parts of this document, non-normative examples are used to help understand the standard.
 To keep the standard itself brief, the https://modelica.github.io/fmi-guides/main/ls-bus-guide/[FMI LS BUS Implementer’s Guide] was created.
