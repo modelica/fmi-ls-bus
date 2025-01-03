@@ -44,7 +44,7 @@ A demo from tool vendors (Akkodis, Altair, AVL, Bosch, dSPACE, PMSF, SYNOPSYS) i
 
 ![AIC Announcemet Speakers FMI](landingpage/AIC_Announcemet_Speaker_Single_FMI.jpg)
 
-Looking forward to meet you in Munich!
+Looking forward to meeting you in Munich!
 More information on the conference: <https://www.asam.net/conferences-events/detail/asam-international-conference-2024/>
 
 ## Repository Structure

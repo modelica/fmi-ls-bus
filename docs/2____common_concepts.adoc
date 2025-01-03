@@ -11,9 +11,9 @@ _[FMUs providing both abstraction layers can deduce from the fmi3Set() and fmi3G
 
 Since network communication is not continuous but time discrete, FMI 3.0 Clocks are used to indicate when signals and/or frames are sent or received.
 All signal and frame variables are clocked variables.
- 
+
 FMI 3.0 terminal definitions in the `terminalsAndIcons.xml` are used to group related variables and present a comfortable opportunity to connect different FMUs between each other.
-Terminal definitions are used differently within the "high cut" and the "low cut":  
+Terminal definitions are used differently within the "high cut" and the "low cut":
 
 .Relations between Bus-, Frame- and PDU Terminals.
 [#figure-terminal-relations]
@@ -97,7 +97,7 @@ The total of three FMUs are executed on a common FMI 3.0 importer.
 image::architecture_bus_simulation_fmu.svg[width=50%, align="center"]
 
 This type of communication allows the simulation of all bus features, such as arbitration or the simulation of timing.
-The supported bus features cannot be specified explicitly in the case shown, but refers to a specific implementation of a Bus Simulation FMU and are depending on the requirements of the bus simulation.
+The supported bus features cannot be specified explicitly in the case shown, but refers to a specific implementation of a Bus Simulation FMU and depend on the requirements of the bus simulation.
 This communication architecture enables complex bus simulations to be implemented on lightweight FMU importers.
 An n:m bus communication of several FMUs is also permitted.
 Depending on the needs, it may be necessary to dynamically provision the Bus Simulation FMU so that it provides the appropriate number of inputs and outputs to allow all FMUs to be connected.
@@ -120,7 +120,7 @@ Besides the textual specification for FMUs with bus support, this layered standa
 The following header files are provided:
 
 * https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBus.h[fmi3LsBus.h] provides general macros, types and structures for common Bus Operations.
-These header file applies to all supported bus types of the layered standard.
+These header files apply to all supported bus types of the layered standard.
 * https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtil.h[fmi3LsBusUtil.h] provides common utility macros and structures for all supported bus types.
 * https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusCan.h[fmi3LsBusCan.h] provides macros, types and structures of Bus Operations for CAN, CAN FD and CAN XL.
 * https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtilCan.h[fmi3LsBusUtilCan.h] provides CAN, CAN FD and CAN XL explicit utility macros.
