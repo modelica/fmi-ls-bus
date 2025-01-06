@@ -29,6 +29,7 @@ h|OP Code [hex] 5+| 0x10
 3+| Length
 | 4 bytes
 | Total length of the operation.
+The following applies for this operation: `Length = 28 + n`.
 
 
 3+| Start delimiter
@@ -69,7 +70,7 @@ Represents the transmission of a verify or response mPacket.
 [#table-fmi3-ls-bus-ethernet-transmit-verify-respond-operation]
 [cols="6,1,5,4,3,20"]
 |====
-h|Name 5+| TransmitVerifyRespond
+h|Name 5+| Transmit Verify/Respond
 h|Description 5+| Indicates the transmission of a verify or respond mPacket.
 h|OP Code [hex] 5+| 0x11
 .21+h|Content 3+h|Argument h|Length h|Description
@@ -82,6 +83,7 @@ h|OP Code [hex] 5+| 0x11
 3+| Length
 | 4 bytes
 | Total length of the operation.
+The following applies for this operation: `Length = 14 + n`.
 
 
 3+| Start delimiter
@@ -110,7 +112,7 @@ Represents the transmission of a continuation mPacket.
 [#table-fmi3-ls-bus-ethernet-transmit-continuation-operation]
 [cols="6,1,5,4,3,20"]
 |====
-h|Name 5+| TransmitContinuation
+h|Name 5+| Transmit Continuation
 h|Description 5+| Indicates the transmission of a continuation mPacket of a fragmented Ethernet frame.
 h|OP Code [hex] 5+| 0x12
 .21+h|Content 3+h|Argument h|Length h|Description
@@ -123,6 +125,7 @@ h|OP Code [hex] 5+| 0x12
 3+| Length
 | 4 bytes
 | Total length of the operation.
+The following applies for this operation: `Length = 15 + n`.
 
 
 3+| Start delimiter
@@ -168,6 +171,7 @@ h|OP Code [hex] 5+| 0x15
 3+| Length
 | 4 bytes
 | Total length of the operation.
+The following applies for this operation: `Length = 8`.
 
 
 |====
@@ -179,7 +183,7 @@ The <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation is used to i
 [#table-fmi3-ls-bus-ethernet-bus-error-operation]
 [cols="6,1,5,4,3,20"]
 |====
-h|Name 5+| BusError
+h|Name 5+| Bus Error
 h|Description 5+| Indicates an error during the transmission of an Ethernet frame. TODO. To be defined.
 h|OP Code [hex] 5+| 0x16
 .21+h|Content 3+h|Argument h|Length h|Description
@@ -192,6 +196,7 @@ h|OP Code [hex] 5+| 0x16
 3+| Length
 | 4 bytes
 | Total length of the operation.
+The following applies for this operation: `Length = 10`.
 
 
 3+| Error code
@@ -237,6 +242,7 @@ h|OP Code [hex] 5+| 0x20
 3+| Length
 | 4 bytes
 | Total length of the operation.
+The following applies for this operation: `Length = 9 + ...`.
 
 
 3+| Parameter Type
@@ -295,7 +301,7 @@ Represents the transmission of an auto-negotiation base page according to sectio
 [#table-fmi3-ls-bus-ethernet-auto-negotatiation-base-page-operation]
 [cols="6,1,5,4,3,20"]
 |====
-h|Name 5+| AutoNegotatiationBasePage
+h|Name 5+| Auto Negotatiation Base Page
 h|Description 5+| Base page
 h|OP Code [hex] 5+| 0x30
 .21+h|Content 3+h|Argument h|Length h|Description
@@ -308,6 +314,7 @@ h|OP Code [hex] 5+| 0x30
 3+| Length
 | 4 bytes
 | Total length of the operation.
+The following applies for this operation: `Length = 17`.
 
 
 3+| Selector
@@ -344,7 +351,7 @@ Represents the transmission of an auto-negotiation message page according to sec
 [#table-fmi3-ls-bus-ethernet-auto-negotatiation-message-page-operation]
 [cols="6,1,5,4,3,20"]
 |====
-h|Name 5+| AutoNegotatiationMessagePage
+h|Name 5+| Auto Negotatiation Message Page
 h|Description 5+| Message page
 h|OP Code [hex] 5+| 0x31
 .21+h|Content 3+h|Argument h|Length h|Description
@@ -357,6 +364,7 @@ h|OP Code [hex] 5+| 0x31
 3+| Length
 | 4 bytes
 | Total length of the operation.
+The following applies for this operation: `Length = 15`.
 
 
 3+| Message code
@@ -393,7 +401,7 @@ Represents the transmission of an auto-negotiation message page according to sec
 [#table-fmi3-ls-bus-ethernet-auto-negotatiation-unformatted-page-operation]
 [cols="6,1,5,4,3,20"]
 |====
-h|Name 5+| AutoNegotatiationUnformattedPage
+h|Name 5+| Auto Negotatiation Unformatted Page
 h|Description 5+| Unformatted page
 h|OP Code [hex] 5+| 0x32
 .21+h|Content 3+h|Argument h|Length h|Description
@@ -406,6 +414,7 @@ h|OP Code [hex] 5+| 0x32
 3+| Length
 | 4 bytes
 | Total length of the operation.
+The following applies for this operation: `Length = 15`.
 
 
 3+| Unformatted code
@@ -443,7 +452,7 @@ or a message page according to section 98 of <<IEEE-802.3-2022>>.
 [#table-fmi3-ls-bus-ethernet-auto-negotatiation-extended-message-page-operation]
 [cols="6,1,5,4,3,20"]
 |====
-h|Name 5+| AutoNegotatiationExtendedMessagePage
+h|Name 5+| Auto Negotatiation Extended Message Page
 h|Description 5+| Extended Message page (section 28) and message page (section 98)
 h|OP Code [hex] 5+| 0x33
 .21+h|Content 3+h|Argument h|Length h|Description
@@ -456,6 +465,7 @@ h|OP Code [hex] 5+| 0x33
 3+| Length
 | 4 bytes
 | Total length of the operation.
+The following applies for this operation: `Length = 17`.
 
 
 3+| Message code
@@ -497,7 +507,7 @@ or an unformatted page according to section 98 of <<IEEE-802.3-2022>>.
 [#table-fmi3-ls-bus-ethernet-auto-negotatiation-extended-unformatted-page-operation]
 [cols="6,1,5,4,3,20"]
 |====
-h|Name 5+| AutoNegotatiationExtendedUnformattedPage
+h|Name 5+| Auto Negotatiation Extended Unformatted Page
 h|Description 5+| Extended Unformatted Page (section 28) and unformatted page (section 98)
 h|OP Code [hex] 5+| 0x34
 .21+h|Content 3+h|Argument h|Length h|Description
@@ -510,6 +520,7 @@ h|OP Code [hex] 5+| 0x34
 3+| Length
 | 4 bytes
 | Total length of the operation.
+The following applies for this operation: `Length = 17`.
 
 
 3+| Unformatted code 1
@@ -550,7 +561,7 @@ Represents the transmission of an auto-negotiation base page according to sectio
 [#table-fmi3-ls-bus-ethernet-single-differential-pair-auto-negotatiation-base-page-operation]
 [cols="6,1,5,4,3,20"]
 |====
-h|Name 5+| SingleDifferentialPairAutoNegotatiationBasePage
+h|Name 5+| Single Differential Pair Auto Negotatiation Base Page
 h|Description 5+| Base page
 h|OP Code [hex] 5+| 0x35
 .21+h|Content 3+h|Argument h|Length h|Description
@@ -563,6 +574,7 @@ h|OP Code [hex] 5+| 0x35
 3+| Length
 | 4 bytes
 | Total length of the operation.
+The following applies for this operation: `Length = 21`.
 
 
 3+| Selector
@@ -615,7 +627,7 @@ Indicates the state of the physical medium attachment.
 [#table-fmi3-ls-bus-ethernet-link-state-indication-operation]
 [cols="6,1,5,4,3,20"]
 |====
-h|Name 5+| LinkStateIndication
+h|Name 5+| Link State Indication
 h|Description 5+| Provides information to indicate link state.
 h|OP Code [hex] 5+| 0x40
 .21+h|Content 3+h|Argument h|Length h|Description
@@ -628,6 +640,7 @@ h|OP Code [hex] 5+| 0x40
 3+| Length
 | 4 bytes
 | Total length of the operation.
+The following applies for this operation: `Length = 74`.
 
 
 3+| Physical medium attachment
@@ -677,6 +690,7 @@ h|OP Code [hex] 5+| 0x50
 3+| Length
 | 4 bytes
 | Total length of the operation.
+The following applies for this operation: `Length = 8`.
 
 
 |====
