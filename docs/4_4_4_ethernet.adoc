@@ -88,9 +88,9 @@ image::ethernet_transmit_collision.svg[width=80%, align="center"]
 
 When using the MAC Merge sublayer (See chapter 99 of <<IEEE-802.3-2022>>),
 the transmit operation can also indicate the transmission of Express frames and the initial fragment of preempted frames.
-Continuation packets of a preempted frame are transmitted using the <<low-cut-ethernet-transmit-continuation-operation, Transmit Continuation Operation>>.
+Continuation packets of a preempted frame are transmitted using the <<low-cut-ethernet-transmit-continuation-operation, `Transmit Continuation`>> operation.
 
-Before the MAC Merge sublayer is used, _Verify_ and _Respond_ frames are used to verify that the link partner supports this functionality, these are indicated by an <<low-cut-ethernet-transmit-verify-respond-operation, Transmit Verify/Respond Operation>>.
+Before the MAC Merge sublayer is used, _Verify_ and _Respond_ frames are used to verify that the link partner supports this functionality, these are indicated by an <<low-cut-ethernet-transmit-verify-respond-operation, `Transmit Verify/Respond`>> operation.
 
 .Fragmented transmission. The frame 1 is fragmented into two fragments 1.1 and 1.2 due to a transmission of an Express frame 2.
 [#figure-ethernet-transmit-fragmented]
@@ -108,9 +108,9 @@ In addition, configuration and simulation of auto-negotiation, auto MDI-X and lo
 The configuration and startup phase consists of the following steps:
 
 . Exchange of configuration operations (see <<low-cut-ethernet-configuration-phase>>)
-. Sending of an initial <<low-cut-ethernet-link-state-indication-operation, Link State Indication Operation>>
+. Sending of an initial <<low-cut-ethernet-link-state-indication-operation, `Link State Indication`>> operation
 . <<low-cut-ethernet-configuration-phase, Auto-Negotiation>> (optional)
-. Sending of an updated <<low-cut-ethernet-link-state-indication-operation, Link State Indication Operation>> (optional)
+. Sending of an updated <<low-cut-ethernet-link-state-indication-operation, `Link State Indication`>> operation (optional)
 
 These phases are described in further detail in the following sections.
 
@@ -118,14 +118,14 @@ TODO: PLCA
 
 ====== Configuration Phase [[low-cut-ethernet-configuration-phase]]
 
-Before an Ethernet network FMU may communicate, it must send a <<table-fmi3-ls-bus-ethernet-configuration-operation, Configuration Operation>>.
+Before an Ethernet network FMU may communicate, it must send a <<table-fmi3-ls-bus-ethernet-configuration-operation, `Configuration`>> operation.
 Only after also receiving a bus configuration operation and evaluating it against its own configuration for compatibility, it may start transmitting frames.
 
 In a direct connection scenario, configuration operations are exchanged as-is.
 With a bus simulation, configuration operations may either be forwarded by a bus simulation or the bus simulation may supply its own configuration operation to each node.
 In a multidrop configuration, the bus simulation shall not forward configuration operations but should supply a single configuration operation to each network FMU.
 
-In addition to the configuration operation, the link state should be indicated with a <<low-cut-ethernet-link-state-indication-operation, Link State Indication Operation>>.
+In addition to the configuration operation, the link state should be indicated with a <<low-cut-ethernet-link-state-indication-operation, `Link State Indication`>> operation.
 This may be done right after the configuration operation or at the latest after receiving the communication operation of the connected FMU.
 
 
@@ -139,11 +139,11 @@ Auto-negotiation according to <<IEEE-802.3-2022, IEEE 802.3>> section 37 (e.g., 
 
 This standard defines a simplified auto-negotiation procedure in which all pages are exchanged at the same time.
 
-To perform auto-negotiation, the Network FMU should send a <<low-cut-ethernet-auto-negotatiation-base-page-operation, Section 28 Base Page Operation>> or <<low-cut-ethernet-single-differential-pair-auto-negotatiation-base-page-operation, Section 98 Base Page Operation>> optionally followed by one more <<low-cut-ethernet-auto-negotatiation-message-page-operation, Message Page Operations>> (for section 28), <<low-cut-ethernet-auto-negotatiation-unformatted-page-operation, Unformatted Page Operations>> (for section 28), <<low-cut-ethernet-auto-negotatiation-extended-unformatted-page-operation, Extended Message Page Operations>> (for section 28 and section 98), or <<low-cut-ethernet-auto-negotatiation-extended-message-page-operation, Extended Unformatted Page Operations>> (for section 28 and section 98).
+To perform auto-negotiation, the Network FMU should send a <<low-cut-ethernet-auto-negotatiation-base-page-operation, Section 28 `Base Page`>> operation or <<low-cut-ethernet-single-differential-pair-auto-negotatiation-base-page-operation, Section 98 `Base Page`>> operation optionally followed by one more <<low-cut-ethernet-auto-negotatiation-message-page-operation, `Message Page`>> operations (for section 28), <<low-cut-ethernet-auto-negotatiation-unformatted-page-operation, `Unformatted Page`>> operations (for section 28), <<low-cut-ethernet-auto-negotatiation-extended-unformatted-page-operation, `Extended Message Page`>> operations (for section 28 and section 98), or <<low-cut-ethernet-auto-negotatiation-extended-message-page-operation, `Extended Unformatted Page`>> operations (for section 28 and section 98).
 Note that the section 28 extended next pages and section 98 next pages have the same structure and are thus represented by the same bus operations.
 
 After both sending and receiving the auto-negotiation pages, the Network FMU should determine the highest-common-denominator physical medium attachment and enable communication if compatible with the connected node.
-This should be indicated with a <<low-cut-ethernet-link-state-indication-operation, Link State Indication Operation>>.
+This should be indicated with a <<low-cut-ethernet-link-state-indication-operation, `Link State Indication`>> operation.
 
 ===== Error Handling [[low-cut-ethernet-error-handling]]
 
@@ -179,7 +179,7 @@ This chapter specifies the configuration parameters that should exist on an Ethe
 
 ====== Bus notification parameter [[low-cut-ethernet-bus-notification-parameter]]
 For a detailed simulation, a network FMU needs information about whether a frame has been sent or whether a bus error has occurred.
-A bus simulation can simulate these effects by sending bus notifications in terms of <<low-cut-ethernet-confirm-operation, `Confirm-`>> and <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operations to the network FMUs.
+A bus simulation can simulate these effects by sending bus notifications in terms of <<low-cut-ethernet-confirm-operation, `Confirm`>> and <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operations to the network FMUs.
 
 
 include::4_4_4_ethernet_operations.adoc[]
