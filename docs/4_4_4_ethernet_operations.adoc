@@ -270,7 +270,7 @@ h|OP Code [hex] 5+| 0x20
 |====
 
 h|Name h|Value h|Description
-|[[table-fmi3-ls-bus-ethernet-config-parameter-type-values-supported-phy-types]]SUPPORTED_PHY_TYPES|0x1|Indicates the supported Ethernet PHYs of this node.
+|[[table-fmi3-ls-bus-ethernet-config-parameter-type-values-supported-phy-types]]SUPPORTED_PHY_TYPES|0x0|Indicates the supported Ethernet PHYs of this node.
 
 |====
 
