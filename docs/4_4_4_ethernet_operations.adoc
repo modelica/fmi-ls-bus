@@ -264,6 +264,17 @@ h|OP Code [hex] 5+| 0x20
 |====
 
 
+.Valid values for the configuration parameter type.
+[#table-fmi3-ls-bus-ethernet-config-parameter-type-values]
+[cols="2,1,5"]
+|====
+
+h|Name h|Value h|Description
+|[[table-fmi3-ls-bus-ethernet-config-parameter-type-values-supported-phy-types]]SUPPORTED_PHY_TYPES|0x1|Indicates the supported Ethernet PHYs of this node.
+
+|====
+
+
 .Valid values for the MDI mode.
 [#table-fmi3-ls-bus-ethernet-mdi-mode-values]
 [cols="2,1,5"]
