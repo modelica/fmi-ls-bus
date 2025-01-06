@@ -63,10 +63,10 @@ The following applies for this operation: `Length = 28 + n`.
 |====
 
 
-====== Transmit verify/respond [[low-cut-ethernet-transmit-verify-respond-operation]]
+====== Transmit Verify/Respond [[low-cut-ethernet-transmit-verify-respond-operation]]
 Represents the transmission of a verify or response mPacket.
 
-.Detailed description of the Transmit verify/respond operation.
+.Detailed description of the Transmit Verify/Respond operation.
 [#table-fmi3-ls-bus-ethernet-transmit-verify-respond-operation]
 [cols="6,1,5,4,3,20"]
 |====
@@ -105,10 +105,10 @@ The following applies for this operation: `Length = 14 + n`.
 |====
 
 
-====== Transmit continuation [[low-cut-ethernet-transmit-continuation-operation]]
+====== Transmit Continuation [[low-cut-ethernet-transmit-continuation-operation]]
 Represents the transmission of a continuation mPacket.
 
-.Detailed description of the Transmit continuation operation.
+.Detailed description of the Transmit Continuation operation.
 [#table-fmi3-ls-bus-ethernet-transmit-continuation-operation]
 [cols="6,1,5,4,3,20"]
 |====

@@ -39,7 +39,7 @@ To simplify interconnecting Ethernet FMUs, a bus simulation may decide to incorp
 A transmission of an Ethernet frame is modeled by a transmit operation.
 The transmit operation is received by the bus simulation and forwarded to the communication partner after the transmission delay which should be calculated by the bus simulation.
 
-The bus simulation then sends a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation to the sender, if the <<low-cut-ethernet-bus-notification-parameter, Bus Notification parameter>> is configured.
+The bus simulation then sends a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation to the sender, if the <<low-cut-ethernet-bus-notification-parameter, Bus Notification Parameter>> is configured.
 In the case of an error or collision, a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation may be returned instead.
 
 The following sections will describe different transmission scenarios in detail.
@@ -52,7 +52,7 @@ The bus operation confirm the transmission with a <<low-cut-ethernet-confirm-ope
 
 .Normal transmission.
 [#figure-ethernet-transmit]
-image::ethernet_transmit.svg[width=80%, align="center"]
+image::ethernet_transmit.svg[width=70%, align="center"]
 
 
 ====== Transmission with avoided collision
@@ -154,7 +154,7 @@ A bus simulation may also inject errors into the simulation, by sending a bus er
 
 .Architectural error handling overview.
 [#figure-ethernet-architectural-error-handling-overview]
-image::ethernet_error_handling_overview.svg[width=100%, align="center"]
+image::ethernet_error_handling_overview.svg[width=80%, align="center"]
 
 TODO: Extend and specify error scenarios
 
@@ -177,7 +177,7 @@ image::ethernet_wake_up.svg[width=70%, align="center"]
 By using configuration parameters on bus terminal-level, network FMUs can be parameterized by the user or bus simulation (e.g., by using the parameter propagation mechanism).
 This chapter specifies the configuration parameters that should exist on an Ethernet bus terminal.
 
-====== Bus notification parameter [[low-cut-ethernet-bus-notification-parameter]]
+====== Bus Notification Parameter [[low-cut-ethernet-bus-notification-parameter]]
 For a detailed simulation, a network FMU needs information about whether a frame has been sent or whether a bus error has occurred.
 A bus simulation can simulate these effects by sending bus notifications in terms of <<low-cut-ethernet-confirm-operation, `Confirm`>> and <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operations to the network FMUs.
 
