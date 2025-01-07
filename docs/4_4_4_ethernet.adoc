@@ -1,5 +1,3 @@
-:imagesdir: images
-
 ==== Ethernet [[low-cut-ethernet]]
 This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for Ethernet.
 
@@ -44,6 +42,9 @@ In a normal transmission, the Network FMU sends a <<low-cut-ethernet-transmit-op
 forwarded to the communication partner after the calculated transmission time.
 The Bus Simulation confirms the transmission with a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation.
 
+<<#figure-ethernet-transmit>> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.
+After the transmission has been successfully completed, the Bus Simulation acknowledges this process by using a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation, which is provided to FMU 1.
+
 .Normal transmission.
 [#figure-ethernet-transmit]
 image::ethernet_transmit.svg[width=70%, align="center"]
@@ -52,10 +53,17 @@ image::ethernet_transmit.svg[width=70%, align="center"]
 On a real Ethernet bus, an Ethernet node can use carrier sensing to detect ongoing transmissions to defer its own transmission until the medium is free.
 In the FMI-LS-BUS specification, this is not possible, thus a special bus error is introduced to indicate when the medium is busy.
 
-When a Network FMU starts a transmission in this case, the Bus Simulation returns a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with error code <<table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy, _MediumBusy_>>.
+When a Network FMU starts a transmission in this case, the Bus Simulation returns a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with value of argument argument `Error Code` set to <<table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy, `MEDIUM_BUSY`>>.
 The Network FMU should the re-attempt the transmission at a later point in time.
 
-Note: In this scenario the ongoing transmission continues.
+_Note: In this scenario the ongoing transmission continues._
+
+<<figure-ethernet-transmit-collision-avoided>> illustrates how FMU 1 firstly provides a <<low-cut-ethernet-transmit-operation, `Transmit`>> operation to the Bus Simulation.
+While the transmission is still running, FMU 2 tries to provide another <<low-cut-ethernet-transmit-operation, `Transmit`>> operation.
+This leads to a conflict because the simulated bus is already occupied by the transmission from FMU 1.
+FMU 2 is notified of this situation by receiving a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with argument `Error Code` set to <<table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy, `MEDIUM_BUSY`>> by the Bus Simulation.
+The <<low-cut-ethernet-transmit-operation, `Transmit`>> operation, originally provided by FMU 1, is then provided to FMU 2 and FMU 3.
+FMU 1 acknowledges a successful transmission using a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation.
 
 .Transmission with avoided collision.
 [#figure-ethernet-transmit-collision-avoided]
@@ -64,21 +72,31 @@ image::ethernet_transmit_collision_avoided.svg[width=80%, align="center"]
 ====== Transmission with Collision
 If the Ethernet node does not detect an ongoing transmission in time, the Ethernet frames collide causing both transmissions to be destroyed.
 
-When a Network FMU starts a transmission in this case, the Bus Simulation returns a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with error code <<table-fmi3-ls-bus-ethernet-bus-error-code-values-collision, _Collision_>>.
+When a Network FMU starts a transmission in this case, the Bus Simulation returns a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with value of argument `Error Code` set to <<table-fmi3-ls-bus-ethernet-bus-error-code-values-collision, `COLLISION`>>.
 This is also sent to other nodes on the bus including the sender of the other transmission.
 
-Note: In this scenario the ongoing transmission is destroyed as well.
+_Note: In this scenario the ongoing transmission is destroyed as well._
+
+<<figure-ethernet-transmit-collision>> illustrates how FMU 1 firstly provides a <<low-cut-ethernet-transmit-operation, `Transmit`>> operation to the Bus Simulation.
+While the transmission is still running, FMU 2 tries to provide another <<low-cut-ethernet-transmit-operation, `Transmit`>> operation.
+This leads to a conflict because the simulated bus is already occupied by the transmission from FMU 1.
+All three Network FMUs are notified of this situation by receiving a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with argument `Error Code` set to <<table-fmi3-ls-bus-ethernet-bus-error-code-values-collision, `COLLISION`>> by the Bus Simulation.
 
 .Transmission with collision.
 [#figure-ethernet-transmit-collision]
 image::ethernet_transmit_collision.svg[width=80%, align="center"]
 
 ====== Fragmented Transmission using the MAC Merge Sublayer
-When using the MAC Merge sublayer (See chapter 99 of <<IEEE-802.3-2022>>),
+When using the MAC Merge sublayer (see chapter 99 of <<IEEE-802.3-2022>>),
 the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation can also indicate the transmission of Express frames and the initial fragment of preempted frames.
 Continuation packets of a preempted frame are transmitted using the <<low-cut-ethernet-transmit-continuation-operation, `Transmit Continuation`>> operation.
 
 Before the MAC Merge sublayer is used, _Verify_ and _Respond_ frames are used to verify that the link partner supports this functionality, these are indicated by an <<low-cut-ethernet-transmit-verify-respond-operation, `Transmit Verify/Respond`>> operation.
+
+<<figure-ethernet-transmit-fragmented>> illustrates how the two Network FMUs FMU 1 and FMU 2 first agree on the exchange of Express frames with the help of a Bus Simulation by performing a handshake via the <<low-cut-ethernet-transmit-verify-respond-operation, `Transmit Verify/Respond`>> operation.
+Afterwards, the first fragment of the first Ethernet frame is sent from FMU 1 to FMU 2 via the Bus Simulation by using a <<low-cut-ethernet-transmit-operation, `Transmit`>> operation.
+In the next step, FMU 1 sends another <<low-cut-ethernet-transmit-operation, `Transmit`>> operation, which does not refer to the first Ethernet frame fragment.
+In the third step, the second fragment of the Ethernet frame is provided from FMU 1 to FMU 2 by using the special <<low-cut-ethernet-transmit-continuation-operation, `Transmit Continuation`>> operation.
 
 .Fragmented transmission. The frame 1 is fragmented into two fragments 1.1 and 1.2 due to a transmission of an Express frame 2.
 [#figure-ethernet-transmit-fragmented]
