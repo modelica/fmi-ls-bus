@@ -3,7 +3,7 @@ This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Stan
 
 ===== Overview [[low-cut-ethernet-overview]]
 
-====== Scope of this Standard
+====== Scope of this Standard [[low-cut-ethernet-scope-of-this-standard]]
 This standard should allow simulation of Ethernet bus systems and shall cover commercial, industrial and automotive use cases.
 
 This standard should cover all variants of Ethernet described in <<IEEE-802.3-2022>> while being flexible enough to support future versions without adaption due to the high cadence of the Ethernet standardization process.
@@ -17,7 +17,7 @@ In addition, it should consider requirements for time-sensitive networking (TSN)
 In the 802.3 architecture, the layered standard aims to provide an abstraction of the Ethernet controller on the Media Access Control (MAC) sublayer.
 Effects on lower layers are modeled on a simplified level.
 
-====== Ethernet Topologies
+====== Ethernet Topologies [[low-cut-ethernet-ethernet-topologies]]
 Ethernet support both point-to-point and multidrop topologies.
 In a point-to-point topology, Ethernet devices are either connected directly or more than two devices are connected using an Ethernet switch.
 This topology is used for all modern Ethernet variants except 10BASE-T1S.
@@ -37,7 +37,7 @@ In the case of an error or collision, a <<low-cut-ethernet-bus-error-operation, 
 
 The following sections will describe different transmission scenarios in detail.
 
-====== Normal Transmission
+====== Normal Transmission [[low-cut-ethernet-normal-transmission]]
 In a normal transmission, the Network FMU sends a <<low-cut-ethernet-transmit-operation, `Transmit`>> operation which is
 forwarded to the communication partner after the calculated transmission time.
 The Bus Simulation confirms the transmission with a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation.
@@ -49,7 +49,7 @@ After the transmission has been successfully completed, the Bus Simulation ackno
 [#figure-ethernet-transmit]
 image::ethernet_transmit.svg[width=70%, align="center"]
 
-====== Transmission with avoided Collision
+====== Transmission with avoided Collision [[low-cut-ethernet-transmission-with-avoided-collision]]
 On a real Ethernet bus, an Ethernet node can use carrier sensing to detect ongoing transmissions to defer its own transmission until the medium is free.
 In the FMI-LS-BUS specification, this is not possible, thus a special bus error is introduced to indicate when the medium is busy.
 
@@ -69,7 +69,7 @@ FMU 1 acknowledges a successful transmission using a <<low-cut-ethernet-confirm-
 [#figure-ethernet-transmit-collision-avoided]
 image::ethernet_transmit_collision_avoided.svg[width=80%, align="center"]
 
-====== Transmission with Collision
+====== Transmission with Collision [[low-cut-ethernet-transmission-with-collision]]
 If the Ethernet node does not detect an ongoing transmission in time, the Ethernet frames collide causing both transmissions to be destroyed.
 
 When a Network FMU starts a transmission in this case, the Bus Simulation returns a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with value of argument `Error Code` set to <<table-fmi3-ls-bus-ethernet-bus-error-code-values-collision, `COLLISION`>>.
@@ -86,7 +86,7 @@ All three Network FMUs are notified of this situation by receiving a <<low-cut-e
 [#figure-ethernet-transmit-collision]
 image::ethernet_transmit_collision.svg[width=80%, align="center"]
 
-====== Fragmented Transmission using the MAC Merge Sublayer
+====== Fragmented Transmission using the MAC Merge Sublayer [[low-cut-ethernet-fragmented-transmission-using-merge-sublayer]]
 When using the MAC Merge sublayer (see chapter 99 of <<IEEE-802.3-2022>>),
 the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation can also indicate the transmission of Express frames and the initial fragment of preempted frames.
 Continuation packets of a preempted frame are transmitted using the <<low-cut-ethernet-transmit-continuation-operation, `Transmit Continuation`>> operation.
