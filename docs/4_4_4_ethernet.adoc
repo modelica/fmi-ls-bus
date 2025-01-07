@@ -30,7 +30,7 @@ In a multidrop topology, multiple devices are connected to the same segment eith
 This topology is used in legacy Ethernet systems as well as 10BASE-T1S networks.
 
 In terms of the LS-BUS, each point-to-point connection or multidrop segment represents a dedicated virtual bus, which may be simulated by an independent Bus Simulation or combined into a consolidated simulation.
-Ethernet switches can be modeled as normal FMUs, where switch ports correspond to LS-BUS terminals, to allow simulating any kind of Ethernet switch.
+Ethernet switches can be modeled as normal FMUs, where switch ports correspond to Bus Terminals, to allow simulating any kind of Ethernet switch.
 To simplify interconnecting Ethernet FMUs, a Bus Simulation may decide to incorporate the Ethernet switching instead of delegating it to a dedicated FMU.
 
 
@@ -174,8 +174,8 @@ The Bus Simulation shall distribute this operation to all participants on the bu
 image::ethernet_wake_up.svg[width=70%, align="center"]
 
 ===== Network Parameters [[low-cut-ethernet-network-parameters]]
-By using configuration parameters on bus terminal-level, Network FMUs can be parameterized by the user or Bus Simulation (e.g., by using the parameter propagation mechanism).
-This chapter specifies the configuration parameters that should exist on an Ethernet bus terminal.
+By using configuration parameters on Bus Terminal-level, Network FMUs can be parameterized by the user or Bus Simulation (e.g., by using the parameter propagation mechanism).
+This chapter specifies the configuration parameters that should exist on an Ethernet Bus Terminal.
 
 ====== Bus Notification Parameter [[low-cut-ethernet-bus-notification-parameter]]
 For a detailed simulation, a Network FMU needs information about whether a frame has been sent or whether a bus error has occurred.
