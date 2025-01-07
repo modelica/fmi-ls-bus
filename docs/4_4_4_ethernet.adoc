@@ -111,7 +111,7 @@ With a Bus Simulation, <<low-cut-ethernet-configuration-operation, `Configuratio
 In a multidrop configuration, the Bus Simulation shall not forward <<low-cut-ethernet-configuration-operation, `Configuration`>> operations but should supply a single <<low-cut-ethernet-configuration-operation, `Configuration`>> operation to each Network FMU.
 
 In addition to the <<low-cut-ethernet-configuration-operation, `Configuration`>> operation, the link state should be indicated with a <<low-cut-ethernet-link-state-indication-operation, `Link State Indication`>> operation.
-This may be done right after the <<low-cut-ethernet-configuration-operation, `Configuration`>> operation or at the latest after receiving the communication operation of the connected FMU.
+This may be done right after the <<low-cut-ethernet-configuration-operation, `Configuration`>> operation or at the latest after receiving the <<low-cut-ethernet-configuration-operation, `Configuration`>> operation of the connected Network FMU.
 
 ====== Auto-Negotiation [[low-cut-ethernet-auto-negotiation]]
 If auto-negotiation is enabled for the Network FMU, it should perform it after the configuration phase.
