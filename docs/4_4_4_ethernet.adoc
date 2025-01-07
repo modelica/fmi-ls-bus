@@ -6,7 +6,6 @@ This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Stan
 ===== Overview [[low-cut-ethernet-overview]]
 
 ====== Scope of this Standard
-
 This standard should allow simulation of Ethernet bus systems and shall cover commercial, industrial and automotive use cases.
 
 This standard should cover all variants of Ethernet described in <<IEEE-802.3-2022>> while being flexible enough to support future versions without adaption due to the high cadence of the Ethernet standardization process.
@@ -20,9 +19,7 @@ In addition, it should consider requirements for time-sensitive networking (TSN)
 In the 802.3 architecture, the layered standard aims to provide an abstraction of the Ethernet controller on the Media Access Control (MAC) sublayer.
 Effects on lower layers are modeled on a simplified level.
 
-
 ====== Ethernet Topologies
-
 Ethernet support both point-to-point and multidrop topologies.
 In a point-to-point topology, Ethernet devices are either connected directly or more than two devices are connected using an Ethernet switch.
 This topology is used for all modern Ethernet variants except 10BASE-T1S.
@@ -33,11 +30,9 @@ In terms of the FMI-LS-BUS specification, each point-to-point connection or mult
 Ethernet switches can be modeled as normal FMUs, where switch ports correspond to Bus Terminals, to allow simulating any kind of Ethernet switch.
 To simplify interconnecting Ethernet FMUs, a Bus Simulation may decide to incorporate the Ethernet switching instead of delegating it to a dedicated FMU.
 
-
 ===== Transmission and Reception [[low-cut-ethernet-transmission]]
-
-A transmission of an Ethernet frame is modeled by a transmit operation.
-The transmit operation is received by the Bus Simulation and forwarded to the communication partner after the transmission delay which should be calculated by the Bus Simulation.
+A transmission of an Ethernet frame is modeled by a <<low-cut-ethernet-transmit, `Transmit`>> operation.
+The <<low-cut-ethernet-transmit, `Transmit`>> operation is received by the Bus Simulation and forwarded to the communication partner after the transmission delay which should be calculated by the Bus Simulation.
 
 The Bus Simulation then sends a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation to the sender, if the <<low-cut-ethernet-bus-notification-parameter, Bus Notification Parameter>> is configured.
 In the case of an error or collision, a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation may be returned instead.
@@ -45,18 +40,15 @@ In the case of an error or collision, a <<low-cut-ethernet-bus-error-operation, 
 The following sections will describe different transmission scenarios in detail.
 
 ====== Normal Transmission
-
-In a normal transmission, the Network FMU sends a transmit operation which is
-forwarded to the communication partner after the calculated transmit time.
-The bus operation confirm the transmission with a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation.
+In a normal transmission, the Network FMU sends a <<low-cut-ethernet-transmit, `Transmit`>> operation which is
+forwarded to the communication partner after the calculated transmission time.
+The Bus Simulation confirms the transmission with a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation.
 
 .Normal transmission.
 [#figure-ethernet-transmit]
 image::ethernet_transmit.svg[width=70%, align="center"]
 
-
 ====== Transmission with avoided Collision
-
 On a real Ethernet bus, an Ethernet node can use carrier sensing to detect ongoing transmissions to defer its own transmission until the medium is free.
 In the FMI-LS-BUS specification, this is not possible, thus a special bus error is introduced to indicate when the medium is busy.
 
@@ -69,9 +61,7 @@ Note: In this scenario the ongoing transmission continues.
 [#figure-ethernet-transmit-collision-avoided]
 image::ethernet_transmit_collision_avoided.svg[width=80%, align="center"]
 
-
 ====== Transmission with Collision
-
 If the Ethernet node does not detect an ongoing transmission in time, the Ethernet frames collide causing both transmissions to be destroyed.
 
 When a Network FMU starts a transmission in this case, the Bus Simulation returns a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with error code <<table-fmi3-ls-bus-ethernet-bus-error-code-values-collision, _Collision_>>.
@@ -83,11 +73,9 @@ Note: In this scenario the ongoing transmission is destroyed as well.
 [#figure-ethernet-transmit-collision]
 image::ethernet_transmit_collision.svg[width=80%, align="center"]
 
-
 ====== Fragmented Transmission using the MAC Merge Sublayer
-
 When using the MAC Merge sublayer (See chapter 99 of <<IEEE-802.3-2022>>),
-the transmit operation can also indicate the transmission of Express frames and the initial fragment of preempted frames.
+the <<low-cut-ethernet-transmit, `Transmit`>> operation can also indicate the transmission of Express frames and the initial fragment of preempted frames.
 Continuation packets of a preempted frame are transmitted using the <<low-cut-ethernet-transmit-continuation-operation, `Transmit Continuation`>> operation.
 
 Before the MAC Merge sublayer is used, _Verify_ and _Respond_ frames are used to verify that the link partner supports this functionality, these are indicated by an <<low-cut-ethernet-transmit-verify-respond-operation, `Transmit Verify/Respond`>> operation.
@@ -96,9 +84,7 @@ Before the MAC Merge sublayer is used, _Verify_ and _Respond_ frames are used to
 [#figure-ethernet-transmit-fragmented]
 image::ethernet_transmit_fragmented.svg[width=80%, align="center"]
 
-
 ===== Configuration and Startup [[low-cut-ethernet-configuration-and-startup]]
-
 To initialize the Ethernet communication, the Network FMUs need to exchange
 their capabilities and the current parameters of the Ethernet link.
 This serves to properly simulate compatibility of the used PHY and to determine the correct link speed and behavior.
@@ -107,7 +93,7 @@ In addition, configuration and simulation of auto-negotiation, auto MDI-X and lo
 
 The configuration and startup phase consists of the following steps:
 
-. Exchange of configuration operations (see <<low-cut-ethernet-configuration-phase>>)
+. Exchange of <<low-cut-ethernet-configuration-operation, `Configuration`>> operations (see <<low-cut-ethernet-configuration-phase>>)
 . Sending of an initial <<low-cut-ethernet-link-state-indication-operation, `Link State Indication`>> operation
 . <<low-cut-ethernet-configuration-phase, Auto-Negotiation>> (optional)
 . Sending of an updated <<low-cut-ethernet-link-state-indication-operation, `Link State Indication`>> operation (optional)
@@ -117,20 +103,17 @@ These phases are described in further detail in the following sections.
 TODO: PLCA
 
 ====== Configuration Phase [[low-cut-ethernet-configuration-phase]]
-
 Before an Ethernet Network FMU may communicate, it must send a <<table-fmi3-ls-bus-ethernet-configuration-operation, `Configuration`>> operation.
-Only after also receiving a bus configuration operation and evaluating it against its own configuration for compatibility, it may start transmitting frames.
+Only after also receiving a <<low-cut-ethernet-configuration-operation, `Configuration`>> operation and evaluating it against its own configuration for compatibility, it may start transmitting frames.
 
-In a direct connection scenario, configuration operations are exchanged as-is.
-With a Bus Simulation, configuration operations may either be forwarded by a Bus Simulation or the Bus Simulation may supply its own configuration operation to each node.
-In a multidrop configuration, the Bus Simulation shall not forward configuration operations but should supply a single configuration operation to each Network FMU.
+In a direct connection scenario, <<low-cut-ethernet-configuration-operation, `Configuration`>> operations are exchanged as-is.
+With a Bus Simulation, <<low-cut-ethernet-configuration-operation, `Configuration`>> operations may either be forwarded by a Bus Simulation or the Bus Simulation may supply its own <<low-cut-ethernet-configuration-operation, `Configuration`>> operation to each node.
+In a multidrop configuration, the Bus Simulation shall not forward <<low-cut-ethernet-configuration-operation, `Configuration`>> operations but should supply a single <<low-cut-ethernet-configuration-operation, `Configuration`>> operation to each Network FMU.
 
-In addition to the configuration operation, the link state should be indicated with a <<low-cut-ethernet-link-state-indication-operation, `Link State Indication`>> operation.
-This may be done right after the configuration operation or at the latest after receiving the communication operation of the connected FMU.
-
+In addition to the <<low-cut-ethernet-configuration-operation, `Configuration`>> operation, the link state should be indicated with a <<low-cut-ethernet-link-state-indication-operation, `Link State Indication`>> operation.
+This may be done right after the <<low-cut-ethernet-configuration-operation, `Configuration`>> operation or at the latest after receiving the communication operation of the connected FMU.
 
 ====== Auto-Negotiation [[low-cut-ethernet-auto-negotiation]]
-
 If auto-negotiation is enabled for the Network FMU, it should perform it after the configuration phase.
 The initial link indication should set a physical medium attachment of "unknown".
 
@@ -146,18 +129,16 @@ After both sending and receiving the auto-negotiation pages, the Network FMU sho
 This should be indicated with a <<low-cut-ethernet-link-state-indication-operation, `Link State Indication`>> operation.
 
 ===== Error Handling [[low-cut-ethernet-error-handling]]
-
 To model errors on the Ethernet bus, <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operations are used.
 These operations may be sent by a Bus Simulation to all Network FMUs which may detect that errors.
 
-A Bus Simulation may also inject errors into the simulation, by sending a bus error operation.
+A Bus Simulation may also inject errors into the simulation, by sending a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation.
 
 .Architectural error handling overview.
 [#figure-ethernet-architectural-error-handling-overview]
 image::ethernet_error_handling_overview.svg[width=80%, align="center"]
 
 TODO: Extend and specify error scenarios
-
 
 ===== Wake Up/Sleep [[low-cut-ethernet-wakeup-sleep]]
 This standard supports wake up and sleep functionality for the Ethernet bus, based on the TC10 Sleep/Wake-up
