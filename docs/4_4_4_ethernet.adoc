@@ -29,7 +29,7 @@ This topology is used for all modern Ethernet variants except 10BASE-T1S.
 In a multidrop topology, multiple devices are connected to the same segment either directly, daisy-chained or interconnected via hubs.
 This topology is used in legacy Ethernet systems as well as 10BASE-T1S networks.
 
-In terms of the LS-BUS, each point-to-point connection or multidrop segment represents a dedicated virtual bus, which may be simulated by an independent Bus Simulation or combined into a consolidated simulation.
+In terms of the FMI-LS-BUS specification, each point-to-point connection or multidrop segment represents a dedicated virtual bus, which may be simulated by an independent Bus Simulation or combined into a consolidated simulation.
 Ethernet switches can be modeled as normal FMUs, where switch ports correspond to Bus Terminals, to allow simulating any kind of Ethernet switch.
 To simplify interconnecting Ethernet FMUs, a Bus Simulation may decide to incorporate the Ethernet switching instead of delegating it to a dedicated FMU.
 
@@ -58,7 +58,7 @@ image::ethernet_transmit.svg[width=70%, align="center"]
 ====== Transmission with avoided Collision
 
 On a real Ethernet bus, an Ethernet node can use carrier sensing to detect ongoing transmissions to defer its own transmission until the medium is free.
-In the LS-BUS, this is not possible, thus a special bus error is introduced to indicate when the medium is busy.
+In the FMI-LS-BUS specification, this is not possible, thus a special bus error is introduced to indicate when the medium is busy.
 
 When a Network FMU starts a transmission in this case, the Bus Simulation returns a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with error code <<table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy, _MediumBusy_>>.
 The Network FMU should the re-attempt the transmission at a later point in time.
