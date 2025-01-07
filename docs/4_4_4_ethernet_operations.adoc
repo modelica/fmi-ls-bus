@@ -205,7 +205,7 @@ The following applies for this operation: `Length = 10`.
 
 3+| Is Sender
 | 1 byte
-| Indicates whether this bus error occurs in response to a transmission of this FMU.
+| Indicates whether this bus error occurs in response to a transmission of this Network FMU.
 
 |====
 
