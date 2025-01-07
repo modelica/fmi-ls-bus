@@ -9,7 +9,7 @@ Represents a format error that indicates a syntax or content error of receiving 
 See <<low-cut-format-error-operation, `Format Error`>> for definition.
 
 
-====== Transmit [[low-cut-ethernet-transmit]]
+====== Transmit [[low-cut-ethernet-transmit-operation]]
 Represents the transmission of an Ethernet frame or MAC Merge Packet (mPacket).
 
 .Detailed description of the Transmit operation.
