@@ -34,7 +34,7 @@ To simplify interconnecting Ethernet FMUs, a Bus Simulation may decide to incorp
 A transmission of an Ethernet frame is modeled by a <<low-cut-ethernet-transmit-operation, `Transmit`>> operation.
 The <<low-cut-ethernet-transmit-operation, `Transmit`>> operation is received by the Bus Simulation and forwarded to the communication partner after the transmission delay which should be calculated by the Bus Simulation.
 
-The Bus Simulation then sends a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation to the sender, if the <<low-cut-ethernet-bus-notification-parameter, Bus Notification Parameter>> is configured.
+The Bus Simulation then sends a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation to the sender, if the <<low-cut-ethernet-bus-notification-parameter, `BusNotifications`>> parameter is configured.
 In the case of an error or collision, a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation may be returned instead.
 
 The following sections will describe different transmission scenarios in detail.
