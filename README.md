@@ -31,7 +31,7 @@ A detailed roadmap showing completed, current and future work can be accessed [h
 
 ## News
 
-Dive into our latest video, ["FMI, Layered Standards and ASAM Standards - Enabling Seamless SiL Simulation of Virtual ECUs"](https://www.youtube.com/watch?v=KzzKRa3jORs).
+Dive into our latest video ["FMI, Layered Standards and ASAM Standards - Enabling Seamless SiL Simulation of Virtual ECUs"](https://www.youtube.com/watch?v=KzzKRa3jORs).
 Discover how the cutting-edge FMI 3.0 standard and the layered standards based on it are revolutionizing the world of Software-in-the-Loop (SiL) simulations.
 
 During the presentation the three new layered standards for simulating virtual ECUs with FMI 3.0 are introduced:
