@@ -2,6 +2,25 @@
 This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for Ethernet.
 
 ===== Overview [[low-cut-ethernet-overview]]
+To simulate the Ethernet bus type, Ethernet-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
+Overall, the following groups of operations exists:
+
+* Transmit: This group of operations is used to simulate a frame transmission.
+Different types of Ethernet frames (e.g. Express frames) are taken into account here.
+* Confirm: Represents an confirmation of transmitted Ethernet frames.
+* Error: This group of operations is used for protocol format errors and to simulate bus failures.
+For example, the failure of a transmission can be indicated.
+* Configuration: This operation enables the configuration of bus-specific parameters and options that are required to simulate the bus behavior properly.
+* Auto-Negotiation: This group of operations is used to simulate different Ethernet Auto-Negotiation mechanisms.
+* Link State Indication: This operation indicates the state of the physical medium attachment.
+* Wake up: Ethernet supports wake up and sleep scenarios.
+Normally there are two ways to wake up from sleep mode: a local wake up on a specified wake-up pin, or a wake-up on the Ethernet bus via a Ethernet specific wake-up pulse.
+This operation is used to simulate triggering a wake-up from bus side.
+
+The following table gives a detailed overview of the available operations.
+It shows all operations and the arguments they contain.
+
+#TODO: Add overview table#
 
 ====== Scope of this Standard [[low-cut-ethernet-scope-of-this-standard]]
 This standard should allow simulation of Ethernet bus systems and shall cover commercial, industrial and automotive use cases.
