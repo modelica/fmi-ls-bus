@@ -29,28 +29,32 @@ h|OP Code [hex] 5+| 0x10
 3+| Length
 | 4 bytes
 | Total length of the operation.
-The following applies for this operation: `Length = 28 + n`.
+The following applies for this operation: `Length = 26 + n`.
 
 
 3+| Start delimiter
 | 1 byte
-| The start frame (SFD) or start mPacket (SMD) delimiter. Always set to 0xD5 for ordinary Ethernet frames when not using preemption.
+| The start frame (SFD) or start mPacket (SMD) delimiter. Always set to 0xD5 for ordinary Ethernet frames when not using preemption/fragmentation.
+
+3+| Fragment counter
+| 1 byte
+| Fragment counter of the continuation mPacket. Must be set to 0, if this is not a continuation mPacket.
+
+3+| Last fragment
+| 1 byte
+| Indicates whether this is the last fragment of a fragmented Ethernet frame. Must be set to TRUE if this is a full Ethernet frame.
 
 3+| Destination address
 | 6 bytes
-| The destination address of the frame.
+| The destination address of the frame. Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.
 
 3+| Source address
 | 6 bytes
-| The destination address of the frame.
+| The destination address of the frame. Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.
 
 3+| EtherType or length
 | 2 bytes
 | Indicates the type of Ethernet frame (Ethernet II) or frame length (802.3).
-
-3+| CRC
-| 4 bytes
-| The checksum of this Ethernet frame or mPacket.
 
 3+| Data length
 | 1 byte
@@ -59,94 +63,6 @@ The following applies for this operation: `Length = 28 + n`.
 3+| Data
 | n bytes
 | The payload data of the Ethernet frame or mPacket.
-
-|====
-
-
-====== Transmit Verify/Respond [[low-cut-ethernet-transmit-verify-respond-operation]]
-Represents the transmission of a verify or response mPacket.
-
-.Detailed description of the Transmit Verify/Respond operation.
-[#table-fmi3-ls-bus-ethernet-transmit-verify-respond-operation]
-[cols="6,1,5,4,3,20"]
-|====
-h|Name 5+| Transmit Verify/Respond
-h|Description 5+| Indicates the transmission of a verify or respond mPacket.
-h|OP Code [hex] 5+| 0x11
-.21+h|Content 3+h|Argument h|Length h|Description
-
-
-3+| OP Code
-| 4 bytes
-| Type of the operation.
-
-3+| Length
-| 4 bytes
-| Total length of the operation.
-The following applies for this operation: `Length = 14 + n`.
-
-
-3+| Start delimiter
-| 1 byte
-| The delimiter indicating the type of mPacket.
-
-3+| CRC
-| 4 bytes
-| The checksum of the mPacket.
-
-3+| Data length
-| 1 byte
-| The length of the data of this mPacket. Note that this does not correspond to a field in the Ethernet frame.
-
-3+| Data
-| n bytes
-| The payload data of the Ethernet mPacket.
-
-|====
-
-
-====== Transmit Continuation [[low-cut-ethernet-transmit-continuation-operation]]
-Represents the transmission of a continuation mPacket.
-
-.Detailed description of the Transmit Continuation operation.
-[#table-fmi3-ls-bus-ethernet-transmit-continuation-operation]
-[cols="6,1,5,4,3,20"]
-|====
-h|Name 5+| Transmit Continuation
-h|Description 5+| Indicates the transmission of a continuation mPacket of a fragmented Ethernet frame.
-h|OP Code [hex] 5+| 0x12
-.21+h|Content 3+h|Argument h|Length h|Description
-
-
-3+| OP Code
-| 4 bytes
-| Type of the operation.
-
-3+| Length
-| 4 bytes
-| Total length of the operation.
-The following applies for this operation: `Length = 15 + n`.
-
-
-3+| Start delimiter
-| 1 byte
-| The delimiter indicating the type of mPacket.
-
-3+| Fragment counter
-| 1 byte
-| Fragment counter of the continuation mPacket.
-
-3+| CRC
-| 4 bytes
-| The checksum of the mPacket.
-
-3+| Data length
-| 1 byte
-| The length of the data of this mPacket. Note that this does not correspond to a field in the Ethernet frame.
-
-3+| Data
-| n bytes
-| The payload data of the Ethernet mPacket.
 
 |====
 
@@ -205,7 +121,7 @@ The following applies for this operation: `Length = 10`.
 
 3+| Is Sender
 | 1 byte
-| Indicates whether this bus error occurs in response to a transmission of this Network FMU.
+| Indicates whether this bus error occurs in response to a transmission of this FMU.
 
 |====
 
@@ -302,7 +218,7 @@ Represents the transmission of an auto-negotiation base page according to sectio
 [cols="6,1,5,4,3,20"]
 |====
 h|Name 5+| Auto Negotatiation Base Page
-h|Description 5+| Base page
+h|Description 5+| Base page for section 28 auto-negotiation.
 h|OP Code [hex] 5+| 0x30
 .21+h|Content 3+h|Argument h|Length h|Description
 
@@ -344,216 +260,6 @@ The following applies for this operation: `Length = 17`.
 |====
 
 
-====== Auto-Negotiation Message Page [[low-cut-ethernet-auto-negotatiation-message-page-operation]]
-Represents the transmission of an auto-negotiation message page according to section 28 of <<IEEE-802.3-2022>>.
-
-.Detailed description of the Auto-Negotiation Message Page operation.
-[#table-fmi3-ls-bus-ethernet-auto-negotatiation-message-page-operation]
-[cols="6,1,5,4,3,20"]
-|====
-h|Name 5+| Auto Negotatiation Message Page
-h|Description 5+| Message page
-h|OP Code [hex] 5+| 0x31
-.21+h|Content 3+h|Argument h|Length h|Description
-
-
-3+| OP Code
-| 4 bytes
-| Type of the operation.
-
-3+| Length
-| 4 bytes
-| Total length of the operation.
-The following applies for this operation: `Length = 15`.
-
-
-3+| Message code
-| 2 bytes
-| Message code field (11 bits for section 28)
-
-3+| Toggle
-| 1 byte
-| Toggle bit for synchronization. (1 bit for section 28) Reserved. Must be FALSE.
-
-3+| Ack2
-| 1 byte
-| Acknowledgement 2. (1 bit for section 28) Reserved. Must be FALSE.
-
-3+| Message page
-| 1 byte
-| Indicates a message page. (1 bit for section 28) Must be TRUE.
-
-3+| Ack
-| 1 byte
-| Acknowledgement. (1 bit for section 28) Reserved. Must be FALSE.
-
-3+| Next page
-| 1 byte
-| Indicates the presence of a next page. (1 bit for section 28)
-
-|====
-
-
-====== Auto-Negotiation Unformatted Page [[low-cut-ethernet-auto-negotatiation-unformatted-page-operation]]
-Represents the transmission of an auto-negotiation message page according to section 28 of <<IEEE-802.3-2022>>.
-
-.Detailed description of the Auto-Negotiation Unformatted Page operation.
-[#table-fmi3-ls-bus-ethernet-auto-negotatiation-unformatted-page-operation]
-[cols="6,1,5,4,3,20"]
-|====
-h|Name 5+| Auto Negotatiation Unformatted Page
-h|Description 5+| Unformatted page
-h|OP Code [hex] 5+| 0x32
-.21+h|Content 3+h|Argument h|Length h|Description
-
-
-3+| OP Code
-| 4 bytes
-| Type of the operation.
-
-3+| Length
-| 4 bytes
-| Total length of the operation.
-The following applies for this operation: `Length = 15`.
-
-
-3+| Unformatted code
-| 2 bytes
-| Unformatted code field (11 bits for section 28)
-
-3+| Toggle
-| 1 byte
-| Toggle bit for synchronization. (1 bit for section 28) Reserved. Must be FALSE.
-
-3+| Ack2
-| 1 byte
-| Acknowledgement 2. (1 bit for section 28) Reserved. Must be FALSE.
-
-3+| Message page
-| 1 byte
-| Indicates a message page. (1 bit for section 28) Must be FALSE.
-
-3+| Ack
-| 1 byte
-| Acknowledgement. (1 bit for section 28) Reserved. Must be FALSE.
-
-3+| Next page
-| 1 byte
-| Indicates the presence of a next page. (1 bit for section 28)
-
-|====
-
-
-====== Auto-Negotiation Extended Message Page [[low-cut-ethernet-auto-negotatiation-extended-message-page-operation]]
-Represents the transmission of an auto-negotiation extended message page according to section 28 of <<IEEE-802.3-2022>>
-or a message page according to section 98 of <<IEEE-802.3-2022>>.
-
-.Detailed description of the Auto-Negotiation Extended Message Page operation.
-[#table-fmi3-ls-bus-ethernet-auto-negotatiation-extended-message-page-operation]
-[cols="6,1,5,4,3,20"]
-|====
-h|Name 5+| Auto Negotatiation Extended Message Page
-h|Description 5+| Extended Message page (section 28) and message page (section 98)
-h|OP Code [hex] 5+| 0x33
-.21+h|Content 3+h|Argument h|Length h|Description
-
-
-3+| OP Code
-| 4 bytes
-| Type of the operation.
-
-3+| Length
-| 4 bytes
-| Total length of the operation.
-The following applies for this operation: `Length = 17`.
-
-
-3+| Message code
-| 2 bytes
-| Message code field (11 bits for section 28)
-
-3+| Toggle
-| 1 byte
-| Toggle bit for synchronization. (1 bit for section 28) Reserved. Must be FALSE.
-
-3+| Ack2
-| 1 byte
-| Acknowledgement 2. (1 bit for section 28) Reserved. Must be FALSE.
-
-3+| Message page
-| 1 byte
-| Indicates a message page. (1 bit for section 28) Must be TRUE.
-
-3+| Ack
-| 1 byte
-| Acknowledgement. (1 bit for section 28) Reserved. Must be FALSE.
-
-3+| Next page
-| 1 byte
-| Indicates the presence of a next page. (1 bit for section 28)
-
-3+| Unformatted code
-| 2 bytes
-| Unformatted code field (32 bit for section 28)
-
-|====
-
-
-====== Auto-Negotiation Extended Unformatted Page [[low-cut-ethernet-auto-negotatiation-extended-unformatted-page-operation]]
-Represents the transmission of an auto-negotiation extended unformatted page according to section 28 of <<IEEE-802.3-2022>>
-or an unformatted page according to section 98 of <<IEEE-802.3-2022>>.
-
-.Detailed description of the Auto-Negotiation Extended Unformatted Page operation.
-[#table-fmi3-ls-bus-ethernet-auto-negotatiation-extended-unformatted-page-operation]
-[cols="6,1,5,4,3,20"]
-|====
-h|Name 5+| Auto Negotatiation Extended Unformatted Page
-h|Description 5+| Extended Unformatted Page (section 28) and unformatted page (section 98)
-h|OP Code [hex] 5+| 0x34
-.21+h|Content 3+h|Argument h|Length h|Description
-
-
-3+| OP Code
-| 4 bytes
-| Type of the operation.
-
-3+| Length
-| 4 bytes
-| Total length of the operation.
-The following applies for this operation: `Length = 17`.
-
-
-3+| Unformatted code 1
-| 2 bytes
-| Unformatted code field 1 (11 bits for section 28)
-
-3+| Toggle
-| 1 byte
-| Toggle bit for synchronization. (1 bit for section 28) Reserved. Must be FALSE.
-
-3+| Ack2
-| 1 byte
-| Acknowledgement 2. (1 bit for section 28) Reserved. Must be FALSE.
-
-3+| Message page
-| 1 byte
-| Indicates a message page. (1 bit for section 28) Must be FALSE.
-
-3+| Ack
-| 1 byte
-| Acknowledgement. (1 bit for section 28) Reserved. Must be FALSE.
-
-3+| Next page
-| 1 byte
-| Indicates the presence of a next page. (1 bit for section 28)
-
-3+| Unformatted code 2
-| 2 bytes
-| Unformatted code field 2 (32 bit for section 28)
-
-|====
-
-
 ====== Single Differential Pair Auto-Negotiation Base Page [[low-cut-ethernet-single-differential-pair-auto-negotatiation-base-page-operation]]
 Represents the transmission of an auto-negotiation base page according to section 98 of <<IEEE-802.3-2022>>.
 
@@ -562,8 +268,8 @@ Represents the transmission of an auto-negotiation base page according to sectio
 [cols="6,1,5,4,3,20"]
 |====
 h|Name 5+| Single Differential Pair Auto Negotatiation Base Page
-h|Description 5+| Base page
-h|OP Code [hex] 5+| 0x35
+h|Description 5+| Base page for section 98 auto-negotiation.
+h|OP Code [hex] 5+| 0x31
 .21+h|Content 3+h|Argument h|Length h|Description
 
 
@@ -616,6 +322,64 @@ The following applies for this operation: `Length = 21`.
 3+| Technology ability
 | 4 bytes
 | Technology ability (27 bits for section 98)
+
+|====
+
+
+====== Auto-Negotiation Page [[low-cut-ethernet-auto-negotatiation-page-operation]]
+Represents the transmission of an auto-negotiation (next) page according to section 28 or section 98 of <<IEEE-802.3-2022>>.
+
+.Detailed description of the Auto-Negotiation Page operation.
+[#table-fmi3-ls-bus-ethernet-auto-negotiation-page-operation]
+[cols="6,1,5,4,3,20"]
+|====
+h|Name 5+| Auto Negotiation Page
+h|Description 5+| Next page for section 28 or 98 auto-negotiation.
+h|OP Code [hex] 5+| 0x35
+.21+h|Content 3+h|Argument h|Length h|Description
+
+
+3+| OP Code
+| 4 bytes
+| Type of the operation.
+
+3+| Length
+| 4 bytes
+| Total length of the operation.
+The following applies for this operation: `Length = 24`.
+
+
+3+| Message page
+| 1 byte
+| Indicates whether this is a message page.
+
+3+| Extended page
+| 1 byte
+| Indicates that this is an extended page (section 28). Must always be TRUE when using section 98 auto-negotation.
+
+3+| Message code
+| 2 bytes
+| Message code field. (11 bits for section 28 message page) (11 bits for section 28 extended message page) ( 0 bits for section 28 unformatted page) ( 0 bits for section 28 extended unformatted page) (11 bits for section 98 message page) ( 0 bits for section 98 unformatted page) The unused upper bits must be set to zero.
+
+3+| Unformatted code
+| 8 bytes
+| Unformatted code field. ( 0 bits for section 28 message page) (11 bits for section 28 unformatted page) (32 bits for section 28 extended message page) (43 bits for section 28 extended unformatted page) (32 bits for section 98 message page) (43 bits for section 98 unformatted page) The unused upper bits must be set to zero.
+
+3+| Toggle
+| 1 byte
+| Toggle bit for synchronization. Reserved. Must be FALSE.
+
+3+| Ack
+| 1 byte
+| Acknowledgement. Reserved. Must be FALSE.
+
+3+| Ack2
+| 1 byte
+| Acknowledgement 2. Reserved. Must be FALSE.
+
+3+| Next page
+| 1 byte
+| Indicates the presence of a next page.
 
 |====
 

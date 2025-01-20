@@ -49,7 +49,7 @@ After the transmission has been successfully completed, the Bus Simulation ackno
 [#figure-ethernet-transmit]
 image::ethernet_transmit.svg[width=70%, align="center"]
 
-====== Transmission with avoided Collision [[low-cut-ethernet-transmission-with-avoided-collision]]
+====== Transmission with avoided collision [[low-cut-ethernet-transmission-with-avoided-collision]]
 On a real Ethernet bus, an Ethernet node can use carrier sensing to detect ongoing transmissions to defer its own transmission until the medium is free.
 In the FMI-LS-BUS specification, this is not possible, thus a special bus error is introduced to indicate when the medium is busy.
 
@@ -69,7 +69,7 @@ FMU 1 acknowledges a successful transmission using a <<low-cut-ethernet-confirm-
 [#figure-ethernet-transmit-collision-avoided]
 image::ethernet_transmit_collision_avoided.svg[width=80%, align="center"]
 
-====== Transmission with Collision [[low-cut-ethernet-transmission-with-collision]]
+====== Transmission with collision [[low-cut-ethernet-transmission-with-collision]]
 If the Ethernet node does not detect an ongoing transmission in time, the Ethernet frames collide causing both transmissions to be destroyed.
 
 When a Network FMU starts a transmission in this case, the Bus Simulation returns a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with value of argument `Error Code` set to <<table-fmi3-ls-bus-ethernet-bus-error-code-values-collision, `COLLISION`>>.
@@ -86,17 +86,17 @@ All three Network FMUs are notified of this situation by receiving a <<low-cut-e
 [#figure-ethernet-transmit-collision]
 image::ethernet_transmit_collision.svg[width=80%, align="center"]
 
-====== Fragmented Transmission using the MAC Merge Sublayer [[low-cut-ethernet-fragmented-transmission-using-merge-sublayer]]
+====== Fragmented transmission using the MAC Merge sublayer [[low-cut-ethernet-fragmented-transmission-using-merge-sublayer]]
 When using the MAC Merge sublayer (see chapter 99 of <<IEEE-802.3-2022>>),
 the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation can also indicate the transmission of Express frames and the initial fragment of preempted frames.
-Continuation packets of a preempted frame are transmitted using the <<low-cut-ethernet-transmit-continuation-operation, `Transmit Continuation`>> operation.
+Continuation packets of a preempted frame are also transmitted using the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation with a start delimiter indicating a continuation.
 
-Before the MAC Merge sublayer is used, _Verify_ and _Respond_ frames are used to verify that the link partner supports this functionality, these are indicated by an <<low-cut-ethernet-transmit-verify-respond-operation, `Transmit Verify/Respond`>> operation.
+Before the MAC Merge sublayer is used, _Verify_ and _Respond_ frames are used to verify that the link partner supports this functionality, these are indicated by an <<low-cut-ethernet-transmit-operation, `Transmit`>> operation with a special start delimiter.
 
-<<figure-ethernet-transmit-fragmented>> illustrates how the two Network FMUs FMU 1 and FMU 2 first agree on the exchange of Express frames with the help of a Bus Simulation by performing a handshake via the <<low-cut-ethernet-transmit-verify-respond-operation, `Transmit Verify/Respond`>> operation.
+<<figure-ethernet-transmit-fragmented>> illustrates how the two Network FMUs FMU 1 and FMU 2 first agree on the exchange of Express frames with the help of a Bus Simulation by performing a handshake via the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation with `Verify` or `Respond` start delimiter.
 Afterwards, the first fragment of the first Ethernet frame is sent from FMU 1 to FMU 2 via the Bus Simulation by using a <<low-cut-ethernet-transmit-operation, `Transmit`>> operation.
 In the next step, FMU 1 sends another <<low-cut-ethernet-transmit-operation, `Transmit`>> operation, which does not refer to the first Ethernet frame fragment.
-In the third step, the second fragment of the Ethernet frame is provided from FMU 1 to FMU 2 by using the special <<low-cut-ethernet-transmit-continuation-operation, `Transmit Continuation`>> operation.
+In the third step, the second fragment of the Ethernet frame is provided from FMU 1 to FMU 2 by using a <<low-cut-ethernet-transmit-operation, `Transmit`>> operation with start delimiter indicating a continuation.
 
 .Fragmented transmission. The frame 1 is fragmented into two fragments 1.1 and 1.2 due to a transmission of an Express frame 2.
 [#figure-ethernet-transmit-fragmented]
@@ -140,8 +140,7 @@ Auto-negotiation according to <<IEEE-802.3-2022, IEEE 802.3>> section 37 (e.g., 
 
 This standard defines a simplified auto-negotiation procedure in which all pages are exchanged at the same time.
 
-To perform auto-negotiation, the Network FMU should send a <<low-cut-ethernet-auto-negotatiation-base-page-operation, Section 28 `Base Page`>> operation or <<low-cut-ethernet-single-differential-pair-auto-negotatiation-base-page-operation, Section 98 `Base Page`>> operation optionally followed by one more <<low-cut-ethernet-auto-negotatiation-message-page-operation, `Message Page`>> operations (for section 28), <<low-cut-ethernet-auto-negotatiation-unformatted-page-operation, `Unformatted Page`>> operations (for section 28), <<low-cut-ethernet-auto-negotatiation-extended-unformatted-page-operation, `Extended Message Page`>> operations (for section 28 and section 98), or <<low-cut-ethernet-auto-negotatiation-extended-message-page-operation, `Extended Unformatted Page`>> operations (for section 28 and section 98).
-Note that the section 28 extended next pages and section 98 next pages have the same structure and are thus represented by the same bus operations.
+To perform auto-negotiation, the Network FMU should send a <<low-cut-ethernet-auto-negotatiation-base-page-operation, Section 28 `Base Page`>> operation or <<low-cut-ethernet-single-differential-pair-auto-negotatiation-base-page-operation, Section 98 `Base Page`>> operation optionally followed by one more <<low-cut-ethernet-auto-negotatiation-page-operation, `Auto-Negotiation Page`>> operations.
 
 After both sending and receiving the auto-negotiation pages, the Network FMU should determine the highest-common-denominator physical medium attachment and enable communication if compatible with the connected node.
 This should be indicated with a <<low-cut-ethernet-link-state-indication-operation, `Link State Indication`>> operation.
