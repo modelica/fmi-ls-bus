@@ -1,127 +1,135 @@
 ===== Operations [[low-cut-ethernet-operations]]
-
 This section defines the specified operations for Ethernet.
 The following tables provide an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
-
-
-====== Format Error [[low-cut-ethernet-format-error-operation]]
-Represents a format error that indicates a syntax or content error of receiving operations.
-See <<low-cut-format-error-operation, `Format Error`>> for definition.
-
 
 ====== Transmit [[low-cut-ethernet-transmit-operation]]
 Represents the transmission of an Ethernet frame or MAC Merge Packet (mPacket).
 
 .Detailed description of the Transmit operation.
 [#table-fmi3-ls-bus-ethernet-transmit-operation]
-[cols="6,1,5,4,3,20"]
+[cols="5,4,3,20"]
 |====
-h|Name 5+| Transmit
-h|Description 5+| Indicates the transmission of an Ethernet frame or mPacket.
-h|OP Code [hex] 5+| 0x10
-.21+h|Content 3+h|Argument h|Length h|Description
+h|Name 3+| Transmit
+h|Description 3+| Indicates the transmission of an Ethernet frame or mPacket.
+h|OP Code [hex] 3+| 0x10
+.11+h|Content h|Argument h|Length h|Description
 
-
-3+| OP Code
+| OP Code
 | 4 bytes
 | Type of the operation.
 
-3+| Length
+| Length
 | 4 bytes
-| Total length of the operation.
-The following applies for this operation: `Length = 26 + n`.
+| Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 26 + Data Length`.
 
-
-3+| Start delimiter
+| Start Delimiter
 | 1 byte
-| The start frame (SFD) or start mPacket (SMD) delimiter. Always set to 0xD5 for ordinary Ethernet frames when not using preemption/fragmentation.
+| The start frame (SFD) or start mPacket (SMD) delimiter.
+Always set to 0xD5 for ordinary Ethernet frames when not using preemption/fragmentation.
 
-3+| Fragment counter
+| Fragment Counter
 | 1 byte
-| Fragment counter of the continuation mPacket. Must be set to 0, if this is not a continuation mPacket.
+| Fragment counter of the continuation mPacket.
+Must be set to 0, if this is not a continuation mPacket.
 
-3+| Last fragment
+| Last Fragment
 | 1 byte
-| Indicates whether this is the last fragment of a fragmented Ethernet frame. Must be set to TRUE if this is a full Ethernet frame.
+| Indicates whether this is the last fragment of a fragmented Ethernet frame.
+Must be set to `TRUE` if this is a full Ethernet frame.
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
-3+| Destination address
+| Destination Address
 | 6 bytes
-| The destination address of the frame. Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.
+| The destination address of the frame.
+Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.
 
-3+| Source address
+| Source Address
 | 6 bytes
-| The destination address of the frame. Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.
+| The destination address of the frame.
+Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.
 
-3+| EtherType or length
+| EtherType or Length
 | 2 bytes
 | Indicates the type of Ethernet frame (Ethernet II) or frame length (802.3).
 
-3+| Data length
+| Data Length
 | 1 byte
-| The length of the data of this Ethernet frame or mPacket. Note that this does not correspond to a field in the Ethernet frame.
+| The length of the data of this Ethernet frame or mPacket.
+Note that this does not correspond to a field in the Ethernet frame.
 
-3+| Data
+| Data
 | n bytes
 | The payload data of the Ethernet frame or mPacket.
 
-|====
+h|Behavior
+3+|#TODO#
 
+|====
 
 ====== Confirm [[low-cut-ethernet-confirm-operation]]
 The <<low-cut-ethernet-confirm-operation, `Confirm`>> operation is used to indicate the successful transmission of an Ethernet frame by a Network FMU.
 
 .Detailed description of the Confirm operation.
 [#table-fmi3-ls-bus-ethernet-confirm-operation]
-[cols="6,1,5,4,3,20"]
+[cols="5,4,3,20"]
 |====
-h|Name 5+| Confirm
-h|Description 5+| Indicates the successful transmission of an Ethernet frame.
-h|OP Code [hex] 5+| 0x15
-.21+h|Content 3+h|Argument h|Length h|Description
+h|Name 3+| Confirm
+h|Description 3+| Indicates the successful transmission of an Ethernet frame.
+h|OP Code [hex] 3+| 0x15
+.3+h|Content h|Argument h|Length h|Description
 
-
-3+| OP Code
+| OP Code
 | 4 bytes
 | Type of the operation.
 
-3+| Length
+| Length
 | 4 bytes
-| Total length of the operation.
+| Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 8`.
 
+h|Behavior
+3+|#TODO#
 
 |====
 
+====== Format Error [[low-cut-ethernet-format-error-operation]]
+Represents a format error that indicates a syntax or content error of receiving operations.
+See <<low-cut-format-error-operation, `Format Error`>> for definition.
+
 ====== Bus Error [[low-cut-ethernet-bus-error-operation]]
-The <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation is used to indicate a bus communication error. Bus errors are delivered to every participant in the network.
+The <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation is used to indicate a bus communication error.
+Bus errors are delivered to every participant in the network.
 
 .Detailed description of the Bus Error operation.
 [#table-fmi3-ls-bus-ethernet-bus-error-operation]
-[cols="6,1,5,4,3,20"]
+[cols="5,4,3,20"]
 |====
-h|Name 5+| Bus Error
-h|Description 5+| Indicates an error during the transmission of an Ethernet frame. TODO. To be defined.
-h|OP Code [hex] 5+| 0x16
-.21+h|Content 3+h|Argument h|Length h|Description
+h|Name 3+| Bus Error
+h|Description 3+| Indicates an error during the transmission of an Ethernet frame. #TODO. To be defined.#
+h|OP Code [hex] 3+| 0x16
+.5+h|Content h|Argument h|Length h|Description
 
-
-3+| OP Code
+| OP Code
 | 4 bytes
 | Type of the operation.
 
-3+| Length
+| Length
 | 4 bytes
-| Total length of the operation.
+| Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 10`.
 
-
-3+| Error code
+| Error Code
 | 1 byte
-| The error code.
+| Represents the specified bus error to simulate.
+See <<table-fmi3-ls-bus-ethernet-bus-error-code-values>> for possible values.
 
-3+| Is Sender
+| Is Sender
 | 1 byte
 | Indicates whether this bus error occurs in response to a transmission of this FMU.
+
+h|Behavior
+3+|#TODO#
 
 |====
 
@@ -131,12 +139,11 @@ The following applies for this operation: `Length = 10`.
 |====
 
 h|Name h|Value h|Description
-|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-unknown]]UNKNOWN|0x0|Unknown error. TODO.
+|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-unknown]]UNKNOWN|0x0|Unknown error. #TODO#
 |[[table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy]]MEDIUM_BUSY|0x1|The medium is currently busy.
 |[[table-fmi3-ls-bus-ethernet-bus-error-code-values-collision]]COLLISION|0x2|A frame collided during transmission.
 
 |====
-
 
 ====== Configuration [[low-cut-ethernet-configuration-operation]]
 Represents the transmission of a continuation mPacket.
@@ -148,8 +155,7 @@ Represents the transmission of a continuation mPacket.
 h|Name 5+| Configuration
 h|Description 5+| Provides information to configure the Ethernet bus.
 h|OP Code [hex] 5+| 0x20
-.21+h|Content 3+h|Argument h|Length h|Description
-
+.8+h|Content 3+h|Argument h|Length h|Description
 
 3+| OP Code
 | 4 bytes
@@ -157,21 +163,21 @@ h|OP Code [hex] 5+| 0x20
 
 3+| Length
 | 4 bytes
-| Total length of the operation.
-The following applies for this operation: `Length = 9 + ...`.
-
+| Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 9 + Length of parameter arguments in bytes`.
 
 3+| Parameter Type
 | 1 byte
 | Defines the current configuration parameter.
 
-.17+h|
+.4+h|
 4+h|Parameter
 
-.16+|SUPPORTED_PHY_TYPES
+.3+|SUPPORTED_PHY_TYPES
 | MDI Mode
 | 1 bytes
 | The configuration of the node's media-dependent interface.
+See <<table-fmi3-ls-bus-ethernet-mdi-mode-values>> for possible values.
 
 | Number of supported PHY types
 | 1 bytes
@@ -179,12 +185,16 @@ The following applies for this operation: `Length = 9 + ...`.
 
 | Supported PHY types
 | 1 bytes
-| An array of zero-terminated strings describing PHY types supported by this Ethernet node. The first element in this list indicates the type of PHY used by this node. The list must have at least one element. Elements describing a PHY standarized by 802.3 or an amendment must use the value described in the chapter "30.3.2.1.2 aPhyType" of the standard. Otherwise, a vendor-defined value may be used.
+| An array of zero-terminated strings describing PHY types supported by this Ethernet node.
+The first element in this list indicates the type of PHY used by this node.
+The list must have at least one element.
+Elements describing a PHY standardized by 802.3 or an amendment must use the value described in the chapter "30.3.2.1.2 aPhyType" of the standard.
+Otherwise, a vendor-defined value may be used.
 
-
+h|Behavior
+5+|#TODO#
 
 |====
-
 
 .Valid values for the configuration parameter type.
 [#table-fmi3-ls-bus-ethernet-config-parameter-type-values]
@@ -195,7 +205,6 @@ h|Name h|Value h|Description
 |[[table-fmi3-ls-bus-ethernet-config-parameter-type-values-supported-phy-types]]SUPPORTED_PHY_TYPES|0x0|Indicates the supported Ethernet PHYs of this node.
 
 |====
-
 
 .Valid values for the MDI mode.
 [#table-fmi3-ls-bus-ethernet-mdi-mode-values]
@@ -215,210 +224,239 @@ Represents the transmission of an auto-negotiation base page according to sectio
 
 .Detailed description of the Auto-Negotiation Base Page operation.
 [#table-fmi3-ls-bus-ethernet-auto-negotatiation-base-page-operation]
-[cols="6,1,5,4,3,20"]
+[cols="5,4,3,20"]
 |====
-h|Name 5+| Auto Negotatiation Base Page
-h|Description 5+| Base page for section 28 auto-negotiation.
-h|OP Code [hex] 5+| 0x30
-.21+h|Content 3+h|Argument h|Length h|Description
+h|Name 3+| Auto Negotatiation Base Page
+h|Description 3+| Base page for section 28 auto-negotiation.
+h|OP Code [hex] 3+| 0x30
+.9+h|Content h|Argument h|Length h|Description
 
-
-3+| OP Code
+| OP Code
 | 4 bytes
 | Type of the operation.
 
-3+| Length
+| Length
 | 4 bytes
-| Total length of the operation.
+| Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 17`.
 
-
-3+| Selector
+| Selector
 | 1 byte
 | Selector field (5 bits for section 28)
 
-3+| Technology ability
+| Technology Ability
 | 4 bytes
 | Technology ability (7 bits for section 28)
 
-3+| Extended next page
+| Extended Next Page
 | 1 byte
-| Indicates the support for extended next pages. (1 bit for section 28)
+| Indicates the support for extended next pages.
+(1 bit for section 28)
 
-3+| Remote fault
+| Remote Fault
 | 1 byte
-| Remote fault indicator. (1 bit for section 28)
+| Remote fault indicator.
+(1 bit for section 28)
 
-3+| Ack
+| Ack
 | 1 byte
-| Acknowledgement. (1 bit for section 28) Reserved. Must be FALSE.
+| Acknowledgement.
+(1 bit for section 28) Reserved.
+Must be `FALSE`.
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
-3+| Next page
+| Next Page
 | 1 byte
-| Indicates the presence of a next page. (1 bit for section 28)
+| Indicates the presence of a next page.
+(1 bit for section 28)
+
+h|Behavior
+3+|#TODO#
 
 |====
-
 
 ====== Single Differential Pair Auto-Negotiation Base Page [[low-cut-ethernet-single-differential-pair-auto-negotatiation-base-page-operation]]
 Represents the transmission of an auto-negotiation base page according to section 98 of <<IEEE-802.3-2022>>.
 
 .Detailed description of the Single Differential Pair Auto-Negotiation Base Page operation.
 [#table-fmi3-ls-bus-ethernet-single-differential-pair-auto-negotatiation-base-page-operation]
-[cols="6,1,5,4,3,20"]
+[cols="5,4,3,20"]
 |====
-h|Name 5+| Single Differential Pair Auto Negotatiation Base Page
-h|Description 5+| Base page for section 98 auto-negotiation.
-h|OP Code [hex] 5+| 0x31
-.21+h|Content 3+h|Argument h|Length h|Description
+h|Name 3+| Single Differential Pair Auto Negotatiation Base Page
+h|Description 3+| Base page for section 98 auto-negotiation.
+h|OP Code [hex] 3+| 0x31
+.13+h|Content h|Argument h|Length h|Description
 
-
-3+| OP Code
+| OP Code
 | 4 bytes
 | Type of the operation.
 
-3+| Length
+| Length
 | 4 bytes
-| Total length of the operation.
+| Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 21`.
 
-
-3+| Selector
+| Selector
 | 1 byte
 | Selector field (5 bits for section 98)
 
-3+| Echoed nonce
+| Echoed Nonce
 | 1 byte
-| Echoed nonce (5 bits for section 98) Reserved. Must be zeros.
+| Echoed nonce (5 bits for section 98) Reserved.
+Must be zeros.
 
-3+| Symmetric Pause capability indication
+| Symmetric Pause Capability Indication
 | 1 byte
 | Symmetric Pause capability (2 bits for section 98) Bit 0
 
-3+| Asymmetric Pause capability indication
+| Asymmetric Pause Capability Indication
 | 1 byte
 | Asymmetric Pause capability (2 bits for section 98) Bit 1
 
-3+| Force master/slave
+| Force Master/Slave
 | 1 byte
 | Force master/slave (1 bit for section 98)
 
-3+| Remote fault
+| Remote Fault
 | 1 byte
-| Indicates a remote fault. (1 bit for section 98)
+| Indicates a remote fault.
+(1 bit for section 98)
 
-3+| Ack
+| Ack
 | 1 byte
-| Acknowledgement. (1 bit for section 98) Reserved. Must be FALSE.
+| Acknowledgement.
+(1 bit for section 98) Reserved.
+Must be `FALSE`.
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
-3+| Next page
+| Next Page
 | 1 byte
 | Indicates the presence of a next page (1 bit for section 98)
 
-3+| Transmitted nonce
+| Transmitted Nonce
 | 1 byte
 | Transmitted nonce (5 bits for section 98)
 
-3+| Technology ability
+| Technology Ability
 | 4 bytes
 | Technology ability (27 bits for section 98)
 
-|====
+h|Behavior
+3+|#TODO#
 
+|====
 
 ====== Auto-Negotiation Page [[low-cut-ethernet-auto-negotatiation-page-operation]]
 Represents the transmission of an auto-negotiation (next) page according to section 28 or section 98 of <<IEEE-802.3-2022>>.
 
 .Detailed description of the Auto-Negotiation Page operation.
 [#table-fmi3-ls-bus-ethernet-auto-negotiation-page-operation]
-[cols="6,1,5,4,3,20"]
+[cols="5,4,3,20"]
 |====
-h|Name 5+| Auto Negotiation Page
-h|Description 5+| Next page for section 28 or 98 auto-negotiation.
-h|OP Code [hex] 5+| 0x35
-.21+h|Content 3+h|Argument h|Length h|Description
+h|Name 3+| Auto Negotiation Page
+h|Description 3+| Next page for section 28 or 98 auto-negotiation.
+h|OP Code [hex] 3+| 0x35
+.11+h|Content h|Argument h|Length h|Description
 
-
-3+| OP Code
+| OP Code
 | 4 bytes
 | Type of the operation.
 
-3+| Length
+| Length
 | 4 bytes
-| Total length of the operation.
+| Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 24`.
 
-
-3+| Message page
+| Message Page
 | 1 byte
 | Indicates whether this is a message page.
 
-3+| Extended page
+| Extended Page
 | 1 byte
-| Indicates that this is an extended page (section 28). Must always be TRUE when using section 98 auto-negotation.
+| Indicates that this is an extended page (section 28).
+Must always be `TRUE` when using section 98 auto-negotation.
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
-3+| Message code
+| Message Code
 | 2 bytes
-| Message code field. (11 bits for section 28 message page) (11 bits for section 28 extended message page) ( 0 bits for section 28 unformatted page) ( 0 bits for section 28 extended unformatted page) (11 bits for section 98 message page) ( 0 bits for section 98 unformatted page) The unused upper bits must be set to zero.
+| Message code field.
+(11 bits for section 28 message page) (11 bits for section 28 extended message page) (0 bits for section 28 unformatted page) (0 bits for section 28 extended unformatted page) (11 bits for section 98 message page) ( 0 bits for section 98 unformatted page) The unused upper bits must be set to zero.
 
-3+| Unformatted code
+| Unformatted Code
 | 8 bytes
-| Unformatted code field. ( 0 bits for section 28 message page) (11 bits for section 28 unformatted page) (32 bits for section 28 extended message page) (43 bits for section 28 extended unformatted page) (32 bits for section 98 message page) (43 bits for section 98 unformatted page) The unused upper bits must be set to zero.
+| Unformatted code field.
+(0 bits for section 28 message page) (11 bits for section 28 unformatted page) (32 bits for section 28 extended message page) (43 bits for section 28 extended unformatted page) (32 bits for section 98 message page) (43 bits for section 98 unformatted page).
+The unused upper bits must be set to zero.
 
-3+| Toggle
+| Toggle
 | 1 byte
-| Toggle bit for synchronization. Reserved. Must be FALSE.
+| Toggle bit for synchronization.
+Reserved.
+Must be `FALSE`.
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
-3+| Ack
+| Ack
 | 1 byte
-| Acknowledgement. Reserved. Must be FALSE.
+| Acknowledgement.
+Reserved.
+Must be `FALSE`.
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
-3+| Ack2
+| Ack2
 | 1 byte
-| Acknowledgement 2. Reserved. Must be FALSE.
+| Acknowledgement 2.
+Reserved.
+Must be `FALSE`.
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
-3+| Next page
+| Next Page
 | 1 byte
 | Indicates the presence of a next page.
 
-|====
+h|Behavior
+3+|#TODO#
 
+|====
 
 ====== Link State Indication [[low-cut-ethernet-link-state-indication-operation]]
 Indicates the state of the physical medium attachment.
 
 .Detailed description of the Link State Indication operation.
 [#table-fmi3-ls-bus-ethernet-link-state-indication-operation]
-[cols="6,1,5,4,3,20"]
+[cols="5,4,3,20"]
 |====
-h|Name 5+| Link State Indication
-h|Description 5+| Provides information to indicate link state.
-h|OP Code [hex] 5+| 0x40
-.21+h|Content 3+h|Argument h|Length h|Description
+h|Name 3+| Link State Indication
+h|Description 3+| Provides information to indicate link state.
+h|OP Code [hex] 3+| 0x40
+.6+h|Content h|Argument h|Length h|Description
 
-
-3+| OP Code
+| OP Code
 | 4 bytes
 | Type of the operation.
 
-3+| Length
+| Length
 | 4 bytes
-| Total length of the operation.
+| Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 74`.
 
-
-3+| Physical medium attachment
+| Physical Medium Attachment
 | 64 bytes
-| The currently used physical medium attachment as null-terminated string. Elements describing a PHY standarized by 802.3 or an amendment must use the value described in the chapter "30.3.2.1.2 aPhyType" of the standard. Otherwise, a vendor-defined value may be used.
+| The currently used physical medium attachment as null-terminated string.
+Elements describing a PHY standardized by 802.3 or an amendment must use the value described in the chapter "30.3.2.1.2 aPhyType" of the standard.
+Otherwise, a vendor-defined value may be used.
 If auto-negotiation is enabled but has not yet been performed, the value "unknown" should be used.
 
-3+| Heartbeat
+| Heartbeat
 | 1 byte
 | Indicates that the node is sending a regular normal link pulse or IDLE symbol.
 
-3+| Master slave mode
+| Master Slave Mode
 | 1 byte
-| Indicates whether the node is operating as MASTER or SLAVE.
+| Indicates whether the node is operating as `MASTER` or `SLAVE`.
+See <<table-fmi3-ls-bus-ethernet-master-slave-mode-values>> for possible values.
+
+h|Behavior
+3+|#TODO#
 
 |====
 
@@ -429,8 +467,8 @@ If auto-negotiation is enabled but has not yet been performed, the value "unknow
 
 h|Name h|Value h|Description
 |[[table-fmi3-ls-bus-ethernet-master-slave-mode-values-none]]NONE|0x0|Not applicable.
-|[[table-fmi3-ls-bus-ethernet-master-slave-mode-values-master]]MASTER|0x1|Node is operating as MASTER.
-|[[table-fmi3-ls-bus-ethernet-master-slave-mode-values-slave]]SLAVE|0x2|Node is operating as SLAVE.
+|[[table-fmi3-ls-bus-ethernet-master-slave-mode-values-master]]MASTER|0x1|Node is operating as Master.
+|[[table-fmi3-ls-bus-ethernet-master-slave-mode-values-slave]]SLAVE|0x2|Node is operating as Slave.
 
 |====
 
@@ -439,23 +477,24 @@ Indicates wake up pulse according to TC10.
 
 .Detailed description of the Wakeup operation.
 [#table-fmi3-ls-bus-ethernet-wakeup-operation]
-[cols="6,1,5,4,3,20"]
+[cols="5,4,3,20"]
 |====
-h|Name 5+| Wakeup
-h|Description 5+| Indicates a wakeup.
-h|OP Code [hex] 5+| 0x50
-.21+h|Content 3+h|Argument h|Length h|Description
+h|Name 3+| Wakeup
+h|Description 3+| Indicates a wakeup.
+h|OP Code [hex] 3+| 0x50
+.3+h|Content h|Argument h|Length h|Description
 
-
-3+| OP Code
+| OP Code
 | 4 bytes
 | Type of the operation.
 
-3+| Length
+| Length
 | 4 bytes
-| Total length of the operation.
+| Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 8`.
 
+h|Behavior
+3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the wake-up initiator, of the bus using the Bus Simulation.
+If a Network FMU does not support wake up, this operation can be ignored on the consumer side.
 
 |====
-
