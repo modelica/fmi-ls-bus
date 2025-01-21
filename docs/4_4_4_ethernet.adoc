@@ -224,7 +224,9 @@ FMU 1 acknowledges a successful transmission using a <<low-cut-ethernet-confirm-
 
 .Transmission with avoided collision with Bus Simulation.
 [#figure-ethernet-transmit-collision-avoided]
-image::ethernet_transmit_collision_avoided.svg[width=80%, align="center"]
+image::ethernet_transmit_collision_avoided.svg[width=90%, align="center"]
+
+In this context, stem:[T_{\mathrm{transmit}}] defines the length of the message transmission.
 
 ====== Transmission with Collision [[low-cut-ethernet-transmission-with-collision]]
 If the Ethernet node does not detect an ongoing transmission in time, the Ethernet frames collide causing both transmissions to be destroyed.
@@ -241,7 +243,9 @@ All three Network FMUs are notified of this situation by receiving a <<low-cut-e
 
 .Transmission with collision with Bus Simulation.
 [#figure-ethernet-transmit-collision]
-image::ethernet_transmit_collision.svg[width=80%, align="center"]
+image::ethernet_transmit_collision.svg[width=90%, align="center"]
+
+In this context, stem:[T_{\mathrm{transmit}}] defines the length of the message transmission.
 
 ====== Fragmented Transmission using the MAC Merge Sublayer [[low-cut-ethernet-fragmented-transmission-using-merge-sublayer]]
 When using the MAC Merge sublayer (see chapter 99 of <<IEEE-802.3-2022>>),
@@ -255,7 +259,7 @@ Afterwards, the first fragment of the first Ethernet frame is sent from FMU 1 to
 In the next step, FMU 1 sends another <<low-cut-ethernet-transmit-operation, `Transmit`>> operation, which does not refer to the first Ethernet frame fragment.
 In the third step, the second fragment of the Ethernet frame is provided from FMU 1 to FMU 2 by using a <<low-cut-ethernet-transmit-operation, `Transmit`>> operation with start delimiter indicating a continuation.
 
-.Fragmented transmission. The frame 1 is fragmented into two fragments 1.1 and 1.2 due to a transmission of an Express frame 2.
+.Illustration of a  fragmented Ethernet transmission, by using Ethernet Express frames.
 [#figure-ethernet-transmit-fragmented]
 image::ethernet_transmit_fragmented.svg[width=80%, align="center"]
 
