@@ -31,21 +31,16 @@ A detailed roadmap showing completed, current and future work can be accessed [h
 
 ## News
 
-Looking forward to our joint presentation and demo "FMI, Layered Standards and ASAM Standards - Enabling Seamless SiL Simulation of Virtual ECUs" from the FMI Project at the coming ASAM International Conference, 2024 in Munich.
-You can meet us also at the Modelica Association booth there!
+Dive into our latest video ["FMI, Layered Standards and ASAM Standards - Enabling Seamless SiL Simulation of Virtual ECUs"](https://www.youtube.com/watch?v=KzzKRa3jORs).
+Discover how the cutting-edge FMI 3.0 standard and the layered standards based on it are revolutionizing the world of Software-in-the-Loop (SiL) simulations.
 
-We will present three new layered standards for simulating virtual ECUs with FMI 3.0:
+During the presentation the three new layered standards for simulating virtual ECUs with FMI 3.0 are introduced:
 
 - FMI-LS-XCP for measurement & calibration with XCP
 - FMI-LS-BUS for simulation of network communication with CAN, CAN FD CAN XL, FlexRay, Ethernet, LIN
 - FMI-LS-STRUCT for structured entities like lookup tables
 
-A demo from tool vendors (Akkodis, Altair, AVL, Bosch, dSPACE, PMSF, SYNOPSYS) illustrates the interoperability of these layered standards.
-
-![AIC Announcemet Speakers FMI](landingpage/AIC_Announcemet_Speaker_Single_FMI.jpg)
-
-Looking forward to meeting you in Munich!
-More information on the conference: <https://www.asam.net/conferences-events/detail/asam-international-conference-2024/>
+After this a demo from different SiL tool vendors (Akkodis, Altair, AVL, Bosch, dSPACE, PMSF, SYNOPSYS) illustrates the interoperability of these layered standards.
 
 ## Repository Structure
 
@@ -75,9 +70,9 @@ The [FMI-LS-BUS Implementers' Guide] is a free resource intended to give non-nor
 
 ## Tools
 
-The following list shows importers and exporters that currently support the FMI-LS-BUS layered standard and that have been validated by a cross-check.
-It should be noted that tool implementations in some cases might be experimental, because the FMI-LS-BUS layered standard is currently not in a finale state.
-Feel free to contact the specified tool vendors if you are interested in using the FMI-LS-BUS layered standard.
+The following list shows importers and exporters that currently support the Layered Standard for Network Communication and that have been validated by a cross-check.
+It should be noted that tool implementations in some cases might be experimental, because the Layered Standard for Network Communication is currently not in a finale state.
+Feel free to contact the specified tool vendors if you are interested in using the FMI-LS-BUS.
 Additionally, any FMU importer that supports the necessary FMI 3.0 features, such as clocks and binary variables, has generic FMI-LS-BUS support and can be used.
 
 |Tool|Type|Features|Remarks

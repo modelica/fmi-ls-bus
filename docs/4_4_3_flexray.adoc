@@ -20,7 +20,7 @@ It shows all operations and the arguments they contain.
 
 .Overview of the available operations for FlexRay.
 [#table-operation-content-flexray]
-[cols="12,1,6,7,5,6,2,5,7,5,5"]
+[cols="12,1,6,7,8,6,2,7,7,5,5"]
 |====
 .2+h|Operation Name
 10+h|Operation Content
@@ -31,7 +31,7 @@ h|Length
 
 |Format Error
 |0x01
-|:= 7 + n +
+|:= 10 + n +
 (4 bytes)
 |DL +
 (2 bytes)
@@ -40,7 +40,7 @@ h|Length
 
 |Transmit
 |0x10
-|:= 26 + DL +
+|:= 17 + DL +
 (4 bytes)
 |Cycle ID +
 (1 byte)
@@ -50,13 +50,13 @@ h|Length
 (1 byte)
 |...
 |DL +
-(2 bytes)
+(1 bytes)
 3+|Data +
 (n bytes)
 
 |Cancel
 |0x11
-|:= 17 +
+|:= 12 +
 (4 bytes)
 |Cycle ID +
 (1 byte)
@@ -67,7 +67,7 @@ h|Length
 
 |Confirm
 |0x12
-|:= 17 +
+|:= 12 +
 (4 bytes)
 |Cycle ID +
 (1 byte)
@@ -78,7 +78,7 @@ h|Length
 
 |Bus Error
 |0x20
-|:= 10 +
+|:= 13 +
 (4 bytes)
 |Error Flags +
 (1 byte)
@@ -99,14 +99,14 @@ h|Length
 
 |Start Communication
 |0x40
-|:= 13 +
+|:= 16 +
 (4 bytes)
 8+|Start Time +
 (8 bytes)
 
 |Symbol
 |0x50
-|:= 12 +
+|:= 11 +
 (4 bytes)
 |Cycle ID +
 (1 byte)
@@ -151,13 +151,13 @@ h|Description 3+| Initiates the transmission of FlexRay frames.
 h|OP Code [hex] 3+| 0x10
 .12+h|Content h|Argument h|Length h|Description
 | OP Code
-| 1 byte
+| 4 bytes
 | Contains the OP Code (0x10) of the operation.
 
 | Length
 | 4 bytes
 | Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Length = 14 + Data Length`.
+The following applies for this operation: `Length = 17 + Data Length`.
 
 | Cycle ID
 | 1 byte
@@ -223,13 +223,13 @@ h|Description 3+| Initiates the cancellation transmission of FlexRay frames with
 h|OP Code [hex] 3+| 0x11
 .6+h|Content h|Argument h|Length h|Description
 | OP Code
-| 1 byte
+| 4 bytes
 | Contains the OP Code (0x11) of the operation.
 
 | Length
 | 4 bytes
 | Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Length = 9 + Data Length`.
+The following applies for this operation: `Length = 12`.
 
 | Cycle ID
 | 1 byte
@@ -265,13 +265,13 @@ h|OP Code [hex]
 3+|0x12
 .6+h|Content h|Argument h|Length h|Description
 |OP Code
-|1 byte
+|4 bytes
 |Contains the OP Code (0x12) of the operation.
 
 |Length
 |4 bytes
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Length = 9`.
+The following applies for this operation: `Length = 12`.
 
 | Cycle ID
 | 1 byte
@@ -312,13 +312,13 @@ h|OP Code [hex]
 3+|0x20
 .7+h|Content h|Argument h|Length h|Description
 |OP Code
-|1 byte
+|4 bytes
 |Contains the OP Code (0x20) of the operation.
 
 |Length
 |4 bytes
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Length = 10`.
+The following applies for this operation: `Length = 13`.
 
 |Error Flags
 |1 byte
@@ -420,13 +420,13 @@ h|OP Code [hex]
 5+|0x30
 .21+h|Content 3+h|Argument h|Length h|Description
 3+|OP Code
-|1 byte
+|4 bytes
 |Contains the OP Code (0x30) of the operation.
 
 3+|Length
 |4 bytes
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Length = 6 + Length of parameter arguments in bytes`.
+The following applies for this operation: `Length = 9 + Length of parameter arguments in bytes`.
 
 3+|Parameter Type
 |1 byte
@@ -575,13 +575,13 @@ h|OP Code [hex]
 3+|0x40
 .4+h|Content h|Argument h|Length h|Description
 |OP Code
-|1 byte
+|4 bytes
 |Contains the OP Code (0x40) of the operation.
 
 |Length
 |4 bytes
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Length = 13`.
+The following applies for this operation: `Length = 16`.
 
 |Start Time [[table-flexray-bus-start-start-time-parameter]]
 |8 bytes
@@ -608,13 +608,13 @@ h|OP Code [hex]
 3+|0x50
 .6+h|Content h|Argument h|Length h|Description
 |OP Code
-|1 byte
+|4 bytes
 |Contains the OP Code (0x50) of the operation.
 
 |Length
 |4 bytes
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Length = 8`.
+The following applies for this operation: `Length = 11`.
 
 |Cycle ID
 |1 byte
