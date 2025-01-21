@@ -355,7 +355,7 @@ Represents the transmission of an auto-negotiation (next) page according to sect
 |====
 h|Name 3+| Auto Negotiation Page
 h|Description 3+| Next page for section 28 or 98 auto-negotiation.
-h|OP Code [hex] 3+| 0x35
+h|OP Code [hex] 3+| 0x32
 .11+h|Content h|Argument h|Length h|Description
 
 | OP Code

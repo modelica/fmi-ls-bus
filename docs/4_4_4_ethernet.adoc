@@ -31,7 +31,100 @@ This operation is used to simulate triggering a wake-up from bus side.
 The following table gives a detailed overview of the available operations.
 It shows all operations and the arguments they contain.
 
-#TODO: Add overview table#
+.Overview of the available operations for Ethernet.
+[#table-operation-content-ethernet]
+[cols="17,1,6,1,15,10,1,2,5,5,2"]
+|====
+.2+h|Operation Name
+10+h|Operation Content
+
+h|OP Code
+h|Length
+8+h|Specific Content
+
+|Format Error
+|0x01
+|:= 10 + n +
+(4 bytes)
+2+|DL footnote:[DL is used as an abbreviation for Data Length throughout the document] +
+(2 bytes)
+6+|Data +
+(n bytes)
+
+|Transmit
+|0x10
+|:= 26 + DL +
+(4 bytes)
+|...
+|Destination Address +
+(6 byte)
+|Source Address +
+(6 byte)
+|...
+2+|DL +
+(1 byte)
+2+|Data +
+(n bytes)
+
+|Confirm
+|0x15
+|:= 8 +
+(4 bytes)
+8+|---
+
+|Bus Error
+|0x16
+|:= 10 +
+(4 byte)
+2+|Error Code +
+(1 byte)
+6+|Is Sender +
+(1 byte)
+
+|Configuration
+|0x20
+|<Length> +
+(4 bytes)
+2+|Kind +
+(1 byte)
+6+|_Dynamic Part_
+
+|Auto-Negotiation Base Page
+|0x30
+|:= 17 +
+(4 bytes)
+8+|...
+
+|Single Differential Pair Auto-Negotiation Base Page
+|0x31
+|:= 21 +
+(4 bytes)
+8+|...
+
+|Auto-Negotiation Page
+|0x32
+|:= 24 +
+(4 bytes)
+8+|...
+
+|Link State Indication
+|0x40
+|:= 74 +
+(4 bytes)
+2+|Physical Medium Attachment +
+(64 byte) 
+2+|Heartbeat +
+(1 byte)
+4+|Master Slave Mode +
+(1 byte) 
+
+|Wakeup
+|0x50
+|:= 8 +
+(4 bytes)
+8+|---
+
+|====
 
 ====== Ethernet Topologies [[low-cut-ethernet-ethernet-topologies]]
 Ethernet support both point-to-point and multidrop topologies.
