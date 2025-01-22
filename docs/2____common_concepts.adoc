@@ -1,50 +1,29 @@
 == Common Concepts [[common-concepts]]
-
-Physical signal abstraction ("high cut") and network abstraction ("low cut") layers represent different levels for the exchange of bus messages.
+Physical signal abstraction and network abstraction layers represent different levels for the exchange of bus messages.
 Physical signal abstraction focuses primarily on the exchange of signal values, while network abstraction provides a complete way of implementing a virtual bus driver.
 Depending on the exporting tool, one of the abstraction layers is more "natural" to the FMU, while the other might have to be emulated with additional internal effort or an adapter (FMU) could be used.
 Importers on the other hand rarely require both abstraction layers for system level compositions, because the engineering tasks define the required level of abstraction for the network communication.
 FMUs may choose to only support one abstraction layer providing only the corresponding variables.
 However, for versatility, having FMUs capable of communicating on both abstraction layers is more convenient for users.
 
-_[FMUs providing both abstraction layers can deduce from the fmi3Set() and fmi3Get() calls they receive, which abstraction layer the importer is using.]_
+In both the physical signal abstraction and the network abstraction cases, the exchange of network data takes place via FMI variables.
+In the case of the physical signal abstraction, a separate FMI variable of the respective type is created for each network signal in a frame.
+The network signals are structured via the PDU and frame hierarchy by using FMI 3.0 Terminals.
+Within the network abstraction, the bus is simulated using a separate, bus-specific protocol.
+This protocol is exchanged between the various network FMUs using binary FMI variables.
 
-Since network communication is not continuous but time discrete, FMI 3.0 Clocks are used to indicate when signals and/or frames are sent or received.
-All signal and frame variables are clocked variables.
-
-FMI 3.0 terminal definitions in the `terminalsAndIcons.xml` are used to group related variables and present a comfortable opportunity to connect different FMUs between each other.
-Terminal definitions are used differently within the "high cut" and the "low cut":
-
-.Relations between Bus-, Frame- and PDU Terminals.
-[#figure-terminal-relations]
-image::terminal_relations.svg[width=60%, align="center"]
-
-Variables are referenced in terminals and the `memberName` attribute indicates how a variable is meant to be used.
-For the "high cut", variables represent signals and their Clocks.
-For the "low cut", variables represent transmitted and received bus traffic (`memberName` = `Tx_Data`/`Rx_Data`) and their respective Clocks (`memberName` = `Tx_Clock`/`Rx_Clock`).
-The `causality` of `Rx_Data` variables must be `input`, whereas the `causality` of `Tx_Data` variables must be `output`.
-`Rx_Clock` variables must be `triggered input` Clocks and are meant to be connected by the importer to the corresponding `Tx_Clock` variables.
-A `periodic` Clock indicates that the FMU can send signals or frames only periodically on a given time raster, while a `changing` or `countdown` Clock indicates that the FMU can send signals at varying time steps.
-
-Using `Tx_Clocks` of different types allows simulations with different timing accuracy and performance.
-Some Clock types allow the FMU to specify the next send event efficiently and accurately.
-Hence, the importer will trigger these Clocks according to the Clock specifications as accurately as it can.
-
-_[The alternative of using `nextEventTime` would force epsilon matching of event times.]_
-
-For any periodic (fixed-time) sending of messages, multiple message sends fall into one `fmi3DoStep`.
-While "high cut" signal variables will miss all but the last value sent, "low cut" frame variables will buffer all payloads inside their value.
-
-If `triggered` output Clocks are used, the importer must take care to schedule and potentially roll-back FMUs that have advanced their `fmi3DoStep` past such a (surprising) `triggered` Clock activation from another FMU.
-It is strongly recommended to avoid using `triggered` output Clocks and to instead use `time-based` Clocks to avoid these complications and potential performance problems.
-
-If an FMU represents network nodes that are both sender and receiver of a signal, the receiver role will be removed from the FMU interface to allow the signals to have a unique role as output and the reading of such outputs must be handled internally to the FMU.
-
-_[Rationale: The FMI standard requires a variable to be either input or output.]_
+Since network communication is not continuous but time discrete, FMI 3.0 Clocks are used to indicate when network data is sent or received.
 
 While the values and semantic of the Clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology.
 Frame variables do not just transport the network-specific payload, but also carry protocol-specific status information.
 Status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack about success or errors of a send request.
+
+For any periodic (fixed-time) sending of messages, multiple message sends fall into one `fmi3DoStep`.
+While High-Cut signal variables will miss all but the last value sent, Low-Cut frame variables will buffer all payloads inside their value.
+
+=== General Recommendations [[common-concepts-general-recommendations]]
+If `triggered` output Clocks are used, the importer must take care to schedule and potentially roll-back FMUs that have advanced their `fmi3DoStep` past such a (surprising) `triggered` Clock activation from another FMU.
+It is strongly recommended to avoid using `triggered` output Clocks and to instead use `time-based` Clocks to avoid these complications and potential performance problems.
 
 === System Compositions [[common-concepts-system-compositions]]
 Overall, this standard considers three possible communication architectures for bus communication.

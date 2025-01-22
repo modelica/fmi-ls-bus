@@ -10,13 +10,13 @@ At this point it should be explicitly mentioned that this layered standard not o
 
 There are mainly two base use cases envisioned here:
 
-* Physical signal abstraction ("high cut") to simply transport physical signal values between virtual ECUs. +
+* Physical signal abstraction (or High-Cut) to simply transport physical signal values between virtual ECUs. +
 The network properties are largely idealized: infinite bandwidth, zero-delay etc.
 Signals, groups of signals and their properties _(e.g., units)_ are usually derived from (existing and validated) standard network topology description formats _(such as DBC, LDF, Fibex and ARXML)_.
-* Network abstraction ("low cut") to realize virtualized bus driver implementations footnote:[In AUTOSAR context this means a driver implementation within the MicroController Abstraction Layer (MCAL)]. +
+* Network abstraction (or Low-Cut) to realize virtualized bus driver implementations footnote:[In AUTOSAR context this means a driver implementation within the MicroController Abstraction Layer (MCAL)]. +
 This transport layer emulation allows anything from idealized to more detailed network simulations, including bandwidth restrictions, message arbitration and delays.
 It forwards the network payloads using binary variables.
-The "low cut" abstraction layer is meant to allow virtualized bus driver implementations, including feedback from the physical drivers about transmission status or network node states.
+The Low-Cut abstraction layer is meant to allow virtualized bus driver implementations, including feedback from the physical drivers about transmission status or network node states.
 Since the network abstraction layer is protocol-independent, it can also be used for the simulation of non-automotive control units, _e.g., from the field of industrial automation_.
 
 So that this layered standard can be supported in a variety of FMU importers and other types of simulators three possible communication architectures for bus communication are specified:

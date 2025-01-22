@@ -1,5 +1,5 @@
-== Network Abstraction ("low cut") [[low-cut]]
-This chapter describes the network abstraction or "low cut" in detail.
+== Network Abstraction (Low-Cut) [[low-cut]]
+This chapter describes the network abstraction or Low-Cut in detail.
 
 === Overview [[low-cut-overview]]
 The network abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
@@ -301,7 +301,7 @@ The version number marks the set of available operations for a specified bus typ
 The versioning follows the rules of semantic versioning, as defined in <<PW13>>.
 
 === Terminal Definitions [[low-cut-terminal-definitions]]
-This section defines terminals for network abstraction (also called "low cut").
+This section defines terminals for network abstraction.
 
 A schematic representation of an FMU with a Bus Terminal is shown in the <<#figure-frame-variables-terminals-lowcut, following figure>>:
 
