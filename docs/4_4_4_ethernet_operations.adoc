@@ -148,9 +148,9 @@ Only Network FMUs with the corresponding optionally exposed <<low-cut-ethernet-b
 |====
 
 h|Name h|Value h|Description
-|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-unknown]]UNKNOWN|0x0|Unknown error.
-|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy]]MEDIUM_BUSY|0x1|The medium is currently busy.
-|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-collision]]COLLISION|0x2|A frame collided during transmission.
+|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-unknown]]UNKNOWN|0x00|Unknown error.
+|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy]]MEDIUM_BUSY|0x01|The medium is currently busy.
+|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-collision]]COLLISION|0x02|A frame collided during transmission.
 
 |====
 
@@ -215,7 +215,7 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 |====
 
 h|Name h|Value h|Description
-|[[table-fmi3-ls-bus-ethernet-config-parameter-type-values-supported-phy-types]]SUPPORTED_PHY_TYPES|0x0|Indicates the supported Ethernet PHYs of this node.
+|[[table-fmi3-ls-bus-ethernet-config-parameter-type-values-supported-phy-types]]SUPPORTED_PHY_TYPES|0x00|Indicates the supported Ethernet PHYs of this node.
 
 |====
 
@@ -225,10 +225,10 @@ h|Name h|Value h|Description
 |====
 
 h|Name h|Value h|Description
-|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-none]]NONE|0x0|Not applicable
-|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-mdi]]MDI|0x1|The MDI is wired in normal configuration.
-|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-mdi-x]]MDI_X|0x2|The MDI is wired in crossover configuration.
-|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-auto-mdi-x]]AUTO_MDI_X|0x3|The node supports auto MDI/MDI-X.
+|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-none]]NONE|0x00|Not applicable
+|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-mdi]]MDI|0x01|The MDI is wired in normal configuration.
+|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-mdi-x]]MDI_X|0x02|The MDI is wired in crossover configuration.
+|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-auto-mdi-x]]AUTO_MDI_X|0x03|The node supports auto MDI/MDI-X.
 
 |====
 
@@ -479,9 +479,9 @@ h|Behavior
 |====
 
 h|Name h|Value h|Description
-|[[table-fmi3-ls-bus-ethernet-master-slave-mode-values-none]]NONE|0x0|Not applicable.
-|[[table-fmi3-ls-bus-ethernet-master-slave-mode-values-master]]MASTER|0x1|Node is operating as Master.
-|[[table-fmi3-ls-bus-ethernet-master-slave-mode-values-slave]]SLAVE|0x2|Node is operating as Slave.
+|[[table-fmi3-ls-bus-ethernet-master-slave-mode-values-none]]NONE|0x00|Not applicable.
+|[[table-fmi3-ls-bus-ethernet-master-slave-mode-values-master]]MASTER|0x01|Node is operating as Master.
+|[[table-fmi3-ls-bus-ethernet-master-slave-mode-values-slave]]SLAVE|0x02|Node is operating as Slave.
 
 |====
 
