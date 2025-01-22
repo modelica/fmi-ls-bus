@@ -89,7 +89,8 @@ h|OP Code [hex] 3+| 0x15
 The following applies for this operation: `Length = 8`.
 
 h|Behavior
-3+|#TODO#
+3+|This operation shall be produced by the Bus Simulation and consumed by Network FMUs. +
+Only Network FMUs with the corresponding optionally exposed <<low-cut-ethernet-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for this operation.
 
 |====
 
@@ -106,7 +107,7 @@ Bus errors are delivered to every participant in the network.
 [cols="5,4,3,20"]
 |====
 h|Name 3+| Bus Error
-h|Description 3+| Indicates an error during the transmission of an Ethernet frame. #TODO. To be defined.#
+h|Description 3+| Indicates an error during the transmission of an Ethernet frame.
 h|OP Code [hex] 3+| 0x16
 .5+h|Content h|Argument h|Length h|Description
 
@@ -129,7 +130,12 @@ See <<table-fmi3-ls-bus-ethernet-bus-error-code-values>> for possible values.
 | Indicates whether this bus error occurs in response to a transmission of this FMU.
 
 h|Behavior
-3+|#TODO#
+3+|When transmitting Ethernet frames, various kinds of bus error may happen.
+A Bus Simulation can simulate such errors by providing <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operations to the Network FMUs.
+Based on consumed <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operations, Network FMUs can react on.
+For a Network FMU that initiated the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation, the argument `Is Sender` shall be set to `TRUE` in the corresponding <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation.
+The arguments `Is Sender = TRUE` must only be set once per simulated error. +
+Only Network FMUs with the corresponding optionally exposed <<low-cut-ethernet-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for this operation and respond accordingly.
 
 |====
 
@@ -139,7 +145,7 @@ h|Behavior
 |====
 
 h|Name h|Value h|Description
-|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-unknown]]UNKNOWN|0x0|Unknown error. #TODO#
+|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-unknown]]UNKNOWN|0x0|Unknown error.
 |[[table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy]]MEDIUM_BUSY|0x1|The medium is currently busy.
 |[[table-fmi3-ls-bus-ethernet-bus-error-code-values-collision]]COLLISION|0x2|A frame collided during transmission.
 
@@ -192,7 +198,11 @@ Elements describing a PHY standardized by 802.3 or an amendment must use the val
 Otherwise, a vendor-defined value may be used.
 
 h|Behavior
-5+|#TODO#
+5+|The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
+The operation shall not be routed to other Network FMUs by the Bus Simulation.
+A Network FMU shall ignore this operation on the consumer side.
+<<low-cut-ethernet-configuration-operation, `Configuration`>> operations can be produced multiple times during the runtime of a Network FMU.
+If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.
 
 |====
 

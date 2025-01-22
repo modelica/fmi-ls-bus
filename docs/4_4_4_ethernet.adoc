@@ -191,15 +191,15 @@ The following sections will describe different transmission scenarios in detail.
 ====== Normal Transmission [[low-cut-ethernet-normal-transmission]]
 In a normal transmission, the Network FMU sends a <<low-cut-ethernet-transmit-operation, `Transmit`>> operation which is
 forwarded to the communication partner after the calculated transmission time.
-Depending on the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> parameter the Bus Simulation confirms the transmission with a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation.
+Depending on the <<low-cut-ethernet-bus-notification-parameter, `BusNotifications`>> parameter the Bus Simulation confirms the transmission with a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation.
 
-<<#figure-ethernet-transmit>> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation under the condition that <<low-cut-can-bus-notification-parameter, `BusNotifications`>> parameter is `false`.
+<<#figure-ethernet-transmit>> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation under the condition that <<low-cut-ethernet-bus-notification-parameter, `BusNotifications`>> parameter is `false`.
 
 .Normal Ethernet transmission with Bus Simulation without Confirmation operation.
 [#figure-ethernet-transmit]
 image::ethernet_transmit.svg[width=70%, align="center"]
 
-<<#figure-ethernet-transmit-with-confirm>> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation under the condition that <<low-cut-can-bus-notification-parameter, `BusNotifications`>> parameter is set to `fmi3True`.
+<<#figure-ethernet-transmit-with-confirm>> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation under the condition that <<low-cut-ethernet-bus-notification-parameter, `BusNotifications`>> parameter is set to `fmi3True`.
 After the transmission has been successfully completed, the Bus Simulation acknowledges this process by using a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation, which is provided to FMU 1.
 
 .Normal Ethernet transmission with Bus Simulation and Confirmation operation.
