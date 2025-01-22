@@ -319,8 +319,7 @@ image::ethernet_error_handling_overview.svg[width=80%, align="center"]
 #TODO: Extend and specify error scenarios.#
 
 ===== Wake Up/Sleep [[low-cut-ethernet-wakeup-sleep]]
-This standard supports wake up and sleep functionality for the Ethernet bus, based on the TC10 Sleep/Wake-up
-Specification.
+This standard supports wake up and sleep functionality for the Ethernet bus, based on the <<OpenAlliance-TC10-100BASE-T1, Open Alliance TC10 sleep/wake-up>> specification.
 Note that Wake Up/Sleep is not available for all Ethernet variants, but only for 10BASE-T1S, 100BASE-T1, 1000BASE-T1 and Multi-G BASE-T1.
 However, the realization of local virtual ECU wake-up and sleeping processes, i.e., the transition to the sleep state as well as the virtual ECU local wake-up process, is considered internal to the FMU implementation.
 Therefore, only the bus-related aspects are defined in this document.

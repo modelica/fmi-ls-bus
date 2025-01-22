@@ -483,7 +483,7 @@ h|Name h|Value h|Description
 |====
 
 ====== Wake Up [[low-cut-ethernet-wakeup-operation]]
-Indicates wake up pulse according to TC10.
+Indicates wake up pulse according to <<OpenAlliance-TC10-100BASE-T1, Open Alliance TC10 sleep/wake-up>>.
 
 .Detailed description of the Wakeup operation.
 [#table-fmi3-ls-bus-ethernet-wakeup-operation]
