@@ -1,8 +1,8 @@
 == Network Abstraction (Low-Cut) [[low-cut]]
-This chapter describes the network abstraction or Low-Cut in detail.
+This chapter describes the Network Abstraction or Low-Cut in detail.
 
 === Overview [[low-cut-overview]]
-The network abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
+The Network Abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
 Exchanging data in terms of the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> via variables grouped by a dedicated Bus Terminal (see <<low-cut-variables>>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
 During simulation, the network communication is controlled by send and receive Bus Operations.
 Based on these operations, FMUs implementing this layered standard have to react depending on their role as specified in this document.
@@ -26,7 +26,7 @@ For simulating bus communication with timing effects, the FMUs should set the Co
 [#figure-transmission-example-with-timing-behavior]
 image::bus_simulation_example.svg[width=80%, align="center"]
 
-For simplification reasons or if a detailed bus simulation is not desired, fixed-step size FMUs can also be used with network abstraction.
+For simplification reasons or if a detailed bus simulation is not desired, fixed-step size FMUs can also be used with Network Abstraction.
 However, depending on the chosen simulation step-size, delay effects of the bus simulation have to be taken into account.
 Compositions with fixed-step size and variable-step size FMUs require the decoupling of the Bus Simulation logic and the Bus Simulation timing.
 This decoupling is realized by queuing Tx/Rx Bus Operations inside the Bus Simulation as well as queuing Tx Bus Operations inside Network FMUs.
@@ -301,7 +301,7 @@ The version number marks the set of available operations for a specified bus typ
 The versioning follows the rules of semantic versioning, as defined in <<PW13>>.
 
 === Terminal Definitions [[low-cut-terminal-definitions]]
-This section defines terminals for network abstraction.
+This section defines terminals for Network Abstraction.
 
 A schematic representation of an FMU with a Bus Terminal is shown in the <<#figure-frame-variables-terminals-lowcut, following figure>>:
 

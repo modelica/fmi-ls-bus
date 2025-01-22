@@ -1,15 +1,15 @@
 == Common Concepts [[common-concepts]]
-Physical signal abstraction and network abstraction layers represent different levels for the exchange of bus messages.
-Physical signal abstraction focuses primarily on the exchange of signal values, while network abstraction provides a complete way of implementing a virtual bus driver.
+Physical Signal Abstraction and Network Abstraction layers represent different levels for the exchange of bus messages.
+Physical Signal Abstraction focuses primarily on the exchange of signal values, while Network Abstraction provides a complete way of implementing a virtual bus driver.
 Depending on the exporting tool, one of the abstraction layers is more "natural" to the FMU, while the other might have to be emulated with additional internal effort or an adapter (FMU) could be used.
 Importers on the other hand rarely require both abstraction layers for system level compositions, because the engineering tasks define the required level of abstraction for the network communication.
 FMUs may choose to only support one abstraction layer providing only the corresponding variables.
 However, for versatility, having FMUs capable of communicating on both abstraction layers is more convenient for users.
 
-In both the physical signal abstraction and the network abstraction cases, the exchange of network data takes place via FMI variables.
-In the case of the physical signal abstraction, a separate FMI variable of the respective type is created for each network signal in a frame.
+In both the Physical Signal Abstraction and the Network Abstraction layer, the exchange of network data takes place via FMI variables.
+In the case of the Physical Signal Abstraction, a separate FMI variable of the respective type is created for each network signal in a frame.
 The network signals are structured via the PDU and frame hierarchy by using FMI 3.0 Terminals.
-Within the network abstraction, the bus is simulated using a separate, bus-specific protocol.
+Within the Network Abstraction, the bus is simulated using a separate, bus-specific protocol.
 This protocol is exchanged between the various network FMUs using binary FMI variables.
 
 Since network communication is not continuous but time discrete, FMI 3.0 Clocks are used to indicate when network data is sent or received.

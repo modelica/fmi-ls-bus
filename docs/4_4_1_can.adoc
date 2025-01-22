@@ -674,7 +674,7 @@ If the buffering is not adjusted by a specified Network FMU, the Bus Simulation 
 
 ===== Transmission and Acknowledge [[low-cut-can-transmission-and-acknowledge]]
 The <<low-cut-can-transmit-operation, `Transmit`>> operation represents the sending of a CAN, CAN FD and CAN XL frame.
-With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g., Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
+With appropriate options, relevant functionalities can be configured and used on a Network Abstraction level (e.g., Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
 In the real world, flawlessly transmitted CAN frames will be acknowledged by at least one receiver CAN node.
 To simulate this behavior, the <<low-cut-can-confirm-operation, `Confirm`>> operations are introduced.
 In addition, the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> parameter is defined to support lightweight bus simulations and <<common-concepts-direct-communication, directly connected Network FMUs>>.
