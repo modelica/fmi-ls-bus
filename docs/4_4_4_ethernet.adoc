@@ -279,7 +279,7 @@ The configuration and startup phase consists of the following steps:
 
 These phases are described in further detail in the following sections.
 
-TODO: PLCA
+#TODO: Consider PLCA use cases.#
 
 ====== Configuration Phase [[low-cut-ethernet-configuration-phase]]
 Before an Ethernet Network FMU may communicate, it must send a <<table-fmi3-ls-bus-ethernet-configuration-operation, `Configuration`>> operation.
@@ -301,7 +301,7 @@ Auto-negotiation according to <<IEEE-802.3-2022, IEEE 802.3>> section 37 (e.g., 
 
 This standard defines a simplified auto-negotiation procedure in which all pages are exchanged at the same time.
 
-To perform auto-negotiation, the Network FMU should send a <<low-cut-ethernet-auto-negotatiation-base-page-operation, Section 28 `Base Page`>> operation or <<low-cut-ethernet-single-differential-pair-auto-negotatiation-base-page-operation, Section 98 `Base Page`>> operation optionally followed by one more <<low-cut-ethernet-auto-negotatiation-page-operation, `Auto-Negotiation Page`>> operations.
+To perform auto-negotiation, the Network FMU should send a <<low-cut-ethernet-auto-negotiation-base-page-operation, Section 28 `Base Page`>> operation or <<low-cut-ethernet-single-differential-pair-auto-negotiation-base-page-operation, Section 98 `Base Page`>> operation optionally followed by one more <<low-cut-ethernet-auto-negotiation-page-operation, `Auto-Negotiation Page`>> operations.
 
 After both sending and receiving the auto-negotiation pages, the Network FMU should determine the highest-common-denominator physical medium attachment and enable communication if compatible with the connected node.
 This should be indicated with a <<low-cut-ethernet-link-state-indication-operation, `Link State Indication`>> operation.
@@ -316,7 +316,7 @@ A Bus Simulation may also inject errors into the simulation, by sending a <<low-
 [#figure-ethernet-architectural-error-handling-overview]
 image::ethernet_error_handling_overview.svg[width=80%, align="center"]
 
-TODO: Extend and specify error scenarios
+#TODO: Extend and specify error scenarios.#
 
 ===== Wake Up/Sleep [[low-cut-ethernet-wakeup-sleep]]
 This standard supports wake up and sleep functionality for the Ethernet bus, based on the TC10 Sleep/Wake-up

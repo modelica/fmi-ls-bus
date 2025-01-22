@@ -229,14 +229,14 @@ h|Name h|Value h|Description
 
 |====
 
-====== Auto-Negotiation Base Page [[low-cut-ethernet-auto-negotatiation-base-page-operation]]
+====== Auto-Negotiation Base Page [[low-cut-ethernet-auto-negotiation-base-page-operation]]
 Represents the transmission of an auto-negotiation base page according to section 28 of <<IEEE-802.3-2022>>.
 
 .Detailed description of the Auto-Negotiation Base Page operation.
-[#table-fmi3-ls-bus-ethernet-auto-negotatiation-base-page-operation]
+[#table-fmi3-ls-bus-ethernet-auto-negotiation-base-page-operation]
 [cols="5,4,3,20"]
 |====
-h|Name 3+| Auto Negotatiation Base Page
+h|Name 3+| Auto Negotiation Base Page
 h|Description 3+| Base page for section 28 auto-negotiation.
 h|OP Code [hex] 3+| 0x30
 .9+h|Content h|Argument h|Length h|Description
@@ -281,18 +281,18 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 (1 bit for section 28)
 
 h|Behavior
-3+|#TODO#
+3+|#TODO: To be defined.#
 
 |====
 
-====== Single Differential Pair Auto-Negotiation Base Page [[low-cut-ethernet-single-differential-pair-auto-negotatiation-base-page-operation]]
+====== Single Differential Pair Auto-Negotiation Base Page [[low-cut-ethernet-single-differential-pair-auto-negotiation-base-page-operation]]
 Represents the transmission of an auto-negotiation base page according to section 98 of <<IEEE-802.3-2022>>.
 
 .Detailed description of the Single Differential Pair Auto-Negotiation Base Page operation.
-[#table-fmi3-ls-bus-ethernet-single-differential-pair-auto-negotatiation-base-page-operation]
+[#table-fmi3-ls-bus-ethernet-single-differential-pair-auto-negotiation-base-page-operation]
 [cols="5,4,3,20"]
 |====
-h|Name 3+| Single Differential Pair Auto Negotatiation Base Page
+h|Name 3+| Single Differential Pair Auto Negotiation Base Page
 h|Description 3+| Base page for section 98 auto-negotiation.
 h|OP Code [hex] 3+| 0x31
 .13+h|Content h|Argument h|Length h|Description
@@ -352,11 +352,11 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 | Technology ability (27 bits for section 98)
 
 h|Behavior
-3+|#TODO#
+3+|#TODO: To be defined.#
 
 |====
 
-====== Auto-Negotiation Page [[low-cut-ethernet-auto-negotatiation-page-operation]]
+====== Auto-Negotiation Page [[low-cut-ethernet-auto-negotiation-page-operation]]
 Represents the transmission of an auto-negotiation (next) page according to section 28 or section 98 of <<IEEE-802.3-2022>>.
 
 .Detailed description of the Auto-Negotiation Page operation.
@@ -384,7 +384,7 @@ The following applies for this operation: `Length = 24`.
 | Extended Page
 | 1 byte
 | Indicates that this is an extended page (section 28).
-Must always be `TRUE` when using section 98 auto-negotation.
+Must always be `TRUE` when using section 98 auto-negotiation.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
 | Message Code
@@ -424,7 +424,7 @@ For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-val
 | Indicates the presence of a next page.
 
 h|Behavior
-3+|#TODO#
+3+|#TODO: To be defined.#
 
 |====
 
@@ -466,7 +466,7 @@ If auto-negotiation is enabled but has not yet been performed, the value "unknow
 See <<table-fmi3-ls-bus-ethernet-master-slave-mode-values>> for possible values.
 
 h|Behavior
-3+|#TODO#
+3+|#TODO: To be defined.#
 
 |====
 
