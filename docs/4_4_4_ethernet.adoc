@@ -9,7 +9,7 @@ In addition, common supplementary standards are considered, including the follow
 Especially the physical layers 100BASE-TX, 1000BASE-T, 10GBASE-T, 100BASE-T1, 1000BASE-T1 and 10BASE-T1S have been evaluated in detail for this standard.
 In addition, it should consider requirements for time-sensitive networking (TSN), specifically the use of the MAC Merge sublayer (also known as Ethernet Frame Preemption).
 
-In the 802.3 architecture, the layered standard aims to provide an abstraction of the Ethernet controller on the Media Access Control (MAC) sublayer.
+The layered standard aims to provide an abstraction of the Ethernet controller on the Media Access Control (MAC) sublayer according to the 802.3 architecture.
 Effects on lower layers are modeled on a simplified level.
 
 ===== Overview [[low-cut-ethernet-overview]]
@@ -126,16 +126,40 @@ h|Length
 
 |====
 
-====== Ethernet Topologies [[low-cut-ethernet-ethernet-topologies]]
+===== Ethernet Topologies [[low-cut-ethernet-ethernet-topologies]]
 Ethernet support both point-to-point and multidrop topologies.
 In a point-to-point topology, Ethernet devices are either connected directly or more than two devices are connected using an Ethernet switch.
 This topology is used for all modern Ethernet variants except 10BASE-T1S.
 In a multidrop topology, multiple devices are connected to the same segment either directly, daisy-chained or interconnected via hubs.
 This topology is used in legacy Ethernet systems as well as 10BASE-T1S networks.
 
-In terms of the FMI-LS-BUS specification, each point-to-point connection or multidrop segment represents a dedicated virtual bus, which may be simulated by an independent Bus Simulation or combined into a consolidated simulation.
-Ethernet switches can be modeled as normal FMUs, where switch ports correspond to Bus Terminals, to allow simulating any kind of Ethernet switch.
-To simplify interconnecting Ethernet FMUs, a Bus Simulation may decide to incorporate the Ethernet switching instead of delegating it to a dedicated FMU.
+For the definition of point-to-point connections or multidrop segments, a Bus Simulation should subgroup its Bus Terminals either by <<low-cut-ethernet-point-to-point-terminal,Point-to-Point>> or <<low-cut-ethernet-multidrop-terminal, Multidrop>> terminals.
+
+.Ethernet topologies.
+image::ethernet_terminals.svg[width=50%, align="center"]
+
+====== Point-to-Point Terminal [[low-cut-ethernet-point-to-point-terminal]]
+Bus Terminals which are connected point-to-point should be grouped by this terminal.
+
+Attributes of a Point-to-Point Terminal::
+ * `terminalKind` must be `org.fmi-ls-bus.ethernet-point-to-point-terminal`.
+ * `matchingRule` must be `sequence`
+ * `name` should be the network name, e.g., "Powertrain".
+
+Elements of a Point-to-Point Terminal::
+ * The <Terminal> element shall contain the desired number of <<low-cut-bus-terminal, Bus Terminal>> elements. 
+
+====== Multidrop Terminal [[low-cut-ethernet-multidrop-terminal]]
+Bus Terminals which are connected multidroped should be grouped by this terminal.     
+
+Attributes of a Multidrop Terminal::
+ * `terminalKind` must be `org.fmi-ls-bus.ethernet-multidrop-terminal`.
+ * `matchingRule` must be `sequence`
+ * `name` should be the network name, e.g., "Powertrain".
+
+Elements of a Multidrop Terminal::
+ * The <Terminal> element shall contain the desired number of <<low-cut-bus-terminal, Bus Terminal>> elements. 
+
 
 include::4_4_4_ethernet_operations.adoc[]
 
