@@ -34,7 +34,7 @@ jobs:
     - name: copy images, examples, headers, schemas and LICENSE.txt
       run: tar cfC - docs images examples ../headers ../schema ../LICENSE.txt | tar xfC - build
     - name: archive layered standard Network Communication
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: FMI-LS-BUS
         path: build/*
