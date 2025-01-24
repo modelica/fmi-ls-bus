@@ -338,7 +338,7 @@ Attributes of the nested Configuration Terminal::
  * `terminalKind` must be `org.fmi-ls-bus.network-terminal.configuration`.
  * `matchingRule` must be `bus`.
 
-===== Grouping Terminal [[low-cut-grouping-terminal, Grouping Terminal]]
+===== Grouping Terminals [[low-cut-grouping-terminals, Grouping Terminals]]
 In problem-specific domains, it may be useful to group several Bus Terminal elements semantically.
 This grouping is also done using terminals.
 The grouping can be done at any nesting depth.
