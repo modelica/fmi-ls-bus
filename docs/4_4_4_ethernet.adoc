@@ -157,7 +157,7 @@ Attributes of a Ethernet Segment Terminal::
 Bus Terminals which are used only for routing Ethernet franmes, may be grouped by this terminal.
 The <<low-cut-grouping-terminals, Grouping Terminal>> additionally defines the following properties:
 
-Attributes of a Multidrop Terminal::
+Attributes of a Switch Terminal::
  * `terminalKind` must be `org.fmi-ls-bus.ethernet-switch-terminal`.
 
 include::4_4_4_ethernet_operations.adoc[]
