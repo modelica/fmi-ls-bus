@@ -137,8 +137,17 @@ For creating simulation systems with the different kind of Ethernet connections,
 Since an Ethernet switch can be implemented both in the Network FMU and in the Bus Simulation, an Ethernet Switch Terminal can be used for both.
 However, a Segment Terminal should only be used to group Bus Terminals of a Bus Simulation. 
 
-.Ethernet topologies.
-image::ethernet_topology.svg[width=100%, align="center"]
+<<figure-ethernet-topology-switch-inside-bus-simulation>> illustrates an Ethernet topology in which the switch is integrated within the Bus Simulation.
+
+.Ethernet topologies: Switch inside Bus Simulation.
+[#figure-ethernet-topology-switch-inside-bus-simulation]
+image::ethernet_topology_switch_inside_Bus_Simulation.svg[width=70%, align="center"]
+
+<<figure-ethernet-topology-switch-inside-network-fmu>> illustrates an Ethernet topology in which the switch is integrated within a Network FMU.
+
+.Ethernet topologies: Switch inside Network FMU.
+[#figure-ethernet-topology-switch-inside-network-fmu]
+image::ethernet_topology_switch_inside_FMU.svg[width=70%, align="center"]
 
 ===== Grouping of Bus Terminals [[low-cut-ethernet-grouping-terminal-definition]]
 This section defines special <<low-cut-grouping-of-bus-terminals, grouping of Bus Terminals>> for Ethernet.
