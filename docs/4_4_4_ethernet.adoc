@@ -133,35 +133,30 @@ This topology is used for all modern Ethernet variants except 10BASE-T1S.
 In a multidrop topology, multiple devices are connected to the same segment either directly, daisy-chained or interconnected via hubs.
 This topology is used in legacy Ethernet systems as well as 10BASE-T1S networks.
 
-For the definition of point-to-point connections or multidrop segments, a Bus Simulation should subgroup its Bus Terminals either by <<low-cut-ethernet-point-to-point-terminal,Point-to-Point>> or <<low-cut-ethernet-multidrop-terminal, Multidrop>> terminals.
+For the definition of point-to-point connections or multidrop segments, a Bus Simulation may subgroup the respective Bus Terminals either by a <<low-cut-ethernet-point-to-point-grouping-terminal,Point-to-Point Grouping Terminal>> or a <<low-cut-ethernet-multidrop-grouping-terminal, Multidrop Grouping Terminal>>.
 
 .Ethernet topologies.
 image::ethernet_terminals.svg[width=50%, align="center"]
 
-====== Point-to-Point Terminal [[low-cut-ethernet-point-to-point-terminal]]
-Bus Terminals which are connected point-to-point should be grouped by this terminal.
+include::4_4_4_ethernet_operations.adoc[]
+
+===== Grouping Terminals [[low-cut-ethernet-grouping-terminal-definition]]
+This section defines special <<low-cut-grouping-of-bus-terminals, groups of Bus Terminals>> for Ethernet.
+The usage is optional but recommended.
+
+====== Point-to-Point Grouping Terminal [[low-cut-ethernet-point-to-point-grouping-terminal]]
+Bus Terminals which are connected point-to-point may be grouped by this terminal.
+The <<low-cut-grouping-terminals, Grouping Terminal>> additionally defines the following properties:
 
 Attributes of a Point-to-Point Terminal::
  * `terminalKind` must be `org.fmi-ls-bus.ethernet-point-to-point-terminal`.
- * `matchingRule` must be `sequence`
- * `name` should be the network name, e.g., "Powertrain".
 
-Elements of a Point-to-Point Terminal::
- * The <Terminal> element shall contain the desired number of <<low-cut-bus-terminal, Bus Terminal>> elements. 
-
-====== Multidrop Terminal [[low-cut-ethernet-multidrop-terminal]]
-Bus Terminals which are connected multidroped should be grouped by this terminal.     
+====== Multidrop Grouping Terminal [[low-cut-ethernet-multidrop-grouping-terminal]]
+Bus Terminals which are connected multidroped may be grouped by this terminal.
+The <<low-cut-grouping-terminals, Grouping Terminal>> additionally defines the following properties:
 
 Attributes of a Multidrop Terminal::
  * `terminalKind` must be `org.fmi-ls-bus.ethernet-multidrop-terminal`.
- * `matchingRule` must be `sequence`
- * `name` should be the network name, e.g., "Powertrain".
-
-Elements of a Multidrop Terminal::
- * The <Terminal> element shall contain the desired number of <<low-cut-bus-terminal, Bus Terminal>> elements. 
-
-
-include::4_4_4_ethernet_operations.adoc[]
 
 ===== Network Parameters [[low-cut-ethernet-network-parameters]]
 By using configuration parameters on Bus Terminal-level, Network FMUs can be parameterized by the user or Bus Simulation (e.g., by using the parameter propagation mechanism).
