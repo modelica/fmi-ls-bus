@@ -338,20 +338,19 @@ Attributes of the nested Configuration Terminal::
  * `terminalKind` must be `org.fmi-ls-bus.network-terminal.configuration`.
  * `matchingRule` must be `bus`.
 
-===== Grouping Terminals [[low-cut-grouping-terminals, Grouping Terminals]]
+==== Grouping of Bus Terminals [[low-cut-grouping-of-bus-terminals]]
 In problem-specific domains, it may be useful to group several Bus Terminal elements semantically.
 This grouping is also done using terminals.
 The grouping can be done at any nesting depth.
 Grouping can generally be used for all bus types of Network Abstraction.
-Depending on the bus-specific definition, buses can introduce special terminal kinds for Grouping Terminals to give them more semantics and to use their functionality.
+Depending on the bus-specific definition, buses can introduce special terminal kinds for grouping of Bus Terminals to give them more semantics and to use their functionality.
 
 Attributes of the Grouping Terminal::
- * `terminalKind` may be explicitly defined by a specific bus to give more semantic to a respective Grouping Terminal; otherwise not set.
+ * `terminalKind` may be explicitly defined by a specific bus to give more meaning to a respective group of Bus Terminals; otherwise not set.
  * `matchingRule` must be `none`.
 
 Elements of a Grouping Terminal::
- * A Grouping Terminal shall contain no `<TerminalMemberVariable>` elements
-  * The `<Terminal>` element shall contain the desired number of <<low-cut-bus-terminal, Bus Terminal>> elements. 
+ * The `<Terminal>` element shall contain the desired number of <<low-cut-bus-terminal, Bus Terminal>> elements. 
 
 ==== Example [[low-cut-example]]
 The following excerpts from files are used throughout this document as examples and illustrate how the different concepts relate.

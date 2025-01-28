@@ -141,7 +141,7 @@ image::ethernet_terminals.svg[width=50%, align="center"]
 include::4_4_4_ethernet_operations.adoc[]
 
 ===== Grouping Terminals [[low-cut-ethernet-grouping-terminal-definition]]
-This section defines the <<low-cut-grouping-terminals>> for Ethernet.
+This section defines special <<low-cut-grouping-of-bus-terminals, groups of Bus Terminals>> for Ethernet.
 The usage is optional but recommended.
 
 ====== Point-to-Point Grouping Terminal [[low-cut-ethernet-point-to-point-grouping-terminal]]
