@@ -292,6 +292,10 @@ image::ethernet_transmit_collision.svg[width=90%, align="center"]
 In this context, stem:[T_{\mathrm{transmit}}] defines the length of the message transmission.
 
 ====== Fragmented Transmission using the MAC Merge Sublayer [[low-cut-ethernet-fragmented-transmission-using-merge-sublayer]]
+
+In order for Ethernet to be used for various application domains that have real-time requirements for the network technology used, Ethernet Frame Preemption (also known as MAC Merge sublayer) was developed and specified as part of Time Sensitive Networking (TSN).
+This chapter describes its realization via this layered standard.
+
 When using the MAC Merge sublayer (see chapter 99 of <<IEEE-802.3-2022>>),
 the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation can also indicate the transmission of Express frames and the initial fragment of preempted frames.
 Continuation packets of a preempted frame are also transmitted using the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation with a start delimiter indicating a continuation.
