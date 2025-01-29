@@ -137,17 +137,29 @@ For creating simulation systems with the different kind of Ethernet connections,
 Since an Ethernet switch can be implemented both in the Network FMU and in the Bus Simulation, an Ethernet Switch Terminal can be used for both.
 However, a Segment Terminal should only be used to group Bus Terminals of a Bus Simulation. 
 
-<<figure-ethernet-topology-switch-inside-bus-simulation>> illustrates an Ethernet topology in which the switch is integrated within the Bus Simulation.
+<<figure-ethernet-topology-switch-inside-bus-simulation>> illustrates an Ethernet topology in which for Network FMUs are integrated via a Bus Simulation.
+The Network FMUs are partly connected directly via Ethernet segments and partly via a switch.
+In this scenario the switch is integrated within the Bus Simulation.
+In addition, there are a total of three segments within the topology.
+Two segments with two connections each (point-to-point) and one segment with three connections (multidrop).
 
 .Ethernet topologies: Switch inside Bus Simulation.
 [#figure-ethernet-topology-switch-inside-bus-simulation]
 image::ethernet_topology_switch_inside_Bus_Simulation.svg[width=70%, align="center"]
 
-<<figure-ethernet-topology-switch-inside-network-fmu>> illustrates an Ethernet topology in which the switch is integrated within a Network FMU.
+<<figure-ethernet-topology-switch-inside-network-fmu>> illustrates an Ethernet topology in which for Network FMUs are integrated via a Bus Simulation.
+The Network FMUs are partly connected directly via Ethernet segments and partly via a switch.
+In this scenario the switch is integrated within a Network FMU.
+Although the switch is contained within the Network FMU, the communication here is also realized via the Bus Simulation.
+In addition, there are a total of three segments within the topology.
+Two segments with two connections each (point-to-point) and one segment with three connections (multidrop).
 
 .Ethernet topologies: Switch inside Network FMU.
 [#figure-ethernet-topology-switch-inside-network-fmu]
 image::ethernet_topology_switch_inside_FMU.svg[width=70%, align="center"]
+
+The two Ethernet topologies shown are merely examples.
+Overall, a large number of variants are possible and necessary, depending on the application.
 
 ===== Grouping of Bus Terminals [[low-cut-ethernet-grouping-terminal-definition]]
 This section defines special <<low-cut-grouping-of-bus-terminals, grouping of Bus Terminals>> for Ethernet.
