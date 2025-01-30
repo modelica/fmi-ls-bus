@@ -293,18 +293,18 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[out] cycle               Returns the current cycle.
  * \param[out] macroTick           Returns the current macro tick.
  */
-#define FMI3_LS_BUS_FLEXRAY_GET_GLOBAL_TIME(                                                                    \
-    simulationTime, startTime, macroTickDuration, macroTicksPerCycle, cycleCount, cycle, macroTick)             \
-    do                                                                                                          \
-    {                                                                                                           \
-        /* Calculate the number of macro ticks since the start of the simulation */                             \
-        const uint64 frSimulationTimeMt = (uint64)(((simulationTime) - (startTime) + ((macroTickDuration) / 2)) \
-            / (macroTickDuration));                                                                             \
-                                                                                                                \
-        /* Calculate the current cycle and macro tick */                                                        \
-        *(cycle) = (uint8)(frSimulationTimeMt / (macroTicksPerCycle) % (cycleCount));                           \
-        *(macroTick) = (uint16)(frSimulationTimeMt % (macroTicksPerCycle));                                     \
-    }                                                                                                           \
+#define FMI3_LS_BUS_FLEXRAY_GET_GLOBAL_TIME(                                                                            \
+    simulationTime, startTime, macroTickDuration, macroTicksPerCycle, cycleCount, cycle, macroTick)                     \
+    do                                                                                                                  \
+    {                                                                                                                   \
+        /* Calculate the number of macro ticks since the start of the simulation */                                     \
+        const fmi3UInt64 frSimulationTimeMt = (fmi3UInt64)(((simulationTime) - (startTime) + ((macroTickDuration) / 2)) \
+            / (macroTickDuration));                                                                                     \
+                                                                                                                        \
+        /* Calculate the current cycle and macro tick */                                                                \
+        *(cycle) = (fmi3UInt8)(frSimulationTimeMt / (macroTicksPerCycle) % (cycleCount));                               \
+        *(macroTick) = (fmi3UInt16)(frSimulationTimeMt % (macroTicksPerCycle));                                         \
+    }                                                                                                                   \
     while (0)
 
 #endif /* fmi3LsBusUtilFlexRay_h */
