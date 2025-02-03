@@ -1,7 +1,7 @@
 ==== Ethernet [[low-cut-ethernet]]
 This standard should allow simulation of Ethernet bus systems and shall cover commercial, industrial and automotive use cases based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
 
-This standard covers all variants of Ethernet (e.g. 10BASE-T, 100BASE-TX, 1000BASE-T, 10GBASE-T, 100BASE-T1, 1000BASE-T1, 10BASE-T1S, etc.) described in <<IEEE-802.3-2022>> while being flexible enough to support future versions without adaption due to the high cadence of the Ethernet standardization process.
+This standard covers all variants of Ethernet (e.g. 10BASE-T, 100BASE-TX, 1000BASE-T, 10GBASE-T, 100BASE-T1, 1000BASE-T1, 10BASE-T1S, etc.) described in <<IEEE-802.3-2022, IEEE 802.3>> while being flexible enough to support future versions without adaption due to the high cadence of the Ethernet standardization process.
 In addition, common supplementary standards are considered, including the following:
 
 * <<OpenAlliance-TC10-100BASE-T1, Open Alliance TC10 sleep/wake-up>> (including <<OpenAlliance-TC10-100BASE-T1, 100BASE-T>>, <<OpenAlliance-TC10-1000BASE-T1, 1000BASE-T1>> and <<OpenAlliance-TC10-10BASE-T1S, 10BASE-T1S>>)
@@ -296,7 +296,7 @@ In this context, stem:[T_{\mathrm{transmit}}] defines the length of the message 
 In order for Ethernet to be used for various application domains that have real-time requirements for the network technology used, Ethernet Frame Preemption (also known as MAC Merge sublayer) was developed and specified as part of Time Sensitive Networking (TSN).
 This chapter describes its realization via this layered standard.
 
-When using the MAC Merge sublayer (see chapter 99 of <<IEEE-802.3-2022>>),
+When using the MAC Merge sublayer (see <<IEEE-802.3-2022,IEEE 802.3>>, section 99, page 4049 et seqq.),
 the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation can also indicate the transmission of Express frames and the initial fragment of preempted frames.
 Continuation packets of a preempted frame are also transmitted using the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation with a start delimiter indicating a continuation.
 
@@ -344,8 +344,8 @@ This may be done right after the <<low-cut-ethernet-configuration-operation, `Co
 If auto-negotiation is enabled for the Network FMU, it should perform it after the configuration phase.
 The initial link indication should set a physical medium attachment of "unknown".
 
-Both auto-negotiation according to <<IEEE-802.3-2022, IEEE 802.3>> section 28 (e.g., for 10BASE-T, 100BASE-TX, 1000BASE-T, 10GBASE-T) and <<IEEE-802.3-2022, IEEE 802.3>> section 98 (e.g., for 100BASE-T1, 1000BASE-T1, 10BASE-T1S) are supported.
-Auto-negotiation according to <<IEEE-802.3-2022, IEEE 802.3>> section 37 (e.g., for 1000BASE-LX, 1000BASE-CX) is currently not explicitly supported.
+Auto-Negotiation on twisted pair (see <<IEEE-802.3-2022, IEEE 802.3>>, section 28, page 933 et seqq.), required for e.g., in 10BASE-T, 100BASE-TX, 1000BASE-T, 10GBASE-T, and Auto-Negotiation for single differential-pair media (see <<IEEE-802.3-2022, IEEE 802.3>>, section 98, page 4049 et seqq.), required in e.g., for 100BASE-T1, 1000BASE-T1, 10BASE-T1S, are supported.
+1000BASE-X Auto-Negotiation (see <<IEEE-802.3-2022, IEEE 802.3>>, section 37, page 1492 et seqq.), used for example within 1000BASE-LX and 1000BASE-CX, is currently not explicitly supported.
 
 This standard defines a simplified auto-negotiation procedure in which all pages are exchanged at the same time.
 
