@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version e24ae0d,</span>
-<span id="revdate">2025-01-30</span>
+<span id="revnumber">version 05ae83f,</span>
+<span id="revdate">2025-02-04</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -604,17 +604,18 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#layered-standard-manifest-file">2. Layered Standard Manifest File</a></li>
 <li><a href="#common-concepts">3. Common Concepts</a>
 <ul class="sectlevel2">
-<li><a href="#common-concepts-system-compositions">3.1. System Compositions</a>
+<li><a href="#common-concepts-general-recommendations">3.1. General Recommendations</a></li>
+<li><a href="#common-concepts-system-compositions">3.2. System Compositions</a>
 <ul class="sectlevel3">
-<li><a href="#common-concepts-direct-communication">3.1.1. Direct Communication</a></li>
-<li><a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">3.1.2. Composition with dedicated Bus Simulation FMU</a></li>
-<li><a href="#common-concepts-importer-with-integrated-bus-simulation">3.1.3. Importer with Integrated Bus Simulation</a></li>
+<li><a href="#common-concepts-direct-communication">3.2.1. Direct Communication</a></li>
+<li><a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">3.2.2. Composition with dedicated Bus Simulation FMU</a></li>
+<li><a href="#common-concepts-importer-with-integrated-bus-simulation">3.2.3. Importer with Integrated Bus Simulation</a></li>
 </ul>
 </li>
-<li><a href="#common-concepts-provided-c-api">3.2. Provided C-API</a></li>
+<li><a href="#common-concepts-provided-c-api">3.3. Provided C-API</a></li>
 </ul>
 </li>
-<li><a href="#high-cut">4. Physical Signal Abstraction ("high cut")</a>
+<li><a href="#high-cut">4. Physical Signal Abstraction (High-Cut)</a>
 <ul class="sectlevel2">
 <li><a href="#high-cut-overview">4.1. Overview</a></li>
 <li><a href="#high-cut-variables">4.2. Variables</a>
@@ -636,7 +637,7 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#high-cut-limitations">4.5. Limitations</a></li>
 </ul>
 </li>
-<li><a href="#low-cut">5. Network Abstraction ("low cut")</a>
+<li><a href="#low-cut">5. Network Abstraction (Low-Cut)</a>
 <ul class="sectlevel2">
 <li><a href="#low-cut-overview">5.1. Overview</a></li>
 <li><a href="#low-cut-layered-standard-bus-protocol">5.2. Layered Standard Bus Protocol</a>
@@ -826,16 +827,16 @@ At this point it should be explicitly mentioned that this layered standard not o
 <div class="ulist">
 <ul>
 <li>
-<p>Physical signal abstraction ("high cut") to simply transport physical signal values between virtual ECUs.<br>
+<p>Physical Signal Abstraction (or High-Cut) to simply transport physical signal values between virtual ECUs.<br>
 The network properties are largely idealized: infinite bandwidth, zero-delay etc.
 Signals, groups of signals and their properties <em>(e.g., units)</em> are usually derived from (existing and validated) standard network topology description formats <em>(such as DBC, LDF, Fibex and ARXML)</em>.</p>
 </li>
 <li>
-<p>Network abstraction ("low cut") to realize virtualized bus driver implementations <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>.<br>
+<p>Network Abstraction (or Low-Cut) to realize virtualized bus driver implementations <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>.<br>
 This transport layer emulation allows anything from idealized to more detailed network simulations, including bandwidth restrictions, message arbitration and delays.
 It forwards the network payloads using binary variables.
-The "low cut" abstraction layer is meant to allow virtualized bus driver implementations, including feedback from the physical drivers about transmission status or network node states.
-Since the network abstraction layer is protocol-independent, it can also be used for the simulation of non-automotive control units, <em>e.g., from the field of industrial automation</em>.</p>
+The Low-Cut abstraction layer is meant to allow virtualized bus driver implementations, including feedback from the physical drivers about transmission status or network node states.
+Since the Network Abstraction layer is protocol-independent, it can also be used for the simulation of non-automotive control units, <em>e.g., from the field of industrial automation</em>.</p>
 </li>
 </ul>
 </div>
@@ -945,7 +946,7 @@ All explanations in this document are therefore to be understood in the context 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>fmi-ls-description</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>http://fmi-standard.org/fmi-ls-manifest</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Layered Standard for the simulation of bus communication on a signal or network abstraction based level.</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Layered Standard for the simulation of bus communication on a Physical Signal Abstraction or Network Abstraction based level.</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String with a brief description of the layered standard that is suitable for display to users.</p></td>
 </tr>
 <tr>
@@ -971,7 +972,7 @@ Default: <code>false</code>.</p></td>
     xmlns:fmi-ls="http://fmi-standard.org/fmi-ls-manifest"
     fmi-ls:fmi-ls-name="org.fmi-standard.fmi-ls-bus"
     fmi-ls:fmi-ls-version="1.1.0-alpha.1"
-    fmi-ls:fmi-ls-description="Layered Standard for the simulation of bus communication on a signal or network abstraction based level."
+    fmi-ls:fmi-ls-description="Layered Standard for the simulation of bus communication on a Physical Signal Abstraction or Network Abstraction based level."
     isBusSimulationFMU="false"/&gt;</code></pre>
 </div>
 </div>
@@ -984,74 +985,46 @@ Default: <code>false</code>.</p></td>
 <h2 id="common-concepts">3. Common Concepts</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Physical signal abstraction ("high cut") and network abstraction ("low cut") layers represent different levels for the exchange of bus messages.
-Physical signal abstraction focuses primarily on the exchange of signal values, while network abstraction provides a complete way of implementing a virtual bus driver.
+<p>Physical Signal Abstraction and Network Abstraction layers represent different levels for the exchange of bus messages.
+Physical Signal Abstraction focuses primarily on the exchange of signal values, while Network Abstraction provides a complete way of implementing a virtual bus driver.
 Depending on the exporting tool, one of the abstraction layers is more "natural" to the FMU, while the other might have to be emulated with additional internal effort or an adapter (FMU) could be used.
 Importers on the other hand rarely require both abstraction layers for system level compositions, because the engineering tasks define the required level of abstraction for the network communication.
 FMUs may choose to only support one abstraction layer providing only the corresponding variables.
 However, for versatility, having FMUs capable of communicating on both abstraction layers is more convenient for users.</p>
 </div>
 <div class="paragraph">
-<p><em>[FMUs providing both abstraction layers can deduce from the fmi3Set() and fmi3Get() calls they receive, which abstraction layer the importer is using.]</em></p>
-</div>
-<div class="paragraph">
-<p>Since network communication is not continuous but time discrete, FMI 3.0 Clocks are used to indicate when signals and/or frames are sent or received.
-All signal and frame variables are clocked variables.</p>
-</div>
-<div class="paragraph">
-<p>FMI 3.0 terminal definitions in the <code>terminalsAndIcons.xml</code> are used to group related variables and present a comfortable opportunity to connect different FMUs between each other.
-Terminal definitions are used differently within the "high cut" and the "low cut":</p>
-</div>
-<div id="figure-terminal-relations" class="imageblock text-center">
-<div class="content">
-<img src="images/terminal_relations.svg" alt="terminal relations" width="60%">
-</div>
-<div class="title">Figure 1. Relations between Bus-, Frame- and PDU Terminals.</div>
-</div>
-<div class="paragraph">
-<p>Variables are referenced in terminals and the <code>memberName</code> attribute indicates how a variable is meant to be used.
-For the "high cut", variables represent signals and their Clocks.
-For the "low cut", variables represent transmitted and received bus traffic (<code>memberName</code> = <code>Tx_Data</code>/<code>Rx_Data</code>) and their respective Clocks (<code>memberName</code> = <code>Tx_Clock</code>/<code>Rx_Clock</code>).
-The <code>causality</code> of <code>Rx_Data</code> variables must be <code>input</code>, whereas the <code>causality</code> of <code>Tx_Data</code> variables must be <code>output</code>.
-<code>Rx_Clock</code> variables must be <code>triggered input</code> Clocks and are meant to be connected by the importer to the corresponding <code>Tx_Clock</code> variables.
-A <code>periodic</code> Clock indicates that the FMU can send signals or frames only periodically on a given time raster, while a <code>changing</code> or <code>countdown</code> Clock indicates that the FMU can send signals at varying time steps.</p>
-</div>
-<div class="paragraph">
-<p>Using <code>Tx_Clocks</code> of different types allows simulations with different timing accuracy and performance.
-Some Clock types allow the FMU to specify the next send event efficiently and accurately.
-Hence, the importer will trigger these Clocks according to the Clock specifications as accurately as it can.</p>
-</div>
-<div class="paragraph">
-<p><em>[The alternative of using <code>nextEventTime</code> would force epsilon matching of event times.]</em></p>
-</div>
-<div class="paragraph">
-<p>For any periodic (fixed-time) sending of messages, multiple message sends fall into one <code>fmi3DoStep</code>.
-While "high cut" signal variables will miss all but the last value sent, "low cut" frame variables will buffer all payloads inside their value.</p>
-</div>
-<div class="paragraph">
-<p>If <code>triggered</code> output Clocks are used, the importer must take care to schedule and potentially roll-back FMUs that have advanced their <code>fmi3DoStep</code> past such a (surprising) <code>triggered</code> Clock activation from another FMU.
-It is strongly recommended to avoid using <code>triggered</code> output Clocks and to instead use <code>time-based</code> Clocks to avoid these complications and potential performance problems.</p>
-</div>
-<div class="paragraph">
-<p>If an FMU represents network nodes that are both sender and receiver of a signal, the receiver role will be removed from the FMU interface to allow the signals to have a unique role as output and the reading of such outputs must be handled internally to the FMU.</p>
-</div>
-<div class="paragraph">
-<p><em>[Rationale: The FMI standard requires a variable to be either input or output.]</em></p>
+<p>In both the Physical Signal Abstraction and the Network Abstraction layer, the exchange of network data takes place via FMI variables.
+In the case of the Physical Signal Abstraction, a separate FMI variable of the respective type is created for each network signal to transfer.
+The network signals are structured via a PDU and frame hierarchy by using FMI 3.0 Terminals.
+Within the Network Abstraction, the bus is simulated using a separate, bus-specific protocol.
+This protocol is exchanged between the various FMUs using binary FMI variables.
+Since network communication is not continuous but time discrete, FMI 3.0 Clocks are used to indicate when network data is sent or received.</p>
 </div>
 <div class="paragraph">
 <p>While the values and semantic of the Clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology.
 Frame variables do not just transport the network-specific payload, but also carry protocol-specific status information.
 Status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack about success or errors of a send request.</p>
 </div>
+<div class="paragraph">
+<p>For any periodic (fixed-time) sending of messages, multiple message sends fall into one <code>fmi3DoStep</code>.
+While High-Cut signal variables will miss all but the last value sent, Low-Cut frame variables will buffer all payloads inside their value.</p>
+</div>
 <div class="sect2">
-<h3 id="common-concepts-system-compositions">3.1. System Compositions</h3>
+<h3 id="common-concepts-general-recommendations">3.1. General Recommendations</h3>
+<div class="paragraph">
+<p>If <code>triggered</code> output Clocks are used, the importer must take care to schedule and potentially roll-back FMUs that have advanced their <code>fmi3DoStep</code> past such a (surprising) <code>triggered</code> Clock activation from another FMU.
+It is strongly recommended to avoid using <code>triggered</code> output Clocks and to instead use <code>time-based</code> Clocks to avoid these complications and potential performance problems.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="common-concepts-system-compositions">3.2. System Compositions</h3>
 <div class="paragraph">
 <p>Overall, this standard considers three possible communication architectures for bus communication.
 It should be explicitly noted at this point that the FMUs for integration in the respective use case do not necessarily have to be different, so that the same FMU can be integrated across all three communication architectures.
 The interface of the FMU to the importer is always the same, but a different subset of the features is actually used.</p>
 </div>
 <div class="sect3">
-<h4 id="common-concepts-direct-communication">3.1.1. Direct Communication</h4>
+<h4 id="common-concepts-direct-communication">3.2.1. Direct Communication</h4>
 <div class="paragraph">
 <p>The first option is to use a common FMU importer.
 Within this configuration, the FMU importer does not require any special features for simulating buses, apart from supporting FMI variables, Clocks and terminals.
@@ -1061,7 +1034,7 @@ The figure below illustrates the direct communication of two FMUs:</p>
 <div class="content">
 <img src="images/architecture_direct_connection.svg" alt="architecture direct connection" width="50%">
 </div>
-<div class="title">Figure 2. Direct communication of two FMUs.</div>
+<div class="title">Figure 1. Direct communication of two FMUs.</div>
 </div>
 <div class="paragraph">
 <p>Direct bus communication is limited to exactly two FMUs.
@@ -1091,7 +1064,7 @@ Here the FMU will receive all frames, regardless of buffer size and would need t
 </div>
 </div>
 <div class="sect3">
-<h4 id="common-concepts-composition-with-dedicated-bus-simulation-fmu">3.1.2. Composition with dedicated Bus Simulation FMU</h4>
+<h4 id="common-concepts-composition-with-dedicated-bus-simulation-fmu">3.2.2. Composition with dedicated Bus Simulation FMU</h4>
 <div class="paragraph">
 <p>If more realistic network properties are required, a bus simulation component must be added.</p>
 </div>
@@ -1112,7 +1085,7 @@ The total of three FMUs are executed on a common FMI 3.0 importer.</p>
 <div class="content">
 <img src="images/architecture_bus_simulation_fmu.svg" alt="architecture bus simulation fmu" width="50%">
 </div>
-<div class="title">Figure 3. Bus simulation by using a dedicated Bus Simulation FMU.</div>
+<div class="title">Figure 2. Bus simulation by using a dedicated Bus Simulation FMU.</div>
 </div>
 <div class="paragraph">
 <p>This type of communication allows the simulation of all bus features, such as arbitration or the simulation of timing.
@@ -1123,7 +1096,7 @@ Depending on the needs, it may be necessary to dynamically provision the Bus Sim
 </div>
 </div>
 <div class="sect3">
-<h4 id="common-concepts-importer-with-integrated-bus-simulation">3.1.3. Importer with Integrated Bus Simulation</h4>
+<h4 id="common-concepts-importer-with-integrated-bus-simulation">3.2.3. Importer with Integrated Bus Simulation</h4>
 <div class="paragraph">
 <p>In the third variant of the communication architecture, the bus simulation is built directly into the respective importer.
 The supported bus features are analogous to the <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Composition with dedicated Bus Simulation FMU</a> use case.
@@ -1134,7 +1107,7 @@ The following figure illustrates two FMUs, which are integrated by an importer t
 <div class="content">
 <img src="images/architecture_bus_simulation_importer.svg" alt="architecture bus simulation importer" width="50%">
 </div>
-<div class="title">Figure 4. Bus simulation by using an importer with internal bus simulation support.</div>
+<div class="title">Figure 3. Bus simulation by using an importer with internal bus simulation support.</div>
 </div>
 <div class="paragraph">
 <p>The usage of this architecture type allows the integration of this layered standard into an already existing simulator, which implements network communication with proprietary interfaces.
@@ -1143,7 +1116,7 @@ In this case, it may also be possible to integrate other, for example manufactur
 </div>
 </div>
 <div class="sect2">
-<h3 id="common-concepts-provided-c-api">3.2. Provided C-API</h3>
+<h3 id="common-concepts-provided-c-api">3.3. Provided C-API</h3>
 <div class="paragraph">
 <p>Besides the textual specification for FMUs with bus support, this layered standard also provides C header files to simplify the creation of FMUs with bus support.
 The following header files are provided:</p>
@@ -1175,20 +1148,20 @@ These header files apply to all supported bus types of the layered standard.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="high-cut">4. Physical Signal Abstraction ("high cut")</h2>
+<h2 id="high-cut">4. Physical Signal Abstraction (High-Cut)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This chapter describes the physical signal abstraction or "high cut" in detail.</p>
+<p>This chapter describes the Physical Signal Abstraction or High-Cut in detail.</p>
 </div>
 <div class="sect2">
 <h3 id="high-cut-overview">4.1. Overview</h3>
 <div class="paragraph">
-<p>Physical signal abstraction allows an idealized exchange of unit-based variables between FMUs.
+<p>Physical Signal Abstraction allows an idealized exchange of unit-based variables between FMUs.
 Variables representing these physical signals are clocked to reflect the bus timing aspects of the information flow.
 Changes to these clocked variables always reach the destination.</p>
 </div>
 <div class="paragraph">
-<p>The figure below shows an example architecture of a high-cut.
+<p>The figure below shows an example architecture of a Physical Signal Abstraction.
 The signals (<em>Signal 1&#8230;&#8203;8</em>) are modeled as clocked FMU variables of a specific type.
 The corresponding signals are structurally combined using Protocol Data Units (PDUs), which in turn are assigned to frames.
 The PDU and frame structuring is done via terminals (<em>PDU A, B, C</em> and <em>Frame X, Y</em>).
@@ -1198,7 +1171,7 @@ The respective FMU variables are connected to a Bus Simulation, which emulates t
 <div class="content">
 <img src="images/high_cut_network_fmu.svg" alt="high cut network fmu" width="80%">
 </div>
-<div class="title">Figure 5. High-cut example architecture.</div>
+<div class="title">Figure 4. Physical Signal Abstraction example architecture.</div>
 </div>
 </div>
 <div class="sect2">
@@ -1209,7 +1182,7 @@ The respective FMU variables are connected to a Bus Simulation, which emulates t
 <div class="sect3">
 <h4 id="high-cut-signal-variables">4.2.1. Signal Variables</h4>
 <div class="paragraph">
-<p>To define the signal abstraction layer (or "high cut"), signal variables are defined.</p>
+<p>To define the signal abstraction layer, signal variables are defined.</p>
 </div>
 <div class="paragraph">
 <p>A signal variable carries the physical value of a network signal normally packaged inside a PDU or frame.
@@ -1286,7 +1259,7 @@ These are technical and legal issues that need attention from standardization bo
 <div class="sect2">
 <h3 id="high-cut-terminal-definitions">4.4. Terminal Definitions</h3>
 <div class="paragraph">
-<p>This section defines terminals for physical signal abstraction or "high cut".</p>
+<p>This section defines terminals for Physical Signal Abstraction.</p>
 </div>
 <div class="sect3">
 <h4 id="high-cut-bus-terminal">4.4.1. Bus Terminal</h4>
@@ -1436,7 +1409,7 @@ For network types not natively referencing a "PDU", like CAN, a synthetic PDU wi
 <ul>
 <li>
 <p><code>variableName</code> refers to the input or output variable name of the FMU.
-These variables represent the signal abstraction layer ("high cut").
+These variables represent the signal abstraction layer.
 Unless there are other requirements, it is recommended to build the variable names as follows: <code>BusName.FrameName.PDUName.SignalName</code>, e.g., <code>Powertrain.tcuSensors.tcuSensors.vCar</code>.
 This approach automatically provides unique names for all bus-related variables, and can also be used for the clock variables, to allow automatic grouping by non-terminal-aware tools.</p>
 </li>
@@ -1585,7 +1558,7 @@ BO_ 512 ecuState: 4 ECU
 <div class="sect2">
 <h3 id="high-cut-limitations">4.5. Limitations</h3>
 <div class="paragraph">
-<p>Physical signal abstraction maps several network protocols onto co-simulation variables as transport layer simulating in many ways an ideal network.
+<p>Physical Signal Abstraction maps several network protocols onto co-simulation variables as transport layer simulating in many ways an ideal network.
 Such an ideal network differs from physical networks in the following ways (and potentially others):</p>
 </div>
 <div class="ulist">
@@ -1619,15 +1592,15 @@ Importers must know how to handle this, just like they must know how to handle f
 </div>
 </div>
 <div class="sect1">
-<h2 id="low-cut">5. Network Abstraction ("low cut")</h2>
+<h2 id="low-cut">5. Network Abstraction (Low-Cut)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This chapter describes the network abstraction or "low cut" in detail.</p>
+<p>This chapter describes the Network Abstraction or Low-Cut in detail.</p>
 </div>
 <div class="sect2">
 <h3 id="low-cut-overview">5.1. Overview</h3>
 <div class="paragraph">
-<p>The network abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
+<p>The Network Abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
 Exchanging data in terms of the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a> via variables grouped by a dedicated Bus Terminal (see <a href="#low-cut-variables">Variables</a>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
 During simulation, the network communication is controlled by send and receive Bus Operations.
 Based on these operations, FMUs implementing this layered standard have to react depending on their role as specified in this document.
@@ -1644,7 +1617,7 @@ The Bus Simulation then might delay the transfer of the <code>Transmit</code> op
 <div class="content">
 <img src="images/transmit_messages.svg" alt="transmit messages" width="50%">
 </div>
-<div class="title">Figure 6. Transmission overview.</div>
+<div class="title">Figure 5. Transmission overview.</div>
 </div>
 <div class="paragraph">
 <p>The point in time at which FMUs will (potentially) send new network messages can be given to the importer in advance with the proper Clock type.
@@ -1655,10 +1628,10 @@ For simulating bus communication with timing effects, the FMUs should set the Co
 <div class="content">
 <img src="images/bus_simulation_example.svg" alt="bus simulation example" width="80%">
 </div>
-<div class="title">Figure 7. Example for network simulation with timing behavior.</div>
+<div class="title">Figure 6. Example for network simulation with timing behavior.</div>
 </div>
 <div class="paragraph">
-<p>For simplification reasons or if a detailed bus simulation is not desired, fixed-step size FMUs can also be used with network abstraction.
+<p>For simplification reasons or if a detailed bus simulation is not desired, fixed-step size FMUs can also be used with Network Abstraction.
 However, depending on the chosen simulation step-size, delay effects of the bus simulation have to be taken into account.
 Compositions with fixed-step size and variable-step size FMUs require the decoupling of the Bus Simulation logic and the Bus Simulation timing.
 This decoupling is realized by queuing Tx/Rx Bus Operations inside the Bus Simulation as well as queuing Tx Bus Operations inside Network FMUs.
@@ -1948,7 +1921,7 @@ Hence the Clock type can influence the bus simulation significantly - the differ
 <div class="content">
 <img src="images/low_cut_communication_points.svg" alt="low cut communication points" width="100%">
 </div>
-<div class="title">Figure 8. Example Bus Communication Points announced by aperiodic time-based Tx_Clock variables.</div>
+<div class="title">Figure 7. Example Bus Communication Points announced by aperiodic time-based Tx_Clock variables.</div>
 </div>
 <div class="paragraph">
 <p>The announced Tx time however does not mean that a Bus Operation really has to be transferred, but that the connected networked FMUs should enter the <code>Event Mode</code> at that time.
@@ -1964,7 +1937,7 @@ An importer has to determine proper communication step sizes to synchronize netw
 <div class="content">
 <img src="images/low_cut_time_based_port_connection.svg" alt="low cut time based port connection" width="50%">
 </div>
-<div class="title">Figure 9. Consideration of time-base Tx_Clock connections.</div>
+<div class="title">Figure 8. Consideration of time-base Tx_Clock connections.</div>
 </div>
 <div class="paragraph">
 <p>Because of the common Clock source however, both Clock variables (Rx/Tx) might get active at the same time.
@@ -2035,7 +2008,7 @@ Pending Tx data shall be signaled by returning from <code>fmi3DoStep</code> with
 <div class="content">
 <img src="images/low_cut_communication_with_triggered_tx_clock.svg" alt="low cut communication with triggered tx clock" width="100%">
 </div>
-<div class="title">Figure 10. Triggered Tx_Clock/Rx_Clock connection.</div>
+<div class="title">Figure 9. Triggered Tx_Clock/Rx_Clock connection.</div>
 </div>
 </div>
 </div>
@@ -2123,7 +2096,7 @@ The versioning follows the rules of semantic versioning, as defined in <a href="
 <div class="sect2">
 <h3 id="low-cut-terminal-definitions">5.4. Terminal Definitions</h3>
 <div class="paragraph">
-<p>This section defines terminals for network abstraction (also called "low cut").</p>
+<p>This section defines terminals for Network Abstraction.</p>
 </div>
 <div class="paragraph">
 <p>A schematic representation of an FMU with a Bus Terminal is shown in the <a href="#figure-frame-variables-terminals-lowcut">following figure</a>:</p>
@@ -2132,7 +2105,7 @@ The versioning follows the rules of semantic versioning, as defined in <a href="
 <div class="content">
 <img src="images/bus_terminal.svg" alt="bus terminal" width="30%">
 </div>
-<div class="title">Figure 11. Frame variables and terminals.</div>
+<div class="title">Figure 10. Frame variables and terminals.</div>
 </div>
 <div class="sect3">
 <h4 id="low-cut-bus-terminal">5.4.1. Bus Terminal</h4>
@@ -2548,8 +2521,8 @@ Note: The value of this argument also includes padding bytes if these are requir
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The <a href="#low-cut-can-transmit-operation"><code>CAN Transmit</code></a> operation shall be provided by Network FMUs to initiate the transmission of a CAN frame.
-In case of directly connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.1.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
-If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.1.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.1.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
+In case of directly connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.2.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.2.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.2.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might respond with a <a href="#low-cut-can-confirm-operation"><code>Confirm</code></a>, <a href="#low-cut-can-arbitration-lost-operation"><code>Arbitration Lost</code></a>, <a href="#low-cut-can-bus-error-operation"><code>Bus Error</code></a> or <a href="#low-cut-can-format-error-operation"><code>Format Error</code></a> operation.
 Depending on the <a href="#low-cut-can-status-operation">status</a> of the specified Network FMU further restrictions for <a href="#low-cut-can-transmit-operation"><code>CAN Transmit</code></a> operations <a href="#table-can-status-values">exist</a>.</p></td>
 </tr>
@@ -3407,7 +3380,7 @@ If the buffering is not adjusted by a specified Network FMU, the Bus Simulation 
 <h5 id="low-cut-can-transmission-and-acknowledge">5.5.1.5. Transmission and Acknowledge</h5>
 <div class="paragraph">
 <p>The <a href="#low-cut-can-transmit-operation"><code>Transmit</code></a> operation represents the sending of a CAN, CAN FD and CAN XL frame.
-With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g., Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
+With appropriate options, relevant functionalities can be configured and used on a Network Abstraction level (e.g., Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
 In the real world, flawlessly transmitted CAN frames will be acknowledged by at least one receiver CAN node.
 To simulate this behavior, the <a href="#low-cut-can-confirm-operation"><code>Confirm</code></a> operations are introduced.
 In addition, the <a href="#low-cut-can-bus-notification-parameter"><code>BusNotifications</code></a> parameter is defined to support lightweight bus simulations and <a href="#common-concepts-direct-communication">directly connected Network FMUs</a>.</p>
@@ -3418,27 +3391,27 @@ In this case, the bus simulation is idealized and takes place in a "fire-and-for
 If a specified Network FMU is depending on <a href="#low-cut-can-confirm-operation"><code>Confirm</code></a> operations and <a href="#low-cut-can-bus-notification-parameter"><code>BusNotifications</code></a> is <code>false</code>, the self confirmation shall be realized internally within the respective Network FMU for the specified Bus Terminal.</p>
 </div>
 <div class="paragraph">
-<p><a href="#figure-can-direct-communication">Figure 12</a> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
+<p><a href="#figure-can-direct-communication">Figure 11</a> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
 Subsequently, FMU 1 self-confirms the transmission internally.</p>
 </div>
 <div id="figure-can-direct-communication" class="imageblock text-center">
 <div class="content">
 <img src="images/can_direct_confirmation.svg" alt="can direct confirmation" width="40%">
 </div>
-<div class="title">Figure 12. Direct Confirmation of transmitted network data.</div>
+<div class="title">Figure 11. Direct Confirmation of transmitted network data.</div>
 </div>
 <div class="paragraph">
 <p>For a detailed simulation, the Bus Simulation has to support <a href="#low-cut-can-confirm-operation"><code>Confirm</code></a> operations.
 In this case, the <a href="#low-cut-can-bus-notification-parameter"><code>BusNotifications</code></a> parameter of the Network FMUs can be set to <code>fmi3True</code> as Network FMUs can rely on receiving <a href="#low-cut-can-confirm-operation"><code>Confirm</code></a> operations for the specified Bus Terminal.</p>
 </div>
 <div class="paragraph">
-<p>The following <a href="#figure-can-confirmation-with-bus-simulation-fmu">Figure 13</a> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.</p>
+<p>The following <a href="#figure-can-confirmation-with-bus-simulation-fmu">Figure 12</a> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.</p>
 </div>
 <div id="figure-can-confirmation-with-bus-simulation-fmu" class="imageblock text-center">
 <div class="content">
 <img src="images/can_confirmation_with_bus_simulation_fmu.svg" alt="can confirmation with bus simulation fmu" width="70%">
 </div>
-<div class="title">Figure 13. Confirmation of transmitted network data via Bus Simulation.</div>
+<div class="title">Figure 12. Confirmation of transmitted network data via Bus Simulation.</div>
 </div>
 <div class="paragraph">
 <p>If all Network FMUs, except the one initiating the <a href="#low-cut-can-transmit-operation"><code>Transmit</code></a> operation, communicate the <a href="#low-cut-can-status-operation">status</a> <code>BUS_OFF</code>, the Bus Simulation shall not provide a <a href="#low-cut-can-confirm-operation">confirmation</a>.</p>
@@ -3462,7 +3435,7 @@ When a Network FMU signals the <code>BUS_OFF</code> state to the Bus Simulation,
 <div class="content">
 <img src="images/can_error_handling_overview.svg" alt="can error handling overview" width="100%">
 </div>
-<div class="title">Figure 14. Architectural error handling overview.</div>
+<div class="title">Figure 13. Architectural error handling overview.</div>
 </div>
 <div class="paragraph">
 <p>The <a href="https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-realization-of-can-error-handling">FMI LS BUS Implementer’s Guide</a> contains an example of how to realize CAN error handling based on the Bus Operations specified by this layered standard.</p>
@@ -3480,7 +3453,7 @@ As soon as an FMU receives an <a href="#low-cut-can-arbitration-lost-operation">
 <div class="content">
 <img src="images/can_arbitration.svg" alt="can arbitration" width="70%">
 </div>
-<div class="title">Figure 15. Arbitration of two transmissions at the same time.</div>
+<div class="title">Figure 14. Arbitration of two transmissions at the same time.</div>
 </div>
 <div class="paragraph">
 <p>Within a <a href="#low-cut-can-configuration-operation"><code>Configuration</code></a> operation, the <code>Arbitration Lost Behavior</code> argument can be specified.
@@ -3512,7 +3485,7 @@ The Bus Simulation shall distribute this operation to all participants on the bu
 <div class="content">
 <img src="images/can_wake_up.svg" alt="can wake up" width="70%">
 </div>
-<div class="title">Figure 16. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
+<div class="title">Figure 15. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
 </div>
 </div>
 </div>
@@ -3726,8 +3699,8 @@ The maximum length of a PID is 8-bit.</p></td>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The Header operation shall be provided by Network FMUs to initiate the transmission of a LIN header.
-In case of direct connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.1.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
-If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.1.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.1.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
+In case of direct connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.2.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.2.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.2.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might respond with a <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> or <a href="#low-cut-lin-format-error-operation"><code>Format Error</code></a> operation.</p></td>
 </tr>
 </tbody>
@@ -3796,8 +3769,8 @@ For specification the boolean values <code>TRUE</code> and <code>FALSE</code> (s
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The Response operation shall be provided by Network FMUs to initiate a response to a given LIN header.
-In case of direct connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.1.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
-If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.1.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.1.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
+In case of direct connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.2.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.2.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.2.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might responsd with a <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> or <a href="#low-cut-lin-format-error-operation"><code>Format Error</code></a> operation.</p></td>
 </tr>
 </tbody>
@@ -3860,8 +3833,8 @@ The maximum length of a PID is 8-bit.</p></td>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The Header Response operation shall be provided by Network FMUs to initiate the transmission of a LIN frame that contains the specified header and response.
-In case of direct connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.1.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
-If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.1.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.1.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
+In case of direct connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.2.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.2.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.2.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might respond with a <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> or <a href="#low-cut-lin-format-error-operation"><code>Format Error</code></a> operation.</p></td>
 </tr>
 </tbody>
@@ -4343,7 +4316,7 @@ A <a href="#low-cut-lin-wake-up-operation"><code>Wakeup</code></a> operation is 
 <div class="content">
 <img src="images/lin_wake_up.svg" alt="lin wake up" width="70%">
 </div>
-<div class="title">Figure 17. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
+<div class="title">Figure 16. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
 </div>
 </div>
 </div>
@@ -4647,8 +4620,8 @@ The boolean values <code>TRUE</code> and <code>FALSE</code> (see <a href="#table
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation shall be provided by Network FMUs to indicate the transmission of a FlexRay frame.
-In the case of directly connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.1.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
-If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.1.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.1.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
+In the case of directly connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.2.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.2.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.2.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might respond with a <a href="#low-cut-flexray-confirmation-operation"><code>Confirmation</code></a>, <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a> or <a href="#low-cut-flexray-format-error-operation"><code>Format Error</code></a> operation.
 If the specific <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation is to be set across multiple channels, the channel argument can combine both channels.
 The point in time at which a Network FMU provides a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation must be within a valid provision time window.
@@ -5110,9 +5083,9 @@ If a specified node has coldstart capabilities, additionally the type of coldsta
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
 <td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">The specified operation shall be produced by a Network FMU.
-In case of directly connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.1.1</a>), Network FMUs also receive <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operations from other nodes.
+In case of directly connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.2.1</a>), Network FMUs also receive <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operations from other nodes.
 Therefore, Network FMUs shall check receiving <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operation of type <code>FLEXRAY_CONFIG</code> for compatibility.
-If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.1.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.1.3</a>), the compatibility check should be done by the Bus Simulation.
+If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.2.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.2.3</a>), the compatibility check should be done by the Bus Simulation.
 In this case, the Bus Simulation must not forward the <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> to Network FMUs.
 The configuration of the <code>FLEXRAY_CONFIG</code> parameters must be completed by all Network FMUs before any <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation is produced.
 The reconfiguration of <code>FLEXRAY_CONFIG</code> parameters during the runtime of a Network FMU is not allowed.</p></td>
@@ -5457,7 +5430,7 @@ The Bus Simulation shall distribute this operation to all participants on the bu
 <div class="content">
 <img src="images/flexray_wake_up.svg" alt="flexray wake up" width="70%">
 </div>
-<div class="title">Figure 18. Wake up initiated by FMU 1 wakes up FMU 2 via bus.</div>
+<div class="title">Figure 17. Wake up initiated by FMU 1 wakes up FMU 2 via bus.</div>
 </div>
 </div>
 <div class="sect4">
@@ -5477,7 +5450,7 @@ Network FMUs must synchronize their internal FlexRay clock based on the received
 <div class="content">
 <img src="images/flexray_startup.svg" alt="flexray startup" width="75%">
 </div>
-<div class="title">Figure 19. Startup initiated by a coldstart Network FMU.</div>
+<div class="title">Figure 18. Startup initiated by a coldstart Network FMU.</div>
 </div>
 <div class="paragraph">
 <p>The start time of the first communication cycle is defined as \(T_{Start}\) in this specification.</p>
@@ -5497,7 +5470,7 @@ Because those parameters are Bus Simulation specific, they are not further defin
 <div class="content">
 <img src="images/flexray_startup_coldstart_emulation.svg" alt="flexray startup coldstart emulation" width="75%">
 </div>
-<div class="title">Figure 20. Startup initiated by the Bus Simulation</div>
+<div class="title">Figure 19. Startup initiated by the Bus Simulation</div>
 </div>
 </div>
 </div>
@@ -5525,7 +5498,7 @@ A <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operat
 The <a href="#low-cut-flexray-cancel-operation"><code>Cancel</code></a> operation allows the cancellation of such buffered <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operations within a Bus Simulation.</p>
 </div>
 <div class="paragraph">
-<p><a href="#figure-flexray-transmission-status">Figure 21</a> illustrates the sequence of the operations mentioned.
+<p><a href="#figure-flexray-transmission-status">Figure 20</a> illustrates the sequence of the operations mentioned.
 First, FMU 1 provides a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation for the Bus Simulation.
 Within the next two steps, FMU 1 updates the specified <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> again.
 In the next step, the last <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation, provided by FMU 1, is transferred to FMU 2 by the Bus Simulation.
@@ -5535,10 +5508,10 @@ Also the Bus Simulation provides a <a href="#low-cut-flexray-confirm-operation">
 <div class="content">
 <img src="images/flexray_transmission_status.svg" alt="flexray transmission status" width="80%">
 </div>
-<div class="title">Figure 21. General transmission mechanism for FlexRay.</div>
+<div class="title">Figure 20. General transmission mechanism for FlexRay.</div>
 </div>
 <div class="paragraph">
-<p><a href="#figure-flexray-transmission-cancel">Figure 22</a> illustrates a sequence with focus to the <a href="#low-cut-flexray-cancel-operation"><code>Cancel</code></a> operation.
+<p><a href="#figure-flexray-transmission-cancel">Figure 21</a> illustrates a sequence with focus to the <a href="#low-cut-flexray-cancel-operation"><code>Cancel</code></a> operation.
 First, FMU 1 provides a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation for the Bus Simulation.
 Within the next step, FMU 1 updates the specified <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> again.
 In the next step, the transmission ist canceled via <a href="#low-cut-flexray-cancel-operation"><code>Cancel</code></a> operation.
@@ -5549,20 +5522,20 @@ No transmission takes place within the simulation system.</p>
 <div class="content">
 <img src="images/flexray_transmission_cancel.svg" alt="flexray transmission cancel" width="50%">
 </div>
-<div class="title">Figure 22. Cancellation of a transmission for FlexRay via Cancel operation.</div>
+<div class="title">Figure 21. Cancellation of a transmission for FlexRay via Cancel operation.</div>
 </div>
 <div class="paragraph">
 <p>At bus level, the macrotick represents the smallest time unit on a FlexRay bus.
 A total of four protocol parts are logically mapped onto this: The static and the dynamic segment, the so-called symbol window and the Network Idle Time (NIT).
 The static and dynamic segment is in turn divided into different sections, so-called FlexRay slots.
 These segments repeat themselves in certain FlexRay cycles.
-<a href="#figure-flexray-macroticks-segments-general">Figure 23</a> visualizes the segmentation of a cycle.</p>
+<a href="#figure-flexray-macroticks-segments-general">Figure 22</a> visualizes the segmentation of a cycle.</p>
 </div>
 <div id="figure-flexray-macroticks-segments-general" class="imageblock text-center">
 <div class="content">
 <img src="images/flexray_macroticks_segments_general.svg" alt="flexray macroticks segments general" width="70%">
 </div>
-<div class="title">Figure 23. Segmentation of a FlexRay cycle.</div>
+<div class="title">Figure 22. Segmentation of a FlexRay cycle.</div>
 </div>
 <div class="paragraph">
 <p>Within a real FlexRay bus, every macrotick represents a potential temporal synchronization point for the respective segments and frames to be transmitted.
@@ -5640,14 +5613,14 @@ The start time of the first FlexRay cycle is defined by the <code>Start Time</co
 <p>For a static segment, a Network FMU shall provide the respective <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation in an interval starting at the beginning of a slot and ending at the action point (see <code>ActionPoint Offset</code> argument within the <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operation) of a slot.
 Within this time window, the Network FMU must provide the respective <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation for a specific slot.
 The point in time at which a Bus Simulation shall provide <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operations and also resulting <a href="#low-cut-flexray-confirm-operation"><code>Confirm-</code></a> or <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a> operations depends on the <a href="#low-cut-flexray-delivery-on-boundary-parameter"><code>DeliveryOnBoundary</code></a> configuration parameter.
-If the parameter is set to <code>fmi3False</code>, the Bus Simulation provides the respective operations directly after the calculated transmission time (see orange arrow in <a href="#figure-flexray-static-segment-bus-communication-points">Figure 24</a>).
-If the parameter is <code>true</code> (default), the corresponding operations are only provided at the slot boundary (green arrow in <a href="#figure-flexray-static-segment-bus-communication-points">Figure 24</a>).</p>
+If the parameter is set to <code>fmi3False</code>, the Bus Simulation provides the respective operations directly after the calculated transmission time (see orange arrow in <a href="#figure-flexray-static-segment-bus-communication-points">Figure 23</a>).
+If the parameter is <code>true</code> (default), the corresponding operations are only provided at the slot boundary (green arrow in <a href="#figure-flexray-static-segment-bus-communication-points">Figure 23</a>).</p>
 </div>
 <div id="figure-flexray-static-segment-bus-communication-points" class="imageblock text-center">
 <div class="content">
 <img src="images/flexray_static_segment_bus_communication_points.svg" alt="flexray static segment bus communication points" width="70%">
 </div>
-<div class="title">Figure 24. Bus Communication Points within static segment.</div>
+<div class="title">Figure 23. Bus Communication Points within static segment.</div>
 </div>
 <div class="paragraph">
 <p>The starting point of the slot can be calculated at runtime based on the <code>FLEXRAY_CONFIG</code> configuration parameters as</p>
@@ -5697,7 +5670,7 @@ If the parameter is <code>true</code> (default), the corresponding operations ar
 </ul>
 </div>
 <div class="paragraph">
-<p>In a sequence of operations to the respective actors and focus to the FlexRay slot counter, communication is presented as shown in <a href="#figure-flexray-transmission-static-segment">Figure 25</a>.
+<p>In a sequence of operations to the respective actors and focus to the FlexRay slot counter, communication is presented as shown in <a href="#figure-flexray-transmission-static-segment">Figure 24</a>.
 At the beginning of slot 6, FMU 1 provides a frame to be sent in the form of a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation for the Bus Simulation.
 After simulation of the specified transmission time, the Bus Simulation provisions the <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation to FMU 2 and a <a href="#low-cut-flexray-confirm-operation"><code>Confirm</code></a> operation to FMU 1.</p>
 </div>
@@ -5705,7 +5678,7 @@ After simulation of the specified transmission time, the Bus Simulation provisio
 <div class="content">
 <img src="images/flexray_transmission_static_segment.svg" alt="flexray transmission static segment" width="90%">
 </div>
-<div class="title">Figure 25. Transmission sequence within a static FlexRay segment with an involved Bus Simulation.</div>
+<div class="title">Figure 24. Transmission sequence within a static FlexRay segment with an involved Bus Simulation.</div>
 </div>
 </div>
 <div class="sect5">
@@ -5720,17 +5693,17 @@ For this reason, the slot counter within Network FMUs are important, especially 
 <p>Within the dynamic segment, <em>Slot ID = n + m</em> represents the first valid point in time when a Network FMU is allowed to provide the respective <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation, whereby <em>n</em> indicates the number of <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operations provided within the ahead static segment and <em>m</em> the number of past minislots within the current dynamic segment.
 As in the static segment, a permitted interval is defined between the concrete start of the minislot and the <code>Minislot ActionPoint Offset</code> (see <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operation).
 The point in time at which a Bus Simulation shall provide operations, analogous to the static segment, depends on the <a href="#low-cut-flexray-delivery-on-boundary-parameter"><code>DeliveryOnBoundary</code></a> configuration parameter.
-If the configuration parameter is set to <code>fmi3False</code>, the Bus Simulation provides the respective operation directly after the calculated transmission time (see orange arrow in <a href="#figure-flexray-dynamic-segment-bus-communication-points">Figure 26</a>).
-If the parameter is set to <code>fmi3True</code>, the corresponding operations are only provided at the slot boundary (green arrow in <a href="#figure-flexray-dynamic-segment-bus-communication-points">Figure 26</a>).</p>
+If the configuration parameter is set to <code>fmi3False</code>, the Bus Simulation provides the respective operation directly after the calculated transmission time (see orange arrow in <a href="#figure-flexray-dynamic-segment-bus-communication-points">Figure 25</a>).
+If the parameter is set to <code>fmi3True</code>, the corresponding operations are only provided at the slot boundary (green arrow in <a href="#figure-flexray-dynamic-segment-bus-communication-points">Figure 25</a>).</p>
 </div>
 <div id="figure-flexray-dynamic-segment-bus-communication-points" class="imageblock text-center">
 <div class="content">
 <img src="images/flexray_dynamic_segment_bus_communication_points.svg" alt="flexray dynamic segment bus communication points" width="70%">
 </div>
-<div class="title">Figure 26. Bus Communication Points within dynamic segment.</div>
+<div class="title">Figure 25. Bus Communication Points within dynamic segment.</div>
 </div>
 <div class="paragraph">
-<p>In sequence <a href="#figure-flexray-transmission-dynamic-segment">Figure 27</a> multiple transmissions of FlexRay frames within the dynamic segment are shown.
+<p>In sequence <a href="#figure-flexray-transmission-dynamic-segment">Figure 26</a> multiple transmissions of FlexRay frames within the dynamic segment are shown.
 At the beginning the internal slot counters of FMU 1 and FMU 2 are equal to 8.
 Within the first and the second minislot, neither FMU 1 nor FMU 2 wants to transmit a frame.
 After the second elapsed minislot the internal slot counter values of FMU 1 and FMU 2 are equal to 10.
@@ -5746,7 +5719,7 @@ This transmission will take three minislots.</p>
 <div class="content">
 <img src="images/flexray_transmission_dynamic_segment.svg" alt="flexray transmission dynamic segment" width="90%">
 </div>
-<div class="title">Figure 27. Provision and delivery of Transmit operations with an involved Bus Simulation.</div>
+<div class="title">Figure 26. Provision and delivery of Transmit operations with an involved Bus Simulation.</div>
 </div>
 <div class="paragraph">
 <p>If no Bus Simulation is involved, the transmission always applies: The length of a dynamic slot is exactly one minislot, since the transmission duration is not taken into account.</p>
@@ -5848,7 +5821,7 @@ Depending on the type of <a href="#low-cut-flexray-bus-error-operation"><code>Bu
 <div class="content">
 <img src="images/flexray_error_handling_overview.svg" alt="flexray error handling overview" width="80%">
 </div>
-<div class="title">Figure 28. Architectural error handling overview.</div>
+<div class="title">Figure 27. Architectural error handling overview.</div>
 </div>
 </div>
 </div>
