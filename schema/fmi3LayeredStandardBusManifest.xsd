@@ -38,7 +38,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <xs:complexType>
             <xs:attribute ref="fmi-ls:fmi-ls-name" use="required" fixed="org.fmi-standard.fmi-ls-bus"/>
             <xs:attribute ref="fmi-ls:fmi-ls-version" use="required"/>
-            <xs:attribute ref="fmi-ls:fmi-ls-description" use="required" fixed="Layered Standard for the simulation of bus communication on a signal or network abstraction based level."/>
+            <xs:attribute ref="fmi-ls:fmi-ls-description" use="required" fixed="Layered Standard for the simulation of bus communication on a Physical Signal Abstraction or Network Abstraction based level."/>
             <xs:attribute name="isBusSimulationFMU" type="xs:boolean" default="false">
                 <xs:annotation>
                     <xs:documentation xml:lang="en">If true, this FMU represents a Bus Simulation FMU.</xs:documentation>
