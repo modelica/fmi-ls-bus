@@ -498,7 +498,7 @@ See `gdSymbolWindowActionPointOffset` parameter within FlexRay specification for
 See `gdSymbolWindow` parameter within FlexRay specification for further information.
 
 |NIT Length
-|1 byte
+|2 bytes
 |Specifies the length of the Network Idle Time in macroticks.
 See `gdNIT` parameter within FlexRay specification for further information.
 
