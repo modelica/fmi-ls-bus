@@ -469,14 +469,14 @@ typedef struct
     fmi3LsBusFlexRayDurationMt8 minislotLength;             /**< The length of a minislot in the dynamic segment in macroticks. */
     fmi3LsBusFlexRayDurationMt8 symbolActionPointOffset;    /**< The action point offset of a symbol window in macroticks. */
     fmi3LsBusFlexRayDurationMt8 symbolWindowLength;         /**< The length of the symbol window in macroticks. */
-    fmi3LsBusFlexRayDurationMt8 nitLength;                  /**< The length of the NIT in macroticks. */
+    fmi3LsBusFlexRayDurationMt16 nitLength;                 /**< The length of the NIT in macroticks. */
     NetworkManagementVectorLength nmVectorLength;           /**< The length of the Network Management Vector. */
     fmi3LsBusFlexRayDurationMt32 dynamicSlotIdleTime;       /**< The length of dynamic slot idle time within a dynamic segment in macroticks. */  
     fmi3LsBusFlexRayColdstartNodeType coldstartNode;        /**< Specifies the coldstart capabilities of a FlexRay node. */
 } fmi3LsBusFlexRayConfigurationFlexRayConfig;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayConfigurationFlexRayConfig) == (4 + 2 + 1 + 1 + 1 + 2 + 2 + 1 + 1 + 2 + 1 + 1 + 1 + 1 + 4 + 1),
+static_assert(sizeof(fmi3LsBusFlexRayConfigurationFlexRayConfig) == (4 + 2 + 1 + 1 + 1 + 2 + 2 + 1 + 1 + 2 + 1 + 1 + 2 + 1 + 4 + 1),
               "'fmi3LsBusFlexRayConfigurationFlexRayConfig' does not match the expected data size");
 #endif
 
