@@ -59,12 +59,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma warning(disable : 4815)
 #endif
 
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable : 4200)
-#pragma warning(disable : 4815)
-#endif
-
 
 #ifdef __cplusplus
 extern "C"
