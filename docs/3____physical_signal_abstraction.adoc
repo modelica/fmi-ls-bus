@@ -10,7 +10,7 @@ The figure below shows an example architecture of a Physical Signal Abstraction.
 The signals (_Signal 1...8_) are modeled as clocked FMU variables of a specific type.
 The corresponding signals are structurally combined using Protocol Data Units (PDUs), which in turn are assigned to frames.
 The PDU and frame structuring is done via terminals (_PDU A, B, C_ and _Frame X, Y_).
-The respective FMU variables are connected to a Bus Simulation, which emulates them according to their own needs for e.g., in accuracy.
+The respective FMU variables are connected to a Bus Simulation, which emulates them according to their own needs for e.g. according to accuracy.
 
 .Physical Signal Abstraction example architecture.
 [#figure-transmission-high-cut-overview]
@@ -70,7 +70,7 @@ These are technical and legal issues that need attention from standardization bo
 This section defines terminals for Physical Signal Abstraction.
 
 ==== Bus Terminal [[high-cut-bus-terminal,Bus Terminal]]
-Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<high-cut-frame-terminal,frame terminals>>.
+Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all its <<high-cut-frame-terminal,frame terminals>>.
 The attribute `name` of the `<Terminal>` element must match the root name of its <<high-cut-network-description-files>> if it exists
 _[e.g., `Powertrain`, if the file is `/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc`]_.
 In any case, the attribute `name` of the `<Terminal>` element must be consistent with the `BusName` component of all its corresponding signal, frame and Clock variables.

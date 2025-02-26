@@ -21,7 +21,7 @@ For any periodic (fixed-time) sending of messages, multiple message sends fall i
 While High-Cut signal variables will miss all but the last value sent, Low-Cut frame variables will buffer all payloads inside their value.
 
 === General Recommendations [[common-concepts-general-recommendations]]
-If `triggered` output Clocks are used, the importer must take care to schedule and potentially roll-back FMUs that have advanced their `fmi3DoStep` past such a (surprising) `triggered` Clock activation from another FMU.
+If `triggered` output Clocks are used, the importer must ensure to schedule and potentially roll-back FMUs that have advanced their `fmi3DoStep` past such a (surprising) `triggered` Clock activation from another FMU.
 It is strongly recommended to avoid using `triggered` output Clocks and to instead use `time-based` Clocks to avoid these complications and potential performance problems.
 
 === System Compositions [[common-concepts-system-compositions]]
