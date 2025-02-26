@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 294f144,</span>
-<span id="revdate">2025-02-25</span>
+<span id="revnumber">version 09009a1,</span>
+<span id="revdate">2025-02-26</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -1214,10 +1214,10 @@ This allows the FMU (or better the exporting tool) to balance the accuracy and p
 <div class="ulist">
 <ul>
 <li>
-<p>While <code>aperiodic</code> Clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> will reduce the network simulation speed.</p>
+<p>While <code>aperiodic</code> Clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> migth reduce the network simulation speed.</p>
 </li>
 <li>
-<p>Using <code>periodic</code> Clocks reduces the number of <code>Event Modes</code> required and speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.</p>
+<p>Using <code>periodic</code> Clocks reduces the number of <code>Event Modes</code> required and might speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.</p>
 </li>
 <li>
 <p>One could use (structural) parameters to define the accuracy of <code>aperiodic</code> Clocks, allowing control of the simulation accuracy and performance with the same FMU.</p>
@@ -1232,6 +1232,9 @@ This allows the FMU (or better the exporting tool) to balance the accuracy and p
 </div>
 <div class="paragraph">
 <p>Signal variables belonging to frame <code>BusName.FrameName</code> are triggered by the Clock <code>BusName.FrameName_Clock</code> and all these variables and their corresponding Clock must share the same <code>causality</code> (<code>input</code> or <code>output</code>).</p>
+</div>
+<div class="paragraph">
+<p><em>[Note: The statements regarding <code>aperiodic</code> and <code>periodic</code> Clocks and their impact on performance should be understood as general tendencies rather than universally valid truths, as other aspects such as baud rates and expected bus loads must be taken into account for a more precise estimate.]</em></p>
 </div>
 </div>
 </div>
@@ -2035,15 +2038,18 @@ This allows senders to trade accuracy for speed: buffering more and interrupting
 <div class="ulist">
 <ul>
 <li>
-<p>While <code>aperiodic</code> Clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> will reduce the network simulation speed.</p>
+<p>While <code>aperiodic</code> Clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> migth reduce the network simulation speed.</p>
 </li>
 <li>
-<p>Using <code>periodic</code> Clocks and queueing the operations to be transmitted reduces the number of <code>Event Mode</code> entries and speeds up the simulation at the cost of simulation accuracy.</p>
+<p>Using <code>periodic</code> Clocks and queueing the operations to be transmitted reduces the number of <code>Event Mode</code> entries and might speeds up the simulation at the cost of simulation accuracy.</p>
 </li>
 <li>
 <p>One could use (structural) parameters to define the accuracy of <code>aperiodic</code> Clocks, allowing control of the simulation accuracy and performance with the same FMU.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p><em>[Note: The statements regarding <code>aperiodic</code> and <code>periodic</code> Clocks and their impact on performance should be understood as general tendencies rather than universally valid truths, as other aspects such as baud rates and expected bus loads must be taken into account for a more precise estimate.]</em></p>
 </div>
 </div>
 <div class="sect3">
