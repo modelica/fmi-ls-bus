@@ -159,7 +159,7 @@ void CheckFlexRayConfirmOperation(int cycleId, int slotId, int channel, bool cor
 	EXPECT_EQ(operation->channel, channel * multiplier);
 }
 
-void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long long int macrotickDuration, int macroticksPerCycle, int maxCycleCount, int actionPointOffset, int staticSlotLength, int numberOfStaticSlots, int staticPayloadLength, int minislotActionPointOffset, int numberOfMinislots, int minislotLength, int symbolActionPointOffset, int symbolWindowLength, int nitLength, int nmVectorLength, long long int dynamicSlotIdleTime, fmi3LsBusFlexRayColdstartNodeType coldStartNode, bool correctData)
+void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long long int macrotickDuration, int macroticksPerCycle, int maxCycleCount, int actionPointOffset, int staticSlotLength, int numberOfStaticSlots, int staticPayloadLength, int minislotActionPointOffset, int numberOfMinislots, int minislotLength, int maxDynamicPayloadLength, int symbolActionPointOffset, int symbolWindowLength, int nitLength, int nmVectorLength, long long int dynamicSlotIdleTime, fmi3LsBusFlexRayColdstartNodeType coldStartNode, bool correctData)
 {
 	// Create data needed for creation.
 	fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -177,7 +177,7 @@ void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long lon
 	switch (operationType)
 	{
 	case ConfigurationConfig:
-		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&firstBufferInfo, macrotickDuration, macroticksPerCycle, maxCycleCount, actionPointOffset, staticSlotLength, numberOfStaticSlots, staticPayloadLength, minislotActionPointOffset, numberOfMinislots, minislotLength, symbolActionPointOffset, symbolWindowLength, nitLength, nmVectorLength, dynamicSlotIdleTime, coldStartNode);
+		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&firstBufferInfo, macrotickDuration, macroticksPerCycle, maxCycleCount, actionPointOffset, staticSlotLength, numberOfStaticSlots, staticPayloadLength, minislotActionPointOffset, numberOfMinislots, minislotLength, maxDynamicPayloadLength, symbolActionPointOffset, symbolWindowLength, nitLength, nmVectorLength, dynamicSlotIdleTime, coldStartNode);
 		break;
 	default:
 		break;
@@ -209,6 +209,7 @@ void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long lon
 		EXPECT_EQ(operation->flexRayConfig.minislotActionPointOffset, minislotActionPointOffset * multiplier);
 		EXPECT_EQ(operation->flexRayConfig.numberOfMinislots, numberOfMinislots * multiplier);
 		EXPECT_EQ(operation->flexRayConfig.minislotLength, minislotLength * multiplier);
+		EXPECT_EQ(operation->flexRayConfig.maximumDynamicPayloadLength, maxDynamicPayloadLength * multiplier);
 		EXPECT_EQ(operation->flexRayConfig.symbolActionPointOffset, symbolActionPointOffset * multiplier);
 		EXPECT_EQ(operation->flexRayConfig.symbolWindowLength, symbolWindowLength * multiplier);
 		EXPECT_EQ(operation->flexRayConfig.nitLength, nitLength * multiplier);
@@ -315,7 +316,7 @@ void CheckDataSizeError(FlexRayOperation operation)
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(&bufferInfo, 0, 0, 0, 0);
 		break;
 	case ConfigurationConfig:
-		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&bufferInfo, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, fmi3True);
+		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&bufferInfo, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, fmi3True);
 		break;
 	case StartCommunication:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&bufferInfo, 0);
@@ -366,7 +367,7 @@ void CheckFormatErrorOperation(FlexRayOperation operationType)
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(&thirdBufferInfo, 0, 0, 0, 0);
 		break;
 	case ConfigurationConfig:
-		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&thirdBufferInfo, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, fmi3True);
+		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&thirdBufferInfo, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, fmi3True);
 		break;
 	case StartCommunication:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&thirdBufferInfo, 0);

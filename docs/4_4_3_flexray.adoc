@@ -418,7 +418,7 @@ It contains necessary parameters for timing calculations of transmissions and fo
 Also the configuration of further options is supported by this operation.
 h|OP Code [hex]
 5+|0x30
-.21+h|Content 3+h|Argument h|Length h|Description
+.22+h|Content 3+h|Argument h|Length h|Description
 3+|OP Code
 |4 bytes
 |Contains the OP Code (0x30) of the operation.
@@ -433,10 +433,10 @@ The following applies for this operation: `Length = 9 + Length of parameter argu
 |Defines the current configuration parameter.
 Note that only one parameter can be set per <<low-cut-flexray-configuration-operation, `Configuration`>> operation.
 
-.17+h|
+.18+h|
 4+h|Parameters
 
-.16+|FLEXRAY_CONFIG
+.17+|FLEXRAY_CONFIG
 |Macrotick Duration
 |4 bytes
 |Specifies the duration of one macrotick in nanoseconds.
@@ -486,6 +486,11 @@ See `gNumberOfMinislots` parameter within FlexRay specification for further info
 |1 byte
 |Defines the length of a minislot within a dynamic segment in macroticks.
 See `gdMinislot` parameter within FlexRay specification for further information.
+
+|Maximum Dynamic Payload Length
+|1 byte
+|Specifies the maximum length of a dynamic slot payload in bytes.
+See `pPayloadLengthDynMax` parameter within FlexRay specification for further information.
 
 |Symbol ActionPoint Offset
 |1 byte
