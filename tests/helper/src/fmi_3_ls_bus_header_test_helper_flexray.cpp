@@ -315,7 +315,7 @@ void CheckDataSizeError(FlexRayOperation operation)
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(&bufferInfo, 0, 0, 0, 0);
 		break;
 	case ConfigurationConfig:
-		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&bufferInfo, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, fmi3True);
+		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&bufferInfo, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, fmi3True);
 		break;
 	case StartCommunication:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&bufferInfo, 0);
@@ -366,7 +366,7 @@ void CheckFormatErrorOperation(FlexRayOperation operationType)
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_BUS_ERROR(&thirdBufferInfo, 0, 0, 0, 0);
 		break;
 	case ConfigurationConfig:
-		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&thirdBufferInfo, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, fmi3True);
+		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(&thirdBufferInfo, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, fmi3True);
 		break;
 	case StartCommunication:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&thirdBufferInfo, 0);
