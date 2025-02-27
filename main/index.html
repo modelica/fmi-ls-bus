@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 09009a1,</span>
-<span id="revdate">2025-02-26</span>
+<span id="revnumber">version 3e46f53,</span>
+<span id="revdate">2025-02-27</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -4964,7 +4964,7 @@ Also the configuration of further options is supported by this operation.</p></t
 <td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">0x30</p></td>
 </tr>
 <tr>
-<th class="tableblock halign-left valign-top" rowspan="21"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top" rowspan="22"><p class="tableblock">Content</p></th>
 <th class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Argument</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
@@ -4987,11 +4987,11 @@ The following applies for this operation: <code>Length = 9 + Length of parameter
 Note that only one parameter can be set per <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operation.</p></td>
 </tr>
 <tr>
-<th class="tableblock halign-left valign-top" rowspan="17"></th>
+<th class="tableblock halign-left valign-top" rowspan="18"></th>
 <th class="tableblock halign-left valign-top" colspan="4"><p class="tableblock">Parameters</p></th>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top" rowspan="16"><p class="tableblock">FLEXRAY_CONFIG</p></td>
+<td class="tableblock halign-left valign-top" rowspan="17"><p class="tableblock">FLEXRAY_CONFIG</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Macrotick Duration</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 bytes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the duration of one macrotick in nanoseconds.
@@ -5050,6 +5050,12 @@ See <code>gNumberOfMinislots</code> parameter within FlexRay specification for f
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the length of a minislot within a dynamic segment in macroticks.
 See <code>gdMinislot</code> parameter within FlexRay specification for further information.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum Dynamic Payload Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the maximum length of a dynamic slot payload in bytes.
+See <code>pPayloadLengthDynMax</code> parameter within FlexRay specification for further information.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Symbol ActionPoint Offset</p></td>
