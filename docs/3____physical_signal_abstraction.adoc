@@ -137,7 +137,7 @@ The following partial DBC file lists merely the CAN message (frame) structure.
 Signal trigger conditions are not included because they have no bearing on this standard.
 
 .Example Powertrain.dbc file.
-[#Powertrain.dbc]
+[[example-powertrain-dbc]]
 [source, C]
 ----
 ...
@@ -161,7 +161,7 @@ BO_ 512 ecuState: 4 ECU
 The `modelDescription.xml` excerpt listed below shows which variables would exist for the `Powertrain.dbc` shown above.
 
 .Example modelDescription.xml for ECU node.
-[#modelDescriptionHighCut.xml]
+[[example-modelDescriptionHighCut-xml]]
 [source, XML]
 ----
 include::examples/X_network4FMI_modelDescription_highCut.xml[]
@@ -170,7 +170,7 @@ include::examples/X_network4FMI_modelDescription_highCut.xml[]
 The following file shows the <<high-cut-bus-terminal,Bus Terminal>> definition representing the network and frame structure defined with `Powertrain.dbc` above.
 
 .Example terminalsAndIcons.xml file.
-[#terminalsAndIconHighCut.xml]
+[[example-terminalsAndIconHighCut-xml]]
 [source, XML]
 ----
 include::examples/X_network4FMI_terminalsAndIcons_highCut.xml[]

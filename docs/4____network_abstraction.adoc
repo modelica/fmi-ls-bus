@@ -320,7 +320,7 @@ Attributes of a Bus Terminal::
  * `matchingRule` must be `org.fmi-ls-bus.transceiver`. +
 Terminal member variables with memberName `Tx_{Data|Clock}` variables shall be connected to Terminal member variables with memberName `Rx_{Data|Clock}`, and vice versa. +
 The variable type shall be equal.
- * `name` should be the network name, e.g., "Powertrain", see <<low-cut-example, example>>.
+ * `name` should be the network name, e.g., "Powertrain", see <<example-terminalsAndIconLowCut-xml, example>>.
 
 Elements of a Bus Terminal::
  * A Bus Terminal shall contain four `<TerminalMemberVariable>` elements with the following `memberName` attributes: +
@@ -342,7 +342,7 @@ Attributes of the nested Configuration Terminal::
 The following excerpts from files are used throughout this document as examples and illustrate how the different concepts relate.
 
 .Example modelDescription.xml for ECU node.
-[#modelDescriptionLowCut.xml]
+[[example-modelDescriptionLowCut-xml]]
 [source, XML]
 ----
 include::examples/X_network4FMI_modelDescription_lowCut.xml[]
@@ -351,7 +351,7 @@ include::examples/X_network4FMI_modelDescription_lowCut.xml[]
 The following file shows the <<low-cut-bus-terminal, Bus Terminal>>-related definition:
 
 .Example terminalsAndIcons.xml file.
-[#terminalsAndIconLowCut.xml]
+[[example-terminalsAndIconLowCut-xml]]
 [source, XML]
 ----
 include::examples/X_network4FMI_terminalsAndIcons_lowCut.xml[]
