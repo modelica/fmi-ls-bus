@@ -12,7 +12,7 @@ There are mainly two base use cases envisioned here:
 
 * Physical Signal Abstraction (or High-Cut) to simply transport physical signal values between virtual ECUs. +
 The network properties are largely idealized: infinite bandwidth, zero-delay etc.
-Signals, groups of signals and their properties _(e.g., units)_ are usually derived from (existing and validated) standard network topology description formats _(such as DBC, LDF, Fibex and ARXML)_.
+Signals, groups of signals and their properties _(e.g., units)_ are usually derived from existing and validated standard network topology description formats, such as DBC, LDF, Fibex and ARXML.
 * Network Abstraction (or Low-Cut) to realize virtualized bus driver implementations footnote:[In AUTOSAR context this means a driver implementation within the MicroController Abstraction Layer (MCAL)]. +
 This transport layer emulation allows anything from idealized to more detailed network simulations, including bandwidth restrictions, message arbitration and delays.
 It forwards the network payloads using binary variables.
@@ -21,7 +21,8 @@ Since the Network Abstraction layer is protocol-independent, it can also be used
 
 So that this layered standard can be supported in a variety of FMU importers and other types of simulators three possible communication architectures for bus communication are specified:
 
-* Direct Communication: Limited to exactly two FMUs, a common FMU importer that not require any special features for simulating buses, apart from supporting FMI variables, Clocks and terminals can be used to emulate bus communication.
+* Direct Communication: Limited to exactly two FMUs and uses a common FMU importer that does not require any special features for simulating buses.
+The importer only needs to support FMI variables, Clocks, and terminals, which are sufficient to emulate bus communication between the FMUs.
 * Composition with dedicated Bus Simulation FMU: A separate Bus Simulation FMU is used to simulate the specific bus behavior.
 Other FMUs that want to emulate bus communication provide and relate network information via this Bus Simulation FMU.
 This communication architecture can be operated by a common FMU importer and allows complex and detailed bus simulations.
@@ -38,8 +39,8 @@ These components can be virtual ECUs, plant models, rest-bus simulators, data re
 A single low-accuracy component limits the overall system simulation accuracy.
 The level of detail of these run-time models determine the size of the window for send-message events.
 With virtual ECUs using the zero-time execution model footnote:[Simulated tasks are executed infinitely fast.], the time of send-message events can only be determined to be somewhere within the given smallest granularity of the virtual ECU's internal scheduler.
-More detailed models (like instruction set simulators or even System-C models of the hardware) can narrow the window for these events significantly.
-However, current (as of writing this standard) modelling technologies do not allow practical (modelling time and run time) implementations of virtual ECUs that can be used to simulate all realistic bus simulation effects (e.g. collision/arbitration events).
+More detailed models, like instruction set simulators or even System-C models of the hardware, can narrow the window for these events significantly.
+However, current modelling technologies, as of writing this standard, do not allow practical implementations in terms of modelling time and run time of virtual ECUs that can be used to simulate all realistic bus simulation effects, such as collision and arbitration events.
 
 === How to Read This Document [[introduction-how-to-read-this-document]]
 

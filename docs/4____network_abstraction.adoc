@@ -195,7 +195,7 @@ Since Clock variables are strictly related to the `Event Mode`, networked FMUs s
 The point in time where Bus Operations are transferred from the `Tx_Data` to the `Rx_Data` variables is defined by the `Tx_Clock` variable.
 This point is also referred to as the Bus Communication Point.
 A Bus Communication Point and a regular communication point can take place at the same time, but should be considered as independent by the importer.
-In contrast to a regular communication point where input/output variables used in step mode are exchanged, only the clocked Tx/Rx data variables needs to be considered by the importer.
+In contrast to a regular communication point where input/output variables used in step mode are exchanged, only the clocked Tx/Rx data variables need to be considered by the importer.
 
 For defining the point in time of a Bus Communication Point, `time-based` or `triggered` Clocks can be used for the `Tx_Clock` variable.
 Hence the Clock type can influence the bus simulation significantly - the differences should be taken into account.
@@ -210,7 +210,7 @@ image::low_cut_communication_points.svg[width=100%, align="center"]
 The announced Tx time however does not mean that a Bus Operation really has to be transferred, but that the connected networked FMUs should enter the `Event Mode` at that time.
 An importer has to determine proper communication step sizes to synchronize networked FMUs at the announced Tx time.
 
-_[Note: While simulation it can happen that no `Tx_Data` has to be transferred to the `Rx_Data` variable at the announced Tx time. In this case the returned 'valueSize' of the `Tx_Data` variable is 0.]_
+_[Note: During simulation it can happen that no `Tx_Data` has to be transferred to the `Rx_Data` variable at the announced Tx time. In this case the returned 'valueSize' of the `Tx_Data` variable is 0.]_
 
 Although the `causality` of a `time-based` `Tx_Clock` variable and a `triggered` `Rx_Clock` variable are each `input`, it is allowed to connect both, since a `time-based` Clock variable of an FMU is considered only to be a request to the importer to provide an attendant Clock source.
 
@@ -311,7 +311,7 @@ Attributes of a Bus Terminal::
  * `matchingRule` must be `org.fmi-ls-bus.transceiver`. +
 Terminal member variables with memberName `Tx_{Data|Clock}` variables shall be connected to Terminal member variables with memberName `Rx_{Data|Clock}`, and vice versa. +
 The variable type shall be equal.
- * `name` should be the network name, e.g., "Powertrain", see <<low-cut-example, example>>.
+ * `name` should be the network name, e.g., "Powertrain", see <<example-terminalsAndIconLowCut-xml, example>>.
 
 Elements of a Bus Terminal::
  * A Bus Terminal shall contain four `<TerminalMemberVariable>` elements with the following `memberName` attributes: +
@@ -333,7 +333,7 @@ Attributes of the nested Configuration Terminal::
 The following excerpts from files are used throughout this document as examples and illustrate how the different concepts relate.
 
 .Example modelDescription.xml for ECU node.
-[#modelDescriptionLowCut.xml]
+[[example-modelDescriptionLowCut-xml]]
 [source, XML]
 ----
 include::examples/X_network4FMI_modelDescription_lowCut.xml[]
@@ -342,7 +342,7 @@ include::examples/X_network4FMI_modelDescription_lowCut.xml[]
 The following file shows the <<low-cut-bus-terminal, Bus Terminal>>-related definition:
 
 .Example terminalsAndIcons.xml file.
-[#terminalsAndIconLowCut.xml]
+[[example-terminalsAndIconLowCut-xml]]
 [source, XML]
 ----
 include::examples/X_network4FMI_terminalsAndIcons_lowCut.xml[]
