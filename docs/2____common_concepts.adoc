@@ -21,7 +21,7 @@ For any periodic (fixed-time) sending of messages, multiple message sends fall i
 While High-Cut signal variables will miss all but the last value sent, Low-Cut frame variables will buffer all payloads inside their value.
 
 === General Recommendations [[common-concepts-general-recommendations]]
-If `triggered` output Clocks are used, the importer must take care to schedule and potentially roll-back FMUs that have advanced their `fmi3DoStep` past such a (surprising) `triggered` Clock activation from another FMU.
+If `triggered` output Clocks are used, the importer must ensure to schedule and potentially roll-back FMUs that have advanced their `fmi3DoStep` past such a (surprising) `triggered` Clock activation from another FMU.
 It is strongly recommended to avoid using `triggered` output Clocks and to instead use `time-based` Clocks to avoid these complications and potential performance problems.
 
 === System Compositions [[common-concepts-system-compositions]]
@@ -91,7 +91,7 @@ The following figure illustrates two FMUs, which are integrated by an importer t
 image::architecture_bus_simulation_importer.svg[width=50%, align="center"]
 
 The usage of this architecture type allows the integration of this layered standard into an already existing simulator, which implements network communication with proprietary interfaces.
-In this case, it may also be possible to integrate other, for example manufacturer-specific, formats into a bus simulation.
+In this case, it may also be possible to integrate other formats, such as manufacturer-specific ones, into a bus simulation.
 
 ===  Provided C-API [[common-concepts-provided-c-api]]
 Besides the textual specification for FMUs with bus support, this layered standard also provides C header files to simplify the creation of FMUs with bus support.
