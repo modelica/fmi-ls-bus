@@ -624,7 +624,17 @@ The following applies for this operation: `Length = 11`.
 |Cycle ID
 |1 byte
 |The specified FlexRay Cycle ID.
-If a FlexRay cycle is not yet running (for example when initiating a startup through a collision avoidance symbol), the value 0 should be used.
+If a FlexRay cycle is not yet running (for example when initiating a startup through a collision avoidance symbol), the value `0xFF` should be used.
+
+|Symbol Time [[table-flexray-symbol-symbol-time-parameter]]
+|4 bytes
+|The simulation time at which the symbol is transmitted.
+This is required to resolve multiple CAS symbols when not using variable step size.
+Setting this value is mandatory when `CycleID == 255`, i.e., the FlexRay transmission has not been started yet.
+
+|CAS nonce [[table-flexray-symbol-cas-nonce-parameter]]
+|4 bytes
+|A (pseudo-)random number used to resolve conflicts between CAS symbols occurring at the same instant in time. Only valid for the CAS symbol.
 
 |Channel
 |1 byte
@@ -764,11 +774,19 @@ Before frames can be transferred, the communication must be started.
 The startup process follows a defined sequence in which FlexRay nodes synchronizes step by step (for a detailed description refer to <<ISO-17458-2>>).
 FlexRay nodes, that are allowed to start the FlexRay communication, are referred to as coldstart nodes.
 The coldstart ability of a Network FMU must be communicated by the `Coldstart Node` parameter of the <<low-cut-flexray-configuration-operation, `Configuration`>> operation.
-For starting the FlexRay communication, a coldstart Network FMU shall send a <<low-cut-flexray-symbol-operation, `Symbol`>> operation whereby the `Type` argument is set to `COLLISION_AVOIDANCE_SYMBOL` to announce the start of the first FlexRay communication cycle.
+For starting the FlexRay communication, a coldstart Network FMU shall send a <<low-cut-flexray-symbol-operation, `Symbol`>> operation whereby the `Type` argument is set to `COLLISION_AVOIDANCE_SYMBOL` (CAS) to announce the start of the first FlexRay communication cycle.
 A Bus Simulation must forward the <<low-cut-flexray-symbol-operation, `Symbol`>> operation immediately to the other Network FMUs.
-Network FMUs receiving a `COLLISION_AVOIDANCE_SYMBOL` are not allowed to send the <<low-cut-flexray-symbol-operation, `Symbol`>> operation likewise from this point onwards.
+Network FMUs receiving a `COLLISION_AVOIDANCE_SYMBOL` are not allowed to send a CAS afterwards.
+If a Network FMU receives a CAS after already sending its own CAS, or, if receiving multiple CAS symbols (e.g., when fixed-step size is used),
+all CAS symbols except the one with the smallest <<table-flexray-symbol-symbol-time-parameter, `Symbol Time`>> are discarded. So if it receives another CAS with a smaller symbol time, it must abort its startup.
+If a bus simulation receives a CAS symbol after already forwarding another one, it must discard it if it has a larger symbol time than the first one, otherwise it must forward it as well. If two CAS symbols with the same `Symbol time` are encountered, the one with the larger  <<table-flexray-symbol-cas-nonce-parameter, `CAS nonce`>> is considered the earlier one.
+
 The first communication cycle is then started by sending the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation.
-Network FMUs must synchronize their internal FlexRay clock based on the received <<table-flexray-bus-start-start-time-parameter,`Start Time`>>.
+This operation must be forwarded by Bus Simulation without introducing additional delay.
+After forwarding a <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation, a bus simulation may only forward further ones with an earlier <<table-flexray-bus-start-start-time-parameter, `Start Time`>>.
+Network FMUs must synchronize their internal FlexRay clock based on the received <<table-flexray-bus-start-start-time-parameter, `Start Time`>>.
+If a network FMU receives another <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation with a larger <<table-flexray-bus-start-start-time-parameter, `Start Time`>>., it must discard it,
+otherwise it must resynchronize.
 
 .Startup initiated by a coldstart Network FMU.
 [#figure-flexray-startup]
