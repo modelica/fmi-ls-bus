@@ -92,19 +92,19 @@ Additionally, any FMU importer that supports the necessary FMI 3.0 features, suc
     <td><img src="landingpage/DC.svg"/></td>
     <td>Direct communication</td>
     <td><img src="landingpage/HC.svg"/></td>
-    <td>High-cut</td>
+    <td>High-Cut</td>
   </tr>
   <tr>
     <td><img src="landingpage/BSF.svg"/></td>
     <td>Composition with dedicated bus simulation FMU</td>
     <td><img src="landingpage/LC_CAN.svg"/></td>
-    <td>Low-cut CAN</td>
+    <td>Low-Cut CAN</td>
   </tr>
   <tr>
     <td><img src="landingpage/IBS.svg"/></td>
     <td>Importer with integrated bus simulation</td>
     <td><img src="landingpage/LC_FR.svg"/></td>
-    <td>Low-cut FlexRay</td>
+    <td>Low-Cut FlexRay</td>
   </tr>
 </table>
 
