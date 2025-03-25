@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fmi-ls="http://fmi-standard.org/fmi-ls-manifest" elementFormDefault="qualified" attributeFormDefault="qualified">
-    <xs:import namespace="http://fmi-standard.org/fmi-ls-manifest" schemaLocation="fmi3LayeredStandardManifest.xsd"/>
+    <xs:import namespace="http://fmi-standard.org/fmi-ls-manifest" schemaLocation="https://raw.githubusercontent.com/modelica/fmi-standard/v3.0.2/schema/fmi3LayeredStandardManifest.xsd"/>
     <xs:annotation>
         <xs:documentation>
 Copyright(c) 2023-2025 Modelica Association Project "FMI".
