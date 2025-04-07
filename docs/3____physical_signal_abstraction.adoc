@@ -5,6 +5,9 @@ This chapter describes the Physical Signal Abstraction or High-Cut in detail.
 Physical Signal Abstraction allows an idealized exchange of unit-based variables between FMUs.
 Variables representing these physical signals are clocked to reflect the bus timing aspects of the information flow.
 Changes to these clocked variables always reach the destination.
+An FMU can take on specific roles here.
+This role can be a Bus Simulation FMU or an importer with bus simulation support on one side, and Network FMUs (e.g., virtual ECUs) on the other side (see <<common-concepts-system-compositions, System Compositions>>).
+To allow importers an easy distinction between these FMU roles, for Bus Simulation FMUs the attribute `isBusSimulationFMU` shall be set to `true` in the Manifest file.
 
 The figure below shows an example architecture of a Physical Signal Abstraction.
 The signals (_Signal 1...8_) are modeled as clocked FMU variables of a specific type.
