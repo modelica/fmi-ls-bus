@@ -29,19 +29,6 @@ The following graphic provides an overview of the planned sequence of supported 
 
 A detailed roadmap showing completed, current and future work can be accessed [here][roadmap].
 
-## News
-
-Dive into our latest video ["FMI, Layered Standards and ASAM Standards - Enabling Seamless SiL Simulation of Virtual ECUs"](https://www.youtube.com/watch?v=KzzKRa3jORs).
-Discover how the cutting-edge FMI 3.0 standard and the layered standards based on it are revolutionizing the world of Software-in-the-Loop (SiL) simulations.
-
-During the presentation the three new layered standards for simulating virtual ECUs with FMI 3.0 are introduced:
-
-- FMI-LS-XCP for measurement & calibration with XCP
-- FMI-LS-BUS for simulation of network communication with CAN, CAN FD CAN XL, FlexRay, Ethernet, LIN
-- FMI-LS-STRUCT for structured entities like lookup tables
-
-After this a demo from different SiL tool vendors (Akkodis, Altair, AVL, Bosch, dSPACE, PMSF, SYNOPSYS) illustrates the interoperability of these layered standards.
-
 ## Repository Structure
 
 - `docs` -- Sources of the specification document
@@ -55,6 +42,17 @@ To help you get started, we provide introductory chapters.
 The following resources are currently available:
 
 - [Getting started with CAN, CAN FD and CAN XL]
+
+Or dive into our latest video ["FMI, Layered Standards and ASAM Standards - Enabling Seamless SiL Simulation of Virtual ECUs"](https://www.youtube.com/watch?v=KzzKRa3jORs).
+Discover how the cutting-edge FMI 3.0 standard and the layered standards based on it are revolutionizing the world of Software-in-the-Loop (SiL) simulations.
+
+During the presentation the three new layered standards for simulating virtual ECUs with FMI 3.0 are introduced:
+
+- FMI-LS-XCP for measurement & calibration with XCP
+- FMI-LS-BUS for simulation of network communication with CAN, CAN FD CAN XL, FlexRay, Ethernet, LIN
+- FMI-LS-STRUCT for structured entities like lookup tables
+
+After this a demo from different SiL tool vendors (Akkodis, Altair, AVL, Bosch, dSPACE, PMSF, SYNOPSYS) illustrates the interoperability of these layered standards.
 
 ## Demos
 
