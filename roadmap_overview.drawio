@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0" version="24.8.6">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0" version="26.2.12">
   <diagram id="yPxyJZ8AM_hMuL3Unpa9" name="complex gitflow">
-    <mxGraphModel dx="903" dy="-343" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+    <mxGraphModel dx="997" dy="-282" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -55,11 +55,11 @@
         <mxCell id="2EjnSGh1YMzVQ0refrxI-37" value="&lt;b style=&quot;font-size: 10px;&quot;&gt;Developing&lt;/b&gt;" style="html=1;whiteSpace=wrap;shape=mxgraph.infographic.barCallout;dx=33.76;dy=12.19;fillColor=#AE4132;strokeColor=none;align=center;verticalAlign=top;fontColor=#ffffff;fontSize=14;fontStyle=1;shadow=0;spacingTop=-6;horizontal=1;spacingBottom=-8;" parent="1" vertex="1">
           <mxGeometry x="765.74" y="1150" width="69.81" height="34" as="geometry" />
         </mxCell>
-        <mxCell id="2EjnSGh1YMzVQ0refrxI-33" value="" style="html=1;whiteSpace=wrap;shape=mxgraph.infographic.barCallout;dx=33.76;dy=12.19;fillColor=#F2931E;strokeColor=none;align=center;verticalAlign=top;fontColor=#ffffff;fontSize=14;fontStyle=1;shadow=0;spacingTop=-6;horizontal=1;spacingBottom=-8;rotation=-180;" parent="1" vertex="1">
-          <mxGeometry x="614" y="1270" width="67.81" height="34" as="geometry" />
+        <mxCell id="2EjnSGh1YMzVQ0refrxI-33" value="" style="html=1;whiteSpace=wrap;shape=mxgraph.infographic.barCallout;dx=41.89;dy=13.99;fillColor=#F2931E;strokeColor=none;align=center;verticalAlign=top;fontColor=#ffffff;fontSize=14;fontStyle=1;shadow=0;spacingTop=-6;horizontal=1;spacingBottom=-8;rotation=-180;" parent="1" vertex="1">
+          <mxGeometry x="611" y="1270" width="81" height="34" as="geometry" />
         </mxCell>
         <mxCell id="2EjnSGh1YMzVQ0refrxI-35" value="&lt;b style=&quot;text-wrap-mode: wrap;&quot;&gt;1.1.0-alpha.1&lt;/b&gt;" style="text;strokeColor=none;fillColor=none;html=1;fontSize=10;fontStyle=1;verticalAlign=middle;align=left;fontColor=#FFFFFF;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="616.0000000000001" y="1278" width="100" height="31" as="geometry" />
+          <mxGeometry x="615.0000000000001" y="1278" width="100" height="31" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
