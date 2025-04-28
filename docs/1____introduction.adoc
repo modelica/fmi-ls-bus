@@ -26,7 +26,7 @@ The importer only needs to support FMI variables, Clocks, and terminals, which a
 * Composition with dedicated Bus Simulation FMU: A separate Bus Simulation FMU is used to simulate the specific bus behavior.
 Other FMUs that want to emulate bus communication provide and relate network information via this Bus Simulation FMU.
 This communication architecture can be operated by a common FMU importer and allows complex and detailed bus simulations.
-* Importer with Integrated Bus Simulation: Works analogously to the Composition with dedicated Bus Simulation FMU architecture, whereby the Bus Simulation FMU is directly integrated into an importer or other simulator.
+* Importer with integrated Bus Simulation: Works analogously to the Composition with dedicated Bus Simulation FMU architecture, whereby the Bus Simulation FMU is directly integrated into an importer or other simulator.
 
 === System Simulation Effects [[introduction-system-simulation-effects]]
 
