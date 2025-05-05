@@ -43,6 +43,10 @@ The following resources are currently available:
 
 - [Getting started with CAN, CAN FD and CAN XL]
 
+Our publications may also be of interest to you:
+
+- [Beyond FMI - Towards New Applications with Layered Standards]
+
 Or dive into our latest video ["FMI, Layered Standards and ASAM Standards - Enabling Seamless SiL Simulation of Virtual ECUs"](https://www.youtube.com/watch?v=KzzKRa3jORs).
 Discover how the cutting-edge FMI 3.0 standard and the layered standards based on it are revolutionizing the world of Software-in-the-Loop (SiL) simulations.
 
@@ -130,3 +134,4 @@ The [FMI-LS-XCP] specifies an FMI extension for using the XCP protocol and A2L v
 [FMI-LS-BUS Implementers' Guide]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/
 [Getting started with CAN, CAN FD and CAN XL]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-getting-started-with-can
 [CAN, CAN FD and CAN XL Demo Overview]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-demos
+[Beyond FMI - Towards New Applications with Layered Standards]: https://ecp.ep.liu.se/index.php/modelica/article/view/947
