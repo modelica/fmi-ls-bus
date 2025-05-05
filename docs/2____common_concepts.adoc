@@ -80,7 +80,7 @@ This communication architecture enables complex bus simulations to be implemente
 An n:m bus communication of several FMUs is also permitted.
 Depending on the needs, it may be necessary to dynamically provision the Bus Simulation FMU so that it provides the appropriate number of inputs and outputs to allow all FMUs to be connected.
 
-==== Importer with Integrated Bus Simulation [[common-concepts-importer-with-integrated-bus-simulation]]
+==== Importer with integrated Bus Simulation [[common-concepts-importer-with-integrated-bus-simulation]]
 In the third variant of the communication architecture, the bus simulation is built directly into the respective importer.
 The supported bus features are analogous to the <<common-concepts-composition-with-dedicated-bus-simulation-fmu, Composition with dedicated Bus Simulation FMU>> use case.
 The corresponding limitations regarding the behavior of the bus simulation are importer-specific.
