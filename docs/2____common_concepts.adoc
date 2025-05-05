@@ -10,15 +10,17 @@ In both the Physical Signal Abstraction and the Network Abstraction layer, the e
 In the case of the Physical Signal Abstraction, a separate FMI variable of the respective type is created for each network signal to transfer.
 The network signals are structured via a PDU and frame hierarchy by using FMI 3.0 Terminals.
 Within the Network Abstraction, the bus is simulated using a separate, bus-specific protocol.
-This protocol is exchanged between the various FMUs using binary FMI variables.
+The protocol consists out of well defined Bus Operations that are used to provide a detailed simulation of network communication above the electrical bus level.   
+This Bus Operations are exchanged between the various FMUs using binary FMI variables.
 Since network communication is not continuous but time discrete, FMI 3.0 Clocks are used to indicate when network data is sent or received.
 
-While the values and semantic of the Clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology.
-Frame variables do not just transport the network-specific payload, but also carry protocol-specific status information.
+While the values and semantic of the Clock variables are clear, the exchange of Bus Operations via binary FMI variables is opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology.
+Additionally provided C header files simplifies the usage of the Network Abstraction.
+In this context, the specified Bus Operations do not just transport the network-specific payload, but also carry protocol-specific status information.
 Status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack about success or errors of a send request.
 
-For any periodic (fixed-time) sending of messages, multiple message sends fall into one `fmi3DoStep`.
-While High-Cut signal variables will miss all but the last value sent, Low-Cut frame variables will buffer all payloads inside their value.
+When executing an FMU with a fixed step size, multiple message sends may fall into one `fmiDoStep`.
+In this situation the High-Cut signal variables will miss all but the last value sent while the Low-Cut will buffer all Bus Operations and exchange them after the `fmiDoStep`.
 
 === General Recommendations [[common-concepts-general-recommendations]]
 If `triggered` output Clocks are used, the importer must ensure to schedule and potentially roll-back FMUs that have advanced their `fmi3DoStep` past such a (surprising) `triggered` Clock activation from another FMU.
@@ -43,16 +45,16 @@ The simulation of bus communication between more than two FMUs is not possible i
 The bus simulation is also only idealized, so that the simulation of bus transmission times or arbitration, for example, is not supported.
 Such an ideal network differs from physical networks in the following ways (and potentially others):
 
- * Network frame arbitration: frames are sent on the wire according to network-specific priority rules. +
+ * Network frame arbitration: Frames are sent on the wire according to network-specific priority rules. +
    Here all frames are transmitted at the same time without delay.
 
- * Network congestion/bandwidth: too many network frames sent for the bandwidth of the network. +
+ * Network congestion/bandwidth: Too many network frames sent for the bandwidth of the network. +
    Here the network has infinite capacity.
 
- * Protocol functions of higher levels: _e.g. CAN request for retransmit is a specific protocol function_. +
+ * Protocol functions of higher levels: _E.g. CAN request for retransmit is a specific protocol function_. +
    Here such specialties must be handled by a higher layer inside the FMU.
 
- * Incoming buffer overflow: when an ECU receives more frames than its buffer can hold. +
+ * Incoming buffer overflow: When an ECU receives more frames than its buffer can hold. +
    Here the FMU will receive all frames, regardless of buffer size and would need to handle those limitations internally.
 
 ==== Composition with dedicated Bus Simulation FMU [[common-concepts-composition-with-dedicated-bus-simulation-fmu]]
