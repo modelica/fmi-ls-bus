@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 1a82c66,</span>
-<span id="revdate">2025-05-05</span>
+<span id="revnumber">version f027408,</span>
+<span id="revdate">2025-05-22</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -1784,6 +1784,22 @@ The following applies for this operation: <code>Length = 10 + &lt;Arg2_Length&gt
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>A CAN frame will serve as a concrete <a href="#figure-bus-operation-can-frame-mapping-example">example</a>.
+Sending a CAN frame is represented by the Bus Operation: CAN Transmit.
+Since the FMI-LS-BUS describes the simulation of network communication above the electrical level, not all content of a CAN frame is relevant.
+The corresponding argument values ​​do not have to be analogous to those of the original frame representation.
+Argument values can be transformed, i.e., presented in a different form, for easier use.
+<a href="#figure-bus-operation-can-frame-mapping-example">Figure 7</a> illustrates the mapping between the FMI-LS-BUS CAN Transmit Bus Operation and a CAN Standard Data Frame.
+The information that can be mapped directly is shown in green.
+The yellow representation describes transformed values and the information shown in red is not required/used.</p>
+</div>
+<div id="figure-bus-operation-can-frame-mapping-example" class="imageblock text-center">
+<div class="content">
+<img src="images/bus_operation_can_frame_mapping_example.svg" alt="bus operation can frame mapping example" width="65%">
+</div>
+<div class="title">Figure 7. Mapping between the FMI-LS-BUS CAN Transmit Bus Operation and a CAN Standard Data Frame.</div>
+</div>
 <div class="sect3">
 <h4 id="low-cut-format-error-operation">5.2.1. Format Error</h4>
 <div class="paragraph">
@@ -1928,7 +1944,7 @@ Hence the Clock type can influence the bus simulation significantly - the differ
 <div class="content">
 <img src="images/low_cut_communication_points.svg" alt="low cut communication points" width="100%">
 </div>
-<div class="title">Figure 7. Example Bus Communication Points announced by aperiodic time-based Tx_Clock variables.</div>
+<div class="title">Figure 8. Example Bus Communication Points announced by aperiodic time-based Tx_Clock variables.</div>
 </div>
 <div class="paragraph">
 <p>The announced Tx time however does not mean that a Bus Operation really has to be transferred, but that the connected networked FMUs should enter the <code>Event Mode</code> at that time.
@@ -1944,7 +1960,7 @@ An importer has to determine proper communication step sizes to synchronize netw
 <div class="content">
 <img src="images/low_cut_time_based_port_connection.svg" alt="low cut time based port connection" width="50%">
 </div>
-<div class="title">Figure 8. Consideration of time-base Tx_Clock connections.</div>
+<div class="title">Figure 9. Consideration of time-base Tx_Clock connections.</div>
 </div>
 <div class="paragraph">
 <p>Because of the common Clock source however, both Clock variables (Rx/Tx) might get active at the same time.
@@ -2015,7 +2031,7 @@ Pending Tx data shall be signaled by returning from <code>fmi3DoStep</code> with
 <div class="content">
 <img src="images/low_cut_communication_with_triggered_tx_clock.svg" alt="low cut communication with triggered tx clock" width="100%">
 </div>
-<div class="title">Figure 9. Triggered Tx_Clock/Rx_Clock connection.</div>
+<div class="title">Figure 10. Triggered Tx_Clock/Rx_Clock connection.</div>
 </div>
 </div>
 </div>
@@ -2115,7 +2131,7 @@ The versioning follows the rules of semantic versioning, as defined in <a href="
 <div class="content">
 <img src="images/bus_terminal.svg" alt="bus terminal" width="30%">
 </div>
-<div class="title">Figure 10. Frame variables and terminals.</div>
+<div class="title">Figure 11. Frame variables and terminals.</div>
 </div>
 <div class="sect3">
 <h4 id="low-cut-bus-terminal">5.4.1. Bus Terminal</h4>
@@ -3401,27 +3417,27 @@ In this case, the bus simulation is idealized and takes place in a "fire-and-for
 If a specified Network FMU is depending on <a href="#low-cut-can-confirm-operation"><code>Confirm</code></a> operations and <a href="#low-cut-can-bus-notification-parameter"><code>BusNotifications</code></a> is <code>false</code>, the self confirmation shall be realized internally within the respective Network FMU for the specified Bus Terminal.</p>
 </div>
 <div class="paragraph">
-<p><a href="#figure-can-direct-communication">Figure 11</a> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
+<p><a href="#figure-can-direct-communication">Figure 12</a> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
 Subsequently, FMU 1 self-confirms the transmission internally.</p>
 </div>
 <div id="figure-can-direct-communication" class="imageblock text-center">
 <div class="content">
 <img src="images/can_direct_confirmation.svg" alt="can direct confirmation" width="40%">
 </div>
-<div class="title">Figure 11. Direct Confirmation of transmitted network data.</div>
+<div class="title">Figure 12. Direct Confirmation of transmitted network data.</div>
 </div>
 <div class="paragraph">
 <p>For a detailed simulation, the Bus Simulation has to support <a href="#low-cut-can-confirm-operation"><code>Confirm</code></a> operations.
 In this case, the <a href="#low-cut-can-bus-notification-parameter"><code>BusNotifications</code></a> parameter of the Network FMUs can be set to <code>fmi3True</code> as Network FMUs can rely on receiving <a href="#low-cut-can-confirm-operation"><code>Confirm</code></a> operations for the specified Bus Terminal.</p>
 </div>
 <div class="paragraph">
-<p>The following <a href="#figure-can-confirmation-with-bus-simulation-fmu">Figure 12</a> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.</p>
+<p>The following <a href="#figure-can-confirmation-with-bus-simulation-fmu">Figure 13</a> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.</p>
 </div>
 <div id="figure-can-confirmation-with-bus-simulation-fmu" class="imageblock text-center">
 <div class="content">
 <img src="images/can_confirmation_with_bus_simulation_fmu.svg" alt="can confirmation with bus simulation fmu" width="70%">
 </div>
-<div class="title">Figure 12. Confirmation of transmitted network data via Bus Simulation.</div>
+<div class="title">Figure 13. Confirmation of transmitted network data via Bus Simulation.</div>
 </div>
 <div class="paragraph">
 <p>If all Network FMUs, except the one initiating the <a href="#low-cut-can-transmit-operation"><code>Transmit</code></a> operation, communicate the <a href="#low-cut-can-status-operation">status</a> <code>BUS_OFF</code>, the Bus Simulation shall not provide a <a href="#low-cut-can-confirm-operation">confirmation</a>.</p>
@@ -3445,7 +3461,7 @@ When a Network FMU signals the <code>BUS_OFF</code> state to the Bus Simulation,
 <div class="content">
 <img src="images/can_error_handling_overview.svg" alt="can error handling overview" width="100%">
 </div>
-<div class="title">Figure 13. Architectural error handling overview.</div>
+<div class="title">Figure 14. Architectural error handling overview.</div>
 </div>
 <div class="paragraph">
 <p>The <a href="https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-realization-of-can-error-handling">FMI LS BUS Implementer’s Guide</a> contains an example of how to realize CAN error handling based on the Bus Operations specified by this layered standard.</p>
@@ -3463,7 +3479,7 @@ As soon as an FMU receives an <a href="#low-cut-can-arbitration-lost-operation">
 <div class="content">
 <img src="images/can_arbitration.svg" alt="can arbitration" width="70%">
 </div>
-<div class="title">Figure 14. Arbitration of two transmissions at the same time.</div>
+<div class="title">Figure 15. Arbitration of two transmissions at the same time.</div>
 </div>
 <div class="paragraph">
 <p>Within a <a href="#low-cut-can-configuration-operation"><code>Configuration</code></a> operation, the <code>Arbitration Lost Behavior</code> argument can be specified.
@@ -3495,7 +3511,7 @@ The Bus Simulation shall distribute this operation to all participants on the bu
 <div class="content">
 <img src="images/can_wake_up.svg" alt="can wake up" width="70%">
 </div>
-<div class="title">Figure 15. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
+<div class="title">Figure 16. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
 </div>
 </div>
 </div>
@@ -4326,7 +4342,7 @@ A <a href="#low-cut-lin-wake-up-operation"><code>Wakeup</code></a> operation is 
 <div class="content">
 <img src="images/lin_wake_up.svg" alt="lin wake up" width="70%">
 </div>
-<div class="title">Figure 16. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
+<div class="title">Figure 17. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
 </div>
 </div>
 </div>
@@ -5446,7 +5462,7 @@ The Bus Simulation shall distribute this operation to all participants on the bu
 <div class="content">
 <img src="images/flexray_wake_up.svg" alt="flexray wake up" width="70%">
 </div>
-<div class="title">Figure 17. Wake up initiated by FMU 1 wakes up FMU 2 via bus.</div>
+<div class="title">Figure 18. Wake up initiated by FMU 1 wakes up FMU 2 via bus.</div>
 </div>
 </div>
 <div class="sect4">
@@ -5466,7 +5482,7 @@ Network FMUs must synchronize their internal FlexRay clock based on the received
 <div class="content">
 <img src="images/flexray_startup.svg" alt="flexray startup" width="75%">
 </div>
-<div class="title">Figure 18. Startup initiated by a coldstart Network FMU.</div>
+<div class="title">Figure 19. Startup initiated by a coldstart Network FMU.</div>
 </div>
 <div class="paragraph">
 <p>The start time of the first communication cycle is defined as \(T_{Start}\) in this specification.</p>
@@ -5486,7 +5502,7 @@ Because those parameters are Bus Simulation specific, they are not further defin
 <div class="content">
 <img src="images/flexray_startup_coldstart_emulation.svg" alt="flexray startup coldstart emulation" width="75%">
 </div>
-<div class="title">Figure 19. Startup initiated by the Bus Simulation</div>
+<div class="title">Figure 20. Startup initiated by the Bus Simulation</div>
 </div>
 </div>
 </div>
@@ -5514,7 +5530,7 @@ A <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operat
 The <a href="#low-cut-flexray-cancel-operation"><code>Cancel</code></a> operation allows the cancellation of such buffered <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operations within a Bus Simulation.</p>
 </div>
 <div class="paragraph">
-<p><a href="#figure-flexray-transmission-status">Figure 20</a> illustrates the sequence of the operations mentioned.
+<p><a href="#figure-flexray-transmission-status">Figure 21</a> illustrates the sequence of the operations mentioned.
 First, FMU 1 provides a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation for the Bus Simulation.
 Within the next two steps, FMU 1 updates the specified <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> again.
 In the next step, the last <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation, provided by FMU 1, is transferred to FMU 2 by the Bus Simulation.
@@ -5524,10 +5540,10 @@ Also the Bus Simulation provides a <a href="#low-cut-flexray-confirm-operation">
 <div class="content">
 <img src="images/flexray_transmission_status.svg" alt="flexray transmission status" width="80%">
 </div>
-<div class="title">Figure 20. General transmission mechanism for FlexRay.</div>
+<div class="title">Figure 21. General transmission mechanism for FlexRay.</div>
 </div>
 <div class="paragraph">
-<p><a href="#figure-flexray-transmission-cancel">Figure 21</a> illustrates a sequence with focus to the <a href="#low-cut-flexray-cancel-operation"><code>Cancel</code></a> operation.
+<p><a href="#figure-flexray-transmission-cancel">Figure 22</a> illustrates a sequence with focus to the <a href="#low-cut-flexray-cancel-operation"><code>Cancel</code></a> operation.
 First, FMU 1 provides a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation for the Bus Simulation.
 Within the next step, FMU 1 updates the specified <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> again.
 In the next step, the transmission ist canceled via <a href="#low-cut-flexray-cancel-operation"><code>Cancel</code></a> operation.
@@ -5538,20 +5554,20 @@ No transmission takes place within the simulation system.</p>
 <div class="content">
 <img src="images/flexray_transmission_cancel.svg" alt="flexray transmission cancel" width="50%">
 </div>
-<div class="title">Figure 21. Cancellation of a transmission for FlexRay via Cancel operation.</div>
+<div class="title">Figure 22. Cancellation of a transmission for FlexRay via Cancel operation.</div>
 </div>
 <div class="paragraph">
 <p>At bus level, the macrotick represents the smallest time unit on a FlexRay bus.
 A total of four protocol parts are logically mapped onto this: The static and the dynamic segment, the so-called symbol window and the Network Idle Time (NIT).
 The static and dynamic segment is in turn divided into different sections, so-called FlexRay slots.
 These segments repeat themselves in certain FlexRay cycles.
-<a href="#figure-flexray-macroticks-segments-general">Figure 22</a> visualizes the segmentation of a cycle.</p>
+<a href="#figure-flexray-macroticks-segments-general">Figure 23</a> visualizes the segmentation of a cycle.</p>
 </div>
 <div id="figure-flexray-macroticks-segments-general" class="imageblock text-center">
 <div class="content">
 <img src="images/flexray_macroticks_segments_general.svg" alt="flexray macroticks segments general" width="70%">
 </div>
-<div class="title">Figure 22. Segmentation of a FlexRay cycle.</div>
+<div class="title">Figure 23. Segmentation of a FlexRay cycle.</div>
 </div>
 <div class="paragraph">
 <p>Within a real FlexRay bus, every macrotick represents a potential temporal synchronization point for the respective segments and frames to be transmitted.
@@ -5629,14 +5645,14 @@ The start time of the first FlexRay cycle is defined by the <code>Start Time</co
 <p>For a static segment, a Network FMU shall provide the respective <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation in an interval starting at the beginning of a slot and ending at the action point (see <code>ActionPoint Offset</code> argument within the <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operation) of a slot.
 Within this time window, the Network FMU must provide the respective <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation for a specific slot.
 The point in time at which a Bus Simulation shall provide <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operations and also resulting <a href="#low-cut-flexray-confirm-operation"><code>Confirm-</code></a> or <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a> operations depends on the <a href="#low-cut-flexray-delivery-on-boundary-parameter"><code>DeliveryOnBoundary</code></a> configuration parameter.
-If the parameter is set to <code>fmi3False</code>, the Bus Simulation provides the respective operations directly after the calculated transmission time (see orange arrow in <a href="#figure-flexray-static-segment-bus-communication-points">Figure 23</a>).
-If the parameter is <code>true</code> (default), the corresponding operations are only provided at the slot boundary (green arrow in <a href="#figure-flexray-static-segment-bus-communication-points">Figure 23</a>).</p>
+If the parameter is set to <code>fmi3False</code>, the Bus Simulation provides the respective operations directly after the calculated transmission time (see orange arrow in <a href="#figure-flexray-static-segment-bus-communication-points">Figure 24</a>).
+If the parameter is <code>true</code> (default), the corresponding operations are only provided at the slot boundary (green arrow in <a href="#figure-flexray-static-segment-bus-communication-points">Figure 24</a>).</p>
 </div>
 <div id="figure-flexray-static-segment-bus-communication-points" class="imageblock text-center">
 <div class="content">
 <img src="images/flexray_static_segment_bus_communication_points.svg" alt="flexray static segment bus communication points" width="70%">
 </div>
-<div class="title">Figure 23. Bus Communication Points within static segment.</div>
+<div class="title">Figure 24. Bus Communication Points within static segment.</div>
 </div>
 <div class="paragraph">
 <p>The starting point of the slot can be calculated at runtime based on the <code>FLEXRAY_CONFIG</code> configuration parameters as</p>
@@ -5686,7 +5702,7 @@ If the parameter is <code>true</code> (default), the corresponding operations ar
 </ul>
 </div>
 <div class="paragraph">
-<p>In a sequence of operations to the respective actors and focus to the FlexRay slot counter, communication is presented as shown in <a href="#figure-flexray-transmission-static-segment">Figure 24</a>.
+<p>In a sequence of operations to the respective actors and focus to the FlexRay slot counter, communication is presented as shown in <a href="#figure-flexray-transmission-static-segment">Figure 25</a>.
 At the beginning of slot 6, FMU 1 provides a frame to be sent in the form of a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation for the Bus Simulation.
 After simulation of the specified transmission time, the Bus Simulation provisions the <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation to FMU 2 and a <a href="#low-cut-flexray-confirm-operation"><code>Confirm</code></a> operation to FMU 1.</p>
 </div>
@@ -5694,7 +5710,7 @@ After simulation of the specified transmission time, the Bus Simulation provisio
 <div class="content">
 <img src="images/flexray_transmission_static_segment.svg" alt="flexray transmission static segment" width="90%">
 </div>
-<div class="title">Figure 24. Transmission sequence within a static FlexRay segment with an involved Bus Simulation.</div>
+<div class="title">Figure 25. Transmission sequence within a static FlexRay segment with an involved Bus Simulation.</div>
 </div>
 </div>
 <div class="sect5">
@@ -5709,17 +5725,17 @@ For this reason, the slot counter within Network FMUs are important, especially 
 <p>Within the dynamic segment, <em>Slot ID = n + m</em> represents the first valid point in time when a Network FMU is allowed to provide the respective <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation, whereby <em>n</em> indicates the number of <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operations provided within the ahead static segment and <em>m</em> the number of past minislots within the current dynamic segment.
 As in the static segment, a permitted interval is defined between the concrete start of the minislot and the <code>Minislot ActionPoint Offset</code> (see <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operation).
 The point in time at which a Bus Simulation shall provide operations, analogous to the static segment, depends on the <a href="#low-cut-flexray-delivery-on-boundary-parameter"><code>DeliveryOnBoundary</code></a> configuration parameter.
-If the configuration parameter is set to <code>fmi3False</code>, the Bus Simulation provides the respective operation directly after the calculated transmission time (see orange arrow in <a href="#figure-flexray-dynamic-segment-bus-communication-points">Figure 25</a>).
-If the parameter is set to <code>fmi3True</code>, the corresponding operations are only provided at the slot boundary (green arrow in <a href="#figure-flexray-dynamic-segment-bus-communication-points">Figure 25</a>).</p>
+If the configuration parameter is set to <code>fmi3False</code>, the Bus Simulation provides the respective operation directly after the calculated transmission time (see orange arrow in <a href="#figure-flexray-dynamic-segment-bus-communication-points">Figure 26</a>).
+If the parameter is set to <code>fmi3True</code>, the corresponding operations are only provided at the slot boundary (green arrow in <a href="#figure-flexray-dynamic-segment-bus-communication-points">Figure 26</a>).</p>
 </div>
 <div id="figure-flexray-dynamic-segment-bus-communication-points" class="imageblock text-center">
 <div class="content">
 <img src="images/flexray_dynamic_segment_bus_communication_points.svg" alt="flexray dynamic segment bus communication points" width="70%">
 </div>
-<div class="title">Figure 25. Bus Communication Points within dynamic segment.</div>
+<div class="title">Figure 26. Bus Communication Points within dynamic segment.</div>
 </div>
 <div class="paragraph">
-<p>In sequence <a href="#figure-flexray-transmission-dynamic-segment">Figure 26</a> multiple transmissions of FlexRay frames within the dynamic segment are shown.
+<p>In sequence <a href="#figure-flexray-transmission-dynamic-segment">Figure 27</a> multiple transmissions of FlexRay frames within the dynamic segment are shown.
 At the beginning the internal slot counters of FMU 1 and FMU 2 are equal to 8.
 Within the first and the second minislot, neither FMU 1 nor FMU 2 wants to transmit a frame.
 After the second elapsed minislot the internal slot counter values of FMU 1 and FMU 2 are equal to 10.
@@ -5735,7 +5751,7 @@ This transmission will take three minislots.</p>
 <div class="content">
 <img src="images/flexray_transmission_dynamic_segment.svg" alt="flexray transmission dynamic segment" width="90%">
 </div>
-<div class="title">Figure 26. Provision and delivery of Transmit operations with an involved Bus Simulation.</div>
+<div class="title">Figure 27. Provision and delivery of Transmit operations with an involved Bus Simulation.</div>
 </div>
 <div class="paragraph">
 <p>If no Bus Simulation is involved, the transmission always applies: The length of a dynamic slot is exactly one minislot, since the transmission duration is not taken into account.</p>
@@ -5837,7 +5853,7 @@ Depending on the type of <a href="#low-cut-flexray-bus-error-operation"><code>Bu
 <div class="content">
 <img src="images/flexray_error_handling_overview.svg" alt="flexray error handling overview" width="80%">
 </div>
-<div class="title">Figure 27. Architectural error handling overview.</div>
+<div class="title">Figure 28. Architectural error handling overview.</div>
 </div>
 </div>
 </div>
