@@ -23,14 +23,14 @@ image::high_cut_network_fmu.svg[width=80%, align="center"]
 This section explains the different variable types used to carry network traffic through FMI input and output variables.
 
 ==== Signal Variables [[high-cut-signal-variables]]
-To define the signal abstraction layer, signal variables are defined.
+To define the Physical Signal Abstraction layer, signal variables are defined.
 
 A signal variable carries the physical value of a network signal normally packaged inside a PDU or frame.
 The unit definition of the variable must match the one defined in the <<high-cut-network-description-files>>, if provided.
 
 Each network signal must be listed as <<high-cut-terminal-member-variable-for-signals>> of its corresponding <<high-cut-pdu-terminal>>.
 
-In case multiplexed signals are present in a frame/PDU/container PDU: all signals/PDUs are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values _[those values could even be outside their specified min-max range without fault]_.
+In case multiplexed signals are present in a frame/PDU/container PDU: All signals/PDUs are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values _[those values could even be outside their specified min-max range without fault]_.
 
 Generally, signal variables are optional, but they must either be all missing or all present to clearly indicate support for the signal abstraction layer.
 
@@ -43,7 +43,7 @@ Such a Clock is scheduled by the sending FMU to indicate the transmission of the
 The output Clock type, `periodic` or `aperiodic`, is defined by the sending FMU.
 This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:
 
- - While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` migth reduce the network simulation speed.
+ - While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` might reduce the network simulation speed.
  - Using `periodic` Clocks reduces the number of `Event Modes` required and might speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.
  - One could use (structural) parameters to define the accuracy of `aperiodic` Clocks, allowing control of the simulation accuracy and performance with the same FMU.
  - The input Clocks shall be `triggered` Clocks.
@@ -61,7 +61,7 @@ DBC, LDF, Fibex and ARXML files are allowed, e.g., `Powertrain.dbc`.
 The case-sensitive root name of the <<high-cut-network-description-files>> must be used as network identifier in the Bus Terminal type and prefix in the variable names.
 
 Multiple files can be specified, each one defining one network used by the FMU.
-This standard does not support composing one network from multiple <<high-cut-network-description-files,network description files>>, even if using internal include mechanisms, it rather enforces the rule: one network - one file.
+This standard does not support composing one network from multiple <<high-cut-network-description-files,network description files>>, even if using internal include mechanisms, it rather enforces the rule: One network - one file.
 
 It is recommended to use ARXML over DBC files for CAN whenever possible, because the DBC standard lacks some key frame/PDU properties that were added only later using non-standard extensions with different dialects in use.
 
@@ -84,7 +84,7 @@ Attribute definitions::
  * `name` is the network name, e.g., `Powertrain`, see <<high-cut-example, example>> and constraints above.
 
 Element definitions::
- * There must be one `<Terminal>` element per network frame described in the <<high-cut-network-description-files>>, if their signal and Clock variables are present in the `modelDescription.xml`.
+ * All signal and Clock variables related to the Physical Signal Abstraction in the `modelDescription.xml` must be covered by a `<Terminal>` element representing the network frame the signals belong to.
 
 Annotation element::
  * If a <<high-cut-network-description-files,network description file>> is shipped with the specified FMU, there must be an `<Annotation>` element defining which node or nodes (as comma-separated list without spaces) of the <<high-cut-network-description-files>> are wrapped inside the FMU.
@@ -183,17 +183,17 @@ include::examples/X_network4FMI_terminalsAndIcons_highCut.xml[]
 Physical Signal Abstraction maps several network protocols onto co-simulation variables as transport layer simulating in many ways an ideal network.
 Such an ideal network differs from physical networks in the following ways (and potentially others):
 
- * Network frame arbitration: frames are sent on the wire according to network-specific priority rules. +
+ * Network frame arbitration: Frames are sent on the wire according to network-specific priority rules. +
    Here all frames are transmitted at the same time without delay.
 
- * Network congestion/bandwidth: too many network frames sent for the bandwidth of the network. +
+ * Network congestion/bandwidth: Too many network frames sent for the bandwidth of the network. +
    Here the network has infinite capacity. +
    If network properties are required, a bus simulation component must be added or included with the importer.
 
- * Protocol functions of higher levels: i.e. CAN request for retransmit is a specific protocol function. +
+ * Protocol functions of higher levels: I.e. CAN request for retransmit is a specific protocol function. +
    Here such specialties must be handled by the first layer inside the FMU.
 
- * Incoming buffer overflow: when an ECU receives more frames than its buffer can hold. +
+ * Incoming buffer overflow: When an ECU receives more frames than its buffer can hold. +
    Here the FMU will receive all frames, regardless of buffer size and would need to handle those limitations internally.
 
  * Network protocols allow frames to be sent from more than one node. +
