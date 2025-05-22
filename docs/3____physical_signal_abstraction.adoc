@@ -1,18 +1,21 @@
-== Physical Signal Abstraction ("high cut") [[high-cut]]
-This chapter describes the physical signal abstraction or "high cut" in detail.
+== Physical Signal Abstraction (High-Cut) [[high-cut]]
+This chapter describes the Physical Signal Abstraction or High-Cut in detail.
 
 === Overview [[high-cut-overview]]
-Physical signal abstraction allows an idealized exchange of unit-based variables between FMUs.
+Physical Signal Abstraction allows an idealized exchange of unit-based variables between FMUs.
 Variables representing these physical signals are clocked to reflect the bus timing aspects of the information flow.
 Changes to these clocked variables always reach the destination.
+An FMU can take on specific roles here.
+This role can be a Bus Simulation FMU or an importer with bus simulation support on one side, and Network FMUs (e.g., virtual ECUs) on the other side (see <<common-concepts-system-compositions, System Compositions>>).
+To allow importers an easy distinction between these FMU roles, for Bus Simulation FMUs the attribute `isBusSimulationFMU` shall be set to `true` in the Manifest file.
 
-The figure below shows an example architecture of a high-cut.
+The figure below shows an example architecture of a Physical Signal Abstraction.
 The signals (_Signal 1...8_) are modeled as clocked FMU variables of a specific type.
 The corresponding signals are structurally combined using Protocol Data Units (PDUs), which in turn are assigned to frames.
 The PDU and frame structuring is done via terminals (_PDU A, B, C_ and _Frame X, Y_).
-The respective FMU variables are connected to a Bus Simulation, which emulates them according to their own needs for e.g., in accuracy.
+The respective FMU variables are connected to a Bus Simulation, which emulates them according to their own needs for e.g. according to accuracy.
 
-.High-cut example architecture.
+.Physical Signal Abstraction example architecture.
 [#figure-transmission-high-cut-overview]
 image::high_cut_network_fmu.svg[width=80%, align="center"]
 
@@ -20,7 +23,7 @@ image::high_cut_network_fmu.svg[width=80%, align="center"]
 This section explains the different variable types used to carry network traffic through FMI input and output variables.
 
 ==== Signal Variables [[high-cut-signal-variables]]
-To define the signal abstraction layer (or "high cut"), signal variables are defined.
+To define the signal abstraction layer, signal variables are defined.
 
 A signal variable carries the physical value of a network signal normally packaged inside a PDU or frame.
 The unit definition of the variable must match the one defined in the <<high-cut-network-description-files>>, if provided.
@@ -40,14 +43,16 @@ Such a Clock is scheduled by the sending FMU to indicate the transmission of the
 The output Clock type, `periodic` or `aperiodic`, is defined by the sending FMU.
 This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:
 
- - While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` will reduce the network simulation speed.
- - Using `periodic` Clocks reduces the number of `Event Modes` required and speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.
+ - While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` migth reduce the network simulation speed.
+ - Using `periodic` Clocks reduces the number of `Event Modes` required and might speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.
  - One could use (structural) parameters to define the accuracy of `aperiodic` Clocks, allowing control of the simulation accuracy and performance with the same FMU.
  - The input Clocks shall be `triggered` Clocks.
 
 The importer will then connect and merge output Clock activations, even those of different Clock types, and forwards them to the input Clocks, as required by the network semantics.
 
 Signal variables belonging to frame `BusName.FrameName` are triggered by the Clock `BusName.FrameName_Clock` and all these variables and their corresponding Clock must share the same `causality` (`input` or `output`).
+
+_[Note: The statements regarding `aperiodic` and `periodic` Clocks and their impact on performance should be understood as general tendencies rather than universally valid truths, as other aspects such as baud rates and expected bus loads must be taken into account for a more precise estimate.]_
 
 === Network Description Files [[high-cut-network-description-files,network description file]]
 Standardized <<high-cut-network-description-files,network description files>> may optionally be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
@@ -65,10 +70,10 @@ This document does not address IP protection or copyright issues.
 These are technical and legal issues that need attention from standardization bodies of the referenced description formats, tool vendors and end users.
 
 === Terminal Definitions [[high-cut-terminal-definitions]]
-This section defines terminals for physical signal abstraction or "high cut".
+This section defines terminals for Physical Signal Abstraction.
 
 ==== Bus Terminal [[high-cut-bus-terminal,Bus Terminal]]
-Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all <<high-cut-frame-terminal,frame terminals>>.
+Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all its <<high-cut-frame-terminal,frame terminals>>.
 The attribute `name` of the `<Terminal>` element must match the root name of its <<high-cut-network-description-files>> if it exists
 _[e.g., `Powertrain`, if the file is `/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc`]_.
 In any case, the attribute `name` of the `<Terminal>` element must be consistent with the `BusName` component of all its corresponding signal, frame and Clock variables.
@@ -121,9 +126,9 @@ All <<high-cut-terminal-member-variable-for-signals,`TerminalMemberVariables`>> 
 
 Attribute definitions::
  * `variableName` refers to the input or output variable name of the FMU.
-    These variables represent the signal abstraction layer ("high cut").
+    These variables represent the signal abstraction layer.
     Unless there are other requirements, it is recommended to build the variable names as follows: `BusName.FrameName.PDUName.SignalName`, e.g., `Powertrain.tcuSensors.tcuSensors.vCar`.
-    This approach automatically provides unique names for all bus-related variables, and can also be used for the clock variables, to allow automatic grouping by non-terminal-aware tools.
+    This approach automatically provides unique names for all bus-related variables, and can also be used for the Clock variables, to allow automatic grouping by non-terminal-aware tools.
  * `memberName` is the `SignalName` as given in the <<high-cut-network-description-files>>, e.g., `vCar`, if given.
     This is redundant information but simplifies signal name extraction.
  * `variableKind` is `signal`.
@@ -135,7 +140,7 @@ The following partial DBC file lists merely the CAN message (frame) structure.
 Signal trigger conditions are not included because they have no bearing on this standard.
 
 .Example Powertrain.dbc file.
-[#Powertrain.dbc]
+[[example-powertrain-dbc]]
 [source, C]
 ----
 ...
@@ -159,7 +164,7 @@ BO_ 512 ecuState: 4 ECU
 The `modelDescription.xml` excerpt listed below shows which variables would exist for the `Powertrain.dbc` shown above.
 
 .Example modelDescription.xml for ECU node.
-[#modelDescriptionHighCut.xml]
+[[example-modelDescriptionHighCut-xml]]
 [source, XML]
 ----
 include::examples/X_network4FMI_modelDescription_highCut.xml[]
@@ -168,14 +173,14 @@ include::examples/X_network4FMI_modelDescription_highCut.xml[]
 The following file shows the <<high-cut-bus-terminal,Bus Terminal>> definition representing the network and frame structure defined with `Powertrain.dbc` above.
 
 .Example terminalsAndIcons.xml file.
-[#terminalsAndIconHighCut.xml]
+[[example-terminalsAndIconHighCut-xml]]
 [source, XML]
 ----
 include::examples/X_network4FMI_terminalsAndIcons_highCut.xml[]
 ----
 
 === Limitations [[high-cut-limitations]]
-Physical signal abstraction maps several network protocols onto co-simulation variables as transport layer simulating in many ways an ideal network.
+Physical Signal Abstraction maps several network protocols onto co-simulation variables as transport layer simulating in many ways an ideal network.
 Such an ideal network differs from physical networks in the following ways (and potentially others):
 
  * Network frame arbitration: frames are sent on the wire according to network-specific priority rules. +

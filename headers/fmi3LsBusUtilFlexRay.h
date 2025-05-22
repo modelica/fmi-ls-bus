@@ -178,27 +178,28 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
  * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
  *
- * \param[in] BufferInfo                 Pointer to \ref fmi3LsBusUtilBufferInfo.
- * \param[in] MacrotickDuration          Duration of a macrotick in ns (\ref fmi3LsBusFlexRayMacrotickDurationNs).
- * \param[in] MacroticksPerCycle         The length of the cycle in macroticks (\ref fmi3LsBusFlexRayDurationMt16).
- * \param[in] CycleCountMax              The maximum number of cycles (\ref fmi3LsBusFlexRayMaxCycleCount).
- * \param[in] ActionPointOffset          The action point offset of a static slot in macroticks (\ref fmi3LsBusFlexRayDurationMt8).
- * \param[in] StaticSlotLength           The length of a slot in the static segment in macroticks (\ref fmi3LsBusFlexRayDurationMt16).
- * \param[in] NumberOfStaticSlots        The number of static slots in a cycle (\ref fmi3LsBusFlexRaySlotCount).
- * \param[in] StaticPayloadLength        The length of static slot payload in bytes (\ref fmi3LsBusFlexRayDataLength).
- * \param[in] MinislotActionPointOffset  The action point offset of a dynamic slot in macroticks (\ref fmi3LsBusFlexRayDurationMt8).
- * \param[in] NumberOfMinislots          The number of minislots in a cycle (\ref fmi3LsBusFlexRaySlotCount).
- * \param[in] MinislotLength             The length of a minislot in the dynamic segment in macroticks (\ref fmi3LsBusFlexRayDurationMt8).
- * \param[in] SymbolActionPointOffset    The action point offset within the symbol window in macroticks (\ref fmi3LsBusFlexRayDurationMt8).
- * \param[in] SymbolWindowLength         The length of the symbol window in macroticks (\ref fmi3LsBusFlexRayDurationMt8).
- * \param[in] NitLength                  The length of the NIT in macroticks (\ref fmi3LsBusFlexRayDurationMt8).
- * \param[in] DynamicSlotIdleTime        The length of dynamic slot idle time within a dynamic segment in macroticks (\ref fmi3LsBusFlexRayDurationMt32).
- * \param[in] ColdstartNode              Specifies the coldstart capabilities of a FlexRay node (\ref fmi3LsBusFlexRayColdstartNodeType).
+ * \param[in] BufferInfo                    Pointer to \ref fmi3LsBusUtilBufferInfo.
+ * \param[in] MacrotickDuration             Duration of a macrotick in ns (\ref fmi3LsBusFlexRayMacrotickDurationNs).
+ * \param[in] MacroticksPerCycle            The length of the cycle in macroticks (\ref fmi3LsBusFlexRayDurationMt16).
+ * \param[in] CycleCountMax                 The maximum number of cycles (\ref fmi3LsBusFlexRayMaxCycleCount).
+ * \param[in] ActionPointOffset             The action point offset of a static slot in macroticks (\ref fmi3LsBusFlexRayDurationMt8).
+ * \param[in] StaticSlotLength              The length of a slot in the static segment in macroticks (\ref fmi3LsBusFlexRayDurationMt16).
+ * \param[in] NumberOfStaticSlots           The number of static slots in a cycle (\ref fmi3LsBusFlexRaySlotCount).
+ * \param[in] StaticPayloadLength           The length of static slot payload in bytes (\ref fmi3LsBusFlexRayDataLength).
+ * \param[in] MinislotActionPointOffset     The action point offset of a dynamic slot in macroticks (\ref fmi3LsBusFlexRayDurationMt8).
+ * \param[in] NumberOfMinislots             The number of minislots in a cycle (\ref fmi3LsBusFlexRaySlotCount).
+ * \param[in] MinislotLength                The length of a minislot in the dynamic segment in macroticks (\ref fmi3LsBusFlexRayDurationMt8).
+ * \param[in] MaximumDynamicPayloadLength   The maximum length of a dynamic slot payload in bytes (\ref fmi3LsBusFlexRayDataLength).
+ * \param[in] SymbolActionPointOffset       The action point offset within the symbol window in macroticks (\ref fmi3LsBusFlexRayDurationMt8).
+ * \param[in] SymbolWindowLength            The length of the symbol window in macroticks (\ref fmi3LsBusFlexRayDurationMt8).
+ * \param[in] NitLength                     The length of the NIT in macroticks (\ref fmi3LsBusFlexRayDurationMt8).
+ * \param[in] DynamicSlotIdleTime           The length of dynamic slot idle time within a dynamic segment in macroticks (\ref fmi3LsBusFlexRayDurationMt32).
+ * \param[in] ColdstartNode                 Specifies the coldstart capabilities of a FlexRay node (\ref fmi3LsBusFlexRayColdstartNodeType).
  */
 #define FMI3_LS_BUS_FLEXRAY_CREATE_OP_CONFIGURATION_FLEXRAY_CONFIG(BufferInfo, \
             MacrotickDuration, MacroticksPerCycle, CycleCountMax, ActionPointOffset, StaticSlotLength, \
             NumberOfStaticSlots, StaticPayloadLength, MinislotActionPointOffset, \
-            NumberOfMinislots, MinislotLength, SymbolActionPointOffset, SymbolWindowLength, \
+            NumberOfMinislots, MinislotLength, MaximumDynamicPayloadLength, SymbolActionPointOffset, SymbolWindowLength, \
             NitLength, NMVectorLength, DynamicSlotIdleTime, ColdstartNode) \
     do                                                                                 \
     {                                                                                  \
@@ -207,7 +208,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.header.length = sizeof(fmi3LsBusOperationHeader) +                         \
             sizeof(fmi3LsBusFlexRayConfigParameterType) +                              \
             sizeof(fmi3LsBusFlexRayConfigurationFlexRayConfig);                        \
-        _op.parameterType = FMI3_LS_BUS_FLEXRAY_CONFIG_PARAM_TYPE_FLEXRAY_CONFIG;  \
+        _op.parameterType = FMI3_LS_BUS_FLEXRAY_CONFIG_PARAM_TYPE_FLEXRAY_CONFIG;      \
         _op.flexRayConfig.macrotickDuration = (MacrotickDuration);                     \
         _op.flexRayConfig.macroticksPerCycle = (MacroticksPerCycle);                   \
         _op.flexRayConfig.cycleCountMax = (CycleCountMax);                             \
@@ -218,6 +219,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.flexRayConfig.minislotActionPointOffset = (MinislotActionPointOffset);     \
         _op.flexRayConfig.numberOfMinislots = (NumberOfMinislots);                     \
         _op.flexRayConfig.minislotLength = (MinislotLength);                           \
+        _op.flexRayConfig.maximumDynamicPayloadLength = (MaximumDynamicPayloadLength); \
         _op.flexRayConfig.symbolActionPointOffset = (SymbolActionPointOffset);         \
         _op.flexRayConfig.symbolWindowLength = (SymbolWindowLength);                   \
         _op.flexRayConfig.nitLength = (NitLength);                                     \
@@ -293,18 +295,18 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[out] cycle               Returns the current cycle.
  * \param[out] macroTick           Returns the current macro tick.
  */
-#define FMI3_LS_BUS_FLEXRAY_GET_GLOBAL_TIME(                                                                    \
-    simulationTime, startTime, macroTickDuration, macroTicksPerCycle, cycleCount, cycle, macroTick)             \
-    do                                                                                                          \
-    {                                                                                                           \
-        /* Calculate the number of macro ticks since the start of the simulation */                             \
-        const uint64 frSimulationTimeMt = (uint64)(((simulationTime) - (startTime) + ((macroTickDuration) / 2)) \
-            / (macroTickDuration));                                                                             \
-                                                                                                                \
-        /* Calculate the current cycle and macro tick */                                                        \
-        *(cycle) = (uint8)(frSimulationTimeMt / (macroTicksPerCycle) % (cycleCount));                           \
-        *(macroTick) = (uint16)(frSimulationTimeMt % (macroTicksPerCycle));                                     \
-    }                                                                                                           \
+#define FMI3_LS_BUS_FLEXRAY_GET_GLOBAL_TIME(                                                                            \
+    simulationTime, startTime, macroTickDuration, macroTicksPerCycle, cycleCount, cycle, macroTick)                     \
+    do                                                                                                                  \
+    {                                                                                                                   \
+        /* Calculate the number of macro ticks since the start of the simulation */                                     \
+        const fmi3UInt64 frSimulationTimeMt = (fmi3UInt64)(((simulationTime) - (startTime) + ((macroTickDuration) / 2)) \
+            / (macroTickDuration));                                                                                     \
+                                                                                                                        \
+        /* Calculate the current cycle and macro tick */                                                                \
+        *(cycle) = (fmi3UInt8)(frSimulationTimeMt / (macroTicksPerCycle) % (cycleCount));                               \
+        *(macroTick) = (fmi3UInt16)(frSimulationTimeMt % (macroTicksPerCycle));                                         \
+    }                                                                                                                   \
     while (0)
 
 #endif /* fmi3LsBusUtilFlexRay_h */

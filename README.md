@@ -29,19 +29,6 @@ The following graphic provides an overview of the planned sequence of supported 
 
 A detailed roadmap showing completed, current and future work can be accessed [here][roadmap].
 
-## News
-
-Dive into our latest video ["FMI, Layered Standards and ASAM Standards - Enabling Seamless SiL Simulation of Virtual ECUs"](https://www.youtube.com/watch?v=KzzKRa3jORs).
-Discover how the cutting-edge FMI 3.0 standard and the layered standards based on it are revolutionizing the world of Software-in-the-Loop (SiL) simulations.
-
-During the presentation the three new layered standards for simulating virtual ECUs with FMI 3.0 are introduced:
-
-- FMI-LS-XCP for measurement & calibration with XCP
-- FMI-LS-BUS for simulation of network communication with CAN, CAN FD CAN XL, FlexRay, Ethernet, LIN
-- FMI-LS-STRUCT for structured entities like lookup tables
-
-After this a demo from different SiL tool vendors (Akkodis, Altair, AVL, Bosch, dSPACE, PMSF, SYNOPSYS) illustrates the interoperability of these layered standards.
-
 ## Repository Structure
 
 - `docs` -- Sources of the specification document
@@ -55,6 +42,21 @@ To help you get started, we provide introductory chapters.
 The following resources are currently available:
 
 - [Getting started with CAN, CAN FD and CAN XL]
+
+Our publications may also be of interest to you:
+
+- [Beyond FMI - Towards New Applications with Layered Standards]
+
+Or dive into our latest video ["FMI, Layered Standards and ASAM Standards - Enabling Seamless SiL Simulation of Virtual ECUs"](https://www.youtube.com/watch?v=KzzKRa3jORs).
+Discover how the cutting-edge FMI 3.0 standard and the layered standards based on it are revolutionizing the world of Software-in-the-Loop (SiL) simulations.
+
+During the presentation the three new layered standards for simulating virtual ECUs with FMI 3.0 are introduced:
+
+- FMI-LS-XCP for measurement & calibration with XCP
+- FMI-LS-BUS for simulation of network communication with CAN, CAN FD CAN XL, FlexRay, Ethernet, LIN
+- FMI-LS-STRUCT for structured entities like lookup tables
+
+After this a demo from different SiL tool vendors (Akkodis, Altair, AVL, Bosch, dSPACE, PMSF, SYNOPSYS) illustrates the interoperability of these layered standards.
 
 ## Demos
 
@@ -92,19 +94,19 @@ Additionally, any FMU importer that supports the necessary FMI 3.0 features, suc
     <td><img src="landingpage/DC.svg"/></td>
     <td>Direct communication</td>
     <td><img src="landingpage/HC.svg"/></td>
-    <td>High-cut</td>
+    <td>High-Cut</td>
   </tr>
   <tr>
     <td><img src="landingpage/BSF.svg"/></td>
     <td>Composition with dedicated bus simulation FMU</td>
     <td><img src="landingpage/LC_CAN.svg"/></td>
-    <td>Low-cut CAN</td>
+    <td>Low-Cut CAN</td>
   </tr>
   <tr>
     <td><img src="landingpage/IBS.svg"/></td>
     <td>Importer with integrated bus simulation</td>
     <td><img src="landingpage/LC_FR.svg"/></td>
-    <td>Low-cut FlexRay</td>
+    <td>Low-Cut FlexRay</td>
   </tr>
 </table>
 
@@ -132,3 +134,4 @@ The [FMI-LS-XCP] specifies an FMI extension for using the XCP protocol and A2L v
 [FMI-LS-BUS Implementers' Guide]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/
 [Getting started with CAN, CAN FD and CAN XL]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-getting-started-with-can
 [CAN, CAN FD and CAN XL Demo Overview]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-demos
+[Beyond FMI - Towards New Applications with Layered Standards]: https://ecp.ep.liu.se/index.php/modelica/article/view/947

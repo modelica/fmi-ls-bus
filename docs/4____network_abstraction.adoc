@@ -1,8 +1,8 @@
-== Network Abstraction ("low cut") [[low-cut]]
-This chapter describes the network abstraction or "low cut" in detail.
+== Network Abstraction (Low-Cut) [[low-cut]]
+This chapter describes the Network Abstraction or Low-Cut in detail.
 
 === Overview [[low-cut-overview]]
-The network abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
+The Network Abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
 Exchanging data in terms of the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> via variables grouped by a dedicated Bus Terminal (see <<low-cut-variables>>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
 During simulation, the network communication is controlled by send and receive Bus Operations.
 Based on these operations, FMUs implementing this layered standard have to react depending on their role as specified in this document.
@@ -26,7 +26,7 @@ For simulating bus communication with timing effects, the FMUs should set the Co
 [#figure-transmission-example-with-timing-behavior]
 image::bus_simulation_example.svg[width=80%, align="center"]
 
-For simplification reasons or if a detailed bus simulation is not desired, fixed-step size FMUs can also be used with network abstraction.
+For simplification reasons or if a detailed bus simulation is not desired, fixed-step size FMUs can also be used with Network Abstraction.
 However, depending on the chosen simulation step-size, delay effects of the bus simulation have to be taken into account.
 Compositions with fixed-step size and variable-step size FMUs require the decoupling of the Bus Simulation logic and the Bus Simulation timing.
 This decoupling is realized by queuing Tx/Rx Bus Operations inside the Bus Simulation as well as queuing Tx Bus Operations inside Network FMUs.
@@ -118,6 +118,19 @@ Remarks:
 * Numbers shall be transmitted with `little-endian` byte order.
 * Since the standard allows concatenating multiple operations (see <<low-cut-tx-rx-data-variables, Tx/Rx Data Variables>>), the <<TotalLengthField, Length>> field is introduced to allow the implementation of a generic parser for received operations.
 
+A CAN frame will serve as a concrete <<figure-bus-operation-can-frame-mapping-example, example>>.
+Sending a CAN frame is represented by the Bus Operation: CAN Transmit.
+Since the FMI-LS-BUS describes the simulation of network communication above the electrical level, not all content of a CAN frame is relevant.
+The corresponding argument values ​​do not have to be analogous to those of the original frame representation.
+Argument values can be transformed, i.e., presented in a different form, for easier use.
+<<figure-bus-operation-can-frame-mapping-example>> illustrates the mapping between the FMI-LS-BUS CAN Transmit Bus Operation and a CAN Standard Data Frame. 
+The information that can be mapped directly is shown in green.
+The yellow representation describes transformed values and the information shown in red is not required/used.
+
+.Mapping between the FMI-LS-BUS CAN Transmit Bus Operation and a CAN Standard Data Frame.
+[#figure-bus-operation-can-frame-mapping-example]
+image::bus_operation_can_frame_mapping_example.svg[width=65%, align="center"]
+
 ==== Format Error [[low-cut-format-error-operation]]
 The <<low-cut-format-error-operation, `Format Error`>> operation is independent of the bus type and shall be used when encountering a syntax or content error of received operations.
 
@@ -195,7 +208,7 @@ Since Clock variables are strictly related to the `Event Mode`, networked FMUs s
 The point in time where Bus Operations are transferred from the `Tx_Data` to the `Rx_Data` variables is defined by the `Tx_Clock` variable.
 This point is also referred to as the Bus Communication Point.
 A Bus Communication Point and a regular communication point can take place at the same time, but should be considered as independent by the importer.
-In contrast to a regular communication point where input/output variables used in step mode are exchanged, only the clocked Tx/Rx data variables needs to be considered by the importer.
+In contrast to a regular communication point where input/output variables used in step mode are exchanged, only the clocked Tx/Rx data variables need to be considered by the importer.
 
 For defining the point in time of a Bus Communication Point, `time-based` or `triggered` Clocks can be used for the `Tx_Clock` variable.
 Hence the Clock type can influence the bus simulation significantly - the differences should be taken into account.
@@ -210,7 +223,7 @@ image::low_cut_communication_points.svg[width=100%, align="center"]
 The announced Tx time however does not mean that a Bus Operation really has to be transferred, but that the connected networked FMUs should enter the `Event Mode` at that time.
 An importer has to determine proper communication step sizes to synchronize networked FMUs at the announced Tx time.
 
-_[Note: While simulation it can happen that no `Tx_Data` has to be transferred to the `Rx_Data` variable at the announced Tx time. In this case the returned 'valueSize' of the `Tx_Data` variable is 0.]_
+_[Note: During simulation it can happen that no `Tx_Data` has to be transferred to the `Rx_Data` variable at the announced Tx time. In this case the returned 'valueSize' of the `Tx_Data` variable is 0.]_
 
 Although the `causality` of a `time-based` `Tx_Clock` variable and a `triggered` `Rx_Clock` variable are each `input`, it is allowed to connect both, since a `time-based` Clock variable of an FMU is considered only to be a request to the importer to provide an attendant Clock source.
 
@@ -264,9 +277,11 @@ This allows senders to trade accuracy for speed: buffering more and interrupting
 ==== Selecting the type of Tx Clock [[low-cut-selecting-tx-variables]]
 Selecting suitable Tx variables allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:
 
- - While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` will reduce the network simulation speed.
- - Using `periodic` Clocks and queueing the operations to be transmitted reduces the number of `Event Mode` entries and speeds up the simulation at the cost of simulation accuracy.
+ - While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` migth reduce the network simulation speed.
+ - Using `periodic` Clocks and queueing the operations to be transmitted reduces the number of `Event Mode` entries and might speeds up the simulation at the cost of simulation accuracy.
  - One could use (structural) parameters to define the accuracy of `aperiodic` Clocks, allowing control of the simulation accuracy and performance with the same FMU.
+
+_[Note: The statements regarding `aperiodic` and `periodic` Clocks and their impact on performance should be understood as general tendencies rather than universally valid truths, as other aspects such as baud rates and expected bus loads must be taken into account for a more precise estimate.]_
 
 ==== MIME Types [[low-cut-mime-types]]
 Within FMI, every binary FMI variable has a `mimeType`, which indicates the type of data passed as a binary.
@@ -301,7 +316,7 @@ The version number marks the set of available operations for a specified bus typ
 The versioning follows the rules of semantic versioning, as defined in <<PW13>>.
 
 === Terminal Definitions [[low-cut-terminal-definitions]]
-This section defines terminals for network abstraction (also called "low cut").
+This section defines terminals for Network Abstraction.
 
 A schematic representation of an FMU with a Bus Terminal is shown in the <<#figure-frame-variables-terminals-lowcut, following figure>>:
 
@@ -318,7 +333,7 @@ Attributes of a Bus Terminal::
  * `matchingRule` must be `org.fmi-ls-bus.transceiver`. +
 Terminal member variables with memberName `Tx_{Data|Clock}` variables shall be connected to Terminal member variables with memberName `Rx_{Data|Clock}`, and vice versa. +
 The variable type shall be equal.
- * `name` should be the network name, e.g., "Powertrain", see <<low-cut-example, example>>.
+ * `name` should be the network name, e.g., "Powertrain", see <<example-terminalsAndIconLowCut-xml, example>>.
 
 Elements of a Bus Terminal::
  * A Bus Terminal shall contain four `<TerminalMemberVariable>` elements with the following `memberName` attributes: +
@@ -356,7 +371,7 @@ Elements of a Grouping Terminal::
 The following excerpts from files are used throughout this document as examples and illustrate how the different concepts relate.
 
 .Example modelDescription.xml for ECU node.
-[#modelDescriptionLowCut.xml]
+[[example-modelDescriptionLowCut-xml]]
 [source, XML]
 ----
 include::examples/X_network4FMI_modelDescription_lowCut.xml[]
@@ -365,7 +380,7 @@ include::examples/X_network4FMI_modelDescription_lowCut.xml[]
 The following file shows the <<low-cut-bus-terminal, Bus Terminal>>-related definition:
 
 .Example terminalsAndIcons.xml file.
-[#terminalsAndIconLowCut.xml]
+[[example-terminalsAndIconLowCut-xml]]
 [source, XML]
 ----
 include::examples/X_network4FMI_terminalsAndIcons_lowCut.xml[]

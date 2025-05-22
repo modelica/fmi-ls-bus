@@ -34,7 +34,7 @@ void CheckFlexRayBusErrorOperation(int errorFlags, int cycleId, int segmentIndic
 void CheckFlexRayConfigurationOperation(FlexRayOperation operationType, long long int macrotickDuration,
 	int macroticksPerCycle, int maxCycleCount, int actionPointOffset, int staticSlotLength,
 	int numberOfStaticSlots, int staticPayloadLength, int minislotActionPointOffset,
-	int numberOfMinislots, int minislotLength, int symbolActionPointOffset, int symbolWindowLength,
+	int numberOfMinislots, int minislotLength, int maxDynamicPayloadLength, int symbolActionPointOffset, int symbolWindowLength,
 	int nitLength, int nmVectorLength, long long int dynamicSlotIdleTime, fmi3LsBusFlexRayColdstartNodeType coldStartNode, bool correctData);
 
 /**

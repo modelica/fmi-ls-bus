@@ -169,9 +169,9 @@ The ID must be considered here as a purely numerical value.
 This means that there is no need for separate segmentation between the 11-bit base CAN identifier and an 18-bit CAN identifier extension information that is known from the CAN protocol.
 Additional information such as Ide is also not part of the ID, but is treated separately.
 | Ide | 1 byte | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
-For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+For specification, the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Rtr | 1 byte | Specifies whether the given frame represents a Remote Transmission Request frame.
-For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+For specification, the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Data Length | 2 bytes | Specifies the length of the Data argument in bytes.
 Note: The argument value describes the actual data length and not the CAN Data Length Code (DLC).
 | Data | n bytes | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN Format.
@@ -181,7 +181,7 @@ h|Behavior
 In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-can-confirm-operation, `Confirm`>>, <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>>, <<low-cut-can-bus-error-operation, `Bus Error`>> or <<low-cut-can-format-error-operation, `Format Error`>> operation.
-Depending on the <<low-cut-can-status-operation, status>> of the specified Network FMU further restrictions for <<low-cut-can-transmit-operation, `CAN Transmit`>> operations <<table-can-status-values, exist>>.
+Depending on the <<low-cut-can-status-operation, status>> of the specified Network FMU, further restrictions for <<low-cut-can-transmit-operation, `CAN Transmit`>> operations <<table-can-status-values, exist>>.
 
 |====
 
@@ -201,11 +201,11 @@ The ID must be considered here as a purely numerical value.
 This means that there is no need for separate segmentation between the 11-bit base CAN identifier and an 18-bit CAN identifier extension information that is known from the CAN protocol.
 Additional information such as Ide is also not part of the ID, but is treated separately.
 | Ide | 1 byte | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
-For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+For specification, the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Brs | 1 byte | Defines the Bit Rate Switch.
-For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+For specification, the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Esi | 1 byte | Error State indicator.
-For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+For specification, the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Data Length | 2 bytes | Specifies the length of the Data argument in bytes.
 Note: The argument value describes the actual data length and not the CAN Data Length Code (DLC).
 | Data | n bytes | Stores the given frame data to transfer, whereby the valid length of the data depends on the CAN FD Format.
@@ -231,9 +231,9 @@ The ID must be considered here as a purely numerical value.
 This means that there is no need for separate segmentation between the 11-bit base CAN identifier and an 18-bit CAN identifier extension information that is known from the CAN protocol.
 Additional information such as Ide is also not part of the ID, but is treated separately.
 | Ide | 1 byte | Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
-For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+For specification, the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Sec | 1 byte | Simple Extended Content
-For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+For specification, the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | SDT | 1 byte | Describes the structure of the frames Data Field content (SDU type).
 | VCID | 1 byte | Represents the virtual CAN network ID.
 | AF | 4 bytes | Represents the CAN XL Acceptance Field (AF).
@@ -360,7 +360,7 @@ For specification the boolean values `PRIMARY_ERROR_FLAG` and `SECONDARY_ERROR_F
 |Is Sender
 |1 byte
 |Set if the <<low-cut-can-bus-error-operation, `Bus Error`>> operation is a reaction to a <<low-cut-can-transmit-operation, `Transmit`>> operation that was provided by the specified Network FMU from the Bus Simulation.
-For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+For specification, the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
 h|Behavior
 3+|When transmitting CAN frames, various kinds of bus error may happen.
@@ -674,7 +674,7 @@ If the buffering is not adjusted by a specified Network FMU, the Bus Simulation 
 
 ===== Transmission and Acknowledge [[low-cut-can-transmission-and-acknowledge]]
 The <<low-cut-can-transmit-operation, `Transmit`>> operation represents the sending of a CAN, CAN FD and CAN XL frame.
-With appropriate options, relevant functionalities can be configured and used on a network abstraction level (e.g., Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
+With appropriate options, relevant functionalities can be configured and used on a Network Abstraction level (e.g., Virtual CAN network ID for CAN XL or Bit Rate Switch for CAN FD).
 In the real world, flawlessly transmitted CAN frames will be acknowledged by at least one receiver CAN node.
 To simulate this behavior, the <<low-cut-can-confirm-operation, `Confirm`>> operations are introduced.
 In addition, the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> parameter is defined to support lightweight bus simulations and <<common-concepts-direct-communication, directly connected Network FMUs>>.
