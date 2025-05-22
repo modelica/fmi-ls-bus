@@ -17,7 +17,7 @@ For example, the failure of a transmission can be indicated.
 For example, it allows the specification of the baud rate or influencing the buffer behavior.
 * Status: This operation is used by Networked FMUs to inform Bus Simulations about the internal state (Active/Passive/Bus-Off) which concerns the reaction on bus errors.
 * Wake up: CAN supports wake up and sleep scenarios.
-Normally there are two ways to wake up from sleep mode: a local wake up on a specified wake-up pin, or a wake-up on the CAN bus via a CAN specific wake-up pulse.
+Normally there are two ways to wake up from sleep mode: A local wake up on a specified wake-up pin, or a wake-up on the CAN bus via a CAN specific wake-up pulse.
 This operation is used to simulate triggering a wake-up from bus side.
 
 The following table gives a detailed overview of the available operations.
