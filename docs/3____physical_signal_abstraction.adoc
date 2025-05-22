@@ -105,7 +105,7 @@ Element definitions::
  * There must be one `<TerminalMemberVariable>` for the Clock this frame is connected to.
    The `memberName` of this variable must be `TransmissionClock`.
 
-The <<high-cut-terminal-member-variable-for-signals>> must have the same `causality` as all variables referenced in the <<high-cut-pdu-terminal,PDU Terminals>> included here.
+The <<high-cut-terminal-member-variable-for-signals>> must have the same `causality` as all variables referenced in the <<high-cut-pdu-terminal,PDU terminals>> included here.
 
 ==== PDU Terminal [[high-cut-pdu-terminal,PDU terminal]]
 Each PDU listed in the <<high-cut-network-description-files>> must be an element of its corresponding <<high-cut-frame-terminal>>.
@@ -172,6 +172,8 @@ include::examples/X_network4FMI_modelDescription_highCut_dbc.xml[]
 ----
 
 The following file shows the <<high-cut-bus-terminal,Bus Terminal>> definition representing the network and frame structure defined with `Powertrain.dbc` above.
+The `name` of the <<high-cut-frame-terminal,frame terminal>> and the <<high-cut-pdu-terminal,PDU terminal>> are derived from the DBC attribute `_BO`.
+The `SignalName`, and so the resulting `memberName`, is derived from the DBC attribute `_SG`.
 
 .Example terminalsAndIcons.xml file.
 [[example-terminalsAndIconHighCut-dbc-xml]]
@@ -183,7 +185,7 @@ include::examples/X_network4FMI_terminalsAndIcons_highCut_dbc.xml[]
 ==== AUTOSAR [[high-cut-examples-autosar]]
 The following AUTOSAR system extract (in ARXML format) shows the mapping of an AUTOSAR Frame-Triggering, PDU-Triggering and Signal-Triggering structure within the Physical Signal Abstraction.
 
-.Example AUTOSAR Powertrain.arxml system extract file.
+.Incomplete example AUTOSAR Powertrain.arxml system extract file.
 [[example-powertrain-autosar]]
 [source, xml]
 ----
@@ -247,7 +249,10 @@ The `modelDescription.xml` excerpt listed below shows which variables would exis
 include::examples/X_network4FMI_modelDescription_highCut_autosar.xml[]
 ----
 
-The following file shows the <<high-cut-bus-terminal,Bus Terminal>> definition representing the network and frame structure defined with `Powertrain.dbc` above.
+The following file shows the <<high-cut-bus-terminal,Bus Terminal>> definition representing the network and frame structure defined with `Powertrain.arxml` above.
+The `name` of the <<high-cut-frame-terminal,frame terminal>> is derived from the ShortName attribute of the respective AUTOSAR frame.
+The `name` of the <<high-cut-pdu-terminal,PDU terminal>> is derived from the ShortName attribute of the respective AUTOSAR PDU.
+The `SignalName`, and so the resulting `memberName`, is derived from the respective AUTOSAR ISignal.
 
 .Example terminalsAndIcons.xml file.
 [[example-terminalsAndIconHighCut-autosar-xml]]
