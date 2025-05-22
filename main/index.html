@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version d6632b7,</span>
+<span id="revnumber">version f438081,</span>
 <span id="revdate">2025-05-22</span>
 </div>
 <div id="toc" class="toc2">
@@ -631,10 +631,15 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#high-cut-frame-terminal">4.4.2. Frame Terminal</a></li>
 <li><a href="#high-cut-pdu-terminal">4.4.3. PDU Terminal</a></li>
 <li><a href="#high-cut-terminal-member-variable-for-signals">4.4.4. Terminal Member Variable for Signals</a></li>
-<li><a href="#high-cut-example">4.4.5. Example</a></li>
 </ul>
 </li>
-<li><a href="#high-cut-limitations">4.5. Limitations</a></li>
+<li><a href="#high-cut-examples">4.5. Examples</a>
+<ul class="sectlevel3">
+<li><a href="#high-cut-examples-can-bus-databases">4.5.1. CAN Bus Databases (DBC)</a></li>
+<li><a href="#high-cut-examples-autosar">4.5.2. AUTOSAR</a></li>
+</ul>
+</li>
+<li><a href="#high-cut-limitations">4.6. Limitations</a></li>
 </ul>
 </li>
 <li><a href="#low-cut">5. Network Abstraction (Low-Cut)</a>
@@ -1287,7 +1292,7 @@ The attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> element mus
 <p><code>matchingRule</code> must be <code>bus</code>.</p>
 </li>
 <li>
-<p><code>name</code> is the network name, e.g., <code>Powertrain</code>, see <a href="#high-cut-example">example</a> and constraints above.</p>
+<p><code>name</code> is the network name, e.g., <code>Powertrain</code>, see <a href="#high-cut-examples">examples</a> and constraints above.</p>
 </li>
 </ul>
 </div>
@@ -1358,7 +1363,7 @@ The <code>memberName</code> of this variable must be <code>TransmissionClock</co
 </dl>
 </div>
 <div class="paragraph">
-<p>The <a href="#high-cut-terminal-member-variable-for-signals">Terminal Member Variable</a> must have the same <code>causality</code> as all variables referenced in the <a href="#high-cut-pdu-terminal">PDU Terminals</a> included here.</p>
+<p>The <a href="#high-cut-terminal-member-variable-for-signals">Terminal Member Variable</a> must have the same <code>causality</code> as all variables referenced in the <a href="#high-cut-pdu-terminal">PDU terminals</a> included here.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1431,11 +1436,14 @@ This is redundant information but simplifies signal name extraction.</p>
 </dl>
 </div>
 </div>
-<div class="sect3">
-<h4 id="high-cut-example">4.4.5. Example</h4>
+</div>
+<div class="sect2">
+<h3 id="high-cut-examples">4.5. Examples</h3>
 <div class="paragraph">
 <p>The following excerpts from files are used throughout this document as examples and should illustrate how the different concepts relate.</p>
 </div>
+<div class="sect3">
+<h4 id="high-cut-examples-can-bus-databases">4.5.1. CAN Bus Databases (DBC)</h4>
 <div class="paragraph">
 <p>The following partial DBC file lists merely the CAN message (frame) structure.
 Signal trigger conditions are not included because they have no bearing on this standard.</p>
@@ -1464,7 +1472,7 @@ BO_ 512 ecuState: 4 ECU
 <div class="paragraph">
 <p>The <code>modelDescription.xml</code> excerpt listed below shows which variables would exist for the <code>Powertrain.dbc</code> shown above.</p>
 </div>
-<div id="example-modelDescriptionHighCut-xml" class="listingblock">
+<div id="example-modelDescriptionHighCut-dbc-xml" class="listingblock">
 <div class="title">Example modelDescription.xml for ECU node.</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-XML hljs" data-lang="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -1504,9 +1512,11 @@ BO_ 512 ecuState: 4 ECU
 </div>
 </div>
 <div class="paragraph">
-<p>The following file shows the <a href="#high-cut-bus-terminal">Bus Terminal</a> definition representing the network and frame structure defined with <code>Powertrain.dbc</code> above.</p>
+<p>The following file shows the <a href="#high-cut-bus-terminal">Bus Terminal</a> definition representing the network and frame structure defined with <code>Powertrain.dbc</code> above.
+The <code>name</code> of the <a href="#high-cut-frame-terminal">frame terminal</a> and the <a href="#high-cut-pdu-terminal">PDU terminal</a> are derived from the DBC attribute <code>_BO</code>.
+The <code>SignalName</code>, and so the resulting <code>memberName</code>, is derived from the DBC attribute <code>_SG</code>.</p>
 </div>
-<div id="example-terminalsAndIconHighCut-xml" class="listingblock">
+<div id="example-terminalsAndIconHighCut-dbc-xml" class="listingblock">
 <div class="title">Example terminalsAndIcons.xml file.</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-XML hljs" data-lang="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -1559,9 +1569,123 @@ BO_ 512 ecuState: 4 ECU
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="high-cut-examples-autosar">4.5.2. AUTOSAR</h4>
+<div class="paragraph">
+<p>The following AUTOSAR system extract (in ARXML format) shows the mapping of an AUTOSAR Frame-Triggering, PDU-Triggering and Signal-Triggering structure within the Physical Signal Abstraction.</p>
+</div>
+<div id="example-powertrain-autosar" class="listingblock">
+<div class="title">Incomplete example AUTOSAR Powertrain.arxml system extract file.</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">...
+&lt;AR-PACKAGE&gt;
+  &lt;SHORT-NAME&gt;SystemExtract&lt;/SHORT-NAME&gt;
+  &lt;ELEMENTS&gt;
+    &lt;CAN-CLUSTER&gt;
+      &lt;SHORT-NAME&gt;Powertrain&lt;/SHORT-NAME&gt;
+      &lt;CAN-CLUSTER-VARIANTS&gt;
+        &lt;CAN-CLUSTER-CONDITIONAL&gt;
+          &lt;PHYSICAL-CHANNELS&gt;
+            &lt;CAN-PHYSICAL-CHANNEL&gt;
+              &lt;SHORT-NAME&gt;tcuSensors&lt;/SHORT-NAME&gt;
+              &lt;FRAME-TRIGGERINGS&gt;
+                &lt;CAN-FRAME-TRIGGERING&gt;
+                  &lt;SHORT-NAME&gt;tcuSensors_FrameTriggering&lt;/SHORT-NAME&gt;
+                  &lt;FRAME-REF&gt;/.../Frames/tcuSensors&lt;/FRAME-REF&gt;
+                  &lt;PDU-TRIGGERINGS&gt;
+                    &lt;PDU-TRIGGERING-REF-CONDITIONAL&gt;
+                      &lt;PDU-TRIGGERING-REF&gt;/.../tcuSensors_PduTriggering&lt;/PDU-TRIGGERING-REF&gt;
+                    &lt;/PDU-TRIGGERING-REF-CONDITIONAL&gt;
+                  &lt;/PDU-TRIGGERINGS&gt;
+                  &lt;IDENTIFIER&gt;256&lt;/IDENTIFIER&gt;
+                &lt;/CAN-FRAME-TRIGGERING&gt;
+              &lt;/FRAME-TRIGGERINGS&gt;
+              &lt;I-SIGNAL-TRIGGERINGS&gt;
+                &lt;I-SIGNAL-TRIGGERING&gt;
+                  &lt;SHORT-NAME&gt;vCar_ISignalTriggering&lt;/SHORT-NAME&gt;
+                  &lt;I-SIGNAL-REF&gt;/.../ISignals/vCar&lt;/I-SIGNAL-REF&gt;
+                &lt;/I-SIGNAL-TRIGGERING&gt;
+                &lt;I-SIGNAL-TRIGGERING&gt;
+                  &lt;SHORT-NAME&gt;oilTemp_ISignalTriggering&lt;/SHORT-NAME&gt;
+                  &lt;I-SIGNAL-REF&gt;/.../ISignals/oilTemp&lt;/I-SIGNAL-REF&gt;
+                &lt;/I-SIGNAL-TRIGGERING&gt;
+              &lt;/I-SIGNAL-TRIGGERINGS&gt;
+              &lt;PDU-TRIGGERINGS&gt;
+                &lt;PDU-TRIGGERING&gt;
+                  &lt;SHORT-NAME&gt;tcuSensors_PduTriggering&lt;/SHORT-NAME&gt;
+                  &lt;I-PDU-REF&gt;/.../PDUs/tcuSensors&lt;/I-PDU-REF&gt;
+                  &lt;I-SIGNAL-TRIGGERINGS&gt;
+                    &lt;I-SIGNAL-TRIGGERING-REF-CONDITIONAL&gt;
+                      &lt;I-SIGNAL-TRIGGERING-REF&gt;/.../vCar_ISignalTriggering&lt;/I-SIGNAL-TRIGGERING-REF&gt;
+                    &lt;/I-SIGNAL-TRIGGERING-REF-CONDITIONAL&gt;
+                    &lt;I-SIGNAL-TRIGGERING-REF-CONDITIONAL&gt;
+                      &lt;I-SIGNAL-TRIGGERING-REF&gt;/.../oilTemp_ISignalTriggering&lt;/I-SIGNAL-TRIGGERING-REF&gt;
+                    &lt;/I-SIGNAL-TRIGGERING-REF-CONDITIONAL&gt;
+                  &lt;/I-SIGNAL-TRIGGERINGS&gt;
+            ...
+  &lt;/ELEMENTS&gt;
+&lt;/AR-PACKAGE&gt;
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>modelDescription.xml</code> excerpt listed below shows which variables would exist for the <code>Powertrain.arxml</code> shown above.</p>
+</div>
+<div id="example-modelDescriptionHighCut-autosar-xml" class="listingblock">
+<div class="title">Example modelDescription.xml for ECU node.</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-XML hljs" data-lang="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;fmiModelDescription fmiVersion="3.0" modelName="Network4FMI"
+    instantiationToken="Network4FMI"&gt;
+  &lt;ModelVariables&gt;
+    &lt;Clock name="Powertrain.tcuSensors_FrameTriggering_Clock" valueReference="1007"
+        causality="input" variability="discrete" intervalVariability="triggered"/&gt;
+    &lt;Float64 name="Powertrain.tcuSensors.vCar_ISignalTriggering" valueReference="1005"
+        causality="input" variability="discrete" start="0" clocks="1007"/&gt;
+    &lt;Float64 name="Powertrain.tcuSensors.oilTemp_ISignalTriggering" valueReference="1006"
+        causality="input" variability="discrete" start="20" clocks="1007"/&gt;
+  &lt;/ModelVariables&gt;
+  &lt;ModelStructure&gt;
+  &lt;/ModelStructure&gt;
+&lt;/fmiModelDescription&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following file shows the <a href="#high-cut-bus-terminal">Bus Terminal</a> definition representing the network and frame structure defined with <code>Powertrain.arxml</code> above.
+The <code>name</code> of the <a href="#high-cut-frame-terminal">frame terminal</a> is derived from the ShortName attribute of the respective AUTOSAR frame.
+The <code>name</code> of the <a href="#high-cut-pdu-terminal">PDU terminal</a> is derived from the ShortName attribute of the respective AUTOSAR PDU.
+The <code>SignalName</code>, and so the resulting <code>memberName</code>, is derived from the respective AUTOSAR ISignal.</p>
+</div>
+<div id="example-terminalsAndIconHighCut-autosar-xml" class="listingblock">
+<div class="title">Example terminalsAndIcons.xml file.</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-XML hljs" data-lang="XML">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;fmiTerminalsAndIcons fmiVersion="3.0"&gt;
+  &lt;Terminals&gt;
+    &lt;Terminal terminalKind="org.fmi-ls-bus.network-terminal" name="Powertrain" matchingRule="bus"
+        description="Powertrain CAN bus defined by an AUTOSAR system extract"&gt;
+      &lt;Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="tcuSensors" matchingRule="bus"&gt;
+        &lt;TerminalMemberVariable variableKind="signal"
+          variableName="Powertrain.tcuSensors_Clock" memberName="Clock" /&gt;
+        &lt;Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="tcuSensors" matchingRule="bus"&gt;
+          &lt;TerminalMemberVariable variableKind="signal"
+            variableName="Powertrain.tcuSensors.vCar_SignalTriggering" memberName="vCar" /&gt;
+          &lt;TerminalMemberVariable variableKind="signal"
+            variableName="Powertrain.tcuSensors.oilTemp_SignalTriggering" memberName="oilTemp" /&gt;
+        &lt;/Terminal&gt;
+      &lt;/Terminal&gt;
+      &lt;Annotations&gt;
+        &lt;Annotation type="ECU" /&gt;
+      &lt;/Annotations&gt;
+    &lt;/Terminal&gt;
+  &lt;/Terminals&gt;
+&lt;/fmiTerminalsAndIcons&gt;</code></pre>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="high-cut-limitations">4.5. Limitations</h3>
+<h3 id="high-cut-limitations">4.6. Limitations</h3>
 <div class="paragraph">
 <p>Physical Signal Abstraction maps several network protocols onto co-simulation variables as transport layer simulating in many ways an ideal network.
 Such an ideal network differs from physical networks in the following ways (and potentially others):</p>
