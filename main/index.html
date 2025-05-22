@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version d57237b,</span>
+<span id="revnumber">version d6632b7,</span>
 <span id="revdate">2025-05-22</span>
 </div>
 <div id="toc" class="toc2">
@@ -1201,9 +1201,6 @@ The unit definition of the variable must match the one defined in the <a href="#
 <p>In case multiplexed signals are present in a frame/PDU/container PDU: All signals/PDUs are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values <em>[those values could even be outside their specified min-max range without fault]</em>.</p>
 </div>
 <div class="paragraph">
-<p>Generally, signal variables are optional, but they must either be all missing or all present to clearly indicate support for the signal abstraction layer.</p>
-</div>
-<div class="paragraph">
 <p>All signal variables are clocked to exactly indicate when they have been sent, see <a href="#high-cut-clock-variables">Section 4.2.2</a>.</p>
 </div>
 </div>
@@ -1275,8 +1272,7 @@ These are technical and legal issues that need attention from standardization bo
 <div class="paragraph">
 <p>Each network connected to the FMU must be described in <code>icons/terminalsAndIcons.xml</code> as a <code>&lt;Terminal&gt;</code> element of <code>&lt;fmiTerminalsAndIcons&gt;&lt;Terminals&gt;</code> that wraps all its <a href="#high-cut-frame-terminal">frame terminals</a>.
 The attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> element must match the root name of its <a href="#high-cut-network-description-files">network description file</a> if it exists
-<em>[e.g., <code>Powertrain</code>, if the file is <code>/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc</code>]</em>.
-In any case, the attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> element must be consistent with the <code>BusName</code> component of all its corresponding signal, frame and Clock variables.</p>
+<em>[e.g., <code>Powertrain</code>, if the file is <code>/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc</code>]</em>.</p>
 </div>
 <div class="dlist">
 <dl>
