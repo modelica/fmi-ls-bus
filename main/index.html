@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version f027408,</span>
+<span id="revnumber">version d57237b,</span>
 <span id="revdate">2025-05-22</span>
 </div>
 <div id="toc" class="toc2">
@@ -998,17 +998,19 @@ However, for versatility, having FMUs capable of communicating on both abstracti
 In the case of the Physical Signal Abstraction, a separate FMI variable of the respective type is created for each network signal to transfer.
 The network signals are structured via a PDU and frame hierarchy by using FMI 3.0 Terminals.
 Within the Network Abstraction, the bus is simulated using a separate, bus-specific protocol.
-This protocol is exchanged between the various FMUs using binary FMI variables.
+The protocol consists out of well defined Bus Operations that are used to provide a detailed simulation of network communication above the electrical bus level.
+This Bus Operations are exchanged between the various FMUs using binary FMI variables.
 Since network communication is not continuous but time discrete, FMI 3.0 Clocks are used to indicate when network data is sent or received.</p>
 </div>
 <div class="paragraph">
-<p>While the values and semantic of the Clock variables are clear, the binary frame variables are opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology.
-Frame variables do not just transport the network-specific payload, but also carry protocol-specific status information.
+<p>While the values and semantic of the Clock variables are clear, the exchange of Bus Operations via binary FMI variables is opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology.
+Additionally provided C header files simplifies the usage of the Network Abstraction.
+In this context, the specified Bus Operations do not just transport the network-specific payload, but also carry protocol-specific status information.
 Status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack about success or errors of a send request.</p>
 </div>
 <div class="paragraph">
-<p>For any periodic (fixed-time) sending of messages, multiple message sends fall into one <code>fmi3DoStep</code>.
-While High-Cut signal variables will miss all but the last value sent, Low-Cut frame variables will buffer all payloads inside their value.</p>
+<p>When executing an FMU with a fixed step size, multiple message sends may fall into one <code>fmiDoStep</code>.
+In this situation the High-Cut signal variables will miss all but the last value sent while the Low-Cut will buffer all Bus Operations and exchange them after the <code>fmiDoStep</code>.</p>
 </div>
 <div class="sect2">
 <h3 id="common-concepts-general-recommendations">3.1. General Recommendations</h3>
@@ -1046,19 +1048,19 @@ Such an ideal network differs from physical networks in the following ways (and 
 <div class="ulist">
 <ul>
 <li>
-<p>Network frame arbitration: frames are sent on the wire according to network-specific priority rules.<br>
+<p>Network frame arbitration: Frames are sent on the wire according to network-specific priority rules.<br>
 Here all frames are transmitted at the same time without delay.</p>
 </li>
 <li>
-<p>Network congestion/bandwidth: too many network frames sent for the bandwidth of the network.<br>
+<p>Network congestion/bandwidth: Too many network frames sent for the bandwidth of the network.<br>
 Here the network has infinite capacity.</p>
 </li>
 <li>
-<p>Protocol functions of higher levels: <em>e.g. CAN request for retransmit is a specific protocol function</em>.<br>
+<p>Protocol functions of higher levels: <em>E.g. CAN request for retransmit is a specific protocol function</em>.<br>
 Here such specialties must be handled by a higher layer inside the FMU.</p>
 </li>
 <li>
-<p>Incoming buffer overflow: when an ECU receives more frames than its buffer can hold.<br>
+<p>Incoming buffer overflow: When an ECU receives more frames than its buffer can hold.<br>
 Here the FMU will receive all frames, regardless of buffer size and would need to handle those limitations internally.</p>
 </li>
 </ul>
@@ -1186,7 +1188,7 @@ The respective FMU variables are connected to a Bus Simulation, which emulates t
 <div class="sect3">
 <h4 id="high-cut-signal-variables">4.2.1. Signal Variables</h4>
 <div class="paragraph">
-<p>To define the signal abstraction layer, signal variables are defined.</p>
+<p>To define the Physical Signal Abstraction layer, signal variables are defined.</p>
 </div>
 <div class="paragraph">
 <p>A signal variable carries the physical value of a network signal normally packaged inside a PDU or frame.
@@ -1196,7 +1198,7 @@ The unit definition of the variable must match the one defined in the <a href="#
 <p>Each network signal must be listed as <a href="#high-cut-terminal-member-variable-for-signals">Terminal Member Variable</a> of its corresponding <a href="#high-cut-pdu-terminal">PDU terminal</a>.</p>
 </div>
 <div class="paragraph">
-<p>In case multiplexed signals are present in a frame/PDU/container PDU: all signals/PDUs are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values <em>[those values could even be outside their specified min-max range without fault]</em>.</p>
+<p>In case multiplexed signals are present in a frame/PDU/container PDU: All signals/PDUs are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values <em>[those values could even be outside their specified min-max range without fault]</em>.</p>
 </div>
 <div class="paragraph">
 <p>Generally, signal variables are optional, but they must either be all missing or all present to clearly indicate support for the signal abstraction layer.</p>
@@ -1218,7 +1220,7 @@ This allows the FMU (or better the exporting tool) to balance the accuracy and p
 <div class="ulist">
 <ul>
 <li>
-<p>While <code>aperiodic</code> Clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> migth reduce the network simulation speed.</p>
+<p>While <code>aperiodic</code> Clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> might reduce the network simulation speed.</p>
 </li>
 <li>
 <p>Using <code>periodic</code> Clocks reduces the number of <code>Event Modes</code> required and might speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.</p>
@@ -1252,7 +1254,7 @@ The case-sensitive root name of the <a href="#high-cut-network-description-files
 </div>
 <div class="paragraph">
 <p>Multiple files can be specified, each one defining one network used by the FMU.
-This standard does not support composing one network from multiple <a href="#high-cut-network-description-files">network description files</a>, even if using internal include mechanisms, it rather enforces the rule: one network - one file.</p>
+This standard does not support composing one network from multiple <a href="#high-cut-network-description-files">network description files</a>, even if using internal include mechanisms, it rather enforces the rule: One network - one file.</p>
 </div>
 <div class="paragraph">
 <p>It is recommended to use ARXML over DBC files for CAN whenever possible, because the DBC standard lacks some key frame/PDU properties that were added only later using non-standard extensions with different dialects in use.</p>
@@ -1299,7 +1301,7 @@ In any case, the attribute <code>name</code> of the <code>&lt;Terminal&gt;</code
 <div class="ulist">
 <ul>
 <li>
-<p>There must be one <code>&lt;Terminal&gt;</code> element per network frame described in the <a href="#high-cut-network-description-files">network description file</a>, if their signal and Clock variables are present in the <code>modelDescription.xml</code>.</p>
+<p>All signal and Clock variables related to the Physical Signal Abstraction in the <code>modelDescription.xml</code> must be covered by a <code>&lt;Terminal&gt;</code> element representing the network frame the signals belong to.</p>
 </li>
 </ul>
 </div>
@@ -1571,20 +1573,20 @@ Such an ideal network differs from physical networks in the following ways (and 
 <div class="ulist">
 <ul>
 <li>
-<p>Network frame arbitration: frames are sent on the wire according to network-specific priority rules.<br>
+<p>Network frame arbitration: Frames are sent on the wire according to network-specific priority rules.<br>
 Here all frames are transmitted at the same time without delay.</p>
 </li>
 <li>
-<p>Network congestion/bandwidth: too many network frames sent for the bandwidth of the network.<br>
+<p>Network congestion/bandwidth: Too many network frames sent for the bandwidth of the network.<br>
 Here the network has infinite capacity.<br>
 If network properties are required, a bus simulation component must be added or included with the importer.</p>
 </li>
 <li>
-<p>Protocol functions of higher levels: i.e. CAN request for retransmit is a specific protocol function.<br>
+<p>Protocol functions of higher levels: I.e. CAN request for retransmit is a specific protocol function.<br>
 Here such specialties must be handled by the first layer inside the FMU.</p>
 </li>
 <li>
-<p>Incoming buffer overflow: when an ECU receives more frames than its buffer can hold.<br>
+<p>Incoming buffer overflow: When an ECU receives more frames than its buffer can hold.<br>
 Here the FMU will receive all frames, regardless of buffer size and would need to handle those limitations internally.</p>
 </li>
 <li>
