@@ -118,6 +118,19 @@ Remarks:
 * Numbers shall be transmitted with `little-endian` byte order.
 * Since the standard allows concatenating multiple operations (see <<low-cut-tx-rx-data-variables, Tx/Rx Data Variables>>), the <<TotalLengthField, Length>> field is introduced to allow the implementation of a generic parser for received operations.
 
+A CAN frame will serve as a concrete <<figure-bus-operation-can-frame-mapping-example, example>>.
+Sending a CAN frame is represented by the Bus Operation: CAN Transmit.
+Since the FMI-LS-BUS describes the simulation of network communication above the electrical level, not all content of a CAN frame is relevant.
+The corresponding argument values ​​do not have to be analogous to those of the original frame representation.
+Argument values can be transformed, i.e., presented in a different form, for easier use.
+<<figure-bus-operation-can-frame-mapping-example>> illustrates the mapping between the FMI-LS-BUS CAN Transmit Bus Operation and a CAN Standard Data Frame. 
+The information that can be mapped directly is shown in green.
+The yellow representation describes transformed values and the information shown in red is not required/used.
+
+.Mapping between the FMI-LS-BUS CAN Transmit Bus Operation and a CAN Standard Data Frame.
+[#figure-bus-operation-can-frame-mapping-example]
+image::bus_operation_can_frame_mapping_example.svg[width=65%, align="center"]
+
 ==== Format Error [[low-cut-format-error-operation]]
 The <<low-cut-format-error-operation, `Format Error`>> operation is independent of the bus type and shall be used when encountering a syntax or content error of received operations.
 
