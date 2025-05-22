@@ -32,8 +32,6 @@ Each network signal must be listed as <<high-cut-terminal-member-variable-for-si
 
 In case multiplexed signals are present in a frame/PDU/container PDU: All signals/PDUs are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values _[those values could even be outside their specified min-max range without fault]_.
 
-Generally, signal variables are optional, but they must either be all missing or all present to clearly indicate support for the signal abstraction layer.
-
 All signal variables are clocked to exactly indicate when they have been sent, see <<high-cut-clock-variables>>.
 
 ==== Clock Variables [[high-cut-clock-variables]]
@@ -76,7 +74,6 @@ This section defines terminals for Physical Signal Abstraction.
 Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all its <<high-cut-frame-terminal,frame terminals>>.
 The attribute `name` of the `<Terminal>` element must match the root name of its <<high-cut-network-description-files>> if it exists
 _[e.g., `Powertrain`, if the file is `/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc`]_.
-In any case, the attribute `name` of the `<Terminal>` element must be consistent with the `BusName` component of all its corresponding signal, frame and Clock variables.
 
 Attribute definitions::
  * `terminalKind` must be `org.fmi-ls-bus.network-terminal`.
