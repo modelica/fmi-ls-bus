@@ -42,6 +42,7 @@ To help you get started, we provide introductory chapters.
 The following resources are currently available:
 
 - [Getting started with CAN, CAN FD and CAN XL]
+- [Getting started with FlexRay]
 
 Our publications may also be of interest to you:
 
@@ -65,6 +66,7 @@ More demos will be added iteratively in the near future.
 See also the overview pages for the demos, categorized by the different supported bus types of the FMI-LS-BUS.
 
 - [CAN, CAN FD and CAN XL Demo Overview]
+- [FlexRay Demo Overview]
 
 ## FMI-LS-BUS Implementers' Guide
 
@@ -133,5 +135,7 @@ The [FMI-LS-XCP] specifies an FMI extension for using the XCP protocol and A2L v
 [releases]: https://github.com/modelica/fmi-ls-bus/releases
 [FMI-LS-BUS Implementers' Guide]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/
 [Getting started with CAN, CAN FD and CAN XL]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-getting-started-with-can
+[Getting started with FlexRay]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-flexray-getting-started-with-flexray
 [CAN, CAN FD and CAN XL Demo Overview]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-demos
+[FlexRay Demo Overview]: https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-flexray-demos
 [Beyond FMI - Towards New Applications with Layered Standards]: https://ecp.ep.liu.se/index.php/modelica/article/view/947
