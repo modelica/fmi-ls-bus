@@ -1,0 +1,260 @@
+===== Operations [[low-cut-ethernet-operations]]
+This section defines the specified operations for Ethernet.
+The following tables provide an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
+
+====== Transmit [[low-cut-ethernet-transmit-operation]]
+Represents the transmission of an Ethernet frame or MAC Merge Packet (mPacket).
+
+.Detailed description of the Transmit operation.
+[#table-fmi3-ls-bus-ethernet-transmit-operation]
+[cols="5,4,3,20"]
+|====
+h|Name 3+| Transmit
+h|Description 3+| Indicates the transmission of an Ethernet frame or mPacket.
+h|OP Code [hex] 3+| 0x10
+.11+h|Content h|Argument h|Length h|Description
+
+| OP Code
+| 4 bytes
+| Type of the operation.
+
+| Length
+| 4 bytes
+| Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 26 + Data Length`.
+
+| Start Delimiter
+| 1 byte
+| The start frame (SFD) or start mPacket (SMD) delimiter.
+Always set to 0xD5 for ordinary Ethernet frames when not using preemption/fragmentation.
+
+| Fragment Counter
+| 1 byte
+| Fragment counter of the continuation mPacket.
+Must be set to 0, if this is not a continuation mPacket.
+
+| Last Fragment
+| 1 byte
+| Indicates whether this is the last fragment of a fragmented Ethernet frame.
+Must be set to `TRUE` if this is a full Ethernet frame.
+For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+
+| Destination Address
+| 6 bytes
+| The destination address of the frame.
+Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.
+
+| Source Address
+| 6 bytes
+| The destination address of the frame.
+Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.
+
+| EtherType or Length
+| 2 bytes
+| Indicates the type of Ethernet frame (Ethernet II) or frame length (802.3).
+
+| Data Length
+| 1 byte
+| The length of the data of this Ethernet frame or mPacket.
+Note that this does not correspond to a field in the Ethernet frame.
+
+| Data
+| n bytes
+| The payload data of the Ethernet frame or mPacket.
+
+h|Behavior
+3+|The <<low-cut-ethernet-transmit-operation, `Transmit`>> operation shall be provided by Network FMUs to initiate the transmission of an Ethernet frame.
+In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
+Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-ethernet-confirm-operation, `Confirm`>>, <<low-cut-ethernet-bus-error-operation, `Bus Error`>> or <<low-cut-ethernet-format-error-operation, `Format Error`>> operation.
+
+|====
+
+====== Confirm [[low-cut-ethernet-confirm-operation]]
+The <<low-cut-ethernet-confirm-operation, `Confirm`>> operation is used to indicate the successful transmission of an Ethernet frame by a Network FMU.
+
+.Detailed description of the Confirm operation.
+[#table-fmi3-ls-bus-ethernet-confirm-operation]
+[cols="5,4,3,20"]
+|====
+h|Name 3+| Confirm
+h|Description 3+| Indicates the successful transmission of an Ethernet frame.
+h|OP Code [hex] 3+| 0x15
+.3+h|Content h|Argument h|Length h|Description
+
+| OP Code
+| 4 bytes
+| Type of the operation.
+
+| Length
+| 4 bytes
+| Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 8`.
+
+h|Behavior
+3+|This operation shall be produced by the Bus Simulation and consumed by Network FMUs. +
+Only Network FMUs with the corresponding optionally exposed <<low-cut-ethernet-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for this operation.
+
+|====
+
+====== Format Error [[low-cut-ethernet-format-error-operation]]
+Represents a format error that indicates a syntax or content error of receiving operations.
+See <<low-cut-format-error-operation, `Format Error`>> for definition.
+
+====== Bus Error [[low-cut-ethernet-bus-error-operation]]
+The <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation is used to indicate a bus communication error.
+Bus errors are delivered to every participant in the network.
+
+.Detailed description of the Bus Error operation.
+[#table-fmi3-ls-bus-ethernet-bus-error-operation]
+[cols="5,4,3,20"]
+|====
+h|Name 3+| Bus Error
+h|Description 3+| Indicates an error during the transmission of an Ethernet frame.
+h|OP Code [hex] 3+| 0x16
+.5+h|Content h|Argument h|Length h|Description
+
+| OP Code
+| 4 bytes
+| Type of the operation.
+
+| Length
+| 4 bytes
+| Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 10`.
+
+| Error Code
+| 1 byte
+| Represents the specified bus error to simulate.
+See <<table-fmi3-ls-bus-ethernet-bus-error-code-values>> for possible values.
+
+| Is Sender
+| 1 byte
+| Indicates whether this bus error occurs in response to a transmission of this FMU.
+
+h|Behavior
+3+|When transmitting Ethernet frames, various kinds of bus error may happen.
+A Bus Simulation can simulate such errors by providing <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operations to the Network FMUs.
+Based on consumed <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operations, Network FMUs can react on.
+For a Network FMU that initiated the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation, the argument `Is Sender` shall be set to `TRUE` in the corresponding <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation.
+The arguments `Is Sender = TRUE` must only be set once per simulated error. +
+Only Network FMUs with the corresponding optionally exposed <<low-cut-ethernet-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for this operation and respond accordingly.
+
+|====
+
+.Valid values for the bus error code.
+[#table-fmi3-ls-bus-ethernet-bus-error-code-values]
+[cols="2,1,5"]
+|====
+
+h|Name h|Value h|Description
+|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-unknown]]UNKNOWN|0x00|Unknown error.
+|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy]]MEDIUM_BUSY|0x01|The medium is currently busy.
+|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-collision]]COLLISION|0x02|A frame collided during transmission.
+
+|====
+
+====== Configuration [[low-cut-ethernet-configuration-operation]]
+Represents the transmission of a continuation mPacket.
+
+.Detailed description of the Configuration operation.
+[#table-fmi3-ls-bus-ethernet-configuration-operation]
+[cols="6,1,5,4,3,20"]
+|====
+h|Name 5+| Configuration
+h|Description 5+| Provides information to configure the Ethernet bus.
+h|OP Code [hex] 5+| 0x20
+.8+h|Content 3+h|Argument h|Length h|Description
+
+3+| OP Code
+| 4 bytes
+| Type of the operation.
+
+3+| Length
+| 4 bytes
+| Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 9 + Length of parameter arguments in bytes`.
+
+3+| Parameter Type
+| 1 byte
+| Defines the current configuration parameter.
+
+.4+h|
+4+h|Parameter
+
+.3+|SUPPORTED_PHY_TYPES
+| MDI Mode
+| 1 bytes
+| The configuration of the node's media-dependent interface.
+See <<table-fmi3-ls-bus-ethernet-mdi-mode-values>> for possible values.
+
+| Number of supported PHY types
+| 1 bytes
+| The number of characters in the list of supported PHY types.
+
+| Supported PHY types
+| 1 bytes
+| An array of zero-terminated strings describing PHY types supported by this Ethernet node.
+The first element in this list indicates the type of PHY used by this node.
+The list must have at least one element.
+Elements describing a PHY standardized by 802.3 or an amendment must use the value described in the chapter "30.3.2.1.2 aPhyType" of the standard.
+Otherwise, a vendor-defined value may be used.
+
+h|Behavior
+5+|The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
+The operation shall not be routed to other Network FMUs by the Bus Simulation.
+A Network FMU shall ignore this operation on the consumer side.
+<<low-cut-ethernet-configuration-operation, `Configuration`>> operations can be produced multiple times during the runtime of a Network FMU.
+If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.
+
+|====
+
+.Valid values for the configuration parameter type.
+[#table-fmi3-ls-bus-ethernet-config-parameter-type-values]
+[cols="2,1,5"]
+|====
+
+h|Name h|Value h|Description
+|[[table-fmi3-ls-bus-ethernet-config-parameter-type-values-supported-phy-types]]SUPPORTED_PHY_TYPES|0x00|Indicates the supported Ethernet PHYs of this node.
+
+|====
+
+.Valid values for the MDI mode.
+[#table-fmi3-ls-bus-ethernet-mdi-mode-values]
+[cols="2,1,5"]
+|====
+
+h|Name h|Value h|Description
+|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-none]]NONE|0x00|Not applicable
+|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-mdi]]MDI|0x01|The MDI is wired in normal configuration.
+|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-mdi-x]]MDI_X|0x02|The MDI is wired in crossover configuration.
+|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-auto-mdi-x]]AUTO_MDI_X|0x03|The node supports auto MDI/MDI-X.
+
+|====
+
+====== Wake Up [[low-cut-ethernet-wakeup-operation]]
+Indicates wake up pulse according to <<OpenAlliance-TC10-100BASE-T1, Open Alliance TC10 sleep/wake-up>>.
+
+.Detailed description of the Wakeup operation.
+[#table-fmi3-ls-bus-ethernet-wakeup-operation]
+[cols="5,4,3,20"]
+|====
+h|Name 3+| Wakeup
+h|Description 3+| Indicates a wakeup.
+h|OP Code [hex] 3+| 0x50
+.3+h|Content h|Argument h|Length h|Description
+
+| OP Code
+| 4 bytes
+| Type of the operation.
+
+| Length
+| 4 bytes
+| Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 8`.
+
+h|Behavior
+3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the wake-up initiator, of the bus using the Bus Simulation.
+If a Network FMU does not support wake up, this operation can be ignored on the consumer side.
+
+|====
