@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version ea5de14,</span>
+<span id="revnumber">version e81842e,</span>
 <span id="revdate">2025-06-03</span>
 </div>
 <div id="toc" class="toc2">
@@ -672,7 +672,8 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#low-cut-configuration-terminal">5.4.1.1. Configuration Terminal</a></li>
 </ul>
 </li>
-<li><a href="#low-cut-example">5.4.2. Example</a></li>
+<li><a href="#low-cut-grouping-of-bus-terminals">5.4.2. Grouping of Bus Terminals</a></li>
+<li><a href="#low-cut-example">5.4.3. Example</a></li>
 </ul>
 </li>
 <li><a href="#low-cut-bus-specific-details">5.5. Bus-Specific Details</a>
@@ -776,7 +777,44 @@ document.addEventListener('keydown', (event) => {
 <li><a href="#low-cut-flexray-error-handling">5.5.3.9. Error Handling</a></li>
 </ul>
 </li>
-<li><a href="#_ethernet">5.5.4. Ethernet</a></li>
+<li><a href="#low-cut-ethernet">5.5.4. Ethernet</a>
+<ul class="sectlevel4">
+<li><a href="#low-cut-ethernet-overview">5.5.4.1. Overview</a></li>
+<li><a href="#low-cut-ethernet-ethernet-topologies">5.5.4.2. Ethernet Topologies</a></li>
+<li><a href="#low-cut-ethernet-grouping-terminal-definition">5.5.4.3. Grouping of Bus Terminals</a>
+<ul class="sectlevel5">
+<li><a href="#low-cut-ethernet-segment-terminal">5.5.4.3.1. Ethernet Segment Terminal</a></li>
+<li><a href="#low-cut-ethernet-switch-terminal">5.5.4.3.2. Ethernet Switch Terminal</a></li>
+</ul>
+</li>
+<li><a href="#low-cut-ethernet-operations">5.5.4.4. Operations</a>
+<ul class="sectlevel5">
+<li><a href="#low-cut-ethernet-transmit-operation">5.5.4.4.1. Transmit</a></li>
+<li><a href="#low-cut-ethernet-confirm-operation">5.5.4.4.2. Confirm</a></li>
+<li><a href="#low-cut-ethernet-format-error-operation">5.5.4.4.3. Format Error</a></li>
+<li><a href="#low-cut-ethernet-bus-error-operation">5.5.4.4.4. Bus Error</a></li>
+<li><a href="#low-cut-ethernet-configuration-operation">5.5.4.4.5. Configuration</a></li>
+<li><a href="#low-cut-ethernet-wakeup-operation">5.5.4.4.6. Wake Up</a></li>
+</ul>
+</li>
+<li><a href="#low-cut-ethernet-network-parameters">5.5.4.5. Network Parameters</a>
+<ul class="sectlevel5">
+<li><a href="#low-cut-ethernet-bus-notification-parameter">5.5.4.5.1. Bus Notification Parameter</a></li>
+</ul>
+</li>
+<li><a href="#low-cut-ethernet-transmission">5.5.4.6. Transmission and Reception</a>
+<ul class="sectlevel5">
+<li><a href="#low-cut-ethernet-normal-transmission">5.5.4.6.1. Normal Transmission</a></li>
+<li><a href="#low-cut-ethernet-transmission-with-avoided-collision">5.5.4.6.2. Transmission with Avoided Collision</a></li>
+<li><a href="#low-cut-ethernet-transmission-with-collision">5.5.4.6.3. Transmission with Collision</a></li>
+<li><a href="#low-cut-ethernet-fragmented-transmission-using-merge-sublayer">5.5.4.6.4. Fragmented Transmission using the MAC Merge Sublayer</a></li>
+</ul>
+</li>
+<li><a href="#low-cut-ethernet-configuration">5.5.4.7. Configuration</a></li>
+<li><a href="#low-cut-ethernet-error-handling">5.5.4.8. Error Handling</a></li>
+<li><a href="#low-cut-ethernet-wakeup-sleep">5.5.4.9. Wake Up/Sleep</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1150,6 +1188,12 @@ These header files apply to all supported bus types of the layered standard.</p>
 </li>
 <li>
 <p><a href="https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtilFlexRay.h">fmi3LsBusUtilFlexRay.h</a> provides FlexRay explicit utility macros.</p>
+</li>
+<li>
+<p><a href="https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusEthernet.h">fmi3LsBusEthernet.h</a> provides macros, types and structures of Bus Operations for Ethernet.</p>
+</li>
+<li>
+<p><a href="https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtilEthernet.h">fmi3LsBusUtilEthernet.h</a> provides Ethernet explicit utility macros.</p>
 </li>
 </ul>
 </div>
@@ -2306,6 +2350,10 @@ Empty Configuration Terminals can be omitted.</p>
 </div>
 <div class="sect4">
 <h5 id="low-cut-configuration-terminal">5.4.1.1. Configuration Terminal</h5>
+<div class="paragraph">
+<p>Within Configuration Terminals, bus-specific configuration parameters are defined.
+A Configuration Terminal satisfies the following definition:</p>
+</div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Attributes of the nested Configuration Terminal</dt>
@@ -2329,7 +2377,44 @@ Empty Configuration Terminals can be omitted.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="low-cut-example">5.4.2. Example</h4>
+<h4 id="low-cut-grouping-of-bus-terminals">5.4.2. Grouping of Bus Terminals</h4>
+<div class="paragraph">
+<p>In problem-specific domains, it may be useful to group several Bus Terminal elements semantically.
+This grouping is also done using terminals.
+The grouping can be done at any nesting depth.
+Grouping can generally be used for all bus types of Network Abstraction.
+Depending on the bus-specific definition, buses can introduce special terminal kinds for grouping of Bus Terminals to give them more semantics and to use their functionality.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Attributes of the Grouping Terminal</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>terminalKind</code> may be explicitly defined by a specific bus to give more meaning to a respective group of Bus Terminals; otherwise not set.</p>
+</li>
+<li>
+<p><code>matchingRule</code> must be <code>none</code>.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Elements of a Grouping Terminal</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>&lt;Terminal&gt;</code> element shall contain the desired number of <a href="#low-cut-bus-terminal">Bus Terminal</a> elements.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="low-cut-example">5.4.3. Example</h4>
 <div class="paragraph">
 <p>The following excerpts from files are used throughout this document as examples and illustrate how the different concepts relate.</p>
 </div>
@@ -5981,9 +6066,923 @@ Depending on the type of <a href="#low-cut-flexray-bus-error-operation"><code>Bu
 </div>
 </div>
 <div class="sect3">
-<h4 id="_ethernet">5.5.4. Ethernet</h4>
+<h4 id="low-cut-ethernet">5.5.4. Ethernet</h4>
 <div class="paragraph">
-<p><mark>This chapter is currently under development.</mark></p>
+<p>This standard should allow simulation of Ethernet bus systems and shall cover commercial, industrial and automotive use cases based on the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a>.</p>
+</div>
+<div class="paragraph">
+<p>This standard covers all variants of Ethernet (e.g. 10BASE-T, 100BASE-TX, 1000BASE-T, 10GBASE-T, 100BASE-T1, 1000BASE-T1, 10BASE-T1S, etc.) described in <a href="#IEEE-802.3-2022">IEEE 802.3</a> while being flexible enough to support future versions without adaption due to the high cadence of the Ethernet standardization process.
+In addition, common supplementary standards are considered, including the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#OpenAlliance-TC10-100BASE-T1">Open Alliance TC10 sleep/wake-up</a> (including <a href="#OpenAlliance-TC10-100BASE-T1">100BASE-T</a>, <a href="#OpenAlliance-TC10-1000BASE-T1">1000BASE-T1</a> and <a href="#OpenAlliance-TC10-10BASE-T1S">10BASE-T1S</a>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Especially the physical layers 100BASE-TX, 1000BASE-T, 10GBASE-T, 100BASE-T1, 1000BASE-T1 and 10BASE-T1S have been evaluated in detail for this standard.
+In addition, it should consider requirements for time-sensitive networking (TSN), specifically the use of the MAC Merge sublayer (also known as Ethernet Frame Preemption).</p>
+</div>
+<div class="paragraph">
+<p>The layered standard aims to provide an abstraction of the Ethernet controller on the Media Access Control (MAC) sublayer according to the 802.3 architecture.
+Effects on lower layers are modeled on a simplified level.</p>
+</div>
+<div class="sect4">
+<h5 id="low-cut-ethernet-overview">5.5.4.1. Overview</h5>
+<div class="paragraph">
+<p>To simulate the Ethernet bus type, Ethernet-specific operations are specified based on the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a>.
+Overall, the following groups of operations exists:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Transmit: This group of operations is used to simulate a frame transmission.
+Different types of Ethernet frames (e.g. Express frames) are taken into account here.</p>
+</li>
+<li>
+<p>Confirm: Represents an confirmation of transmitted Ethernet frames.</p>
+</li>
+<li>
+<p>Error: This group of operations is used for protocol format errors and to simulate bus failures.
+For example, the failure of a transmission can be indicated.</p>
+</li>
+<li>
+<p>Configuration: This operation enables the configuration of bus-specific parameters and options that are required to simulate the bus behavior properly.</p>
+</li>
+<li>
+<p>Wake up: Ethernet supports wake up and sleep scenarios.
+Normally there are two ways to wake up from sleep mode: a local wake up on a specified wake-up pin, or a wake-up on the Ethernet bus via a Ethernet specific wake-up pulse.
+This operation is used to simulate triggering a wake-up from bus side.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following table gives a detailed overview of the available operations.
+It shows all operations and the arguments they contain.</p>
+</div>
+<table id="table-operation-content-ethernet" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 49. Overview of the available operations for Ethernet.</caption>
+<colgroup>
+<col style="width: 23.2876%;">
+<col style="width: 1.3698%;">
+<col style="width: 8.2191%;">
+<col style="width: 1.3698%;">
+<col style="width: 6.8493%;">
+<col style="width: 20.5479%;">
+<col style="width: 17.8082%;">
+<col style="width: 1.3698%;">
+<col style="width: 2.7397%;">
+<col style="width: 6.8493%;">
+<col style="width: 6.8493%;">
+<col style="width: 2.7402%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Operation Name</p></th>
+<th class="tableblock halign-left valign-top" colspan="11"><p class="tableblock">Operation Content</p></th>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+<th class="tableblock halign-left valign-top" colspan="9"><p class="tableblock">Specific Content</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Format Error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 10 + n<br>
+(4 bytes)</p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">DL <sup class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnotedef_7" title="View footnote.">7</a>]</sup><br>
+(2 bytes)</p></td>
+<td class="tableblock halign-left valign-top" colspan="7"><p class="tableblock">Data<br>
+(n bytes)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transmit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 26 + DL<br>
+(4 bytes)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Destination Address<br>
+(6 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source Address<br>
+(6 byte)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">DL<br>
+(1 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Data<br>
+(n bytes)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Confirm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 8<br>
+(4 bytes)</p></td>
+<td class="tableblock halign-left valign-top" colspan="9"><p class="tableblock">---</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bus Error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 10<br>
+(4 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Error Code<br>
+(1 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="7"><p class="tableblock">Is Sender<br>
+(1 byte)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x20</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;Length&gt;<br>
+(4 bytes)</p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Kind<br>
+(1 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="7"><p class="tableblock"><em>Dynamic Part</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wakeup</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x50</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 8<br>
+(4 bytes)</p></td>
+<td class="tableblock halign-left valign-top" colspan="9"><p class="tableblock">---</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="low-cut-ethernet-ethernet-topologies">5.5.4.2. Ethernet Topologies</h5>
+<div class="paragraph">
+<p>Ethernet support both point-to-point and multidrop topologies.
+In a point-to-point topology, Ethernet devices are either connected directly or more than two devices are connected using an Ethernet switch.
+This topology is used for all modern Ethernet variants except 10BASE-T1S.
+In a multidrop topology, multiple devices are connected to the same segment either directly, daisy-chained or interconnected via hubs.
+This topology is used in legacy Ethernet systems as well as 10BASE-T1S networks.</p>
+</div>
+<div class="paragraph">
+<p>For creating simulation systems with the different kind of Ethernet connections, Bus Terminals can either be grouped by an <a href="#low-cut-ethernet-segment-terminal">Ethernet Segment Terminal</a> or an <a href="#low-cut-ethernet-switch-terminal">Ethernet Switch Terminal</a>.
+Since an Ethernet switch can be implemented both in the Network FMU and in the Bus Simulation, an Ethernet Switch Terminal can be used for both.
+However, a Segment Terminal should only be used to group Bus Terminals of a Bus Simulation.</p>
+</div>
+<div class="paragraph">
+<p><a href="#figure-ethernet-topology-switch-inside-bus-simulation">Figure 29</a> illustrates an Ethernet topology in which for Network FMUs are integrated via a Bus Simulation.
+The Network FMUs are partly connected directly via Ethernet segments and partly via a switch.
+In this scenario the switch is integrated within the Bus Simulation.
+In addition, there are a total of three segments within the topology.
+Two segments with two connections each (point-to-point) and one segment with three connections (multidrop).</p>
+</div>
+<div id="figure-ethernet-topology-switch-inside-bus-simulation" class="imageblock text-center">
+<div class="content">
+<img src="images/ethernet_topology_switch_inside_Bus_Simulation.svg" alt="ethernet topology switch inside Bus Simulation" width="70%">
+</div>
+<div class="title">Figure 29. Ethernet topologies: Switch inside Bus Simulation.</div>
+</div>
+<div class="paragraph">
+<p><a href="#figure-ethernet-topology-switch-inside-network-fmu">Figure 30</a> illustrates an Ethernet topology in which for Network FMUs are integrated via a Bus Simulation.
+The Network FMUs are partly connected directly via Ethernet segments and partly via a switch.
+In this scenario the switch is integrated within a Network FMU.
+Although the switch is contained within the Network FMU, the communication here is also realized via the Bus Simulation.
+In addition, there are a total of three segments within the topology.
+Two segments with two connections each (point-to-point) and one segment with three connections (multidrop).</p>
+</div>
+<div id="figure-ethernet-topology-switch-inside-network-fmu" class="imageblock text-center">
+<div class="content">
+<img src="images/ethernet_topology_switch_inside_FMU.svg" alt="ethernet topology switch inside FMU" width="70%">
+</div>
+<div class="title">Figure 30. Ethernet topologies: Switch inside Network FMU.</div>
+</div>
+<div class="paragraph">
+<p>The two Ethernet topologies shown are merely examples.
+Overall, a large number of variants are possible and necessary, depending on the application.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="low-cut-ethernet-grouping-terminal-definition">5.5.4.3. Grouping of Bus Terminals</h5>
+<div class="paragraph">
+<p>This section defines special <a href="#low-cut-grouping-of-bus-terminals">grouping of Bus Terminals</a> for Ethernet.
+The usage is optional but recommended.</p>
+</div>
+<div class="sect5">
+<h6 id="low-cut-ethernet-segment-terminal">5.5.4.3.1. Ethernet Segment Terminal</h6>
+<div class="paragraph">
+<p>The Bus Terminals of a Bus Simulation should be grouped by the Segment Terminal in order to facilitate the creation of Ethernet topologies.
+A Segment Terminal that comprises two Bus Terminals shall behave point-to-point, with more than two multidroped.</p>
+</div>
+<div class="paragraph">
+<p>The Segment Terminal additionally defines the following properties, based on the ruleset of <a href="#low-cut-grouping-of-bus-terminals">Section 5.4.2</a>:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Attributes of a Ethernet Segment Terminal</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>terminalKind</code> must be <code>org.fmi-ls-bus.ethernet-segment-terminal</code>.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect5">
+<h6 id="low-cut-ethernet-switch-terminal">5.5.4.3.2. Ethernet Switch Terminal</h6>
+<div class="paragraph">
+<p>Bus Terminals which are used only for routing Ethernet frames, may be grouped by this terminal.
+The Ethernet Switch Terminal additionally defines the following properties, based on the ruleset of <a href="#low-cut-grouping-of-bus-terminals">Section 5.4.2</a>:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Attributes of a Switch Terminal</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>terminalKind</code> must be <code>org.fmi-ls-bus.ethernet-switch-terminal</code>.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="low-cut-ethernet-operations">5.5.4.4. Operations</h5>
+<div class="paragraph">
+<p>This section defines the specified operations for Ethernet.
+The following tables provide an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.</p>
+</div>
+<div class="sect5">
+<h6 id="low-cut-ethernet-transmit-operation">5.5.4.4.1. Transmit</h6>
+<div class="paragraph">
+<p>Represents the transmission of an Ethernet frame or MAC Merge Packet (mPacket).</p>
+</div>
+<table id="table-fmi3-ls-bus-ethernet-transmit-operation" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 50. Detailed description of the Transmit operation.</caption>
+<colgroup>
+<col style="width: 15.625%;">
+<col style="width: 12.5%;">
+<col style="width: 9.375%;">
+<col style="width: 62.5%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Transmit</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Indicates the transmission of an Ethernet frame or mPacket.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x10</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="11"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Argument</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of the operation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: <code>Length = 26 + Data Length</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start Delimiter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The start frame (SFD) or start mPacket (SMD) delimiter.
+Always set to 0xD5 for ordinary Ethernet frames when not using preemption/fragmentation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fragment Counter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fragment counter of the continuation mPacket.
+Must be set to 0, if this is not a continuation mPacket.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Last Fragment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates whether this is the last fragment of a fragmented Ethernet frame.
+Must be set to <code>TRUE</code> if this is a full Ethernet frame.
+For specification the boolean values <code>TRUE</code> and <code>FALSE</code> (see <a href="#table-boolean-value-kinds">Table 5</a>) shall be used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Destination Address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The destination address of the frame.
+Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source Address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The destination address of the frame.
+Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EtherType or Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the type of Ethernet frame (Ethernet II) or frame length (802.3).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The length of the data of this Ethernet frame or mPacket.
+Note that this does not correspond to a field in the Ethernet frame.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The payload data of the Ethernet frame or mPacket.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation shall be provided by Network FMUs to initiate the transmission of an Ethernet frame.
+In case of directly connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.2.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.2.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.2.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
+Depending on the simulation details, the Bus Simulation might respond with a <a href="#low-cut-ethernet-confirm-operation"><code>Confirm</code></a>, <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> or <a href="#low-cut-ethernet-format-error-operation"><code>Format Error</code></a> operation.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="low-cut-ethernet-confirm-operation">5.5.4.4.2. Confirm</h6>
+<div class="paragraph">
+<p>The <a href="#low-cut-ethernet-confirm-operation"><code>Confirm</code></a> operation is used to indicate the successful transmission of an Ethernet frame by a Network FMU.</p>
+</div>
+<table id="table-fmi3-ls-bus-ethernet-confirm-operation" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 51. Detailed description of the Confirm operation.</caption>
+<colgroup>
+<col style="width: 15.625%;">
+<col style="width: 12.5%;">
+<col style="width: 9.375%;">
+<col style="width: 62.5%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Confirm</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Indicates the successful transmission of an Ethernet frame.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x15</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Argument</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of the operation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: <code>Length = 8</code>.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">This operation shall be produced by the Bus Simulation and consumed by Network FMUs.<br>
+Only Network FMUs with the corresponding optionally exposed <a href="#low-cut-ethernet-bus-notification-parameter"><code>BusNotifications</code></a> parameter set to <code>fmi3True</code> might wait for this operation.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="low-cut-ethernet-format-error-operation">5.5.4.4.3. Format Error</h6>
+<div class="paragraph">
+<p>Represents a format error that indicates a syntax or content error of receiving operations.
+See <a href="#low-cut-format-error-operation"><code>Format Error</code></a> for definition.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="low-cut-ethernet-bus-error-operation">5.5.4.4.4. Bus Error</h6>
+<div class="paragraph">
+<p>The <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation is used to indicate a bus communication error.
+Bus errors are delivered to every participant in the network.</p>
+</div>
+<table id="table-fmi3-ls-bus-ethernet-bus-error-operation" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 52. Detailed description of the Bus Error operation.</caption>
+<colgroup>
+<col style="width: 15.625%;">
+<col style="width: 12.5%;">
+<col style="width: 9.375%;">
+<col style="width: 62.5%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Bus Error</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Indicates an error during the transmission of an Ethernet frame.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x16</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="5"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Argument</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of the operation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: <code>Length = 10</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Error Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Represents the specified bus error to simulate.
+See <a href="#table-fmi3-ls-bus-ethernet-bus-error-code-values">Table 53</a> for possible values.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Is Sender</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates whether this bus error occurs in response to a transmission of this FMU.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">When transmitting Ethernet frames, various kinds of bus error may happen.
+A Bus Simulation can simulate such errors by providing <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operations to the Network FMUs.
+Based on consumed <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operations, Network FMUs can react on.
+For a Network FMU that initiated the <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation, the argument <code>Is Sender</code> shall be set to <code>TRUE</code> in the corresponding <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation.
+The arguments <code>Is Sender = TRUE</code> must only be set once per simulated error.<br>
+Only Network FMUs with the corresponding optionally exposed <a href="#low-cut-ethernet-bus-notification-parameter"><code>BusNotifications</code></a> parameter set to <code>fmi3True</code> might wait for this operation and respond accordingly.</p></td>
+</tr>
+</tbody>
+</table>
+<table id="table-fmi3-ls-bus-ethernet-bus-error-code-values" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 53. Valid values for the bus error code.</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 62.5%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Value</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="table-fmi3-ls-bus-ethernet-bus-error-code-values-unknown"></a>UNKNOWN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x00</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unknown error.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy"></a>MEDIUM_BUSY</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The medium is currently busy.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="table-fmi3-ls-bus-ethernet-bus-error-code-values-collision"></a>COLLISION</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x02</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A frame collided during transmission.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="low-cut-ethernet-configuration-operation">5.5.4.4.5. Configuration</h6>
+<div class="paragraph">
+<p>Represents the transmission of a continuation mPacket.</p>
+</div>
+<table id="table-fmi3-ls-bus-ethernet-configuration-operation" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 54. Detailed description of the Configuration operation.</caption>
+<colgroup>
+<col style="width: 15.3846%;">
+<col style="width: 2.5641%;">
+<col style="width: 12.8205%;">
+<col style="width: 10.2564%;">
+<col style="width: 7.6923%;">
+<col style="width: 51.2821%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Configuration</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Provides information to configure the Ethernet bus.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">0x20</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="8"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Argument</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">OP Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of the operation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: <code>Length = 9 + Length of parameter arguments in bytes</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Parameter Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the current configuration parameter.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="4"></th>
+<th class="tableblock halign-left valign-top" colspan="4"><p class="tableblock">Parameter</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">SUPPORTED_PHY_TYPES</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MDI Mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The configuration of the node&#8217;s media-dependent interface.
+See <a href="#table-fmi3-ls-bus-ethernet-mdi-mode-values">Table 56</a> for possible values.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of supported PHY types</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of characters in the list of supported PHY types.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Supported PHY types</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An array of zero-terminated strings describing PHY types supported by this Ethernet node.
+The first element in this list indicates the type of PHY used by this node.
+The list must have at least one element.
+Elements describing a PHY standardized by 802.3 or an amendment must use the value described in the chapter "30.3.2.1.2 aPhyType" of the standard.
+Otherwise, a vendor-defined value may be used.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
+The operation shall not be routed to other Network FMUs by the Bus Simulation.
+A Network FMU shall ignore this operation on the consumer side.
+<a href="#low-cut-ethernet-configuration-operation"><code>Configuration</code></a> operations can be produced multiple times during the runtime of a Network FMU.
+If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.</p></td>
+</tr>
+</tbody>
+</table>
+<table id="table-fmi3-ls-bus-ethernet-config-parameter-type-values" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 55. Valid values for the configuration parameter type.</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 62.5%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Value</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="table-fmi3-ls-bus-ethernet-config-parameter-type-values-supported-phy-types"></a>SUPPORTED_PHY_TYPES</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x00</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the supported Ethernet PHYs of this node.</p></td>
+</tr>
+</tbody>
+</table>
+<table id="table-fmi3-ls-bus-ethernet-mdi-mode-values" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 56. Valid values for the MDI mode.</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 62.5%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Value</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="table-fmi3-ls-bus-ethernet-mdi-mode-values-none"></a>NONE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x00</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not applicable</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="table-fmi3-ls-bus-ethernet-mdi-mode-values-mdi"></a>MDI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x01</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The MDI is wired in normal configuration.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="table-fmi3-ls-bus-ethernet-mdi-mode-values-mdi-x"></a>MDI_X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x02</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The MDI is wired in crossover configuration.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="table-fmi3-ls-bus-ethernet-mdi-mode-values-auto-mdi-x"></a>AUTO_MDI_X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0x03</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The node supports auto MDI/MDI-X.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="low-cut-ethernet-wakeup-operation">5.5.4.4.6. Wake Up</h6>
+<div class="paragraph">
+<p>Indicates wake up pulse according to <a href="#OpenAlliance-TC10-100BASE-T1">Open Alliance TC10 sleep/wake-up</a>.</p>
+</div>
+<table id="table-fmi3-ls-bus-ethernet-wakeup-operation" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 57. Detailed description of the Wakeup operation.</caption>
+<colgroup>
+<col style="width: 15.625%;">
+<col style="width: 12.5%;">
+<col style="width: 9.375%;">
+<col style="width: 62.5%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Wakeup</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Indicates a wakeup.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x50</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Argument</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of the operation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: <code>Length = 8</code>.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The specified operation shall be produced by a Network FMU and distributed to all participants, except the wake-up initiator, of the bus using the Bus Simulation.
+If a Network FMU does not support wake up, this operation can be ignored on the consumer side.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="low-cut-ethernet-network-parameters">5.5.4.5. Network Parameters</h5>
+<div class="paragraph">
+<p>By using configuration parameters on Bus Terminal-level, Network FMUs can be parameterized by the user or Bus Simulation (e.g., by using the parameter propagation mechanism).
+This chapter specifies the configuration parameters that should exist on an Ethernet Bus Terminal.</p>
+</div>
+<div class="sect5">
+<h6 id="low-cut-ethernet-bus-notification-parameter">5.5.4.5.1. Bus Notification Parameter</h6>
+<div class="paragraph">
+<p>For a detailed simulation, a Network FMU needs information about whether a frame has been sent or whether a bus error has occurred.
+A Bus Simulation can simulate these effects by sending bus notifications in terms of <a href="#low-cut-ethernet-confirm-operation"><code>Confirm-</code></a> and <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operations to the Network FMUs.</p>
+</div>
+<div class="paragraph">
+<p>However, in scenarios where Network FMUs are connected directly to each other, or where the Bus Simulation does not simulate such effects, it must be possible to configure the Network FMU such that it does not wait for any response after a <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation.
+Therefore, a parameter with <code>memberName = "BusNotifications"</code> can be added within the Ethernet-specific  <a href="#low-cut-configuration-terminal">Configuration Terminal</a>.<br>
+If a Network FMU supports bus notifications, the <a href="#low-cut-ethernet-bus-notification-parameter"><code>BusNotifications</code></a> parameter shall be exposed.
+The default value of this parameter shall be <code>false</code>.<br>
+<em>[The default value <code>false</code> allows a simple integration of Network FMUs to simulation scenarios where <a href="#low-cut-ethernet-confirm-operation"><code>Confirm-</code></a> or <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operations are not used.]</em></p>
+</div>
+<div class="paragraph">
+<p>Only Network FMUs with the corresponding optionally exposed <a href="#low-cut-ethernet-bus-notification-parameter"><code>BusNotifications</code></a> parameter set to <code>fmi3True</code> might wait for <a href="#low-cut-ethernet-confirm-operation"><code>Confirm-</code></a> and <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operations and respond accordingly; otherwise Network FMUs must not wait ("fire-and-forget").
+Even if the Network FMU does not expect bus notifications, i.e. <a href="#low-cut-ethernet-bus-notification-parameter"><code>BusNotifications</code></a> variable was not set to <code>fmi3True</code>, but receives them, it shall ignore them, i.e. it shall not report warnings or errors.</p>
+</div>
+<div id="figure-fmu-ethernet-bus-notifications-parameter" class="listingblock">
+<div class="title">Parameter to configure bus notifications within an Ethernet Bus Terminal of Network FMUs.</div>
+<div class="content">
+<pre> memberName:    BusNotifications
+ type:          Boolean
+ causality:     parameter
+ variability:   fixed
+ start:         false</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A Bus Simulation FMU shall indicate via a variable with <code>memberName = "BusNotifications"</code> within the Ethernet-specific  <a href="#low-cut-configuration-terminal">Configuration Terminal</a> whether it provides bus notifications or not.
+If the provision of bus notifications can be configured (e.g., via a structural parameter), the attributes of the <a href="#low-cut-ethernet-bus-notification-parameter"><code>BusNotifications</code></a> variable shall contain <code>causality = "calculatedParameter"</code> and <code>variability = "fixed"</code>; or <code>causality = "output"</code> and <code>variability = "constant"</code> otherwise.</p>
+</div>
+<div id="figure-fmu-ethernet-bus-notifications-parameter-in-bus-simulation" class="listingblock">
+<div class="title">Parameter to configure bus notifications within an Ethernet Bus Terminal of the Bus Simulation.</div>
+<div class="content">
+<pre> memberName:    BusNotifications
+ type:          Boolean
+ causality:     calculatedParameter/output
+ variability:   fixed/constant</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="low-cut-ethernet-transmission">5.5.4.6. Transmission and Reception</h5>
+<div class="paragraph">
+<p>A transmission of an Ethernet frame is modeled by a <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation.
+Based on the particular <a href="#common-concepts-system-compositions">System Composition</a> under which the Network FMUs are integrated in the overall simulation system, either a Bus Simulation is used or not.
+If a Bus Simulation is used the <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation is received by the Bus Simulation and forwarded to the communication partner after the transmission delay which should be calculated by the Bus Simulation.
+The Bus Simulation then sends a <a href="#low-cut-ethernet-confirm-operation"><code>Confirm</code></a> operation to the sender, if the <a href="#low-cut-ethernet-bus-notification-parameter"><code>BusNotifications</code></a> parameter is set to <code>fmi3True</code>.
+In the case of an error or collision, a <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation may be returned instead.
+In addition, the <a href="#low-cut-ethernet-bus-notification-parameter"><code>BusNotifications</code></a> parameter can also be set to <code>false</code> to support lightweight bus simulations and <a href="#common-concepts-direct-communication">directly connected Network FMUs</a>.</p>
+</div>
+<div class="paragraph">
+<p>The following sections will describe different transmission scenarios in detail.</p>
+</div>
+<div class="sect5">
+<h6 id="low-cut-ethernet-normal-transmission">5.5.4.6.1. Normal Transmission</h6>
+<div class="paragraph">
+<p>In a normal transmission, the Network FMU sends a <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation which is
+forwarded to the communication partner after the calculated transmission time.
+Depending on the <a href="#low-cut-ethernet-bus-notification-parameter"><code>BusNotifications</code></a> parameter the Bus Simulation confirms the transmission with a <a href="#low-cut-ethernet-confirm-operation"><code>Confirm</code></a> operation.</p>
+</div>
+<div class="paragraph">
+<p><a href="#figure-ethernet-transmit">Figure 31</a> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation under the condition that <a href="#low-cut-ethernet-bus-notification-parameter"><code>BusNotifications</code></a> parameter is <code>false</code>.</p>
+</div>
+<div id="figure-ethernet-transmit" class="imageblock text-center">
+<div class="content">
+<img src="images/ethernet_transmit.svg" alt="ethernet transmit" width="70%">
+</div>
+<div class="title">Figure 31. Normal Ethernet transmission with Bus Simulation without Confirmation operation.</div>
+</div>
+<div class="paragraph">
+<p><a href="#figure-ethernet-transmit-with-confirm">Figure 32</a> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation under the condition that <a href="#low-cut-ethernet-bus-notification-parameter"><code>BusNotifications</code></a> parameter is set to <code>fmi3True</code>.
+After the transmission has been successfully completed, the Bus Simulation acknowledges this process by using a <a href="#low-cut-ethernet-confirm-operation"><code>Confirm</code></a> operation, which is provided to FMU 1.</p>
+</div>
+<div id="figure-ethernet-transmit-with-confirm" class="imageblock text-center">
+<div class="content">
+<img src="images/ethernet_transmit_with_confirm.svg" alt="ethernet transmit with confirm" width="70%">
+</div>
+<div class="title">Figure 32. Normal Ethernet transmission with Bus Simulation and Confirmation operation.</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="low-cut-ethernet-transmission-with-avoided-collision">5.5.4.6.2. Transmission with Avoided Collision</h6>
+<div class="paragraph">
+<p>On a real Ethernet bus, an Ethernet node can use carrier sensing to detect ongoing transmissions to defer its own transmission until the medium is free.
+In the FMI-LS-BUS specification, this is not possible, thus a special bus error is introduced to indicate when the medium is busy.</p>
+</div>
+<div class="paragraph">
+<p>When a Network FMU starts a transmission in this case, the Bus Simulation returns a <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation with value of argument argument <code>Error Code</code> set to <a href="#table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy"><code>MEDIUM_BUSY</code></a>.
+The Network FMU should the re-attempt the transmission at a later point in time.</p>
+</div>
+<div class="paragraph">
+<p><em>Note: In this scenario the ongoing transmission continues.</em></p>
+</div>
+<div class="paragraph">
+<p><a href="#figure-ethernet-transmit-collision-avoided">Figure 33</a> illustrates how FMU 1 firstly provides a <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation to the Bus Simulation.
+While the transmission is still running, FMU 2 tries to provide another <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation.
+This leads to a conflict because the simulated bus is already occupied by the transmission from FMU 1.
+FMU 2 is notified of this situation by receiving a <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation with argument <code>Error Code</code> set to <a href="#table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy"><code>MEDIUM_BUSY</code></a> by the Bus Simulation.
+The <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation, originally provided by FMU 1, is then provided to FMU 2 and FMU 3.
+FMU 1 acknowledges a successful transmission using a <a href="#low-cut-ethernet-confirm-operation"><code>Confirm</code></a> operation.</p>
+</div>
+<div id="figure-ethernet-transmit-collision-avoided" class="imageblock text-center">
+<div class="content">
+<img src="images/ethernet_transmit_collision_avoided.svg" alt="ethernet transmit collision avoided" width="90%">
+</div>
+<div class="title">Figure 33. Transmission with avoided collision with Bus Simulation.</div>
+</div>
+<div class="paragraph">
+<p>In this context, \(T_{\mathrm{transmit}}\) defines the length of the message transmission.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="low-cut-ethernet-transmission-with-collision">5.5.4.6.3. Transmission with Collision</h6>
+<div class="paragraph">
+<p>If the Ethernet node does not detect an ongoing transmission in time, the Ethernet frames collide causing both transmissions to be destroyed.</p>
+</div>
+<div class="paragraph">
+<p>When a Network FMU starts a transmission in this case, the Bus Simulation returns a <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation with value of argument <code>Error Code</code> set to <a href="#table-fmi3-ls-bus-ethernet-bus-error-code-values-collision"><code>COLLISION</code></a>.
+This is also sent to other nodes on the bus including the sender of the other transmission.</p>
+</div>
+<div class="paragraph">
+<p><em>Note: In this scenario the ongoing transmission is destroyed as well.</em></p>
+</div>
+<div class="paragraph">
+<p><a href="#figure-ethernet-transmit-collision">Figure 34</a> illustrates how FMU 1 firstly provides a <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation to the Bus Simulation.
+While the transmission is still running, FMU 2 tries to provide another <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation.
+This leads to a conflict because the simulated bus is already occupied by the transmission from FMU 1.
+All three Network FMUs are notified of this situation by receiving a <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation with argument <code>Error Code</code> set to <a href="#table-fmi3-ls-bus-ethernet-bus-error-code-values-collision"><code>COLLISION</code></a> by the Bus Simulation.</p>
+</div>
+<div id="figure-ethernet-transmit-collision" class="imageblock text-center">
+<div class="content">
+<img src="images/ethernet_transmit_collision.svg" alt="ethernet transmit collision" width="90%">
+</div>
+<div class="title">Figure 34. Transmission with collision with Bus Simulation.</div>
+</div>
+<div class="paragraph">
+<p>In this context, \(T_{\mathrm{transmit}}\) defines the length of the message transmission.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="low-cut-ethernet-fragmented-transmission-using-merge-sublayer">5.5.4.6.4. Fragmented Transmission using the MAC Merge Sublayer</h6>
+<div class="paragraph">
+<p>In order for Ethernet to be used for various application domains that have real-time requirements for the network technology used, Ethernet Frame Preemption (also known as MAC Merge sublayer) was developed and specified as part of Time Sensitive Networking (TSN).
+This chapter describes its realization via this layered standard.</p>
+</div>
+<div class="paragraph">
+<p>When using the MAC Merge sublayer (see <a href="#IEEE-802.3-2022">IEEE 802.3</a>, section 99, page 4049 et seqq.),
+the <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation can also indicate the transmission of Express frames and the initial fragment of preempted frames.
+Continuation packets of a preempted frame are also transmitted using the <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation with a start delimiter indicating a continuation.</p>
+</div>
+<div class="paragraph">
+<p>Before the MAC Merge sublayer is used, <em>Verify</em> and <em>Respond</em> frames are used to verify that the link partner supports this functionality, these are indicated by an <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation with a special start delimiter.</p>
+</div>
+<div class="paragraph">
+<p><a href="#figure-ethernet-transmit-fragmented">Figure 35</a> illustrates how the two Network FMUs FMU 1 and FMU 2 first agree on the exchange of Express frames with the help of a Bus Simulation by performing a handshake via the <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation with <code>Verify</code> or <code>Respond</code> start delimiter.
+Afterwards, the first fragment of the first Ethernet frame is sent from FMU 1 to FMU 2 via the Bus Simulation by using a <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation.
+In the next step, FMU 1 sends another <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation, which does not refer to the first Ethernet frame fragment.
+In the third step, the second fragment of the Ethernet frame is provided from FMU 1 to FMU 2 by using a <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation with start delimiter indicating a continuation.</p>
+</div>
+<div id="figure-ethernet-transmit-fragmented" class="imageblock text-center">
+<div class="content">
+<img src="images/ethernet_transmit_fragmented.svg" alt="ethernet transmit fragmented" width="80%">
+</div>
+<div class="title">Figure 35. Illustration of a  fragmented Ethernet transmission, by using Ethernet Express frames.</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="low-cut-ethernet-configuration">5.5.4.7. Configuration</h5>
+<div class="paragraph">
+<p>Before an Ethernet Network FMU may communicate, it must send a <a href="#table-fmi3-ls-bus-ethernet-configuration-operation"><code>Configuration</code></a> operation.
+Only after also receiving a <a href="#low-cut-ethernet-configuration-operation"><code>Configuration</code></a> operation and evaluating it against its own configuration for compatibility, it may start transmitting frames.</p>
+</div>
+<div class="paragraph">
+<p>In a direct connection scenario, <a href="#low-cut-ethernet-configuration-operation"><code>Configuration</code></a> operations are exchanged as-is.
+With a Bus Simulation, <a href="#low-cut-ethernet-configuration-operation"><code>Configuration</code></a> operations may either be forwarded by a Bus Simulation or the Bus Simulation may supply its own <a href="#low-cut-ethernet-configuration-operation"><code>Configuration</code></a> operation to each node.
+In a multidrop configuration, the Bus Simulation shall not forward <a href="#low-cut-ethernet-configuration-operation"><code>Configuration</code></a> operations but should supply a single <a href="#low-cut-ethernet-configuration-operation"><code>Configuration</code></a> operation to each Network FMU.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="low-cut-ethernet-error-handling">5.5.4.8. Error Handling</h5>
+<div class="paragraph">
+<p>To model errors on the Ethernet bus, <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operations are used.
+These operations may be sent by a Bus Simulation to all Network FMUs which may detect that errors.</p>
+</div>
+<div class="paragraph">
+<p>A Bus Simulation may also inject errors into the simulation, by sending a <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation.</p>
+</div>
+<div id="figure-ethernet-architectural-error-handling-overview" class="imageblock text-center">
+<div class="content">
+<img src="images/ethernet_error_handling_overview.svg" alt="ethernet error handling overview" width="80%">
+</div>
+<div class="title">Figure 36. Architectural error handling overview.</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="low-cut-ethernet-wakeup-sleep">5.5.4.9. Wake Up/Sleep</h5>
+<div class="paragraph">
+<p>This standard supports wake up and sleep functionality for the Ethernet bus, based on the <a href="#OpenAlliance-TC10-100BASE-T1">Open Alliance TC10 sleep/wake-up</a> specification.
+Note that Wake Up/Sleep is not available for all Ethernet variants, but only for 10BASE-T1S, 100BASE-T1, 1000BASE-T1 and Multi-G BASE-T1.
+However, the realization of local virtual ECU wake-up and sleeping processes, i.e., the transition to the sleep state as well as the virtual ECU local wake-up process, is considered internal to the FMU implementation.
+Therefore, only the bus-related aspects are defined in this document.</p>
+</div>
+<div class="paragraph">
+<p>The Ethernet-specific wake-up pulse can be simulated by using the <a href="#low-cut-ethernet-wake-up-operation"><code>Wakeup</code></a> operation, initiated by one Network FMU.
+The Bus Simulation shall distribute this operation to all participants on the bus, excluding the wake-up initiator.</p>
+</div>
+<div id="figure-ethernet-wake-up" class="imageblock text-center">
+<div class="content">
+<img src="images/ethernet_wake_up.svg" alt="ethernet wake up" width="70%">
+</div>
+<div class="title">Figure 37. Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.</div>
+</div>
 </div>
 </div>
 </div>
@@ -6055,11 +7054,23 @@ Depending on the type of <a href="#low-cut-flexray-bus-error-operation"><code>Bu
 <p><a id="PW13"></a>[PW13] Preston-Werner, T. (2013): <strong>Semantic Versioning 2.0.0</strong>.  <a href="https://semver.org/spec/v2.0.0.html" class="bare">https://semver.org/spec/v2.0.0.html</a></p>
 </li>
 <li>
-<p><a id="RFC2119"></a>[RFC2119] RFC 2119. <a href="https://tools.ietf.org/html/rfc2119" class="bare">https://tools.ietf.org/html/rfc2119</a></p>
+<p><a id="RFC2119"></a>[RFC2119] RFC 2119: <strong>Key words for use in RFCs to Indicate Requirement Levels</strong>. <a href="https://tools.ietf.org/html/rfc2119" class="bare">https://tools.ietf.org/html/rfc2119</a></p>
 </li>
 <li>
 <p><a id="ISO-17458-2"></a>[ISO-17458-2] ISO 17458-2:2013(en):
 <strong>Road vehicles - FlexRay communications system - Part 2: Data link layer specification</strong>. <a href="https://www.iso.org/standard/59806.html" class="bare">https://www.iso.org/standard/59806.html</a></p>
+</li>
+<li>
+<p><a id="IEEE-802.3-2022"></a>[IEEE-802.3-2022] 802.3-2022: <strong>IEEE Standard for Ethernet</strong>. <a href="https://standards.ieee.org/ieee/802.3/10422/" class="bare">https://standards.ieee.org/ieee/802.3/10422/</a></p>
+</li>
+<li>
+<p><a id="OpenAlliance-TC10-100BASE-T1"></a>[OpenAlliance-TC10-100BASE-T1] Open Alliance TC10: <strong>OPEN Sleep/Wake-up Specification</strong>. <a href="https://opensig.org/wp-content/uploads/2024/01/TC10-Wake-up-and-Sleep-Specification-for-Automotive-Ethernet_11-2017.pdf" class="bare">https://opensig.org/wp-content/uploads/2024/01/TC10-Wake-up-and-Sleep-Specification-for-Automotive-Ethernet_11-2017.pdf</a></p>
+</li>
+<li>
+<p><a id="OpenAlliance-TC10-1000BASE-T1"></a>[OpenAlliance-TC10-1000BASE-T1] Open Alliance TC10: <strong>802.3bp Sleep/Wake-up Specification</strong>. <a href="https://opensig.org/wp-content/uploads/2024/01/TC10_1000BASE-T1_sleepwakeup_spec_1.0.pdf" class="bare">https://opensig.org/wp-content/uploads/2024/01/TC10_1000BASE-T1_sleepwakeup_spec_1.0.pdf</a></p>
+</li>
+<li>
+<p><a id="OpenAlliance-TC10-10BASE-T1S"></a>[OpenAlliance-TC10-10BASE-T1S] Open Alliance TC10: <strong>10BASE-T1S Sleep/Wake-up Specification</strong>. <a href="https://opensig.org/wp-content/uploads/2024/01/TC14_TC10_JWG_10BASE-T1S-Sleep-Wake-up-Specification_1.0_final.pdf" class="bare">https://opensig.org/wp-content/uploads/2024/01/TC14_TC10_JWG_10BASE-T1S-Sleep-Wake-up-Specification_1.0_final.pdf</a></p>
 </li>
 </ul>
 </div>
@@ -6085,6 +7096,9 @@ Depending on the type of <a href="#low-cut-flexray-bus-error-operation"><code>Bu
 </div>
 <div class="footnote" id="_footnotedef_6">
 <a href="#_footnoteref_6">6</a>. DL is used as an abbreviation for Data Length throughout the document
+</div>
+<div class="footnote" id="_footnotedef_7">
+<a href="#_footnoteref_7">7</a>. DL is used as an abbreviation for Data Length throughout the document
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

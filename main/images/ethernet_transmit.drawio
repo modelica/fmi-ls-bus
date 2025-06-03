@@ -1,0 +1,40 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 Edg/132.0.0.0" version="26.0.6">
+  <diagram name="Page-1" id="NnsKN626D9liByVkLeI2">
+    <mxGraphModel dx="623" dy="349" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="500" pageHeight="360" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="38V0bhP_iluJrH1EHx-o-10" value=":FMU 1" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="90" width="100" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="38V0bhP_iluJrH1EHx-o-11" value="" style="points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="38V0bhP_iluJrH1EHx-o-10">
+          <mxGeometry x="45" y="65" width="10" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="38V0bhP_iluJrH1EHx-o-12" value=":Bus Simulation" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="90" width="130" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="38V0bhP_iluJrH1EHx-o-13" value="" style="points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="38V0bhP_iluJrH1EHx-o-12">
+          <mxGeometry x="60" y="65" width="10" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="38V0bhP_iluJrH1EHx-o-14" value="Transmit" style="verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;shadow=0;strokeWidth=1;" edge="1" parent="38V0bhP_iluJrH1EHx-o-12">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="70" y="132" as="sourcePoint" />
+            <mxPoint x="255" y="132" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="38V0bhP_iluJrH1EHx-o-15" value=":FMU 2" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="90" width="100" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="38V0bhP_iluJrH1EHx-o-16" value="" style="points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="38V0bhP_iluJrH1EHx-o-15">
+          <mxGeometry x="45" y="65" width="10" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="38V0bhP_iluJrH1EHx-o-17" value="Transmit" style="verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;shadow=0;strokeWidth=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="186" y="188" as="sourcePoint" />
+            <mxPoint x="371" y="188" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
