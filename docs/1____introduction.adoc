@@ -11,7 +11,7 @@ At this point it should be explicitly mentioned that this layered standard not o
 There are mainly two base use cases envisioned here:
 
 * Physical Signal Abstraction (or High-Cut) to simply transport physical signal values between virtual ECUs. +
-The network properties are largely idealized: infinite bandwidth, zero-delay etc.
+The network properties are largely idealized: Infinite bandwidth, zero-delay etc.
 Signals, groups of signals and their properties _(e.g., units)_ are usually derived from existing and validated standard network topology description formats, such as DBC, LDF, Fibex and ARXML.
 * Network Abstraction (or Low-Cut) to realize virtualized bus driver implementations footnote:[In AUTOSAR context this means a driver implementation within the MicroController Abstraction Layer (MCAL)]. +
 This transport layer emulation allows anything from idealized to more detailed network simulations, including bandwidth restrictions, message arbitration and delays.
