@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version e81842e,</span>
-<span id="revdate">2025-06-03</span>
+<span id="revnumber">version 64b7a87,</span>
+<span id="revdate">2025-06-04</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -3680,7 +3680,7 @@ When a Network FMU signals the <code>BUS_OFF</code> state to the Bus Simulation,
 <div class="paragraph">
 <p>Arbitration is an instrument of the CAN standard to resolve the conflict of the simultaneous sending of messages from several CAN nodes without a collision.
 The arbitration is handled in the Bus Simulation and can be recognized by the fact that the Bus Simulation receives a <a href="#low-cut-can-transmit-operation"><code>Transmit</code></a> operation from several FMUs at the same time.
-As soon as an arbitration is lost, an <a href="#low-cut-can-arbitration-lost-operation"><code>Arbitration Lost</code></a> operation shall be returned to the respective sender within the next <code>Event Mode</code>.
+As soon as an arbitration is lost, an <a href="#low-cut-can-arbitration-lost-operation"><code>Arbitration Lost</code></a> operation shall be returned to the respective sender.
 As soon as an FMU receives an <a href="#low-cut-can-arbitration-lost-operation"><code>Arbitration Lost</code></a> operation, it can independently repeat the corresponding <a href="#low-cut-can-transmit-operation"><code>Transmit</code></a> operation.</p>
 </div>
 <div id="figure-can-arbitration" class="imageblock text-center">
