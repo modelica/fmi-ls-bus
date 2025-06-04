@@ -22,6 +22,6 @@ Contributions to this layered standard to the FMI standard are covered by the ht
 == References
 
 - [[[PW13]]] Preston-Werner, T. (2013): **Semantic Versioning 2.0.0**.  https://semver.org/spec/v2.0.0.html
-- [[[RFC2119]]] RFC 2119. https://tools.ietf.org/html/rfc2119
+- [[[RFC2119]]] RFC 2119: **Key words for use in RFCs to Indicate Requirement Levels**. https://tools.ietf.org/html/rfc2119
 - [[[ISO-17458-2]]] ISO 17458-2:2013(en):
 **Road vehicles - FlexRay communications system - Part 2: Data link layer specification**. https://www.iso.org/standard/59806.html
