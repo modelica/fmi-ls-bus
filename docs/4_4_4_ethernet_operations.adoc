@@ -79,7 +79,7 @@ The <<low-cut-ethernet-confirm-operation, `Confirm`>> operation is used to indic
 |====
 h|Name 3+| Confirm
 h|Description 3+| Indicates the successful transmission of an Ethernet frame.
-h|OP Code [hex] 3+| 0x15
+h|OP Code [hex] 3+| 0x20
 .3+h|Content h|Argument h|Length h|Description
 
 | OP Code
@@ -111,7 +111,7 @@ Bus errors are delivered to every participant in the network.
 |====
 h|Name 3+| Bus Error
 h|Description 3+| Indicates an error during the transmission of an Ethernet frame.
-h|OP Code [hex] 3+| 0x16
+h|OP Code [hex] 3+| 0x30
 .5+h|Content h|Argument h|Length h|Description
 
 | OP Code
@@ -163,7 +163,7 @@ Represents the transmission of a continuation mPacket.
 |====
 h|Name 5+| Configuration
 h|Description 5+| Provides information to configure the Ethernet bus.
-h|OP Code [hex] 5+| 0x20
+h|OP Code [hex] 5+| 0x40
 .8+h|Content 3+h|Argument h|Length h|Description
 
 3+| OP Code
@@ -241,7 +241,7 @@ Indicates wake up pulse according to <<OpenAlliance-TC10-100BASE-T1, Open Allian
 |====
 h|Name 3+| Wakeup
 h|Description 3+| Indicates a wakeup.
-h|OP Code [hex] 3+| 0x50
+h|OP Code [hex] 3+| 0x41
 .3+h|Content h|Argument h|Length h|Description
 
 | OP Code
