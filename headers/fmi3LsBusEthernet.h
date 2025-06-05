@@ -4,6 +4,17 @@
 #include "fmi3LsBus.h"
 #include "fmi3PlatformTypes.h"
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4200)
+#pragma warning(disable : 4815)
+#endif
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 
 /**
  * \defgroup FMI3_LS_BUS_ETHERNET_OPERATION_CODES Ethernet bus-specific operation codes
@@ -48,6 +59,7 @@
 
 /** \} */
 
+#pragma pack(1)
 
 /**
  * \defgroup FMI3_LS_BUS_ETHERNET_DATA_TYPES Ethernet-specific data types
@@ -225,5 +237,14 @@ typedef struct
 
 /** \} */
 
+#pragma pack()
+
+#ifdef __cplusplus
+} /* end of extern "C" { */
+#endif
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #endif /* fmi3LsBusEthernet_h */
