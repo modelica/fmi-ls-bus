@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 64b7a87,</span>
-<span id="revdate">2025-06-04</span>
+<span id="revnumber">version daf76dd,</span>
+<span id="revdate">2025-06-05</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -908,16 +908,16 @@ This communication architecture can be operated by a common FMU importer and all
 <div class="paragraph">
 <p>This standard allows a highly accurate bus simulation using FMI 3.0 mechanisms.
 To profit from such accuracy on a system level to predict system behavior, all system simulation components must provide at least that level of accuracy.
-Focusing on single-virtual-ECUs use cases, such as protocol validation, accuracy requirements for the "rest-bus" can be relaxed.</p>
+When focusing on single virtual ECU use cases, such as protocol validation, the accuracy requirements for the rest of the system can be relaxed.</p>
 </div>
 <div class="paragraph">
 <p>Contrary, on system level, the accuracy of the simulation depends on the accuracy of all its components.
-These components can be virtual ECUs, plant models, rest-bus simulators, data replay components and, of course, the bus simulation.
+These components can be virtual ECUs, plant models, residual bus simulators, data replay components and, of course, the bus simulation.
 A single low-accuracy component limits the overall system simulation accuracy.
-The level of detail of these run-time models determine the size of the window for send-message events.
-With virtual ECUs using the zero-time execution model <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>, the time of send-message events can only be determined to be somewhere within the given smallest granularity of the virtual ECU&#8217;s internal scheduler.
+The level of detail of these runtime models determine the size of the window for data transmission events.
+With virtual ECUs using the zero-time execution model <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>, the time of data transmission can only be determined to be somewhere within the given smallest granularity of the virtual ECU&#8217;s internal scheduler.
 More detailed models, like instruction set simulators or even System-C models of the hardware, can narrow the window for these events significantly.
-However, current modelling technologies, as of writing this standard, do not allow practical implementations in terms of modelling time and run time of virtual ECUs that can be used to simulate all realistic bus simulation effects, such as collision and arbitration events.</p>
+However, current modelling technologies, as of writing this standard, do not allow practical implementations in terms of modelling time and runtime of virtual ECUs that can be used to simulate all realistic bus simulation effects, such as collision and arbitration events.</p>
 </div>
 </div>
 <div class="sect2">
