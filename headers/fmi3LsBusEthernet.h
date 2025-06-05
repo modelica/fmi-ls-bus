@@ -23,28 +23,28 @@
  *
  * Indicates the successful transmission of an Ethernet frame.
  */
-#define FMI3_LS_BUS_ETHERNET_OP_CONFIRM ((fmi3LsBusOperationCode)0x15)
+#define FMI3_LS_BUS_ETHERNET_OP_CONFIRM ((fmi3LsBusOperationCode)0x20)
 
 /**
  * \brief FMI virtual bus operation of type 'Bus Error'.
  *
  * Indicates an error during the transmission of an Ethernet frame.
  */
-#define FMI3_LS_BUS_ETHERNET_OP_BUS_ERROR ((fmi3LsBusOperationCode)0x16)
+#define FMI3_LS_BUS_ETHERNET_OP_BUS_ERROR ((fmi3LsBusOperationCode)0x30)
 
 /**
  * \brief FMI virtual bus operation of type 'Configuration'.
  *
  * Provides information to configure the Ethernet bus.
  */
-#define FMI3_LS_BUS_ETHERNET_OP_CONFIGURATION ((fmi3LsBusOperationCode)0x20)
+#define FMI3_LS_BUS_ETHERNET_OP_CONFIGURATION ((fmi3LsBusOperationCode)0x40)
 
 /**
  * \brief FMI virtual bus operation of type 'Wakeup'.
  *
  * Indicates a wakeup.
  */
-#define FMI3_LS_BUS_ETHERNET_OP_WAKEUP ((fmi3LsBusOperationCode)0x50)
+#define FMI3_LS_BUS_ETHERNET_OP_WAKEUP ((fmi3LsBusOperationCode)0x41)
 
 /** \} */
 
