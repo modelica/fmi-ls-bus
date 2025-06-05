@@ -65,13 +65,13 @@ h|Length
 (n bytes)
 
 |Confirm
-|0x15
+|0x20
 |:= 8 +
 (4 bytes)
 9+|---
 
 |Bus Error
-|0x16
+|0x30
 |:= 10 +
 (4 byte)
 2+|Error Code +
@@ -80,7 +80,7 @@ h|Length
 (1 byte)
 
 |Configuration
-|0x20
+|0x40
 |<Length> +
 (4 bytes)
 2+|Kind +
@@ -88,7 +88,7 @@ h|Length
 7+|_Dynamic Part_
 
 |Wakeup
-|0x50
+|0x41
 |:= 8 +
 (4 bytes)
 9+|---
