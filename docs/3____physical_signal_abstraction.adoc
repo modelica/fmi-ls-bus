@@ -191,12 +191,12 @@ The following AUTOSAR system extract (in ARXML format) shows the mapping of an A
   <SHORT-NAME>SystemExtract</SHORT-NAME>
   <ELEMENTS>
     <CAN-CLUSTER>
-      <SHORT-NAME>Powertrain</SHORT-NAME>
+      <SHORT-NAME>PowertrainCluster</SHORT-NAME>
       <CAN-CLUSTER-VARIANTS>
         <CAN-CLUSTER-CONDITIONAL>
           <PHYSICAL-CHANNELS>
             <CAN-PHYSICAL-CHANNEL>
-              <SHORT-NAME>tcuSensors</SHORT-NAME>
+              <SHORT-NAME>Powertrain</SHORT-NAME>
               <FRAME-TRIGGERINGS>
                 <CAN-FRAME-TRIGGERING>
                   <SHORT-NAME>tcuSensors_FrameTriggering</SHORT-NAME>
@@ -250,6 +250,7 @@ The following file shows the <<high-cut-bus-terminal,Bus Terminal>> definition r
 The `name` of the <<high-cut-frame-terminal,frame terminal>> is derived from the ShortName attribute of the respective AUTOSAR frame.
 The `name` of the <<high-cut-pdu-terminal,PDU terminal>> is derived from the ShortName attribute of the respective AUTOSAR PDU.
 The `SignalName`, and so the resulting `memberName`, is derived from the respective AUTOSAR ISignal.
+The `BusName` is derived from the AUTOSAR Cluster ShortName concatenated via a `.` character with the AUTOSAR Physical Channel ShortName.
 
 .Example terminalsAndIcons.xml file.
 [[example-terminalsAndIconHighCut-autosar-xml]]
