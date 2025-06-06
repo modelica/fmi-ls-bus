@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 5cbef6e,</span>
-<span id="revdate">2025-06-05</span>
+<span id="revnumber">version 1e237f8,</span>
+<span id="revdate">2025-06-06</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -1464,7 +1464,7 @@ For network types not natively referencing a "PDU", like CAN, a synthetic PDU wi
 <ul>
 <li>
 <p><code>variableName</code> refers to the input or output variable name of the FMU.
-These variables represent the Signal Abstraction layer.
+These variables represent the Physical Signal Abstraction layer.
 Unless there are other requirements, it is recommended to build the variable names as follows: <code>BusName.FrameName.PDUName.SignalName</code>, e.g., <code>Powertrain.tcuSensors.tcuSensors.vCar</code>.
 This approach automatically provides unique names for all bus-related variables, and can also be used for the Clock variables, to allow automatic grouping by non-terminal-aware tools.</p>
 </li>
