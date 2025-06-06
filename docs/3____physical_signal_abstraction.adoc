@@ -40,18 +40,22 @@ Such a Clock is scheduled by the sending FMU to indicate the transmission of the
 
 The Clock type (`periodic` or `aperiodic`) is defined by the sending FMU.
 
- - While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` might reduce the network simulation speed.
- - Using `periodic` Clocks reduces the number of `Event Modes` required and might speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.
- - One could use (structural) parameters to define the accuracy of `aperiodic` Clocks, allowing control of the simulation accuracy and performance with the same FMU.
- - The input Clocks shall be `triggered` Clocks, if they are to be driven by the respective output Clock.
- - Alternatively, input Clocks can be `periodic` Clocks matching the relevant output Clock, which causes them to be scheduled for the same time instances.
-   _[This may allow for more efficient simulation in the case that there exists a more or less static communications schedule, and more detailed simulation of timing variation is not needed.]_
+_[This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:_
 
-The importer will then connect and merge output Clock activations, even those of different Clock types, and forwards them to the input Clocks (or merges those as well, in the case of `periodic` input Clocks), as required by the network semantics.
 
-Signal variables belonging to frame `BusName.FrameName` are triggered by the Clock `BusName.FrameName_Clock` and all these variables and their corresponding Clock must share the same `causality` (`input` or `output`).
+_- While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` might reduce the network simulation speed._
 
-_[Note: The statements regarding `aperiodic` and `periodic` Clocks and their impact on performance should be understood as general tendencies rather than universally valid truths, as other aspects such as baud rates and expected bus loads must be taken into account for a more precise estimate.]_
+_- Using `periodic` Clocks might reduces the number of `Event Modes` required and might speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted._
+
+_- One could use (structural) parameters to define the accuracy of `aperiodic` Clocks, allowing control of the simulation accuracy and performance with the same FMU._
+ 
+_Note: The statements regarding `aperiodic` and `periodic` Clocks and their impact on performance should be understood as general tendencies rather than universally valid truths, as other aspects such as baud rates and expected bus loads must be taken into account for a more precise estimate.]_
+ 
+The Clocks of a receiving frame shall be `triggered` Clocks if they are to be driven by the respective Clock of the sending frame.
+Alternatively, Clocks of a receiving frame can be `periodic` Clocks matching the relevant Clock of the sending frame, which causes them to be scheduled for the same time instances
+_[This may allow for more efficient simulation in the case that there exists a more or less static communications schedule, and more detailed simulation of timing variation is not needed.]_
+
+Signal variables belonging to frame `BusName.FrameName` and all its variables must share the same `causality` (`input` or `output`).
 
 === Network Description Files [[high-cut-network-description-files,network description file]]
 Standardized <<high-cut-network-description-files,network description files>> may optionally be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
