@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 7cadf8d,</span>
+<span id="revnumber">version 95c5bf8,</span>
 <span id="revdate">2025-06-06</span>
 </div>
 <div id="toc" class="toc2">
@@ -1627,12 +1627,12 @@ The <code>SignalName</code>, and so the resulting <code>memberName</code>, is de
   &lt;SHORT-NAME&gt;SystemExtract&lt;/SHORT-NAME&gt;
   &lt;ELEMENTS&gt;
     &lt;CAN-CLUSTER&gt;
-      &lt;SHORT-NAME&gt;Powertrain&lt;/SHORT-NAME&gt;
+      &lt;SHORT-NAME&gt;PowertrainCluster&lt;/SHORT-NAME&gt;
       &lt;CAN-CLUSTER-VARIANTS&gt;
         &lt;CAN-CLUSTER-CONDITIONAL&gt;
           &lt;PHYSICAL-CHANNELS&gt;
             &lt;CAN-PHYSICAL-CHANNEL&gt;
-              &lt;SHORT-NAME&gt;tcuSensors&lt;/SHORT-NAME&gt;
+              &lt;SHORT-NAME&gt;Powertrain&lt;/SHORT-NAME&gt;
               &lt;FRAME-TRIGGERINGS&gt;
                 &lt;CAN-FRAME-TRIGGERING&gt;
                   &lt;SHORT-NAME&gt;tcuSensors_FrameTriggering&lt;/SHORT-NAME&gt;
@@ -1683,11 +1683,11 @@ The <code>SignalName</code>, and so the resulting <code>memberName</code>, is de
 &lt;fmiModelDescription fmiVersion="3.0" modelName="Network4FMI"
     instantiationToken="Network4FMI"&gt;
   &lt;ModelVariables&gt;
-    &lt;Clock name="Powertrain.tcuSensors_FrameTriggering_Clock" valueReference="1007"
+    &lt;Clock name="PowertrainCluster.Powertrain.tcuSensors_FrameTriggering_Clock" valueReference="1007"
         causality="input" variability="discrete" intervalVariability="triggered"/&gt;
-    &lt;Float64 name="Powertrain.tcuSensors.vCar_ISignalTriggering" valueReference="1005"
+    &lt;Float64 name="PowertrainCluster.Powertrain.tcuSensors.vCar_ISignalTriggering" valueReference="1005"
         causality="input" variability="discrete" start="0" clocks="1007"/&gt;
-    &lt;Float64 name="Powertrain.tcuSensors.oilTemp_ISignalTriggering" valueReference="1006"
+    &lt;Float64 name="PowertrainCluster.Powertrain.tcuSensors.oilTemp_ISignalTriggering" valueReference="1006"
         causality="input" variability="discrete" start="20" clocks="1007"/&gt;
   &lt;/ModelVariables&gt;
   &lt;ModelStructure&gt;
@@ -1699,7 +1699,8 @@ The <code>SignalName</code>, and so the resulting <code>memberName</code>, is de
 <p>The following file shows the <a href="#high-cut-bus-terminal">Bus Terminal</a> definition representing the network and frame structure defined with <code>Powertrain.arxml</code> above.
 The <code>name</code> of the <a href="#high-cut-frame-terminal">frame terminal</a> is derived from the ShortName attribute of the respective AUTOSAR frame.
 The <code>name</code> of the <a href="#high-cut-pdu-terminal">PDU terminal</a> is derived from the ShortName attribute of the respective AUTOSAR PDU.
-The <code>SignalName</code>, and so the resulting <code>memberName</code>, is derived from the respective AUTOSAR ISignal.</p>
+The <code>SignalName</code>, and so the resulting <code>memberName</code>, is derived from the respective AUTOSAR ISignal.
+The <code>BusName</code> is derived from the AUTOSAR Cluster ShortName concatenated via a <code>.</code> character with the AUTOSAR Physical Channel ShortName.</p>
 </div>
 <div id="example-terminalsAndIconHighCut-autosar-xml" class="listingblock">
 <div class="title">Example terminalsAndIcons.xml file.</div>
@@ -1711,12 +1712,12 @@ The <code>SignalName</code>, and so the resulting <code>memberName</code>, is de
         description="Powertrain CAN bus defined by an AUTOSAR system extract"&gt;
       &lt;Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="tcuSensors" matchingRule="bus"&gt;
         &lt;TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain.tcuSensors_Clock" memberName="Clock" /&gt;
+          variableName="PowertrainCluster.Powertrain.tcuSensors_Clock" memberName="Clock" /&gt;
         &lt;Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="tcuSensors" matchingRule="bus"&gt;
           &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain.tcuSensors.vCar_SignalTriggering" memberName="vCar" /&gt;
+            variableName="PowertrainCluster.Powertrain.tcuSensors.vCar_SignalTriggering" memberName="vCar" /&gt;
           &lt;TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain.tcuSensors.oilTemp_SignalTriggering" memberName="oilTemp" /&gt;
+            variableName="PowertrainCluster.Powertrain.tcuSensors.oilTemp_SignalTriggering" memberName="oilTemp" /&gt;
         &lt;/Terminal&gt;
       &lt;/Terminal&gt;
       &lt;Annotations&gt;
