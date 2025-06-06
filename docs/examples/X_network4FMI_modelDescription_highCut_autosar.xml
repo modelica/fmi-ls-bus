@@ -2,11 +2,11 @@
 <fmiModelDescription fmiVersion="3.0" modelName="Network4FMI"
     instantiationToken="Network4FMI">
   <ModelVariables>
-    <Clock name="Powertrain.tcuSensors_FrameTriggering_Clock" valueReference="1007"
+    <Clock name="PowertrainCluster.Powertrain.tcuSensors_FrameTriggering_Clock" valueReference="1007"
         causality="input" variability="discrete" intervalVariability="triggered"/>
-    <Float64 name="Powertrain.tcuSensors.vCar_ISignalTriggering" valueReference="1005"
+    <Float64 name="PowertrainCluster.Powertrain.tcuSensors.vCar_ISignalTriggering" valueReference="1005"
         causality="input" variability="discrete" start="0" clocks="1007"/>
-    <Float64 name="Powertrain.tcuSensors.oilTemp_ISignalTriggering" valueReference="1006"
+    <Float64 name="PowertrainCluster.Powertrain.tcuSensors.oilTemp_ISignalTriggering" valueReference="1006"
         causality="input" variability="discrete" start="20" clocks="1007"/>
   </ModelVariables>
   <ModelStructure>
