@@ -35,11 +35,10 @@ In case multiplexed signals are present in a frame/PDU/container PDU: All signal
 All signal variables are clocked to exactly indicate when they have been sent, see <<high-cut-clock-variables>>.
 
 ==== Clock Variables [[high-cut-clock-variables]]
-In order to use FMU input and output variables as transport layer for networks, input and output Clocks are used.
+In order to use FMU input and output variables as transport layer for networks, Clocks are used to indicate the timing.
 Such a Clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.
 
-The output Clock type, `periodic` or `aperiodic`, is defined by the sending FMU.
-This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:
+The Clock type (`periodic` or `aperiodic`) is defined by the sending FMU.
 
  - While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` might reduce the network simulation speed.
  - Using `periodic` Clocks reduces the number of `Event Modes` required and might speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.
