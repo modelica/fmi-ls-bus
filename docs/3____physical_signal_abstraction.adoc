@@ -191,12 +191,12 @@ The following AUTOSAR system extract (in ARXML format) shows the mapping of an A
   <SHORT-NAME>SystemExtract</SHORT-NAME>
   <ELEMENTS>
     <CAN-CLUSTER>
-      <SHORT-NAME>Powertrain</SHORT-NAME>
+      <SHORT-NAME>PowertrainCluster</SHORT-NAME>
       <CAN-CLUSTER-VARIANTS>
         <CAN-CLUSTER-CONDITIONAL>
           <PHYSICAL-CHANNELS>
             <CAN-PHYSICAL-CHANNEL>
-              <SHORT-NAME>tcuSensors</SHORT-NAME>
+              <SHORT-NAME>Powertrain</SHORT-NAME>
               <FRAME-TRIGGERINGS>
                 <CAN-FRAME-TRIGGERING>
                   <SHORT-NAME>tcuSensors_FrameTriggering</SHORT-NAME>
