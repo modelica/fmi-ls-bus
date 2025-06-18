@@ -245,11 +245,11 @@ Both allow defining Bus Communication Points independently of the regular commun
 [cols="3,1,7"]
 |====
 h|Clock properties h|intervalVariability h|Description
-|`periodic`|`constant`|_The Bus Communication Point interval is defined in the `modelDescription.xml`._
-|`periodic`|`fixed`|_The Bus Communication Point interval is defined in the `modelDescription.xml` or must be provided in `Initialization Mode`._
-|`periodic`|`tunable`|_The Bus Communication Point interval is defined in the `modelDescription.xml` or must be provided in `Initialization Mode` and can be changed in `Event Mode`._
-|`aperiodic`|`changing`|_The Bus Communication Point interval must be provided in `Initialization Mode` and can be changed in `Event Mode` if this Clock ticked._
-|`aperiodic`|`countdown`|_The Bus Communication Point interval must be provided in `Initialization Mode` and can be changed in every `Event Mode`._
+|`periodic`|`constant`|_The Bus Communication Point interval is defined in the `modelDescription.xml` and is constant during simulation._
+|`periodic`|`fixed`|_The Bus Communication Point interval gets fixed during `Initialization Mode` and stays fixed during simulation._
+|`periodic`|`tunable`|_The Bus Communication Point interval can change in any `Event Mode`._
+|`aperiodic`|`changing`|_The Bus Communication Point interval can change in any `Event Mode` if this Clock ticked._
+|`aperiodic`|`countdown`|_The Bus Communication Point interval can change in any `Event Mode`, where the interval can also be unknown in some `Event Mode`._
 |====
 
 _Network FMUs using a `time-based` `Tx_Clock` variable should set the Co-Simulation attribute `canHandleVariableCommunicationStepSize = "true"` in the model description file, since `fmi3DoStep` is typically called with variable `communicationStepSize`._
