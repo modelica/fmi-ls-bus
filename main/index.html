@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 4480765,</span>
+<span id="revnumber">version 21ddb15,</span>
 <span id="revdate">2025-06-18</span>
 </div>
 <div id="toc" class="toc2">
@@ -1276,12 +1276,16 @@ This allows the FMU (or better the exporting tool) to balance the accuracy and p
 <p>One could use (structural) parameters to define the accuracy of <code>aperiodic</code> Clocks, allowing control of the simulation accuracy and performance with the same FMU.</p>
 </li>
 <li>
-<p>The input Clocks shall be <code>triggered</code> Clocks.</p>
+<p>The input Clocks shall be <code>triggered</code> Clocks, if they are to be driven by the respective output Clock.</p>
+</li>
+<li>
+<p>Alternatively, input Clocks can be <code>periodic</code> Clocks matching the relevant output Clock, which causes them to be scheduled for the same time instances.
+<em>[This may allow for more efficient simulation in the case that there exists a more or less static communications schedule, and more detailed simulation of timing variation is not needed.]</em></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The importer will then connect and merge output Clock activations, even those of different Clock types, and forwards them to the input Clocks, as required by the network semantics.</p>
+<p>The importer will then connect and merge output Clock activations, even those of different Clock types, and forwards them to the input Clocks (or merges those as well, in the case of <code>periodic</code> input Clocks), as required by the network semantics.</p>
 </div>
 <div class="paragraph">
 <p>Signal variables belonging to frame <code>BusName.FrameName</code> are triggered by the Clock <code>BusName.FrameName_Clock</code> and all these variables and their corresponding Clock must share the same <code>causality</code> (<code>input</code> or <code>output</code>).</p>
