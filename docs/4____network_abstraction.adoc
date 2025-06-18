@@ -269,15 +269,15 @@ image::low_cut_communication_with_triggered_tx_clock.svg[width=100%, align="cent
 The input Clocks (`Rx_Clock`) shall be `triggered` Clocks.
 
 ==== Tx/Rx Data Variables [[low-cut-tx-rx-data-variables, Communication Variables]]
-The Tx/Rx variables are of type `fmi3Binary` and contain multiple Bus Operations, as sent or receive by the FMU.
+The `Tx_Data`/`Rx_Data` variables are of type `fmi3Binary` and may contain zero, one or multiple Bus Operations, as sent or received by the FMU.
 If no Bus Operations shall be sent by a specified Network FMU at a given Bus Communication Point, the size of the corresponding binary `Tx_Data` variable shall be set to zero.
-The senders can choose how many Bus Operations are buffered and/or for how long operations are buffered before activating an output Clock to trigger the actual sending of these operations.
+Sender FMUs can choose how many Bus Operations are buffered and/or for how long operations are buffered before activating an output Clock to trigger the actual sending of these operations.
 This allows senders to trade accuracy for speed: Buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication.
 
 ==== Selecting the type of Tx Clock [[low-cut-selecting-tx-variables]]
-Selecting suitable Tx variables allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:
+Selecting a suitable `intervalVariability` for `Tx Clock' allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:
 
- - While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` migth reduce the network simulation speed.
+ - While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` might reduce the network simulation speed.
  - Using `periodic` Clocks and queueing the operations to be transmitted reduces the number of `Event Mode` entries and might speeds up the simulation at the cost of simulation accuracy.
  - One could use (structural) parameters to define the accuracy of `aperiodic` Clocks, allowing control of the simulation accuracy and performance with the same FMU.
 
