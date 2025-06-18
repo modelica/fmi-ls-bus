@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 95c5bf8,</span>
-<span id="revdate">2025-06-06</span>
+<span id="revnumber">version a2d3304,</span>
+<span id="revdate">2025-06-18</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -2097,7 +2097,7 @@ Since Clock variables are strictly related to the <code>Event Mode</code>, netwo
 <p>The point in time where Bus Operations are transferred from the <code>Tx_Data</code> to the <code>Rx_Data</code> variables is defined by the <code>Tx_Clock</code> variable.
 This point is also referred to as the Bus Communication Point.
 A Bus Communication Point and a regular communication point can take place at the same time, but should be considered as independent by the importer.
-In contrast to a regular communication point where input/output variables used in step mode are exchanged, only the clocked Tx/Rx data variables need to be considered by the importer.</p>
+In contrast to a regular communication point where input/output variables used in <code>Step Mode</code> are exchanged, only the clocked Tx/Rx data variables need to be considered by the importer.</p>
 </div>
 <div class="paragraph">
 <p>For defining the point in time of a Bus Communication Point, <code>time-based</code> or <code>triggered</code> Clocks can be used for the <code>Tx_Clock</code> variable.
@@ -2138,9 +2138,9 @@ To make sure that the <code>Rx_Data</code> variables is set properly, an importe
 <p><em>[Note: For clarity always a direct connection line between the <code>Tx_Clock</code> and <code>Rx_Clock</code> variables is shown in figures of this document.]</em></p>
 </div>
 <div class="paragraph">
-<p>A <code>time-based</code> Clock can be <code>periodic</code> or <code>aperiodic</code>.
+<p><em>A <code>time-based</code> Clock can be <code>periodic</code> or <code>aperiodic</code>.
 Both allow defining Bus Communication Points independently of the regular communication points with fixed or variable distances.
-The difference between the two Clock types is listed in the following table.</p>
+<a href="#table-tx-clock-properties">Table 6</a> describes how the usage of different FMI Clock types affects how Bus Communication Points are realized inside the specified FMU.</em></p>
 </div>
 <table id="table-tx-clock-properties" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 6. Time-based Clock properties.</caption>
@@ -2158,32 +2158,32 @@ The difference between the two Clock types is listed in the following table.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>periodic</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>constant</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Bus Communication Point interval is defined in the <code>modelDescription.xml</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The Bus Communication Point interval is defined in the <code>modelDescription.xml</code> and is constant during simulation.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>periodic</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>fixed</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Bus Communication Point interval is defined in the <code>modelDescription.xml</code> or must be provided in <code>Initialization Mode</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The Bus Communication Point interval gets fixed during <code>Initialization Mode</code> and stays fixed during simulation.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>periodic</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>tunable</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Bus Communication Point interval is defined in the <code>modelDescription.xml</code> or must be provided in <code>Initialization Mode</code> and can be changed in <code>Event Mode</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The Bus Communication Point interval can change in any <code>Event Mode</code>.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aperiodic</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>changing</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Bus Communication Point interval must be provided in <code>Initialization Mode</code> and can be changed in <code>Event Mode</code> if this Clock ticked.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The Bus Communication Point interval can change in any <code>Event Mode</code> if this Clock ticked.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aperiodic</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>countdown</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Bus Communication Point interval must be provided in <code>Initialization Mode</code> and can be changed in every <code>Event Mode</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The Bus Communication Point interval can change in any <code>Event Mode</code>, where the interval can also be unknown in some <code>Event Mode</code>.</em></p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Network FMUs using a <code>time-based</code> <code>Tx_Clock</code> variable should set the Co-Simulation attribute <code>canHandleVariableCommunicationStepSize = "true"</code> in the model description file, since <code>fmi3DoStep</code> is typically called with variable <code>communicationStepSize</code>.</p>
+<p><em>Network FMUs using a <code>time-based</code> <code>Tx_Clock</code> variable should set the Co-Simulation attribute <code>canHandleVariableCommunicationStepSize = "true"</code> in the model description file, since <code>fmi3DoStep</code> is typically called with variable <code>communicationStepSize</code>.</em></p>
 </div>
 </div>
 <div class="sect4">
