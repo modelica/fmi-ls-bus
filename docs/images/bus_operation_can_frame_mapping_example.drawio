@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0" version="26.2.14">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 Edg/137.0.0.0" version="26.2.14">
   <diagram name="Page-1" id="7bTmnAXek1JWlI7TwWE4">
-    <mxGraphModel dx="1790" dy="1006" grid="1" gridSize="1" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+    <mxGraphModel dx="617" dy="347" grid="1" gridSize="1" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -25,7 +25,7 @@
         <mxCell id="ZedA4VMdX3rfLIul-dvv-387" value="Data&lt;br&gt;Length" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;horizontal=1;fillColor=#FFF2CC;" parent="ZedA4VMdX3rfLIul-dvv-466" vertex="1">
           <mxGeometry x="255" y="38" width="41" height="35" as="geometry" />
         </mxCell>
-        <mxCell id="ZedA4VMdX3rfLIul-dvv-388" value="Data" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;horizontal=1;fillColor=#9AC7BF;" parent="ZedA4VMdX3rfLIul-dvv-466" vertex="1">
+        <mxCell id="ZedA4VMdX3rfLIul-dvv-388" value="Data" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;horizontal=1;fillColor=#D5E8D4;" parent="ZedA4VMdX3rfLIul-dvv-466" vertex="1">
           <mxGeometry x="296" y="38" width="100" height="35" as="geometry" />
         </mxCell>
         <mxCell id="ZedA4VMdX3rfLIul-dvv-389" value="SOF" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;horizontal=0;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;opacity=70;textOpacity=70;" parent="ZedA4VMdX3rfLIul-dvv-466" vertex="1">
@@ -43,7 +43,7 @@
         <mxCell id="ZedA4VMdX3rfLIul-dvv-395" value="DLC" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;horizontal=1;fillColor=#FFF2CC;" parent="ZedA4VMdX3rfLIul-dvv-466" vertex="1">
           <mxGeometry x="130" y="138" width="40" height="35" as="geometry" />
         </mxCell>
-        <mxCell id="ZedA4VMdX3rfLIul-dvv-396" value="PAYLOAD" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;horizontal=1;fillColor=#9AC7BF;" parent="ZedA4VMdX3rfLIul-dvv-466" vertex="1">
+        <mxCell id="ZedA4VMdX3rfLIul-dvv-396" value="PAYLOAD" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;horizontal=1;fillColor=#D5E8D4;" parent="ZedA4VMdX3rfLIul-dvv-466" vertex="1">
           <mxGeometry x="170" y="138" width="100" height="35" as="geometry" />
         </mxCell>
         <mxCell id="ZedA4VMdX3rfLIul-dvv-397" value="CRC" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;horizontal=1;fillColor=#CCCCCC;opacity=50;textOpacity=50;" parent="ZedA4VMdX3rfLIul-dvv-466" vertex="1">
