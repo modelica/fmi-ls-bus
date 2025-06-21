@@ -10,7 +10,7 @@ This role can be a Bus Simulation FMU or an importer with bus simulation support
 To allow importers an easy distinction between these FMU roles, for Bus Simulation FMUs the attribute `isBusSimulationFMU` shall be set to `true` in the Manifest file.
 
 The figure below shows an example architecture of a Physical Signal Abstraction.
-The signals (_Signal 1...8_) are modeled as clocked FMU variables of a specific type.
+The signals (_Signal 1...8_) are modeled as clocked variables of a specific type.
 The corresponding signals are structurally combined using Protocol Data Units (PDUs), which in turn are assigned to frames.
 The PDU and frame structuring is done via terminals (_PDU A, B, C_ and _Frame X, Y_).
 The respective FMU variables are connected to a Bus Simulation, which emulates them according to their own needs for e.g. according to accuracy.
