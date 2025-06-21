@@ -284,7 +284,7 @@ Selecting a suitable `intervalVariability` for `Tx Clock' allows the FMU (or bet
 _[Note: The statements regarding `aperiodic` and `periodic` Clocks and their impact on performance should be understood as general tendencies rather than universally valid truths, as other aspects such as baud rates and expected bus loads must be taken into account for a more precise estimate.]_
 
 ==== MIME Types [[low-cut-mime-types]]
-Within FMI, every binary FMI variable has a `mimeType`, which indicates the type of data passed as a binary.
+Every binary variable has a `mimeType`, which indicates the type of data passed as a binary.
 This type indicates which specific bus type is involved.
 It ensures that only bus types of the same type can be interconnected, since FMI only allows the connection of two MIME types of the same binary variables.
 The following table lists the MIME types to use for the Tx/Rx data variables within a <<low-cut-bus-terminal, Bus Terminal>>:
