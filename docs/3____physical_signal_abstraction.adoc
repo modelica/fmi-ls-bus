@@ -20,39 +20,44 @@ The respective FMU variables are connected to a Bus Simulation, which emulates t
 image::high_cut_network_fmu.svg[width=80%, align="center"]
 
 === Variables [[high-cut-variables]]
-This section explains the different variable types used to carry network traffic through FMI input and output variables.
+This section explains the variable types used to carry network traffic through FMI variables.
 
 ==== Signal Variables [[high-cut-signal-variables]]
-To define the Physical Signal Abstraction layer, signal variables are defined.
+To define the Physical Signal Abstraction layer, signal variables are used.
 
 A signal variable carries the physical value of a network signal normally packaged inside a PDU or frame.
 The unit definition of the variable must match the one defined in the <<high-cut-network-description-files>>, if provided.
 
-Each network signal must be listed as <<high-cut-terminal-member-variable-for-signals>> of its corresponding <<high-cut-pdu-terminal>>.
+Each network signal must be listed as a <<high-cut-terminal-member-variable-for-signals>> of its corresponding <<high-cut-pdu-terminal>>.
 
-In case multiplexed signals are present in a frame/PDU/container PDU: All signals/PDUs are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values _[those values could even be outside their specified min-max range without fault]_.
+In case multiplexed signals are present in a frame/PDU/container PDU:
+All signals/PDUs are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values.
+_[These values could even be outside their specified min-max range without fault.]_
 
-All signal variables are clocked to exactly indicate when they have been sent, see <<high-cut-clock-variables>>.
+All signal variables are clocked to indicate when they have been sent/received, see <<high-cut-clock-variables>>.
 
 ==== Clock Variables [[high-cut-clock-variables]]
-In order to use FMU input and output variables as transport layer for networks, input and output Clocks are used.
+In order to use FMU input and output variables as transport layer for networks, Clocks are used to indicate the timing.
 Such a Clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.
 
-The output Clock type, `periodic` or `aperiodic`, is defined by the sending FMU.
-This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:
+The Clock type (`periodic` or `aperiodic`) is defined by the sending FMU.
 
- - While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` might reduce the network simulation speed.
- - Using `periodic` Clocks reduces the number of `Event Modes` required and might speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.
- - One could use (structural) parameters to define the accuracy of `aperiodic` Clocks, allowing control of the simulation accuracy and performance with the same FMU.
- - The input Clocks shall be `triggered` Clocks, if they are to be driven by the respective output Clock.
- - Alternatively, input Clocks can be `periodic` Clocks matching the relevant output Clock, which causes them to be scheduled for the same time instances.
-   _[This may allow for more efficient simulation in the case that there exists a more or less static communications schedule, and more detailed simulation of timing variation is not needed.]_
+_[This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:_
 
-The importer will then connect and merge output Clock activations, even those of different Clock types, and forwards them to the input Clocks (or merges those as well, in the case of `periodic` input Clocks), as required by the network semantics.
 
-Signal variables belonging to frame `BusName.FrameName` are triggered by the Clock `BusName.FrameName_Clock` and all these variables and their corresponding Clock must share the same `causality` (`input` or `output`).
+_- While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` might reduce the network simulation speed._
 
-_[Note: The statements regarding `aperiodic` and `periodic` Clocks and their impact on performance should be understood as general tendencies rather than universally valid truths, as other aspects such as baud rates and expected bus loads must be taken into account for a more precise estimate.]_
+_- Using `periodic` Clocks might reduces the number of `Event Modes` required and might speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted._
+
+_- One could use (structural) parameters to define the accuracy of `aperiodic` Clocks, allowing control of the simulation accuracy and performance with the same FMU._
+ 
+_Note: The statements regarding `aperiodic` and `periodic` Clocks and their impact on performance should be understood as general tendencies rather than universally valid truths, as other aspects such as baud rates and expected bus loads must be taken into account for a more precise estimate.]_
+ 
+The Clocks of a receiving frame shall be `triggered` Clocks if they are to be driven by the respective Clock of the sending frame.
+Alternatively, Clocks of a receiving frame can be `periodic` Clocks matching the relevant Clock of the sending frame, which causes them to be scheduled for the same time instances
+_[This may allow for more efficient simulation in the case that there exists a more or less static communications schedule, and more detailed simulation of timing variation is not needed.]_
+
+Signal variables belonging to frame `BusName.FrameName` and all its variables must share the same `causality` (`input` or `output`).
 
 === Network Description Files [[high-cut-network-description-files,network description file]]
 Standardized <<high-cut-network-description-files,network description files>> may optionally be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
