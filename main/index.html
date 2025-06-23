@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 21ddb15,</span>
-<span id="revdate">2025-06-18</span>
+<span id="revnumber">version d6f0061,</span>
+<span id="revdate">2025-06-23</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -1233,65 +1233,60 @@ The respective FMU variables are connected to a Bus Simulation, which emulates t
 <div class="sect2">
 <h3 id="high-cut-variables">4.2. Variables</h3>
 <div class="paragraph">
-<p>This section explains the different variable types used to carry network traffic through FMI input and output variables.</p>
+<p>This section explains the variable types used to carry network traffic through FMI variables.</p>
 </div>
 <div class="sect3">
 <h4 id="high-cut-signal-variables">4.2.1. Signal Variables</h4>
 <div class="paragraph">
-<p>To define the Physical Signal Abstraction layer, signal variables are defined.</p>
+<p>To define the Physical Signal Abstraction layer, signal variables are used.</p>
 </div>
 <div class="paragraph">
 <p>A signal variable carries the physical value of a network signal normally packaged inside a PDU or frame.
 The unit definition of the variable must match the one defined in the <a href="#high-cut-network-description-files">network description file</a>, if provided.</p>
 </div>
 <div class="paragraph">
-<p>Each network signal must be listed as <a href="#high-cut-terminal-member-variable-for-signals">Terminal Member Variable</a> of its corresponding <a href="#high-cut-pdu-terminal">PDU terminal</a>.</p>
+<p>Each network signal must be listed as a <a href="#high-cut-terminal-member-variable-for-signals">Terminal Member Variable</a> of its corresponding <a href="#high-cut-pdu-terminal">PDU terminal</a>.</p>
 </div>
 <div class="paragraph">
-<p>In case multiplexed signals are present in a frame/PDU/container PDU: All signals/PDUs are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values <em>[those values could even be outside their specified min-max range without fault]</em>.</p>
+<p>In case multiplexed signals are present in a frame/PDU/container PDU:
+All signals/PDUs are present, but only the active signal according to the multiplex switch signal contains a valid value, all inactive variables have undefined values.
+<em>[These values could even be outside their specified min-max range without fault.]</em></p>
 </div>
 <div class="paragraph">
-<p>All signal variables are clocked to exactly indicate when they have been sent, see <a href="#high-cut-clock-variables">Section 4.2.2</a>.</p>
+<p>All signal variables are clocked to indicate when they have been sent/received, see <a href="#high-cut-clock-variables">Section 4.2.2</a>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="high-cut-clock-variables">4.2.2. Clock Variables</h4>
 <div class="paragraph">
-<p>In order to use FMU input and output variables as transport layer for networks, input and output Clocks are used.
+<p>In order to use FMU input and output variables as transport layer for networks, Clocks are used to indicate the timing.
 Such a Clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.</p>
 </div>
 <div class="paragraph">
-<p>The output Clock type, <code>periodic</code> or <code>aperiodic</code>, is defined by the sending FMU.
-This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:</p>
+<p>The Clock type (<code>periodic</code> or <code>aperiodic</code>) is defined by the sending FMU.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>While <code>aperiodic</code> Clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> might reduce the network simulation speed.</p>
-</li>
-<li>
-<p>Using <code>periodic</code> Clocks reduces the number of <code>Event Modes</code> required and might speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.</p>
-</li>
-<li>
-<p>One could use (structural) parameters to define the accuracy of <code>aperiodic</code> Clocks, allowing control of the simulation accuracy and performance with the same FMU.</p>
-</li>
-<li>
-<p>The input Clocks shall be <code>triggered</code> Clocks, if they are to be driven by the respective output Clock.</p>
-</li>
-<li>
-<p>Alternatively, input Clocks can be <code>periodic</code> Clocks matching the relevant output Clock, which causes them to be scheduled for the same time instances.
+<div class="paragraph">
+<p><em>[This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:</em></p>
+</div>
+<div class="paragraph">
+<p><em>- While <code>aperiodic</code> Clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> might reduce the network simulation speed.</em></p>
+</div>
+<div class="paragraph">
+<p><em>- Using <code>periodic</code> Clocks might reduces the number of <code>Event Modes</code> required and might speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted.</em></p>
+</div>
+<div class="paragraph">
+<p><em>- One could use (structural) parameters to define the accuracy of <code>aperiodic</code> Clocks, allowing control of the simulation accuracy and performance with the same FMU.</em></p>
+</div>
+<div class="paragraph">
+<p><em>Note: The statements regarding <code>aperiodic</code> and <code>periodic</code> Clocks and their impact on performance should be understood as general tendencies rather than universally valid truths, as other aspects such as baud rates and expected bus loads must be taken into account for a more precise estimate.]</em></p>
+</div>
+<div class="paragraph">
+<p>The Clocks of a receiving frame shall be <code>triggered</code> Clocks if they are to be driven by the respective Clock of the sending frame.
+Alternatively, Clocks of a receiving frame can be <code>periodic</code> Clocks matching the relevant Clock of the sending frame, which causes them to be scheduled for the same time instances
 <em>[This may allow for more efficient simulation in the case that there exists a more or less static communications schedule, and more detailed simulation of timing variation is not needed.]</em></p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
-<p>The importer will then connect and merge output Clock activations, even those of different Clock types, and forwards them to the input Clocks (or merges those as well, in the case of <code>periodic</code> input Clocks), as required by the network semantics.</p>
-</div>
-<div class="paragraph">
-<p>Signal variables belonging to frame <code>BusName.FrameName</code> are triggered by the Clock <code>BusName.FrameName_Clock</code> and all these variables and their corresponding Clock must share the same <code>causality</code> (<code>input</code> or <code>output</code>).</p>
-</div>
-<div class="paragraph">
-<p><em>[Note: The statements regarding <code>aperiodic</code> and <code>periodic</code> Clocks and their impact on performance should be understood as general tendencies rather than universally valid truths, as other aspects such as baud rates and expected bus loads must be taken into account for a more precise estimate.]</em></p>
+<p>Signal variables belonging to frame <code>BusName.FrameName</code> and all its variables must share the same <code>causality</code> (<code>input</code> or <code>output</code>).</p>
 </div>
 </div>
 </div>
@@ -1575,7 +1570,7 @@ The <code>SignalName</code>, and so the resulting <code>memberName</code>, is de
         description="Powertrain CAN bus defined with dbc file"&gt;
       &lt;Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="tcuSensors" matchingRule="bus"&gt;
         &lt;TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain.tcuSensors_Clock" memberName="Clock" /&gt;
+          variableName="Powertrain.tcuSensors_Clock" memberName="TransmissionClock" /&gt;
         &lt;Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="tcuSensors" matchingRule="bus"&gt;
           &lt;TerminalMemberVariable variableKind="signal"
             variableName="Powertrain.tcuSensors.tcuSensors.vCar" memberName="vCar" /&gt;
@@ -1585,7 +1580,7 @@ The <code>SignalName</code>, and so the resulting <code>memberName</code>, is de
       &lt;/Terminal&gt;
       &lt;Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="tcuState" matchingRule="bus"&gt;
         &lt;TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain.tcuState_Clock" memberName="Clock" /&gt;
+          variableName="Powertrain.tcuState_Clock" memberName="TransmissionClock" /&gt;
         &lt;Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="tcuState" matchingRule="bus"&gt;
           &lt;TerminalMemberVariable variableKind="signal"
             variableName="Powertrain.tcuState.tcuState.state" memberName="state" /&gt;
@@ -1597,7 +1592,7 @@ The <code>SignalName</code>, and so the resulting <code>memberName</code>, is de
       &lt;/Terminal&gt;
       &lt;Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="ecuState" matchingRule="bus"&gt;
         &lt;TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain.ecuState_Clock" memberName="Clock" /&gt;
+          variableName="Powertrain.ecuState_Clock" memberName="TransmissionClock" /&gt;
         &lt;Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="ecuState" matchingRule="bus"&gt;
           &lt;TerminalMemberVariable variableKind="signal"
             variableName="Powertrain.ecuState.ecuState.accelPedal" memberName="accelPedal" /&gt;
@@ -1716,7 +1711,7 @@ The <code>BusName</code> is derived from the AUTOSAR Cluster ShortName concatena
         description="Powertrain CAN bus defined by an AUTOSAR system extract"&gt;
       &lt;Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="tcuSensors" matchingRule="bus"&gt;
         &lt;TerminalMemberVariable variableKind="signal"
-          variableName="PowertrainCluster.Powertrain.tcuSensors_Clock" memberName="Clock" /&gt;
+          variableName="PowertrainCluster.Powertrain.tcuSensors_Clock" memberName="TransmissionClock" /&gt;
         &lt;Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="tcuSensors" matchingRule="bus"&gt;
           &lt;TerminalMemberVariable variableKind="signal"
             variableName="PowertrainCluster.Powertrain.tcuSensors.vCar_SignalTriggering" memberName="vCar" /&gt;
@@ -2216,21 +2211,21 @@ Pending Tx data shall be signaled by returning from <code>fmi3DoStep</code> with
 <div class="sect3">
 <h4 id="low-cut-tx-rx-data-variables">5.3.3. Tx/Rx Data Variables</h4>
 <div class="paragraph">
-<p>The Tx/Rx variables are of type <code>fmi3Binary</code> and contain multiple Bus Operations, as sent or receive by the FMU.
+<p>The <code>Tx_Data</code>/<code>Rx_Data</code> variables are of type <code>fmi3Binary</code> and may contain zero, one or multiple Bus Operations, as sent or received by the FMU.
 If no Bus Operations shall be sent by a specified Network FMU at a given Bus Communication Point, the size of the corresponding binary <code>Tx_Data</code> variable shall be set to zero.
-The senders can choose how many Bus Operations are buffered and/or for how long operations are buffered before activating an output Clock to trigger the actual sending of these operations.
+Sender FMUs can choose how many Bus Operations are buffered and/or for how long operations are buffered before activating an output Clock to trigger the actual sending of these operations.
 This allows senders to trade accuracy for speed: Buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="low-cut-selecting-tx-variables">5.3.4. Selecting the type of Tx Clock</h4>
 <div class="paragraph">
-<p>Selecting suitable Tx variables allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:</p>
+<p>Selecting a suitable <code>intervalVariability</code> for `Tx Clock' allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>While <code>aperiodic</code> Clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> migth reduce the network simulation speed.</p>
+<p>While <code>aperiodic</code> Clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> might reduce the network simulation speed.</p>
 </li>
 <li>
 <p>Using <code>periodic</code> Clocks and queueing the operations to be transmitted reduces the number of <code>Event Mode</code> entries and might speeds up the simulation at the cost of simulation accuracy.</p>
