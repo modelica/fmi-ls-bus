@@ -5,12 +5,12 @@
         description="Powertrain CAN bus defined by an AUTOSAR system extract">
       <Terminal terminalKind="org.fmi-ls-bus.frame-terminal" name="tcuSensors" matchingRule="bus">
         <TerminalMemberVariable variableKind="signal"
-          variableName="Powertrain.tcuSensors_Clock" memberName="Clock" />
+          variableName="PowertrainCluster.Powertrain.tcuSensors_Clock" memberName="TransmissionClock" />
         <Terminal terminalKind="org.fmi-ls-bus.pdu-terminal" name="tcuSensors" matchingRule="bus">
           <TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain.tcuSensors.vCar_SignalTriggering" memberName="vCar" />
+            variableName="PowertrainCluster.Powertrain.tcuSensors.vCar_SignalTriggering" memberName="vCar" />
           <TerminalMemberVariable variableKind="signal"
-            variableName="Powertrain.tcuSensors.oilTemp_SignalTriggering" memberName="oilTemp" />
+            variableName="PowertrainCluster.Powertrain.tcuSensors.oilTemp_SignalTriggering" memberName="oilTemp" />
         </Terminal>
       </Terminal>
       <Annotations>
