@@ -844,7 +844,7 @@ This minimizes the Bus Communication Points of the overall simulation system and
 This behavior is defined more specifically and slightly differently depending on whether it is a static or dynamic segment.
 
 What both segments have in common is that the Network FMU itself must know the appropriate time of a <<low-cut-flexray-transmit-operation, `Transmit`>> operation basing on the FlexRay cycle and slot principle.
-In concrete terms, this means that a Network FMU itself must provide the expected <<low-cut-flexray-transmit-operation, `Transmit`>> operation at the appropriate time via <<low-cut-tx-clock-variables, Tx Clock Variables>>.
+In concrete terms, this means that a Network FMU itself must provide the expected <<low-cut-flexray-transmit-operation, `Transmit`>> operation at the appropriate time via <<low-cut-tx-clock, Tx Clocks>>.
 The start time of the first FlexRay cycle is defined by the `Start Time` argument value of the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation.
 
 That concrete means that the point in time for the start of FlexRay cycle in nanoseconds can be computed within a Network FMU as
