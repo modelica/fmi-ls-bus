@@ -232,7 +232,7 @@ image::low_cut_time_based_port_connection.svg[width=50%, align="center"]
 Because of the common Clock source however, both Clocks (`Rx_Clock` and `Tx_Clock`) might get active at the same time.
 To make sure that the `Rx_Data` variable is set properly, an importer has to activate the `Rx_Clock` respecting the `Tx_Data` and `Rx_Data` dependency.
 
-_[Note: For clarity always a direct connection line between `Tx_Clock` and `Rx_Clock` is shown in figures of this document.]_
+_[Note: For clarity always a connecting line between `Tx_Clock` and `Rx_Clock` is shown in figures of this document.]_
 
 A `time-based` Clock can be `periodic` or `aperiodic`.
 Both allow defining Bus Communication Points independently of the regular communication points with fixed or variable distances.
