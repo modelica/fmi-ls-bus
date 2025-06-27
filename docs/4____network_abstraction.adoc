@@ -200,7 +200,7 @@ To summarize, four variables with the following characteristics and relations ar
 The `causality` for the `Tx_Data` variable shall be `output`.
 The `causality` of `Tx_Clock` depends on the selected Clock type (see <<low-cut-tx-time-based-clocks, Tx Clocks>>).
 
-Both variables (and their corresponding Clocks) must be a member of its corresponding <<low-cut-bus-terminal, Bus Terminal>>.
+Both variables (and their corresponding Clocks) must be members of its corresponding <<low-cut-bus-terminal, Bus Terminal>>.
 
 ==== Tx Clocks [[low-cut-tx-clocks]]
 As described in the FMI 3.0 specification, Clocks are used to synchronize events between the importer and across FMUs.
@@ -223,7 +223,7 @@ An importer has to determine proper communication step sizes to synchronize netw
 
 _[Note: During simulation it can happen that no `Tx_Data` has to be transferred to the `Rx_Data` variable at the announced Tx time. In this case the returned 'valueSize' of the `Tx_Data` variable is 0.]_
 
-Although the `causality` of a `time-based` `Tx_Clock` and a `triggered` `Rx_Clock` are each `input`, it is allowed to connect both, since a `time-based` Clock of an FMU is considered only to be a request to the importer to provide an attendant Clock source.
+Although the `causality` of a `time-based` `Tx_Clock` and a `triggered` `Rx_Clock` are each `input`, it is allowed to connect both, since a `time-based` Clock of an FMU is considered only to be a request to the importer to provide an corresponding Clock source.
 
 .Consideration of time-base Tx_Clock connections.
 [#low-cut-time-based-port-connection]
