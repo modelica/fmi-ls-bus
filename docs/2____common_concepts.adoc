@@ -12,7 +12,7 @@ The network signals are structured via a PDU and frame hierarchy by using termin
 Within the Network Abstraction, the bus is simulated using a separate, bus-specific protocol.
 The protocol consists out of well defined Bus Operations that are used to provide a detailed simulation of network communication above the electrical bus level.   
 These Bus Operations are exchanged between the various FMUs using binary variables.
-Since network communication is not continuous but time discrete, Clocks are used to indicate when network data is sent or received.
+Clocks are used to indicate when network data is sent or received.
 
 While the values and semantic of Clocks are clear, the exchange of Bus Operations via binary variables is opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology.
 Additionally provided C header files simplifies the usage of the Network Abstraction.
