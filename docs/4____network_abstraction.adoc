@@ -223,7 +223,7 @@ An importer has to determine proper communication step sizes to synchronize netw
 
 _[Note: During simulation it can happen that no `Tx_Data` has to be transferred to the `Rx_Data` variable at the announced Tx time. In this case the returned 'valueSize' of the `Tx_Data` variable is 0.]_
 
-Although the `causality` of a `time-based` `Tx_Clock` and a `triggered` `Rx_Clock` are each `input`, it is allowed to connect both, since a `time-based` Clock of an FMU is considered only to be a request to the importer to provide an corresponding Clock source.
+Although the `causality` of a `time-based` `Tx_Clock` and a `triggered` `Rx_Clock` are each `input`, it is allowed to connect both, since a `time-based` Clock of an FMU is considered only to be a request to the importer to provide a corresponding Clock source.
 
 .Consideration of time-base Tx_Clock connections.
 [#low-cut-time-based-port-connection]
