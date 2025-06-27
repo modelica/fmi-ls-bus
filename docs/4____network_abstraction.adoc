@@ -229,7 +229,7 @@ Although the `causality` of a `time-based` `Tx_Clock` and a `triggered` `Rx_Cloc
 [#low-cut-time-based-port-connection]
 image::low_cut_time_based_port_connection.svg[width=50%, align="center"]
 
-Because of the common Clock source however, both Clocks (`Rx_Clock` and `Tx_Clock`) might get active at the same time.
+However, because of the common Clock source, both Clocks (`Rx_Clock` and `Tx_Clock`) might get active at the same time.
 To make sure that the `Rx_Data` variable is set properly, an importer has to activate the `Rx_Clock` respecting the `Tx_Data` and `Rx_Data` dependency.
 
 _[Note: For clarity always a connecting line between `Tx_Clock` and `Rx_Clock` is shown in figures of this document.]_
