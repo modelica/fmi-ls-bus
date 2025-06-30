@@ -35,7 +35,7 @@ All signal variables are clocked to indicate when they have been sent/received, 
 
 === Clocks [[high-cut-clock-variables]]
 In order to use FMU input and output variables as transport layer for networks, Clocks are used to indicate the timing.
-Such a Clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.
+The sending FMU uses a Clock to indicate the transmission of the corresponding frame or frames.
 
 The Clock type (`periodic` or `aperiodic`) is defined by the sending FMU.
 
@@ -50,8 +50,8 @@ _- One could use (structural) parameters to define the accuracy of `aperiodic` C
  
 _Note: The statements regarding `aperiodic` and `periodic` Clocks and their impact on performance should be understood as general tendencies rather than universally valid truths, as other aspects such as baud rates and expected bus loads must be taken into account for a more precise estimate.]_
  
-The Clocks of a receiving frame shall be `triggered` Clocks if they are to be driven by the respective Clock of the sending frame.
-Alternatively, Clocks of a receiving frame can be `periodic` Clocks matching the relevant Clock of the sending frame, which causes them to be scheduled for the same time instances
+The Clocks of a receiving frame shall be `triggered` Clocks if they are to be driven by the respective Clock of the sending frame. +
+Alternatively, Clocks of a receiving frame can be `periodic` Clocks matching the relevant Clock of the sending frame, which causes them to be scheduled for the same time instances.
 _[This may allow for more efficient simulation in the case that there exists a more or less static communications schedule, and more detailed simulation of timing variation is not needed.]_
 
 Signal variables belonging to frame `BusName.FrameName` must share the same `causality` (`input` or `output`).
