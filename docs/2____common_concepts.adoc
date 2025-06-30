@@ -62,15 +62,15 @@ Such an ideal network differs from physical networks in the following ways (and 
 If more realistic network properties are required, a bus simulation component must be added.
 
 Within this communication architecture the specified FMUs are connected to a dedicated Bus Simulation FMU.
-The Bus Simulation FMU is used to simulate the bus behavior (e.g. transmission timing) and differs depending on the bus type (e.g., for CAN, LIN, Ethernet or FlexRay) to simulate.
+The Bus Simulation FMU is used to simulate the bus behavior (e.g., transmission timing) and differs depending on the bus type (e.g., for CAN, LIN, Ethernet or FlexRay) to simulate.
 In this context, a Bus Simulation FMU must provide enough Bus Terminals for all FMUs that are interconnected via a bus.
 The basic concept is that all FMUs that want to transmit network data provide them to the Bus Simulation FMU.
-The Bus Simulation FMU receives these network data and distribute them accordingly across the network to simulate.
+The Bus Simulation FMU receives these network data and distributes them accordingly across the network.
 In this situation the Bus Simulation FMU can then acknowledgefootnote:low_cut_relevant[], delayfootnote:high_cut_relevant[]footnote:low_cut_relevant[], rejectfootnote:low_cut_relevant[] or forward them to the recipients combined with a calculated transmission timingfootnote:high_cut_relevant[]footnote:low_cut_relevant[].
 
 Also in this case, the FMU importer does not require any special features for bus simulation, apart from supporting FMI variables, Clocks and terminals.
 The figure below shows two FMUs which are connected to a specific Bus Simulation FMU.
-The total of three FMUs are executed on a common FMI 3.0 importer.
+A total of three FMUs are executed using a common FMI 3.0 importer.
 
 .Bus simulation by using a dedicated Bus Simulation FMU.
 [#figure-external-bus-simulation-fmu]
