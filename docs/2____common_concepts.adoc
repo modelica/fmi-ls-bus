@@ -93,14 +93,3 @@ The following figure illustrates two FMUs, which are integrated by an importer t
 image::architecture_bus_simulation_importer.svg[width=50%, align="center"]
 
 The usage of this architecture type allows the integration of this layered standard into an already existing simulator, which implements network communication with proprietary interfaces.
-In this case, it may also be possible to integrate other formats, such as manufacturer-specific ones, into a bus simulation.
-
-===  Provided C-API [[common-concepts-provided-c-api]]
-Besides the textual specification for FMUs with bus support, this layered standard also provides C header files to simplify the creation of FMUs with bus support.
-The following header files are provided:
-
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBus.h[fmi3LsBus.h] provides general macros, types and structures for common Bus Operations.
-These header files apply to all supported bus types of the layered standard.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtil.h[fmi3LsBusUtil.h] provides common utility macros and structures for all supported bus types.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusCan.h[fmi3LsBusCan.h] provides macros, types and structures of Bus Operations for CAN, CAN FD and CAN XL.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtilCan.h[fmi3LsBusUtilCan.h] provides CAN, CAN FD and CAN XL explicit utility macros.
