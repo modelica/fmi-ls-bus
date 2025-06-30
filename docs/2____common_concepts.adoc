@@ -14,10 +14,10 @@ The protocol consists of well defined Bus Operations that are used to provide a 
 These Bus Operations are exchanged between FMUs using binary variables.
 Clocks are used to indicate when network data is sent or received.
 
-While the values and semantic of Clocks are clear, the exchange of Bus Operations via binary variables is opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology.
-Additionally provided C header files simplifies the usage of the Network Abstraction.
-In this context, the specified Bus Operations do not just transport the network-specific payload, but also carry protocol-specific status information.
-Status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack about success or errors of a send request.
+While the values and semantics of Clocks are transparent, the exchange of Bus Operations via binary variables is opaque to the importer.
+The internal structure of these binary variables representing Bus Operations to implement the transport mechanism of the specific network technology is specified in this document.
+These Bus Operations do not just transport the network-specific payload but also carry protocol-specific status information.
+This status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack if a send request was successful or not.
 
 When executing an FMU with a fixed step size, multiple message sends may fall into one `fmiDoStep`.
 In this situation the High-Cut signal variables will miss all but the last value sent while the Low-Cut will buffer all Bus Operations and exchange them after the `fmiDoStep`.
