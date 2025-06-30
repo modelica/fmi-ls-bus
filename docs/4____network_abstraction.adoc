@@ -34,7 +34,7 @@ By queuing Bus Operations, System Compositions with variable-step size FMUs as w
 
 === Layered Standard Bus Protocol [[low-cut-layered-standard-bus-protocol]]
 The Layered Standard Bus Protocol allows the transmission of Bus Operations between FMUs in binary form via Clocks and clocked variables (see <<low-cut-variables>>).
-Depending on the role (Network or Bus Simulation), FMUs have to respond to received operations as specified by this layered standard.
+Depending on their role (Network or Bus Simulation), FMUs have to respond to received operations as specified by this layered standard.
 Operations and the reaction on receipt are bus-type-specific and therefore described in the bus-specific chapters.
 However, the description follows a uniform structure and consists of two parts, an overview table and a detailed description of all operations.
 
