@@ -191,9 +191,8 @@ h|Boolean h|Value h|Description
 |====
 
 === Variables [[low-cut-variables, Variables]]
-This section explains how layered standard bus protocol operations are sent and received by FMUs using Clocks and clocked variables footnote:[For details, refer to Functional Mock-up Interface Specification (fmi-standard.org) chapter 2.2.8 Clocks.].
-While <<low-cut-tx-clocks, Tx Clock>> and <<low-cut-rx-clocks, Rx Clock>>) are used for scheduling and time synchronization,  <<low-cut-tx-rx-data-variables, Tx/Rx Data Variables>>) are used to carry the layered standard bus protocol operations in binary form.
-To summarize, four variables with the following characteristics and relations are used:
+This section explains how layered standard bus protocol operations are sent and received by FMUs using Clocks and clocked variables footnote:[For details, refer to Functional Mock-up Interface Specification (fmi-standard.org) chapter 2.2.8 Clocks.]. +
+While <<low-cut-tx-clocks, Tx Clock>> and <<low-cut-rx-clocks, Rx Clock>> are used for scheduling and time synchronization, <<low-cut-tx-rx-data-variables, Tx/Rx Data Variables>> are used to carry Bus Operations in binary form.
 
 * The `Rx_Data` variable is clocked by the `Rx_Clock` Clock, both with `causality` set to `input`.
 * The `Tx_Data` variable is clocked by the `Tx_Clock` Clock.
