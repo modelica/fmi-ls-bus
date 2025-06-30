@@ -54,7 +54,7 @@ The Clocks of a receiving frame shall be `triggered` Clocks if they are to be dr
 Alternatively, Clocks of a receiving frame can be `periodic` Clocks matching the relevant Clock of the sending frame, which causes them to be scheduled for the same time instances
 _[This may allow for more efficient simulation in the case that there exists a more or less static communications schedule, and more detailed simulation of timing variation is not needed.]_
 
-Signal variables belonging to frame `BusName.FrameName` and all its variables must share the same `causality` (`input` or `output`).
+Signal variables belonging to frame `BusName.FrameName` must share the same `causality` (`input` or `output`).
 
 === Network Description Files [[high-cut-network-description-files,network description file]]
 Standardized <<high-cut-network-description-files,network description files>> may optionally be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
