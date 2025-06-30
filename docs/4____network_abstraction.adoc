@@ -196,8 +196,8 @@ While <<low-cut-tx-clocks, Tx Clock>> and <<low-cut-rx-clocks, Rx Clock>> are us
 
 * The `Rx_Data` variable is clocked by the `Rx_Clock` Clock, both with `causality` set to `input`.
 * The `Tx_Data` variable is clocked by the `Tx_Clock` Clock.
-The `causality` for the `Tx_Data` variable shall be `output`.
-The `causality` of `Tx_Clock` depends on the selected Clock type (see <<low-cut-tx-time-based-clocks, Tx Clocks>>).
+* The `causality` of the `Tx_Data` variable shall be `output`.
+* The `causality` of `Tx_Clock` depends on the selected Clock type (see <<low-cut-tx-time-based-clocks, Tx Clocks>>).
 
 Both variables (and their corresponding Clocks) must be members of its corresponding <<low-cut-bus-terminal, Bus Terminal>>.
 
