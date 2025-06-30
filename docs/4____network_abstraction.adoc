@@ -307,8 +307,8 @@ The following table lists the MIME types to use for the Tx/Rx data variables wit
 
 |====
 
-As in the table, above the version of a specified bus type is integrated within the MIME type.
-The MIME type and the associated versioning ensure that only compatible bus types can be connected to each other.
+The version of a bus type is defined in the `version` parameter of the MIME type.
+The MIME type and the associated versioning help importers to detect incompatible bus types.
 The version number marks the set of available operations for a specified bus type.
 The versioning follows the rules of semantic versioning, as defined in <<PW13>>.
 
