@@ -23,7 +23,7 @@ So that this layered standard can be supported in a variety of FMU importers and
 
 * Direct Communication: Limited to exactly two FMUs and uses a common FMU importer that does not require any special features for simulating buses.
 The importer only needs to support FMI variables, Clocks, and terminals, which are sufficient to emulate bus communication between the FMUs.
-Note, even though Clocks are listed in the 'ModelVariables' element in the modelDescription.xml of the FMU, Clocks will be treated differently than all other variables.
+Note, even though Clocks are listed in the `ModelVariables` element in the `modelDescription.xml` of the FMU, Clocks will be treated differently than all other variables.
 In this document we will call variables of type Clock 'Clocks', and all variables that are not Clocks 'variables'.
 * Composition with dedicated Bus Simulation FMU: A separate Bus Simulation FMU is used to simulate the specific bus behavior.
 Other FMUs that want to emulate bus communication provide and relate network information via this Bus Simulation FMU.
