@@ -268,7 +268,7 @@ The input Clocks (`Rx_Clock`) shall be `triggered` Clocks.
 ==== Tx/Rx Data Variables [[low-cut-tx-rx-data-variables, Communication Variables]]
 The `Tx_Data`/`Rx_Data` variables are of type `fmi3Binary` and may contain zero, one or multiple Bus Operations, as sent or received by the FMU.
 If no Bus Operations shall be sent by a specified Network FMU at a given Bus Communication Point, the size of the corresponding binary `Tx_Data` variable shall be set to zero.
-Sender FMUs can choose how many Bus Operations are buffered and/or for how long operations are buffered before activating an output Clock to trigger the actual sending of these operations.
+A sending FMU can choose how many Bus Operations are buffered and/or for how long Bus Operations are buffered before it indicates that the corresponding time based Clock should be activated or the corresponding triggered Clock get triggered.
 This allows senders to trade accuracy for speed: Buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication.
 
 ==== Selecting the type of Tx Clock [[low-cut-selecting-tx-clocks]]
@@ -286,7 +286,7 @@ This type indicates which specific bus type is involved.
 It ensures that only bus types of the same type can be interconnected, since FMI only allows the connection of two MIME types of the same binary variables.
 The following table lists the MIME types to use for the Tx/Rx data variables within a <<low-cut-bus-terminal, Bus Terminal>>:
 
-.Overview of the available MIME types for the supported several bus types.
+.Overview of the available MIME types for the supported bus types.
 [#table-mime-types]
 [cols="4,3",options="header"]
 |====
@@ -313,7 +313,6 @@ The version number marks the set of available operations for a specified bus typ
 The versioning follows the rules of semantic versioning, as defined in <<PW13>>.
 
 === Terminal Definitions [[low-cut-terminal-definitions]]
-This section defines terminals for Network Abstraction.
 
 A schematic representation of an FMU with a Bus Terminal is shown in the <<#figure-frame-variables-terminals-lowcut, following figure>>:
 
