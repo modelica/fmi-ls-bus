@@ -2,16 +2,16 @@
 Physical Signal Abstraction and Network Abstraction layers represent different levels for the exchange of bus messages.
 Physical Signal Abstraction focuses primarily on the exchange of signal values, while Network Abstraction provides a complete way of implementing a virtual bus driver.
 Depending on the exporting tool, one of the abstraction layers is more "natural" to the FMU, while the other might have to be emulated with additional internal effort or an adapter (FMU) could be used.
-Importers on the other hand rarely require both abstraction layers for system level compositions, because the engineering tasks define the required level of abstraction for the network communication.
+Importers, on the other hand, rarely require both abstraction layers for system level compositions, because the engineering tasks define the required level of abstraction for the network communication.
 FMUs may choose to only support one abstraction layer providing only the corresponding variables.
 However, for versatility, having FMUs capable of communicating on both abstraction layers is more convenient for users.
 
-In both the Physical Signal Abstraction and the Network Abstraction layer, the exchange of network data takes place via variables.
+For both abstraction layers, the exchange of network data is implemented via variables.
 In the case of the Physical Signal Abstraction, a separate variable of the respective type is created for each network signal to transfer.
 The network signals are structured via a PDU and frame hierarchy by using terminals.
 Within the Network Abstraction, the bus is simulated using a separate, bus-specific protocol.
-The protocol consists out of well defined Bus Operations that are used to provide a detailed simulation of network communication above the electrical bus level.   
-These Bus Operations are exchanged between the various FMUs using binary variables.
+The protocol consists of well defined Bus Operations that are used to provide a detailed simulation of network communication above the electrical bus level.   
+These Bus Operations are exchanged between FMUs using binary variables.
 Clocks are used to indicate when network data is sent or received.
 
 While the values and semantic of Clocks are clear, the exchange of Bus Operations via binary variables is opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology.
@@ -27,7 +27,7 @@ If `triggered` output Clocks are used, the importer must ensure to schedule and 
 It is strongly recommended to avoid using `triggered` output Clocks and to instead use `time-based` Clocks to avoid these complications and potential performance problems.
 
 === System Compositions [[common-concepts-system-compositions]]
-Overall, this standard considers three possible communication architectures for bus communication.
+This standard considers three possible communication architectures for bus communication.
 It should be explicitly noted at this point that the FMUs for integration in the respective use case do not necessarily have to be different, so that the same FMU can be integrated across all three communication architectures.
 The interface of the FMU to the importer is always the same, but a different subset of the features is actually used.
 Depending on the abstraction layer (Physical Signal Abstraction or Network Abstraction) and communication architectures, the feature set of the FMI-LS-BUS can vary, so that certain features are only available in specific combinations.
