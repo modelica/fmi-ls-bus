@@ -1,7 +1,7 @@
 ==== Ethernet [[low-cut-ethernet]]
 This standard should allow simulation of Ethernet bus systems and shall cover commercial, industrial and automotive use cases based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
 
-This standard covers all variants of Ethernet (e.g. 10BASE-T, 100BASE-TX, 1000BASE-T, 10GBASE-T, 100BASE-T1, 1000BASE-T1, 10BASE-T1S, etc.) described in <<IEEE-802.3-2022, IEEE 802.3>> while being flexible enough to support future versions without adaption due to the high cadence of the Ethernet standardization process.
+Due to the chosen level of abstraction, this standard covers a wide range of Ethernet variants (e.g. 10BASE-T, 100BASE-TX, 1000BASE-T, 10GBASE-T, 100BASE-T1, 1000BASE-T1, 10BASE-T1S, etc.) described in <<IEEE-802.3-2022, IEEE 802.3>> and is also be designed flexible enough to support future versions without adaption due to the high cadence of the Ethernet standardization process.
 In addition, common supplementary standards are considered, including the following:
 
 * <<OpenAlliance-TC10-100BASE-T1, Open Alliance TC10 sleep/wake-up>> (including <<OpenAlliance-TC10-100BASE-T1, 100BASE-T>>, <<OpenAlliance-TC10-1000BASE-T1, 1000BASE-T1>> and <<OpenAlliance-TC10-10BASE-T1S, 10BASE-T1S>>)
