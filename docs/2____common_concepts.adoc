@@ -2,32 +2,32 @@
 Physical Signal Abstraction and Network Abstraction layers represent different levels for the exchange of bus messages.
 Physical Signal Abstraction focuses primarily on the exchange of signal values, while Network Abstraction provides a complete way of implementing a virtual bus driver.
 Depending on the exporting tool, one of the abstraction layers is more "natural" to the FMU, while the other might have to be emulated with additional internal effort or an adapter (FMU) could be used.
-Importers on the other hand rarely require both abstraction layers for system level compositions, because the engineering tasks define the required level of abstraction for the network communication.
+Importers, on the other hand, rarely require both abstraction layers for system level compositions, because the engineering tasks define the required level of abstraction for the network communication.
 FMUs may choose to only support one abstraction layer providing only the corresponding variables.
 However, for versatility, having FMUs capable of communicating on both abstraction layers is more convenient for users.
 
-In both the Physical Signal Abstraction and the Network Abstraction layer, the exchange of network data takes place via FMI variables.
-In the case of the Physical Signal Abstraction, a separate FMI variable of the respective type is created for each network signal to transfer.
-The network signals are structured via a PDU and frame hierarchy by using FMI 3.0 Terminals.
+For both abstraction layers, the exchange of network data is implemented via variables.
+In the case of the Physical Signal Abstraction, a separate variable of the respective type is created for each network signal to transfer.
+The network signals are structured via a PDU and frame hierarchy by using terminals.
 Within the Network Abstraction, the bus is simulated using a separate, bus-specific protocol.
-The protocol consists out of well defined Bus Operations that are used to provide a detailed simulation of network communication above the electrical bus level.   
-This Bus Operations are exchanged between the various FMUs using binary FMI variables.
-Since network communication is not continuous but time discrete, FMI 3.0 Clocks are used to indicate when network data is sent or received.
+The protocol consists of well defined Bus Operations that are used to provide a detailed simulation of network communication above the electrical bus level.   
+These Bus Operations are exchanged between FMUs using binary variables.
+Clocks are used to indicate when network data is sent or received.
 
-While the values and semantic of the Clock variables are clear, the exchange of Bus Operations via binary FMI variables is opaque to the importer but have internal structure to implement the transport mechanism of the specific network technology.
-Additionally provided C header files simplifies the usage of the Network Abstraction.
-In this context, the specified Bus Operations do not just transport the network-specific payload, but also carry protocol-specific status information.
-Status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack about success or errors of a send request.
+While the values and semantics of Clocks are transparent, the exchange of Bus Operations via binary variables is opaque to the importer.
+The internal structure of these binary variables representing Bus Operations to implement the transport mechanism of the specific network technology is specified in this document.
+These Bus Operations do not just transport the network-specific payload but also carry protocol-specific status information.
+This status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack if a send request was successful or not.
 
-When executing an FMU with a fixed step size, multiple message sends may fall into one `fmiDoStep`.
-In this situation the High-Cut signal variables will miss all but the last value sent while the Low-Cut will buffer all Bus Operations and exchange them after the `fmiDoStep`.
+When executing an FMU with a fixed step size, multiple message sends may fall into the time-interval of one `fmiDoStep` call.
+In such a setup, the High-Cut signal variables will miss all but the last value sent, while Low-Cut FMUs will buffer all Bus Operations and exchange them after the `fmiDoStep`.
 
 === General Recommendations [[common-concepts-general-recommendations]]
 If `triggered` output Clocks are used, the importer must ensure to schedule and potentially roll-back FMUs that have advanced their `fmi3DoStep` past such a (surprising) `triggered` Clock activation from another FMU.
 It is strongly recommended to avoid using `triggered` output Clocks and to instead use `time-based` Clocks to avoid these complications and potential performance problems.
 
 === System Compositions [[common-concepts-system-compositions]]
-Overall, this standard considers three possible communication architectures for bus communication.
+This standard considers three possible communication architectures for bus communication.
 It should be explicitly noted at this point that the FMUs for integration in the respective use case do not necessarily have to be different, so that the same FMU can be integrated across all three communication architectures.
 The interface of the FMU to the importer is always the same, but a different subset of the features is actually used.
 Depending on the abstraction layer (Physical Signal Abstraction or Network Abstraction) and communication architectures, the feature set of the FMI-LS-BUS can vary, so that certain features are only available in specific combinations.
@@ -62,15 +62,15 @@ Such an ideal network differs from physical networks in the following ways (and 
 If more realistic network properties are required, a bus simulation component must be added.
 
 Within this communication architecture the specified FMUs are connected to a dedicated Bus Simulation FMU.
-The Bus Simulation FMU is used to simulate the bus behavior (e.g. transmission timing) and differs depending on the bus type (e.g., for CAN, LIN, Ethernet or FlexRay) to simulate.
+The Bus Simulation FMU is used to simulate the bus behavior (e.g., transmission timing) and differs depending on the bus type (e.g., for CAN, LIN, Ethernet or FlexRay) to simulate.
 In this context, a Bus Simulation FMU must provide enough Bus Terminals for all FMUs that are interconnected via a bus.
 The basic concept is that all FMUs that want to transmit network data provide them to the Bus Simulation FMU.
-The Bus Simulation FMU receives these network data and distribute them accordingly across the network to simulate.
+The Bus Simulation FMU receives these network data and distributes them accordingly across the network.
 In this situation the Bus Simulation FMU can then acknowledgefootnote:low_cut_relevant[], delayfootnote:high_cut_relevant[]footnote:low_cut_relevant[], rejectfootnote:low_cut_relevant[] or forward them to the recipients combined with a calculated transmission timingfootnote:high_cut_relevant[]footnote:low_cut_relevant[].
 
 Also in this case, the FMU importer does not require any special features for bus simulation, apart from supporting FMI variables, Clocks and terminals.
 The figure below shows two FMUs which are connected to a specific Bus Simulation FMU.
-The total of three FMUs are executed on a common FMI 3.0 importer.
+A total of three FMUs are executed using a common FMI 3.0 importer.
 
 .Bus simulation by using a dedicated Bus Simulation FMU.
 [#figure-external-bus-simulation-fmu]
@@ -93,18 +93,3 @@ The following figure illustrates two FMUs, which are integrated by an importer t
 image::architecture_bus_simulation_importer.svg[width=50%, align="center"]
 
 The usage of this architecture type allows the integration of this layered standard into an already existing simulator, which implements network communication with proprietary interfaces.
-In this case, it may also be possible to integrate other formats, such as manufacturer-specific ones, into a bus simulation.
-
-===  Provided C-API [[common-concepts-provided-c-api]]
-Besides the textual specification for FMUs with bus support, this layered standard also provides C header files to simplify the creation of FMUs with bus support.
-The following header files are provided:
-
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBus.h[fmi3LsBus.h] provides general macros, types and structures for common Bus Operations.
-These header files apply to all supported bus types of the layered standard.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtil.h[fmi3LsBusUtil.h] provides common utility macros and structures for all supported bus types.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusCan.h[fmi3LsBusCan.h] provides macros, types and structures of Bus Operations for CAN, CAN FD and CAN XL.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtilCan.h[fmi3LsBusUtilCan.h] provides CAN, CAN FD and CAN XL explicit utility macros.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusFlexRay.h[fmi3LsBusFlexRay.h] provides macros, types and structures of Bus Operations for FlexRay.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtilFlexRay.h[fmi3LsBusUtilFlexRay.h] provides FlexRay explicit utility macros.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusEthernet.h[fmi3LsBusEthernet.h] provides macros, types and structures of Bus Operations for Ethernet.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtilEthernet.h[fmi3LsBusUtilEthernet.h] provides Ethernet explicit utility macros.
