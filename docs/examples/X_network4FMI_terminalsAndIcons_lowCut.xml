@@ -11,7 +11,7 @@
         variableName="Powertrain.Tx_Clock" memberName="Tx_Clock" />
       <TerminalMemberVariable variableKind="signal"
         variableName="Powertrain.Tx_Data" memberName="Tx_Data" />
-      <Terminal terminalKind="org.fmi-ls-bus.configuration" name="Configuration" matchingRule="bus">
+      <Terminal terminalKind="org.fmi-ls-bus.network-terminal.configuration" name="Configuration" matchingRule="bus">
         <TerminalMemberVariable variableKind="signal"
           variableName="BusNotification" memberName="BusNotification" />
       </Terminal>
