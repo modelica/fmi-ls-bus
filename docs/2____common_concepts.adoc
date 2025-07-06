@@ -94,3 +94,5 @@ The following figure illustrates two FMUs, which are integrated by an importer t
 image::architecture_bus_simulation_importer.svg[width=50%, align="center"]
 
 The usage of this architecture type allows the integration of this layered standard into an already existing simulator, which implements network communication with proprietary interfaces.
+In this case, it may also be possible to integrate other formats, such as manufacturer-specific ones, into a bus simulation.
+TODO!! what does this mean? that the importer can have other interfaces? Why is this relevant here at all? I'd just drop the sentence
