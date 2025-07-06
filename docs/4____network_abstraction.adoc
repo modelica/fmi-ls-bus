@@ -226,6 +226,8 @@ _[Note: The Clock type of `Tx_Clock` can influence the bus simulation significan
 ===== Time-based Tx Clocks [[low-cut-tx-time-based-clocks]]
 For time-based Clocks, the event times are known before a simulation step is started, and the importer can adapt the next `communicationStepSize` for all networked FMUs accordingly.
 
+TODO: This example is only valid for aperiodic clocks but this isn't mentioned in the text and periodic clocks are possible as well. We should clearly indicate that is an example for the anyway suggested countdown clocks.
+
 .Example Bus Communication Points announced by aperiodic time-based Tx_Clock.
 [#low-cut-communication-points]
 image::low_cut_communication_points.svg[width=100%, align="center"]
