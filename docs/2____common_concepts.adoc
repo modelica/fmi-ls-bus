@@ -86,8 +86,7 @@ Depending on the needs, it may be necessary to dynamically provision the Bus Sim
 ==== Importer with integrated Bus Simulation [[common-concepts-importer-with-integrated-bus-simulation]]
 In the third variant of the communication architecture, the bus simulation is built directly into the respective importer.
 The supported bus features are analogous to the <<common-concepts-composition-with-dedicated-bus-simulation-fmu, Composition with dedicated Bus Simulation FMU>> use case.
-The corresponding limitations regarding the behavior of the bus simulation are importer-specific.
-TODO! What does it mean and is it even necessary to mention that the limitations are importer-specific? Isn't it obvious?
+Actually, the difference is the type and manner of implementation while the FMI-LS-BUS interfaces remain stable.
 
 The following figure illustrates two FMUs, which are integrated by an importer that directly supports this standard and needs no further Bus Simulation FMU.
 
