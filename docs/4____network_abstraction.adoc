@@ -222,9 +222,20 @@ As described in the FMI 3.0 specification, Clocks are used to synchronize events
 _[Note: The Clock type of `Tx_Clock` can influence the bus simulation significantly - the differences should be taken into account.]_
 
 ===== Time-based Tx Clocks [[low-cut-tx-time-based-clocks]]
-TODO: This example is only valid for aperiodic clocks but this isn't mentioned in the text and periodic clocks are possible as well. We should clearly indicate that is an example for the anyway suggested countdown clocks.
+For time-based Clocks, the event times are known before a simulation step is started, and the importer can adapt the next `communicationStepSize` for all networked FMUs accordingly.
 
-.Example Bus Communication Points announced by aperiodic time-based Tx_Clock.
+<<low-cut-communication-points>> illustrates the operating principle of the exchange of Bus Operations using a `Tx_Clock` of type `countdown` Clock.
+The network topology is shown on the left part and the corresponding data flow on the right part of the figure.
+In this example FMU 1 and FMU 2 are communicating via a Bus Simulation.
+Each of them have a <<low-cut-bus-terminal, Bus Terminal>> where the specified Bus Operations are exchanged.
+Within the first communication point (black dot), the time is announced when FMU 1 wants to transmit data via the Bus Simulation to FMU 2 by configuring the `countdown` `Tx_Clock`.
+In the next step, the simulation system stops at a Bus Communication Point, so when the configured time is reached (red dot).
+The Bus Operation is then passed from FMU 1 to Bus Simulation.
+Bus Simulation itself also uses a `countdown` `Tx_Clock` and sets a point in the future at which the Bus Operation should be transmitted to FMU 2.
+Using these configured time periods, the actual transmission time is simulated.
+In the last step, the Bus Operation arrives at FMU 2.
+
+.Example Bus Communication Points announced by time-based aperiodic countdown Tx_Clock.
 [#low-cut-communication-points]
 image::low_cut_communication_points.svg[width=100%, align="center"]
 
