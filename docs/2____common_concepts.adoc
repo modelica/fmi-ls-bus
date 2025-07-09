@@ -16,6 +16,7 @@ The protocol consists of well defined Bus Operations that are used to provide a 
 These Bus Operations are exchanged between FMUs using binary variables.
 
 For both abstraction layers, Clocks are used to indicate when network data is sent or received.
+Since Clocks are strictly related to the `Event Mode`, networked FMUs shall set the Co-Simulation attribute `hasEventMode = "true"` in the model description file.
 
 While the values and semantics of Clocks are transparent, the exchange of Bus Operations via binary variables is opaque to the importer.
 The internal structure of these binary variables representing Bus Operations to implement the transport mechanism of the specific network technology is specified in this document.
