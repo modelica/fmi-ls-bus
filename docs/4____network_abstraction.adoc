@@ -217,9 +217,6 @@ Both variables (and their corresponding Clocks) must be members of its correspon
 ==== Tx Clocks [[low-cut-tx-clocks]]
 As described in the FMI 3.0 specification, Clocks are used to synchronize events between the importer and across FMUs.
 
-The point in time where Bus Operations are transferred from the `Tx_Data` to the `Rx_Data` variables is defined by the `Tx_Clock`.
-Such a communication point will be called Bus Communication Point.
-
 _[Note: The Clock type of `Tx_Clock` can influence the bus simulation significantly - the differences should be taken into account.]_
 
 ===== Time-based Tx Clocks [[low-cut-tx-time-based-clocks]]
