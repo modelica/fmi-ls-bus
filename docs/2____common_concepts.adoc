@@ -51,6 +51,17 @@ h|Clock properties h|intervalVariability h|Description
 |`aperiodic`|`countdown`|_The Bus Communication Point interval can change in any `Event Mode`, where the interval can also be unknown in some `Event Mode`._
 |====
 
+_[Selecting a suitable `intervalVariability` for sending Clocks allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:_
+
+_- While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` might reduce the network simulation speed._
+
+_- Using `periodic` Clocks and queueing (or even dropping of intermediate) data to be transmitted reduces the number of `Event Mode` entries and might speeds up the simulation at the cost of simulation accuracy._
+
+_- One could use (structural) parameters to define the accuracy of `aperiodic` Clocks, allowing control of the simulation accuracy and performance with the same FMU._
+
+_Note: The statements regarding `aperiodic` and `periodic` Clocks and their impact on performance should be understood as general tendencies rather than universally valid truths, as other aspects such as baud rates and expected bus loads must be taken into account for a more precise estimate.]_
+
+
 === System Compositions [[common-concepts-system-compositions]]
 This standard considers three possible communication architectures for bus communication.
 It should be explicitly noted at this point that the FMUs for integration in the respective use case do not necessarily have to be different, so that the same FMU can be integrated across all three communication architectures.

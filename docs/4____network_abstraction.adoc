@@ -264,14 +264,6 @@ If no Bus Operations shall be sent by a specified Network FMU at a given Bus Com
 A sending FMU can choose how many Bus Operations are buffered and/or for how long Bus Operations are buffered before it indicates that the corresponding time based Clock should be activated or the corresponding triggered Clock get triggered.
 This allows senders to trade accuracy for speed: Buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication.
 
-==== Selecting the type of Tx Clock [[low-cut-selecting-tx-clocks]]
-_[Selecting a suitable `intervalVariability` for `Tx Clock' allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:_
-
-_- While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` might reduce the network simulation speed._
-_- Using `periodic` Clocks and queueing the operations to be transmitted reduces the number of `Event Mode` entries and might speeds up the simulation at the cost of simulation accuracy._
-_- One could use (structural) parameters to define the accuracy of `aperiodic` Clocks, allowing control of the simulation accuracy and performance with the same FMU._
-
-_[Note: The statements regarding `aperiodic` and `periodic` Clocks and their impact on performance should be understood as general tendencies rather than universally valid truths, as other aspects such as baud rates and expected bus loads must be taken into account for a more precise estimate.]_
 
 ==== MIME Types [[low-cut-mime-types]]
 Every binary variable has a `mimeType`, which indicates the type of data passed as a binary.
