@@ -29,7 +29,7 @@ This status information allows, for example, the MCAL emulation of a virtual ECU
 When executing an FMU with a fixed step size, multiple message sends may fall into the time-interval of one `fmiDoStep` call.
 In such a setup, the High-Cut signal variables will miss all but the last value sent, while Low-Cut FMUs will buffer all Bus Operations and exchange them after the `fmiDoStep`.
 
-=== General Recommendations [[common-concepts-general-recommendations]]
+=== General Recommendations regarding Clocks [[common-concepts-general-recommendations]]
 If `triggered` output Clocks are used, the importer must ensure to schedule and potentially roll-back FMUs that have advanced their `fmi3DoStep` past such a (surprising) `triggered` Clock activation from another FMU.
 It is strongly recommended to avoid using `triggered` output Clocks and to instead use `time-based` Clocks to avoid these complications and potential performance problems.
 For time-based Clocks, the event times are known before a simulation step is started, and the importer can adapt the next `communicationStepSize` for all networked FMUs accordingly.
