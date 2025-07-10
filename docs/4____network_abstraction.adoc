@@ -220,8 +220,6 @@ As described in the FMI 3.0 specification, Clocks are used to synchronize events
 _[Note: The Clock type of `Tx_Clock` can influence the bus simulation significantly - the differences should be taken into account.]_
 
 ===== Time-based Tx Clocks [[low-cut-tx-time-based-clocks]]
-For time-based Clocks, the event times are known before a simulation step is started, and the importer can adapt the next `communicationStepSize` for all networked FMUs accordingly.
-
 TODO: This example is only valid for aperiodic clocks but this isn't mentioned in the text and periodic clocks are possible as well. We should clearly indicate that is an example for the anyway suggested countdown clocks.
 
 .Example Bus Communication Points announced by aperiodic time-based Tx_Clock.
@@ -243,22 +241,6 @@ However, because of the common Clock source, both Clocks (`Rx_Clock` and `Tx_Clo
 To make sure that the `Rx_Data` variable is set properly, an importer has to activate the `Rx_Clock` respecting the `Tx_Data` and `Rx_Data` dependency.
 
 _[Note: For clarity, a connecting line between `Tx_Clock` and `Rx_Clock` is always shown in figures of this document.]_
-
-A `time-based` Clock can be `periodic` or `aperiodic`.
-Both allow defining Bus Communication Points independently of the regular communication points with fixed or variable distances.
-The difference between the two Clock types is listed in the following table.
-
-.Time-based Clock properties.
-[#table-tx-clock-properties]
-[cols="3,1,7"]
-|====
-h|Clock properties h|intervalVariability h|Description
-|`periodic`|`constant`|_The Bus Communication Point interval is defined in the `modelDescription.xml` and is constant during simulation._
-|`periodic`|`fixed`|_The Bus Communication Point interval gets fixed during `Initialization Mode` and stays fixed during simulation._
-|`periodic`|`tunable`|_The Bus Communication Point interval can change in any `Event Mode`._
-|`aperiodic`|`changing`|_The Bus Communication Point interval can change in any `Event Mode` if this Clock ticked._
-|`aperiodic`|`countdown`|_The Bus Communication Point interval can change in any `Event Mode`, where the interval can also be unknown in some `Event Mode`._
-|====
 
 Network FMUs using a `time-based` `Tx_Clock` should set the Co-Simulation attribute `canHandleVariableCommunicationStepSize = "true"` in the model description file, since `fmi3DoStep` is typically called with variable `communicationStepSize`.
 
