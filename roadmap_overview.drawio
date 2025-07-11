@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36 Edg/137.0.0.0" version="27.1.6">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0" version="27.1.6">
   <diagram id="yPxyJZ8AM_hMuL3Unpa9" name="complex gitflow">
-    <mxGraphModel dx="895" dy="-347" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+    <mxGraphModel dx="994" dy="-291" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -49,7 +49,7 @@
         <mxCell id="d6mSQOqPAX1S2WBqcgU_-2" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.partConcEllipse;startAngle=0.25;endAngle=0.75;arcWidth=0.25;fillColor=#82B366;strokeColor=#82b366;" parent="1" vertex="1">
           <mxGeometry x="1013.6" y="1137.7751196172248" width="171.26449596735435" height="179.35406698564594" as="geometry" />
         </mxCell>
-        <mxCell id="2EjnSGh1YMzVQ0refrxI-21" value="&lt;b style=&quot;font-size: 10px;&quot;&gt;1.0.0-rc.2&lt;/b&gt;" style="html=1;whiteSpace=wrap;shape=mxgraph.infographic.barCallout;dx=33.76;dy=12.19;fillColor=#10739E;strokeColor=none;align=center;verticalAlign=top;fontColor=#ffffff;fontSize=14;fontStyle=1;shadow=0;spacingTop=-6;horizontal=1;spacingBottom=-8;" parent="1" vertex="1">
+        <mxCell id="2EjnSGh1YMzVQ0refrxI-21" value="&lt;b style=&quot;font-size: 10px;&quot;&gt;1.0.0-rc.3&lt;/b&gt;" style="html=1;whiteSpace=wrap;shape=mxgraph.infographic.barCallout;dx=33.76;dy=12.19;fillColor=#10739E;strokeColor=none;align=center;verticalAlign=top;fontColor=#ffffff;fontSize=14;fontStyle=1;shadow=0;spacingTop=-6;horizontal=1;spacingBottom=-8;" parent="1" vertex="1">
           <mxGeometry x="465.68" y="1151" width="69.81" height="34" as="geometry" />
         </mxCell>
         <mxCell id="2EjnSGh1YMzVQ0refrxI-37" value="&lt;b style=&quot;font-size: 10px;&quot;&gt;Developing&lt;/b&gt;" style="html=1;whiteSpace=wrap;shape=mxgraph.infographic.barCallout;dx=33.76;dy=12.19;fillColor=#AE4132;strokeColor=none;align=center;verticalAlign=top;fontColor=#ffffff;fontSize=14;fontStyle=1;shadow=0;spacingTop=-6;horizontal=1;spacingBottom=-8;" parent="1" vertex="1">
