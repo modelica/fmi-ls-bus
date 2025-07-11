@@ -132,7 +132,9 @@ The yellow representation describes transformed values and the information shown
 image::bus_operation_can_frame_mapping_example.svg[width=65%, align="center"]
 
 ==== Format Error [[low-cut-format-error-operation]]
-The <<low-cut-format-error-operation, `Format Error`>> operation is independent of the bus type and shall be used when encountering a syntax or content error of received operations.
+A <<low-cut-format-error-operation, `Format Error`>> operation will be sent by a network participant if a corrupt Bus Operation was received.
+A corrupt Bus Operation is an operation that does not match the expected format, e.g. an unknown OP Code or an operation with an invalid length.
+
 
 .Detailed description of the Format Error operation.
 [#table-format-error-operation]
@@ -142,7 +144,7 @@ h|Name
 3+|Format Error
 h|Description
 3+|Represents a generic format operation error, which can be initiated by every operation.
-This error shall be used when generally encountering a problem with the syntax or content of an operation.
+This error shall be used when generally encountering a problem with the content of an operation.
 h|OP Code [hex]
 3+|0x01
 .5+h|Content

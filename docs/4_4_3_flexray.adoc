@@ -293,7 +293,6 @@ Only Network FMUs with the corresponding optionally exposed <<low-cut-flexray-bu
 |====
 
 ====== Format Error [[low-cut-flexray-format-error-operation]]
-A format error indicates a syntax or content error in response to a received operation.
 See <<low-cut-format-error-operation, `Format Error`>> for definition.
 
 ====== Bus Error [[low-cut-flexray-bus-error-operation]]
