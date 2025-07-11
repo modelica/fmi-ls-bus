@@ -281,7 +281,6 @@ Depending on the <<low-cut-can-status-operation, status>> of the receiving Netwo
 |====
 
 ====== Format Error [[low-cut-can-format-error-operation]]
-Represents a format error that indicates a syntax or content error of receiving operations.
 See <<low-cut-format-error-operation, `Format Error`>> for definition.
 
 ====== Arbitration Lost [[low-cut-can-arbitration-lost-operation]]
