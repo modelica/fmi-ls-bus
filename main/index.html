@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 7e258cd,</span>
-<span id="revdate">2025-07-01</span>
+<span id="revnumber">version 4f9f7ce,</span>
+<span id="revdate">2025-07-11</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -2261,7 +2261,7 @@ The following table lists the MIME types to use for the Tx/Rx data variables wit
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">application/org.fmi-standard.fmi-ls-bus.can; version="1.0.0-rc.2"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/org.fmi-standard.fmi-ls-bus.can; version="1.0.0-rc.3"</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Binary variables simulating a CAN network including CAN, CAN FD and CAN XL</p></td>
 </tr>
 <tr>
@@ -2428,11 +2428,11 @@ Depending on the bus-specific definition, buses can introduce special terminal k
     &lt;Clock name="Powertrain.Rx_Clock" valueReference="1002"
         causality="input" variability="discrete" intervalVariability="triggered"/&gt;
     &lt;Binary name="Powertrain.Rx_Data" valueReference="1001" causality="input"
-        mimeType="application/org.fmi-standard.fmi-ls-bus.can; version=&amp;quot;1.0.0-rc.2&amp;quot;" variability="discrete" clocks="1002"/&gt;
+        mimeType="application/org.fmi-standard.fmi-ls-bus.can; version=&amp;quot;1.0.0-rc.3&amp;quot;" variability="discrete" clocks="1002"/&gt;
     &lt;Clock name="Powertrain.Tx_Clock" valueReference="1004"
         causality="input" variability="discrete" intervalVariability="changing"/&gt;
     &lt;Binary name="Powertrain.Tx_Data" valueReference="1003" causality="output"
-        mimeType="application/org.fmi-standard.fmi-ls-bus.can; version=&amp;quot;1.0.0-rc.2&amp;quot;" variability="discrete" clocks="1004"/&gt;
+        mimeType="application/org.fmi-standard.fmi-ls-bus.can; version=&amp;quot;1.0.0-rc.3&amp;quot;" variability="discrete" clocks="1004"/&gt;
     &lt;Boolean name="BusNotification" valueReference="1005" causality="parameter" variability="fixed" start="false"/&gt;
   &lt;/ModelVariables&gt;
   &lt;ModelStructure&gt;
