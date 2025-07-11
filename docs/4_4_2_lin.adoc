@@ -184,7 +184,6 @@ Depending on the simulation details, the Bus Simulation might respond with a <<l
 |====
 
 ====== Format Error [[low-cut-lin-format-error-operation]]
-Represents a format error that indicates a syntax or content error of receiving operations.
 See <<low-cut-format-error-operation, `Format Error`>> for definition.
 
 ====== Bus Error [[low-cut-lin-bus-error-operation]]

@@ -98,7 +98,6 @@ Only Network FMUs with the corresponding optionally exposed <<low-cut-ethernet-b
 |====
 
 ====== Format Error [[low-cut-ethernet-format-error-operation]]
-Represents a format error that indicates a syntax or content error of receiving operations.
 See <<low-cut-format-error-operation, `Format Error`>> for definition.
 
 ====== Bus Error [[low-cut-ethernet-bus-error-operation]]
