@@ -70,7 +70,7 @@ Depending on the abstraction layer (Physical Signal Abstraction or Network Abstr
 
 ==== Direct Communication [[common-concepts-direct-communication]]
 The first option is to use a common FMU importer.
-Within this configuration, the FMU importer does not require any special features for simulating buses, apart from supporting FMI variables, Clocks and terminals.
+For such a composition, the FMU importer does not require any special features for simulating buses, apart from supporting FMI variables, Clocks and terminals.
 The figure below illustrates the direct communication of two FMUs:
 
 .Direct communication of two FMUs.
