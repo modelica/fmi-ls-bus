@@ -77,9 +77,7 @@ The figure below illustrates the direct communication of two FMUs:
 [#figure-direct-communication-of-two-fmus]
 image::architecture_direct_connection.svg[width=50%, align="center"]
 
-Direct bus communication is limited to exactly two FMUs.
-The simulation of bus communication between more than two FMUs is not possible in such a naive way.
-The bus simulation is also only idealized, so that the simulation of bus transmission times or arbitration, for example, is not supported.
+The bus simulation can here be only idealized, i.e., the simulation of bus transmission times or arbitration, for example, is not supported.
 Such an ideal network differs from physical networks in the following ways (and potentially others):
 
  * Network congestion/bandwidth: Too many network frames sent for the bandwidth of the network. +
@@ -93,6 +91,9 @@ Such an ideal network differs from physical networks in the following ways (and 
 
  * Incoming buffer overflow: When an ECU receives more frames than its buffer can hold. +
    Here the FMU will receive all frames, regardless of buffer size and would need to handle those limitations internally.footnote:low_cut_relevant[]
+
+Additionally, for Network Abstraction, direct bus communication is limited to exactly two FMUs.
+The simulation of Low-Cut bus communication between more than two FMUs is not possible in such a naive way.
 
 ==== Composition with dedicated Bus Simulation FMU [[common-concepts-composition-with-dedicated-bus-simulation-fmu]]
 If more realistic network properties are required, a bus simulation component must be added.
