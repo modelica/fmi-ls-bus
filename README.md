@@ -72,8 +72,8 @@ The [FMI-LS-BUS Implementers' Guide] is a free resource intended to give non-nor
 
 ## Tools
 
-The following list shows importers and exporters that currently support the Layered Standard for Network Communication and that have been validated by a cross-check.
-It should be noted that tool implementations in some cases might be experimental, because the Layered Standard for Network Communication is currently not in a finale state.
+The following list* shows importers and exporters that currently support the Layered Standard for Network Communication and that have been validated by a cross-check.
+It should be noted that tool implementations in some cases might be experimental.
 Feel free to contact the specified tool vendors if you are interested in using the FMI-LS-BUS.
 Additionally, any FMU importer that supports the necessary FMI 3.0 features, such as clocks and binary variables, has generic FMI-LS-BUS support and can be used.
 
@@ -111,6 +111,8 @@ Additionally, any FMU importer that supports the necessary FMI 3.0 features, suc
     <td>Low-Cut FlexRay</td>
   </tr>
 </table>
+
+_* New tools within the list can be added via PullRequest from every tool vendor._
 
 ## Copyright and License
 
