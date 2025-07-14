@@ -10,19 +10,16 @@ This role can be a Bus Simulation FMU or an importer with bus simulation support
 To allow importers an easy distinction between these FMU roles, for Bus Simulation FMUs the attribute `isBusSimulationFMU` shall be set to `true` in the Manifest file.
 
 The figure below shows an example architecture of a Physical Signal Abstraction.
-The signals (_Signal 1...8_) are modeled as clocked FMU variables of a specific type.
+The signals (_Signal 1...8_) are modeled as clocked variables of a specific type.
 The corresponding signals are structurally combined using Protocol Data Units (PDUs), which in turn are assigned to frames.
 The PDU and frame structuring is done via terminals (_PDU A, B, C_ and _Frame X, Y_).
-The respective FMU variables are connected to a Bus Simulation, which emulates them according to their own needs for e.g. according to accuracy.
+The respective variables are connected to a Bus Simulation, which emulates them according to their own needs for e.g. according to accuracy.
 
 .Physical Signal Abstraction example architecture.
 [#figure-transmission-high-cut-overview]
 image::high_cut_network_fmu.svg[width=80%, align="center"]
 
-=== Variables [[high-cut-variables]]
-This section explains the variable types used to carry network traffic through FMI variables.
-
-==== Signal Variables [[high-cut-signal-variables]]
+=== Signal Variables [[high-cut-signal-variables]]
 To define the Physical Signal Abstraction layer, signal variables are used.
 
 A signal variable carries the physical value of a network signal normally packaged inside a PDU or frame.
@@ -36,28 +33,17 @@ _[These values could even be outside their specified min-max range without fault
 
 All signal variables are clocked to indicate when they have been sent/received, see <<high-cut-clock-variables>>.
 
-==== Clock Variables [[high-cut-clock-variables]]
+=== Clocks [[high-cut-clock-variables]]
 In order to use FMU input and output variables as transport layer for networks, Clocks are used to indicate the timing.
-Such a Clock is scheduled by the sending FMU to indicate the transmission of the corresponding frame or frames.
+The sending FMU uses a Clock to indicate the transmission of the corresponding frame or frames.
 
 The Clock type (`periodic` or `aperiodic`) is defined by the sending FMU.
 
-_[This allows the FMU (or better the exporting tool) to balance the accuracy and performance of its network communication:_
-
-
-_- While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` might reduce the network simulation speed._
-
-_- Using `periodic` Clocks might reduces the number of `Event Modes` required and might speeds up the simulation at the cost of simulation accuracy, because timing must be forced into a fixed grid and some intermediate values might not be transmitted._
-
-_- One could use (structural) parameters to define the accuracy of `aperiodic` Clocks, allowing control of the simulation accuracy and performance with the same FMU._
- 
-_Note: The statements regarding `aperiodic` and `periodic` Clocks and their impact on performance should be understood as general tendencies rather than universally valid truths, as other aspects such as baud rates and expected bus loads must be taken into account for a more precise estimate.]_
- 
-The Clocks of a receiving frame shall be `triggered` Clocks if they are to be driven by the respective Clock of the sending frame.
-Alternatively, Clocks of a receiving frame can be `periodic` Clocks matching the relevant Clock of the sending frame, which causes them to be scheduled for the same time instances
+The Clocks of a receiving frame shall be `triggered` Clocks if they are to be driven by the respective Clock of the sending frame. +
+Alternatively, Clocks of a receiving frame can be `periodic` Clocks matching the relevant Clock of the sending frame, which causes them to be scheduled for the same time instances.
 _[This may allow for more efficient simulation in the case that there exists a more or less static communications schedule, and more detailed simulation of timing variation is not needed.]_
 
-Signal variables belonging to frame `BusName.FrameName` and all its variables must share the same `causality` (`input` or `output`).
+Signal variables belonging to frame `BusName.FrameName` must share the same `causality` (`input` or `output`).
 
 === Network Description Files [[high-cut-network-description-files,network description file]]
 Standardized <<high-cut-network-description-files,network description files>> may optionally be shipped with each FMU to describe properties of signals and frames, such as signal units, frame composition and trigger conditions.
@@ -88,7 +74,7 @@ Attribute definitions::
  * `name` is the network name, e.g., `Powertrain`, see <<high-cut-examples, examples>> and constraints above.
 
 Element definitions::
- * All signal and Clock variables related to the Physical Signal Abstraction in the `modelDescription.xml` must be covered by a `<Terminal>` element representing the network frame the signals belong to.
+ * All signal variables and Clocks related to the Physical Signal Abstraction in the `modelDescription.xml` must be covered by a `<Terminal>` element representing the network frame the signals belong to.
 
 Annotation element::
  * If a <<high-cut-network-description-files,network description file>> is shipped with the specified FMU, there must be an `<Annotation>` element defining which node or nodes (as comma-separated list without spaces) of the <<high-cut-network-description-files>> are wrapped inside the FMU.
@@ -132,7 +118,7 @@ Attribute definitions::
  * `variableName` refers to the input or output variable name of the FMU.
     These variables represent the Physical Signal Abstraction layer.
     Unless there are other requirements, it is recommended to build the variable names as follows: `BusName.FrameName.PDUName.SignalName`, e.g., `Powertrain.tcuSensors.tcuSensors.vCar`.
-    This approach automatically provides unique names for all bus-related variables, and can also be used for the Clock variables, to allow automatic grouping by non-terminal-aware tools.
+    This approach automatically provides unique names for all bus-related variables, and can also be used for Clocks, to allow automatic grouping by non-terminal-aware tools.
  * `memberName` is the `SignalName` as given in the <<high-cut-network-description-files>>, e.g., `vCar`, if given.
     This is redundant information but simplifies signal name extraction.
  * `variableKind` is `signal`.
