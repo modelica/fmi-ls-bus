@@ -231,7 +231,7 @@ The network topology is shown on the left part and the corresponding data flow o
 In this example FMU 1 and FMU 2 are communicating via a Bus Simulation.
 Each of them have a <<low-cut-bus-terminal, Bus Terminal>> where the specified Bus Operations are exchanged.
 Within the first communication point (first black dot), FMU 1 announces the time point when it wants to transmit data by setting the interval and the interval qualifier of the `countdown` `Tx_Clock`.
-The importer will then call the `fmi3DoStep` functions of the FMUs with a corresponding communicationTimeStep to hit the requested time point (first red dot).
+The importer will then call the `fmi3DoStep` functions of the FMUs with a corresponding communication step size to hit the requested time point (first red dot).
 In the `Event Mode` the Bus Operation (the clocked binary variable) is then passed from FMU 1 to the Bus Simulation.
 The Bus Simulation itself also uses a `countdown` `Tx_Clock` and announces a point in the future at which the Bus Operation should be transmitted to FMU 2.
 The interval provided by the Bus Simulation might consider effects of the bus like the actual transmission time, but the interval could even be zero in case of an ideal bus abstraction.
