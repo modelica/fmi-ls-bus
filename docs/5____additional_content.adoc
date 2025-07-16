@@ -6,6 +6,7 @@
 - Nikolai Fast, Beckhoff Automation GmbH & Co. KG, Germany
 - Andreas Junghanns, Synopsys, Germany
 - Kahramon Jumayev, Akkodis, Germany
+- Masoud Najafi, Altair, France
 - Pierre R. Mai, PMSF IT Consulting, Germany
 - Benedikt Menne, dSPACE GmbH, Germany
 - Jan Ribbe, Synopsys, Germany
