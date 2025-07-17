@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 Edg/129.0.0.0" version="24.7.17">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0" version="28.0.4">
   <diagram name="Page-1" id="bd83a815-5ea8-2e97-e5ec-87c9f400f2fa">
-    <mxGraphModel dx="1204" dy="676" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="826" background="none" math="0" shadow="0">
+    <mxGraphModel dx="617" dy="347" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="826" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" style=";html=1;" />
         <mxCell id="1" style=";html=1;" parent="0" />
@@ -13,56 +13,59 @@
         <mxCell id="RwNRsnjS24k7-i53d52Z-7" value="Importer with Integrated Bus Simulation" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="470" y="291" width="340" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-4" value="&lt;div style=&quot;&quot;&gt;&lt;font face=&quot;-apple-system, BlinkMacSystemFont, Segoe UI, Noto Sans, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji&quot; color=&quot;#1f2328&quot;&gt;&lt;span style=&quot;font-size: 16px; background-color: rgb(255, 255, 255);&quot;&gt;Supported Bus Types&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-4" value="&lt;div style=&quot;&quot;&gt;&lt;font face=&quot;-apple-system, BlinkMacSystemFont, Segoe UI, Noto Sans, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji&quot; color=&quot;#1f2328&quot;&gt;&lt;span style=&quot;font-size: 16px; background-color: rgb(255, 255, 255);&quot;&gt;Supported Bus Types&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="788" y="202" width="190" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-8" value="High-Cut" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-8" value="High-Cut" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="886" y="234" width="77" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-9" value="Low-Cut: CAN" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-9" value="Low-Cut: CAN" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="886" y="262" width="97" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-10" value="Low-Cut: FlexRay" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-10" value="Low-Cut: FlexRay" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="886" y="291" width="127" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-11" value="&lt;div style=&quot;&quot;&gt;&lt;font face=&quot;-apple-system, BlinkMacSystemFont, Segoe UI, Noto Sans, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji&quot; color=&quot;#1f2328&quot;&gt;&lt;span style=&quot;font-size: 16px; background-color: rgb(255, 255, 255);&quot;&gt;Supported System Compositons&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-11" value="&lt;div style=&quot;&quot;&gt;&lt;font face=&quot;-apple-system, BlinkMacSystemFont, Segoe UI, Noto Sans, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji&quot; color=&quot;#1f2328&quot;&gt;&lt;span style=&quot;font-size: 16px; background-color: rgb(255, 255, 255);&quot;&gt;Supported System Compositons&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="426" y="202" width="244" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-27" value="HC" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#a20025;strokeColor=#6F0000;fontColor=#ffffff;" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-27" value="HC" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#a20025;strokeColor=#6F0000;fontColor=#ffffff;" parent="1" vertex="1">
           <mxGeometry x="70" y="284" width="40" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-28" value="LC: CAN" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#10739E;strokeColor=default;fontColor=#FFFFFF;" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-28" value="LC: CAN" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#10739E;strokeColor=default;fontColor=#FFFFFF;" parent="1" vertex="1">
           <mxGeometry x="70" y="324" width="70" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-29" value="LC: FlexRay" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#F2931E;strokeColor=#9673a6;fontColor=#FFFFFF;" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-29" value="LC: FlexRay" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#F2931E;strokeColor=#9673a6;fontColor=#FFFFFF;" parent="1" vertex="1">
           <mxGeometry x="70" y="364" width="90" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-30" value="DC" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#008A00;fontColor=#FFFFFF;strokeWidth=0;fontStyle=1;fontFamily=Helvetica;glass=0;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-30" value="DC" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#008A00;fontColor=#FFFFFF;strokeWidth=0;fontStyle=1;fontFamily=Helvetica;glass=0;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="70" y="164" width="35" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-31" value="IBS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1BA1E2;fontColor=#FFFFFF;strokeWidth=0;fontStyle=1;fontFamily=Helvetica;glass=0;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-31" value="IBS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1BA1E2;fontColor=#FFFFFF;strokeWidth=0;fontStyle=1;fontFamily=Helvetica;glass=0;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="70" y="203.5" width="35" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-32" value="BSF" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#647687;fontColor=#FFFFFF;strokeWidth=0;fontStyle=1;fontFamily=Helvetica;glass=0;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-32" value="BSF" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#647687;fontColor=#FFFFFF;strokeWidth=0;fontStyle=1;fontFamily=Helvetica;glass=0;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="70" y="244" width="35" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-34" value="DC" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#008A00;fontColor=#FFFFFF;strokeWidth=0;fontStyle=1;fontFamily=Helvetica;glass=0;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-34" value="DC" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#008A00;fontColor=#FFFFFF;strokeWidth=0;fontStyle=1;fontFamily=Helvetica;glass=0;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="430" y="233.5" width="35" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-35" value="IBS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1BA1E2;fontColor=#FFFFFF;strokeWidth=0;fontStyle=1;fontFamily=Helvetica;glass=0;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-35" value="IBS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1BA1E2;fontColor=#FFFFFF;strokeWidth=0;fontStyle=1;fontFamily=Helvetica;glass=0;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="430" y="293.5" width="35" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-36" value="BSF" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#647687;fontColor=#FFFFFF;strokeWidth=0;fontStyle=1;fontFamily=Helvetica;glass=0;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-36" value="BSF" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#647687;fontColor=#FFFFFF;strokeWidth=0;fontStyle=1;fontFamily=Helvetica;glass=0;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="430" y="264" width="35" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-39" value="HC" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#a20025;strokeColor=#6F0000;fontColor=#ffffff;" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-39" value="HC" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#a20025;strokeColor=#6F0000;fontColor=#ffffff;" parent="1" vertex="1">
           <mxGeometry x="792" y="236.5" width="40" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-40" value="LC: CAN" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#10739E;strokeColor=default;fontColor=#FFFFFF;" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-40" value="LC: CAN" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#10739E;strokeColor=default;fontColor=#FFFFFF;" parent="1" vertex="1">
           <mxGeometry x="792" y="264.5" width="70" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="FQ-ODGcZLA3cH4vwENdo-41" value="LC: FlexRay" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#F2931E;strokeColor=#9673a6;fontColor=#FFFFFF;" vertex="1" parent="1">
+        <mxCell id="FQ-ODGcZLA3cH4vwENdo-41" value="LC: FlexRay" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#F2931E;strokeColor=#9673a6;fontColor=#FFFFFF;" parent="1" vertex="1">
           <mxGeometry x="792" y="293.5" width="90" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="d-9kp7D-lJ5rmfwYu-bv-1" value="LC: Ethernet" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#a0522d;strokeColor=#6D1F00;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="70" y="410" width="100" height="25" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
