@@ -14,8 +14,8 @@
 :nofooter:
 :favicon: images/favicon.ico
 :icons: font
-:revdate: unreleased
-:revnumber: 1.0.0-rc.3
+:revdate: 2025-07-18
+:revnumber: 1.0.0
 
 include::0____preamble.adoc[]
 
