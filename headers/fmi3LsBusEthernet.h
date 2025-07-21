@@ -85,7 +85,7 @@ typedef fmi3UInt8 fmi3LsBusEthernetData;
 /**
  * \brief Data type representing the Ethernet frame payload length.
  */
-typedef fmi3UInt8 fmi3LsBusEthernetDataLength;
+typedef fmi3UInt32 fmi3LsBusEthernetDataLength;
 
 /**
  * \brief Data type representing a CRC checksum.
