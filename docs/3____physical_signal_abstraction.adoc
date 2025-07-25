@@ -64,7 +64,7 @@ These are technical and legal issues that need attention from standardization bo
 This section defines terminals for Physical Signal Abstraction.
 
 ==== Bus Terminal [[high-cut-bus-terminal,Bus Terminal]]
-Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all its <<high-cut-frame-terminal,frame terminals>>.
+Each network connected to the FMU must be described in `terminalsAndIcons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>` that wraps all its <<high-cut-frame-terminal,frame terminals>>.
 The attribute `name` of the `<Terminal>` element must match the root name of its <<high-cut-network-description-files>> if it exists
 _[e.g., `Powertrain`, if the file is `/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc`]_.
 
