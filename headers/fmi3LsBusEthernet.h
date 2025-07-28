@@ -151,7 +151,7 @@ typedef struct
 {
     fmi3LsBusEthernetMdiMode mdiMode;  /**< The configuration of the node's media-dependent interface */
     fmi3LsBusEthernetDataLength numberOfSupportedPhyTypes;  /**< The number of characters in the list of supported PHY types */
-    fmi3LsBusEthernetPhyTypeCharacter supportedPhyTypes;  /**< An array of zero-terminated strings describing PHY types supported by this Ethernet node  The first element in this list indicates the type of PHY used by this node  The list must have at least one element  Elements describing a PHY standardized by 8023 or an amendment must use the value described in the chapter "303212 aPhyType" of the standard  Otherwise, a vendor-defined value may be used */
+    fmi3LsBusEthernetPhyTypeCharacter supportedPhyTypes[];  /**< An array of zero-terminated strings describing PHY types supported by this Ethernet node  The first element in this list indicates the type of PHY used by this node  The list must have at least one element  Elements describing a PHY standardized by 8023 or an amendment must use the value described in the chapter "303212 aPhyType" of the standard  Otherwise, a vendor-defined value may be used */
 } fmi3LsBusEthernetConfigurationSupportedPhyTypes;
 
 /**
