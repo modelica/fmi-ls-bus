@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 43449b5,</span>
-<span id="revdate">2025-07-24</span>
+<span id="revnumber">version 6756bda,</span>
+<span id="revdate">2025-07-29</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -1336,7 +1336,7 @@ These are technical and legal issues that need attention from standardization bo
 <div class="sect3">
 <h4 id="high-cut-bus-terminal">4.5.1. Bus Terminal</h4>
 <div class="paragraph">
-<p>Each network connected to the FMU must be described in <code>icons/terminalsAndIcons.xml</code> as a <code>&lt;Terminal&gt;</code> element of <code>&lt;fmiTerminalsAndIcons&gt;&lt;Terminals&gt;</code> that wraps all its <a href="#high-cut-frame-terminal">frame terminals</a>.
+<p>Each network connected to the FMU must be described in <code>terminalsAndIcons/terminalsAndIcons.xml</code> as a <code>&lt;Terminal&gt;</code> element of <code>&lt;fmiTerminalsAndIcons&gt;&lt;Terminals&gt;</code> that wraps all its <a href="#high-cut-frame-terminal">frame terminals</a>.
 The attribute <code>name</code> of the <code>&lt;Terminal&gt;</code> element must match the root name of its <a href="#high-cut-network-description-files">network description file</a> if it exists
 <em>[e.g., <code>Powertrain</code>, if the file is <code>/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc</code>]</em>.</p>
 </div>
@@ -2294,7 +2294,7 @@ The versioning follows the rules of semantic versioning, as defined in <a href="
 <div class="sect3">
 <h4 id="low-cut-bus-terminal">5.4.1. Bus Terminal</h4>
 <div class="paragraph">
-<p>Each network connected to the FMU must be described in <code>icons/terminalsAndIcons.xml</code> as a <code>&lt;Terminal&gt;</code> element of <code>&lt;fmiTerminalsAndIcons&gt;&lt;Terminals&gt;</code>.
+<p>Each network connected to the FMU must be described in <code>terminalsAndIcons/terminalsAndIcons.xml</code> as a <code>&lt;Terminal&gt;</code> element of <code>&lt;fmiTerminalsAndIcons&gt;&lt;Terminals&gt;</code>.
 There shall be exactly one <code>&lt;Terminal&gt;</code> element for each network of the FMU.</p>
 </div>
 <div class="dlist">
