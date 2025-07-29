@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 6756bda,</span>
+<span id="revnumber">version cf9d1e4,</span>
 <span id="revdate">2025-07-29</span>
 </div>
 <div id="toc" class="toc2">
@@ -4630,7 +4630,7 @@ It shows all operations and the arguments they contain.</p>
 (1 byte)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DL<br>
-(1 bytes)</p></td>
+(1 byte)</p></td>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Data<br>
 (n bytes)</p></td>
 </tr>
@@ -6149,16 +6149,16 @@ It shows all operations and the arguments they contain.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Transmit</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x10</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">:= 26 + DL<br>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 29 + DL<br>
 (4 bytes)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
 <td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Destination Address<br>
-(6 byte)</p></td>
+(6 bytes)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Source Address<br>
-(6 byte)</p></td>
+(6 bytes)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
 <td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">DL<br>
-(1 byte)</p></td>
+(4 bytes)</p></td>
 <td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Data<br>
 (n bytes)</p></td>
 </tr>
@@ -6173,7 +6173,7 @@ It shows all operations and the arguments they contain.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Bus Error</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x30</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">:= 10<br>
-(4 byte)</p></td>
+(4 bytes)</p></td>
 <td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Error Code<br>
 (1 byte)</p></td>
 <td class="tableblock halign-left valign-top" colspan="7"><p class="tableblock">Is Sender<br>
@@ -6343,7 +6343,7 @@ The following tables provide an overview of all operations and specifies the pos
 <td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 bytes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: <code>Length = 26 + Data Length</code>.</p></td>
+The following applies for this operation: <code>Length = 29 + Data Length</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Start Delimiter</p></td>
@@ -6383,7 +6383,7 @@ Only applicable if this is a full Ethernet frame or the first fragment of an Eth
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Data Length</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4 bytes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The length of the data of this Ethernet frame or mPacket.
 Note that this does not correspond to a field in the Ethernet frame.</p></td>
 </tr>
@@ -6613,18 +6613,18 @@ The following applies for this operation: <code>Length = 9 + Length of parameter
 <tr>
 <td class="tableblock halign-left valign-top" rowspan="3"><p class="tableblock">SUPPORTED_PHY_TYPES</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MDI Mode</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The configuration of the node&#8217;s media-dependent interface.
 See <a href="#table-fmi3-ls-bus-ethernet-mdi-mode-values">Table 56</a> for possible values.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number of supported PHY types</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The number of characters in the list of supported PHY types.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Supported PHY types</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">An array of zero-terminated strings describing PHY types supported by this Ethernet node.
 The first element in this list indicates the type of PHY used by this node.
 The list must have at least one element.
