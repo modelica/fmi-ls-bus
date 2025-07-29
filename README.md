@@ -73,72 +73,12 @@ The [FMI-LS-BUS Implementers' Guide] is a free resource intended to give non-nor
 
 ## Tools
 
-The following list* shows importers and exporters that currently support the Layered Standard for Network Communication and that have been validated by a cross-check.
+There is an increasing number of software products that already support the FMI Layered Standard for Network Communication.
+A list can be found at [https://fmi-standard.org/tools/](https://fmi-standard.org/tools/) using the filter "BUS".
 It should be noted that tool implementations in some cases might be experimental.
-Feel free to contact the specified tool vendors if you are interested in using the FMI-LS-BUS.
+Please feel free to contact the respective software manufacturers for detailed information about the specific support for the FMI-LS-BUS.
 Additionally, any FMU importer that supports the necessary FMI 3.0 features, such as clocks and binary variables, has generic FMI-LS-BUS support and can be used.
-
-|Tool|Type|Features|Remarks
-|---|---|---|---|
-[Altair Twin Activate](https://www.altair.com/twin-activate/)|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) <br> ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|Fmi3-Terminals are not supported
-[dSPACE SystemDesk](https://www.dspace.com/en/pub/home/products/sw/system_architecture_software/systemdesk.cfm)|Exporter|![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|Available since RLS 2024-B
-[dSPACE VEOS](https://www.dspace.com/en/pub/home/products/sw/simulation_software/veos.cfm)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|Available since RLS 2024-B
-[Model.CONNECT&trade;](https://www.avl.com/de-at/simulation-solutions/software-offering/simulation-tools-a-z/modelconnect)|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) <br> ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|-
-[Synopsys Silver](https://www.synopsys.com/verification/virtual-prototyping/silver.html)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg)|-
-[Vector SIL Kit FMU Importer](https://github.com/vectorgrp/sil-kit-fmu-importer)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg)|Open-source software. <br>Available since version 1.5
-[Vector vVIRTUALtarget](https://www.vector.com/at/en/products/products-a-z/software/vvirtualtarget/)|Exporter|![Low-Cut: CAN](landingpage/LC_CAN.svg)|Available since version 9
-
-<table>
-  <tr>
-    <th colspan="2" align=left>Legend</td>
-  </tr>
-  <tr>
-    <td valign=top>
-      <table>
-        <tr>
-          <th colspan="2">Supported system compositions</td>
-        </tr>
-        <tr>
-          <td><img src="landingpage/DC.svg"/></td>
-          <td>Direct communication</td>
-        </tr>
-        <tr>
-          <td><img src="landingpage/BSF.svg"/></td>
-          <td>Composition with dedicated bus simulation FMU</td>
-        </tr>
-        <tr>
-          <td><img src="landingpage/IBS.svg"/></td>
-          <td>Importer with integrated bus simulation</td>
-        </tr>
-      </table>
-    </td>
-    <td valign=top>
-      <table>
-        <tr>
-          <th colspan="2">Supported bus types</td>
-        </tr>
-        <tr>
-          <td><img src="landingpage/HC.svg"/></td>
-          <td>High-Cut</td>
-        </tr>
-        <tr>
-          <td><img src="landingpage/LC_CAN.svg"/></td>
-          <td>Low-Cut CAN</td>
-        </tr>
-        <tr>
-          <td><img src="landingpage/LC_FR.svg"/></td>
-          <td>Low-Cut FlexRay</td>
-        </tr>
-        <tr>
-          <td><img src="landingpage/LC_Ethernet.svg"/></td>
-          <td>Low-Cut Ethernet</td>
-        </tr>
-      </table>
-    </tr>
-  </td>
-</table>
-
-_* New tools within the list can be added via PullRequest from every tool vendor._
+Does your software also support FMI-LS-BUS? Then register your software today on [https://fmi-standard.org/tools/](https://fmi-standard.org/tools/).
 
 ## Copyright and License
 
