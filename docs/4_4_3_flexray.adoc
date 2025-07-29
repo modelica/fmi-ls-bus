@@ -50,7 +50,7 @@ h|Length
 (1 byte)
 |...
 |DL +
-(1 bytes)
+(1 byte)
 3+|Data +
 (n bytes)
 

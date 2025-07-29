@@ -51,16 +51,16 @@ h|Length
 
 |Transmit
 |0x10
-|:= 26 + DL +
+|:= 29 + DL +
 (4 bytes)
 |...
 2+|Destination Address +
-(6 byte)
+(6 bytes)
 |Source Address +
-(6 byte)
+(6 bytes)
 |...
 2+|DL +
-(1 byte)
+(4 bytes)
 2+|Data +
 (n bytes)
 
@@ -73,7 +73,7 @@ h|Length
 |Bus Error
 |0x30
 |:= 10 +
-(4 byte)
+(4 bytes)
 2+|Error Code +
 (1 byte)
 7+|Is Sender +
