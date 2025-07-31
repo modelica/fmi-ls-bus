@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version cf9d1e4,</span>
-<span id="revdate">2025-07-29</span>
+<span id="revnumber">version 0d317aa,</span>
+<span id="revdate">2025-07-31</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -934,7 +934,7 @@ However, current modelling technologies, as of writing this standard, do not all
 </div>
 <div class="paragraph">
 <p>In key parts of this document, non-normative examples are used to help understand the standard.
-To keep the standard itself brief, the <a href="https://modelica.github.io/fmi-guides/main/ls-bus-guide/">FMI LS BUS Implementer’s Guide</a> was created.
+To keep the standard itself brief, the <a href="https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/">FMI LS BUS Implementer’s Guide</a> was created.
 It contains further technical discussions and examples on how to implement certain aspects of the standard for both FMUs and importers.
 Contrary to the standard, the FMI LS BUS Implementer’s Guide will be a living document, enhanced with further tips and tricks as the FMI community encounters them.</p>
 </div>
@@ -3641,7 +3641,7 @@ In this case, the <a href="#low-cut-can-bus-notification-parameter"><code>BusNot
 <p>If all Network FMUs, except the one initiating the <a href="#low-cut-can-transmit-operation"><code>Transmit</code></a> operation, communicate the <a href="#low-cut-can-status-operation">status</a> <code>BUS_OFF</code>, the Bus Simulation shall not provide a <a href="#low-cut-can-confirm-operation">confirmation</a>.</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams">FMI LS BUS Implementer’s Guide</a> contains an example of the possible transmission results and displays them in a diagram.</p>
+<p>The <a href="https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams">FMI LS BUS Implementer’s Guide</a> contains an example of the possible transmission results and displays them in a diagram.</p>
 </div>
 </div>
 <div class="sect4">
@@ -3662,7 +3662,7 @@ When a Network FMU signals the <code>BUS_OFF</code> state to the Bus Simulation,
 <div class="title">Figure 14. Architectural error handling overview.</div>
 </div>
 <div class="paragraph">
-<p>The <a href="https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-realization-of-can-error-handling">FMI LS BUS Implementer’s Guide</a> contains an example of how to realize CAN error handling based on the Bus Operations specified by this layered standard.</p>
+<p>The <a href="https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-can-realization-of-can-error-handling">FMI LS BUS Implementer’s Guide</a> contains an example of how to realize CAN error handling based on the Bus Operations specified by this layered standard.</p>
 </div>
 </div>
 <div class="sect4">
@@ -3691,7 +3691,7 @@ Arbitration is available in communication architectures with Bus Simulation only
 To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN node is in Error Passive state, the Bus Simulation shall prefer Network FMUs whose status is <code>ERROR_ACTIVE</code> (see <a href="#table-can-status-values">Table 21</a>).</p>
 </div>
 <div class="paragraph">
-<p>The <a href="https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams">FMI LS BUS Implementer’s Guide</a> contains examples of the presented arbitration cases and visualizes them using sequence diagrams.</p>
+<p>The <a href="https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams">FMI LS BUS Implementer’s Guide</a> contains examples of the presented arbitration cases and visualizes them using sequence diagrams.</p>
 </div>
 </div>
 <div class="sect4">
