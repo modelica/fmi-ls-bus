@@ -700,7 +700,7 @@ image::can_confirmation_with_bus_simulation_fmu.svg[width=70%, align="center"]
 
 If all Network FMUs, except the one initiating the <<low-cut-can-transmit-operation, `Transmit`>> operation, communicate the <<low-cut-can-status-operation, status>> `BUS_OFF`, the Bus Simulation shall not provide a <<low-cut-can-confirm-operation, confirmation>>.
 
-The https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams[FMI LS BUS Implementer’s Guide] contains an example of the possible transmission results and displays them in a diagram.
+The https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams[FMI LS BUS Implementer’s Guide] contains an example of the possible transmission results and displays them in a diagram.
 
 ===== Error Handling [[low-cut-can-error-handling]]
 The CAN protocol includes a sophisticated fault confinement mechanism to prevent malfunctioning within CAN nodes.
@@ -715,7 +715,7 @@ When a Network FMU signals the `BUS_OFF` state to the Bus Simulation, it shall n
 [#figure-can-architectural-error-handling-overview]
 image::can_error_handling_overview.svg[width=100%, align="center"]
 
-The https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-realization-of-can-error-handling[FMI LS BUS Implementer’s Guide] contains an example of how to realize CAN error handling based on the Bus Operations specified by this layered standard.
+The https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-can-realization-of-can-error-handling[FMI LS BUS Implementer’s Guide] contains an example of how to realize CAN error handling based on the Bus Operations specified by this layered standard.
 
 ===== Arbitration [[low-cut-can-arbitration]]
 Arbitration is an instrument of the CAN standard to resolve the conflict of the simultaneous sending of messages from several CAN nodes without a collision.
@@ -736,7 +736,7 @@ Arbitration is available in communication architectures with Bus Simulation only
 In the case of arbitration, the Bus Simulation must also take the status of the respective Network FMU into account, which is communicated via a <<low-cut-can-status-operation, `Status`>> operation.
 To simulate the behavior of the CAN Extra Suspend Transmission Time when a CAN node is in Error Passive state, the Bus Simulation shall prefer Network FMUs whose status is `ERROR_ACTIVE` (see <<table-can-status-values>>).
 
-The https://modelica.github.io/fmi-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams[FMI LS BUS Implementer’s Guide] contains examples of the presented arbitration cases and visualizes them using sequence diagrams.
+The https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-can-sequence-diagrams[FMI LS BUS Implementer’s Guide] contains examples of the presented arbitration cases and visualizes them using sequence diagrams.
 
 ===== Wake Up/Sleep [[low-cut-can-wakeup-sleep]]
 This standard supports wake up and sleep functionality for the CAN bus.
