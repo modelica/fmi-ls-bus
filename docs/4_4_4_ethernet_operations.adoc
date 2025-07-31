@@ -49,9 +49,9 @@ Only applicable if this is a full Ethernet frame or the first fragment of an Eth
 | The destination address of the frame.
 Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.
 
-| EtherType or Length
+| Type or Length
 | 2 bytes
-| Indicates the type of Ethernet frame (Ethernet II) or frame length (802.3).
+| Indicates the type of Ethernet frame (Ethernet II), the TPID (802.1Q) or frame length (802.3).
 
 | Data Length
 | 4 bytes

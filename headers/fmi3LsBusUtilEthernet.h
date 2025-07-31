@@ -27,7 +27,7 @@
  * \param[in] SourceAddress
  *     The destination address of the frame  Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame (pointer of \ref fmi3LsBusEthernetMacAddressOctet).
  * \param[in] EtherTypeOrLength
- *     Indicates the type of Ethernet frame (Ethernet II) or frame length (8023) (\ref fmi3LsBusEthernetEtherTypeOrLength).
+ *     Indicates the type of Ethernet frame (Ethernet II), the TPID (802.1Q) or frame length (802.3) (\ref fmi3LsBusEthernetTypeOrLength).
  * \param[in] DataLength
  *     The length of the data of this Ethernet frame or mPacket  Note that this does not correspond to a field in the Ethernet frame (\ref fmi3LsBusEthernetDataLength).
  * \param[in] Data
@@ -39,7 +39,7 @@
         LastFragment,                                                                  \
         DestinationAddress,                                                            \
         SourceAddress,                                                                 \
-        EtherTypeOrLength,                                                             \
+        TypeOrLength,                                                             \
         DataLength,                                                                    \
         Data                                                                           \
     ) do {                                                                             \
@@ -51,7 +51,7 @@
             + sizeof(fmi3LsBusBoolean)                                                 \
             + 6 * sizeof(fmi3LsBusEthernetMacAddressOctet)                             \
             + 6 * sizeof(fmi3LsBusEthernetMacAddressOctet)                             \
-            + sizeof(fmi3LsBusEthernetEtherTypeOrLength)                               \
+            + sizeof(fmi3LsBusEthernetTypeOrLength)                               \
             + sizeof(fmi3LsBusEthernetDataLength)                                      \
             + (DataLength);                                                            \
                                                                                        \
@@ -60,7 +60,7 @@
         _op.lastFragment = LastFragment;                                               \
         memcpy(_op.destinationAddress, DestinationAddress, 6);                         \
         memcpy(_op.sourceAddress, SourceAddress, 6);                                   \
-        _op.etherTypeOrLength = EtherTypeOrLength;                                     \
+        _op.typeOrLength = TypeOrLength;                                     \
         _op.dataLength = DataLength;                                                   \
                                                                                        \
         FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, (DataLength), (Data)); \
