@@ -52,6 +52,7 @@ Only applicable if this is a full Ethernet frame or the first fragment of an Eth
 | Type or Length
 | 2 bytes
 | Indicates the type of Ethernet frame (Ethernet II), the TPID (802.1Q) or frame length (802.3).
+_Note: Regarding to <<low-cut-layered-standard-bus-protocol>>, the argument value shall be also stored in `little-endian` byte order._
 
 | Data Length
 | 4 bytes
