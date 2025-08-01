@@ -161,7 +161,7 @@ The [FMI-LS-XCP] specifies an FMI extension for using the XCP protocol and A2L v
 
 [FMI]: https://fmi-standard.org/
 [FMI-LS-XCP]: https://github.com/modelica/fmi-ls-xcp
-[Demo FMUs]: https://github.com/modelica/fmi-guides/tree/main/ls-bus-guide/demos
+[Demo FMUs]: https://github.com/modelica/fmi-ls-bus-guides/tree/main/ls-bus-guide/demos
 [2-Clause BSD License]: https://opensource.org/licenses/BSD-2-Clause
 [Attribution-ShareAlike 4.0 International]: https://creativecommons.org/licenses/by-sa/4.0/
 [githubspec]: docs/index.adoc
