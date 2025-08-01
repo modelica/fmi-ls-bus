@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 4960299,</span>
+<span id="revnumber">version 8eb8ee2,</span>
 <span id="revdate">2025-08-01</span>
 </div>
 <div id="toc" class="toc2">
@@ -6377,9 +6377,10 @@ Only applicable if this is a full Ethernet frame or the first fragment of an Eth
 Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EtherType or Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type or Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2 bytes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the type of Ethernet frame (Ethernet II) or frame length (802.3).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the type of Ethernet frame (Ethernet II), the TPID (802.1Q) or frame length (802.3).
+<em>Note: Regarding to <a href="#low-cut-layered-standard-bus-protocol">Section 5.2</a>, the argument value shall be also stored in <code>little-endian</code> byte order.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Data Length</p></td>
