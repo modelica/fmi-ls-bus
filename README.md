@@ -19,6 +19,14 @@ contains all bus types that are currently in development or are already final.
 [Official releases][releases] are directly published via GitHub.
 The specification text of the latest release v1.0.0. can be accessed [here](https://fmi-standard.org/fmi-ls-bus/1.0.0/).
 
+## News
+
+Soon after the recent release of the FMI Layered Standard for NetworkCommunication we will be presenting this new standard and its application to networked ECU development at the coming [16th International Modelica and FMI Conference](https://modelica.org/events/modelica2025/):
+
+![Announcemet of speakers at the 16th International Modelica and FMI Conference](landingpage/Announcemet_16th_International_Modelica_and_FMI_Conference.jpg)
+
+Come join us, listen to the lecture, read the paper, and ask your questions!
+
 ## Roadmap
 
 Different abstraction layers and types of buses are developed in different versions that build on each other.
