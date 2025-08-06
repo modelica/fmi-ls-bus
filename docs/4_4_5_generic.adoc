@@ -166,7 +166,7 @@ However, it also violates a certain principle of interoperability, since the pay
 This means that both the sender and the receiver Network FMU must be able to interpret this implicit format.
 This can make a free and comprehensive exchange of Network FMUs difficult and has to be addressed by the specified users.
 
-===== Definiton of MIME Type [[low-cut-generic-definiton-of-mime-type]]
+===== Definition of MIME Type [[low-cut-generic-definition-of-mime-type]]
 Only Network FMUs that enable the same interpretation of the generic data within a <<low-cut-generic-transmit-operation, `Transmit`>> operation can be connected externally.
 To enable this, only a prefix of the MIME type to be used was specified for the generic bus type.
 It must be expanded by the user to allow unique identification.
