@@ -1,0 +1,205 @@
+==== Generic Bus [[low-cut-generic]]
+This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for the generic bus type.
+The generic bus type offers a simple variant of data transmission within the Network Abstraction, if the concrete bus type is not yet available, but should already be exchanged message-based.
+
+===== Overview [[low-cut-generic-overview]]
+To simulate the generic bus type, specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
+Overall, the following groups of operations exists:
+
+* Transmit: This kind of operation is used to simulate a generic frame transmission.
+* Confirm: Represents a common confirmation of transmitted generic frames.
+
+The following table gives a detailed overview of the available operations.
+It shows all operations and the arguments they contain.
+
+.Overview of the available operations for the generic bus type.
+[#table-operation-content-generic]
+[cols="9,1,6,5,5,5,5,5,5,5,5"]
+|====
+.2+h|Operation Name
+10+h|Operation Content
+
+h|OP Code
+h|Length
+8+h|Specific Content
+
+|Format Error
+|0x01
+|:= 10 + n +
+(4 bytes)
+|DL footnote:[DL is used as an abbreviation for Data Length throughout the document] +
+(2 bytes)
+7+|Data +
+(n bytes)
+
+|Transmit
+|0x10
+|:= 20 + DL +
+(4 bytes)
+|ID +
+(4 bytes)
+|DL +
+(8 bytes)
+6+|Data +
+(n bytes)
+
+|Confirm
+|0x20
+|:= 12 +
+(4 bytes)
+8+|ID +
+(4 bytes)
+
+|====
+
+===== Operations [[low-cut-generic-operations]]
+This section defines the specified operations for the generic bus type.
+The following tables provide an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
+
+====== Transmit [[low-cut-generic-transmit-operation]]
+The <<low-cut-generic-transmit-operation, `Transmit`>> operation is used to simulate the transmission of generic frames.
+
+.Detailed description of the Transmit operation.
+[#table-generic-transmit-operation]
+[cols="5,4,3,20"]
+|====
+h|Name 3+| Transmit
+h|Description 3+| Initiates the transmission of generic bus type frames.
+h|OP Code [hex] 3+| 0x10
+.6+h|Content h|Argument h|Length h|Description
+| OP Code | 4 bytes | Contains the OP Code (0x10) of the operation.
+| Length | 4 bytes | Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 20 + Data Length`.
+| ID | 4 bytes | The specified ID of the message.
+| Data Length | 8 bytes | Specifies the length of the Data argument in bytes.
+| Data | n bytes | Stores the given frame data to transfer.
+h|Behavior
+3+|The <<low-cut-generic-transmit-operation, `Transmit`>> operation shall be provided by Network FMUs to initiate the transmission of a generic frame.
+In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
+Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-generic-confirm-operation, `Confirm`>> or a <<low-cut-generic-format-error-operation, `Format Error`>> operation.
+
+|====
+
+====== Confirm [[low-cut-generic-confirm-operation]]
+The <<low-cut-generic-confirm-operation, `Confirm`>> operation is used to signal the successful reception of a transmitted generic frame (see <<low-cut-generic-transmit-operation, `Transmit`>> operation) by at least one Network FMU.
+
+.Detailed description of the Confirm operation.
+[#table-generic-confirm-operation]
+[cols="5,4,3,20"]
+|====
+h|Name
+3+|Confirm
+h|Description
+3+|Signals successful receipt of a transmitted generic frame to simulate a common confirmation behavior.
+h|OP Code [hex]
+3+|0x20
+.4+h|Content h|Argument h|Length h|Description
+|OP Code
+|4 bytes
+|Contains the OP Code (0x20) of the operation.
+
+|Length
+|4 bytes
+|Defines the cumulative length of all arguments in bytes.
+The following applies for this operation: `Length = 12`.
+
+|ID
+|4 bytes
+|The ID of the confirmed generic message.
+
+h|Behavior
+3+|This operation shall be produced by the Bus Simulation and consumed by Network FMUs. +
+Only Network FMUs with the corresponding optionally exposed <<low-cut-can-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for this operation.
+
+|====
+
+====== Format Error [[low-cut-generic-format-error-operation]]
+See <<low-cut-format-error-operation, `Format Error`>> for definition.
+
+===== Network Parameters [[low-cut-generic-network-parameters]]
+This chapter defines parameters that Network FMU might provide to configure expected bus-specific behavior.
+
+====== Bus Notification Parameter [[low-cut-generic-bus-notification-parameter]]
+The generic bus type offers the possibility to receive a <<low-cut-generic-confirm-operation, `Confirm-`>> operation as soon as the specific <<low-cut-generic-transmit-operation, `Transmit`>> operation has been successfully sent by a Bus Simulation.
+
+However, in scenarios where Network FMUs are connected directly to each other, or where the Bus Simulation does not simulate such effects, it must be possible to configure the Network FMU such that it does not wait for any response after a <<low-cut-generic-transmit-operation, `Transmit`>> operation.
+Therefore, a parameter with `memberName = "BusNotifications"` can be added within the  <<low-cut-configuration-terminal,Configuration Terminal>>. +
+If a Network FMU supports bus notifications, the <<low-cut-generic-bus-notification-parameter, `BusNotifications`>> parameter shall be exposed.
+The default value of this parameter shall be `false`. +
+_[The default value `false` allows a simple integration of Network FMUs to simulation scenarios where <<low-cut-generic-confirm-operation, `Confirm`>> operations are not used.]_
+
+Only Network FMUs with the corresponding optionally exposed <<low-cut-generic-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for <<low-cut-generic-confirm-operation, `Confirm-`>>, operation and respond accordingly; otherwise Network FMUs must not wait ("fire-and-forget").
+Even if the Network FMU does not expect bus notifications, i.e. <<low-cut-generic-bus-notification-parameter, `BusNotifications`>> variable was not set to `fmi3True`, but receives them, it shall ignore them, i.e. it shall not report warnings or errors.
+
+_[Note that the bus notification parameter just informs the Network FMU if it can expect to receive notification operations or not.
+The parameter doesn't define in any way on how to react upon receiving notification operations.]_
+
+.Parameter to configure bus notifications within a generic Bus Terminal of Network FMUs.
+[[figure-fmu--generic-bus-notifications-parameter]]
+----
+ memberName:    BusNotifications
+ type:          Boolean
+ causality:     parameter
+ variability:   fixed
+ start:         false
+----
+
+A Bus Simulation FMU shall indicate via a variable with `memberName = "BusNotifications"` within the specific  <<low-cut-configuration-terminal,Configuration Terminal>> whether it provides bus notifications or not.
+If the provision of bus notifications can be configured (e.g., via a structural parameter), the attributes of the <<low-cut-generic-bus-notification-parameter, `BusNotifications`>> variable shall contain `causality = "calculatedParameter"` and `variability = "fixed"`; or `causality = "output"` and `variability = "constant"` otherwise.
+
+.Parameter to configure bus notifications within a Bus Terminal of the Bus Simulation.
+[[figure-fmu-generic-bus-notifications-parameter-in-bus-simulation]]
+----
+ memberName:    BusNotifications
+ type:          Boolean
+ causality:     calculatedParameter/output
+ variability:   fixed/constant
+----
+
+===== General Recommendations [[low-cut-generic-general-recommendations]]
+In some development areas and at very early stages of development, the actual bus type to be used later may not yet be determined.
+However, in such cases, one may want to use the semantics of a message-based exchange. For such cases, the FMI-LS-BUS allows the use of a generic bus. With this generic bus type, it is only possible to send data in the form of messages.
+Other aspects that characterize specific bus types such as CAN, LIN or Ethernet are not relevant here.
+Overall, it should be clear to everyone who uses it that the generic variant offers possibilities that are advantageous in various application areas.
+However, it also violates a certain principle of interoperability, since the payload (data) of a generic  <<low-cut-generic-transmit-operation, `Transmit`>> operation can be freely selected in its structure.
+This means that both the sender and the receiver Network FMU must be able to interpret this implicit format.
+This can make a free and comprehensive exchange of Network FMUs difficult and has to be addressed by the specified users.
+
+===== Definiton of MIME Type [[low-cut-generic-definiton-of-mime-type]]
+Only Network FMUs that enable the same interpretation of the generic data within a <<low-cut-generic-transmit-operation, `Transmit`>> operation can be connected externally.
+To enable this, only a prefix of the MIME type to be used was specified for the generic bus type.
+It must be expanded by the user to allow unique identification.
+In the application, the user must specify a specific `{userdefined-name}` for the respective bus configuration  and a corresponding `{userdefined-version}`, where the following scheme applies:  
+
+`application/org.fmi-standard.fmi-ls-bus.generic.{userdefined-name}; version="{userdefined-version}"`
+
+===== Transmission [[low-cut-generic-transmission]]
+A generic frame contains an ID for unique identification and a payload (data), the structure of which can be freely chosen.
+Overall, this bus type focuses solely on the message-based exchange of data.
+The simulation of other bus-specific characteristics, such as the simulation of the baud rate, etc., is not possible.
+A Bus Simulation always transmits a generic <<low-cut-generic-transmit-operation, `Transmit`>> operation as fast as it is capable of.
+The <<low-cut-generic-confirm-operation, `Confirm`>> operation can be viewed as a feedback instrument.
+It confirms successful transmission within a Bus Simulation.
+In addition, the <<low-cut-generic-bus-notification-parameter, `BusNotifications`>> parameter is defined to support lightweight bus simulations and <<common-concepts-direct-communication, directly connected Network FMUs>>.
+
+If <<low-cut-generic-bus-notification-parameter, `BusNotifications`>> is `false` (default), then Network FMUs must not rely on receiving <<low-cut-generic-confirm-operation, `Confirm`>> operations for the specified Bus Terminal.
+In this case, the bus simulation is idealized and takes place in a "fire-and-forget" manner.
+If a specified Network FMU is depending on <<low-cut-generic-confirm-operation, `Confirm`>> operations and <<low-cut-can-bus-notification-parameter, `BusNotifications`>> is `false`, the self confirmation shall be realized internally within the respective Network FMU for the specified Bus Terminal.
+
+<<#figure-generic-direct-communication>> illustrates this communication, whereby FMU 1 transmits network data to FMU 2.
+Subsequently, FMU 1 self-confirms the transmission internally.
+
+.Direct Confirmation of transmitted network data.
+[#figure-generic-direct-communication]
+image::generic_direct_confirmation.svg[width=40%, align="center"]
+
+For a detailed simulation, the Bus Simulation has to support <<low-cut-generic-confirm-operation, `Confirm`>> operations.
+In this case, the <<low-cut-generic-bus-notification-parameter, `BusNotifications`>> parameter of the Network FMUs can be set to `fmi3True` as Network FMUs can rely on receiving <<low-cut-generic-confirm-operation, `Confirm`>> operations for the specified Bus Terminal.
+
+The following <<#figure-generic-confirmation-with-bus-simulation-fmu>> illustrates the behavior, whereby FMU 1 transmits network data to FMU 2 via a Bus Simulation.
+
+.Confirmation of transmitted network data via Bus Simulation.
+[#figure-generic-confirmation-with-bus-simulation-fmu]
+image::generic_confirmation_with_bus_simulation_fmu.svg[width=70%, align="center"]
+

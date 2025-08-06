@@ -303,6 +303,9 @@ The following table lists the MIME types to use for the Tx/Rx data variables wit
 |application/org.fmi-standard.fmi-ls-bus.ethernet; version="1.0.0-alpha.1"
 |Binary variables simulating an Ethernet network
 
+|application/org.fmi-standard.fmi-ls-bus.generic.{userdefined}; version="{userdefined}"
+|Binary variables simulating an generic network
+
 |====
 
 The version of a bus type is defined in the `version` parameter of the MIME type.
@@ -391,3 +394,5 @@ include::4_4_2_lin.adoc[]
 include::4_4_3_flexray.adoc[]
 
 include::4_4_4_ethernet.adoc[]
+
+include::4_4_5_generic.adoc[]
