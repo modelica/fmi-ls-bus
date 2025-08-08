@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "fmi_3_ls_bus_header_test_helper_ethernet.h"
 #include <gtest/gtest.h>
 
@@ -130,7 +131,7 @@ void CheckBusErrorOperation(int errorCode, fmi3UInt8 isSender, bool correctData)
 	EXPECT_EQ(operation->isSender, isSender);
 }
 
-void CheckFormatErrorOperation(Operation operationType) {
+void CheckFormatErrorOperation(EthernetOperation operationType) {
 
 	// Create data needed for creation.
 	fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -190,7 +191,7 @@ void CheckFormatErrorOperation(Operation operationType) {
 	}
 }
 
-void CheckDataSizeError(Operation operation) {
+void CheckDataSizeError(EthernetOperation operation) {
 
 	// Create data needed for creation.
 	fmi3LsBusUtilBufferInfo bufferInfo;

@@ -14,10 +14,10 @@
  /**
   * \brief Enum of the available operations by name.
   */
-enum Operation { Transmit, Confirm, ConfigurationSupportedPhyTypes, BusError, Wakeup, FormatError };
+enum EthernetOperation { Transmit, Confirm, ConfigurationSupportedPhyTypes, BusError, Wakeup, FormatError };
 
 /**
- * \brief Checks if the CAN Transmit operation is created correctly by the corresponding macro.
+ * \brief Checks if the Transmit operation is created correctly by the corresponding macro.
  *
  * \param[in] BufferInfo
  *     Pointer to \ref fmi3LsBusUtilBufferInfo.
@@ -65,11 +65,11 @@ void CheckBusErrorOperation(int errorCode, fmi3UInt8 isSender, bool correctData)
  *
  * \param[in] operationType  The type of operation of the Format Error operation.
  */
-void CheckFormatErrorOperation(Operation operationType);
+void CheckFormatErrorOperation(EthernetOperation operationType);
 
 /**
  * \brief Checks if the corresponding macro returns fmi3False if the data for creation is too big.
  *
  * \param[in] operation  The type of operation to be checked.
  */
-void CheckDataSizeError(Operation operation);
+void CheckDataSizeError(EthernetOperation operation);
