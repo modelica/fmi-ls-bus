@@ -18,7 +18,7 @@
 TEST(Fmi3LsBusEthernetTransmit, minValues) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	fmi3UInt8 src[] = { 'A', 'B', 'C', 'A', 'B', 'C' }; 
+	fmi3UInt8 src[] = { 'A', 'B', 'C', 'A', 'B', 'C' };
 	fmi3UInt8 dest[] = { 'A', 'B', 'C', 'A', 'B', 'C' };
 
 	CheckEthernetTransmitOperation(0, 0, 0, src, dest, 0, sizeof(data), data, true);
@@ -52,14 +52,14 @@ TEST(Fmi3LsBusEthernetTransmit, wrongValues) {
  * \brief Test for the Confirm operation.
  */
 TEST(Fmi3LsBusEthernetConfirm, defaultValues) {
-	CheckConfirmOperation();
+	CheckEthernetConfirmOperation();
 }
 
 /**
  * \brief Test for the Wakeup operation.
  */
 TEST(Fmi3LsBusEthernetWakeUp, defaultValues) {
-	CheckWakeupOperation();
+	CheckEthernetWakeupOperation();
 }
 
 /**
@@ -67,7 +67,7 @@ TEST(Fmi3LsBusEthernetWakeUp, defaultValues) {
  */
 TEST(Fmi3LsBusEthernetBusError, minValues1) {
 
-	CheckBusErrorOperation(FMI3_LS_BUS_ETHERNET_BUS_ERROR_CODE_COLLISION, FMI3_LS_BUS_TRUE, true);
+	CheckEthernetBusErrorOperation(FMI3_LS_BUS_ETHERNET_BUS_ERROR_CODE_COLLISION, FMI3_LS_BUS_TRUE, true);
 }
 
 /**
@@ -75,7 +75,7 @@ TEST(Fmi3LsBusEthernetBusError, minValues1) {
  */
 TEST(Fmi3LsBusEthernetBusError, minValues2) {
 
-	CheckBusErrorOperation(FMI3_LS_BUS_ETHERNET_BUS_ERROR_CODE_MEDIUM_BUSY, FMI3_LS_BUS_TRUE, true);
+	CheckEthernetBusErrorOperation(FMI3_LS_BUS_ETHERNET_BUS_ERROR_CODE_MEDIUM_BUSY, FMI3_LS_BUS_TRUE, true);
 }
 
 /**
@@ -83,7 +83,7 @@ TEST(Fmi3LsBusEthernetBusError, minValues2) {
  */
 TEST(Fmi3LsBusEthernetBusError, minValues3) {
 
-	CheckBusErrorOperation(FMI3_LS_BUS_ETHERNET_BUS_ERROR_CODE_UNKNOWN, FMI3_LS_BUS_TRUE, true);
+	CheckEthernetBusErrorOperation(FMI3_LS_BUS_ETHERNET_BUS_ERROR_CODE_UNKNOWN, FMI3_LS_BUS_TRUE, true);
 }
 
 /**

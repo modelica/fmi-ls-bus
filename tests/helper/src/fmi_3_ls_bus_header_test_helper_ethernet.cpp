@@ -47,7 +47,7 @@ void CheckEthernetTransmitOperation(int startDelimiter, int fragmentCounter, int
 	}
 }
 
-void CheckConfirmOperation() {
+void CheckEthernetConfirmOperation() {
 
 	// Create data needed for creation.
 	fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -75,7 +75,7 @@ void CheckConfirmOperation() {
 	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_ETHERNET_OP_CONFIRM);
 }
 
-void CheckWakeupOperation() {
+void CheckEthernetWakeupOperation() {
 
 	// Create data needed for creation.
 	fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -100,7 +100,7 @@ void CheckWakeupOperation() {
 	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_ETHERNET_OP_WAKEUP);
 }
 
-void CheckBusErrorOperation(int errorCode, fmi3UInt8 isSender, bool correctData) {
+void CheckEthernetBusErrorOperation(int errorCode, fmi3UInt8 isSender, bool correctData) {
 
 	// Create data needed for creation.
 	fmi3LsBusUtilBufferInfo firstBufferInfo;

@@ -44,12 +44,12 @@ void CheckEthernetTransmitOperation(int startDelimiter, int fragmentCounter, int
 /**
  * \brief Checks if the Confirm operation is created correctly by the corresponding macro.
  */
-void CheckConfirmOperation();
+void CheckEthernetConfirmOperation();
 
 /**
  * \brief Checks if the WakeUp operation is created correctly by the corresponding macro.
  */
-void CheckWakeupOperation();
+void CheckEthernetWakeupOperation();
 
 /**
  * \brief Checks if the Bus Error operation is created correctly by the corresponding macro.
@@ -58,7 +58,7 @@ void CheckWakeupOperation();
  * \param[in] isSender    The attribute 'Is Sender' of the Bus Error operation.
  * \param[in] correctData Indicator if the method checks for a match of provided and created values or for an overflow of values.
  */
-void CheckBusErrorOperation(int errorCode, fmi3UInt8 isSender, bool correctData);
+void CheckEthernetBusErrorOperation(int errorCode, fmi3UInt8 isSender, bool correctData);
 
 /**
  * \brief Checks if the Format Error operation is created correctly by the corresponding macro.
