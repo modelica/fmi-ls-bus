@@ -39,7 +39,7 @@
         LastFragment,                                                                  \
         DestinationAddress,                                                            \
         SourceAddress,                                                                 \
-        TypeOrLength,                                                             \
+        TypeOrLength,                                                                  \
         DataLength,                                                                    \
         Data                                                                           \
     ) do {                                                                             \
@@ -51,7 +51,7 @@
             + sizeof(fmi3LsBusBoolean)                                                 \
             + 6 * sizeof(fmi3LsBusEthernetMacAddressOctet)                             \
             + 6 * sizeof(fmi3LsBusEthernetMacAddressOctet)                             \
-            + sizeof(fmi3LsBusEthernetTypeOrLength)                               \
+            + sizeof(fmi3LsBusEthernetTypeOrLength)                                    \
             + sizeof(fmi3LsBusEthernetDataLength)                                      \
             + (DataLength);                                                            \
                                                                                        \
@@ -60,7 +60,7 @@
         _op.lastFragment = LastFragment;                                               \
         memcpy(_op.destinationAddress, DestinationAddress, 6);                         \
         memcpy(_op.sourceAddress, SourceAddress, 6);                                   \
-        _op.typeOrLength = TypeOrLength;                                     \
+        _op.typeOrLength = TypeOrLength;                                               \
         _op.dataLength = DataLength;                                                   \
                                                                                        \
         FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, (DataLength), (Data)); \
