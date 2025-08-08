@@ -149,3 +149,159 @@ TEST(Fmi3LsBusEthernetWakeup, sizeError)
 {
 	CheckDataSizeError(Wakeup);
 }
+
+/**
+ * \brief Test for resetting a buffer.
+ */
+TEST(Fmi3LsBusEthernetCombinationTest, resetBuffer) {
+
+	fmi3LsBusUtilBufferInfo firstBufferInfo;
+	fmi3LsBusUtilBufferInfo secondBufferInfo;
+	fmi3UInt8 txData[2048];
+	fmi3UInt8 rxData[2048];
+
+	FMI3_LS_BUS_BUFFER_INFO_INIT(&firstBufferInfo, txData, sizeof(txData));
+	FMI3_LS_BUS_BUFFER_INFO_INIT(&secondBufferInfo, rxData, sizeof(rxData));
+
+	fmi3UInt8 ip[] = { 'T', 'E', 'S', 'T', 'I', 'P' };
+	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
+
+	FMI3_LS_BUS_ETHERNET_CREATE_OP_TRANSMIT(&firstBufferInfo, 0, 0, 0, ip, ip, 0, sizeof(data), data);
+
+	FMI3_LS_BUS_BUFFER_WRITE(&secondBufferInfo, txData, sizeof(txData));
+
+	FMI3_LS_BUS_BUFFER_INFO_RESET(&firstBufferInfo);
+	EXPECT_EQ(firstBufferInfo.readPos, firstBufferInfo.writePos);
+
+	FMI3_LS_BUS_BUFFER_INFO_RESET(&secondBufferInfo);
+	EXPECT_EQ(secondBufferInfo.readPos, secondBufferInfo.writePos);
+}
+
+/**
+ * \brief Test for combination of all operations with the of biggest valid values.
+ */
+TEST(Fmi3LsBusEthernetCombinationTest, maxValues) {
+
+	fmi3LsBusUtilBufferInfo firstBufferInfo;
+	fmi3LsBusUtilBufferInfo secondBufferInfo;
+	fmi3UInt8 txData[2048];
+	fmi3UInt8 rxData[2048];
+	fmi3LsBusOperationHeader* operationHeader;
+	fmi3LsBusEthernetOperationTransmit* ethernetTransmitOperation;
+	fmi3LsBusEthernetOperationConfirm* ethernetConfirmOperation;
+	fmi3LsBusEthernetOperationBusError* ethernetBusErrorOperation;
+
+	FMI3_LS_BUS_BUFFER_INFO_INIT(&firstBufferInfo, txData, sizeof(txData));
+	FMI3_LS_BUS_BUFFER_INFO_INIT(&secondBufferInfo, rxData, sizeof(rxData));
+
+	fmi3UInt8 ip[] = { 'T', 'E', 'S', 'T', 'I', 'P' };
+	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
+
+	FMI3_LS_BUS_ETHERNET_CREATE_OP_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT8_MAX, UINT8_MAX, ip, ip, UINT16_MAX, sizeof(data), data);
+	FMI3_LS_BUS_ETHERNET_CREATE_OP_CONFIRM(&firstBufferInfo);
+	FMI3_LS_BUS_ETHERNET_CREATE_OP_BUS_ERROR(&firstBufferInfo, FMI3_LS_BUS_ETHERNET_BUS_ERROR_CODE_COLLISION, FMI3_LS_BUS_TRUE);
+	FMI3_LS_BUS_ETHERNET_CREATE_OP_WAKEUP(&firstBufferInfo);
+	FMI3_LS_BUS_ETHERNET_CREATE_OP_TRANSMIT(&firstBufferInfo, UINT8_MAX, UINT8_MAX, UINT8_MAX, ip, ip, UINT16_MAX, sizeof(data), data);
+
+	FMI3_LS_BUS_BUFFER_WRITE(&secondBufferInfo, txData, sizeof(txData));
+
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
+	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_ETHERNET_OP_TRANSMIT);
+	ethernetTransmitOperation = (fmi3LsBusEthernetOperationTransmit*)operationHeader;
+	EXPECT_EQ(ethernetTransmitOperation->fragmentCounter, UINT8_MAX);
+	EXPECT_EQ(ethernetTransmitOperation->lastFragment, UINT8_MAX);
+	EXPECT_EQ(ethernetTransmitOperation->startDelimiter, UINT8_MAX);
+	EXPECT_EQ(ethernetTransmitOperation->typeOrLength, UINT16_MAX);
+	EXPECT_EQ(ethernetTransmitOperation->dataLength, sizeof(data));
+	for (size_t i = 0; i < sizeof(data); i++)
+	{
+		EXPECT_EQ(ethernetTransmitOperation->data[i], data[i]);
+	}
+
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
+	ethernetConfirmOperation = (fmi3LsBusEthernetOperationConfirm*)operationHeader;
+
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
+	ethernetBusErrorOperation = (fmi3LsBusEthernetOperationBusError*)operationHeader;
+	EXPECT_EQ(ethernetBusErrorOperation->errorCode, FMI3_LS_BUS_ETHERNET_BUS_ERROR_CODE_COLLISION);
+
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
+	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_ETHERNET_OP_WAKEUP);
+
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
+	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_ETHERNET_OP_TRANSMIT);
+	ethernetTransmitOperation = (fmi3LsBusEthernetOperationTransmit*)operationHeader;
+	EXPECT_EQ(ethernetTransmitOperation->fragmentCounter, UINT8_MAX);
+	EXPECT_EQ(ethernetTransmitOperation->lastFragment, UINT8_MAX);
+	EXPECT_EQ(ethernetTransmitOperation->startDelimiter, UINT8_MAX);
+	EXPECT_EQ(ethernetTransmitOperation->typeOrLength, UINT16_MAX);
+	EXPECT_EQ(ethernetTransmitOperation->dataLength, sizeof(data));
+	for (size_t i = 0; i < sizeof(data); i++)
+	{
+		EXPECT_EQ(ethernetTransmitOperation->data[i], data[i]);
+	}
+}
+
+/**
+ * \brief Test for combination of all operations with a mix of biggest valid values and values that are too big.
+ */
+TEST(Fmi3LsBusEthernetCombinationTest, maxAndWrongValues) {
+
+	fmi3LsBusUtilBufferInfo firstBufferInfo;
+	fmi3LsBusUtilBufferInfo secondBufferInfo;
+	fmi3UInt8 txData[2048];
+	fmi3UInt8 rxData[2048];
+	fmi3LsBusOperationHeader* operationHeader;
+	fmi3LsBusEthernetOperationTransmit* ethernetTransmitOperation;
+	fmi3LsBusEthernetOperationConfirm* ethernetConfirmOperation;
+	fmi3LsBusEthernetOperationBusError* ethernetBusErrorOperation;
+
+	FMI3_LS_BUS_BUFFER_INFO_INIT(&firstBufferInfo, txData, sizeof(txData));
+	FMI3_LS_BUS_BUFFER_INFO_INIT(&secondBufferInfo, rxData, sizeof(rxData));
+
+	fmi3UInt8 ip[] = { 'T', 'E', 'S', 'T', 'I', 'P' };
+	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
+
+	FMI3_LS_BUS_ETHERNET_CREATE_OP_TRANSMIT(&firstBufferInfo, WRONG_U_INT8, WRONG_U_INT8, WRONG_U_INT8, ip, ip, WRONG_U_INT32, sizeof(data), data);
+	FMI3_LS_BUS_ETHERNET_CREATE_OP_CONFIRM(&firstBufferInfo);
+	FMI3_LS_BUS_ETHERNET_CREATE_OP_BUS_ERROR(&firstBufferInfo, FMI3_LS_BUS_ETHERNET_BUS_ERROR_CODE_COLLISION, FMI3_LS_BUS_TRUE);
+	FMI3_LS_BUS_ETHERNET_CREATE_OP_WAKEUP(&firstBufferInfo);
+	FMI3_LS_BUS_ETHERNET_CREATE_OP_TRANSMIT(&firstBufferInfo, WRONG_U_INT8, WRONG_U_INT8, WRONG_U_INT8, ip, ip, WRONG_U_INT32, sizeof(data), data);
+
+	FMI3_LS_BUS_BUFFER_WRITE(&secondBufferInfo, txData, sizeof(txData));
+
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
+	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_ETHERNET_OP_TRANSMIT);
+	ethernetTransmitOperation = (fmi3LsBusEthernetOperationTransmit*)operationHeader;
+	EXPECT_EQ(ethernetTransmitOperation->fragmentCounter, 0);
+	EXPECT_EQ(ethernetTransmitOperation->lastFragment, 0);
+	EXPECT_EQ(ethernetTransmitOperation->startDelimiter, 0);
+	EXPECT_EQ(ethernetTransmitOperation->typeOrLength, 0);
+	EXPECT_EQ(ethernetTransmitOperation->dataLength, sizeof(data));
+	for (size_t i = 0; i < sizeof(data); i++)
+	{
+		EXPECT_EQ(ethernetTransmitOperation->data[i], data[i]);
+	}
+
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
+	ethernetConfirmOperation = (fmi3LsBusEthernetOperationConfirm*)operationHeader;
+
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
+	ethernetBusErrorOperation = (fmi3LsBusEthernetOperationBusError*)operationHeader;
+	EXPECT_EQ(ethernetBusErrorOperation->errorCode, FMI3_LS_BUS_ETHERNET_BUS_ERROR_CODE_COLLISION);
+
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
+	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_ETHERNET_OP_WAKEUP);
+
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
+	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_ETHERNET_OP_TRANSMIT);
+	ethernetTransmitOperation = (fmi3LsBusEthernetOperationTransmit*)operationHeader;
+	EXPECT_EQ(ethernetTransmitOperation->fragmentCounter, 0);
+	EXPECT_EQ(ethernetTransmitOperation->lastFragment, 0);
+	EXPECT_EQ(ethernetTransmitOperation->startDelimiter, 0);
+	EXPECT_EQ(ethernetTransmitOperation->typeOrLength, 0);
+	for (size_t i = 0; i < sizeof(data); i++)
+	{
+		EXPECT_EQ(ethernetTransmitOperation->data[i], data[i]);
+	}
+}
