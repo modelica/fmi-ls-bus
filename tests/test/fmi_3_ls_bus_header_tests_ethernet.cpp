@@ -18,7 +18,7 @@
 TEST(Fmi3LsBusEthernetTransmit, minValues) {
 
 	fmi3UInt8 data[] = { 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D' };
-	fmi3UInt8 src[] = { 'A', 'B', 'C', 'A', 'B', 'C' };
+	fmi3UInt8 src[] = { 'A', 'B', 'C', 'A', 'B', 'C' }; 
 	fmi3UInt8 dest[] = { 'A', 'B', 'C', 'A', 'B', 'C' };
 
 	CheckEthernetTransmitOperation(0, 0, 0, src, dest, 0, sizeof(data), data, true);
