@@ -5,6 +5,7 @@ if("${MODULE_LIST}" STREQUAL "all" OR "${MODULE_LIST}" STREQUAL "")
   list(REMOVE_ITEM MODULE_LIST all)
   list(APPEND MODULE_LIST can)
   list(APPEND MODULE_LIST flexray)
+  list(APPEND MODULE_LIST ethernet)
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
