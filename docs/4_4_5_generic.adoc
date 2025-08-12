@@ -1,6 +1,15 @@
-==== Generic Bus [[low-cut-generic]]
+==== Generic [[low-cut-generic]]
 This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for the generic bus type.
 The generic bus type offers a simple variant of data transmission within the Network Abstraction, if the concrete bus type is not yet available, but should already be exchanged message-based.
+
+===== General Recommendations [[low-cut-generic-general-recommendations]]
+In some development areas and at very early stages of development, the actual bus type to be used later may not yet be determined.
+However, in such cases, one may want to use the semantics of a message-based exchange. For such cases, the FMI-LS-BUS allows the use of a generic bus. With this generic bus type, it is only possible to send data in the form of messages.
+Other aspects that characterize specific bus types such as CAN, LIN or Ethernet are not relevant here.
+Overall, it should be clear to everyone who uses it that the generic variant offers possibilities that are advantageous in various application areas.
+However, it also violates a certain principle of interoperability, since the payload (data) of a generic  <<low-cut-generic-transmit-operation, `Transmit`>> operation can be freely selected in its structure.
+This means that both the sender and the receiver Network FMU must be able to interpret this implicit format.
+This can make a free and comprehensive exchange of Network FMUs difficult and has to be addressed by the specified users.
 
 ===== Overview [[low-cut-generic-overview]]
 To simulate the generic bus type, specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
@@ -14,7 +23,7 @@ It shows all operations and the arguments they contain.
 
 .Overview of the available operations for the generic bus type.
 [#table-operation-content-generic]
-[cols="9,1,6,5,5,5,5,5,5,5,5"]
+[cols="9,1,6,7,5,5,5,5,5,5,5"]
 |====
 .2+h|Operation Name
 10+h|Operation Content
@@ -36,7 +45,7 @@ h|Length
 |0x10
 |:= 20 + DL +
 (4 bytes)
-|ID +
+|User Code +
 (4 bytes)
 |DL +
 (8 bytes)
@@ -70,7 +79,7 @@ h|OP Code [hex] 3+| 0x10
 | OP Code | 4 bytes | Contains the OP Code (0x10) of the operation.
 | Length | 4 bytes | Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 20 + Data Length`.
-| ID | 4 bytes | The specified ID of the message.
+| User Code | 4 bytes | A freely selectable user code, which allows the identification of the specific message within a specified <<low-cut-generic-confirm-operation, `Confirm`>> operation.
 | Data Length | 8 bytes | Specifies the length of the Data argument in bytes.
 | Data | n bytes | Stores the given frame data to transfer.
 h|Behavior
@@ -104,9 +113,9 @@ h|OP Code [hex]
 |Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 12`.
 
-|ID
+|User Code
 |4 bytes
-|The ID of the confirmed generic message.
+|The  user code, that was published via a specified <<low-cut-generic-transmit-operation, `Transmit`>> operation to which this <<low-cut-generic-confirm-operation, `Confirm`>> operation is related.
 
 h|Behavior
 3+|This operation shall be produced by the Bus Simulation and consumed by Network FMUs. +
@@ -157,22 +166,15 @@ If the provision of bus notifications can be configured (e.g., via a structural 
  variability:   fixed/constant
 ----
 
-===== General Recommendations [[low-cut-generic-general-recommendations]]
-In some development areas and at very early stages of development, the actual bus type to be used later may not yet be determined.
-However, in such cases, one may want to use the semantics of a message-based exchange. For such cases, the FMI-LS-BUS allows the use of a generic bus. With this generic bus type, it is only possible to send data in the form of messages.
-Other aspects that characterize specific bus types such as CAN, LIN or Ethernet are not relevant here.
-Overall, it should be clear to everyone who uses it that the generic variant offers possibilities that are advantageous in various application areas.
-However, it also violates a certain principle of interoperability, since the payload (data) of a generic  <<low-cut-generic-transmit-operation, `Transmit`>> operation can be freely selected in its structure.
-This means that both the sender and the receiver Network FMU must be able to interpret this implicit format.
-This can make a free and comprehensive exchange of Network FMUs difficult and has to be addressed by the specified users.
-
 ===== Definition of MIME Type [[low-cut-generic-definition-of-mime-type]]
 Only Network FMUs that enable the same interpretation of the generic data within a <<low-cut-generic-transmit-operation, `Transmit`>> operation can be connected externally.
 To enable this, only a prefix of the MIME type to be used was specified for the generic bus type.
 It must be expanded by the user to allow unique identification.
-In the application, the user must specify a specific `{userdefined-name}` for the respective bus configuration  and a corresponding `{userdefined-version}`, where the following scheme applies:  
+In the application, the user shall specify a specific `{userdefined-name}` for the respective bus configuration  and a corresponding `{userdefined-version}`, where the following scheme applies:  
 
-`application/org.fmi-standard.fmi-ls-bus.generic.{userdefined-name}; version="{userdefined-version}"`
+`application/org.fmi-standard.fmi-ls-bus.generic.{userdefined-name}; version="{userdefined-version}" {protocolversion="{userdefined}"}`
+
+The definition of `protocolversion` is optional and is related to a concrete target version of the mapped bus format.
 
 ===== Transmission [[low-cut-generic-transmission]]
 A generic frame contains an ID for unique identification and a payload (data), the structure of which can be freely chosen.
