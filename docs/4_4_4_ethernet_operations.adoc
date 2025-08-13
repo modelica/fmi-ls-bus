@@ -21,7 +21,7 @@ h|OP Code [hex] 3+| 0x10
 | Length
 | 4 bytes
 | Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Length = 26 + Data Length`.
+The following applies for this operation: `Length = 29 + Data Length`.
 
 | Start Delimiter
 | 1 byte
@@ -49,12 +49,13 @@ Only applicable if this is a full Ethernet frame or the first fragment of an Eth
 | The destination address of the frame.
 Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.
 
-| EtherType or Length
+| Type or Length
 | 2 bytes
-| Indicates the type of Ethernet frame (Ethernet II) or frame length (802.3).
+| Indicates the type of Ethernet frame (Ethernet II), the TPID (802.1Q) or frame length (802.3).
+_Note: Regarding to <<low-cut-layered-standard-bus-protocol>>, the argument value shall be also stored in `little-endian` byte order._
 
 | Data Length
-| 1 byte
+| 4 bytes
 | The length of the data of this Ethernet frame or mPacket.
 Note that this does not correspond to a field in the Ethernet frame.
 
@@ -183,16 +184,16 @@ The following applies for this operation: `Length = 9 + Length of parameter argu
 
 .3+|SUPPORTED_PHY_TYPES
 | MDI Mode
-| 1 bytes
+| 1 byte
 | The configuration of the node's media-dependent interface.
 See <<table-fmi3-ls-bus-ethernet-mdi-mode-values>> for possible values.
 
 | Number of supported PHY types
-| 1 bytes
+| 1 byte
 | The number of characters in the list of supported PHY types.
 
 | Supported PHY types
-| 1 bytes
+| 1 byte
 | An array of zero-terminated strings describing PHY types supported by this Ethernet node.
 The first element in this list indicates the type of PHY used by this node.
 The list must have at least one element.

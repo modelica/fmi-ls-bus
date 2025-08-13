@@ -319,7 +319,7 @@ A schematic representation of an FMU with a Bus Terminal is shown in the <<#figu
 image::bus_terminal.svg[width=30%, align="center"]
 
 ==== Bus Terminal [[low-cut-bus-terminal,Bus Terminal]]
-Each network connected to the FMU must be described in `icons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>`.
+Each network connected to the FMU must be described in `terminalsAndIcons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>`.
 There shall be exactly one `<Terminal>` element for each network of the FMU.
 
 Attributes of a Bus Terminal::
