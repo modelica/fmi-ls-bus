@@ -151,7 +151,7 @@
                                                                                                   \
         _op.parameterType = FMI3_LS_BUS_ETHERNET_CONFIG_PARAMETER_TYPE_SUPPORTED_PHY_TYPES;       \
         _op.supportedPhyTypes.mdiMode = MdiMode;                                                  \
-        _op.supportedPhyTypes.numberOfSupportedPhyTypes = NumberOfSupportedPhyTypes;              \                       \
+        _op.supportedPhyTypes.numberOfSupportedPhyTypes = NumberOfSupportedPhyTypes;              \
                                                                                                   \
         /* Calculate the total length of SupportedPhyTypes */                                     \
         size_t _pos = 0;                                                                          \
