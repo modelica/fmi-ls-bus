@@ -138,23 +138,28 @@
  * \param[in] SupportedPhyTypes
  *     An array of zero-terminated strings describing PHY types supported by this Ethernet node  The first element in this list indicates the type of PHY used by this node  The list must have at least one element  Elements describing a PHY standardized by 8023 or an amendment must use the value described in the chapter "303212 aPhyType" of the standard  Otherwise, a vendor-defined value may be used (\ref fmi3LsBusEthernetPhyTypeCharacter).
  */
-#define FMI3_LS_BUS_ETHERNET_CREATE_OP_CONFIGURATION_SUPPORTED_PHY_TYPES(BufferInfo,        \
-        MdiMode,                                                                            \
-        NumberOfSupportedPhyTypes,                                                          \
-        SupportedPhyTypes                                                                   \
-    ) do {                                                                                  \
-        fmi3LsBusEthernetOperationConfiguration _op;                                        \
-        _op.header.opCode = FMI3_LS_BUS_ETHERNET_OP_CONFIGURATION;                          \
-        _op.header.length = sizeof(fmi3LsBusOperationHeader)                                \
-            + sizeof(fmi3LsBusEthernetConfigParameterType)                                  \
-            + sizeof(fmi3LsBusEthernetConfigurationSupportedPhyTypes);                      \
-                                                                                            \
-        _op.parameterType = FMI3_LS_BUS_ETHERNET_CONFIG_PARAMETER_TYPE_SUPPORTED_PHY_TYPES; \
-        _op.supportedPhyTypes.mdiMode = MdiMode;                                            \
-        _op.supportedPhyTypes.numberOfSupportedPhyTypes = NumberOfSupportedPhyTypes;        \
-        _op.supportedPhyTypes.supportedPhyTypes = SupportedPhyTypes;                        \
-                                                                                            \
-        FMI_LS_BUS_SUBMIT_OPERATION_NO_DATA_INTERNAL((BufferInfo), _op);                    \
+#define FMI3_LS_BUS_ETHERNET_CREATE_OP_CONFIGURATION_SUPPORTED_PHY_TYPES(BufferInfo,              \
+        MdiMode,                                                                                  \
+        NumberOfSupportedPhyTypes,                                                                \
+        SupportedPhyTypes                                                                         \
+    ) do {                                                                                        \
+        fmi3LsBusEthernetOperationConfiguration _op;                                              \
+        _op.header.opCode = FMI3_LS_BUS_ETHERNET_OP_CONFIGURATION;                                \
+        _op.header.length = sizeof(fmi3LsBusOperationHeader)                                      \
+            + sizeof(fmi3LsBusEthernetConfigParameterType)                                        \
+            + sizeof(fmi3LsBusEthernetConfigurationSupportedPhyTypes);                            \
+                                                                                                  \
+        _op.parameterType = FMI3_LS_BUS_ETHERNET_CONFIG_PARAMETER_TYPE_SUPPORTED_PHY_TYPES;       \
+        _op.supportedPhyTypes.mdiMode = MdiMode;                                                  \
+        _op.supportedPhyTypes.numberOfSupportedPhyTypes = NumberOfSupportedPhyTypes;              \                       \
+                                                                                                  \
+        /* Calculate the total length of SupportedPhyTypes */                                     \
+        size_t _pos = 0;                                                                          \
+        for (size_t _i = 0; _i < (NumberOfSupportedPhyTypes); _i++) {                             \
+            while ((SupportedPhyTypes)[_pos] != 0) { _pos++; }                                    \
+        }                                                                                         \
+                                                                                                  \
+        FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, (_pos + 1), (SupportedPhyTypes)); \
     } while (0)
 
 
