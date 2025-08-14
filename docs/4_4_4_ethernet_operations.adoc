@@ -193,7 +193,7 @@ See <<table-fmi3-ls-bus-ethernet-mdi-mode-values>> for possible values.
 | The number of characters in the list of supported PHY types.
 
 | Supported PHY types
-| 1 byte
+| n bytes
 | An array of zero-terminated strings describing PHY types supported by this Ethernet node.
 The first element in this list indicates the type of PHY used by this node.
 The list must have at least one element.
