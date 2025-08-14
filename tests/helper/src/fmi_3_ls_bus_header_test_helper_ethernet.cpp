@@ -226,46 +226,36 @@ void CheckDataSizeError(EthernetOperation operation) {
 	EXPECT_EQ(bufferInfo.status, fmi3False);
 }
 
+void CheckEthernetConfigurationSupportedPhyTypesOperation(int mdiMode, int lengthOfSupportedPhyTypes, fmi3Char phyTypes[8]) {
+ 
+	// Create data needed for creation.
+	fmi3LsBusUtilBufferInfo firstBufferInfo;
+	fmi3LsBusUtilBufferInfo secondBufferInfo;
+	fmi3UInt8 txData[2048];
+	fmi3UInt8 rxData[2048];
+	fmi3LsBusOperationHeader* operationHeader;
+	fmi3LsBusEthernetOperationConfiguration* operation;
 
+	FMI3_LS_BUS_BUFFER_INFO_INIT(&firstBufferInfo, txData, sizeof(txData));
+	FMI3_LS_BUS_BUFFER_INFO_INIT(&secondBufferInfo, rxData, sizeof(rxData));
+ 
+	// Create operation.
+	FMI3_LS_BUS_ETHERNET_CREATE_OP_CONFIGURATION_SUPPORTED_PHY_TYPES(&firstBufferInfo, mdiMode, lengthOfSupportedPhyTypes, phyTypes);
 
+	// Write operation to a second buffer.
+	FMI3_LS_BUS_BUFFER_WRITE(&secondBufferInfo, txData, sizeof(txData));
 
+	// Read and check created method from second buffer.
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
 
+	operation = (fmi3LsBusEthernetOperationConfiguration*)operationHeader;
 
+	EXPECT_EQ(secondBufferInfo.status, fmi3True);
+	EXPECT_EQ(operation->supportedPhyTypes.mdiMode, mdiMode);
+	EXPECT_EQ(operation->supportedPhyTypes.supportedPhyTypesLength, lengthOfSupportedPhyTypes);
 
-
-
-
-
-// 
-//
-//void CheckConfigurationArbitrationLostBehaviorOperation(int arbitrationLostBehavior) {
-//
-//	// Create data needed for creation.
-//	fmi3LsBusUtilBufferInfo firstBufferInfo;
-//	fmi3LsBusUtilBufferInfo secondBufferInfo;
-//	fmi3UInt8 txData[2048];
-//	fmi3UInt8 rxData[2048];
-//	fmi3LsBusOperationHeader* operationHeader;
-//	fmi3LsBusCanOperationConfiguration* operation;
-//
-//	FMI3_LS_BUS_BUFFER_INFO_INIT(&firstBufferInfo, txData, sizeof(txData));
-//	FMI3_LS_BUS_BUFFER_INFO_INIT(&secondBufferInfo, rxData, sizeof(rxData));
-//
-//	// Create operation.
-//	FMI3_LS_BUS_CAN_CREATE_OP_CONFIGURATION_ARBITRATION_LOST_BEHAVIOR(&firstBufferInfo, arbitrationLostBehavior);
-//
-//	// Write operation to a second buffer.
-//	FMI3_LS_BUS_BUFFER_WRITE(&secondBufferInfo, txData, sizeof(txData));
-//
-//	// Read and check created method from second buffer.
-//	FMI3_LS_BUS_READ_NEXT_OPERATION(&secondBufferInfo, operationHeader);
-//
-//	operation = (fmi3LsBusCanOperationConfiguration*)operationHeader;
-//
-//	EXPECT_EQ(secondBufferInfo.status, fmi3True);
-//
-//	EXPECT_EQ(operation->arbitrationLostBehavior, arbitrationLostBehavior);
-//}
-// 
-
-//
+	for (int i = 0; i < lengthOfSupportedPhyTypes; i++) 
+	{
+		EXPECT_EQ(operation->supportedPhyTypes.supportedPhyTypes[i], phyTypes[i]);
+	}
+}

@@ -188,12 +188,12 @@ The following applies for this operation: `Length = 9 + Length of parameter argu
 | The configuration of the node's media-dependent interface.
 See <<table-fmi3-ls-bus-ethernet-mdi-mode-values>> for possible values.
 
-| Number of supported PHY types
-| 1 byte
-| The number of characters in the list of supported PHY types.
+| Supported PHY Types Length
+| 2 byte
+| The number of characters of the `Supported PHY Types` argument.
 
-| Supported PHY types
-| 1 byte
+| Supported PHY Types
+| n bytes
 | An array of zero-terminated strings describing PHY types supported by this Ethernet node.
 The first element in this list indicates the type of PHY used by this node.
 The list must have at least one element.

@@ -1,6 +1,42 @@
 #ifndef fmi3LsBusUtilEthernet_h
 #define fmi3LsBusUtilEthernet_h
 
+/*
+This header file contains utility macros to read and write FMI-LS-BUS
+Ethernet specific bus operations from\to dedicated buffer variables.
+
+This header file can be used when creating Network FMI-LS-BUS FMUs with Ethernet.
+
+Copyright (C) 2024-2025 Modelica Association Project "FMI"
+              All rights reserved.
+
+This file is licensed by the copyright holders under the 2-Clause BSD License
+(https://opensource.org/licenses/BSD-2-Clause):
+
+----------------------------------------------------------------------------
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+- Redistributions of source code must retain the above copyright notice,
+ this list of conditions and the following disclaimer.
+
+- Redistributions in binary form must reproduce the above copyright notice,
+ this list of conditions and the following disclaimer in the documentation
+ and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+----------------------------------------------------------------------------
+*/
 
 #include "fmi3LsBusUtil.h"
 #include "fmi3LsBusEthernet.h"
@@ -136,27 +172,27 @@
  * \param[in] NumberOfSupportedPhyTypes
  *     The number of characters in the list of supported PHY types (\ref fmi3LsBusEthernetDataLength).
  * \param[in] SupportedPhyTypes
- *     An array of zero-terminated strings describing PHY types supported by this Ethernet node  The first element in this list indicates the type of PHY used by this node  The list must have at least one element  Elements describing a PHY standardized by 8023 or an amendment must use the value described in the chapter "303212 aPhyType" of the standard  Otherwise, a vendor-defined value may be used (\ref fmi3LsBusEthernetPhyTypeCharacter).
+ *     An array of zero-terminated strings describing PHY types supported by this Ethernet node  The first element in this list indicates the type of PHY used by this node  The list must have at least one element  Elements describing a PHY standardized by 802.3 or an amendment must use the value described in the chapter "303212 aPhyType" of the standard  Otherwise, a vendor-defined value may be used (\ref fmi3LsBusEthernetPhyTypeCharacter).
  */
-#define FMI3_LS_BUS_ETHERNET_CREATE_OP_CONFIGURATION_SUPPORTED_PHY_TYPES(BufferInfo,        \
-        MdiMode,                                                                            \
-        NumberOfSupportedPhyTypes,                                                          \
-        SupportedPhyTypes                                                                   \
-    ) do {                                                                                  \
-        fmi3LsBusEthernetOperationConfiguration _op;                                        \
-        _op.header.opCode = FMI3_LS_BUS_ETHERNET_OP_CONFIGURATION;                          \
-        _op.header.length = sizeof(fmi3LsBusOperationHeader)                                \
-            + sizeof(fmi3LsBusEthernetConfigParameterType)                                  \
-            + sizeof(fmi3LsBusEthernetConfigurationSupportedPhyTypes);                      \
-                                                                                            \
-        _op.parameterType = FMI3_LS_BUS_ETHERNET_CONFIG_PARAMETER_TYPE_SUPPORTED_PHY_TYPES; \
-        _op.supportedPhyTypes.mdiMode = MdiMode;                                            \
-        _op.supportedPhyTypes.numberOfSupportedPhyTypes = NumberOfSupportedPhyTypes;        \
-        _op.supportedPhyTypes.supportedPhyTypes = SupportedPhyTypes;                        \
-                                                                                            \
-        FMI_LS_BUS_SUBMIT_OPERATION_NO_DATA_INTERNAL((BufferInfo), _op);                    \
+#define FMI3_LS_BUS_ETHERNET_CREATE_OP_CONFIGURATION_SUPPORTED_PHY_TYPES(BufferInfo,                               \
+        MdiMode,                                                                                                   \
+        SupportedPhyTypesLength,                                                                                   \
+        SupportedPhyTypes                                                                                          \
+    ) do {                                                                                                         \
+        fmi3LsBusEthernetOperationConfiguration _op;                                                               \
+        _op.header.opCode = FMI3_LS_BUS_ETHERNET_OP_CONFIGURATION;                                                 \
+        _op.header.length = sizeof(fmi3LsBusOperationHeader)                                                       \
+            + sizeof(fmi3LsBusEthernetConfigParameterType)                                                         \
+            + sizeof(fmi3LsBusEthernetMdiMode)                                                                     \
+            + sizeof(fmi3LsBusEthernetPhyTypeLength)                                                               \
+            + SupportedPhyTypesLength;                                                                             \
+                                                                                                                   \
+        _op.parameterType = FMI3_LS_BUS_ETHERNET_CONFIG_PARAMETER_TYPE_SUPPORTED_PHY_TYPES;                        \
+        _op.supportedPhyTypes.mdiMode = MdiMode;                                                                   \
+        _op.supportedPhyTypes.supportedPhyTypesLength = SupportedPhyTypesLength;                                   \
+                                                                                                                   \
+        FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, SupportedPhyTypesLength, (SupportedPhyTypes));     \
     } while (0)
-
 
 /**
  * \brief Indicates a wakeup.

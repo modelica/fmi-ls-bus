@@ -73,3 +73,12 @@ void CheckFormatErrorOperation(EthernetOperation operationType);
  * \param[in] operation  The type of operation to be checked.
  */
 void CheckDataSizeError(EthernetOperation operation);
+
+/**
+ * \brief Checks if the corresponding macro returns fmi3False if the data for creation is too big.
+ *
+ * \param[in] mdiMode                    The MDI mode to be checked.
+ * \param[in] lengthOfSupportedPhyTypes  The length of supported Phy-Types characters to be checked.
+ * \param[in] phyTypes                   The Phy-Types to be checked.
+ */
+void CheckEthernetConfigurationSupportedPhyTypesOperation(int mdiMode, int lengthOfSupportedPhyTypes, fmi3Char phyTypes[8]);
