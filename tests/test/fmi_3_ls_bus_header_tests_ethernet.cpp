@@ -305,3 +305,33 @@ TEST(Fmi3LsBusEthernetCombinationTest, maxAndWrongValues) {
 		EXPECT_EQ(ethernetTransmitOperation->data[i], data[i]);
 	}
 }
+
+/**
+ * \brief Test for the Configuration:Phy-Types operation.
+ */
+TEST(Fmi3LsBusEthernetConfiguration, differentValues1) {
+
+	fmi3Char data[8] = { 'A', 'B', 'C', '\0', 'A', 'B', 'C', '\0' };
+
+	CheckEthernetConfigurationSupportedPhyTypesOperation(FMI3_LS_BUS_ETHERNET_MDI_MODE_NONE, 8, data);
+}
+
+/**
+ * \brief Test for the Configuration:Phy-Types operation.
+ */
+TEST(Fmi3LsBusEthernetConfiguration, differentValues2) {
+
+	fmi3Char data[8] = { 'A', 'B', 'C', '\0', 'A', 'B', 'C', '\0' };
+
+	CheckEthernetConfigurationSupportedPhyTypesOperation(FMI3_LS_BUS_ETHERNET_MDI_MODE_MDI, 8, data);
+}
+
+/**
+ * \brief Test for the Configuration:Phy-Types operation.
+ */
+TEST(Fmi3LsBusEthernetConfiguration, differentValues3) {
+
+	fmi3Char data[8] = { 'A', '\0', 'C', '\0', 'A', '\0', 'C', '\0' };
+
+	CheckEthernetConfigurationSupportedPhyTypesOperation(FMI3_LS_BUS_ETHERNET_MDI_MODE_MDI, 8, data);
+}
