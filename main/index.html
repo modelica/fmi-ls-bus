@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 6c91970,</span>
-<span id="revdate">2025-08-12</span>
+<span id="revnumber">version 1878f19,</span>
+<span id="revdate">2025-08-14</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -6619,13 +6619,13 @@ The following applies for this operation: <code>Length = 9 + Length of parameter
 See <a href="#table-fmi3-ls-bus-ethernet-mdi-mode-values">Table 56</a> for possible values.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number of supported PHY types</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The number of characters in the list of supported PHY types.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Supported PHY Types Length</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of characters of the <code>Supported PHY Types</code> argument.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Supported PHY types</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Supported PHY Types</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n bytes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">An array of zero-terminated strings describing PHY types supported by this Ethernet node.
 The first element in this list indicates the type of PHY used by this node.
 The list must have at least one element.
