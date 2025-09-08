@@ -185,7 +185,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             + sizeof(fmi3LsBusEthernetConfigParameterType)                                                         \
             + sizeof(fmi3LsBusEthernetMdiMode)                                                                     \
             + sizeof(fmi3LsBusEthernetPhyTypeLength)                                                               \
-            + SupportedPhyTypesLength;                                                                             \
+            + (SupportedPhyTypesLength);                                                                           \
                                                                                                                    \
         _op.parameterType = FMI3_LS_BUS_ETHERNET_CONFIG_PARAMETER_TYPE_SUPPORTED_PHY_TYPES;                        \
         _op.supportedPhyTypes.mdiMode = MdiMode;                                                                   \
