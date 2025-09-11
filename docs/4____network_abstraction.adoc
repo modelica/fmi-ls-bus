@@ -300,7 +300,7 @@ The following table lists the MIME types to use for the Tx/Rx data variables wit
 |application/org.fmi-standard.fmi-ls-bus.flexray; version="1.0.0-beta.1"
 |Binary variables simulating a FlexRay network
 
-|application/org.fmi-standard.fmi-ls-bus.ethernet; version="1.0.0-alpha.1"
+|application/org.fmi-standard.fmi-ls-bus.ethernet; version="1.0.0-alpha.2"
 |Binary variables simulating an Ethernet network
 
 |====
