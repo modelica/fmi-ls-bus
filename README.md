@@ -51,9 +51,10 @@ The following resources are currently available:
 - [Getting started with CAN, CAN FD and CAN XL]
 - [Getting started with FlexRay]
 
-Our publications may also be of interest to you:
+Our publications and presentations may also be of interest to you:
 
 - [Beyond FMI - Towards New Applications with Layered Standards]
+- [FMI Layered Standard for Network Communication: Applications in Networked ECU Development]
 
 Or dive into our video ["FMI, Layered Standards and ASAM Standards - Enabling Seamless SiL Simulation of Virtual ECUs"](https://www.youtube.com/watch?v=KzzKRa3jORs).
 Discover how the cutting-edge FMI 3.0 standard and the layered standards based on it are revolutionizing the world of Software-in-the-Loop (SiL) simulations.
@@ -176,3 +177,4 @@ The [FMI-LS-XCP] specifies an FMI extension for using the XCP protocol and A2L v
 [CAN, CAN FD and CAN XL Demo Overview]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-can-demos
 [FlexRay Demo Overview]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-flexray-demos
 [Beyond FMI - Towards New Applications with Layered Standards]: https://ecp.ep.liu.se/index.php/modelica/article/view/947
+[FMI Layered Standard for Network Communication: Applications in Networked ECU Development]: https://raw.githubusercontent.com/modelica/fmi-ls-bus/refs/heads/main/publications/Applications_in_Networked_ECU_Development.pdf
