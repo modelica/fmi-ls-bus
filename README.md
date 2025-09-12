@@ -149,7 +149,7 @@ Additionally, any FMU importer that supports the necessary FMI 3.0 features, suc
   </td>
 </table>
 
-_* New tools within the list can be added via PullRequest from every tool vendor._
+_* New tools within the list can be added via PullRequest from every tool vendor. Please also update the FMI tools page https://fmi-standard.org/tools/ with the entry "BUS"._
 
 ## Copyright and License
 
