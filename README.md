@@ -95,8 +95,8 @@ Additionally, any FMU importer that supports the necessary FMI 3.0 features, suc
 [dSPACE SystemDesk](https://www.dspace.com/en/pub/home/products/sw/system_architecture_software/systemdesk.cfm)|Exporter|![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|Available since RLS 2024-B
 [dSPACE VEOS](https://www.dspace.com/en/pub/home/products/sw/simulation_software/veos.cfm)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|Available since RLS 2024-B
 [MachineWare VCML Virtual Platform](https://www.machineware.de/products/vcml-virtual-platform)|Exporter|![Low-Cut: CAN](landingpage/LC_CAN.svg)|-
-[tracetronic ecu.test](https://www.tracetronic.com/products/ecu-test/)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg)|Available since ecu.test 2025.3
 [Synopsys Silver](https://www.synopsys.com/verification/virtual-prototyping/silver.html)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg)|-
+[tracetronic ecu.test](https://www.tracetronic.com/products/ecu-test/)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg)|Available since ecu.test 2025.3
 [Vector SIL Kit FMU Importer](https://github.com/vectorgrp/sil-kit-fmu-importer)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg)|Open-source software. <br>Available since version 1.5
 [Vector vVIRTUALtarget](https://www.vector.com/at/en/products/products-a-z/software/vvirtualtarget/)|Exporter|![Low-Cut: CAN](landingpage/LC_CAN.svg)|Available since version 9
 
