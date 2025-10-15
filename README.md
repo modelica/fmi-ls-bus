@@ -46,8 +46,8 @@ The following resources are currently available:
 Our publications and presentations may also be of interest to you:
 
 - [Beyond FMI - Towards New Applications with Layered Standards]
-- FMI Layered Standard for Network Communication: Applications in Networked ECU Development: [Paper](https://raw.githubusercontent.com/modelica/fmi-ls-bus/refs/heads/main/publications/Applications_in_Networked_ECU_Development.pdf) and [Slides](https://raw.githubusercontent.com/modelica/fmi-ls-bus/refs/heads/main/publications/Applications_in_Networked_ECU_Development_Slides.pdf)
 - [FMI Layered Standards in Automotive Development](https://raw.githubusercontent.com/modelica/fmi-ls-bus/refs/heads/main/publications/FMI_LayeredStandards_in_automotive_context.pdf)
+- FMI Layered Standard for Network Communication: Applications in Networked ECU Development: [Paper](https://raw.githubusercontent.com/modelica/fmi-ls-bus/refs/heads/main/publications/Applications_in_Networked_ECU_Development.pdf) and [Slides](https://raw.githubusercontent.com/modelica/fmi-ls-bus/refs/heads/main/publications/Applications_in_Networked_ECU_Development_Slides.pdf)
 
 Or dive into our video ["FMI, Layered Standards and ASAM Standards - Enabling Seamless SiL Simulation of Virtual ECUs"](https://www.youtube.com/watch?v=KzzKRa3jORs).
 Discover how the cutting-edge FMI 3.0 standard and the layered standards based on it are revolutionizing the world of Software-in-the-Loop (SiL) simulations.
