@@ -19,14 +19,6 @@ contains all bus types that are currently in development or are already final.
 [Official releases][releases] are directly published via GitHub.
 The specification text of the latest release v1.0.0. can be accessed [here](https://fmi-standard.org/fmi-ls-bus/1.0.0/).
 
-## News
-
-Soon after the recent release of the FMI Layered Standard for NetworkCommunication we will be presenting this new standard and its application to networked ECU development at the coming [16th International Modelica and FMI Conference](https://modelica.org/events/modelica2025/):
-
-![Announcemet of speakers at the 16th International Modelica and FMI Conference](landingpage/Announcemet_16th_International_Modelica_and_FMI_Conference.jpg)
-
-Come join us, listen to the lecture, read the paper, and ask your questions!
-
 ## Roadmap
 
 Different abstraction layers and types of buses are developed in different versions that build on each other.
@@ -55,6 +47,7 @@ Our publications and presentations may also be of interest to you:
 
 - [Beyond FMI - Towards New Applications with Layered Standards]
 - FMI Layered Standard for Network Communication: Applications in Networked ECU Development: [Paper](https://raw.githubusercontent.com/modelica/fmi-ls-bus/refs/heads/main/publications/Applications_in_Networked_ECU_Development.pdf) and [Slides](https://raw.githubusercontent.com/modelica/fmi-ls-bus/refs/heads/main/publications/Applications_in_Networked_ECU_Development_Slides.pdf)
+- [FMI Layered Standards in Automotive Development](https://raw.githubusercontent.com/modelica/fmi-ls-bus/refs/heads/main/publications/FMI_LayeredStandards_in_automotive_context.pdf)
 
 Or dive into our video ["FMI, Layered Standards and ASAM Standards - Enabling Seamless SiL Simulation of Virtual ECUs"](https://www.youtube.com/watch?v=KzzKRa3jORs).
 Discover how the cutting-edge FMI 3.0 standard and the layered standards based on it are revolutionizing the world of Software-in-the-Loop (SiL) simulations.
