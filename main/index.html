@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.24">
+<meta name="generator" content="Asciidoctor 2.0.26">
 <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 <title>Layered Standard for Network Communication</title>
 <style>
@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 99b7ff8,</span>
-<span id="revdate">2025-10-15</span>
+<span id="revnumber">version 5fe81f2,</span>
+<span id="revdate">2025-11-04</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -5710,12 +5710,12 @@ Within this section the data flow is first described in more detail.
 After this temporal aspects for data transmission are explained.</p>
 </div>
 <div class="paragraph">
-<p>Similar to the other buses, the <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation represents the core of a bus transmission.
+<p>The <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation represents the core of a bus transmission.
 It contains all relevant frame data and is provided by a Network FMU in the role of a sender, potentially via a Bus Simulation, to one or more Network FMUs in the role of a receiver.</p>
 </div>
 <div class="paragraph">
 <p>A <a href="#low-cut-flexray-confirmation-operation"><code>Confirmation-</code></a> and <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a> operation represents feedback from a Bus Simulation for a previously carried out <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation.
-Depending on the <a href="#low-cut-flexray-bus-notification-parameter"><code>BusNotifications</code></a> parameter, a successful transmission of a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation results for a Network FMU in a <a href="#low-cut-flexray-confirmation-operation"><code>Confirmation</code></a> operation, an unsuccessful <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation in a <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a> operation.
+Depending on the <a href="#low-cut-flexray-bus-notification-parameter"><code>BusNotifications</code></a> parameter, for a Network FMU a successful transmission of a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation results in a <a href="#low-cut-flexray-confirmation-operation"><code>Confirmation</code></a> operation, an unsuccessful <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation in a <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a> operation.
 If <a href="#low-cut-flexray-bus-notification-parameter"><code>BusNotifications</code></a> is <code>false</code> (default), then Network FMUs must not rely on receiving <a href="#low-cut-flexray-confirm-operation"><code>Confirm</code></a> operations.
 If a specified Network FMU is depending on <a href="#low-cut-flexray-confirm-operation"><code>Confirm</code></a> operations and <a href="#low-cut-flexray-bus-notification-parameter"><code>BusNotifications</code></a> is <code>false</code>, the self confirmation shall be realized internally within the respective Network FMU.</p>
 </div>
@@ -5770,7 +5770,7 @@ These segments repeat themselves in certain FlexRay cycles.
 During a simulation, however, this type of synchronization would be unnecessarily inefficient.
 For simulation scenarios it is <strong>highly recommended</strong> that <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operations always be provided at the beginning of a slot.
 This minimizes the Bus Communication Points of the overall simulation system and usually increases the performance of the whole simulation.
-This behavior is defined more specifically and slightly differently depending on whether it is a static or dynamic segment.</p>
+This behavior is defined differently depending on whether it is a static or dynamic segment.</p>
 </div>
 <div class="paragraph">
 <p>What both segments have in common is that the Network FMU itself must know the appropriate time of a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation basing on the FlexRay cycle and slot principle.
@@ -5778,7 +5778,7 @@ In concrete terms, this means that a Network FMU itself must provide the expecte
 The start time of the first FlexRay cycle is defined by the <code>Start Time</code> argument value of the <a href="#low-cut-flexray-start-communication-operation"><code>Start Communication</code></a> operation.</p>
 </div>
 <div class="paragraph">
-<p>That concrete means that the point in time for the start of FlexRay cycle in nanoseconds can be computed within a Network FMU as</p>
+<p>That specifically means that the point in time for the start of the FlexRay cycle in nanoseconds can be computed within a Network FMU as</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -7119,6 +7119,6 @@ MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
   })
 })
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
