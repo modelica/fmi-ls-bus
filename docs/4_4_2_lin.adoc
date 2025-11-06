@@ -1,6 +1,5 @@
 ==== LIN [[low-cut-lin]]
 This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for LIN.
-#The LIN chapter is currently only a preview and will be further adapted during the development of this standard.#
 
 ===== Overview [[low-cut-lin-overview]]
 To simulate LIN buses, LIN-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
