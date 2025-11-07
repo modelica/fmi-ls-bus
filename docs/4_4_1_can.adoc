@@ -247,7 +247,7 @@ h|Behavior
 |====
 
 ====== Confirm [[low-cut-can-confirm-operation]]
-The <<low-cut-can-confirm-operation, `Confirm`>> operation is used to signal the successful reception of a transmitted CAN frame (see <<low-cut-can-transmit-operation, `Transmit`>> operation) by at least one Network FMU.
+The <<low-cut-can-confirm-operation, `Confirm`>> operation is used to signal the successful reception of a transmitted CAN frame (see <<low-cut-can-transmit-operation, `Transmit`>> operations) by at least one Network FMU.
 
 .Detailed description of the Confirm operation.
 [#table-can-confirm-operation]
