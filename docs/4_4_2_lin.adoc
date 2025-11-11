@@ -255,6 +255,7 @@ h|Behavior
 3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
 An Error operation is always a reaction from the Bus Simulation to a <<low-cut-lin-transmit-operation, `Transmit`>> operation that was produced by a Network FMU.
 Out of this Error operations are available in the <<common-concepts-composition-with-dedicated-bus-simulation-fmu, Composition with dedicated Bus Simulation FMU>> and <<common-concepts-importer-with-integrated-bus-simulation, Importer with Integrated Bus Simulation>> communication use case only.
+Only Network FMUs with the corresponding optionally exposed <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for this operation.
 
 |====
 
