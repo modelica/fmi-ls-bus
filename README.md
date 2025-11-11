@@ -138,6 +138,10 @@ Additionally, any FMU importer that supports the necessary FMI 3.0 features, suc
           <td><img src="landingpage/LC_Ethernet.svg"/></td>
           <td>Low-Cut Ethernet</td>
         </tr>
+        <tr>
+          <td><img src="landingpage/LC_LIN.svg"/></td>
+          <td>Low-Cut LIN</td>
+        </tr>
       </table>
     </tr>
   </td>

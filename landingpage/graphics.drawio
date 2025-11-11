@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0" version="28.0.4">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0" version="28.2.9">
   <diagram name="Page-1" id="bd83a815-5ea8-2e97-e5ec-87c9f400f2fa">
-    <mxGraphModel dx="617" dy="347" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="826" background="none" math="0" shadow="0">
+    <mxGraphModel dx="895" dy="503" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="826" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" style=";html=1;" />
         <mxCell id="1" style=";html=1;" parent="0" />
@@ -64,8 +64,14 @@
         <mxCell id="FQ-ODGcZLA3cH4vwENdo-41" value="LC: FlexRay" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#F2931E;strokeColor=#9673a6;fontColor=#FFFFFF;" parent="1" vertex="1">
           <mxGeometry x="792" y="293.5" width="90" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="d-9kp7D-lJ5rmfwYu-bv-1" value="LC: Ethernet" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#a0522d;strokeColor=#6D1F00;fontColor=#ffffff;" vertex="1" parent="1">
+        <mxCell id="d-9kp7D-lJ5rmfwYu-bv-1" value="LC: Ethernet" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#a0522d;strokeColor=#6D1F00;fontColor=#ffffff;" parent="1" vertex="1">
           <mxGeometry x="70" y="410" width="100" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="lFKycTxZdYX7PLFbBYYt-1" value="LC: LIN" style="shape=delay;whiteSpace=wrap;html=1;fontStyle=1;fontSize=14;strokeWidth=0;fillColor=#0050ef;strokeColor=#001DBC;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="792" y="326.5" width="90" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="lFKycTxZdYX7PLFbBYYt-2" value="Low-Cut: LIN" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="886" y="324" width="127" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
