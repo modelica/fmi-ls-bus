@@ -19,7 +19,7 @@ It shows all operations and the arguments they contain.
 
 .Overview of the available operations for LIN.
 [#table-operation-content-lin]
-[cols="9,1,6,5,5,5,5,5,5,5,5"]
+[cols="9,1,6,7,5,5,5,5,5,5,5"]
 |====
 .2+h|Operation Name
 10+h|Operation Content
@@ -37,37 +37,17 @@ h|Length
 7+|Data +
 (n bytes)
 
-|Header
+|Transmit
 |0x10
-|:= 10 +
-(4 bytes)
-|PID +
-(1 byte)
-7+|Response Data Length +
-(1 byte)
-
-|Response
-|0x11
 |:= 11 + DL +
 (4 bytes)
-|PID +
+|Frame Type +
 (1 byte)
-2+|Response Error +
-(1 byte)
-|DL +
-(1 byte)
-4+|Data +
-(n bytes)
-
-|Header Response
-|0x12
-|:= 10 + DL +
-(4 bytes)
 |PID +
 (1 byte)
 |DL +
 (1 byte)
-6+|Data +
+5+|Data +
 (n bytes)
 
 |Confirm
@@ -107,78 +87,59 @@ This section defines the allowed operations for LIN.
 The following tables provide an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
 
 ====== Transmit [[low-cut-lin-transmit-operation]]
-There are three types of <<low-cut-lin-transmit-operation, `Transmit`>> operations, each representing the transmission of a LIN header, a response and a combination of a header and response.
+The <<low-cut-lin-transmit-operation, `Transmit`>> operation is used to simulate the transmission of LIN frames.
+All three LIN cases, in detail a LIN header, a response and a combination of a header and response are considered here.
 
-.Detailed description of the LIN Header operation.
-[#table-lin-header-operation]
+.Detailed description of the Transmit operation.
+[#table-lin-transmit-operation]
 [cols="5,4,3,20"]
 |====
-h|Name 3+| Header
-h|Description 3+| Represents an operation for the transmission of a LIN header from a LIN Master to LIN slaves.
+h|Name 3+| Transmit
+h|Description 3+| Represents an operation for the transmission of a LIN message, aggregating a representation for a Frame Header and a Frame Response.
 h|OP Code [hex] 3+| 0x10
-.5+h|Content h|Argument h|Length h|Description
+.7+h|Content h|Argument h|Length h|Description
 | OP Code | 4 bytes | Contains the OP Code of the specified operation.
 For this operation the OP Code always has the value 0x10.
 | Length | 4 bytes | Defines the cumulative length of all arguments in bytes.
-For this operation always applies: `Length = 10`.
-| PID | 1 byte | The specified protected ID (PID) of the LIN message.
-The maximum length of a PID is 8-bit.
-| Response Data Length | 1 byte | The size of the response in bytes.
-h|Behavior
-3+|The Header operation shall be provided by Network FMUs to initiate the transmission of a LIN header.
-In case of direct connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
-If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-lin-bus-error-operation, `Bus Error`>> or <<low-cut-lin-format-error-operation, `Format Error`>> operation.
-
-|====
-
-.Detailed description of the LIN Response operation.
-[#table-lin-response-operation]
-[cols="5,4,3,20"]
-|====
-h|Name 3+| Response
-h|Description 3+| Represents an operation for the transmission of a LIN response from a LIN Slave to the LIN Master.
-h|OP Code [hex] 3+| 0x11
-.7+h|Content h|Argument h|Length h|Description
-| OP Code | 4 bytes | Contains the OP Code of the specified operation.
-For this operation the OP Code always has the value 0x11.
-| Length | 4 bytes | Defines the cumulative length of all arguments in bytes.
 For this operation always applies: `Length = 11 + Data Length`.
+| Frame Type | 1 byte | Indicates the type of the specified LIN frame (see <<#table-lin-frame-types-values>>).
 | PID | 1 byte | The specified protected ID (PID) of the LIN message.
 The maximum length of a PID is 8-bit.
-| Response Error | 1 byte | Represents the Response Error field of a LIN frame.
-For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 | Data Length | 1 byte | Specifies the length of the Data argument in bytes.
+Regarding to the `Frame Type` specified, a different approach for `Data Length` argument value specification is required.
+See <<#table-lin-frame-types-values>> for details.
 | Data | n bytes | Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
 h|Behavior
-3+|The Response operation shall be provided by Network FMUs to initiate a response to a given LIN header.
+3+|The Transmit operation shall be provided by Network FMUs to initiate the transmission of a LIN frame that contains the specified header, response or a combination of both cases.
 In case of direct connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-lin-bus-error-operation, `Bus Error`>> or <<low-cut-lin-format-error-operation, `Format Error`>> operation.
 
 |====
 
-.Detailed description of the LIN Header Response operation.
-[#table-lin-header-response-operation]
-[cols="5,4,3,20"]
+The following frame types can be used:
+
+.Overview of the available frame type values.
+[#table-lin-frame-types-values]
+[cols="1,1,5"]
 |====
-h|Name 3+| Header Response
-h|Description 3+| Represents an operation for the transmission of a LIN header and response from a LIN Master to LIN slaves.
-h|OP Code [hex] 3+| 0x12
-.6+h|Content h|Argument h|Length h|Description
-| OP Code | 4 bytes | Contains the OP Code of the specified operation.
-For this operation the OP Code always has the value 0x12.
-| Length | 4 bytes | Defines the cumulative length of all arguments in bytes.
-For this operation always applies: `Length = 10 + Data Length`.
-| PID | 1 byte | The specified protected ID (PID) of the LIN message.
-The maximum length of a PID is 8-bit.
-| Data Length | 1 byte | Specifies the length of the Data argument in bytes.
-| Data | n bytes | Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
-h|Behavior
-3+|The Header Response operation shall be provided by Network FMUs to initiate the transmission of a LIN frame that contains the specified header and response.
-In case of direct connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
-If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-lin-bus-error-operation, `Bus Error`>> or <<low-cut-lin-format-error-operation, `Format Error`>> operation.
+
+h|Kind h|Value h|Description
+
+|HEADER
+|0x00
+|Indicates a LIN frame header.
+In this case the `Data Length` argument of a <<low-cut-lin-transmit-operation, `Transmit`>> operation is always set to zero.
+
+|RESPONSE
+|0x01
+|Indicates a LIN frame response.
+In this case the `Data Length` argument of a <<low-cut-lin-transmit-operation, `Transmit`>> operation contains the length of the `Data` argument value.
+
+|HEADER RESPONSE
+|0x02
+|Indicates a LIN frame header response.
+In this case the `Data Length` argument of a <<low-cut-lin-transmit-operation, `Transmit`>> operation contains the length of the `Data` argument value.
 
 |====
 
@@ -271,50 +232,50 @@ h|State h|Error Code h|Description
 |BIT_ERROR
 |0x01
 |A BIT_ERROR means that a received bit does not match the expected value.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<#table-lin-header-operation, `Header`>> operation and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_MASTER`>> within the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_MASTER`>> within the specified LIN network.
 
 |CHECKSUM_ERROR
 |0x02
 |Represents a CRC error.
 The error can occur during a collision of multiple response frames when Event-Triggered-Frames are used.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<#table-lin-response-operation, `Response`>> operation and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_MASTER`>> of the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `RESPONSE`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_MASTER`>> of the specified LIN network.
 
 |IDENTIFIER_PARITY_ERROR
 |0x03
 |Represents an Identifier Parity Error.
 The error can occur during a collision of multiple LIN headers.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<#table-lin-header-operation, `Header`>> operation and shall be delivered to all Network FMUs of the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to all Network FMUs of the specified LIN network.
 
 |SLAVE_NOT_RESPONDING_ERROR
 |0x04
 |Represents a Slave Not Responding Error.
 The error can occur if LIN Slaves does not respond to a specified LIN header.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<#table-lin-header-operation, `Header`>> operation and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_MASTER`>> within the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_MASTER`>> within the specified LIN network.
 
 |SYNCH_FIELD_ERROR
 |0x05
 |Represents an Inconsistent-Synch Field Error.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<#table-lin-header-operation, `Header`>> operation and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_SLAVE`>> within the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_SLAVE`>> within the specified LIN network.
 
 |SYNCH_TOLERANCE_ERROR
 |0x06
 |The calculated baud rate deviates too much from the original baud rate after clock synchronization (tolerance exceeded).
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<#table-lin-header-operation, `Header`>> operation and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_SLAVE`>> within the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_SLAVE`>> within the specified LIN network.
 
 |HEADER_TIMEOUT_ERROR
 |0x07
 |A header timeout error means that a slave node did not receive a complete header from the master within the specified time frame.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<#table-lin-header-operation, `Header`>> operation and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_SLAVE`>> within the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_SLAVE`>> within the specified LIN network.
 
 |FRAME_ERROR
 |0x08
 |This represents an error in the stop bit or in the frame format.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to any <<low-cut-lin-transmit-operation, `Transmit`>> operation and shall be delivered to all Network FMUs of the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation and shall be delivered to all Network FMUs of the specified LIN network.
 
 |PHYSICAL_BUS_ERROR
 |0x09
 |Represents a Physical Bus Error.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to any <<low-cut-lin-transmit-operation, `Transmit`>> operation and shall be delivered to all Network FMUs of the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation and shall be delivered to all Network FMUs of the specified LIN network.
 
 |====
 
