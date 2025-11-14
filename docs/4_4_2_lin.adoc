@@ -436,7 +436,7 @@ If the provision of bus notifications can be configured (e.g., via a structural 
 ===== Transmission and Reception [[low-cut-lin-transmission-and-reception]]
 #To be defined.#
 
-===== Detection of Collisions [[low-cut-lin-detection-of-collisions]]
+===== Propagation of Collisions [[low-cut-lin-propagation-of-collisions]]
 #To be defined.#
 
 ===== Configuration of Bus Simulation [[low-cut-lin-configuration-of-bus-simulation]]
