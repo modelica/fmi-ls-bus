@@ -106,14 +106,16 @@ h|Length
 
 |Symbol
 |0x50
-|:= 11 +
+|:= 13 +
 (4 bytes)
 |Cycle ID +
 (1 byte)
 |Channel +
 (1 byte)
-6+|Type +
+1+|Type +
 (1 byte)
+5+|Slot ID +
+(2 byte)
 
 |====
 
@@ -610,7 +612,7 @@ h|Description
 3+|Operation representing a symbol transmitted in the FlexRay symbol window.
 h|OP Code [hex]
 3+|0x50
-.6+h|Content h|Argument h|Length h|Description
+.7+h|Content h|Argument h|Length h|Description
 |OP Code
 |4 bytes
 |Contains the OP Code (0x50) of the operation.
@@ -618,7 +620,7 @@ h|OP Code [hex]
 |Length
 |4 bytes
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Length = 11`.
+The following applies for this operation: `Length = 13`.
 
 |Cycle ID
 |1 byte
@@ -632,6 +634,10 @@ If a FlexRay cycle is not yet running (for example when initiating a startup thr
 |Type
 |1 byte
 |The specified symbol type, based on <<table-flexray-symbol-type-values, the table below>>.
+
+|Slot ID
+|2 byte
+|The Slot ID of the startup frame. In case of `COLLISION_AVOIDANCE_SYMBOL`, the slot ID of the startup frame to be sent must be specified.
 
 h|Behavior
 3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the <<low-cut-flexray-symbol-operation, `Symbol`>> operation initiator, of the bus using the Bus Simulation.
@@ -767,6 +773,7 @@ For starting the FlexRay communication, a coldstart Network FMU shall send a <<l
 A Bus Simulation must forward the <<low-cut-flexray-symbol-operation, `Symbol`>> operation immediately to the other Network FMUs.
 Network FMUs receiving a `COLLISION_AVOIDANCE_SYMBOL` are not allowed to send the <<low-cut-flexray-symbol-operation, `Symbol`>> operation likewise from this point onwards.
 The first communication cycle is then started by sending the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation.
+If more than one Network FMU receives a `COLLISION_AVOIDANCE_SYMBOL` at the same time, only the Network FMU with the lowest startup frame `Slot ID` is allowed to send the `Start Communication` operation afterwards.
 Network FMUs must synchronize their internal FlexRay clock based on the received <<table-flexray-bus-start-start-time-parameter,`Start Time`>>.
 
 .Startup initiated by a coldstart Network FMU.

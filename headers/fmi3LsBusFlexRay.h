@@ -524,10 +524,12 @@ typedef struct
     fmi3LsBusFlexRayCycleId cycleId;      /**< The cycle the symbol is transmitted in. */
     fmi3LsBusFlexRayChannel channel;      /**< The channel(s) on which the symbol is transmitted. */
     fmi3LsBusFlexRaySymbolType type;      /**< The type of symbol. */
+    fmi3LsBusFlexRaySlotId slotId;        /**< The slot ID of the startup-frame in cases of a COLLISION_AVOIDANCE_SYMBOL */
+
 } fmi3LsBusFlexRayOperationSymbol;
 
 #if FMI3_LS_BUS_CHECK_OPERATION_SIZE == 1
-static_assert(sizeof(fmi3LsBusFlexRayOperationSymbol) == (8 + 1 + 1 + 1),
+static_assert(sizeof(fmi3LsBusFlexRayOperationSymbol) == (8 + 1 + 1 + 1 + 2),
               "'fmi3LsBusFlexRayOperationSymbol' does not match the expected data size");
 #endif
 
