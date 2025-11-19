@@ -314,13 +314,13 @@ Note that only one parameter can be set per <<low-cut-lin-configuration-operatio
 .3+h|
 4+h|Parameters
 
-|LIN_BAUDRATE
+|BAUDRATE
 |Baud Rate
 |4 bytes
 |The specified baud rate value to configure, whereby the specified ranges are defined by the LIN standard.
 The required unit for the baud rate value is bit/s.
 
-|LIN_NODE_DEFINITION
+|NODE_DEFINITION
 |Node Definition
 |1 byte
 |Configures the required node type (Master or Slave) within a Bus Simulation.
@@ -336,7 +336,7 @@ A Bus Simulation should stop as soon as more than one `LIN_MASTER` is configured
 If required configuration parameters are not adjusted by a Network FMU the Bus Simulation shall choose a default behavior by itself.
 |====
 
-The following Kind values are allowed to be used:
+The following configuration parameters values are allowed to be used:
 
 .Overview of the available configuration kinds and values.
 [#table-lin-configuration-kinds]
@@ -344,12 +344,12 @@ The following Kind values are allowed to be used:
 |====
 
 h|Kind h|Value h|Description
-|LIN_BAUDRATE|0x01|This code indicates that a LIN baud rate should be configured for the Bus Simulation.
-|LIN_NODE_DEFINITION|0x02|This code configures the specified node type (Master or Slave) within a Bus Simulation.
+|BAUDRATE|0x01|This code indicates that a LIN baud rate should be configured for the Bus Simulation.
+|NODE_DEFINITION|0x02|This code configures the specified node type (Master or Slave) within a Bus Simulation.
 
 |====
 
-The following values for `LIN_NODE_DEFINITION` are defined:
+The following values for `NODE_DEFINITION` are defined:
 
 .Overview of the available node definition values for LIN.
 [#table-lin-configuration-node-definition-kinds]
