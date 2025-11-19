@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version a54ad1d,</span>
-<span id="revdate">2025-11-11</span>
+<span id="revnumber">version 9bfd48b,</span>
+<span id="revdate">2025-11-19</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -4845,7 +4845,7 @@ The boolean values <code>TRUE</code> and <code>FALSE</code> (see <a href="#table
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation shall be provided by Network FMUs to indicate the transmission of a FlexRay frame.
 In the case of directly connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.2.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.2.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.2.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might respond with a <a href="#low-cut-flexray-confirmation-operation"><code>Confirmation</code></a>, <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a> or <a href="#low-cut-flexray-format-error-operation"><code>Format Error</code></a> operation.
+Depending on the simulation details, the Bus Simulation might respond with a <a href="#low-cut-flexray-confirmation-operation"><code>Confirm</code></a>, <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a> or <a href="#low-cut-flexray-format-error-operation"><code>Format Error</code></a> operation.
 If the specific <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation is to be set across multiple channels, the channel argument can combine both channels.
 The point in time at which a Network FMU provides a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation must be within a valid provision time window.
 For the static segment, this circumstance is dealt within <a href="#low-cut-flexray-static-segment">Section 5.5.3.8.1</a>, for the dynamic segment in <a href="#low-cut-flexray-dynamic-segment">Section 5.5.3.8.2</a>.
@@ -5714,8 +5714,8 @@ After this temporal aspects for data transmission are explained.</p>
 It contains all relevant frame data and is provided by a Network FMU in the role of a sender, potentially via a Bus Simulation, to one or more Network FMUs in the role of a receiver.</p>
 </div>
 <div class="paragraph">
-<p>A <a href="#low-cut-flexray-confirmation-operation"><code>Confirmation-</code></a> and <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a> operation represents feedback from a Bus Simulation for a previously carried out <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation.
-Depending on the <a href="#low-cut-flexray-bus-notification-parameter"><code>BusNotifications</code></a> parameter, for a Network FMU a successful transmission of a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation results in a <a href="#low-cut-flexray-confirmation-operation"><code>Confirmation</code></a> operation, an unsuccessful <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation in a <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a> operation.
+<p>A <a href="#low-cut-flexray-confirmation-operation"><code>Confirm-</code></a> and <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a> operation represents feedback from a Bus Simulation for a previously carried out <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation.
+Depending on the <a href="#low-cut-flexray-bus-notification-parameter"><code>BusNotifications</code></a> parameter, for a Network FMU a successful transmission of a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation results in a <a href="#low-cut-flexray-confirmation-operation"><code>Confirm</code></a> operation, an unsuccessful <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation in a <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a> operation.
 If <a href="#low-cut-flexray-bus-notification-parameter"><code>BusNotifications</code></a> is <code>false</code> (default), then Network FMUs must not rely on receiving <a href="#low-cut-flexray-confirm-operation"><code>Confirm</code></a> operations.
 If a specified Network FMU is depending on <a href="#low-cut-flexray-confirm-operation"><code>Confirm</code></a> operations and <a href="#low-cut-flexray-bus-notification-parameter"><code>BusNotifications</code></a> is <code>false</code>, the self confirmation shall be realized internally within the respective Network FMU.</p>
 </div>
