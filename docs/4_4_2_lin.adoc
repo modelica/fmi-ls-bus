@@ -434,7 +434,39 @@ If the provision of bus notifications can be configured (e.g., via a structural 
 ----
 
 ===== Transmission and Reception [[low-cut-lin-transmission-and-reception]]
-#To be defined.#
+The communication process of a LIN bus is based on a simple master-slave principle and is strictly time-controlled.
+The LIN Master assumes complete control over the bus and initiates all messages.
+Every communication begins with a so-called LIN Header, which the LIN Master sends.
+After the LIN Header has been sent, the LIN Response phase follows.
+In this phase, either the addressed LIN Slave or the LIN Master itself sends the actual data.
+The <<low-cut-lin-transmit-operation, `Transmit`>> operation is used to simulate both the transmission of a LIN Header and a LIN Response.
+Within the <<low-cut-lin-transmit-operation, `Transmit`>> operation, the different frame types are qualified via the `Frame Type` argument.
+
+A <<low-cut-lin-confirmation-operation, `Confirm-`>> and <<low-cut-lin-bus-error-operation, `Bus Error`>> operation represents feedback from a Bus Simulation for a previously carried out <<low-cut-lin-transmit-operation, `Transmit`>> operation.
+Depending on the <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> parameter, for a Network FMU a successful transmission of a <<low-cut-lin-transmit-operation, `Transmit`>> operation results in a <<low-cut-lin-confirmation-operation, `Confirm`>> operation, an unsuccessful <<low-cut-lin-transmit-operation, `Transmit`>> operation in a <<low-cut-lin-bus-error-operation, `Bus Error`>> operation.
+If <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> is `false` (default), then Network FMUs must not rely on receiving <<low-cut-lin-confirm-operation, `Confirm`>> operations.
+If a specified Network FMU is depending on <<low-cut-lin-confirm-operation, `Confirm`>> operations and <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> is `false`, the self confirmation shall be realized internally within the respective Network FMU.
+
+<<#figure-lin-direct-communication>> illustrates this communication, whereby FMU 1 transmits a LIN Header to FMU 2 by using a <<low-cut-lin-transmit-operation, `Transmit`>> operation.
+Subsequently, FMU 1 self-confirms the transmission internally.
+After this, FMU 2 transmits a LIN Response back to FMU 1 via <<low-cut-lin-transmit-operation, `Transmit`>> operation.
+In this scenario FMU 2 does not requires internally a self-confirmation and leave this out.
+
+.Direct Confirmation of transmitted network data.
+[#figure-lin-direct-communication]
+image::lin_direct_confirmation.svg[width=40%, align="center"]
+
+For a detailed simulation, the Bus Simulation has to support <<low-cut-lin-confirm-operation, `Confirm`>> operations.
+In this case, the <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> parameter of the Network FMUs can be set to `fmi3True` as Network FMUs can rely on receiving <<low-cut-lin-confirm-operation, `Confirm`>> operations for the specified Bus Terminal.
+
+The following <<#figure-lin-confirmation-with-bus-simulation-fmu>> illustrates the behavior, whereby FMU 1 transmits a LIN Header to FMU 2 via a Bus Simulation by using a <<low-cut-lin-transmit-operation, `Transmit`>> operation.
+After this the Bus Simulation confirms that transmission via <<low-cut-lin-confirmation-operation, `Confirm`>> operation.
+In the next step FMU 2 transmits a LIN Response to FMU 1 via a Bus Simulation by using a <<low-cut-lin-transmit-operation, `Transmit`>> operation.
+Additionally a <<low-cut-lin-confirmation-operation, `Confirm`>> operation is given to FMU 2 from the Bus Simulation.
+
+.Confirmation of transmitted network data via Bus Simulation.
+[#figure-lin-confirmation-with-bus-simulation-fmu]
+image::lin_confirmation_with_bus_simulation_fmu.svg[width=70%, align="center"]
 
 ===== Propagation of Collisions [[low-cut-lin-propagation-of-collisions]]
 #To be defined.#
