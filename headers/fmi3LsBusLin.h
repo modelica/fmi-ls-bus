@@ -117,15 +117,15 @@ typedef fmi3UInt8 fmi3LsBusLinFrameType;
 /**
  * \brief Indicates a LIN frame header. In this case the Data Length argument of a Transmit operation is always set to zero.
  */
-#define FMI3_LS_BUS_LIN_FRAME_TYPE_HEADER ((fmi3LsBusLinFrameType)0x0)
+#define FMI3_LS_BUS_LIN_FRAME_TYPE_HEADER ((fmi3LsBusLinFrameType)0x1)
 /**
  * \brief Indicates a LIN frame response. In this case the Data Length argument of a Transmit operation contains the length of the Data argument value.
  */
-#define FMI3_LS_BUS_LIN_FRAME_TYPE_RESPONSE ((fmi3LsBusLinFrameType)0x1)
+#define FMI3_LS_BUS_LIN_FRAME_TYPE_RESPONSE ((fmi3LsBusLinFrameType)0x2)
 /**
  * \brief Indicates a LIN frame header response. In this case the Data Length argument of a Transmit operation contains the length of the Data argument value.
  */
-#define FMI3_LS_BUS_LIN_FRAME_TYPE_HEADER_RESPONSE ((fmi3LsBusLinFrameType)0x2)
+#define FMI3_LS_BUS_LIN_FRAME_TYPE_HEADER_RESPONSE ((fmi3LsBusLinFrameType)0x3)
 
 /**
  * \brief Data type representing the LIN frame payload data.
