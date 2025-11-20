@@ -470,7 +470,30 @@ Additionally a <<low-cut-lin-confirmation-operation, `Confirm`>> operation is gi
 image::lin_confirmation_with_bus_simulation_fmu.svg[width=70%, align="center"]
 
 ===== Propagation of Collisions [[low-cut-lin-propagation-of-collisions]]
-#To be defined.#
+Due to the design of the LIN bus, collisions of LIN frames can occur in LIN networks.
+This applies not only to the LIN Header phase but also to the LIN Response phase.
+Simulating or considering collisions is generally only possible using a Bus Simulation.
+The Bus Simulation detects, processes and coordinates collision detection and notification for the various Network FMUs.
+
+Notifications about collisions are realized via <<low-cut-lin-bus-error-operation, `Bus Error`>> operations.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operations are produced by the Bus Simulation and consumed by Network FMUs.
+The specific type of collision is identified by the respective <<#table-lin-bus-error-codes,`Error Code`>>.
+Two errors are reserved for this collision situations, covering the possible LIN collision variants:
+The first variant represents the collision of LIN Headers.
+As soon as a collision of LIN Headers occurs within the Bus Simulation, it shall query this with a <<low-cut-lin-bus-error-operation, `Bus Error`>> operation, which sets the <<#table-lin-bus-error-codes,`Error Code`>> argument value to <<#table-lin-bus-error-codes,`IDENTIFIER_PARITY_ERROR`>>.
+The second variant describes the collision of LIN frames during the response phase.
+Within this scenario, the procedure is analogous to the first variant, except that the <<#table-lin-bus-error-codes,`Error Code`>> argument value shall be set to <<#table-lin-bus-error-codes,`CHECKSUM_ERROR`>>.
+Regarding the specified <<#table-lin-bus-error-codes,`Error Code`>> <<#table-lin-bus-error-codes>> is defining for which Network FMUs the respective <<low-cut-lin-bus-error-operation, `Bus Error`>> operation shall be provided.
+The collision resolution is not required and not permitted by the Bus Simulation.
+
+<<#figure-lin-collision-with-bus-simulation-fmu>> illustrates a LIN Master (FMU 1) providing a <<low-cut-lin-transmit-operation, `Transmit`>> operation via Bus Simulation to two LIN Slaves (FMU 2 and FMU 3).
+Each LIN Slave responds with its own <<low-cut-lin-transmit-operation, `Transmit`>> operation.
+Within the Bus Simulation the collision is detected.
+FMU 1 is then notified about this collision via a <<low-cut-lin-bus-error-operation, `Bus Error`>> operation.
+
+.Collision scenario of transmitted network data via Bus Simulation.
+[#figure-lin-collision-with-bus-simulation-fmu]
+image::lin_collision_with_bus_simulation_fmu.svg[width=90%, align="center"]
 
 ===== Configuration of Bus Simulation [[low-cut-lin-configuration-of-bus-simulation]]
 The configuration of the Bus Simulation is done by the Network FMUs itself.
