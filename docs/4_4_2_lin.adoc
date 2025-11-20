@@ -483,7 +483,7 @@ The first variant represents the collision of LIN Headers.
 As soon as a collision of LIN Headers occurs within the Bus Simulation, it shall query this with a <<low-cut-lin-bus-error-operation, `Bus Error`>> operation, which sets the <<#table-lin-bus-error-codes,`Error Code`>> argument value to <<#table-lin-bus-error-codes,`IDENTIFIER_PARITY_ERROR`>>.
 The second variant describes the collision of LIN frames during the response phase.
 Within this scenario, the procedure is analogous to the first variant, except that the <<#table-lin-bus-error-codes,`Error Code`>> argument value shall be set to <<#table-lin-bus-error-codes,`CHECKSUM_ERROR`>>.
-Regarding the specified <<#table-lin-bus-error-codes,`Error Code`>> <<#table-lin-bus-error-codes>> is defining for which Network FMUs the respective <<low-cut-lin-bus-error-operation, `Bus Error`>> operation shall be provided.
+Regarding the specified <<#table-lin-bus-error-codes,`Error Code`>>, <<#table-lin-bus-error-codes>> is defining for which Network FMUs the respective <<low-cut-lin-bus-error-operation, `Bus Error`>> operation shall be provided.
 The collision resolution is not required and not permitted by the Bus Simulation.
 
 <<#figure-lin-collision-with-bus-simulation-fmu>> illustrates a LIN Master (FMU 1) providing a <<low-cut-lin-transmit-operation, `Transmit`>> operation via Bus Simulation to two LIN Slaves (FMU 2 and FMU 3).
