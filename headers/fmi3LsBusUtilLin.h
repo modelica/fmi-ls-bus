@@ -55,7 +55,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] FrameType
  *     Indicates the type of the specified LIN frame (\ref fmi3LsBusLinFrameType).
  * \param[in] Pid
- *     The specified protected ID (PID) of the LIN message (\ref fmi3LsBusLinPid).
+ *     The specified protected ID (PID) of the LIN message (\ref fmi3LsBusLinPID).
  * \param[in] ChecksumType
  *     Indicates the checksum type of the specified LIN frame (\ref fmi3LsBusLinChecksumType).
  * \param[in] DataLength
@@ -74,7 +74,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.header.opCode = FMI3_LS_BUS_LIN_OP_TRANSMIT; \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) \
             + sizeof(fmi3LsBusLinFrameType) \
-            + sizeof(fmi3LsBusLinPid) \
+            + sizeof(fmi3LsBusLinPID) \
             + sizeof(fmi3LsBusLinChecksumType) \
             + sizeof(fmi3LsBusLinDataLength) \
             + (DataLength); \
@@ -99,7 +99,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] BufferInfo
  *     Pointer to \ref fmi3LsBusUtilBufferInfo.
  * \param[in] Pid
- *     The specified protected ID (PID) of the LIN message (\ref fmi3LsBusLinPid).
+ *     The specified protected ID (PID) of the LIN message (\ref fmi3LsBusLinPID).
  */
 #define FMI3_LS_BUS_LIN_CREATE_OP_CONFIRM(BufferInfo, \
         Pid \
@@ -107,7 +107,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         fmi3LsBusLinOperationConfirm _op; \
         _op.header.opCode = FMI3_LS_BUS_LIN_OP_CONFIRM; \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) \
-            + sizeof(fmi3LsBusLinPid); \
+            + sizeof(fmi3LsBusLinPID); \
         \
         _op.pid = Pid; \
         \
@@ -126,7 +126,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] BufferInfo
  *     Pointer to \ref fmi3LsBusUtilBufferInfo.
  * \param[in] Pid
- *     The specified protected ID (PID) of the LIN message (\ref fmi3LsBusLinPid).
+ *     The specified protected ID (PID) of the LIN message (\ref fmi3LsBusLinPID).
  * \param[in] ErrorCode
  *     Represents the specified bus error to simulate (\ref fmi3LsBusLinBusErrorCode).
  */
@@ -137,7 +137,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         fmi3LsBusLinOperationBusError _op; \
         _op.header.opCode = FMI3_LS_BUS_LIN_OP_BUS_ERROR; \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) \
-            + sizeof(fmi3LsBusLinPid) \
+            + sizeof(fmi3LsBusLinPID) \
             + sizeof(fmi3LsBusLinBusErrorCode); \
         \
         _op.pid = Pid; \
