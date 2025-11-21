@@ -268,6 +268,7 @@ This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reac
 |Represents an Identifier Parity Error.
 The error can occur during a collision of multiple LIN Headers.
 This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to all Network FMUs of the specified LIN network.
+Within this situation, no valid `PID` can be used as an argument value for the respective <<low-cut-lin-bus-error-operation, `Bus Error`>> operation and shall be set to zero.
 
 |SLAVE_NOT_RESPONDING_ERROR
 |0x04
