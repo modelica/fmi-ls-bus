@@ -237,8 +237,8 @@ For this operation always applies: `Length = 10`.
 
 h|Behavior
 3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
-An Error operation is always a reaction from the Bus Simulation to a <<low-cut-lin-transmit-operation, `Transmit`>> operation that was produced by a Network FMU.
-Out of this Error operations are available in the <<common-concepts-composition-with-dedicated-bus-simulation-fmu, Composition with dedicated Bus Simulation FMU>> and <<common-concepts-importer-with-integrated-bus-simulation, Importer with Integrated Bus Simulation>> communication use case only.
+It represents a direct feedback corresponding to a specified <<low-cut-lin-transmit-operation, `Transmit`>> operation.
+Depending on the type (qualified via `Error Code` argument value) of <<low-cut-lin-bus-error-operation, `Bus Error`>>, a different subset of Network FMUs must be notified via <<low-cut-lin-bus-error-operation, `Bus Error`>> operation (see description column of <<table-lin-bus-error-codes>>).
 Only Network FMUs with the corresponding optionally exposed <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for this operation.
 
 |====
