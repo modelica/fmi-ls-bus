@@ -373,14 +373,14 @@ Only Network FMUs with the corresponding optionally exposed <<low-cut-can-bus-no
 
 |====
 
-The following Error Codes are specified:
+The following values for `Error Code` argument are specified:
 
 .Overview of the available error codes.
 [#table-can-error-codes]
 [cols="1,3,20"]
 |====
 
-h|State h|Error Code h|Description
+h|Error Code h|Value h|Description
 
 |BIT_ERROR
 |0x01
@@ -410,7 +410,7 @@ Within CAN, an Error frame is transmitted by any unit on detection of a bus erro
 
 |====
 
-The following values for the `Error Flag` option are defined:
+The following values for `Error Flag` argument are specified:
 
 .Overview of the available Error Flag values.
 [#table-can-bus-error-error-flag-kinds]
@@ -507,7 +507,7 @@ See <<table-can-configuration-arbitration-lost-behavior-kinds>> for possible val
 
 |====
 
-The following values for the `Arbitration Lost Behavior` option are defined:
+The following values for `Arbitration Lost Behavior` argument are specified:
 
 .Overview of the available Arbitration Lost Behavior values.
 [#table-can-configuration-arbitration-lost-behavior-kinds]
@@ -556,14 +556,14 @@ A Network FMU shall report its status to the Bus Simulation after it changes.
 
 |====
 
-The following status values can be used:
+The following values for `Status` argument are specified:
 
 .Overview of the available status values.
 [#table-can-status-values]
 [cols="1,1,5"]
 |====
 
-h|Kind h|Value h|Description
+h|Status h|Value h|Description
 |ERROR_ACTIVE
 |0x01
 |Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: ERROR ACTIVE.
