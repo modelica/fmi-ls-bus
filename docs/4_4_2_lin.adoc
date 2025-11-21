@@ -113,7 +113,7 @@ Regarding to the `Frame Type` specified, a different approach for `Data Length` 
 See <<#table-lin-frame-types-values>> for details.
 | Data | n bytes | Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
 h|Behavior
-3+|The Transmit operation shall be provided by Network FMUs to initiate the transmission of a LIN frame that contains the specified Header, Response or a combination of both cases.
+3+|The <<low-cut-lin-transmit-operation, `Transmit`>> operation shall be provided by Network FMUs to initiate the transmission of a LIN frame that contains the specified Header, Response or a combination of both cases.
 In case of direct connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-lin-bus-error-operation, `Bus Error`>> or <<low-cut-lin-format-error-operation, `Format Error`>> operation.
