@@ -142,12 +142,14 @@ Only Network FMUs with the corresponding optionally exposed <<low-cut-ethernet-b
 
 |====
 
-.Valid values for the bus error code.
+The following values for `Error Code` argument are specified:
+
+.Overview of the available error code values.
 [#table-fmi3-ls-bus-ethernet-bus-error-code-values]
 [cols="2,1,5"]
 |====
 
-h|Name h|Value h|Description
+h|Error Code h|Value h|Description
 |[[table-fmi3-ls-bus-ethernet-bus-error-code-values-unknown]]UNKNOWN|0x00|Unknown error.
 |[[table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy]]MEDIUM_BUSY|0x01|The medium is currently busy.
 |[[table-fmi3-ls-bus-ethernet-bus-error-code-values-collision]]COLLISION|0x02|A frame collided during transmission.
@@ -209,22 +211,26 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 
 |====
 
-.Valid values for the configuration parameter type.
+The following configuration parameters are defined:
+
+.Overview of the available configuration parameters.
 [#table-fmi3-ls-bus-ethernet-config-parameter-type-values]
 [cols="2,1,5"]
 |====
 
-h|Name h|Value h|Description
+h|Parameter h|Value h|Description
 |[[table-fmi3-ls-bus-ethernet-config-parameter-type-values-supported-phy-types]]SUPPORTED_PHY_TYPES|0x00|Indicates the supported Ethernet PHYs of this node.
 
 |====
 
-.Valid values for the MDI mode.
+The following values for `MDI Mode` argument are specified:
+
+.Overview of the available MDI Mode values.
 [#table-fmi3-ls-bus-ethernet-mdi-mode-values]
 [cols="2,1,5"]
 |====
 
-h|Name h|Value h|Description
+h|MDI Mode h|Value h|Description
 |[[table-fmi3-ls-bus-ethernet-mdi-mode-values-none]]NONE|0x00|Not applicable
 |[[table-fmi3-ls-bus-ethernet-mdi-mode-values-mdi]]MDI|0x01|The MDI is wired in normal configuration.
 |[[table-fmi3-ls-bus-ethernet-mdi-mode-values-mdi-x]]MDI_X|0x02|The MDI is wired in crossover configuration.

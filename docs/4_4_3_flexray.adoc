@@ -203,7 +203,7 @@ h|Behavior
 3+|The <<low-cut-flexray-transmit-operation, `Transmit`>> operation shall be provided by Network FMUs to indicate the transmission of a FlexRay frame.
 In the case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
-Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-flexray-confirmation-operation, `Confirmation`>>, <<low-cut-flexray-bus-error-operation, `Bus Error`>> or <<low-cut-flexray-format-error-operation, `Format Error`>> operation.
+Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-flexray-confirmation-operation, `Confirm`>>, <<low-cut-flexray-bus-error-operation, `Bus Error`>> or <<low-cut-flexray-format-error-operation, `Format Error`>> operation.
 If the specific <<low-cut-flexray-transmit-operation, `Transmit`>> operation is to be set across multiple channels, the channel argument can combine both channels.
 The point in time at which a Network FMU provides a <<low-cut-flexray-transmit-operation, `Transmit`>> operation must be within a valid provision time window.
 For the static segment, this circumstance is dealt within <<low-cut-flexray-static-segment>>, for the dynamic segment in <<low-cut-flexray-dynamic-segment>>.
@@ -341,19 +341,19 @@ Within a Symbol Window or Network Idle Time segment the values of <<table-flexra
 h|Behavior
 3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
 It represents a direct feedback corresponding to a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation.
-Depending on the type of <<low-cut-flexray-bus-error-operation, `Bus Error`>>, either only the <<low-cut-flexray-transmit-operation, `Transmit`>> producing or all Network FMUs must be notified via <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation (see description column of <<table-flexray-error-code-values>>).
+Depending on the type (qualified via `Error Flags` argument value) of <<low-cut-flexray-bus-error-operation, `Bus Error`>>, either only the <<low-cut-flexray-transmit-operation, `Transmit`>> producing or all Network FMUs must be notified via <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation (see description column of <<table-flexray-error-code-values>>).
 Only Network FMUs with the corresponding optionally exposed <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for this operation.
 
 |====
 
-The following Error Flags can be used:
+The following values for `Error Flags` argument are specified:
 
 .Overview of the available error flag values.
 [#table-flexray-error-code-values]
 [cols="1,1,5"]
 |====
 
-h|[Flag] Kind h|Value h|Description
+h|[Flag] Error Flag h|Value h|Description
 
 |VALID_FRAME
 |0x01
@@ -382,14 +382,14 @@ This type of <<low-cut-flexray-bus-error-operation, `Bus Error`>> is possible fo
 
 |====
 
-The following segment types can be used:
+The following values for `Segment Indicator` argument are specified:
 
-.Overview of the available segment type values.
+.Overview of the available segment indicator values.
 [#table-flexray-segment-types-values]
-[cols="1,1,5"]
+[cols="2,1,5"]
 |====
 
-h|Kind h|Value h|Description
+h|Segment Indicator h|Value h|Description
 
 |SYMBOL_WINDOW
 |0xFFFE
@@ -548,14 +548,14 @@ h|Parameter h|Value h|Description
 
 |====
 
-The following coldstart node types are defined:
+The following values for `Coldstart Node` argument are specified:
 
 .Overview of the available coldstart node types.
 [#table-flexray-coldstart-node-types]
 [cols="2,1,5"]
 |====
 
-h|Coldstart Node Type h|Value h|Description
+h|Coldstart Node h|Value h|Description
 |None|0x01|Describes that the current node has no coldstart capabilities.
 |TT-D coldstart node|0x02|Indicates a TT-D coldstart node.
 |TT-E coldstart node|0x03|Indicates a TT-E coldstart node.
@@ -640,14 +640,14 @@ If a Network FMU does not support a specified `Type` of a <<low-cut-flexray-symb
 
 |====
 
-The following symbol type values can be used:
+The following values for `Type` argument are specified:
 
 .Overview of the available symbol type values.
 [#table-flexray-symbol-type-values]
 [cols="1,1,5"]
 |====
 
-h|Kind h|Value h|Description
+h|Symbol Type h|Value h|Description
 |COLLISION_AVOIDANCE_SYMBOL
 |0x01
 |The collision avoidance symbol is used to indicate the start of the first communication cycle.
@@ -795,8 +795,8 @@ After this temporal aspects for data transmission are explained.
 The <<low-cut-flexray-transmit-operation, `Transmit`>> operation represents the core of a bus transmission.
 It contains all relevant frame data and is provided by a Network FMU in the role of a sender, potentially via a Bus Simulation, to one or more Network FMUs in the role of a receiver.
 
-A <<low-cut-flexray-confirmation-operation, `Confirmation-`>> and <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation represents feedback from a Bus Simulation for a previously carried out <<low-cut-flexray-transmit-operation, `Transmit`>> operation.
-Depending on the <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> parameter, for a Network FMU a successful transmission of a <<low-cut-flexray-transmit-operation, `Transmit`>> operation results in a <<low-cut-flexray-confirmation-operation, `Confirmation`>> operation, an unsuccessful <<low-cut-flexray-transmit-operation, `Transmit`>> operation in a <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation.
+A <<low-cut-flexray-confirmation-operation, `Confirm-`>> and <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation represents feedback from a Bus Simulation for a previously carried out <<low-cut-flexray-transmit-operation, `Transmit`>> operation.
+Depending on the <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> parameter, for a Network FMU a successful transmission of a <<low-cut-flexray-transmit-operation, `Transmit`>> operation results in a <<low-cut-flexray-confirmation-operation, `Confirm`>> operation, an unsuccessful <<low-cut-flexray-transmit-operation, `Transmit`>> operation in a <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation.
 If <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> is `false` (default), then Network FMUs must not rely on receiving <<low-cut-flexray-confirm-operation, `Confirm`>> operations.
 If a specified Network FMU is depending on <<low-cut-flexray-confirm-operation, `Confirm`>> operations and <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> is `false`, the self confirmation shall be realized internally within the respective Network FMU.
 
