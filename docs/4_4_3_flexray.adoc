@@ -346,14 +346,14 @@ Only Network FMUs with the corresponding optionally exposed <<low-cut-flexray-bu
 
 |====
 
-The following Error Flags can be used:
+The following values for `Error Flags` argument are specified:
 
 .Overview of the available error flag values.
 [#table-flexray-error-code-values]
 [cols="1,1,5"]
 |====
 
-h|[Flag] Kind h|Value h|Description
+h|[Flag] Error Flag h|Value h|Description
 
 |VALID_FRAME
 |0x01
@@ -382,14 +382,14 @@ This type of <<low-cut-flexray-bus-error-operation, `Bus Error`>> is possible fo
 
 |====
 
-The following segment types can be used:
+The following values for `Segment Indicator` argument are specified:
 
-.Overview of the available segment type values.
+.Overview of the available segment indicator values.
 [#table-flexray-segment-types-values]
-[cols="1,1,5"]
+[cols="2,1,5"]
 |====
 
-h|Kind h|Value h|Description
+h|Segment Indicator h|Value h|Description
 
 |SYMBOL_WINDOW
 |0xFFFE
@@ -548,14 +548,14 @@ h|Parameter h|Value h|Description
 
 |====
 
-The following coldstart node types are defined:
+The following values for `Coldstart Node` argument are specified:
 
 .Overview of the available coldstart node types.
 [#table-flexray-coldstart-node-types]
 [cols="2,1,5"]
 |====
 
-h|Coldstart Node Type h|Value h|Description
+h|Coldstart Node h|Value h|Description
 |None|0x01|Describes that the current node has no coldstart capabilities.
 |TT-D coldstart node|0x02|Indicates a TT-D coldstart node.
 |TT-E coldstart node|0x03|Indicates a TT-E coldstart node.
@@ -640,14 +640,14 @@ If a Network FMU does not support a specified `Type` of a <<low-cut-flexray-symb
 
 |====
 
-The following symbol type values can be used:
+The following values for `Type` argument are specified:
 
 .Overview of the available symbol type values.
 [#table-flexray-symbol-type-values]
 [cols="1,1,5"]
 |====
 
-h|Kind h|Value h|Description
+h|Symbol Type h|Value h|Description
 |COLLISION_AVOIDANCE_SYMBOL
 |0x01
 |The collision avoidance symbol is used to indicate the start of the first communication cycle.
