@@ -536,13 +536,15 @@ A Bus Simulation should stop as soon as more than one LIN Master is configured i
 
 ===== Error Handling [[low-cut-lin-error-handling]]
 LIN provides extensive options for detecting bus errors.
-Overall, the respective bus errors affect the internal controller status within the Network FMUs.
-To maintain the internal controller status, <<low-cut-lin-bus-error-operation, `Bus Error`>> operations shall be provided to all relevant Network FMUs by the Bus Simulation.
-Depending on the type of <<low-cut-lin-bus-error-operation, `Bus Error`>> operation and specific kind of <<low-cut-lin-transmit-operation, `Transmit`>> operation a different subset of Network FMUs must be notified via <<low-cut-lin-bus-error-operation, `Bus Error`>> operation (see <<table-lin-bus-error-codes>> for details).
+Overall, the respective bus errors affect the internal controller status within the Network FMUs or indicate problems (e.g., collisions or a missing LIN response) on the LIN bus itself.
+To handle that kind of critical situations, <<low-cut-lin-bus-error-operation, `Bus Error`>> operations shall be provided to all relevant Network FMUs by the Bus Simulation.
+Depending on the error type, the subset of Network FMUs to be notified may differ and is well defined by <<table-lin-bus-error-codes>>.
 
 .Architectural error handling overview.
 [#figure-lin-architectural-error-handling-overview]
 image::lin_error_handling_overview.svg[width=80%, align="center"]
+
+<<#figure-lin-collision-with-bus-simulation-fmu>> illustrates an example of the sub-actions of how a <<low-cut-lin-bus-error-operation, `Bus Error`>> operation can be used to handle collisions in LIN networks.
 
 ===== Wake Up/Sleep [[low-cut-lin-wakeup-sleep]]
 This standard supports wake up and sleep for the LIN bus, whereby only the bus-specific parts are taken into account.
