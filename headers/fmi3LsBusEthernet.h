@@ -2,10 +2,10 @@
 #define fmi3LsBusEthernet_h
 
 /*
-This header file contains utility macros to read and write FMI-LS-BUS
-Ethernet specific bus operations from\to dedicated buffer variables.
+This header file declares Ethernet bus specific constants and data types as defined by the
+FMI-LS-BUS layered standard specification (https://github.com/modelica/fmi-ls-bus).
 
-This header file can be used when creating Network FMI-LS-BUS FMUs with Ethernet.
+It should be used when creating Ethernet Network FMUs according to the FMI-LS-BUS layered standard.
 
 Copyright (C) 2024-2025 Modelica Association Project "FMI"
               All rights reserved.
