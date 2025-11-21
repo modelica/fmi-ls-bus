@@ -3,11 +3,11 @@
 
 /*
 This header file contains utility macros to read and write FMI-LS-BUS
-FlexRay specific bus operations from / to dedicated buffer variables.
+Ethernet specific bus operations from\to dedicated buffer variables.
 
-This header file can be used when creating FMI-LS-BUS network FMUs with FlexRay busses.
+This header file can be used when creating Network FMI-LS-BUS FMUs with Ethernet.
 
-Copyright (C) 2023-2025 Modelica Association Project "FMI"
+Copyright (C) 2025 Modelica Association Project "FMI"
               All rights reserved.
 
 This file is licensed by the copyright holders under the 2-Clause BSD License
@@ -56,6 +56,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *     Indicates the type of the specified LIN frame (\ref fmi3LsBusLinFrameType).
  * \param[in] Pid
  *     The specified protected ID (PID) of the LIN message (\ref fmi3LsBusLinPid).
+ * \param[in] ChecksumType
+ *     Indicates the checksum type of the specified LIN frame (\ref fmi3LsBusLinChecksumType).
  * \param[in] DataLength
  *     The length of the data of this LIN frame (\ref fmi3LsBusLinDataLength).
  * \param[in] Data
@@ -64,6 +66,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define FMI3_LS_BUS_LIN_CREATE_OP_TRANSMIT(BufferInfo, \
         FrameType, \
         Pid, \
+        ChecksumType, \
         DataLength, \
         Data \
     ) do { \
@@ -72,11 +75,13 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.header.length = sizeof(fmi3LsBusOperationHeader) \
             + sizeof(fmi3LsBusLinFrameType) \
             + sizeof(fmi3LsBusLinPid) \
+            + sizeof(fmi3LsBusLinChecksumType) \
             + sizeof(fmi3LsBusLinDataLength) \
             + (DataLength); \
         \
         _op.frameType = FrameType; \
         _op.pid = Pid; \
+        _op.checksumType = ChecksumType; \
         _op.dataLength = DataLength; \
         \
         FMI_LS_BUS_SUBMIT_OPERATION_INTERNAL((BufferInfo), _op, (DataLength), (Data)); \

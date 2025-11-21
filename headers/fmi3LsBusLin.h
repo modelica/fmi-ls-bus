@@ -3,9 +3,9 @@
 
 /*
 This header file contains utility macros to read and write FMI-LS-BUS
-FlexRay specific bus operations from / to dedicated buffer variables.
+LIN specific bus operations from / to dedicated buffer variables.
 
-This header file can be used when creating FMI-LS-BUS network FMUs with FlexRay busses.
+This header file can be used when creating FMI-LS-BUS network FMUs with LIN busses.
 
 Copyright (C) 2023-2025 Modelica Association Project "FMI"
               All rights reserved.
@@ -51,7 +51,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern "C"
 {
 #endif
-
 
 /**
  * \defgroup FMI3_LS_BUS_LIN_OPERATION_CODES LIN bus-specific operation codes
@@ -126,6 +125,20 @@ typedef fmi3UInt8 fmi3LsBusLinFrameType;
  * \brief Indicates a LIN frame header response. In this case the Data Length argument of a Transmit operation contains the length of the Data argument value.
  */
 #define FMI3_LS_BUS_LIN_FRAME_TYPE_HEADER_RESPONSE ((fmi3LsBusLinFrameType)0x3)
+
+/**
+ * \brief Indicates the checksum type of the specified LIN frame.
+ */
+typedef fmi3UInt8 fmi3LsBusLinChecksumType;
+
+/**
+ * \brief Indicates that the specified LIN frame uses the classic checksum mechanism.
+ */
+#define FMI3_LS_BUS_LIN_CHECKSUM_TYPE_CLASSIC_CHECKSUM ((fmi3LsBusLinChecksumType)0x1)
+/**
+ * \brief Indicates that the specified LIN frame uses the enhanced checksum mechanism.
+ */
+#define FMI3_LS_BUS_LIN_CHECKSUM_TYPE_ENHANCED_CHECKSUM ((fmi3LsBusLinChecksumType)0x2)
 
 /**
  * \brief Data type representing the LIN frame payload data.
@@ -244,6 +257,7 @@ typedef struct
     fmi3LsBusOperationHeader header;  /**< Operation header */
     fmi3LsBusLinFrameType frameType;  /**< Indicates the type of the specified LIN frame */
     fmi3LsBusLinPID pid;  /**< The specified protected ID (PID) of the LIN message */
+    fmi3LsBusLinChecksumType checksumType;  /**< Indicates the checksum type of the specified LIN frame */
     fmi3LsBusLinDataLength dataLength;  /**< The length of the data of this LIN frame */
     fmi3LsBusLinData data[];  /**< The payload data of the LIN frame */
 } fmi3LsBusLinOperationTransmit;

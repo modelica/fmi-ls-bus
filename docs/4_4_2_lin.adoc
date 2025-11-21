@@ -39,15 +39,17 @@ h|Length
 
 |Transmit
 |0x10
-|:= 11 + DL +
+|:= 12 + DL +
 (4 bytes)
 |Frame Type +
 (1 byte)
 |PID +
 (1 byte)
+2+|Checksum Type +
+(1 byte)
 |DL +
 (1 byte)
-5+|Data +
+3+|Data +
 (n bytes)
 
 |Confirm
@@ -92,19 +94,20 @@ All three LIN cases, in detail a LIN Header, a LIN Response and a combination of
 
 .Detailed description of the Transmit operation.
 [#table-lin-transmit-operation]
-[cols="5,4,3,20"]
+[cols="5,5,3,20"]
 |====
 h|Name 3+| Transmit
 h|Description 3+| Represents an operation for the transmission of a LIN message, aggregating a representation for a Frame Header and a Frame Response.
 h|OP Code [hex] 3+| 0x10
-.7+h|Content h|Argument h|Length h|Description
+.8+h|Content h|Argument h|Length h|Description
 | OP Code | 4 bytes | Contains the OP Code of the specified operation.
 For this operation the OP Code always has the value 0x10.
 | Length | 4 bytes | Defines the cumulative length of all arguments in bytes.
-For this operation always applies: `Length = 11 + Data Length`.
+For this operation always applies: `Length = 12 + Data Length`.
 | Frame Type | 1 byte | Indicates the type of the specified LIN frame (see <<#table-lin-frame-types-values>>).
 | PID | 1 byte | The specified protected ID (PID) of the LIN message.
 The maximum length of a PID is 8-bit.
+| Checksum Type | 1 byte | Indicates the checksum type of the specified LIN frame (see <<#table-lin-checksum-types-values>>).
 | Data Length | 1 byte | Specifies the length of the Data argument in bytes.
 Regarding to the `Frame Type` specified, a different approach for `Data Length` argument value specification is required.
 See <<#table-lin-frame-types-values>> for details.
@@ -121,7 +124,7 @@ The following frame types can be used:
 
 .Overview of the available frame type values.
 [#table-lin-frame-types-values]
-[cols="1,1,5"]
+[cols="2,1,5"]
 |====
 
 h|Kind h|Value h|Description
@@ -141,6 +144,25 @@ In this case the `Data Length` argument of a <<low-cut-lin-transmit-operation, `
 |Indicates a combination of a LIN Header and a LIN Response, both from LIN Master. 
 In this case the `Data Length` argument of a <<low-cut-lin-transmit-operation, `Transmit`>> operation contains the length of the `Data` argument value.
 If a combined Header and Response from the LIN Master is to be simulated, this `Frame Type` must always be used, and not a consecutive combination of two <<low-cut-lin-transmit-operation, `Transmit`>> operations where `Frame Type` is set to `Header` and `Response`.
+
+|====
+
+The following checksum types can be used:
+
+.Overview of the available checksum type values.
+[#table-lin-checksum-types-values]
+[cols="2,1,5"]
+|====
+
+h|Kind h|Value h|Description
+
+|CLASSIC CHECKSUM
+|0x01
+|Indicates that the specified LIN frame uses the classic checksum mechanism.
+
+|ENHANCED CHECKSUM
+|0x02
+|Indicates that the specified LIN frame uses the enhanced checksum mechanism.
 
 |====
 
