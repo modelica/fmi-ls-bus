@@ -128,17 +128,17 @@ h|Kind h|Value h|Description
 
 |HEADER
 |0x01
-|Indicates a LIN frame Header.
+|Indicates a LIN Header from LIN Master.
 In this case the `Data Length` argument of a <<low-cut-lin-transmit-operation, `Transmit`>> operation is always set to zero.
 
 |RESPONSE
 |0x02
-|Indicates a LIN frame Response.
+|Indicates a LIN Response from a LIN Slave.
 In this case the `Data Length` argument of a <<low-cut-lin-transmit-operation, `Transmit`>> operation contains the length of the `Data` argument value.
 
 |HEADER RESPONSE
 |0x03
-|Indicates a LIN frame Header Response.
+|Indicates a combination of a LIN Header and a LIN Response, both from LIN Master. 
 In this case the `Data Length` argument of a <<low-cut-lin-transmit-operation, `Transmit`>> operation contains the length of the `Data` argument value.
 If a combined Header and Response from the LIN Master is to be simulated, this `Frame Type` must always be used, and not a consecutive combination of two <<low-cut-lin-transmit-operation, `Transmit`>> operations where `Frame Type` is set to `Header` and `Response`.
 
@@ -470,7 +470,7 @@ Additionally a <<low-cut-lin-confirmation-operation, `Confirm`>> operation is gi
 image::lin_confirmation_with_bus_simulation_fmu.svg[width=70%, align="center"]
 
 ===== Propagation of Collisions [[low-cut-lin-propagation-of-collisions]]
-Due to the design of the LIN bus, collisions of LIN frames can occur in LIN networks.
+Due to the design of the LIN bus, collisions of LIN frames may occur in LIN networks.
 This applies not only to the LIN Header phase but also to the LIN Response phase.
 Simulating or considering collisions is generally only possible using a Bus Simulation.
 The Bus Simulation detects, processes and coordinates collision detection and notification for the various Network FMUs.
