@@ -3,7 +3,7 @@
 
 /*
 This header file contains utility macros to read and write FMI-LS-BUS
-FlexRay specific bus operations from / to dedicated buffer variables.
+FlexRay specific bus operations from/to dedicated buffer variables.
 
 This header file can be used when creating FMI-LS-BUS network FMUs with FlexRay busses.
 
