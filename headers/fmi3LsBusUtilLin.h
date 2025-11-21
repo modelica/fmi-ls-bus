@@ -3,9 +3,9 @@
 
 /*
 This header file contains utility macros to read and write FMI-LS-BUS
-Ethernet specific bus operations from\to dedicated buffer variables.
+LIN specific bus operations from\to dedicated buffer variables.
 
-This header file can be used when creating Network FMI-LS-BUS FMUs with Ethernet.
+This header file can be used when creating Network FMI-LS-BUS FMUs with LIN.
 
 Copyright (C) 2025 Modelica Association Project "FMI"
               All rights reserved.
@@ -45,7 +45,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  * \brief Represents an operation for the transmission of a LIN message, aggregating a representation for a Frame Header and a Frame Response.
  *
- * This macro can be used to create an Ethernet 'Transmit' operation.
+ * This macro can be used to create an LIN 'Transmit' operation.
  * The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer described by the argument `BufferInfo`.
  * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
  * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
@@ -91,7 +91,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  * \brief Signals a successful transmitted LIN Header or/and Response.
  *
- * This macro can be used to create an Ethernet 'Confirm' operation.
+ * This macro can be used to create an LIN 'Confirm' operation.
  * The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer described by the argument `BufferInfo`.
  * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
  * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
@@ -118,7 +118,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  * \brief Indicates an error during the transmission of an LIN frame.
  *
- * This macro can be used to create an Ethernet 'Bus Error' operation.
+ * This macro can be used to create an LIN 'Bus Error' operation.
  * The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer described by the argument `BufferInfo`.
  * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
  * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
@@ -126,7 +126,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] BufferInfo
  *     Pointer to \ref fmi3LsBusUtilBufferInfo.
  * \param[in] Pid
- *     The specified protected ID (PID) of the LIN message (\ref fmi3LsBusLinPID).
+ *     The protected ID of the LIN message that was transmitted while the error happened (\ref fmi3LsBusLinPID).
  * \param[in] ErrorCode
  *     Represents the specified bus error to simulate (\ref fmi3LsBusLinBusErrorCode).
  */
@@ -150,7 +150,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  * \brief Provides information to configure the LIN bus.
  *
- * This macro can be used to create an Ethernet 'Configuration' operation.
+ * This macro can be used to create an LIN 'Configuration' operation.
  * The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer described by the argument `BufferInfo`.
  * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
  * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
@@ -178,7 +178,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  * \brief Provides information to configure the LIN bus.
  *
- * This macro can be used to create an Ethernet 'Configuration' operation.
+ * This macro can be used to create an LIN 'Configuration' operation.
  * The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer described by the argument `BufferInfo`.
  * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
  * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
@@ -207,7 +207,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  * \brief Indicates a wakeup.
  *
- * This macro can be used to create an Ethernet 'Wakeup' operation.
+ * This macro can be used to create an LIN 'Wakeup' operation.
  * The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer described by the argument `BufferInfo`.
  * If the operation was submitted successfully, `BufferInfo->status` is set to `fmi3True`.
  * If there is not enough buffer space available, `BufferInfo->status` is set to `fmi3False`.
@@ -215,7 +215,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] BufferInfo
  *     Pointer to \ref fmi3LsBusUtilBufferInfo.
  */
-#define FMI3_LS_BUS_LIN_CREATE_OP_WAKEUP(BufferInfo, \
+#define FMI3_LS_BUS_LIN_CREATE_OP_WAKEUP(BufferInfo \
     ) do { \
         fmi3LsBusLinOperationWakeup _op; \
         _op.header.opCode = FMI3_LS_BUS_LIN_OP_WAKEUP; \

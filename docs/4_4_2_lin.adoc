@@ -120,7 +120,7 @@ Depending on the simulation details, the Bus Simulation might respond with a <<l
 
 |====
 
-The following frame types can be used:
+The following values for `Frame Type` argument are specified:
 
 .Overview of the available frame type values.
 [#table-lin-frame-types-values]
@@ -147,7 +147,7 @@ If a combined Header and Response from the LIN Master is to be simulated, this `
 
 |====
 
-The following checksum types can be used:
+The following values for `Checksum Type` argument are specified:
 
 .Overview of the available checksum type values.
 [#table-lin-checksum-types-values]
@@ -229,7 +229,7 @@ For this operation always applies: `Length = 10`.
 
 |PID
 |1 byte
-|The specified protected ID of the LIN message which triggers the error.
+|The protected ID of the LIN message that was transmitted while the error happened.
 
 |Error Code
 |1 byte
@@ -243,7 +243,7 @@ Only Network FMUs with the corresponding optionally exposed <<low-cut-lin-bus-no
 
 |====
 
-The following codes are allowed to use as Error Code:
+The following values for `Error Code` argument are specified:
 
 .Overview of the available error states and codes.
 [#table-lin-bus-error-codes]
@@ -373,7 +373,7 @@ h|Parameter h|Value h|Description
 
 |====
 
-The following values for `NODE_DEFINITION` are defined:
+The following values for `Node Definition` argument are specified:
 
 .Overview of the available node definition values for LIN.
 [#table-lin-configuration-node-definition-kinds]
