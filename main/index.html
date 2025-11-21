@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 4b79218,</span>
+<span id="revnumber">version 0a67bd3,</span>
 <span id="revdate">2025-11-21</span>
 </div>
 <div id="toc" class="toc2">
@@ -3129,7 +3129,7 @@ Only Network FMUs with the corresponding optionally exposed <a href="#low-cut-ca
 </tbody>
 </table>
 <div class="paragraph">
-<p>The following Error Codes are specified:</p>
+<p>The following values for <code>Error Code</code> argument are specified:</p>
 </div>
 <table id="table-can-error-codes" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 15. Overview of the available error codes.</caption>
@@ -3140,8 +3140,8 @@ Only Network FMUs with the corresponding optionally exposed <a href="#low-cut-ca
 </colgroup>
 <tbody>
 <tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">State</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Error Code</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Value</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
 </tr>
 <tr>
@@ -3179,7 +3179,7 @@ Within CAN, an Error frame is transmitted by any unit on detection of a bus erro
 </tbody>
 </table>
 <div class="paragraph">
-<p>The following values for the <code>Error Flag</code> option are defined:</p>
+<p>The following values for <code>Error Flag</code> argument are specified:</p>
 </div>
 <table id="table-can-bus-error-error-flag-kinds" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 16. Overview of the available Error Flag values.</caption>
@@ -3345,7 +3345,7 @@ See <a href="#table-can-configuration-arbitration-lost-behavior-kinds">Table 19<
 </tbody>
 </table>
 <div class="paragraph">
-<p>The following values for the <code>Arbitration Lost Behavior</code> option are defined:</p>
+<p>The following values for <code>Arbitration Lost Behavior</code> argument are specified:</p>
 </div>
 <table id="table-can-configuration-arbitration-lost-behavior-kinds" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 19. Overview of the available Arbitration Lost Behavior values.</caption>
@@ -3432,7 +3432,7 @@ A Network FMU shall report its status to the Bus Simulation after it changes.</p
 </tbody>
 </table>
 <div class="paragraph">
-<p>The following status values can be used:</p>
+<p>The following values for <code>Status</code> argument are specified:</p>
 </div>
 <table id="table-can-status-values" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 21. Overview of the available status values.</caption>
@@ -3443,7 +3443,7 @@ A Network FMU shall report its status to the Bus Simulation after it changes.</p
 </colgroup>
 <tbody>
 <tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Kind</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Status</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Value</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
 </tr>
@@ -5072,7 +5072,7 @@ Only Network FMUs with the corresponding optionally exposed <a href="#low-cut-fl
 </tbody>
 </table>
 <div class="paragraph">
-<p>The following Error Flags can be used:</p>
+<p>The following values for <code>Error Flags</code> argument are specified:</p>
 </div>
 <table id="table-flexray-error-code-values" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 41. Overview of the available error flag values.</caption>
@@ -5083,7 +5083,7 @@ Only Network FMUs with the corresponding optionally exposed <a href="#low-cut-fl
 </colgroup>
 <tbody>
 <tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">[Flag] Kind</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Flag] Error Flag</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Value</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
 </tr>
@@ -5120,18 +5120,18 @@ This type of <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</cod
 </tbody>
 </table>
 <div class="paragraph">
-<p>The following segment types can be used:</p>
+<p>The following values for <code>Segment Indicator</code> argument are specified:</p>
 </div>
 <table id="table-flexray-segment-types-values" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 42. Overview of the available segment type values.</caption>
+<caption class="title">Table 42. Overview of the available segment indicator values.</caption>
 <colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 71.4286%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 62.5%;">
 </colgroup>
 <tbody>
 <tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Kind</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Segment Indicator</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Value</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
 </tr>
@@ -5344,7 +5344,7 @@ The reconfiguration of <code>FLEXRAY_CONFIG</code> parameters during the runtime
 </tbody>
 </table>
 <div class="paragraph">
-<p>The following coldstart node types are defined:</p>
+<p>The following values for <code>Coldstart Node</code> argument are specified:</p>
 </div>
 <table id="table-flexray-coldstart-node-types" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 45. Overview of the available coldstart node types.</caption>
@@ -5355,7 +5355,7 @@ The reconfiguration of <code>FLEXRAY_CONFIG</code> parameters during the runtime
 </colgroup>
 <tbody>
 <tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Coldstart Node Type</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Coldstart Node</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Value</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
 </tr>
@@ -5507,7 +5507,7 @@ If a Network FMU does not support a specified <code>Type</code> of a <a href="#l
 </tbody>
 </table>
 <div class="paragraph">
-<p>The following symbol type values can be used:</p>
+<p>The following values for <code>Type</code> argument are specified:</p>
 </div>
 <table id="table-flexray-symbol-type-values" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 48. Overview of the available symbol type values.</caption>
@@ -5518,7 +5518,7 @@ If a Network FMU does not support a specified <code>Type</code> of a <a href="#l
 </colgroup>
 <tbody>
 <tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Kind</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Symbol Type</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Value</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
 </tr>
@@ -6526,8 +6526,11 @@ Only Network FMUs with the corresponding optionally exposed <a href="#low-cut-et
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>The following values for <code>Error Code</code> argument are specified:</p>
+</div>
 <table id="table-fmi3-ls-bus-ethernet-bus-error-code-values" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 53. Valid values for the bus error code.</caption>
+<caption class="title">Table 53. Overview of the available error code values.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 12.5%;">
@@ -6535,7 +6538,7 @@ Only Network FMUs with the corresponding optionally exposed <a href="#low-cut-et
 </colgroup>
 <tbody>
 <tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Error Code</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Value</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
 </tr>
@@ -6642,8 +6645,11 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>The following configuration parameters are defined:</p>
+</div>
 <table id="table-fmi3-ls-bus-ethernet-config-parameter-type-values" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 55. Valid values for the configuration parameter type.</caption>
+<caption class="title">Table 55. Overview of the available configuration parameters.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 12.5%;">
@@ -6651,7 +6657,7 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 </colgroup>
 <tbody>
 <tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Parameter</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Value</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
 </tr>
@@ -6662,8 +6668,11 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>The following values for <code>MDI Mode</code> argument are specified:</p>
+</div>
 <table id="table-fmi3-ls-bus-ethernet-mdi-mode-values" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 56. Valid values for the MDI mode.</caption>
+<caption class="title">Table 56. Overview of the available MDI Mode values.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 12.5%;">
@@ -6671,7 +6680,7 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 </colgroup>
 <tbody>
 <tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">MDI Mode</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Value</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
 </tr>
