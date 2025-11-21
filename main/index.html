@@ -587,7 +587,7 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>Layered Standard for Network Communication</h1>
 <div class="details">
-<span id="revnumber">version 54a7b44,</span>
+<span id="revnumber">version 4b79218,</span>
 <span id="revdate">2025-11-21</span>
 </div>
 <div id="toc" class="toc2">
@@ -5066,7 +5066,7 @@ Within a Symbol Window or Network Idle Time segment the values of <a href="#tabl
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
 It represents a direct feedback corresponding to a specified <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation.
-Depending on the type of <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a>, either only the <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> producing or all Network FMUs must be notified via <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a> operation (see description column of <a href="#table-flexray-error-code-values">Table 41</a>).
+Depending on the type (qualified via <code>Error Flags</code> argument value) of <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a>, either only the <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> producing or all Network FMUs must be notified via <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a> operation (see description column of <a href="#table-flexray-error-code-values">Table 41</a>).
 Only Network FMUs with the corresponding optionally exposed <a href="#low-cut-flexray-bus-notification-parameter"><code>BusNotifications</code></a> parameter set to <code>fmi3True</code> might wait for this operation.</p></td>
 </tr>
 </tbody>
