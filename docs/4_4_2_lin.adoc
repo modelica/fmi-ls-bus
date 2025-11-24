@@ -198,7 +198,7 @@ Only Network FMUs with the corresponding optionally exposed <<low-cut-lin-bus-no
 See <<low-cut-format-error-operation, `Format Error`>> for definition.
 
 ====== Bus Error [[low-cut-lin-bus-error-operation]]
-The <<low-cut-lin-bus-error-operation, `Bus Error`>> represents special bus communication errors, which are delivered to the LIN Master node in the network.
+The <<low-cut-lin-bus-error-operation, `Bus Error`>> operation represents feedback of a Bus Simulation for a specified <<low-cut-lin-transmit-operation, `Transmit`>> operation in case of an unsuccessful transmission.
 
 .Detailed description of the Bus Error operation.
 [#table-lin-bus-error-operation]
@@ -248,31 +248,28 @@ h|Error Code h|Value h|Description
 
 |BIT_ERROR
 |0x01
-|A BIT_ERROR means that a received bit does not match the expected value.
+|A `BIT_ERROR` indicates that a received bit does not match the expected value.
 This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_MASTER`>> within the specified LIN network.
 
 |CHECKSUM_ERROR
 |0x02
-|Represents a CRC error.
-The error can occur during a collision of multiple LIN Response frames when Event-Triggered-Frames are used.
+|A `CHECKSUM_ERROR` error can occur during a collision of LIN Responses when Event-Triggered-Frames are used.
 This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `RESPONSE`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_MASTER`>> of the specified LIN network.
 
 |IDENTIFIER_PARITY_ERROR
 |0x03
-|Represents an Identifier Parity Error.
-The error can occur during a collision of multiple LIN Headers.
+|A `IDENTIFIER_PARITY_ERROR` error can occur during a collision of LIN Headers.
 This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to all Network FMUs of the specified LIN network.
 Within this situation, no valid `PID` can be used as an argument value for the respective <<low-cut-lin-bus-error-operation, `Bus Error`>> operation and shall be set to zero.
 
 |SLAVE_NOT_RESPONDING_ERROR
 |0x04
-|Represents a Slave Not Responding Error.
-The error can occur if no LIN Slave response to a specified LIN Header.
+|A `SLAVE_NOT_RESPONDING_ERROR` error indicates that no LIN Slave reacts with a LIN Response to a specified LIN Header.
 This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_MASTER`>> within the specified LIN network.
 
 |SYNCH_FIELD_ERROR
 |0x05
-|Represents an Inconsistent-Synch Field Error.
+|A `SYNCH_FIELD_ERROR` indicates an error communicated by LIN Sync Field mechanism.
 This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_SLAVE`>> within the specified LIN network.
 
 |SYNCH_TOLERANCE_ERROR
@@ -282,7 +279,7 @@ This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reac
 
 |HEADER_TIMEOUT_ERROR
 |0x07
-|A Header timeout error means that a slave node did not receive a complete Header from the master within the specified time frame.
+|A `HEADER_TIMEOUT_ERROR` means that a LIN Slave did not receive a complete Header from the LIN Master within a specified time window.
 This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_SLAVE`>> within the specified LIN network.
 
 |FRAME_ERROR
@@ -292,7 +289,7 @@ This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reac
 
 |PHYSICAL_BUS_ERROR
 |0x09
-|Represents a Physical Bus Error.
+|Represents an unspecified physical bus error.
 This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation and shall be delivered to all Network FMUs of the specified LIN network.
 
 |====
@@ -347,16 +344,16 @@ Possible values are: `LIN_MASTER` and `LIN_SLAVE` (see <<table-lin-configuration
 h|Behavior
 5+|The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
 The operation shall not be routed to other Network FMUs by the Bus Simulation.
-A Network FMU shall ignore this operation on consumer side.
-The configuration shall be completed by a specified Network FMU before it produces any <<low-cut-lin-transmit-operation, `Transmit`>> operations.
-The configuration must not be repeated multiple times during the runtime of a Network FMU.
-A Bus Simulation should stop as soon as more than one `LIN_MASTER` is configured in a network.
-If required configuration parameters are not adjusted by a Network FMU the Bus Simulation shall choose a default behavior by itself.
+A Network FMU shall ignore this operation on the consumer side.
+<<low-cut-lin-configuration-operation, `Configuration`>> operations can be produced multiple times during the runtime of a Network FMU.
+The configuration of the `NODE_DEFINITION` parameter must be completed by all Network FMUs before any <<low-cut-lin-transmit-operation, `Transmit`>> operation is produced.
+If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.
+
 |====
 
 The following configuration parameters values are allowed to be used:
 
-.Overview of the available configuration kinds and values.
+.Overview of the available configuration parameters and values.
 [#table-lin-configuration-kinds]
 [cols="1,1,5"]
 |====
@@ -498,7 +495,7 @@ The specific type of collision is identified by the respective <<#table-lin-bus-
 Two errors are reserved for this collision situations, covering the possible LIN collision variants:
 The first variant represents the collision of LIN Headers.
 As soon as a collision of LIN Headers occurs within the Bus Simulation, it shall query this with a <<low-cut-lin-bus-error-operation, `Bus Error`>> operation, which sets the <<#table-lin-bus-error-codes,`Error Code`>> argument value to <<#table-lin-bus-error-codes,`IDENTIFIER_PARITY_ERROR`>>.
-The second variant describes the collision of LIN frames during the response phase.
+The second variant describes the collision during the LIN Response phase.
 Within this scenario, the procedure is analogous to the first variant, except that the <<#table-lin-bus-error-codes,`Error Code`>> argument value shall be set to <<#table-lin-bus-error-codes,`CHECKSUM_ERROR`>>.
 Regarding the specified <<#table-lin-bus-error-codes,`Error Code`>>, <<#table-lin-bus-error-codes>> is defining for which Network FMUs the respective <<low-cut-lin-bus-error-operation, `Bus Error`>> operation shall be provided.
 The collision resolution is not required and not permitted by the Bus Simulation.
@@ -520,13 +517,12 @@ Because the Bus Simulation shall choose a default behavior, it might be useful i
 
 ====== Baud Rate Handling [[low-cut-lin-baud-rate-handling]]
 In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation about the specified baud rate from a Network FMU.
-This baud rate information can be configured by using `BAUDRATE` configuration kind of the <<low-cut-lin-configuration-operation, `Configuration`>> operation.
+This baud rate information can be configured by using `BAUDRATE` configuration parameter of the <<low-cut-lin-configuration-operation, `Configuration`>> operation.
 If the baud rate information is not adjusted by a specified Network FMU, the Bus Simulation shall choose a default behavior by itself.
 
 ====== Node Definition [[low-cut-lin-node-definition]]
-By using the `NODE_DEFINITION` kind of <<low-cut-lin-configuration-operation, `Configuration`>> operation, the specified node type `LIN_MASTER` or `LIN_SLAVE` needs to be adjusted.
+By using the `NODE_DEFINITION` configuration parameter of <<low-cut-lin-configuration-operation, `Configuration`>> operation, the specified node type `LIN_MASTER` or `LIN_SLAVE` needs to be adjusted.
 This configuration must be done before the first exchange of <<low-cut-lin-transmit-operation, `Transmit`>> operations.
-A Bus Simulation should stop as soon as more than one LIN Master is configured in a network.
 
 ===== Error Handling [[low-cut-lin-error-handling]]
 LIN provides extensive options for detecting bus errors.
