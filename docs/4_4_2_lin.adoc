@@ -90,7 +90,7 @@ The following tables provide an overview of all operations and specifies the pos
 
 ====== Transmit [[low-cut-lin-transmit-operation]]
 The <<low-cut-lin-transmit-operation, `Transmit`>> operation is used to simulate the transmission of LIN frames.
-All three LIN cases, in detail a LIN Header, a LIN Response and a combination of a Header and Response are considered here.
+Both LIN cases, in detail a LIN Header and a LIN Response, are considered here.
 
 .Detailed description of the Transmit operation.
 [#table-lin-transmit-operation]
@@ -113,7 +113,7 @@ Regarding to the `Frame Type` specified, a different approach for `Data Length` 
 See <<#table-lin-frame-types-values>> for details.
 | Data | n bytes | Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
 h|Behavior
-3+|The <<low-cut-lin-transmit-operation, `Transmit`>> operation shall be provided by Network FMUs to initiate the transmission of a LIN frame that contains the specified Header, Response or a combination of both cases.
+3+|The <<low-cut-lin-transmit-operation, `Transmit`>> operation shall be provided by Network FMUs to initiate the transmission of a LIN frame that contains the specified LIN Header or a LIN Response.
 In case of direct connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-lin-bus-error-operation, `Bus Error`>> or <<low-cut-lin-format-error-operation, `Format Error`>> operation.
@@ -138,12 +138,6 @@ In this case the `Data Length` argument of a <<low-cut-lin-transmit-operation, `
 |0x02
 |Indicates a LIN Response from a LIN Slave.
 In this case the `Data Length` argument of a <<low-cut-lin-transmit-operation, `Transmit`>> operation contains the length of the `Data` argument value.
-
-|HEADER RESPONSE
-|0x03
-|Indicates a combination of a LIN Header and a LIN Response, both from LIN Master. 
-In this case the `Data Length` argument of a <<low-cut-lin-transmit-operation, `Transmit`>> operation contains the length of the `Data` argument value.
-If a combined Header and Response from the LIN Master is to be simulated, this `Frame Type` must always be used, and not a consecutive combination of two <<low-cut-lin-transmit-operation, `Transmit`>> operations where `Frame Type` is set to `Header` and `Response`.
 
 |====
 
