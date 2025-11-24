@@ -6,7 +6,7 @@ To simulate LIN buses, LIN-specific operations are specified based on the <<low-
 Overall, the following groups of operations exists:
 
 * Transmit and Confirm: This group of operations is used to simulate a frame transmission.
-There are three specific operations that represent the different communication options between a LIN Master and one or more LIN Slaves.
+There are specific operations that represent the different communication options between a LIN Master and one or more LIN Slaves.
 * Bus- and Format Error: This group of operations is used for protocol format errors and to simulate bus failures.
 * Configuration: This operation enables the configuration of bus-specific parameters and options that are required to simulate the bus behavior properly.
 For example, it allows the specification of the baud rate.
@@ -267,7 +267,7 @@ Within this situation, no valid `PID` can be used as an argument value for the r
 |SLAVE_NOT_RESPONDING_ERROR
 |0x04
 |Represents a Slave Not Responding Error.
-The error can occur if LIN Slaves does not respond to a specified LIN Header.
+The error can occur if no LIN Slave response to a specified LIN Header.
 This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_MASTER`>> within the specified LIN network.
 
 |SYNCH_FIELD_ERROR

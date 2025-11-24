@@ -234,7 +234,7 @@ typedef struct
  */
 typedef struct
 {
-    fmi3LsBusLinNodeDefinition baudrate;  /**< Indicates the type of a LIN node (LIN Master or LIN Slave) */
+    fmi3LsBusLinNodeDefinition nodeDefinition;  /**< Indicates the type of a LIN node (LIN Master or LIN Slave) */
 } fmi3LsBusLinConfigurationNodeDefinitionConfig;
 
 /** \} */
@@ -287,7 +287,6 @@ typedef struct
     union
     {
         fmi3LsBusLinConfigurationNodeBaudrateConfig nodeBaudrate;  /**< Configuration data for parameter 'BAUDRATE'. */
-    
         fmi3LsBusLinConfigurationNodeDefinitionConfig nodeDefinition;  /**< Configuration data for parameter 'NODE_DEFINITION'. */
     };
 } fmi3LsBusLinOperationConfiguration;
