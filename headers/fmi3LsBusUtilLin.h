@@ -160,7 +160,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] Baudrate
  *     Defines the baudrate of the specified LIN node to configure (\ref fmi3LsBusLinBaudrate).
  */
-#define FMI3_LS_BUS_LIN_CREATE_OP_CONFIGURATION_NODE_BAUDRATE(BufferInfo, \
+#define FMI3_LS_BUS_LIN_CREATE_OP_CONFIGURATION_BAUDRATE(BufferInfo, \
         Baudrate \
     ) do { \
         fmi3LsBusLinOperationConfiguration _op; \
@@ -189,7 +189,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *     Indicates the type of a LIN node (LIN Master or LIN Slave) (\ref fmi3LsBusLinNodeDefinition).
  */
 #define FMI3_LS_BUS_LIN_CREATE_OP_CONFIGURATION_NODE_DEFINITION(BufferInfo, \
-        Baudrate \
+        NodeDefinition \
     ) do { \
         fmi3LsBusLinOperationConfiguration _op; \
         _op.header.opCode = FMI3_LS_BUS_LIN_OP_CONFIGURATION; \
@@ -198,7 +198,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             + sizeof(fmi3LsBusLinConfigurationNodeDefinitionConfig); \
         \
         _op.parameterType = FMI3_LS_BUS_LIN_CONFIG_PARAMETER_TYPE_NODE_DEFINITION; \
-        _op.nodeDefinition.baudrate = Baudrate; \
+        _op.nodeDefinition.nodeDefinition = NodeDefinition; \
         \
         FMI_LS_BUS_SUBMIT_OPERATION_NO_DATA_INTERNAL((BufferInfo), _op); \
     } while (0)
