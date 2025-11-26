@@ -43,7 +43,7 @@ h|Length
 (4 bytes)
 |Frame Type +
 (1 byte)
-|PID +
+|ID +
 (1 byte)
 2+|Checksum Type +
 (1 byte)
@@ -56,14 +56,14 @@ h|Length
 |0x20
 |:= 9 +
 (4 bytes)
-8+|PID +
+8+|ID +
 (1 byte)
 
 |Bus Error
 |0x30
 |:= 10 +
 (4 bytes)
-|PID +
+|ID +
 (1 byte)
 7+|Error Code +
 (1 byte)
@@ -105,8 +105,11 @@ For this operation the OP Code always has the value 0x10.
 | Length | 4 bytes | Defines the cumulative length of all arguments in bytes.
 For this operation always applies: `Length = 12 + Data Length`.
 | Frame Type | 1 byte | Indicates the type of the specified LIN frame (see <<#table-lin-frame-types-values>>).
-| PID | 1 byte | The specified protected ID (PID) of the LIN message.
-The maximum length of a PID is 8-bit.
+| ID | 1 byte | The specified ID of the LIN message.
+The ID must be considered here as a purely numerical value.
+This means that there is no need for separate segmentation.
+LIN parity bits shall not be part of this ID.
+The valid value range for this argument is 0....63.
 | Checksum Type | 1 byte | Indicates the checksum type of the specified LIN frame (see <<#table-lin-checksum-types-values>>).
 | Data Length | 1 byte | Specifies the length of the Data argument in bytes.
 Regarding to the `Frame Type` specified, a different approach for `Data Length` argument value specification is required.
@@ -183,9 +186,10 @@ h|OP Code [hex]
 |Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 9`.
 
-|PID
+|ID
 |1 bytes
-|The protected ID of the confirmed <<low-cut-lin-transmit-operation, `Transmit`>> operation.
+|The ID of the confirmed <<low-cut-lin-transmit-operation, `Transmit`>> operation.
+The valid value range for this argument is 0....63.
 
 h|Behavior
 3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
@@ -221,9 +225,10 @@ For this operation the OP Code always has the value 0x30.
 |Defines the cumulative length of all arguments in bytes.
 For this operation always applies: `Length = 10`.
 
-|PID
+|ID
 |1 byte
-|The protected ID of the LIN message that was transmitted while the error happened.
+|The ID of the LIN message that was transmitted while the error happened.
+The valid value range for this argument is 0....63.
 
 |Error Code
 |1 byte
@@ -260,7 +265,7 @@ This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reac
 |0x03
 |A `IDENTIFIER_PARITY_ERROR` error can occur during a collision of LIN Headers.
 This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to all Network FMUs of the specified LIN network.
-Within this situation, no valid `PID` can be used as an argument value for the respective <<low-cut-lin-bus-error-operation, `Bus Error`>> operation and shall be set to zero.
+Within this situation, no valid `ID` can be used as an argument value for the respective <<low-cut-lin-bus-error-operation, `Bus Error`>> operation and shall be set to zero.
 
 |SLAVE_NOT_RESPONDING_ERROR
 |0x04

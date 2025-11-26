@@ -104,9 +104,9 @@ extern "C"
  */
 
 /**
- * \brief The specified protected ID (PID) of the LIN message.
+ * \brief The specified ID of the LIN message.
  */
-typedef fmi3UInt8 fmi3LsBusLinPID;
+typedef fmi3UInt8 fmi3LsBusLinID;
 
 /**
  * \brief Indicates the type of the specified LIN frame.
@@ -252,7 +252,7 @@ typedef struct
 {
     fmi3LsBusOperationHeader header;  /**< Operation header */
     fmi3LsBusLinFrameType frameType;  /**< Indicates the type of the specified LIN frame */
-    fmi3LsBusLinPID pid;  /**< The specified protected ID (PID) of the LIN message */
+    fmi3LsBusLinID id;  /**< The specified ID of the LIN message */
     fmi3LsBusLinChecksumType checksumType;  /**< Indicates the checksum type of the specified LIN frame */
     fmi3LsBusLinDataLength dataLength;  /**< The length of the data of this LIN frame */
     fmi3LsBusLinData data[];  /**< The payload data of the LIN frame */
@@ -264,7 +264,7 @@ typedef struct
 typedef struct
 {
     fmi3LsBusOperationHeader header;  /**< Operation header */
-    fmi3LsBusLinPID pid;  /**< The specified protected ID (PID) of the LIN message */
+    fmi3LsBusLinID id;  /**< The specified ID of the LIN message */
 } fmi3LsBusLinOperationConfirm;
 
 /**
@@ -273,7 +273,7 @@ typedef struct
 typedef struct
 {
     fmi3LsBusOperationHeader header;  /**< Operation header */
-    fmi3LsBusLinPID pid;  /**< The specified protected ID (PID) of the LIN message */
+    fmi3LsBusLinID id;  /**< The specified ID of the LIN message */
     fmi3LsBusLinBusErrorCode errorCode;  /**< Represents the specified bus error to simulate */
 } fmi3LsBusLinOperationBusError;
 
