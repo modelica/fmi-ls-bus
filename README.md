@@ -162,7 +162,7 @@ The [FMI-LS-XCP] specifies an FMI extension for using the XCP protocol and A2L v
 
 [FMI]: https://fmi-standard.org/
 [FMI-LS-XCP]: https://github.com/modelica/fmi-ls-xcp
-[Demo FMUs]: https://github.com/modelica/fmi-ls-bus-guides/tree/main/ls-bus-guide/demos
+[Demo FMUs]: https://github.com/modelica/fmi-ls-bus-examples/tree/main/
 [2-Clause BSD License]: https://opensource.org/licenses/BSD-2-Clause
 [Attribution-ShareAlike 4.0 International]: https://creativecommons.org/licenses/by-sa/4.0/
 [githubspec]: docs/index.adoc
@@ -172,6 +172,6 @@ The [FMI-LS-XCP] specifies an FMI extension for using the XCP protocol and A2L v
 [FMI-LS-BUS Implementers' Guide]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/
 [Getting started with CAN, CAN FD and CAN XL]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-can-getting-started-with-can
 [Getting started with FlexRay]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-flexray-getting-started-with-flexray
-[CAN, CAN FD and CAN XL Demo Overview]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-can-demos
-[FlexRay Demo Overview]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-flexray-demos
+[CAN, CAN FD and CAN XL Demo Overview]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-can-examples
+[FlexRay Demo Overview]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-flexray-examples
 [Beyond FMI - Towards New Applications with Layered Standards]: https://ecp.ep.liu.se/index.php/modelica/article/view/947
