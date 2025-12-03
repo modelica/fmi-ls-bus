@@ -1,4 +1,4 @@
-= Layered Standard for Network Communication
+= FMI Layered Standard for Network Communication (FMI-LS-BUS)
 :doctype: book
 :imagesdir: images
 :sectnums:
