@@ -84,10 +84,10 @@ Additionally, any FMU importer that supports the necessary FMI 3.0 features, suc
 |Tool|Type|Features|Remarks
 |---|---|---|---|
 [Akkodis PROVEtech:RE](https://www.provetech.de/index.php/downloads/provetech-re)|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) ![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg)|Available since PROVEtech:RE 2026
-[Altair Twin Activate](https://www.altair.com/twin-activate/)|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) <br> ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|Fmi3-Terminals are not supported
-[AVL Model.CONNECT&trade;](https://www.avl.com/de-at/simulation-solutions/software-offering/simulation-tools-a-z/modelconnect)|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) <br> ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|-
-[dSPACE SystemDesk](https://www.dspace.com/en/pub/home/products/sw/system_architecture_software/systemdesk.cfm)|Exporter|![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|Available since RLS 2024-B
-[dSPACE VEOS](https://www.dspace.com/en/pub/home/products/sw/simulation_software/veos.cfm)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg) ![Low-Cut: Ethernet](landingpage/LC_Ethernet.svg)|Available since RLS 2024-B
+[Altair Twin Activate](https://www.altair.com/twin-activate/)|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) <br> ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR_Prerelease.svg) ![Low-Cut: Ethernet](landingpage/LC_Ethernet_Prerelease.svg)|Fmi3-Terminals are not supported
+[AVL Model.CONNECT&trade;](https://www.avl.com/de-at/simulation-solutions/software-offering/simulation-tools-a-z/modelconnect)|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) <br> ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR_Prerelease.svg) ![Low-Cut: Ethernet](landingpage/LC_Ethernet_Prerelease.svg)|-
+[dSPACE SystemDesk](https://www.dspace.com/en/pub/home/products/sw/system_architecture_software/systemdesk.cfm)|Exporter|![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR_Prerelease.svg)|Available since RLS 2024-B
+[dSPACE VEOS](https://www.dspace.com/en/pub/home/products/sw/simulation_software/veos.cfm)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR_Prerelease.svg) ![Low-Cut: Ethernet](landingpage/LC_Ethernet_Prerelease.svg)|Available since RLS 2024-B
 [MachineWare VCML Virtual Platform](https://www.machineware.de/products/vcml-virtual-platform)|Exporter|![Low-Cut: CAN](landingpage/LC_CAN.svg)|-
 [Synopsys Silver](https://www.synopsys.com/verification/virtual-prototyping/silver.html)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg)|-
 [tracetronic ecu.test](https://www.tracetronic.com/products/ecu-test/)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg)|Available since ecu.test 2025.3
@@ -149,6 +149,7 @@ Additionally, any FMU importer that supports the necessary FMI 3.0 features, suc
 </table>
 
 _* New tools within the list can be added via PullRequest from every tool vendor. Please also update the FMI tools page https://fmi-standard.org/tools/ with the entry "BUS"._
+_** This support is for a Pre-Release version._
 
 ## Copyright and License
 
