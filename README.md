@@ -1,4 +1,4 @@
-# FMI Layered Standard for Network Communication
+# FMI Layered Standard for Network Communication (FMI-LS-BUS)
 
 [![Build Specification](https://github.com/modelica/fmi-ls-bus/actions/workflows/build-ls-bus.yml/badge.svg)](https://github.com/modelica/fmi-ls-bus/actions/workflows/build-ls-bus.yml)
 
