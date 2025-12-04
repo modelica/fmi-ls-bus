@@ -587,8 +587,8 @@ document.addEventListener('keydown', (event) => {
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version 5fa3e7c,</span>
-<span id="revdate">2025-12-03</span>
+<span id="revnumber">version 003cc77,</span>
+<span id="revdate">2025-12-04</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -1551,9 +1551,9 @@ BO_ 512 ecuState: 4 ECU
         causality="input" variability="discrete" intervalVariability="triggered"/&gt;
     &lt;Float64 name="Powertrain.tcuState.tcuState.state" valueReference="1008"
         causality="input" variability="discrete" start="0" clocks="1011"/&gt;
-    &lt;Float64 name="Powertrain.tcuState.tcuState.gear" valueReference="1009"
+    &lt;Int8 name="Powertrain.tcuState.tcuState.gear" valueReference="1009"
         causality="input" variability="discrete" start="0" clocks="1011"/&gt;
-    &lt;Float64 name="Powertrain.tcuState.tcuState.targetGear" valueReference="1010"
+    &lt;Int8 name="Powertrain.tcuState.tcuState.targetGear" valueReference="1010"
         causality="input" variability="discrete" start="0" clocks="1011"/&gt;
 
     &lt;Clock name="Powertrain.ecuState_Clock" valueReference="1016"
