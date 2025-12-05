@@ -1,4 +1,4 @@
-# FMI Layered Standard for Network Communication
+# FMI Layered Standard for Network Communication (FMI-LS-BUS)
 
 [![Build Specification](https://github.com/modelica/fmi-ls-bus/actions/workflows/build-ls-bus.yml/badge.svg)](https://github.com/modelica/fmi-ls-bus/actions/workflows/build-ls-bus.yml)
 
@@ -42,6 +42,7 @@ The following resources are currently available:
 
 - [Getting started with CAN, CAN FD and CAN XL]
 - [Getting started with FlexRay]
+- [Getting started with Ethernet]
 
 Our publications and presentations may also be of interest to you:
 
@@ -82,11 +83,11 @@ Additionally, any FMU importer that supports the necessary FMI 3.0 features, suc
 
 |Tool|Type|Features|Remarks
 |---|---|---|---|
-[Akkodis PROVEtech:RE](https://www.provetech.de/index.php/downloads/provetech-re)|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) ![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg)|Available from PROVEtech:RE 2026
-[Altair Twin Activate](https://www.altair.com/twin-activate/)|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) <br> ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|Fmi3-Terminals are not supported
-[AVL Model.CONNECT&trade;](https://www.avl.com/de-at/simulation-solutions/software-offering/simulation-tools-a-z/modelconnect)|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) <br> ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|-
-[dSPACE SystemDesk](https://www.dspace.com/en/pub/home/products/sw/system_architecture_software/systemdesk.cfm)|Exporter|![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg)|Available since RLS 2024-B
-[dSPACE VEOS](https://www.dspace.com/en/pub/home/products/sw/simulation_software/veos.cfm)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR.svg) ![Low-Cut: Ethernet](landingpage/LC_Ethernet.svg)|Available since RLS 2024-B
+[Akkodis PROVEtech:RE](https://www.provetech.de/index.php/downloads/provetech-re)|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) ![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg)|Available since PROVEtech:RE 2026
+[Altair Twin Activate](https://www.altair.com/twin-activate/)|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) <br> ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR_Prerelease.svg) ![Low-Cut: Ethernet](landingpage/LC_Ethernet_Prerelease.svg)|Fmi3-Terminals are not supported
+[AVL Model.CONNECT&trade;](https://www.avl.com/de-at/simulation-solutions/software-offering/simulation-tools-a-z/modelconnect)|Importer|![Direct Communication](landingpage/DC.svg) ![Bus Simulation FMU](landingpage/BSF.svg) <br> ![High-Cut](landingpage/HC.svg) ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR_Prerelease.svg) ![Low-Cut: Ethernet](landingpage/LC_Ethernet_Prerelease.svg)|-
+[dSPACE SystemDesk](https://www.dspace.com/en/pub/home/products/sw/system_architecture_software/systemdesk.cfm)|Exporter|![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR_Prerelease.svg)|Available since RLS 2024-B
+[dSPACE VEOS](https://www.dspace.com/en/pub/home/products/sw/simulation_software/veos.cfm)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: FlexRay](landingpage/LC_FR_Prerelease.svg) ![Low-Cut: Ethernet](landingpage/LC_Ethernet_Prerelease.svg)|Available since RLS 2024-B
 [MachineWare VCML Virtual Platform](https://www.machineware.de/products/vcml-virtual-platform)|Exporter|![Low-Cut: CAN](landingpage/LC_CAN.svg)|-
 [Synopsys Silver](https://www.synopsys.com/verification/virtual-prototyping/silver.html)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg)|-
 [tracetronic ecu.test](https://www.tracetronic.com/products/ecu-test/)|Importer|![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg)|Available since ecu.test 2025.3
@@ -149,6 +150,8 @@ Additionally, any FMU importer that supports the necessary FMI 3.0 features, suc
 
 _* New tools within the list can be added via PullRequest from every tool vendor. Please also update the FMI tools page https://fmi-standard.org/tools/ with the entry "BUS"._
 
+_** This support is for a Pre-Release version._
+
 ## Copyright and License
 
 Code and documentation copyright (C) 2023-2025 The Modelica Association Project FMI.
@@ -162,7 +165,7 @@ The [FMI-LS-XCP] specifies an FMI extension for using the XCP protocol and A2L v
 
 [FMI]: https://fmi-standard.org/
 [FMI-LS-XCP]: https://github.com/modelica/fmi-ls-xcp
-[Demo FMUs]: https://github.com/modelica/fmi-ls-bus-guides/tree/main/ls-bus-guide/demos
+[Demo FMUs]: https://github.com/modelica/fmi-ls-bus-examples/tree/main/
 [2-Clause BSD License]: https://opensource.org/licenses/BSD-2-Clause
 [Attribution-ShareAlike 4.0 International]: https://creativecommons.org/licenses/by-sa/4.0/
 [githubspec]: docs/index.adoc
@@ -172,6 +175,7 @@ The [FMI-LS-XCP] specifies an FMI extension for using the XCP protocol and A2L v
 [FMI-LS-BUS Implementers' Guide]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/
 [Getting started with CAN, CAN FD and CAN XL]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-can-getting-started-with-can
 [Getting started with FlexRay]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-flexray-getting-started-with-flexray
-[CAN, CAN FD and CAN XL Demo Overview]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-can-demos
-[FlexRay Demo Overview]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-flexray-demos
+[Getting started with Ethernet]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-ethernet-getting-started-with-ethernet
+[CAN, CAN FD and CAN XL Demo Overview]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-can-examples
+[FlexRay Demo Overview]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-flexray-examples
 [Beyond FMI - Towards New Applications with Layered Standards]: https://ecp.ep.liu.se/index.php/modelica/article/view/947
