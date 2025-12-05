@@ -3,7 +3,7 @@ This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Stan
 
 ===== Overview [[low-cut-lin-overview]]
 To simulate LIN buses, LIN-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
-Overall, the following groups of operations exists:
+Overall, the following groups of operations exist:
 
 * Transmit and Confirm: This group of operations is used to simulate a frame transmission.
 There are specific operations that represent the different communication options between a LIN Master and one or more LIN Slaves.
@@ -86,7 +86,7 @@ h|Length
 
 ===== Operations [[low-cut-lin-operations]]
 This section defines the allowed operations for LIN.
-The following tables provide an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
+The following tables provide an overview of all operations and specify the position and length of the corresponding arguments, as well as the respective flow direction.
 
 ====== Transmit [[low-cut-lin-transmit-operation]]
 The <<low-cut-lin-transmit-operation, `Transmit`>> operation is used to simulate the transmission of LIN frames.
@@ -112,8 +112,7 @@ LIN parity bits shall not be part of this ID.
 The valid value range for this argument is 0....63.
 | Checksum Type | 1 byte | Indicates the checksum type of the specified LIN frame (see <<#table-lin-checksum-types-values>>).
 | Data Length | 1 byte | Specifies the length of the Data argument in bytes.
-Regarding to the `Frame Type` specified, a different approach for `Data Length` argument value specification is required.
-See <<#table-lin-frame-types-values>> for details.
+Allowed values for the `Data Length` depend on the value of `Frame Type` and are specified in <<#table-lin-frame-types-values>>.
 | Data | n bytes | Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
 h|Behavior
 3+|The <<low-cut-lin-transmit-operation, `Transmit`>> operation shall be provided by Network FMUs to initiate the transmission of a LIN frame that contains the specified LIN Header or a LIN Response.
@@ -470,7 +469,7 @@ If a specified Network FMU is depending on <<low-cut-lin-confirm-operation, `Con
 <<#figure-lin-direct-communication>> illustrates this communication, whereby FMU 1 transmits a LIN Header to FMU 2 by using a <<low-cut-lin-transmit-operation, `Transmit`>> operation.
 Subsequently, FMU 1 self-confirms the transmission internally.
 After this, FMU 2 transmits a LIN Response back to FMU 1 via <<low-cut-lin-transmit-operation, `Transmit`>> operation.
-In this scenario FMU 2 does not requires internally a self-confirmation and leave this out.
+In this scenario FMU 2 does not require an internal self-confirmation and leaves this out.
 
 .Direct Confirmation of transmitted network data.
 [#figure-lin-direct-communication]
@@ -479,7 +478,8 @@ image::lin_direct_confirmation.svg[width=40%, align="center"]
 For a detailed simulation, the Bus Simulation has to support <<low-cut-lin-confirm-operation, `Confirm`>> operations.
 In this case, the <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> parameter of the Network FMUs can be set to `fmi3True` as Network FMUs can rely on receiving <<low-cut-lin-confirm-operation, `Confirm`>> operations for the specified Bus Terminal.
 
-The following <<#figure-lin-confirmation-with-bus-simulation-fmu>> illustrates the behavior, whereby FMU 1 transmits a LIN Header to FMU 2 via a Bus Simulation by using a <<low-cut-lin-transmit-operation, `Transmit`>> operation.
+The following <<#figure-lin-confirmation-with-bus-simulation-fmu>> illustrates a complete frame transmission using a <<low-cut-lin-transmit-operation, `Transmit`>> operation.
+This transmission is initiated by the LIN Master in FMU 1 which transmits a LIN Header to FMU 2 via a Bus Simulation using a <<low-cut-lin-transmit-operation, `Transmit`>> operation.
 After this the Bus Simulation confirms that transmission via <<low-cut-lin-confirmation-operation, `Confirm`>> operation.
 In the next step FMU 2 transmits a LIN Response to FMU 1 via a Bus Simulation by using a <<low-cut-lin-transmit-operation, `Transmit`>> operation.
 Additionally a <<low-cut-lin-confirmation-operation, `Confirm`>> operation is given to FMU 2 from the Bus Simulation.
