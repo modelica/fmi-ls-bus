@@ -6,7 +6,7 @@ This specification refers primary to the data link layer specification of FlexRa
 Furthermore, essential elements from previous FlexRay specifications are covered so that they can also be realized using this layered standard.
 
 To simulate FlexRay communication between Networked FMUs, FlexRay-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
-Overall, the following operations and groups of operations exists:
+Overall, the following operations and groups of operations exist:
 
 * Transmit, Cancel and Confirm: These operations are used to simulate a FlexRay frame transmission.
 * Bus- and Format Error: This group of operations is used for protocol format errors and to simulate bus failures.
