@@ -145,7 +145,7 @@ A Segment Terminal that comprises two Bus Terminals shall behave point-to-point,
 The Segment Terminal additionally defines the following properties, based on the ruleset of <<low-cut-grouping-of-bus-terminals>>:
 
 Attributes of a Ethernet Segment Terminal::
- * `terminalKind` must be `org.fmi-ls-bus.ethernet-segment-terminal`.
+* `terminalKind` must be `org.fmi-ls-bus.ethernet-segment-terminal`.
 
 ====== Ethernet Switch Terminal [[low-cut-ethernet-switch-terminal]]
 
@@ -153,7 +153,7 @@ Bus Terminals which are used only for routing Ethernet frames, may be grouped by
 The Ethernet Switch Terminal additionally defines the following properties, based on the ruleset of <<low-cut-grouping-of-bus-terminals>>:
 
 Attributes of a Switch Terminal::
- * `terminalKind` must be `org.fmi-ls-bus.ethernet-switch-terminal`.
+* `terminalKind` must be `org.fmi-ls-bus.ethernet-switch-terminal`.
 
 include::4_4_4_ethernet_operations.adoc[]
 

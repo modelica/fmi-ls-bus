@@ -79,15 +79,15 @@ The attribute `name` of the `<Terminal>` element must match the root name of its
 NOTE: e.g., `Powertrain`, if the file is `/extra/org.fmi-standard.fmi-ls-bus/Powertrain.dbc`.
 
 Attribute definitions::
- * `terminalKind` must be `org.fmi-ls-bus.network-terminal`.
- * `matchingRule` must be `bus`.
- * `name` is the network name, e.g., `Powertrain`, see <<high-cut-examples, examples>> and constraints above.
+* `terminalKind` must be `org.fmi-ls-bus.network-terminal`.
+* `matchingRule` must be `bus`.
+* `name` is the network name, e.g., `Powertrain`, see <<high-cut-examples, examples>> and constraints above.
 
 Element definitions::
- * All signal variables and Clocks related to the Physical Signal Abstraction in the `modelDescription.xml` must be covered by a `<Terminal>` element representing the network frame the signals belong to.
+* All signal variables and Clocks related to the Physical Signal Abstraction in the `modelDescription.xml` must be covered by a `<Terminal>` element representing the network frame the signals belong to.
 
 Annotation element::
- * If a <<high-cut-network-description-files,network description file>> is shipped with the specified FMU, there must be an `<Annotation>` element defining which node or nodes (as comma-separated list without spaces) of the <<high-cut-network-description-files>> are wrapped inside the FMU.
+* If a <<high-cut-network-description-files,network description file>> is shipped with the specified FMU, there must be an `<Annotation>` element defining which node or nodes (as comma-separated list without spaces) of the <<high-cut-network-description-files>> are wrapped inside the FMU.
 If the combination of nodes specified for this FMU turns a frame and its signals into both input and output because sending and receiving nodes are specified, only the sending (output) role will be defined in the FMU interface.
 Receiving such frames must then be handled internally to the FMU.
 If no <<high-cut-network-description-files,network description file>> is shipped with the specified FMU the `<Annotation>` shall not exist.
@@ -97,14 +97,14 @@ If no <<high-cut-network-description-files,network description file>> is shipped
 Each frame listed in the <<high-cut-network-description-files>> must be an element of its corresponding <<high-cut-bus-terminal>>.
 
 Attribute definitions::
- * `terminalKind` must be `org.fmi-ls-bus.frame-terminal`.
- * `matchingRule` must be `bus`.
- * `name` must match the frame name as defined in the <<high-cut-network-description-files>> in `/extra/org.fmi-standard.fmi-ls-bus`.
+* `terminalKind` must be `org.fmi-ls-bus.frame-terminal`.
+* `matchingRule` must be `bus`.
+* `name` must match the frame name as defined in the <<high-cut-network-description-files>> in `/extra/org.fmi-standard.fmi-ls-bus`.
 
 Element definitions::
- * There must be one <<high-cut-pdu-terminal>> element per PDU of this frame.
- * There must be one `<TerminalMemberVariable>` for the Clock this frame is connected to.
-   The `memberName` of this variable must be `TransmissionClock`.
+* There must be one <<high-cut-pdu-terminal>> element per PDU of this frame.
+* There must be one `<TerminalMemberVariable>` for the Clock this frame is connected to.
+The `memberName` of this variable must be `TransmissionClock`.
 
 The <<high-cut-terminal-member-variable-for-signals>> must have the same `causality` as all variables referenced in the <<high-cut-pdu-terminal,PDU terminals>> included here.
 
@@ -113,13 +113,13 @@ The <<high-cut-terminal-member-variable-for-signals>> must have the same `causal
 Each PDU listed in the <<high-cut-network-description-files>> must be an element of its corresponding <<high-cut-frame-terminal>>.
 
 Attribute definitions::
- * `terminalKind` must be `org.fmi-ls-bus.pdu-terminal`.
- * `matchingRule` must be `bus`.
- * `name` must match a PDU name of the <<high-cut-network-description-files>> in `/extra/org.fmi-standard.fmi-ls-bus`, if given.
-    For network types not natively referencing a "PDU", like CAN, a synthetic PDU with the same name as its frame is inserted.
+* `terminalKind` must be `org.fmi-ls-bus.pdu-terminal`.
+* `matchingRule` must be `bus`.
+* `name` must match a PDU name of the <<high-cut-network-description-files>> in `/extra/org.fmi-standard.fmi-ls-bus`, if given.
+For network types not natively referencing a "PDU", like CAN, a synthetic PDU with the same name as its frame is inserted.
 
 Element definitions::
- * There must be one `<TerminalMemberVariable>` per <<high-cut-terminal-member-variable-for-signals,signal>> of this PDU.
+* There must be one `<TerminalMemberVariable>` per <<high-cut-terminal-member-variable-for-signals,signal>> of this PDU.
 
 All <<high-cut-terminal-member-variable-for-signals,`TerminalMemberVariables`>> must have the same `causality` of either `input` or `output`.
 
@@ -128,13 +128,13 @@ All <<high-cut-terminal-member-variable-for-signals,`TerminalMemberVariables`>> 
 <<high-cut-pdu-terminal,PDU terminals>> list all the contained signals as `<TerminalMemberVariable>`.
 
 Attribute definitions::
- * `variableName` refers to the input or output variable name of the FMU.
-    These variables represent the Physical Signal Abstraction layer.
-    Unless there are other requirements, it is recommended to build the variable names as follows: `BusName.FrameName.PDUName.SignalName`, e.g., `Powertrain.tcuSensors.tcuSensors.vCar`.
-    This approach automatically provides unique names for all bus-related variables, and can also be used for Clocks, to allow automatic grouping by non-terminal-aware tools.
- * `memberName` is the `SignalName` as given in the <<high-cut-network-description-files>>, e.g., `vCar`, if given.
-    This is redundant information but simplifies signal name extraction.
- * `variableKind` is `signal`.
+* `variableName` refers to the input or output variable name of the FMU.
+These variables represent the Physical Signal Abstraction layer.
+Unless there are other requirements, it is recommended to build the variable names as follows: `BusName.FrameName.PDUName.SignalName`, e.g., `Powertrain.tcuSensors.tcuSensors.vCar`.
+This approach automatically provides unique names for all bus-related variables, and can also be used for Clocks, to allow automatic grouping by non-terminal-aware tools.
+* `memberName` is the `SignalName` as given in the <<high-cut-network-description-files>>, e.g., `vCar`, if given.
+This is redundant information but simplifies signal name extraction.
+* `variableKind` is `signal`.
 
 === Examples [[high-cut-examples]]
 
@@ -273,20 +273,20 @@ include::examples/X_network4FMI_terminalsAndIcons_highCut_autosar.xml[]
 Physical Signal Abstraction maps several network protocols onto co-simulation variables as transport layer simulating in many ways an ideal network.
 Such an ideal network differs from physical networks in the following ways (and potentially others):
 
- * Network frame arbitration: Frames are sent on the wire according to network-specific priority rules. +
-   Here all frames are transmitted at the same time without delay.
+* Network frame arbitration: Frames are sent on the wire according to network-specific priority rules. +
+Here all frames are transmitted at the same time without delay.
 
- * Network congestion/bandwidth: Too many network frames sent for the bandwidth of the network. +
-   Here the network has infinite capacity. +
-   If network properties are required, a bus simulation component must be added or included with the importer.
+* Network congestion/bandwidth: Too many network frames sent for the bandwidth of the network. +
+Here the network has infinite capacity. +
+If network properties are required, a bus simulation component must be added or included with the importer.
 
- * Protocol functions of higher levels: I.e. CAN request for retransmit is a specific protocol function. +
-   Here such specialties must be handled by the first layer inside the FMU.
+* Protocol functions of higher levels: I.e. CAN request for retransmit is a specific protocol function. +
+Here such specialties must be handled by the first layer inside the FMU.
 
- * Incoming buffer overflow: When an ECU receives more frames than its buffer can hold. +
-   Here the FMU will receive all frames, regardless of buffer size and would need to handle those limitations internally.
+* Incoming buffer overflow: When an ECU receives more frames than its buffer can hold. +
+Here the FMU will receive all frames, regardless of buffer size and would need to handle those limitations internally.
 
- * Network protocols allow frames to be sent from more than one node. +
-   Here this is also possible, with output variables for frames (and their signals) that are sent by more than one FMU.
-   This requires the importer to handle the case when multiple source FMUs are sending the same frame.
-   Importers must know how to handle this, just like they must know how to handle flow variables according to Kirchhoff's law.
+* Network protocols allow frames to be sent from more than one node. +
+Here this is also possible, with output variables for frames (and their signals) that are sent by more than one FMU.
+This requires the importer to handle the case when multiple source FMUs are sending the same frame.
+Importers must know how to handle this, just like they must know how to handle flow variables according to Kirchhoff's law.

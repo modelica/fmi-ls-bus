@@ -101,17 +101,17 @@ image::images/architecture_direct_connection.svg[width=500]
 The bus simulation can here be only idealized, i.e., the simulation of bus transmission times or arbitration, for example, is not supported.
 Such an ideal network differs from physical networks in the following ways (and potentially others):
 
- * Network congestion/bandwidth: Too many network frames sent for the bandwidth of the network. +
-   Here the network has infinite capacity.footnote:high_cut_relevant[Relevant for Physical Signal Abstraction (High-Cut)]footnote:low_cut_relevant[Relevant for Network Abstraction (Low-Cut)]
+* Network congestion/bandwidth: Too many network frames sent for the bandwidth of the network. +
+Here the network has infinite capacity.footnote:high_cut_relevant[Relevant for Physical Signal Abstraction (High-Cut)]footnote:low_cut_relevant[Relevant for Network Abstraction (Low-Cut)]
 
- * Network frame arbitration: Frames are sent on the wire according to network-specific priority rules. +
-   Here all frames are transmitted at the same time without delay.footnote:low_cut_relevant[]
+* Network frame arbitration: Frames are sent on the wire according to network-specific priority rules. +
+Here all frames are transmitted at the same time without delay.footnote:low_cut_relevant[]
 
- * Protocol functions of higher levels: _E.g. CAN request for retransmit is a specific protocol function_. +
-   Here such specialties must be handled by a higher layer inside the FMU.footnote:low_cut_relevant[]
+* Protocol functions of higher levels: _E.g. CAN request for retransmit is a specific protocol function_. +
+Here such specialties must be handled by a higher layer inside the FMU.footnote:low_cut_relevant[]
 
- * Incoming buffer overflow: When an ECU receives more frames than its buffer can hold. +
-   Here the FMU will receive all frames, regardless of buffer size and would need to handle those limitations internally.footnote:low_cut_relevant[]
+* Incoming buffer overflow: When an ECU receives more frames than its buffer can hold. +
+Here the FMU will receive all frames, regardless of buffer size and would need to handle those limitations internally.footnote:low_cut_relevant[]
 
 Additionally, for Network Abstraction, direct bus communication is limited to exactly two FMUs.
 The simulation of Low-Cut bus communication between more than two FMUs is not possible in such a naive way.
