@@ -42,8 +42,11 @@ The overview table represents the binary format of operations and is structured 
 
 * OP Code: The operation code defines the unique value of the operation.
 It consists of four bytes in length.
-* Length: A four byte total data length (OP Code + Length + Arguments) field following the OP Code.[[TotalLengthField]]
+
+[[TotalLengthField]]
+* Length: A four byte total data length (OP Code + Length + Arguments) field following the OP Code.
 For operation with variable size arguments, the total length can vary in value at runtime.
+
 * Arguments: The arguments of the respective operation.
 The number of arguments is defined for each operation within this standard.
 For arguments with a variable length, an argument pair composed of length and data is used.
@@ -69,8 +72,6 @@ h|Length
 |1 byte Arg1
 |1 byte Arg2_Length
 |<Arg2_Length> byte Arg2_Data
-|Yes
-
 |====
 
 Additionally, all operations are described separately in detail in the following structure:

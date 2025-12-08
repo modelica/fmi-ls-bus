@@ -304,7 +304,7 @@ Note that Wake Up/Sleep is not available for all Ethernet variants, but only for
 However, the realization of local virtual ECU wake-up and sleeping processes, i.e., the transition to the sleep state as well as the virtual ECU local wake-up process, is considered internal to the FMU implementation.
 Therefore, only the bus-related aspects are defined in this document.
 
-The Ethernet-specific wake-up pulse can be simulated by using the <<low-cut-ethernet-wake-up-operation, `Wakeup`>> operation, initiated by one Network FMU.
+The Ethernet-specific wake-up pulse can be simulated by using the <<low-cut-ethernet-wakeup-operation, `Wakeup`>> operation, initiated by one Network FMU.
 The Bus Simulation shall distribute this operation to all participants on the bus, excluding the wake-up initiator.
 
 .Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.
