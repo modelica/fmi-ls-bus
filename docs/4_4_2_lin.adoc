@@ -102,7 +102,6 @@ h|Length
 |:= 5 +
 (4 bytes)
 8+|---
-
 |====
 
 ===== Operations [[low-cut-lin-operations]]
@@ -118,73 +117,145 @@ There are three types of <<low-cut-lin-transmit-operation, `Transmit`>> operatio
 [#table-lin-header-operation]
 [cols="5,4,3,20"]
 |====
-h|Name 3+| Header
-h|Description 3+| Represents an operation for the transmission of a LIN header from a LIN Master to LIN slaves.
-h|OP Code [hex] 3+| 0x10
-.5+h|Content h|Argument h|Length h|Description
-| OP Code | 1 byte | Contains the OP Code of the specified operation.
+h|Name
+3+| Header
+
+h|Description 
+3+| Represents an operation for the transmission of a LIN header from a LIN Master to LIN slaves.
+
+h|OP Code [hex] 
+3+| 0x10
+
+.5+h|Content 
+h|Argument 
+h|Length 
+h|Description
+
+| OP Code 
+| 1 byte 
+| Contains the OP Code of the specified operation.
 For this operation the OP Code always has the value 0x10.
-| Length | 4 bytes | Defines the cumulative length of all arguments in bytes.
+
+| Length 
+| 4 bytes 
+| Defines the cumulative length of all arguments in bytes.
 For this operation always applies: `Length = 7`.
-| PID | 1 byte | The specified protected ID (PID) of the LIN message.
+
+| PID 
+| 1 byte 
+| The specified protected ID (PID) of the LIN message.
 The maximum length of a PID is 8-bit.
-| Response Data Length | 1 byte | The size of the response in bytes.
+
+| Response Data Length 
+| 1 byte 
+| The size of the response in bytes.
+
 h|Behavior
 3+|The Header operation shall be provided by Network FMUs to initiate the transmission of a LIN header.
 In case of direct connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-lin-bus-error-operation, `Bus Error`>> or <<low-cut-lin-format-error-operation, `Format Error`>> operation.
-
 |====
 
 .Detailed description of the LIN Response operation.
 [#table-lin-response-operation]
 [cols="5,4,3,20"]
 |====
-h|Name 3+| Response
-h|Description 3+| Represents an operation for the transmission of a LIN response from a LIN Slave to the LIN Master.
-h|OP Code [hex] 3+| 0x11
-.7+h|Content h|Argument h|Length h|Description
-| OP Code | 1 byte | Contains the OP Code of the specified operation.
+h|Name 
+3+| Response
+
+h|Description 
+3+| Represents an operation for the transmission of a LIN response from a LIN Slave to the LIN Master.
+
+h|OP Code [hex] 
+3+| 0x11
+
+.7+h|Content 
+h|Argument 
+h|Length 
+h|Description
+
+| OP Code 
+| 1 byte 
+| Contains the OP Code of the specified operation.
 For this operation the OP Code always has the value 0x11.
-| Length | 4 bytes | Defines the cumulative length of all arguments in bytes.
+
+| Length 
+| 4 bytes 
+| Defines the cumulative length of all arguments in bytes.
 For this operation always applies: `Length = 8 + Data Length`.
-| PID | 1 byte | The specified protected ID (PID) of the LIN message.
+
+| PID 
+| 1 byte 
+| The specified protected ID (PID) of the LIN message.
 The maximum length of a PID is 8-bit.
-| Response Error | 1 byte | Represents the Response Error field of a LIN frame.
+
+| Response Error 
+| 1 byte 
+| Represents the Response Error field of a LIN frame.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
-| Data Length | 1 byte | Specifies the length of the Data argument in bytes.
-| Data | n bytes | Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
+
+| Data Length 
+| 1 byte 
+| Specifies the length of the Data argument in bytes.
+
+| Data 
+| n bytes 
+| Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
+
 h|Behavior
 3+|The Response operation shall be provided by Network FMUs to initiate a response to a given LIN header.
 In case of direct connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might responsd with a <<low-cut-lin-bus-error-operation, `Bus Error`>> or <<low-cut-lin-format-error-operation, `Format Error`>> operation.
-
 |====
 
 .Detailed description of the LIN Header Response operation.
 [#table-lin-header-response-operation]
 [cols="5,4,3,20"]
 |====
-h|Name 3+| Header Response
-h|Description 3+| Represents an operation for the transmission of a LIN header and response from a LIN Master to LIN slaves.
-h|OP Code [hex] 3+| 0x12
-.6+h|Content h|Argument h|Length h|Description
-| OP Code | 1 byte | Contains the OP Code of the specified operation.
+h|Name 
+3+| Header Response
+
+h|Description 
+3+| Represents an operation for the transmission of a LIN header and response from a LIN Master to LIN slaves.
+
+h|OP Code [hex] 
+3+| 0x12
+
+.6+h|Content 
+h|Argument 
+h|Length 
+h|Description
+
+| OP Code 
+| 1 byte 
+| Contains the OP Code of the specified operation.
 For this operation the OP Code always has the value 0x12.
-| Length | 4 bytes | Defines the cumulative length of all arguments in bytes.
+
+| Length 
+| 4 bytes 
+| Defines the cumulative length of all arguments in bytes.
 For this operation always applies: `Length = 7 + Data Length`.
-| PID | 1 byte | The specified protected ID (PID) of the LIN message.
+
+| PID 
+| 1 byte 
+| The specified protected ID (PID) of the LIN message.
 The maximum length of a PID is 8-bit.
-| Data Length | 1 byte | Specifies the length of the Data argument in bytes.
-| Data | n bytes | Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
+
+| Data Length 
+| 1 byte 
+| Specifies the length of the Data argument in bytes.
+
+| Data 
+| n bytes 
+| Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
+
 h|Behavior
 3+|The Header Response operation shall be provided by Network FMUs to initiate the transmission of a LIN frame that contains the specified header and response.
 In case of direct connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-lin-bus-error-operation, `Bus Error`>> or <<low-cut-lin-format-error-operation, `Format Error`>> operation.
-
 |====
 
 ====== Format Error [[low-cut-lin-format-error-operation]]
@@ -201,11 +272,18 @@ The <<low-cut-lin-bus-error-operation, `Bus Error`>> represents special bus comm
 |====
 h|Name
 3+|Bus Error
+
 h|Description
 3+|Represents an operation for bus communication error handling.
+
 h|OP Code [hex]
 3+|0x20
-.5+h|Content h|Argument h|Length h|Description
+
+.5+h|Content 
+h|Argument 
+h|Length 
+h|Description
+
 |OP Code
 |1 byte
 |Contains the OP Code of the specified operation.
@@ -228,7 +306,6 @@ h|Behavior
 3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
 An Error operation is always a reaction from the Bus Simulation to a <<low-cut-lin-transmit-operation, `Transmit`>> operation that was produced by a Network FMU.
 Out of this Error operations are available in the <<common-concepts-composition-with-dedicated-bus-simulation-fmu, Composition with dedicated Bus Simulation FMU>> and <<common-concepts-importer-with-integrated-bus-simulation, Importer with Integrated Bus Simulation>> communication use case only.
-
 |====
 
 The following codes are allowed to use as Error Code:
@@ -237,8 +314,9 @@ The following codes are allowed to use as Error Code:
 [#table-lin-bus-error-codes]
 [cols="1,3,20"]
 |====
-
-h|State h|Error Code h|Description
+h|State 
+h|Error Code 
+h|Description
 
 |BIT_ERROR
 |0x01
@@ -272,7 +350,6 @@ The given error is always related to a specific <<low-cut-lin-transmit-operation
 |0x06
 |Represents a Physical Bus Error.
 The given error is always related to a specific <<low-cut-lin-transmit-operation, `Transmit`>> operation.
-
 |====
 
 ====== Configuration [[low-cut-lin-configuration-operation]]
@@ -286,13 +363,19 @@ The following information are included within this operation:
 |====
 h|Name
 5+|Configuration
+
 h|Description
 5+|Represents an operation for the configuration of a Bus Simulation.
 In detail the configuration of a LIN baud rate is possible.
 Also the configuration of further options, like LIN Master or LIN Slave representation, is supported by this operation.
 h|OP Code [hex]
 5+|0x30
-.7+h|Content 3+h|Argument h|Length h|Description
+
+.7+h|Content 
+3+h|Argument 
+h|Length 
+h|Description
+
 3+|OP Code
 |1 byte
 |Contains the OP Code (0x30) of the operation.
@@ -338,11 +421,17 @@ The following Kind values are allowed to be used:
 [#table-lin-configuration-kinds]
 [cols="1,1,5"]
 |====
+h|Kind 
+h|Value 
+h|Description
 
-h|Kind h|Value h|Description
-|LIN_BAUDRATE|0x01|This code indicates that a LIN baud rate should be configured for the Bus Simulation.
-|LIN_NODE_DEFINITION|0x02|This code configures the specified node type (Master or Slave) within a Bus Simulation.
+|LIN_BAUDRATE
+|0x01
+|This code indicates that a LIN baud rate should be configured for the Bus Simulation.
 
+|LIN_NODE_DEFINITION
+|0x02
+|This code configures the specified node type (Master or Slave) within a Bus Simulation.
 |====
 
 The following values for the Arbitration Lost Behavior option are defined:
@@ -351,11 +440,17 @@ The following values for the Arbitration Lost Behavior option are defined:
 [#table-lin-configuration-node-definition-kinds]
 [cols="2,1,5"]
 |====
+h|Node Definition 
+h|Value 
+h|Description
 
-h|Node Definition h|Value h|Description
-|LIN_MASTER|0x01|Configuration of a LIN Master node within a specified Bus Simulation.
-|LIN_SLAVE|0x02|Configuration of a LIN Slave node within a specified Bus Simulation.
+|LIN_MASTER
+|0x01
+|Configuration of a LIN Master node within a specified Bus Simulation.
 
+|LIN_SLAVE
+|0x02
+|Configuration of a LIN Slave node within a specified Bus Simulation.
 |====
 
 ====== Status [[low-cut-lin-status-operation]]
@@ -369,11 +464,18 @@ The following information are included within this operation:
 |====
 h|Name
 3+|Status
+
 h|Description
 3+|Represents an operation for status handling.
+
 h|OP Code [hex]
 3+|0x40
-.4+h|Content h|Argument h|Length h|Description
+
+.4+h|Content 
+h|Argument 
+h|Length 
+h|Description
+
 |OP Code
 |1 byte
 |Contains the OP Code of the specified operation.
@@ -393,7 +495,6 @@ h|Behavior
 The operation shall not be routed to other Network FMUs by the Bus Simulation.
 A Network FMU shall ignore this operation on the consumer side.
 A Network FMU shall report its status to the Bus Simulation after it changes.
-
 |====
 
 The following status values are allowed to use:
@@ -402,12 +503,25 @@ The following status values are allowed to use:
 [#table-lin-status-values]
 [cols="1,1,5"]
 |====
+h|Kind 
+h|Value 
+h|Description
 
-h|Kind h|Value h|Description
-|POWER_OFF|0x01|Indicates that a simulated LIN controller within the Network FMU has currently the LIN node state: Power Off.
-|INITIALIZATION|0x02|Indicates that a simulated LIN controller within the Network FMU has currently the LIN node state: Initialization.
-|OPERATION|0x03|Indicates that a simulated LIN controller within the Network FMU has currently the LIN node state: Operation.
-|SLEEP|0x04|Indicates that a simulated LIN controller within the Network FMU has currently the LIN node state: Sleep.
+|POWER_OFF
+|0x01
+|Indicates that a simulated LIN controller within the Network FMU has currently the LIN node state: Power Off.
+
+|INITIALIZATION
+|0x02
+|Indicates that a simulated LIN controller within the Network FMU has currently the LIN node state: Initialization.
+
+|OPERATION
+|0x03
+|Indicates that a simulated LIN controller within the Network FMU has currently the LIN node state: Operation.
+
+|SLEEP
+|0x04
+|Indicates that a simulated LIN controller within the Network FMU has currently the LIN node state: Sleep.
 |====
 
 ====== Wake Up [[low-cut-lin-wake-up-operation]]
@@ -420,11 +534,18 @@ By using the <<low-cut-lin-wake-up-operation, `Wakeup`>> operation the underlyin
 |====
 h|Name
 3+|Wakeup
+
 h|Description
 3+|Represents an operation for triggering a bus-specific wake-up.
+
 h|OP Code [hex]
 3+|0x41
-.3+h|Content h|Argument h|Length h|Description
+
+.3+h|Content 
+h|Argument 
+h|Length 
+h|Description
+
 |OP Code
 |1 byte
 |Contains the OP Code of the specified operation.
@@ -438,7 +559,6 @@ For this operation always applies: `Length = 5`.
 h|Behavior
 3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the wake-up initiator, of the bus by using the Bus Simulation.
 If a Network FMU does not support wake-up this operation can be ignored on consumer side.
-
 |====
 
 ===== Transmission and Reception [[low-cut-lin-transmission-and-reception]]

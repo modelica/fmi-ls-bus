@@ -81,7 +81,7 @@ Additionally, all operations are described separately in detail in the following
 
 .Operation example within the Layered Standard Bus Protocol.
 [#table-operation-definition-example]
-[cols="5,4,3,20"]
+[cols="5a,4a,3a,20a"]
 |====
 h|Name
 3+|Name of the operation _(e.g., OperationName)_
@@ -113,8 +113,8 @@ The following applies for this operation: `Length = 10 + <Arg2_Length>`.
 
 h|Behavior
 3+|Describes the behavior of a Network FMU and the Bus Simulation in the context of this operation.
-_e.g., The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation._
 
+NOTE: E.g., the specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
 |====
 
 Remarks:
@@ -177,7 +177,6 @@ The following applies for this operation: `Length = 10 + Length of Data argument
 
 h|Behavior
 3+|The specified operation shall be produced and consumed by Network FMUs and the Bus Simulation.
-
 |====
 
 ====  Provided C Implementation [[low-cut-provided-c-implementation]]
@@ -209,7 +208,6 @@ The following values for the boolean basic type are defined:
 h|Boolean h|Value h|Description
 |FALSE|0x00|Describes the boolean value: False.
 |TRUE|0x01|Describes the boolean value: True.
-
 |====
 
 === Variables [[low-cut-variables, Variables]]
@@ -315,7 +313,6 @@ The following table lists the MIME types to use for the Tx/Rx data variables wit
 
 |application/org.fmi-standard.fmi-ls-bus.ethernet; version="1.0.0-alpha.2"
 |Binary variables simulating an Ethernet network
-
 |====
 
 The version of a bus type is defined in the `version` parameter of the MIME type.

@@ -11,10 +11,19 @@ Represents the transmission of an Ethernet frame or MAC Merge Packet (mPacket).
 [#table-fmi3-ls-bus-ethernet-transmit-operation]
 [cols="5,4,3,20"]
 |====
-h|Name 3+| Transmit
-h|Description 3+| Indicates the transmission of an Ethernet frame or mPacket.
-h|OP Code [hex] 3+| 0x10
-.11+h|Content h|Argument h|Length h|Description
+h|Name 
+3+| Transmit
+
+h|Description 
+3+| Indicates the transmission of an Ethernet frame or mPacket.
+
+h|OP Code [hex] 
+3+| 0x10
+
+.11+h|Content 
+h|Argument 
+h|Length 
+h|Description
 
 | OP Code
 | 4 bytes
@@ -53,8 +62,8 @@ Only applicable if this is a full Ethernet frame or the first fragment of an Eth
 
 | Type or Length
 | 2 bytes
-| Indicates the type of Ethernet frame (Ethernet II), the TPID (802.1Q) or frame length (802.3).
-_Note: Regarding to <<low-cut-layered-standard-bus-protocol>>, the argument value shall be also stored in `little-endian` byte order._
+a| Indicates the type of Ethernet frame (Ethernet II), the TPID (802.1Q) or frame length (802.3).
+NOTE: Note: Regarding to <<low-cut-layered-standard-bus-protocol>>, the argument value shall be also stored in `little-endian` byte order.
 
 | Data Length
 | 4 bytes
@@ -70,7 +79,6 @@ h|Behavior
 In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-ethernet-confirm-operation, `Confirm`>>, <<low-cut-ethernet-bus-error-operation, `Bus Error`>> or <<low-cut-ethernet-format-error-operation, `Format Error`>> operation.
-
 |====
 
 ====== Confirm [[low-cut-ethernet-confirm-operation]]
@@ -81,10 +89,19 @@ The <<low-cut-ethernet-confirm-operation, `Confirm`>> operation is used to indic
 [#table-fmi3-ls-bus-ethernet-confirm-operation]
 [cols="5,4,3,20"]
 |====
-h|Name 3+| Confirm
-h|Description 3+| Indicates the successful transmission of an Ethernet frame.
-h|OP Code [hex] 3+| 0x20
-.3+h|Content h|Argument h|Length h|Description
+h|Name 
+3+| Confirm
+
+h|Description 
+3+| Indicates the successful transmission of an Ethernet frame.
+
+h|OP Code [hex] 
+3+| 0x20
+
+.3+h|Content 
+h|Argument 
+h|Length 
+h|Description
 
 | OP Code
 | 4 bytes
@@ -98,7 +115,6 @@ The following applies for this operation: `Length = 8`.
 h|Behavior
 3+|This operation shall be produced by the Bus Simulation and consumed by Network FMUs. +
 Only Network FMUs with the corresponding optionally exposed <<low-cut-ethernet-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for this operation.
-
 |====
 
 ====== Format Error [[low-cut-ethernet-format-error-operation]]
@@ -114,10 +130,19 @@ Bus errors are delivered to every participant in the network.
 [#table-fmi3-ls-bus-ethernet-bus-error-operation]
 [cols="5,4,3,20"]
 |====
-h|Name 3+| Bus Error
-h|Description 3+| Indicates an error during the transmission of an Ethernet frame.
-h|OP Code [hex] 3+| 0x30
-.5+h|Content h|Argument h|Length h|Description
+h|Name 
+3+| Bus Error
+
+h|Description 
+3+| Indicates an error during the transmission of an Ethernet frame.
+
+h|OP Code [hex] 
+3+| 0x30
+
+.5+h|Content 
+h|Argument 
+h|Length 
+h|Description
 
 | OP Code
 | 4 bytes
@@ -144,7 +169,6 @@ Based on consumed <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operatio
 For a Network FMU that initiated the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation, the argument `Is Sender` shall be set to `TRUE` in the corresponding <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation.
 The arguments `Is Sender = TRUE` must only be set once per simulated error. +
 Only Network FMUs with the corresponding optionally exposed <<low-cut-ethernet-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for this operation and respond accordingly.
-
 |====
 
 The following values for `Error Code` argument are specified:
@@ -153,12 +177,21 @@ The following values for `Error Code` argument are specified:
 [#table-fmi3-ls-bus-ethernet-bus-error-code-values]
 [cols="2,1,5"]
 |====
+h|Error Code 
+h|Value 
+h|Description
 
-h|Error Code h|Value h|Description
-|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-unknown]]UNKNOWN|0x00|Unknown error.
-|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy]]MEDIUM_BUSY|0x01|The medium is currently busy.
-|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-collision]]COLLISION|0x02|A frame collided during transmission.
+|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-unknown]]UNKNOWN
+|0x00
+|Unknown error.
 
+|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy]]MEDIUM_BUSY
+|0x01
+|The medium is currently busy.
+
+|[[table-fmi3-ls-bus-ethernet-bus-error-code-values-collision]]COLLISION
+|0x02
+|A frame collided during transmission.
 |====
 
 ====== Configuration [[low-cut-ethernet-configuration-operation]]
@@ -169,10 +202,19 @@ Represents the transmission of a continuation mPacket.
 [#table-fmi3-ls-bus-ethernet-configuration-operation]
 [cols="6,1,5,4,3,20"]
 |====
-h|Name 5+| Configuration
-h|Description 5+| Provides information to configure the Ethernet bus.
-h|OP Code [hex] 5+| 0x40
-.8+h|Content 3+h|Argument h|Length h|Description
+h|Name 
+5+| Configuration
+
+h|Description 
+5+| Provides information to configure the Ethernet bus.
+
+h|OP Code [hex] 
+5+| 0x40
+
+.8+h|Content 
+3+h|Argument 
+h|Length 
+h|Description
 
 3+| OP Code
 | 4 bytes
@@ -214,7 +256,6 @@ The operation shall not be routed to other Network FMUs by the Bus Simulation.
 A Network FMU shall ignore this operation on the consumer side.
 <<low-cut-ethernet-configuration-operation, `Configuration`>> operations can be produced multiple times during the runtime of a Network FMU.
 If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.
-
 |====
 
 The following configuration parameters are defined:
@@ -223,10 +264,13 @@ The following configuration parameters are defined:
 [#table-fmi3-ls-bus-ethernet-config-parameter-type-values]
 [cols="2,1,5"]
 |====
+h|Parameter 
+h|Value 
+h|Description
 
-h|Parameter h|Value h|Description
-|[[table-fmi3-ls-bus-ethernet-config-parameter-type-values-supported-phy-types]]SUPPORTED_PHY_TYPES|0x00|Indicates the supported Ethernet PHYs of this node.
-
+|[[table-fmi3-ls-bus-ethernet-config-parameter-type-values-supported-phy-types]]SUPPORTED_PHY_TYPES
+|0x00
+|Indicates the supported Ethernet PHYs of this node.
 |====
 
 The following values for `MDI Mode` argument are specified:
@@ -235,13 +279,25 @@ The following values for `MDI Mode` argument are specified:
 [#table-fmi3-ls-bus-ethernet-mdi-mode-values]
 [cols="2,1,5"]
 |====
+h|MDI Mode 
+h|Value 
+h|Description
 
-h|MDI Mode h|Value h|Description
-|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-none]]NONE|0x00|Not applicable
-|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-mdi]]MDI|0x01|The MDI is wired in normal configuration.
-|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-mdi-x]]MDI_X|0x02|The MDI is wired in crossover configuration.
-|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-auto-mdi-x]]AUTO_MDI_X|0x03|The node supports auto MDI/MDI-X.
+|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-none]]NONE
+|0x00
+|Not applicable
 
+|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-mdi]]MDI
+|0x01
+|The MDI is wired in normal configuration.
+
+|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-mdi-x]]MDI_X
+|0x02
+|The MDI is wired in crossover configuration.
+
+|[[table-fmi3-ls-bus-ethernet-mdi-mode-values-auto-mdi-x]]AUTO_MDI_X
+|0x03
+|The node supports auto MDI/MDI-X.
 |====
 
 ====== Wake Up [[low-cut-ethernet-wakeup-operation]]
@@ -252,10 +308,19 @@ Indicates wake up pulse according to <<OpenAlliance-TC10-100BASE-T1, Open Allian
 [#table-fmi3-ls-bus-ethernet-wakeup-operation]
 [cols="5,4,3,20"]
 |====
-h|Name 3+| Wakeup
-h|Description 3+| Indicates a wakeup.
-h|OP Code [hex] 3+| 0x41
-.3+h|Content h|Argument h|Length h|Description
+h|Name 
+3+| Wakeup
+
+h|Description 
+3+| Indicates a wakeup.
+
+h|OP Code [hex] 
+3+| 0x41
+
+.3+h|Content 
+h|Argument 
+h|Length 
+h|Description
 
 | OP Code
 | 4 bytes
@@ -269,5 +334,4 @@ The following applies for this operation: `Length = 8`.
 h|Behavior
 3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the wake-up initiator, of the bus using the Bus Simulation.
 If a Network FMU does not support wake up, this operation can be ignored on the consumer side.
-
 |====

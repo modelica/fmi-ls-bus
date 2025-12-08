@@ -94,7 +94,6 @@ h|Length
 |:= 8 +
 (4 bytes)
 9+|---
-
 |====
 
 ===== Ethernet Topologies [[low-cut-ethernet-ethernet-topologies]]
