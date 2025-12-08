@@ -1,8 +1,10 @@
 ===== Operations [[low-cut-ethernet-operations]]
+
 This section defines the specified operations for Ethernet.
 The following tables provide an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
 
 ====== Transmit [[low-cut-ethernet-transmit-operation]]
+
 Represents the transmission of an Ethernet frame or MAC Merge Packet (mPacket).
 
 .Detailed description of the Transmit operation.
@@ -72,6 +74,7 @@ Depending on the simulation details, the Bus Simulation might respond with a <<l
 |====
 
 ====== Confirm [[low-cut-ethernet-confirm-operation]]
+
 The <<low-cut-ethernet-confirm-operation, `Confirm`>> operation is used to indicate the successful transmission of an Ethernet frame by a Network FMU.
 
 .Detailed description of the Confirm operation.
@@ -99,9 +102,11 @@ Only Network FMUs with the corresponding optionally exposed <<low-cut-ethernet-b
 |====
 
 ====== Format Error [[low-cut-ethernet-format-error-operation]]
+
 See <<low-cut-format-error-operation, `Format Error`>> for definition.
 
 ====== Bus Error [[low-cut-ethernet-bus-error-operation]]
+
 The <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation is used to indicate a bus communication error.
 Bus errors are delivered to every participant in the network.
 
@@ -157,6 +162,7 @@ h|Error Code h|Value h|Description
 |====
 
 ====== Configuration [[low-cut-ethernet-configuration-operation]]
+
 Represents the transmission of a continuation mPacket.
 
 .Detailed description of the Configuration operation.
@@ -239,6 +245,7 @@ h|MDI Mode h|Value h|Description
 |====
 
 ====== Wake Up [[low-cut-ethernet-wakeup-operation]]
+
 Indicates wake up pulse according to <<OpenAlliance-TC10-100BASE-T1, Open Alliance TC10 sleep/wake-up>>.
 
 .Detailed description of the Wakeup operation.
