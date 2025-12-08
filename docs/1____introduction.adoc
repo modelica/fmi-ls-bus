@@ -82,24 +82,24 @@ This layered standard defines requires the use of a layered standard manifest fi
 |Description
 
 |`fmi-ls-name`
-| `\http://fmi-standard.org/fmi-ls-manifest`
-| `org.fmi-standard.fmi-ls-bus`
-| Name of the layered standard in reverse domain name notation.
+|`\http://fmi-standard.org/fmi-ls-manifest`
+|`org.fmi-standard.fmi-ls-bus`
+|Name of the layered standard in reverse domain name notation.
 
 |`fmi-ls-version`
-| `\http://fmi-standard.org/fmi-ls-manifest`
-| `1.1.0-beta.2`
-| Version of the layered standard. This layered standard uses semantic versioning, as defined in <<PW13>>.
+|`\http://fmi-standard.org/fmi-ls-manifest`
+|`1.1.0-beta.2`
+|Version of the layered standard. This layered standard uses semantic versioning, as defined in <<PW13>>.
 
 |`fmi-ls-description`
-| `\http://fmi-standard.org/fmi-ls-manifest`
-| `Layered Standard for the simulation of bus communication on a Physical Signal Abstraction or Network Abstraction based level.`
-| String with a brief description of the layered standard that is suitable for display to users.
+|`\http://fmi-standard.org/fmi-ls-manifest`
+|`Layered Standard for the simulation of bus communication on a Physical Signal Abstraction or Network Abstraction based level.`
+|String with a brief description of the layered standard that is suitable for display to users.
 
 |`isBusSimulationFMU`
 |
-| `true` or `false`
-| Defines whether the respective FMU is a Bus Simulation FMU or not.
+|`true` or `false`
+|Defines whether the respective FMU is a Bus Simulation FMU or not.
 The importer may use this information at the time of importing the FMU, depending on which <<common-concepts-system-compositions, System Compositions>> the FMUs are integrated into.
 If `true`, this FMU represents a Bus Simulation FMU.
 Default: `false`.

@@ -12,67 +12,67 @@ Represents the transmission of an Ethernet frame or MAC Merge Packet (mPacket).
 [cols="5,4,3,20"]
 |====
 h|Name 
-3+| Transmit
+3+|Transmit
 
 h|Description 
-3+| Indicates the transmission of an Ethernet frame or mPacket.
+3+|Indicates the transmission of an Ethernet frame or mPacket.
 
 h|OP Code [hex] 
-3+| 0x10
+3+|0x10
 
 .11+h|Content 
 h|Argument 
 h|Length 
 h|Description
 
-| OP Code
-| 4 bytes
-| Type of the operation.
+|OP Code
+|4 bytes
+|Type of the operation.
 
-| Length
-| 4 bytes
-| Defines the cumulative length of all arguments in bytes.
+|Length
+|4 bytes
+|Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 29 + Data Length`.
 
-| Start Delimiter
-| 1 byte
-| The start frame (SFD) or start mPacket (SMD) delimiter.
+|Start Delimiter
+|1 byte
+|The start frame (SFD) or start mPacket (SMD) delimiter.
 Always set to 0xD5 for ordinary Ethernet frames when not using preemption/fragmentation.
 
-| Fragment Counter
-| 1 byte
-| Fragment counter of the continuation mPacket.
+|Fragment Counter
+|1 byte
+|Fragment counter of the continuation mPacket.
 Must be set to 0, if this is not a continuation mPacket.
 
-| Last Fragment
-| 1 byte
-| Indicates whether this is the last fragment of a fragmented Ethernet frame.
+|Last Fragment
+|1 byte
+|Indicates whether this is the last fragment of a fragmented Ethernet frame.
 Must be set to `TRUE` if this is a full Ethernet frame.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
-| Destination Address
-| 6 bytes
-| The destination address of the frame.
+|Destination Address
+|6 bytes
+|The destination address of the frame.
 Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.
 
-| Source Address
-| 6 bytes
-| The destination address of the frame.
+|Source Address
+|6 bytes
+|The destination address of the frame.
 Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.
 
-| Type or Length
-| 2 bytes
-a| Indicates the type of Ethernet frame (Ethernet II), the TPID (802.1Q) or frame length (802.3).
+|Type or Length
+|2 bytes
+a|Indicates the type of Ethernet frame (Ethernet II), the TPID (802.1Q) or frame length (802.3).
 NOTE: Note: Regarding to <<low-cut-layered-standard-bus-protocol>>, the argument value shall be also stored in `little-endian` byte order.
 
-| Data Length
-| 4 bytes
-| The length of the data of this Ethernet frame or mPacket.
+|Data Length
+|4 bytes
+|The length of the data of this Ethernet frame or mPacket.
 Note that this does not correspond to a field in the Ethernet frame.
 
-| Data
-| n bytes
-| The payload data of the Ethernet frame or mPacket.
+|Data
+|n bytes
+|The payload data of the Ethernet frame or mPacket.
 
 h|Behavior
 3+|The <<low-cut-ethernet-transmit-operation, `Transmit`>> operation shall be provided by Network FMUs to initiate the transmission of an Ethernet frame.
@@ -90,26 +90,26 @@ The <<low-cut-ethernet-confirm-operation, `Confirm`>> operation is used to indic
 [cols="5,4,3,20"]
 |====
 h|Name 
-3+| Confirm
+3+|Confirm
 
 h|Description 
-3+| Indicates the successful transmission of an Ethernet frame.
+3+|Indicates the successful transmission of an Ethernet frame.
 
 h|OP Code [hex] 
-3+| 0x20
+3+|0x20
 
 .3+h|Content 
 h|Argument 
 h|Length 
 h|Description
 
-| OP Code
-| 4 bytes
-| Type of the operation.
+|OP Code
+|4 bytes
+|Type of the operation.
 
-| Length
-| 4 bytes
-| Defines the cumulative length of all arguments in bytes.
+|Length
+|4 bytes
+|Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 8`.
 
 h|Behavior
@@ -131,36 +131,36 @@ Bus errors are delivered to every participant in the network.
 [cols="5,4,3,20"]
 |====
 h|Name 
-3+| Bus Error
+3+|Bus Error
 
 h|Description 
-3+| Indicates an error during the transmission of an Ethernet frame.
+3+|Indicates an error during the transmission of an Ethernet frame.
 
 h|OP Code [hex] 
-3+| 0x30
+3+|0x30
 
 .5+h|Content 
 h|Argument 
 h|Length 
 h|Description
 
-| OP Code
-| 4 bytes
-| Type of the operation.
+|OP Code
+|4 bytes
+|Type of the operation.
 
-| Length
-| 4 bytes
-| Defines the cumulative length of all arguments in bytes.
+|Length
+|4 bytes
+|Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 10`.
 
-| Error Code
-| 1 byte
-| Represents the specified bus error to simulate.
+|Error Code
+|1 byte
+|Represents the specified bus error to simulate.
 See <<table-fmi3-ls-bus-ethernet-bus-error-code-values>> for possible values.
 
-| Is Sender
-| 1 byte
-| Indicates whether this bus error occurs in response to a transmission of this FMU.
+|Is Sender
+|1 byte
+|Indicates whether this bus error occurs in response to a transmission of this FMU.
 
 h|Behavior
 3+|When transmitting Ethernet frames, various kinds of bus error may happen.
@@ -203,48 +203,48 @@ Represents the transmission of a continuation mPacket.
 [cols="6,1,5,4,3,20"]
 |====
 h|Name 
-5+| Configuration
+5+|Configuration
 
 h|Description 
-5+| Provides information to configure the Ethernet bus.
+5+|Provides information to configure the Ethernet bus.
 
 h|OP Code [hex] 
-5+| 0x40
+5+|0x40
 
 .8+h|Content 
 3+h|Argument 
 h|Length 
 h|Description
 
-3+| OP Code
-| 4 bytes
-| Type of the operation.
+3+|OP Code
+|4 bytes
+|Type of the operation.
 
-3+| Length
-| 4 bytes
-| Defines the cumulative length of all arguments in bytes.
+3+|Length
+|4 bytes
+|Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 9 + Length of parameter arguments in bytes`.
 
-3+| Parameter Type
-| 1 byte
-| Defines the current configuration parameter.
+3+|Parameter Type
+|1 byte
+|Defines the current configuration parameter.
 
 .4+h|
 4+h|Parameter
 
 .3+|SUPPORTED_PHY_TYPES
-| MDI Mode
-| 1 byte
-| The configuration of the node's media-dependent interface.
+|MDI Mode
+|1 byte
+|The configuration of the node's media-dependent interface.
 See <<table-fmi3-ls-bus-ethernet-mdi-mode-values>> for possible values.
 
-| Supported PHY Types Length
-| 2 byte
-| The number of characters of the `Supported PHY Types` argument.
+|Supported PHY Types Length
+|2 byte
+|The number of characters of the `Supported PHY Types` argument.
 
-| Supported PHY Types
-| n bytes
-| An array of zero-terminated strings describing PHY types supported by this Ethernet node.
+|Supported PHY Types
+|n bytes
+|An array of zero-terminated strings describing PHY types supported by this Ethernet node.
 The first element in this list indicates the type of PHY used by this node.
 The list must have at least one element.
 Elements describing a PHY standardized by 802.3 or an amendment must use the value described in the chapter "30.3.2.1.2 aPhyType" of the standard.
@@ -309,26 +309,26 @@ Indicates wake up pulse according to <<OpenAlliance-TC10-100BASE-T1, Open Allian
 [cols="5,4,3,20"]
 |====
 h|Name 
-3+| Wakeup
+3+|Wakeup
 
 h|Description 
-3+| Indicates a wakeup.
+3+|Indicates a wakeup.
 
 h|OP Code [hex] 
-3+| 0x41
+3+|0x41
 
 .3+h|Content 
 h|Argument 
 h|Length 
 h|Description
 
-| OP Code
-| 4 bytes
-| Type of the operation.
+|OP Code
+|4 bytes
+|Type of the operation.
 
-| Length
-| 4 bytes
-| Defines the cumulative length of all arguments in bytes.
+|Length
+|4 bytes
+|Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 8`.
 
 h|Behavior

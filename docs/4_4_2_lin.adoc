@@ -118,37 +118,37 @@ There are three types of <<low-cut-lin-transmit-operation, `Transmit`>> operatio
 [cols="5,4,3,20"]
 |====
 h|Name
-3+| Header
+3+|Header
 
 h|Description 
-3+| Represents an operation for the transmission of a LIN header from a LIN Master to LIN slaves.
+3+|Represents an operation for the transmission of a LIN header from a LIN Master to LIN slaves.
 
 h|OP Code [hex] 
-3+| 0x10
+3+|0x10
 
 .5+h|Content 
 h|Argument 
 h|Length 
 h|Description
 
-| OP Code 
-| 1 byte 
-| Contains the OP Code of the specified operation.
+|OP Code 
+|1 byte 
+|Contains the OP Code of the specified operation.
 For this operation the OP Code always has the value 0x10.
 
-| Length 
-| 4 bytes 
-| Defines the cumulative length of all arguments in bytes.
+|Length 
+|4 bytes 
+|Defines the cumulative length of all arguments in bytes.
 For this operation always applies: `Length = 7`.
 
-| PID 
-| 1 byte 
-| The specified protected ID (PID) of the LIN message.
+|PID 
+|1 byte 
+|The specified protected ID (PID) of the LIN message.
 The maximum length of a PID is 8-bit.
 
-| Response Data Length 
-| 1 byte 
-| The size of the response in bytes.
+|Response Data Length 
+|1 byte 
+|The size of the response in bytes.
 
 h|Behavior
 3+|The Header operation shall be provided by Network FMUs to initiate the transmission of a LIN header.
@@ -162,46 +162,46 @@ Depending on the simulation details, the Bus Simulation might respond with a <<l
 [cols="5,4,3,20"]
 |====
 h|Name 
-3+| Response
+3+|Response
 
 h|Description 
-3+| Represents an operation for the transmission of a LIN response from a LIN Slave to the LIN Master.
+3+|Represents an operation for the transmission of a LIN response from a LIN Slave to the LIN Master.
 
 h|OP Code [hex] 
-3+| 0x11
+3+|0x11
 
 .7+h|Content 
 h|Argument 
 h|Length 
 h|Description
 
-| OP Code 
-| 1 byte 
-| Contains the OP Code of the specified operation.
+|OP Code 
+|1 byte 
+|Contains the OP Code of the specified operation.
 For this operation the OP Code always has the value 0x11.
 
-| Length 
-| 4 bytes 
-| Defines the cumulative length of all arguments in bytes.
+|Length 
+|4 bytes 
+|Defines the cumulative length of all arguments in bytes.
 For this operation always applies: `Length = 8 + Data Length`.
 
-| PID 
-| 1 byte 
-| The specified protected ID (PID) of the LIN message.
+|PID 
+|1 byte 
+|The specified protected ID (PID) of the LIN message.
 The maximum length of a PID is 8-bit.
 
-| Response Error 
-| 1 byte 
-| Represents the Response Error field of a LIN frame.
+|Response Error 
+|1 byte 
+|Represents the Response Error field of a LIN frame.
 For specification the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
-| Data Length 
-| 1 byte 
-| Specifies the length of the Data argument in bytes.
+|Data Length 
+|1 byte 
+|Specifies the length of the Data argument in bytes.
 
-| Data 
-| n bytes 
-| Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
+|Data 
+|n bytes 
+|Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
 
 h|Behavior
 3+|The Response operation shall be provided by Network FMUs to initiate a response to a given LIN header.
@@ -215,41 +215,41 @@ Depending on the simulation details, the Bus Simulation might responsd with a <<
 [cols="5,4,3,20"]
 |====
 h|Name 
-3+| Header Response
+3+|Header Response
 
 h|Description 
-3+| Represents an operation for the transmission of a LIN header and response from a LIN Master to LIN slaves.
+3+|Represents an operation for the transmission of a LIN header and response from a LIN Master to LIN slaves.
 
 h|OP Code [hex] 
-3+| 0x12
+3+|0x12
 
 .6+h|Content 
 h|Argument 
 h|Length 
 h|Description
 
-| OP Code 
-| 1 byte 
-| Contains the OP Code of the specified operation.
+|OP Code 
+|1 byte 
+|Contains the OP Code of the specified operation.
 For this operation the OP Code always has the value 0x12.
 
-| Length 
-| 4 bytes 
-| Defines the cumulative length of all arguments in bytes.
+|Length 
+|4 bytes 
+|Defines the cumulative length of all arguments in bytes.
 For this operation always applies: `Length = 7 + Data Length`.
 
-| PID 
-| 1 byte 
-| The specified protected ID (PID) of the LIN message.
+|PID 
+|1 byte 
+|The specified protected ID (PID) of the LIN message.
 The maximum length of a PID is 8-bit.
 
-| Data Length 
-| 1 byte 
-| Specifies the length of the Data argument in bytes.
+|Data Length 
+|1 byte 
+|Specifies the length of the Data argument in bytes.
 
-| Data 
-| n bytes 
-| Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
+|Data 
+|n bytes 
+|Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
 
 h|Behavior
 3+|The Header Response operation shall be provided by Network FMUs to initiate the transmission of a LIN frame that contains the specified header and response.

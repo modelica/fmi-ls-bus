@@ -158,67 +158,67 @@ The <<low-cut-flexray-transmit-operation, `Transmit`>> operation is used to simu
 [cols="5,4,3,20"]
 |====
 h|Name 
-3+| Transmit
+3+|Transmit
 
 h|Description 
-3+| Initiates the transmission of FlexRay frames.
+3+|Initiates the transmission of FlexRay frames.
 
 h|OP Code [hex] 
-3+| 0x10
+3+|0x10
 
 .12+h|Content 
 h|Argument 
 h|Length 
 h|Description
 
-| OP Code
-| 4 bytes
-| Contains the OP Code (0x10) of the operation.
+|OP Code
+|4 bytes
+|Contains the OP Code (0x10) of the operation.
 
-| Length
-| 4 bytes
-| Defines the cumulative length of all arguments in bytes.
+|Length
+|4 bytes
+|Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 17 + Data Length`.
 
-| Cycle ID
-| 1 byte
-| The specified Cycle ID of the FlexRay message.
+|Cycle ID
+|1 byte
+|The specified Cycle ID of the FlexRay message.
 
-| Slot ID
-| 2 bytes
-| Specifies the FlexRay Slot ID of the given frame.
+|Slot ID
+|2 bytes
+|Specifies the FlexRay Slot ID of the given frame.
 
-| Channel
-| 1 byte
-| The specified channel type value, based on <<table-flexray-channel-kinds>>, whereby the combination of more than one channel is allowed.
+|Channel
+|1 byte
+|The specified channel type value, based on <<table-flexray-channel-kinds>>, whereby the combination of more than one channel is allowed.
 
-| Startup Frame Indicator
-| 1 byte
-| Specifies whether the given frame represents a startup frame.
+|Startup Frame Indicator
+|1 byte
+|Specifies whether the given frame represents a startup frame.
 The boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
-| Sync Frame Indicator
-| 1 byte
-| Specifies whether the given frame represents a sync frame.
+|Sync Frame Indicator
+|1 byte
+|Specifies whether the given frame represents a sync frame.
 The boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
-| Null Frame Indicator
-| 1 byte
-| Specifies whether the payload contains valid data (= `FALSE`) or is composed of zero values only (= `TRUE`).
+|Null Frame Indicator
+|1 byte
+|Specifies whether the payload contains valid data (= `FALSE`) or is composed of zero values only (= `TRUE`).
 The boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
-| Payload Preamble Indicator
-| 1 byte
-| Indicates whether the payload contains a network management vector (= `TRUE`) or a message identifier (= `FALSE`).
+|Payload Preamble Indicator
+|1 byte
+|Indicates whether the payload contains a network management vector (= `TRUE`) or a message identifier (= `FALSE`).
 The boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
-| Data Length
-| 1 byte
-| Specifies the length of the Data argument in bytes.
+|Data Length
+|1 byte
+|Specifies the length of the Data argument in bytes.
 
-| Data
-| n bytes
-| Stores the given frame data to transfer, whereby the valid length of the data depends on the FlexRay Format.
+|Data
+|n bytes
+|Stores the given frame data to transfer, whereby the valid length of the data depends on the FlexRay Format.
 
 h|Behavior
 3+|The <<low-cut-flexray-transmit-operation, `Transmit`>> operation shall be provided by Network FMUs to indicate the transmission of a FlexRay frame.
@@ -240,39 +240,39 @@ The <<low-cut-flexray-cancel-operation, `Cancel`>> operation is used for cancell
 [cols="5,4,3,20"]
 |====
 h|Name 
-3+| Cancel
+3+|Cancel
 
 h|Description 
-3+| Initiates the cancellation transmission of FlexRay frames within a Bus Simulation.
+3+|Initiates the cancellation transmission of FlexRay frames within a Bus Simulation.
 
 h|OP Code [hex] 
-3+| 0x11
+3+|0x11
 
 .6+h|Content 
 h|Argument 
 h|Length 
 h|Description
 
-| OP Code
-| 4 bytes
-| Contains the OP Code (0x11) of the operation.
+|OP Code
+|4 bytes
+|Contains the OP Code (0x11) of the operation.
 
-| Length
-| 4 bytes
-| Defines the cumulative length of all arguments in bytes.
+|Length
+|4 bytes
+|Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 12`.
 
-| Cycle ID
-| 1 byte
-| The specified Cycle ID of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to cancel.
+|Cycle ID
+|1 byte
+|The specified Cycle ID of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to cancel.
 
-| Slot ID
-| 2 bytes
-| Specifies the FlexRay Slot ID of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to cancel.
+|Slot ID
+|2 bytes
+|Specifies the FlexRay Slot ID of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to cancel.
 
-| Channel
-| 1 byte
-| The specified channel type value, based on <<table-flexray-channel-kinds>> of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to cancel, whereby the combination of more than one channel is allowed.
+|Channel
+|1 byte
+|The specified channel type value, based on <<table-flexray-channel-kinds>> of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to cancel, whereby the combination of more than one channel is allowed.
 
 h|Behavior
 3+|The <<low-cut-flexray-cancel-operation, `Cancel`>> operation shall be provided by Network FMUs to indicate a cancellation of a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation that is buffered by a Bus Simulation.
@@ -312,17 +312,17 @@ h|Description
 |Defines the cumulative length of all arguments in bytes.
 The following applies for this operation: `Length = 12`.
 
-| Cycle ID
-| 1 byte
-| The specified Cycle ID of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to confirm.
+|Cycle ID
+|1 byte
+|The specified Cycle ID of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to confirm.
 
-| Slot ID
-| 2 bytes
-| Specifies the FlexRay Slot ID of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to confirm.
+|Slot ID
+|2 bytes
+|Specifies the FlexRay Slot ID of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to confirm.
 
-| Channel
-| 1 byte
-| The specified channel type value, based on <<table-flexray-channel-kinds>>, whereby the combination of more than one channel is allowed.
+|Channel
+|1 byte
+|The specified channel type value, based on <<table-flexray-channel-kinds>>, whereby the combination of more than one channel is allowed.
 
 h|Behavior
 3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
