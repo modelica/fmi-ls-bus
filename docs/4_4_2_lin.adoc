@@ -1,5 +1,6 @@
 ==== LIN [[low-cut-lin]]
 This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for LIN.
+The abstraction level not only supports exactly one LIN standard version, but addresses a wide range of versions with e.g. LIN 1.3, LIN 2.0, LIN 2.1, LIN 2.2A and also ISO 17987.
 
 ===== Overview [[low-cut-lin-overview]]
 To simulate LIN buses, LIN-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
