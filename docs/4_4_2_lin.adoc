@@ -268,9 +268,9 @@ This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reac
 This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to all Network FMUs of the specified LIN network.
 Within this situation, no valid `ID` can be used as an argument value for the respective <<low-cut-lin-bus-error-operation, `Bus Error`>> operation and shall be set to zero.
 
-|RESPONDER_NOT_RESPONDING_ERROR
+|NO_RESPONSE_ERROR
 |0x04
-|A `RESPONDER_NOT_RESPONDING_ERROR` error indicates that no LIN Responder reacts with a LIN Response to a specified LIN Header.
+|A `NO_RESPONSE_ERROR` error indicates that no LIN Responder reacts with a LIN Response to a specified LIN Header.
 This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_COMMANDER`>> within the specified LIN network.
 
 |SYNCH_FIELD_ERROR

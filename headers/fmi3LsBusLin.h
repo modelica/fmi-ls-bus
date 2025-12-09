@@ -164,9 +164,9 @@ typedef fmi3UInt8 fmi3LsBusLinBusErrorCode;
  */
 #define FMI3_LS_BUS_LIN_BUS_ERROR_CODE_IDENTIFIER_PARITY_ERROR ((fmi3LsBusLinBusErrorCode)0x3)
 /**
- * \brief Represents a LIN Responder Not Responding Error. The error can occur if LIN Responders does not respond to a specified LIN header. This Bus Error operation is a direct reaction to a Transmit operation (Frame Type is set to HEADER) and shall be delivered to the Network FMU that is configured as LIN_COMMANDER within the specified LIN network.
+ * \brief Represents a No Response Error. The error can occur if LIN Responders does not respond to a specified LIN header. This Bus Error operation is a direct reaction to a Transmit operation (Frame Type is set to HEADER) and shall be delivered to the Network FMU that is configured as LIN_COMMANDER within the specified LIN network.
  */
-#define FMI3_LS_BUS_LIN_BUS_ERROR_CODE_RESPONDER_NOT_RESPONDING_ERROR ((fmi3LsBusLinBusErrorCode)0x4)
+#define FMI3_LS_BUS_LIN_BUS_ERROR_CODE_NO_RESPONSE_ERROR ((fmi3LsBusLinBusErrorCode)0x4)
 /**
  * \brief Represents an Inconsistent-Synch Field Error. This Bus Error operation is a direct reaction to a Transmit operation (Frame Type is set to HEADER) and shall be delivered to the Network FMUs that are configured as LIN_RESPONDER within the specified LIN network.
  */
