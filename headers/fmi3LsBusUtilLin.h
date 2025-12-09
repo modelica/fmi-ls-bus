@@ -186,7 +186,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] BufferInfo
  *     Pointer to \ref fmi3LsBusUtilBufferInfo.
  * \param[in] Baudrate
- *     Indicates the type of a LIN node (LIN Master or LIN Slave) (\ref fmi3LsBusLinNodeDefinition).
+ *     Indicates the type of a LIN node (LIN Commander or LIN Responder) (\ref fmi3LsBusLinNodeDefinition).
  */
 #define FMI3_LS_BUS_LIN_CREATE_OP_CONFIGURATION_NODE_DEFINITION(BufferInfo, \
         NodeDefinition \

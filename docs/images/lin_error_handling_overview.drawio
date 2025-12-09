@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0" version="29.1.0">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0" version="29.2.4">
   <diagram id="zssgmvdwZO7xPkAqMUr9" name="Page-1">
-    <mxGraphModel dx="298" dy="168" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="895" dy="503" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -110,13 +110,13 @@
         <mxCell id="KrRxnjXIWImUbvIDb2Ig-7" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=8;fontColor=#990000;" value="Bus Error" vertex="1">
           <mxGeometry height="10" width="90" x="109" y="104" as="geometry" />
         </mxCell>
-        <mxCell id="AOx-TkYyCgbOwTKHLzrx-1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=6;fontColor=#000000;" value="LIN Master" vertex="1">
+        <mxCell id="AOx-TkYyCgbOwTKHLzrx-1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=6;fontColor=#000000;" value="Commander" vertex="1">
           <mxGeometry height="10" width="110" x="44" y="9" as="geometry" />
         </mxCell>
-        <mxCell id="AOx-TkYyCgbOwTKHLzrx-2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=6;fontColor=#000000;" value="LIN Slave" vertex="1">
+        <mxCell id="AOx-TkYyCgbOwTKHLzrx-2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=6;fontColor=#000000;" value="Responder" vertex="1">
           <mxGeometry height="10" width="110" x="204" y="9" as="geometry" />
         </mxCell>
-        <mxCell id="AOx-TkYyCgbOwTKHLzrx-3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=6;fontColor=#000000;" value="LIN Slave" vertex="1">
+        <mxCell id="AOx-TkYyCgbOwTKHLzrx-3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=6;fontColor=#000000;" value="Responder" vertex="1">
           <mxGeometry height="10" width="110" x="364" y="9" as="geometry" />
         </mxCell>
         <mxCell id="ExQfgM2jieRh9owSLS6Z-1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=8;fontColor=#006633;" value="Transmit" vertex="1">
