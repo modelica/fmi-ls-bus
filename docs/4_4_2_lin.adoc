@@ -1,13 +1,14 @@
 ==== LIN [[low-cut-lin]]
 This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for LIN.
 The abstraction level not only supports exactly one LIN standard version, but addresses a wide range of versions with e.g. LIN 1.3, LIN 2.0, LIN 2.1, LIN 2.2A and also ISO 17987.
+Analogous to <<ISO-17987-3>>, within this document the term LIN Commander is used for a LIN Master and the term LIN Responder is used for a LIN Slave.
 
 ===== Overview [[low-cut-lin-overview]]
 To simulate LIN buses, LIN-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
 Overall, the following groups of operations exist:
 
 * Transmit and Confirm: This group of operations is used to simulate a frame transmission.
-There are specific operations that represent the different communication options between a LIN Master and one or more LIN Slaves.
+There are specific operations that represent the different communication options between a LIN Commander and one or more LIN Responders.
 * Bus- and Format Error: This group of operations is used for protocol format errors and to simulate bus failures.
 * Configuration: This operation enables the configuration of bus-specific parameters and options that are required to simulate the bus behavior properly.
 For example, it allows the specification of the baud rate.
@@ -134,12 +135,12 @@ h|Frame Type h|Value h|Description
 
 |HEADER
 |0x01
-|Indicates a LIN Header from LIN Master.
+|Indicates a LIN Header from LIN Commander.
 In this case the `Data Length` argument of a <<low-cut-lin-transmit-operation, `Transmit`>> operation is always set to zero.
 
 |RESPONSE
 |0x02
-|Indicates a LIN Response from a LIN Slave.
+|Indicates a LIN Response from a LIN Responder.
 In this case the `Data Length` argument of a <<low-cut-lin-transmit-operation, `Transmit`>> operation contains the length of the `Data` argument value.
 
 |====
@@ -269,7 +270,7 @@ Within this situation, no valid `ID` can be used as an argument value for the re
 
 |SLAVE_NOT_RESPONDING_ERROR
 |0x04
-|A `SLAVE_NOT_RESPONDING_ERROR` error indicates that no LIN Slave reacts with a LIN Response to a specified LIN Header.
+|A `SLAVE_NOT_RESPONDING_ERROR` error indicates that no LIN Responder reacts with a LIN Response to a specified LIN Header.
 This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_MASTER`>> within the specified LIN network.
 
 |SYNCH_FIELD_ERROR
@@ -284,7 +285,7 @@ This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reac
 
 |HEADER_TIMEOUT_ERROR
 |0x07
-|A `HEADER_TIMEOUT_ERROR` means that a LIN Slave did not receive a complete Header from the LIN Master within a specified time window.
+|A `HEADER_TIMEOUT_ERROR` means that a LIN Responder did not receive a complete Header from the LIN Commander within a specified time window.
 This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_SLAVE`>> within the specified LIN network.
 
 |FRAME_ERROR
@@ -313,7 +314,7 @@ h|Name
 h|Description
 5+|Represents an operation for the configuration of a Bus Simulation.
 In detail the configuration of a LIN baud rate is possible.
-Also the configuration of further options, like LIN Master or LIN Slave representation, is supported by this operation.
+Also the configuration of further options, like LIN Commander or LIN Responder representation, is supported by this operation.
 h|OP Code [hex]
 5+|0x40
 .7+h|Content 3+h|Argument h|Length h|Description
@@ -377,8 +378,8 @@ The following values for `Node Definition` argument are specified:
 |====
 
 h|Node Definition h|Value h|Description
-|LIN_MASTER|0x01|Configuration of a LIN Master node within a specified Bus Simulation.
-|LIN_SLAVE|0x02|Configuration of a LIN Slave node within a specified Bus Simulation.
+|LIN_MASTER|0x01|Configuration of a LIN Commander node within a specified Bus Simulation.
+|LIN_SLAVE|0x02|Configuration of a LIN Responder node within a specified Bus Simulation.
 
 |====
 
@@ -455,10 +456,10 @@ If the provision of bus notifications can be configured (e.g., via a structural 
 
 ===== Transmission and Reception [[low-cut-lin-transmission-and-reception]]
 The communication process of a LIN bus is based on a simple master-slave principle and is strictly time-controlled.
-The LIN Master assumes complete control over the bus and initiates all messages.
-Every communication begins with a so-called LIN Header, which the LIN Master sends.
+The LIN Commander assumes complete control over the bus and initiates all messages.
+Every communication begins with a so-called LIN Header, which the LIN Commander sends.
 After the LIN Header has been sent, the LIN Response phase follows.
-In this phase, either the addressed LIN Slave or the LIN Master itself sends the actual data.
+In this phase, either the addressed LIN Responder or the LIN Commander itself sends the actual data.
 The <<low-cut-lin-transmit-operation, `Transmit`>> operation is used to simulate both the transmission of a LIN Header and a LIN Response.
 Within the <<low-cut-lin-transmit-operation, `Transmit`>> operation, the different frame types are qualified via the `Frame Type` argument.
 
@@ -480,7 +481,7 @@ For a detailed simulation, the Bus Simulation has to support <<low-cut-lin-confi
 In this case, the <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> parameter of the Network FMUs can be set to `fmi3True` as Network FMUs can rely on receiving <<low-cut-lin-confirm-operation, `Confirm`>> operations for the specified Bus Terminal.
 
 The following <<#figure-lin-confirmation-with-bus-simulation-fmu>> illustrates a complete frame transmission using a <<low-cut-lin-transmit-operation, `Transmit`>> operation.
-This transmission is initiated by the LIN Master in FMU 1 which transmits a LIN Header to FMU 2 via a Bus Simulation using a <<low-cut-lin-transmit-operation, `Transmit`>> operation.
+This transmission is initiated by the LIN Commander in FMU 1 which transmits a LIN Header to FMU 2 via a Bus Simulation using a <<low-cut-lin-transmit-operation, `Transmit`>> operation.
 After this the Bus Simulation confirms that transmission via <<low-cut-lin-confirmation-operation, `Confirm`>> operation.
 In the next step FMU 2 transmits a LIN Response to FMU 1 via a Bus Simulation by using a <<low-cut-lin-transmit-operation, `Transmit`>> operation.
 Additionally a <<low-cut-lin-confirmation-operation, `Confirm`>> operation is given to FMU 2 from the Bus Simulation.
@@ -506,8 +507,8 @@ Within this scenario, the procedure is analogous to the first variant, except th
 Regarding the specified <<#table-lin-bus-error-codes,`Error Code`>>, <<#table-lin-bus-error-codes>> is defining for which Network FMUs the respective <<low-cut-lin-bus-error-operation, `Bus Error`>> operation shall be provided.
 The collision resolution is not required and not permitted by the Bus Simulation.
 
-<<#figure-lin-collision-with-bus-simulation-fmu>> illustrates a LIN Master (FMU 1) providing a <<low-cut-lin-transmit-operation, `Transmit`>> operation via Bus Simulation to two LIN Slaves (FMU 2 and FMU 3).
-Each LIN Slave responds with its own <<low-cut-lin-transmit-operation, `Transmit`>> operation.
+<<#figure-lin-collision-with-bus-simulation-fmu>> illustrates a LIN Commander (FMU 1) providing a <<low-cut-lin-transmit-operation, `Transmit`>> operation via Bus Simulation to two LIN Responders (FMU 2 and FMU 3).
+Each LIN Responder responds with its own <<low-cut-lin-transmit-operation, `Transmit`>> operation.
 Within the Bus Simulation the collision is detected.
 FMU 1 is then notified about this collision via a <<low-cut-lin-bus-error-operation, `Bus Error`>> operation.
 
