@@ -11,12 +11,14 @@ on:
 jobs:
   build-ls-bus:
     name: Build Layered Standard Network Communication 
-
     runs-on: ubuntu-latest
-
     steps:
-    - name: checkout
-      uses: actions/checkout@v3
+
+    - name: Checkout
+      uses: actions/checkout@v4.1.7
+      with:
+        submodules: recursive
+    
     - name: Generate revnumber
       run: |
         [[ $GITHUB_REF_TYPE == "tag" ]] && REVNUMBER=${GITHUB_REF:11} || REVNUMBER=${GITHUB_SHA:0:7}
@@ -25,20 +27,43 @@ jobs:
         echo GITHUB_REF:      $GITHUB_REF
         echo REVNUMBER:       $REVNUMBER
         echo "REVNUMBER=$REVNUMBER" >> $GITHUB_ENV
-    - name: prepare
-      run: mkdir build
-    - name: build layered standard Network Communication 
+    
+    - name: Create build directory
+      run: |
+        mkdir -p build/headers
+        mkdir -p build/schema
+        mkdir -p build/images/schema
+
+    - name: Generate HTML
       uses: avattathil/asciidoctor-action@master
       with:
-        program: "asciidoctor -D build --backend=html5 --attribute=revnumber=${{ env.REVNUMBER }} --attribute=revdate=$(date +%F) docs/index.adoc"
-    - name: copy images, examples, headers, schemas and LICENSE.txt
-      run: tar cfC - docs images examples ../headers ../schema ../LICENSE.txt | tar xfC - build
-    - name: archive layered standard Network Communication
-      uses: actions/upload-artifact@v4
+        program: asciidoctor --attribute=revnumber=${{ env.REVNUMBER }} --attribute=revdate=$(date +%F) docs/index.adoc
+
+    - name: Create build directory
+      run: |
+        mkdir -p build/headers
+        mkdir -p build/images/schema
+        mkdir -p build/theme/css
+        mkdir -p build/theme/images
+        mkdir -p build/theme/js
+    
+    - name: Copy resources
+      run: |
+        cp LICENSE.txt build
+        cp headers/*.h build/headers
+        cp docs/index.html build
+        cp docs/images/*.svg build/images
+        cp docs/theme/css/*.css build/theme/css
+        cp docs/theme/images/*.svg build/theme/images
+        cp docs/theme/js/*.js build/theme/js
+
+    - name: Create ZIP archive
+      uses: actions/upload-artifact@v4.4.0
       with:
         name: FMI-LS-BUS
         path: build/*
         if-no-files-found: error
+
     - name: extract branch name
       id: extract_branch
       shell: bash

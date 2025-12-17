@@ -1,9 +1,11 @@
 ==== LIN [[low-cut-lin]]
+
 This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> for LIN.
 The abstraction level not only supports exactly one LIN standard version, but addresses a wide range of versions with e.g. LIN 1.3, LIN 2.0, LIN 2.1, LIN 2.2A and also ISO 17987.
 Analogous to <<ISO-17987-3>>, within this document the term LIN Commander is used for a LIN Master and the term LIN Responder is used for a LIN Slave.
 
 ===== Overview [[low-cut-lin-overview]]
+
 To simulate LIN buses, LIN-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
 Overall, the following groups of operations exist:
 
@@ -83,14 +85,15 @@ h|Length
 |:= 8 +
 (4 bytes)
 8+|---
-
 |====
 
 ===== Operations [[low-cut-lin-operations]]
+
 This section defines the allowed operations for LIN.
 The following tables provide an overview of all operations and specify the position and length of the corresponding arguments, as well as the respective flow direction.
 
 ====== Transmit [[low-cut-lin-transmit-operation]]
+
 The <<low-cut-lin-transmit-operation, `Transmit`>> operation is used to simulate the transmission of LIN frames.
 Both LIN cases, in detail a LIN Header and a LIN Response, are considered here.
 
@@ -98,30 +101,59 @@ Both LIN cases, in detail a LIN Header and a LIN Response, are considered here.
 [#table-lin-transmit-operation]
 [cols="5,5,3,20"]
 |====
-h|Name 3+| Transmit
-h|Description 3+| Represents an operation for the transmission of a LIN message, aggregating a representation for a Frame Header and a Frame Response.
-h|OP Code [hex] 3+| 0x10
-.8+h|Content h|Argument h|Length h|Description
-| OP Code | 4 bytes | Contains the OP Code of the specified operation.
+h|Name 3+|Transmit
+
+h|Description
+3+|Represents an operation for the transmission of a LIN message, aggregating a representation for a Frame Header and a Frame Response.
+
+h|OP Code [hex]
+3+| 0x10
+
+.8+h|Content
+h|Argument
+h|Length
+h|Description
+
+|OP Code
+|4 bytes
+|Contains the OP Code of the specified operation.
 For this operation the OP Code always has the value 0x10.
-| Length | 4 bytes | Defines the cumulative length of all arguments in bytes.
+
+|Length
+|4 bytes
+|Defines the cumulative length of all arguments in bytes.
 For this operation always applies: `Length = 12 + Data Length`.
-| Frame Type | 1 byte | Indicates the type of the specified LIN frame (see <<#table-lin-frame-types-values>>).
-| ID | 1 byte | The specified ID of the LIN message.
+
+|Frame Type
+|1 byte
+|Indicates the type of the specified LIN frame (see <<#table-lin-frame-types-values>>).
+
+|ID
+|1 byte
+|The specified ID of the LIN message.
 The ID must be considered here as a purely numerical value.
 This means that there is no need for separate segmentation.
 LIN parity bits shall not be part of this ID.
 The valid value range for this argument is 0....63.
-| Checksum Type | 1 byte | Indicates the checksum type of the specified LIN frame (see <<#table-lin-checksum-types-values>>).
-| Data Length | 1 byte | Specifies the length of the Data argument in bytes.
+
+|Checksum Type
+|1 byte
+|Indicates the checksum type of the specified LIN frame (see <<#table-lin-checksum-types-values>>).
+
+|Data Length
+|1 byte
+|Specifies the length of the Data argument in bytes.
 Allowed values for the `Data Length` depend on the value of `Frame Type` and are specified in <<#table-lin-frame-types-values>>.
-| Data | n bytes | Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
+
+|Data 
+|n bytes 
+|Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
+
 h|Behavior
 3+|The <<low-cut-lin-transmit-operation, `Transmit`>> operation shall be provided by Network FMUs to initiate the transmission of a LIN frame that contains the specified LIN Header or a LIN Response.
 In case of direct connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-lin-bus-error-operation, `Bus Error`>> or <<low-cut-lin-format-error-operation, `Format Error`>> operation.
-
 |====
 
 The following values for `Frame Type` argument are specified:
@@ -130,7 +162,6 @@ The following values for `Frame Type` argument are specified:
 [#table-lin-frame-types-values]
 [cols="2,1,5"]
 |====
-
 h|Frame Type h|Value h|Description
 
 |HEADER
@@ -142,7 +173,6 @@ In this case the `Data Length` argument of a <<low-cut-lin-transmit-operation, `
 |0x02
 |Indicates a LIN Response from a LIN Responder.
 In this case the `Data Length` argument of a <<low-cut-lin-transmit-operation, `Transmit`>> operation contains the length of the `Data` argument value.
-
 |====
 
 The following values for `Checksum Type` argument are specified:
@@ -151,7 +181,6 @@ The following values for `Checksum Type` argument are specified:
 [#table-lin-checksum-types-values]
 [cols="2,1,5"]
 |====
-
 h|Checksum Type h|Value h|Description
 
 |CLASSIC CHECKSUM
@@ -161,7 +190,6 @@ h|Checksum Type h|Value h|Description
 |ENHANCED CHECKSUM
 |0x02
 |Indicates that the specified LIN frame uses the enhanced checksum mechanism.
-
 |====
 
 ====== Confirm [[low-cut-lin-confirm-operation]]
@@ -171,12 +199,14 @@ The <<low-cut-lin-confirm-operation, `Confirm`>> operation is used to signal the
 [#table-lin-confirm-operation]
 [cols="5,4,3,20"]
 |====
-h|Name
-3+|Confirm
+h|Name 3+|Confirm 
+
 h|Description
 3+|Signals a successful transmitted LIN Header or/and Response.
+
 h|OP Code [hex]
 3+|0x20
+
 .4+h|Content h|Argument h|Length h|Description
 |OP Code
 |4 bytes
@@ -196,26 +226,30 @@ h|Behavior
 3+|The specified operation shall be produced by the Bus Simulation and consumed by Network FMUs.
 The Bus Simulation provides the <<low-cut-lin-confirm-operation, `Confirm`>> operation for the Network FMU, which has previously provided the <<low-cut-lin-transmit-operation, `Transmit`>> operation to be confirmed.
 Only Network FMUs with the corresponding optionally exposed <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for this operation.
-
 |====
 
 ====== Format Error [[low-cut-lin-format-error-operation]]
+
 See <<low-cut-format-error-operation, `Format Error`>> for definition.
 
 ====== Bus Error [[low-cut-lin-bus-error-operation]]
+
 The <<low-cut-lin-bus-error-operation, `Bus Error`>> operation represents feedback of a Bus Simulation for a specified <<low-cut-lin-transmit-operation, `Transmit`>> operation in case of an unsuccessful transmission.
 
 .Detailed description of the Bus Error operation.
 [#table-lin-bus-error-operation]
 [cols="5,4,3,20"]
 |====
-h|Name
-3+|Bus Error
+h|Name 3+|Bus Error
+
 h|Description
 3+|Represents an operation for bus communication error handling.
+
 h|OP Code [hex]
 3+|0x30
+
 .5+h|Content h|Argument h|Length h|Description
+
 |OP Code
 |4 bytes
 |Contains the OP Code of the specified operation.
@@ -240,7 +274,6 @@ h|Behavior
 It represents a direct feedback corresponding to a specified <<low-cut-lin-transmit-operation, `Transmit`>> operation.
 Depending on the type (qualified via `Error Code` argument value) of <<low-cut-lin-bus-error-operation, `Bus Error`>>, a different subset of Network FMUs must be notified via <<low-cut-lin-bus-error-operation, `Bus Error`>> operation (see description column of <<table-lin-bus-error-codes>>).
 Only Network FMUs with the corresponding optionally exposed <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for this operation.
-
 |====
 
 The following values for `Error Code` argument are specified:
@@ -249,44 +282,43 @@ The following values for `Error Code` argument are specified:
 [#table-lin-bus-error-codes]
 [cols="1,3,20"]
 |====
-
 h|Error Code h|Value h|Description
 
 |BIT_ERROR
 |0x01
 |A `BIT_ERROR` indicates that a received bit does not match the expected value.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_COMMANDER`>> within the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_COMMANDER`>> within the specified LIN network.
 
 |CHECKSUM_ERROR
 |0x02
 |A `CHECKSUM_ERROR` error can occur during a collision of LIN Responses when Event-Triggered-Frames are used.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `RESPONSE`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_COMMANDER`>> of the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Type` is set to `RESPONSE`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_COMMANDER`>> of the specified LIN network.
 
 |IDENTIFIER_PARITY_ERROR
 |0x03
 |A `IDENTIFIER_PARITY_ERROR` error can occur during a collision of LIN Headers.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to all Network FMUs of the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to all Network FMUs of the specified LIN network.
 Within this situation, no valid `ID` can be used as an argument value for the respective <<low-cut-lin-bus-error-operation, `Bus Error`>> operation and shall be set to zero.
 
 |NO_RESPONSE_ERROR
 |0x04
 |A `NO_RESPONSE_ERROR` error indicates that no LIN Responder reacts with a LIN Response to a specified LIN Header.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_COMMANDER`>> within the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_COMMANDER`>> within the specified LIN network.
 
 |SYNCH_FIELD_ERROR
 |0x05
 |A `SYNCH_FIELD_ERROR` indicates an error communicated by LIN Sync Field mechanism.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_RESPONDER`>> within the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_RESPONDER`>> within the specified LIN network.
 
 |SYNCH_TOLERANCE_ERROR
 |0x06
 |The calculated baud rate deviates too much from the original baud rate after clock synchronization (tolerance exceeded).
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_RESPONDER`>> within the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_RESPONDER`>> within the specified LIN network.
 
 |HEADER_TIMEOUT_ERROR
 |0x07
 |A `HEADER_TIMEOUT_ERROR` means that a LIN Responder did not receive a complete Header from the LIN Commander within a specified time window.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-error-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_RESPONDER`>> within the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_RESPONDER`>> within the specified LIN network.
 
 |FRAME_ERROR
 |0x08
@@ -297,27 +329,32 @@ This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reac
 |0x09
 |Represents an unspecified physical bus error.
 This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation and shall be delivered to all Network FMUs of the specified LIN network.
-
 |====
 
 ====== Configuration [[low-cut-lin-configuration-operation]]
+
 The <<low-cut-lin-configuration-operation, `Configuration`>> operation allows Network FMUs the configuration of the Bus Simulation with parameters like baud rate information and further options.
 The following information are included within this operation:
-
 
 .Detailed description of the Configuration operation.
 [#table-lin-configuration-operation]
 [cols="7,1,10,4,3,20"]
 |====
-h|Name
-5+|Configuration
+h|Name 5+|Configuration
+
 h|Description
 5+|Represents an operation for the configuration of a Bus Simulation.
 In detail the configuration of a LIN baud rate is possible.
 Also the configuration of further options, like LIN Commander or LIN Responder representation, is supported by this operation.
+
 h|OP Code [hex]
 5+|0x40
-.7+h|Content 3+h|Argument h|Length h|Description
+
+.7+h|Content
+3+h|Argument
+h|Length
+h|Description
+
 3+|OP Code
 |4 bytes
 |Contains the OP Code (0x40) of the operation.
@@ -354,7 +391,6 @@ A Network FMU shall ignore this operation on the consumer side.
 <<low-cut-lin-configuration-operation, `Configuration`>> operations can be produced multiple times during the runtime of a Network FMU.
 The configuration of the `NODE_DEFINITION` parameter must be completed by all Network FMUs before any <<low-cut-lin-transmit-operation, `Transmit`>> operation is produced.
 If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.
-
 |====
 
 The following configuration parameters values are allowed to be used:
@@ -363,11 +399,15 @@ The following configuration parameters values are allowed to be used:
 [#table-lin-configuration-kinds]
 [cols="1,1,5"]
 |====
-
 h|Parameter h|Value h|Description
-|BAUDRATE|0x01|This code indicates that a LIN baud rate should be configured for the Bus Simulation.
-|NODE_DEFINITION|0x02|This code configures the specified node type (LIN Commander or LIN Responder) within a Bus Simulation.
 
+|BAUDRATE
+|0x01
+|This code indicates that a LIN baud rate should be configured for the Bus Simulation.
+
+|NODE_DEFINITION
+|0x02
+|This code configures the specified node type (LIN Commander or LIN Responder) within a Bus Simulation.
 |====
 
 The following values for `Node Definition` argument are specified:
@@ -376,11 +416,15 @@ The following values for `Node Definition` argument are specified:
 [#table-lin-configuration-node-definition-kinds]
 [cols="2,1,5"]
 |====
-
 h|Node Definition h|Value h|Description
-|LIN_COMMANDER|0x01|Configuration of a LIN Commander node within a specified Bus Simulation.
-|LIN_RESPONDER|0x02|Configuration of a LIN Responder node within a specified Bus Simulation.
 
+|LIN_COMMANDER
+|0x01
+|Configuration of a LIN Commander node within a specified Bus Simulation.
+
+|LIN_RESPONDER
+|0x02
+|Configuration of a LIN Responder node within a specified Bus Simulation.
 |====
 
 ====== Wake Up [[low-cut-lin-wake-up-operation]]
@@ -390,13 +434,19 @@ By using the <<low-cut-lin-wake-up-operation, `Wakeup`>> operation the underlyin
 [#table-lin-wakeup-operation]
 [cols="5,4,3,20"]
 |====
-h|Name
-3+|Wakeup
+h|Name 3+|Wakeup
+
 h|Description
 3+|Represents an operation for triggering a bus-specific wake-up.
+
 h|OP Code [hex]
 3+|0x41
-.3+h|Content h|Argument h|Length h|Description
+
+.3+h|Content
+h|Argument
+h|Length
+h|Description
+
 |OP Code
 |4 bytes
 |Contains the OP Code of the specified operation.
@@ -410,27 +460,29 @@ For this operation always applies: `Length = 8`.
 h|Behavior
 3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the wake-up initiator, of the bus by using the Bus Simulation.
 If a Network FMU does not support wake-up this operation can be ignored on consumer side.
-
 |====
 
 ===== Network Parameters [[low-cut-lin-network-parameters]]
+
 This chapter defines parameters that Network FMU might provide to configure LIN-specific behavior.
 
 ====== Bus Notification Parameter [[low-cut-lin-bus-notification-parameter]]
+
 For a detailed simulation, a Network FMU needs information about whether the message sent has arrived or whether a bus error has occurred.
 A Bus Simulation can simulate these effects by sending bus notifications in terms of <<low-cut-lin-confirm-operation, `Confirm-`>> and <<low-cut-lin-bus-error-operation, `Bus Error`>> operations to the Network FMUs.
 
 However, in scenarios where Network FMUs are connected directly to each other, or where the Bus Simulation does not simulate such effects, it must be possible to configure the Network FMU such that it does not wait for any response after a <<low-cut-lin-transmit-operation, `Transmit`>> operation.
 Therefore, a parameter with `memberName = "BusNotifications"` can be added within the LIN-specific  <<low-cut-configuration-terminal,Configuration Terminal>>. +
 If a Network FMU supports bus notifications, the <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> parameter shall be exposed.
-The default value of this parameter shall be `false`. +
-_[The default value `false` allows a simple integration of Network FMUs to simulation scenarios where <<low-cut-lin-confirm-operation, `Confirm-`>> or <<low-cut-lin-bus-error-operation, `Bus Error`>> operations are not used.]_
+The default value of this parameter shall be `false`.
+
+NOTE: The default value `false` allows a simple integration of Network FMUs to simulation scenarios where <<low-cut-lin-confirm-operation, `Confirm-`>> or <<low-cut-lin-bus-error-operation, `Bus Error`>> operations are not used.
 
 Only Network FMUs with the corresponding optionally exposed <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for <<low-cut-lin-confirm-operation, `Confirm-`>> and <<low-cut-lin-bus-error-operation, `Bus Error`>> operations and respond accordingly; otherwise Network FMUs must not wait ("fire-and-forget").
 Even if the Network FMU does not expect bus notifications, i.e. <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> variable was not set to `fmi3True`, but receives them, it shall ignore them, i.e. it shall not report warnings or errors.
 
-_[Note that the bus notification parameter just informs the Network FMU if it can expect to receive notification operations or not.
-The parameter doesn't define in any way on how to react upon receiving notification operations.]_
+NOTE: Note that the bus notification parameter just informs the Network FMU if it can expect to receive notification operations or not.
+The parameter doesn't define in any way on how to react upon receiving notification operations.
 
 .Parameter to configure bus notifications within a LIN Bus Terminal of Network FMUs.
 [[figure-fmu-lin-bus-notifications-parameter]]
@@ -455,6 +507,7 @@ If the provision of bus notifications can be configured (e.g., via a structural 
 ----
 
 ===== Transmission and Reception [[low-cut-lin-transmission-and-reception]]
+
 The communication process of a LIN bus is based on a simple commander-responder principle and is strictly time-controlled.
 The LIN Commander assumes complete control over the bus and initiates all messages.
 Every communication begins with a so-called LIN Header, which the LIN Commander sends.
@@ -463,8 +516,8 @@ In this phase, either the addressed LIN Responder or the LIN Commander itself se
 The <<low-cut-lin-transmit-operation, `Transmit`>> operation is used to simulate both the transmission of a LIN Header and a LIN Response.
 Within the <<low-cut-lin-transmit-operation, `Transmit`>> operation, the different frame types are qualified via the `Frame Type` argument.
 
-A <<low-cut-lin-confirmation-operation, `Confirm-`>> and <<low-cut-lin-bus-error-operation, `Bus Error`>> operation represents feedback from a Bus Simulation for a previously carried out <<low-cut-lin-transmit-operation, `Transmit`>> operation.
-Depending on the <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> parameter, for a Network FMU a successful transmission of a <<low-cut-lin-transmit-operation, `Transmit`>> operation results in a <<low-cut-lin-confirmation-operation, `Confirm`>> operation, an unsuccessful <<low-cut-lin-transmit-operation, `Transmit`>> operation in a <<low-cut-lin-bus-error-operation, `Bus Error`>> operation.
+A <<low-cut-lin-confirm-operation, `Confirm-`>> and <<low-cut-lin-bus-error-operation, `Bus Error`>> operation represents feedback from a Bus Simulation for a previously carried out <<low-cut-lin-transmit-operation, `Transmit`>> operation.
+Depending on the <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> parameter, for a Network FMU a successful transmission of a <<low-cut-lin-transmit-operation, `Transmit`>> operation results in a <<low-cut-lin-confirm-operation, `Confirm`>> operation, an unsuccessful <<low-cut-lin-transmit-operation, `Transmit`>> operation in a <<low-cut-lin-bus-error-operation, `Bus Error`>> operation.
 If <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> is `false` (default), then Network FMUs must not rely on receiving <<low-cut-lin-confirm-operation, `Confirm`>> operations.
 If a specified Network FMU is depending on <<low-cut-lin-confirm-operation, `Confirm`>> operations and <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> is `false`, the self confirmation shall be realized internally within the respective Network FMU.
 
@@ -482,15 +535,16 @@ In this case, the <<low-cut-lin-bus-notification-parameter, `BusNotifications`>>
 
 The following <<#figure-lin-confirmation-with-bus-simulation-fmu>> illustrates a complete frame transmission using a <<low-cut-lin-transmit-operation, `Transmit`>> operation.
 This transmission is initiated by the LIN Commander in FMU 1 which transmits a LIN Header to FMU 2 via a Bus Simulation using a <<low-cut-lin-transmit-operation, `Transmit`>> operation.
-After this the Bus Simulation confirms that transmission via <<low-cut-lin-confirmation-operation, `Confirm`>> operation.
+After this the Bus Simulation confirms that transmission via <<low-cut-lin-confirm-operation, `Confirm`>> operation.
 In the next step FMU 2 transmits a LIN Response to FMU 1 via a Bus Simulation by using a <<low-cut-lin-transmit-operation, `Transmit`>> operation.
-Additionally a <<low-cut-lin-confirmation-operation, `Confirm`>> operation is given to FMU 2 from the Bus Simulation.
+Additionally a <<low-cut-lin-confirm-operation, `Confirm`>> operation is given to FMU 2 from the Bus Simulation.
 
 .Confirmation of transmitted network data via Bus Simulation.
 [#figure-lin-confirmation-with-bus-simulation-fmu]
 image::lin_confirmation_with_bus_simulation_fmu.svg[width=70%, align="center"]
 
 ===== Propagation of Collisions [[low-cut-lin-propagation-of-collisions]]
+
 Due to the design of the LIN bus, collisions of LIN frames may occur in LIN networks.
 This applies not only to the LIN Header phase but also to the LIN Response phase.
 Simulating or considering collisions is generally only possible using a Bus Simulation.
@@ -517,21 +571,25 @@ FMU 1 is then notified about this collision via a <<low-cut-lin-bus-error-operat
 image::lin_collision_with_bus_simulation_fmu.svg[width=90%, align="center"]
 
 ===== Configuration of Bus Simulation [[low-cut-lin-configuration-of-bus-simulation]]
+
 The configuration of the Bus Simulation is done by the Network FMUs itself.
 For this purpose, the <<low-cut-lin-configuration-operation, `Configuration`>> operation provides several configuration parameters.
 <<low-cut-lin-configuration-operation, `Configuration`>> operations can be produced multiple times during the runtime of a Network FMU.
 Because the Bus Simulation shall choose a default behavior, it might be useful in several scenarios that Network FMUs finish configuration before the production of <<low-cut-lin-transmit-operation, `Transmit`>> operations.
 
 ====== Baud Rate Handling [[low-cut-lin-baud-rate-handling]]
+
 In order to calculate the time required for the transmission of a bus message, it is necessary to inform the Bus Simulation about the specified baud rate from a Network FMU.
 This baud rate information can be configured by using `BAUDRATE` configuration parameter of the <<low-cut-lin-configuration-operation, `Configuration`>> operation.
 If the baud rate information is not adjusted by a specified Network FMU, the Bus Simulation shall choose a default behavior by itself.
 
 ====== Node Definition [[low-cut-lin-node-definition]]
+
 By using the `NODE_DEFINITION` configuration parameter of <<low-cut-lin-configuration-operation, `Configuration`>> operation, the specified node type `LIN_COMMANDER` or `LIN_RESPONDER` needs to be adjusted.
 This configuration must be done before the first exchange of <<low-cut-lin-transmit-operation, `Transmit`>> operations.
 
 ===== Error Handling [[low-cut-lin-error-handling]]
+
 LIN provides extensive options for detecting bus errors.
 Overall, the respective bus errors affect the internal controller status within the Network FMUs or indicate problems (e.g., collisions or a missing LIN response) on the LIN bus itself.
 To handle that kind of critical situations, <<low-cut-lin-bus-error-operation, `Bus Error`>> operations shall be provided to all relevant Network FMUs by the Bus Simulation.
@@ -544,6 +602,7 @@ image::lin_error_handling_overview.svg[width=80%, align="center"]
 <<#figure-lin-collision-with-bus-simulation-fmu>> illustrates an example of the sub-actions of how a <<low-cut-lin-bus-error-operation, `Bus Error`>> operation can be used to handle collisions in LIN networks.
 
 ===== Wake Up/Sleep [[low-cut-lin-wakeup-sleep]]
+
 This standard supports wake up and sleep for the LIN bus, whereby only the bus-specific parts are taken into account.
 This means that the realization of local virtual ECU wake-up and sleeping processes are internal parts of the respective FMU, which is not covered by this document.
 Because entering sleep state is a virtual ECU internal process always within LIN bus, this can be ignored.

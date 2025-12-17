@@ -1,7 +1,9 @@
 == Network Abstraction (Low-Cut) [[low-cut]]
+
 This chapter describes the Network Abstraction or Low-Cut in detail.
 
 === Overview [[low-cut-overview]]
+
 The Network Abstraction allows the implementation of virtual bus drivers within FMUs on the level of the hardware abstraction layer.
 Exchanging data in terms of the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> via variables grouped by a dedicated Bus Terminal (see <<low-cut-variables>>), allows the implementation of bus simulations in a wide range from idealized up to detailed behavior, including e.g., timing, arbitration, error, status and other effects.
 During simulation, the network communication is controlled by send and receive Bus Operations.
@@ -16,7 +18,7 @@ The Bus Simulation then might delay the transfer of the `Transmit` operation to 
 
 .Transmission overview.
 [#figure-transmission-overview]
-image::transmit_messages.svg[width=50%, align="center"]
+image::images/transmit_messages.svg[width=500]
 
 The point in time at which FMUs will (potentially) send new network messages can be given to the importer in advance with the proper Clock type.
 Based on these times, the importer has to calculate the next `communicationStepSize` for all networked FMUs.
@@ -24,7 +26,7 @@ For simulating bus communication with timing effects, the FMUs should set the Co
 
 .Example for network simulation with timing behavior.
 [#figure-transmission-example-with-timing-behavior]
-image::bus_simulation_example.svg[width=80%, align="center"]
+image::images/bus_simulation_example.svg[width=800]
 
 For simplification reasons or if a detailed bus simulation is not desired, fixed-step size FMUs can also be used with Network Abstraction.
 However, depending on the chosen simulation step-size, delay effects of the bus simulation have to be taken into account.
@@ -33,6 +35,7 @@ This decoupling is realized by queuing Tx/Rx Bus Operations inside the Bus Simul
 By queuing Bus Operations, System Compositions with variable-step size FMUs as well as fixed-step size FMUs can be simulated together without affecting each other.
 
 === Layered Standard Bus Protocol [[low-cut-layered-standard-bus-protocol]]
+
 The Layered Standard Bus Protocol allows the transmission of Bus Operations between FMUs in binary form via Clocks and clocked variables (see <<low-cut-variables>>).
 Depending on their role (Network or Bus Simulation), FMUs have to respond to received operations as specified by this layered standard.
 Operations and the reaction on receipt are bus-type-specific and therefore described in the bus-specific chapters.
@@ -42,8 +45,11 @@ The overview table represents the binary format of operations and is structured 
 
 * OP Code: The operation code defines the unique value of the operation.
 It consists of four bytes in length.
-* Length: A four byte total data length (OP Code + Length + Arguments) field following the OP Code.[[TotalLengthField]]
+
+[[TotalLengthField]]
+* Length: A four byte total data length (OP Code + Length + Arguments) field following the OP Code.
 For operation with variable size arguments, the total length can vary in value at runtime.
+
 * Arguments: The arguments of the respective operation.
 The number of arguments is defined for each operation within this standard.
 For arguments with a variable length, an argument pair composed of length and data is used.
@@ -69,15 +75,13 @@ h|Length
 |1 byte Arg1
 |1 byte Arg2_Length
 |<Arg2_Length> byte Arg2_Data
-|Yes
-
 |====
 
 Additionally, all operations are described separately in detail in the following structure:
 
 .Operation example within the Layered Standard Bus Protocol.
 [#table-operation-definition-example]
-[cols="5,4,3,20"]
+[cols="5a,4a,3a,20a"]
 |====
 h|Name
 3+|Name of the operation _(e.g., OperationName)_
@@ -109,8 +113,8 @@ The following applies for this operation: `Length = 10 + <Arg2_Length>`.
 
 h|Behavior
 3+|Describes the behavior of a Network FMU and the Bus Simulation in the context of this operation.
-_e.g., The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation._
 
+NOTE: E.g., the specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
 |====
 
 Remarks:
@@ -129,9 +133,10 @@ The yellow representation describes transformed values and the information shown
 
 .Mapping between the FMI-LS-BUS CAN Transmit Bus Operation and a Standard CAN Data Frame.
 [#figure-bus-operation-can-frame-mapping-example]
-image::bus_operation_can_frame_mapping_example.svg[width=65%, align="center"]
+image::images/bus_operation_can_frame_mapping_example.svg[width=650]
 
 ==== Format Error [[low-cut-format-error-operation]]
+
 A <<low-cut-format-error-operation, `Format Error`>> operation will be sent by a network participant if a corrupt Bus Operation was received.
 A corrupt Bus Operation is an operation that does not match the expected format, e.g. an unknown OP Code or an operation with an invalid length.
 
@@ -172,23 +177,24 @@ The following applies for this operation: `Length = 10 + Length of Data argument
 
 h|Behavior
 3+|The specified operation shall be produced and consumed by Network FMUs and the Bus Simulation.
-
 |====
 
 ====  Provided C Implementation [[low-cut-provided-c-implementation]]
+
 To facilitate the implementation of Low Cut FMUs, C header files with implementations for Bus Operations are provided:
 
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBus.h[fmi3LsBus.h] provides general macros, types and structures for common Bus Operations.
+* link:headers/fmi3LsBus.h[fmi3LsBus.h] provides general macros, types and structures for common Bus Operations.
 These header files apply to all supported bus types of the layered standard.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtil.h[fmi3LsBusUtil.h] provides common utility macros and structures for all supported bus types.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusCan.h[fmi3LsBusCan.h] provides macros, types and structures of Bus Operations for CAN, CAN FD and CAN XL.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtilCan.h[fmi3LsBusUtilCan.h] provides CAN, CAN FD and CAN XL explicit utility macros.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusFlexRay.h[fmi3LsBusFlexRay.h] provides macros, types and structures of Bus Operations for FlexRay.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtilFlexRay.h[fmi3LsBusUtilFlexRay.h] provides FlexRay explicit utility macros.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusEthernet.h[fmi3LsBusEthernet.h] provides macros, types and structures of Bus Operations for Ethernet.
-* https://github.com/modelica/fmi-ls-bus/blob/main/headers/fmi3LsBusUtilEthernet.h[fmi3LsBusUtilEthernet.h] provides Ethernet explicit utility macros.
+* link:headers/fmi3LsBusUtil.h[fmi3LsBusUtil.h] provides common utility macros and structures for all supported bus types.
+* link:headers/fmi3LsBusCan.h[fmi3LsBusCan.h] provides macros, types and structures of Bus Operations for CAN, CAN FD and CAN XL.
+* link:headers/fmi3LsBusUtilCan.h[fmi3LsBusUtilCan.h] provides CAN, CAN FD and CAN XL explicit utility macros.
+* link:headers/fmi3LsBusFlexRay.h[fmi3LsBusFlexRay.h] provides macros, types and structures of Bus Operations for FlexRay.
+* link:headers/fmi3LsBusUtilFlexRay.h[fmi3LsBusUtilFlexRay.h] provides FlexRay explicit utility macros.
+* link:headers/fmi3LsBusEthernet.h[fmi3LsBusEthernet.h] provides macros, types and structures of Bus Operations for Ethernet.
+* link:headers/fmi3LsBusUtilEthernet.h[fmi3LsBusUtilEthernet.h] provides Ethernet explicit utility macros.
 
 ==== Basic Type Definitions [[low-cut-basic-type-definitions]]
+
 The following basic types are defined for this standard, which apply to all supported buses.
 These basic types are used in the bus-specific parts within the operation definitions as operation arguments.
 
@@ -202,10 +208,10 @@ The following values for the boolean basic type are defined:
 h|Boolean h|Value h|Description
 |FALSE|0x00|Describes the boolean value: False.
 |TRUE|0x01|Describes the boolean value: True.
-
 |====
 
 === Variables [[low-cut-variables, Variables]]
+
 This section explains how layered standard bus protocol operations are sent and received by FMUs using Clocks and clocked variables footnote:[For details, refer to Functional Mock-up Interface Specification (fmi-standard.org) chapter 2.2.8 Clocks.]. +
 While <<low-cut-tx-clocks, Tx Clock>> and <<low-cut-rx-clocks, Rx Clock>> are used for scheduling and time synchronization, <<low-cut-tx-rx-data-variables, Tx/Rx Data Variables>> are used to carry Bus Operations in binary form.
 
@@ -217,11 +223,13 @@ While <<low-cut-tx-clocks, Tx Clock>> and <<low-cut-rx-clocks, Rx Clock>> are us
 Both variables (and their corresponding Clocks) must be members of its corresponding <<low-cut-bus-terminal, Bus Terminal>>.
 
 ==== Tx Clocks [[low-cut-tx-clocks]]
+
 As described in the FMI 3.0 specification, Clocks are used to synchronize events between the importer and across FMUs.
 
-_[Note: The Clock type of `Tx_Clock` can influence the bus simulation significantly - the differences should be taken into account.]_
+NOTE: Note: The Clock type of `Tx_Clock` can influence the bus simulation significantly - the differences should be taken into account.
 
 ===== Time-based Tx Clocks [[low-cut-tx-time-based-clocks]]
+
 For time-based Clocks, the event times are known before a simulation step is started, and the importer can adapt the next `communicationStepSize` for all networked FMUs accordingly.
 
 <<low-cut-communication-points>> illustrates the operating principle of the exchange of Bus Operations using a time-based `Tx_Clock` with `intervalVariability=countdown`.
@@ -237,27 +245,28 @@ When the corresponding `Tx_Clock` Clock becomes active, the Bus Operation is pas
 
 .Example Bus Communication Points announced by time-based aperiodic countdown Tx_Clock.
 [#low-cut-communication-points]
-image::low_cut_communication_points.svg[width=100%, align="center"]
+image::images/low_cut_communication_points.svg[width=1000]
 
 The announced Tx time however does not mean that a Bus Operation really has to be transferred, but that the connected networked FMUs should enter the `Event Mode` at that time.
 An importer has to determine proper communication step sizes to synchronize networked FMUs at the announced Tx time.
 
-_[Note: During simulation it can happen that no `Tx_Data` has to be transferred to the `Rx_Data` variable at the announced Tx time. In this case the returned 'valueSize' of the `Tx_Data` variable is 0.]_
+NOTE: Note: During simulation it can happen that no `Tx_Data` has to be transferred to the `Rx_Data` variable at the announced Tx time. In this case the returned 'valueSize' of the `Tx_Data` variable is 0.
 
 Although the `causality` of a `time-based` `Tx_Clock` and a `triggered` `Rx_Clock` are each `input`, it is allowed to connect both, since a `time-based` Clock of an FMU is considered only to be a request to the importer to provide a corresponding Clock source.
 
 .Consideration of time-base Tx_Clock connections.
 [#low-cut-time-based-port-connection]
-image::low_cut_time_based_port_connection.svg[width=50%, align="center"]
+image::images/low_cut_time_based_port_connection.svg[width=500]
 
 However, because of the common Clock source, both Clocks (`Rx_Clock` and `Tx_Clock`) might get active at the same time.
 To make sure that the `Rx_Data` variable is set properly, an importer has to activate the `Rx_Clock` respecting the `Tx_Data` and `Rx_Data` dependency.
 
-_[Note: For clarity, a connecting line between `Tx_Clock` and `Rx_Clock` is always shown in figures of this document.]_
+NOTE: Note: For clarity, a connecting line between `Tx_Clock` and `Rx_Clock` is always shown in figures of this document.
 
 Network FMUs using a `time-based` `Tx_Clock` should set the Co-Simulation attribute `canHandleVariableCommunicationStepSize = "true"` in the model description file, since `fmi3DoStep` is typically called with variable `communicationStepSize`.
 
 ===== Triggered Tx Clocks [[low-cut-tx-triggered-clocks]]
+
 A `triggered` Clock basically allows signalling events when returning from `fmi3DoStep` either by using an `Early Return` or when the requested communication point at latexmath:[t_{i+1}] was reached.
 Since signaling `Tx_Clock` events with an early return at latexmath:[t < t_{i+1}] would require to set connected networked FMUs back in time to reach Bus Communication Points synchronously, a `triggered` `Tx_Clock` must only be set when returning from `fmi3DoStep` with the `earlyReturn` argument set to `fmi3False`.
 In consequence, Bus Communication Points and regular communication points coincide and take place at the same time.
@@ -266,19 +275,21 @@ Pending Tx data shall be signaled by returning from `fmi3DoStep` with the `event
 
 .Triggered Tx_Clock/Rx_Clock connection.
 [#low-cut-triggered-port-connection]
-image::low_cut_communication_with_triggered_tx_clock.svg[width=100%, align="center"]
+image::images/low_cut_communication_with_triggered_tx_clock.svg[width=1000]
 
 ==== Rx Clocks [[low-cut-rx-clocks]]
+
 The input Clocks (`Rx_Clock`) shall be `triggered` Clocks.
 
 ==== Tx/Rx Data Variables [[low-cut-tx-rx-data-variables, Communication Variables]]
+
 The `Tx_Data`/`Rx_Data` variables are of type `fmi3Binary` and may contain zero, one or multiple Bus Operations, as sent or received by the FMU.
 If no Bus Operations shall be sent by a specified Network FMU at a given Bus Communication Point, the size of the corresponding binary `Tx_Data` variable shall be set to zero.
 A sending FMU can choose how many Bus Operations are buffered and/or for how long Bus Operations are buffered before it indicates that the corresponding time based Clock should be activated or the corresponding triggered Clock get triggered.
 This allows senders to trade accuracy for speed: Buffering more and interrupting the simulation less will lead to faster simulations, but less accurate timing of the network communication.
 
-
 ==== MIME Types [[low-cut-mime-types]]
+
 Every binary variable has a `mimeType`, which indicates the type of data passed as a binary.
 This type indicates which specific bus type is involved.
 It ensures that only bus types of the same type can be interconnected, since FMI only allows the connection of two MIME types of the same binary variables.
@@ -302,7 +313,6 @@ The following table lists the MIME types to use for the Tx/Rx data variables wit
 
 |application/org.fmi-standard.fmi-ls-bus.ethernet; version="1.0.0-alpha.2"
 |Binary variables simulating an Ethernet network
-
 |====
 
 The version of a bus type is defined in the `version` parameter of the MIME type.
@@ -316,9 +326,10 @@ A schematic representation of an FMU with a Bus Terminal is shown in the <<#figu
 
 .Frame variables and terminals.
 [#figure-frame-variables-terminals-lowcut]
-image::bus_terminal.svg[width=30%, align="center"]
+image::images/bus_terminal.svg[width=300]
 
 ==== Bus Terminal [[low-cut-bus-terminal,Bus Terminal]]
+
 Each network connected to the FMU must be described in `terminalsAndIcons/terminalsAndIcons.xml` as a `<Terminal>` element of `<fmiTerminalsAndIcons><Terminals>`.
 There shall be exactly one `<Terminal>` element for each network of the FMU.
 
@@ -339,6 +350,7 @@ The `variableKind` of these four members must be `signal`.
 Empty Configuration Terminals can be omitted.
 
 ===== Configuration Terminal [[low-cut-configuration-terminal, Configuration Terminal]]
+
 Within Configuration Terminals, bus-specific configuration parameters are defined.
 A Configuration Terminal satisfies the following definition:
 
@@ -348,6 +360,7 @@ Attributes of the nested Configuration Terminal::
  * `matchingRule` must be `bus`.
 
 ==== Grouping of Bus Terminals [[low-cut-grouping-of-bus-terminals]]
+
 In problem-specific domains, it may be useful to group several Bus Terminal elements semantically.
 This grouping is also done using terminals.
 The grouping can be done at any nesting depth.
@@ -362,6 +375,7 @@ Elements of a Grouping Terminal::
  * The `<Terminal>` element shall contain the desired number of <<low-cut-bus-terminal, Bus Terminal>> elements. 
 
 ==== Example [[low-cut-example]]
+
 The following excerpts from files are used throughout this document as examples and illustrate how the different concepts relate.
 
 .Example modelDescription.xml for ECU node.
@@ -381,6 +395,7 @@ include::examples/X_network4FMI_terminalsAndIcons_lowCut.xml[]
 ----
 
 === Bus-Specific Details [[low-cut-bus-specific-details]]
+
 For each supported bus type, the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> is defined.
 This chapter describes the operations of the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>> to enable the simulation of supported bus types.
 
