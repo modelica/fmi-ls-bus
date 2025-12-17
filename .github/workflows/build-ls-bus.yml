@@ -41,6 +41,7 @@ jobs:
 
     - name: Create build directory
       run: |
+        mkdir -p build/headers
         mkdir -p build/images/schema
         mkdir -p build/theme/css
         mkdir -p build/theme/images
@@ -49,6 +50,7 @@ jobs:
     - name: Copy resources
       run: |
         cp LICENSE.txt build
+        cp headers/*.h build/headers
         cp docs/index.html build
         cp docs/images/*.svg build/images
         cp docs/theme/css/*.css build/theme/css
