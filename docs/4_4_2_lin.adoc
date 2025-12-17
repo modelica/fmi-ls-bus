@@ -528,7 +528,7 @@ In this scenario FMU 2 does not require an internal self-confirmation and leaves
 
 .Direct Confirmation of transmitted network data.
 [#figure-lin-direct-communication]
-image::lin_direct_confirmation.svg[width=40%, align="center"]
+image::images/lin_direct_confirmation.svg[width=40%, align="center"]
 
 For a detailed simulation, the Bus Simulation has to support <<low-cut-lin-confirm-operation, `Confirm`>> operations.
 In this case, the <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> parameter of the Network FMUs can be set to `fmi3True` as Network FMUs can rely on receiving <<low-cut-lin-confirm-operation, `Confirm`>> operations for the specified Bus Terminal.
@@ -541,7 +541,7 @@ Additionally a <<low-cut-lin-confirm-operation, `Confirm`>> operation is given t
 
 .Confirmation of transmitted network data via Bus Simulation.
 [#figure-lin-confirmation-with-bus-simulation-fmu]
-image::lin_confirmation_with_bus_simulation_fmu.svg[width=70%, align="center"]
+image::images/lin_confirmation_with_bus_simulation_fmu.svg[width=70%, align="center"]
 
 ===== Propagation of Collisions [[low-cut-lin-propagation-of-collisions]]
 
@@ -568,7 +568,7 @@ FMU 1 is then notified about this collision via a <<low-cut-lin-bus-error-operat
 
 .Collision scenario of transmitted network data via Bus Simulation.
 [#figure-lin-collision-with-bus-simulation-fmu]
-image::lin_collision_with_bus_simulation_fmu.svg[width=90%, align="center"]
+image::images/lin_collision_with_bus_simulation_fmu.svg[width=90%, align="center"]
 
 ===== Configuration of Bus Simulation [[low-cut-lin-configuration-of-bus-simulation]]
 
@@ -597,7 +597,7 @@ Depending on the error type, the subset of Network FMUs to be notified may diffe
 
 .Architectural error handling overview.
 [#figure-lin-architectural-error-handling-overview]
-image::lin_error_handling_overview.svg[width=80%, align="center"]
+image::images/lin_error_handling_overview.svg[width=80%, align="center"]
 
 <<#figure-lin-collision-with-bus-simulation-fmu>> illustrates an example of the sub-actions of how a <<low-cut-lin-bus-error-operation, `Bus Error`>> operation can be used to handle collisions in LIN networks.
 
@@ -612,4 +612,4 @@ A <<low-cut-lin-wake-up-operation, `Wakeup`>> operation is initiated by one Netw
 
 .Wake up initiated by FMU 1 wakes up FMU 2 and FMU 3 via bus.
 [#figure-lin-wake-up]
-image::lin_wake_up.svg[width=70%, align="center"]
+image::images/lin_wake_up.svg[width=70%, align="center"]
