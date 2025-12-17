@@ -183,15 +183,15 @@ h|Behavior
 
 To facilitate the implementation of Low Cut FMUs, C header files with implementations for Bus Operations are provided:
 
-* link:../headers/fmi3LsBus.h[fmi3LsBus.h] provides general macros, types and structures for common Bus Operations.
+* link:headers/fmi3LsBus.h[fmi3LsBus.h] provides general macros, types and structures for common Bus Operations.
 These header files apply to all supported bus types of the layered standard.
-* link:../headers/fmi3LsBusUtil.h[fmi3LsBusUtil.h] provides common utility macros and structures for all supported bus types.
-* link:../headers/fmi3LsBusCan.h[fmi3LsBusCan.h] provides macros, types and structures of Bus Operations for CAN, CAN FD and CAN XL.
-* link:../headers/fmi3LsBusUtilCan.h[fmi3LsBusUtilCan.h] provides CAN, CAN FD and CAN XL explicit utility macros.
-* link:../headers/fmi3LsBusFlexRay.h[fmi3LsBusFlexRay.h] provides macros, types and structures of Bus Operations for FlexRay.
-* link:../headers/fmi3LsBusUtilFlexRay.h[fmi3LsBusUtilFlexRay.h] provides FlexRay explicit utility macros.
-* link:../headers/fmi3LsBusEthernet.h[fmi3LsBusEthernet.h] provides macros, types and structures of Bus Operations for Ethernet.
-* link:../headers/fmi3LsBusUtilEthernet.h[fmi3LsBusUtilEthernet.h] provides Ethernet explicit utility macros.
+* link:headers/fmi3LsBusUtil.h[fmi3LsBusUtil.h] provides common utility macros and structures for all supported bus types.
+* link:headers/fmi3LsBusCan.h[fmi3LsBusCan.h] provides macros, types and structures of Bus Operations for CAN, CAN FD and CAN XL.
+* link:headers/fmi3LsBusUtilCan.h[fmi3LsBusUtilCan.h] provides CAN, CAN FD and CAN XL explicit utility macros.
+* link:headers/fmi3LsBusFlexRay.h[fmi3LsBusFlexRay.h] provides macros, types and structures of Bus Operations for FlexRay.
+* link:headers/fmi3LsBusUtilFlexRay.h[fmi3LsBusUtilFlexRay.h] provides FlexRay explicit utility macros.
+* link:headers/fmi3LsBusEthernet.h[fmi3LsBusEthernet.h] provides macros, types and structures of Bus Operations for Ethernet.
+* link:headers/fmi3LsBusUtilEthernet.h[fmi3LsBusUtilEthernet.h] provides Ethernet explicit utility macros.
 
 ==== Basic Type Definitions [[low-cut-basic-type-definitions]]
 
