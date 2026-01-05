@@ -7,7 +7,7 @@ FMI-LS-BUS layered standard specification (https://github.com/modelica/fmi-ls-bu
 
 It should be used when creating FlexRay Network FMUs according to the FMI-LS-BUS layered standard.
 
-Copyright (C) 2023-2025 Modelica Association Project "FMI"
+Copyright (C) 2023-2026 Modelica Association Project "FMI"
               All rights reserved.
 
 This file is licensed by the copyright holders under the 2-Clause BSD License

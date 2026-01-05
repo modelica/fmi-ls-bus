@@ -154,7 +154,7 @@ _** This support is for a Pre-Release version._
 
 ## Copyright and License
 
-Code and documentation copyright (C) 2023-2025 The Modelica Association Project FMI.
+Code and documentation copyright (C) 2023-2026 The Modelica Association Project FMI.
 Code released under the [2-Clause BSD License].
 Docs released under [Attribution-ShareAlike 4.0 International].
 
