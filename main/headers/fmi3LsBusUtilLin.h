@@ -7,7 +7,7 @@ LIN specific bus operations from\to dedicated buffer variables.
 
 This header file can be used when creating Network FMI-LS-BUS FMUs with LIN.
 
-Copyright (C) 2025 Modelica Association Project "FMI"
+Copyright (C) 2025-2026 Modelica Association Project "FMI"
               All rights reserved.
 
 This file is licensed by the copyright holders under the 2-Clause BSD License
