@@ -528,7 +528,7 @@ In this scenario FMU 2 does not require an internal self-confirmation and leaves
 
 .Direct Confirmation of transmitted network data.
 [#figure-lin-direct-communication]
-image::images/lin_direct_confirmation.svg[width=40%, align="center"]
+image::images/lin_direct_confirmation.svg[width=60%, align="center"]
 
 For a detailed simulation, the Bus Simulation has to support <<low-cut-lin-confirm-operation, `Confirm`>> operations.
 In this case, the <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> parameter of the Network FMUs can be set to `fmi3True` as Network FMUs can rely on receiving <<low-cut-lin-confirm-operation, `Confirm`>> operations for the specified Bus Terminal.
