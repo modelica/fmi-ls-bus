@@ -45,7 +45,7 @@ h|Length
 |0x10
 |:= 12 + DL +
 (4 bytes)
-|Frame Type +
+|Frame Part +
 (1 byte)
 |ID +
 (1 byte)
@@ -124,9 +124,9 @@ For this operation the OP Code always has the value 0x10.
 |Defines the cumulative length of all arguments in bytes.
 For this operation always applies: `Length = 12 + Data Length`.
 
-|Frame Type
+|Frame Part
 |1 byte
-|Indicates the type of the specified LIN frame (see <<#table-lin-frame-types-values>>).
+|Indicates the type of the specified LIN frame (see <<#table-lin-frame-part-values>>).
 
 |ID
 |1 byte
@@ -143,7 +143,7 @@ The valid value range for this argument is 0....63.
 |Data Length
 |1 byte
 |Specifies the length of the Data argument in bytes.
-Allowed values for the `Data Length` depend on the value of `Frame Type` and are specified in <<#table-lin-frame-types-values>>.
+Allowed values for the `Data Length` depend on the value of `Frame Part` and are specified in <<#table-lin-frame-part-values>>.
 
 |Data 
 |n bytes 
@@ -156,13 +156,13 @@ If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicate
 Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-lin-bus-error-operation, `Bus Error`>> or <<low-cut-lin-format-error-operation, `Format Error`>> operation.
 |====
 
-The following values for `Frame Type` argument are specified:
+The following values for `Frame Part` argument are specified:
 
-.Overview of the available frame type values.
-[#table-lin-frame-types-values]
+.Overview of the available frame part values.
+[#table-lin-frame-part-values]
 [cols="2,1,5"]
 |====
-h|Frame Type h|Value h|Description
+h|Frame Part h|Value h|Description
 
 |HEADER
 |0x01
@@ -287,38 +287,38 @@ h|Error Code h|Value h|Description
 |BIT_ERROR
 |0x01
 |A `BIT_ERROR` indicates that a received bit does not match the expected value.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_COMMANDER`>> within the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Part` is set to `HEADER`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_COMMANDER`>> within the specified LIN network.
 
 |CHECKSUM_ERROR
 |0x02
 |A `CHECKSUM_ERROR` error can occur during a collision of LIN Responses when Event-Triggered-Frames are used.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Type` is set to `RESPONSE`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_COMMANDER`>> of the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Part` is set to `RESPONSE`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_COMMANDER`>> of the specified LIN network.
 
 |IDENTIFIER_PARITY_ERROR
 |0x03
 |A `IDENTIFIER_PARITY_ERROR` error can occur during a collision of LIN Headers.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to all Network FMUs of the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Part` is set to `HEADER`) and shall be delivered to all Network FMUs of the specified LIN network.
 Within this situation, no valid `ID` can be used as an argument value for the respective <<low-cut-lin-bus-error-operation, `Bus Error`>> operation and shall be set to zero.
 
 |NO_RESPONSE_ERROR
 |0x04
 |A `NO_RESPONSE_ERROR` error indicates that no LIN Responder reacts with a LIN Response to a specified LIN Header.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_COMMANDER`>> within the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Part` is set to `HEADER`) and shall be delivered to the Network FMU that is configured as <<table-lin-configuration-node-definition-kinds, `LIN_COMMANDER`>> within the specified LIN network.
 
 |SYNCH_FIELD_ERROR
 |0x05
 |A `SYNCH_FIELD_ERROR` indicates an error communicated by LIN Sync Field mechanism.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_RESPONDER`>> within the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Part` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_RESPONDER`>> within the specified LIN network.
 
 |SYNCH_TOLERANCE_ERROR
 |0x06
 |The calculated baud rate deviates too much from the original baud rate after clock synchronization (tolerance exceeded).
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_RESPONDER`>> within the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Part` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_RESPONDER`>> within the specified LIN network.
 
 |HEADER_TIMEOUT_ERROR
 |0x07
 |A `HEADER_TIMEOUT_ERROR` means that a LIN Responder did not receive a complete Header from the LIN Commander within a specified time window.
-This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Type` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_RESPONDER`>> within the specified LIN network.
+This <<low-cut-lin-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-lin-transmit-operation, `Transmit`>> operation (`Frame Part` is set to `HEADER`) and shall be delivered to the Network FMUs that are configured as <<table-lin-configuration-node-definition-kinds, `LIN_RESPONDER`>> within the specified LIN network.
 
 |FRAME_ERROR
 |0x08
@@ -514,7 +514,7 @@ Every communication begins with a so-called LIN Header, which the LIN Commander 
 After the LIN Header has been sent, the LIN Response phase follows.
 In this phase, either the addressed LIN Responder or the LIN Commander itself sends the actual data.
 The <<low-cut-lin-transmit-operation, `Transmit`>> operation is used to simulate both the transmission of a LIN Header and a LIN Response.
-Within the <<low-cut-lin-transmit-operation, `Transmit`>> operation, the different frame types are qualified via the `Frame Type` argument.
+Within the <<low-cut-lin-transmit-operation, `Transmit`>> operation, the different frame parts are qualified via the `Frame Part` argument.
 
 A <<low-cut-lin-confirm-operation, `Confirm-`>> and <<low-cut-lin-bus-error-operation, `Bus Error`>> operation represents feedback from a Bus Simulation for a previously carried out <<low-cut-lin-transmit-operation, `Transmit`>> operation.
 Depending on the <<low-cut-lin-bus-notification-parameter, `BusNotifications`>> parameter, for a Network FMU a successful transmission of a <<low-cut-lin-transmit-operation, `Transmit`>> operation results in a <<low-cut-lin-confirm-operation, `Confirm`>> operation, an unsuccessful <<low-cut-lin-transmit-operation, `Transmit`>> operation in a <<low-cut-lin-bus-error-operation, `Bus Error`>> operation.

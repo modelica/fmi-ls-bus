@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0" version="29.2.4">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0" version="29.2.6">
   <diagram id="kgpKYQtTHZ0yAKxKKP6v" name="Page-1">
-    <mxGraphModel dx="895" dy="503" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="511" dy="287" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -18,7 +18,7 @@
             <mxPoint x="108.89393939393949" y="385.19000000000005" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Ct78ly6aTw_c9TOjw8sM-1" edge="1" parent="1" source="3nuBFxr9cyL0pnOWT2aG-1" style="verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;shadow=0;strokeWidth=1;" value="Transmit(Frame Type = HEADER)">
+        <mxCell id="Ct78ly6aTw_c9TOjw8sM-1" edge="1" parent="1" source="3nuBFxr9cyL0pnOWT2aG-1" style="verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;shadow=0;strokeWidth=1;" value="Transmit(Frame Part = HEADER)">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="176" y="173" as="sourcePoint" />
             <mxPoint x="361" y="173" as="targetPoint" />
@@ -36,27 +36,27 @@
         <mxCell id="3nuBFxr9cyL0pnOWT2aG-5" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;rounded=0;shadow=0;strokeWidth=1;" value=":Bus Simulation" vertex="1">
           <mxGeometry height="360" width="135" x="300" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="eGcspzg-jYoVY6njO30K-8" edge="1" parent="3nuBFxr9cyL0pnOWT2aG-5" style="verticalAlign=bottom;endArrow=block;shadow=0;strokeWidth=1;" value="Transmit(Frame Type = HEADER)">
+        <mxCell id="eGcspzg-jYoVY6njO30K-8" edge="1" parent="3nuBFxr9cyL0pnOWT2aG-5" style="verticalAlign=bottom;endArrow=block;shadow=0;strokeWidth=1;" value="Transmit(Frame Part = HEADER)">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="65" y="125" as="sourcePoint" />
             <mxPoint x="271.5" y="125" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="fZvWrIkT4CTps1SisAn1-6" edge="1" parent="3nuBFxr9cyL0pnOWT2aG-5" style="verticalAlign=bottom;endArrow=block;shadow=0;strokeWidth=1;entryX=-0.241;entryY=0.421;entryDx=0;entryDy=0;entryPerimeter=0;" value="Transmit(Frame Type = HEADER)">
+        <mxCell id="fZvWrIkT4CTps1SisAn1-6" edge="1" parent="3nuBFxr9cyL0pnOWT2aG-5" style="verticalAlign=bottom;endArrow=block;shadow=0;strokeWidth=1;entryX=-0.241;entryY=0.421;entryDx=0;entryDy=0;entryPerimeter=0;" value="Transmit(Frame Part = HEADER)">
           <mxGeometry relative="1" x="-0.4188" as="geometry">
             <mxPoint as="offset" />
             <mxPoint x="71" y="161" as="sourcePoint" />
             <mxPoint x="413.0899999999999" y="160.72500000000002" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="fZvWrIkT4CTps1SisAn1-10" edge="1" parent="3nuBFxr9cyL0pnOWT2aG-5" style="verticalAlign=bottom;endArrow=none;shadow=0;strokeWidth=1;startArrow=block;startFill=1;endFill=0;" value="Transmit(Frame Type = RESPONSE)">
+        <mxCell id="fZvWrIkT4CTps1SisAn1-10" edge="1" parent="3nuBFxr9cyL0pnOWT2aG-5" style="verticalAlign=bottom;endArrow=none;shadow=0;strokeWidth=1;startArrow=block;startFill=1;endFill=0;" value="Transmit(Frame Part = RESPONSE)">
           <mxGeometry relative="1" x="0.0015" as="geometry">
             <mxPoint as="offset" />
             <mxPoint x="73" y="236" as="sourcePoint" />
             <mxPoint x="279.5" y="236" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="fZvWrIkT4CTps1SisAn1-11" edge="1" parent="3nuBFxr9cyL0pnOWT2aG-5" style="verticalAlign=bottom;endArrow=none;shadow=0;strokeWidth=1;startArrow=block;startFill=1;endFill=0;spacingLeft=12;" value="Transmit(Frame Type = RESPONSE)">
+        <mxCell id="fZvWrIkT4CTps1SisAn1-11" edge="1" parent="3nuBFxr9cyL0pnOWT2aG-5" style="verticalAlign=bottom;endArrow=none;shadow=0;strokeWidth=1;startArrow=block;startFill=1;endFill=0;spacingLeft=12;" value="Transmit(Frame Part = RESPONSE)">
           <mxGeometry relative="1" x="-0.4425" as="geometry">
             <mxPoint as="offset" />
             <mxPoint x="73" y="272" as="sourcePoint" />

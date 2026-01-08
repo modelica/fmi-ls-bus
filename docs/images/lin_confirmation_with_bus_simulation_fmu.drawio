@@ -1,10 +1,10 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0" version="29.2.4">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0" version="29.2.6">
   <diagram id="kgpKYQtTHZ0yAKxKKP6v" name="Page-1">
-    <mxGraphModel dx="895" dy="503" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="511" dy="287" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="0h_jDxbgEs_agktkd4NI-2" edge="1" parent="1" style="verticalAlign=bottom;endArrow=block;shadow=0;strokeWidth=1;exitX=-0.16;exitY=0.729;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.184;entryY=0.383;entryDx=0;entryDy=0;entryPerimeter=0;" value="Transmit(Frame Type = RESPONSE)">
+        <mxCell id="0h_jDxbgEs_agktkd4NI-2" edge="1" parent="1" style="verticalAlign=bottom;endArrow=block;shadow=0;strokeWidth=1;exitX=-0.16;exitY=0.729;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.184;entryY=0.383;entryDx=0;entryDy=0;entryPerimeter=0;" value="Transmit(Frame Part = RESPONSE)">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="363.4000000000001" y="312.89000000000004" as="sourcePoint" />
             <mxPoint x="156" y="312.7" as="targetPoint" />
@@ -16,7 +16,7 @@
             <mxPoint x="570.5" y="343" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Ct78ly6aTw_c9TOjw8sM-1" edge="1" parent="1" source="3nuBFxr9cyL0pnOWT2aG-2" style="verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;shadow=0;strokeWidth=1;exitX=0.832;exitY=0.124;exitDx=0;exitDy=0;exitPerimeter=0;" value="Transmit(Frame Type = HEADER)">
+        <mxCell id="Ct78ly6aTw_c9TOjw8sM-1" edge="1" parent="1" source="3nuBFxr9cyL0pnOWT2aG-2" style="verticalAlign=bottom;endArrow=block;entryX=0;entryY=0;shadow=0;strokeWidth=1;exitX=0.832;exitY=0.124;exitDx=0;exitDy=0;exitPerimeter=0;" value="Transmit(Frame Part = HEADER)">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="176" y="173" as="sourcePoint" />
             <mxPoint x="361" y="173" as="targetPoint" />
@@ -34,7 +34,7 @@
         <mxCell id="3nuBFxr9cyL0pnOWT2aG-5" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;rounded=0;shadow=0;strokeWidth=1;" value=":Bus Simulation" vertex="1">
           <mxGeometry height="310" width="130" x="300" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="eGcspzg-jYoVY6njO30K-8" edge="1" parent="3nuBFxr9cyL0pnOWT2aG-5" style="verticalAlign=bottom;endArrow=block;shadow=0;strokeWidth=1;" value="Transmit(Frame Type = HEADER)">
+        <mxCell id="eGcspzg-jYoVY6njO30K-8" edge="1" parent="3nuBFxr9cyL0pnOWT2aG-5" style="verticalAlign=bottom;endArrow=block;shadow=0;strokeWidth=1;" value="Transmit(Frame Part = HEADER)">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="65" y="125" as="sourcePoint" />
             <mxPoint x="271.5" y="125" as="targetPoint" />
@@ -70,7 +70,7 @@
         <mxCell id="wwloKvxE0hybi3bw0HLE-13" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="Response&lt;br&gt;Phase" vertex="1">
           <mxGeometry height="30" width="60" x="618" y="298" as="geometry" />
         </mxCell>
-        <mxCell id="0h_jDxbgEs_agktkd4NI-1" edge="1" parent="1" style="verticalAlign=bottom;endArrow=block;shadow=0;strokeWidth=1;exitX=-0.16;exitY=0.729;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.184;entryY=0.383;entryDx=0;entryDy=0;entryPerimeter=0;" value="Transmit(Frame Type = RESPONSE)">
+        <mxCell id="0h_jDxbgEs_agktkd4NI-1" edge="1" parent="1" style="verticalAlign=bottom;endArrow=block;shadow=0;strokeWidth=1;exitX=-0.16;exitY=0.729;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.184;entryY=0.383;entryDx=0;entryDy=0;entryPerimeter=0;" value="Transmit(Frame Part = RESPONSE)">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="571.4000000000001" y="282.19000000000005" as="sourcePoint" />
             <mxPoint x="370" y="282" as="targetPoint" />
