@@ -104,7 +104,7 @@ Both LIN cases, in detail a LIN Header and a LIN Response, are considered here.
 h|Name 3+|Transmit
 
 h|Description
-3+|Represents an operation for the transmission of a LIN message, aggregating a representation for a Frame Header and a Frame Response.
+3+|Represents transmission of either a LIN Frame Header or LIN Frame Response.
 
 h|OP Code [hex]
 3+| 0x10
@@ -150,7 +150,7 @@ Allowed values for the `Data Length` depend on the value of `Frame Part` and are
 |Stores the given frame data to transfer, whereby the valid length of the data depends on the LIN Format.
 
 h|Behavior
-3+|The <<low-cut-lin-transmit-operation, `Transmit`>> operation shall be provided by Network FMUs to initiate the transmission of a LIN frame that contains the specified LIN Header or a LIN Response.
+3+|The <<low-cut-lin-transmit-operation, `Transmit`>> operation shall be provided by Network FMUs to indicate the transmission of either a LIN Header or a LIN Response to a corresponding LIN Header.
 In case of direct connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-lin-bus-error-operation, `Bus Error`>> or <<low-cut-lin-format-error-operation, `Format Error`>> operation.
