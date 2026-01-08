@@ -196,16 +196,16 @@ typedef fmi3UInt32 fmi3LsBusLinBaudrate;
 /**
  * \brief Indicates the type of a LIN node (LIN Commander or LIN Responder).
  */
-typedef fmi3UInt8 fmi3LsBusLinNodeDefinition;
+typedef fmi3UInt8 fmi3LsBusLinNodeType;
 
 /**
  * \brief Represents a LIN Commander network node.
  */
-#define FMI3_LS_BUS_LIN_NODE_DEFINITION_LIN_COMMANDER ((fmi3LsBusLinNodeDefinition)0x1)
+#define FMI3_LS_BUS_LIN_NODE_TYPE_LIN_COMMANDER ((fmi3LsBusLinNodeType)0x1)
 /**
  * \brief Represents a LIN Responder network node.
  */
-#define FMI3_LS_BUS_LIN_NODE_DEFINITION_LIN_RESPONDER ((fmi3LsBusLinNodeDefinition)0x2)
+#define FMI3_LS_BUS_LIN_NODE_TYPE_LIN_RESPONDER ((fmi3LsBusLinNodeType)0x2)
 
 /**
  * \brief Data type representing the parameter configured with a configuration operation.
@@ -219,7 +219,7 @@ typedef fmi3UInt8 fmi3LsBusLinConfigParameterType;
 /**
  * \brief Configures the required node type (LIN COMMANDER or LIN RESPONDER) within a Bus Simulation.
  */
-#define FMI3_LS_BUS_LIN_CONFIG_PARAMETER_TYPE_NODE_DEFINITION ((fmi3LsBusLinConfigParameterType)0x2)
+#define FMI3_LS_BUS_LIN_CONFIG_PARAMETER_TYPE_NODE_TYPE ((fmi3LsBusLinConfigParameterType)0x2)
 
 /**
  * \brief Configuration data sent with 'Configuration' operation of type 'BAUDRATE'.
@@ -230,12 +230,12 @@ typedef struct
 } fmi3LsBusLinConfigurationNodeBaudrateConfig;
 
 /**
- * \brief Configuration data sent with 'Configuration' operation of type 'NODE_DEFINITION'.
+ * \brief Configuration data sent with 'Configuration' operation of type 'NODE_TYPE'.
  */
 typedef struct
 {
-    fmi3LsBusLinNodeDefinition nodeDefinition;  /**< Indicates the type of a LIN node (LIN Commander or LIN Responder) */
-} fmi3LsBusLinConfigurationNodeDefinitionConfig;
+    fmi3LsBusLinNodeType nodeType;  /**< Indicates the type of a LIN node (LIN Commander or LIN Responder) */
+} fmi3LsBusLinConfigurationNodeTypeConfig;
 
 /** \} */
 
@@ -287,7 +287,7 @@ typedef struct
     union
     {
         fmi3LsBusLinConfigurationNodeBaudrateConfig nodeBaudrate;  /**< Configuration data for parameter 'BAUDRATE'. */
-        fmi3LsBusLinConfigurationNodeDefinitionConfig nodeDefinition;  /**< Configuration data for parameter 'NODE_DEFINITION'. */
+        fmi3LsBusLinConfigurationNodeTypeConfig nodeType;  /**< Configuration data for parameter 'NODE_TYPE'. */
     };
 } fmi3LsBusLinOperationConfiguration;
 

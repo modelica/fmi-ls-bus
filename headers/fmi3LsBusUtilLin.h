@@ -186,19 +186,19 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] BufferInfo
  *     Pointer to \ref fmi3LsBusUtilBufferInfo.
  * \param[in] Baudrate
- *     Indicates the type of a LIN node (LIN Commander or LIN Responder) (\ref fmi3LsBusLinNodeDefinition).
+ *     Indicates the type of a LIN node (LIN Commander or LIN Responder) (\ref fmi3LsBusLinNodeType).
  */
-#define FMI3_LS_BUS_LIN_CREATE_OP_CONFIGURATION_NODE_DEFINITION(BufferInfo, \
-        NodeDefinition \
+#define FMI3_LS_BUS_LIN_CREATE_OP_CONFIGURATION_NODE_TYPE(BufferInfo, \
+        NodeType \
     ) do { \
         fmi3LsBusLinOperationConfiguration _op; \
         _op.header.opCode = FMI3_LS_BUS_LIN_OP_CONFIGURATION; \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) \
             + sizeof(fmi3LsBusLinConfigParameterType) \
-            + sizeof(fmi3LsBusLinConfigurationNodeDefinitionConfig); \
+            + sizeof(fmi3LsBusLinConfigurationNodeTypeConfig); \
         \
-        _op.parameterType = FMI3_LS_BUS_LIN_CONFIG_PARAMETER_TYPE_NODE_DEFINITION; \
-        _op.nodeDefinition.nodeDefinition = NodeDefinition; \
+        _op.parameterType = FMI3_LS_BUS_LIN_CONFIG_PARAMETER_TYPE_NODE_TYPE; \
+        _op.nodeType.nodeType = NodeType; \
         \
         FMI_LS_BUS_SUBMIT_OPERATION_NO_DATA_INTERNAL((BufferInfo), _op); \
     } while (0)

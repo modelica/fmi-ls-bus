@@ -378,7 +378,7 @@ Note that only one parameter can be set per <<low-cut-lin-configuration-operatio
 |The specified baud rate value to configure, whereby the specified ranges are defined by the LIN standard.
 The required unit for the baud rate value is bit/s.
 
-|NODE_DEFINITION
+|NODE_TYPE
 |Node Definition
 |1 byte
 |Configures the required node type (LIN Commander or LIN Responder) within a Bus Simulation.
@@ -389,7 +389,7 @@ h|Behavior
 The operation shall not be routed to other Network FMUs by the Bus Simulation.
 A Network FMU shall ignore this operation on the consumer side.
 <<low-cut-lin-configuration-operation, `Configuration`>> operations can be produced multiple times during the runtime of a Network FMU.
-The configuration of the `NODE_DEFINITION` parameter must be completed by all Network FMUs before any <<low-cut-lin-transmit-operation, `Transmit`>> operation is produced.
+The configuration of the `NODE_TYPE` parameter must be completed by all Network FMUs before any <<low-cut-lin-transmit-operation, `Transmit`>> operation is produced.
 If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.
 |====
 
@@ -405,7 +405,7 @@ h|Parameter h|Value h|Description
 |0x01
 |This code indicates that a LIN baud rate should be configured for the Bus Simulation.
 
-|NODE_DEFINITION
+|NODE_TYPE
 |0x02
 |This code configures the specified node type (LIN Commander or LIN Responder) within a Bus Simulation.
 |====
@@ -585,7 +585,7 @@ If the baud rate information is not adjusted by a specified Network FMU, the Bus
 
 ====== Node Definition [[low-cut-lin-node-definition]]
 
-By using the `NODE_DEFINITION` configuration parameter of <<low-cut-lin-configuration-operation, `Configuration`>> operation, the specified node type `LIN_COMMANDER` or `LIN_RESPONDER` needs to be adjusted.
+By using the `NODE_TYPE` configuration parameter of <<low-cut-lin-configuration-operation, `Configuration`>> operation, the specified node type `LIN_COMMANDER` or `LIN_RESPONDER` needs to be adjusted.
 This configuration must be done before the first exchange of <<low-cut-lin-transmit-operation, `Transmit`>> operations.
 
 ===== Error Handling [[low-cut-lin-error-handling]]
