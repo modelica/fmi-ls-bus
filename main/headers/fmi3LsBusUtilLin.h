@@ -43,7 +43,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 /**
- * \brief Represents an operation for the transmission of a LIN message, aggregating a representation for a Frame Header and a Frame Response.
+ * \brief Represents an operation for the transmission of a LIN message, aggregating a representation for a LIN Frame Header and a LIN Frame Response.
  *
  * This macro can be used to create an LIN 'Transmit' operation.
  * The arguments are serialized according to the FMI-LS-BUS specification and written to the buffer described by the argument `BufferInfo`.
@@ -52,8 +52,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * \param[in] BufferInfo
  *     Pointer to \ref fmi3LsBusUtilBufferInfo.
- * \param[in] FrameType
- *     Indicates the type of the specified LIN frame (\ref fmi3LsBusLinFrameType).
+ * \param[in] FramePart
+ *     Indicates the part of the specified LIN frame (\ref fmi3LsBusLinFramePart).
  * \param[in] Id
  *     The specified ID of the LIN message (\ref fmi3LsBusLinID).
  * \param[in] ChecksumType
@@ -64,7 +64,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *     The payload data of the LIN frame (pointer of \ref fmi3LsBusLinData).
  */
 #define FMI3_LS_BUS_LIN_CREATE_OP_TRANSMIT(BufferInfo, \
-        FrameType, \
+        FramePart, \
         Id, \
         ChecksumType, \
         DataLength, \
@@ -73,13 +73,13 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         fmi3LsBusLinOperationTransmit _op; \
         _op.header.opCode = FMI3_LS_BUS_LIN_OP_TRANSMIT; \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) \
-            + sizeof(fmi3LsBusLinFrameType) \
+            + sizeof(fmi3LsBusLinFramePart) \
             + sizeof(fmi3LsBusLinID) \
             + sizeof(fmi3LsBusLinChecksumType) \
             + sizeof(fmi3LsBusLinDataLength) \
             + (DataLength); \
         \
-        _op.frameType = FrameType; \
+        _op.framePart = FramePart; \
         _op.id = Id; \
         _op.checksumType = ChecksumType; \
         _op.dataLength = DataLength; \
@@ -186,19 +186,19 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] BufferInfo
  *     Pointer to \ref fmi3LsBusUtilBufferInfo.
  * \param[in] Baudrate
- *     Indicates the type of a LIN node (LIN Commander or LIN Responder) (\ref fmi3LsBusLinNodeDefinition).
+ *     Indicates the type of a LIN node (LIN Commander or LIN Responder) (\ref fmi3LsBusLinNodeType).
  */
-#define FMI3_LS_BUS_LIN_CREATE_OP_CONFIGURATION_NODE_DEFINITION(BufferInfo, \
-        NodeDefinition \
+#define FMI3_LS_BUS_LIN_CREATE_OP_CONFIGURATION_NODE_TYPE(BufferInfo, \
+        NodeType \
     ) do { \
         fmi3LsBusLinOperationConfiguration _op; \
         _op.header.opCode = FMI3_LS_BUS_LIN_OP_CONFIGURATION; \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) \
             + sizeof(fmi3LsBusLinConfigParameterType) \
-            + sizeof(fmi3LsBusLinConfigurationNodeDefinitionConfig); \
+            + sizeof(fmi3LsBusLinConfigurationNodeTypeConfig); \
         \
-        _op.parameterType = FMI3_LS_BUS_LIN_CONFIG_PARAMETER_TYPE_NODE_DEFINITION; \
-        _op.nodeDefinition.nodeDefinition = NodeDefinition; \
+        _op.parameterType = FMI3_LS_BUS_LIN_CONFIG_PARAMETER_TYPE_NODE_TYPE; \
+        _op.nodeType.nodeType = NodeType; \
         \
         FMI_LS_BUS_SUBMIT_OPERATION_NO_DATA_INTERNAL((BufferInfo), _op); \
     } while (0)

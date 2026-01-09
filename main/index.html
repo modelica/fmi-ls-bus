@@ -478,8 +478,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version a76a184,</span>
-<span id="revdate">2026-01-06</span>
+<span id="revnumber">version f7ddb0a,</span>
+<span id="revdate">2026-01-09</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -3850,7 +3850,7 @@ It shows all operations and the arguments they contain.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x10</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">:= 12 + DL<br>
 (4 bytes)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Frame Type<br>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Frame Part<br>
 (1 byte)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID<br>
 (1 byte)</p></td>
@@ -3927,7 +3927,7 @@ Both LIN cases, in detail a LIN Header and a LIN Response, are considered here.<
 <tbody>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
-<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Represents an operation for the transmission of a LIN message, aggregating a representation for a Frame Header and a Frame Response.</p></td>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Represents transmission of either a LIN Frame Header or LIN Frame Response.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
@@ -3952,9 +3952,9 @@ For this operation the OP Code always has the value 0x10.</p></td>
 For this operation always applies: <code>Length = 12 + Data Length</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Frame Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Frame Part</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the type of the specified LIN frame (see <a href="#table-lin-frame-types-values">Table 25</a>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the type of the specified LIN frame (see <a href="#table-lin-frame-part-values">Table 25</a>).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
@@ -3974,7 +3974,7 @@ The valid value range for this argument is 0&#8230;&#8203;.63.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Data Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the length of the Data argument in bytes.
-Allowed values for the <code>Data Length</code> depend on the value of <code>Frame Type</code> and are specified in <a href="#table-lin-frame-types-values">Table 25</a>.</p></td>
+Allowed values for the <code>Data Length</code> depend on the value of <code>Frame Part</code> and are specified in <a href="#table-lin-frame-part-values">Table 25</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Data</p></td>
@@ -3983,7 +3983,7 @@ Allowed values for the <code>Data Length</code> depend on the value of <code>Fra
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
-<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation shall be provided by Network FMUs to initiate the transmission of a LIN frame that contains the specified LIN Header or a LIN Response.
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation shall be provided by Network FMUs to indicate the transmission of either a LIN Header or a LIN Response to a corresponding LIN Header.
 In case of direct connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.2.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.2.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.2.3</a>), the FMU importer forwards the operation initially to the Bus Simulation, where the operation is distributed with respect to the simulated bus behavior.
 Depending on the simulation details, the Bus Simulation might respond with a <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> or <a href="#low-cut-lin-format-error-operation"><code>Format Error</code></a> operation.</p></td>
@@ -3991,10 +3991,10 @@ Depending on the simulation details, the Bus Simulation might respond with a <a 
 </tbody>
 </table>
 <div class="paragraph">
-<p>The following values for <code>Frame Type</code> argument are specified:</p>
+<p>The following values for <code>Frame Part</code> argument are specified:</p>
 </div>
-<table id="table-lin-frame-types-values" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 25. Overview of the available frame type values.</caption>
+<table id="table-lin-frame-part-values" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 25. Overview of the available frame part values.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 12.5%;">
@@ -4002,7 +4002,7 @@ Depending on the simulation details, the Bus Simulation might respond with a <a 
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Frame Type</th>
+<th class="tableblock halign-left valign-top">Frame Part</th>
 <th class="tableblock halign-left valign-top">Value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
@@ -4207,44 +4207,44 @@ Only Network FMUs with the corresponding optionally exposed <a href="#low-cut-li
 <td class="tableblock halign-left valign-top"><p class="tableblock">BIT_ERROR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x01</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A <code>BIT_ERROR</code> indicates that a received bit does not match the expected value.
-This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation is a direct reaction to a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation (<code>Frame Type</code> is set to <code>HEADER</code>) and shall be delivered to the Network FMU that is configured as <a href="#table-lin-configuration-node-definition-kinds"><code>LIN_COMMANDER</code></a> within the specified LIN network.</p></td>
+This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation is a direct reaction to a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation (<code>Frame Part</code> is set to <code>HEADER</code>) and shall be delivered to the Network FMU that is configured as <a href="#table-lin-configuration-node-definition-kinds"><code>LIN_COMMANDER</code></a> within the specified LIN network.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CHECKSUM_ERROR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x02</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A <code>CHECKSUM_ERROR</code> error can occur during a collision of LIN Responses when Event-Triggered-Frames are used.
-This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation is a direct reaction to a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation (<code>Frame Type</code> is set to <code>RESPONSE</code>) and shall be delivered to the Network FMU that is configured as <a href="#table-lin-configuration-node-definition-kinds"><code>LIN_COMMANDER</code></a> of the specified LIN network.</p></td>
+This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation is a direct reaction to a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation (<code>Frame Part</code> is set to <code>RESPONSE</code>) and shall be delivered to the Network FMU that is configured as <a href="#table-lin-configuration-node-definition-kinds"><code>LIN_COMMANDER</code></a> of the specified LIN network.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">IDENTIFIER_PARITY_ERROR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x03</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A <code>IDENTIFIER_PARITY_ERROR</code> error can occur during a collision of LIN Headers.
-This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation is a direct reaction to a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation (<code>Frame Type</code> is set to <code>HEADER</code>) and shall be delivered to all Network FMUs of the specified LIN network.
+This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation is a direct reaction to a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation (<code>Frame Part</code> is set to <code>HEADER</code>) and shall be delivered to all Network FMUs of the specified LIN network.
 Within this situation, no valid <code>ID</code> can be used as an argument value for the respective <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation and shall be set to zero.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NO_RESPONSE_ERROR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x04</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A <code>NO_RESPONSE_ERROR</code> error indicates that no LIN Responder reacts with a LIN Response to a specified LIN Header.
-This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation is a direct reaction to a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation (<code>Frame Type</code> is set to <code>HEADER</code>) and shall be delivered to the Network FMU that is configured as <a href="#table-lin-configuration-node-definition-kinds"><code>LIN_COMMANDER</code></a> within the specified LIN network.</p></td>
+This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation is a direct reaction to a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation (<code>Frame Part</code> is set to <code>HEADER</code>) and shall be delivered to the Network FMU that is configured as <a href="#table-lin-configuration-node-definition-kinds"><code>LIN_COMMANDER</code></a> within the specified LIN network.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SYNCH_FIELD_ERROR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x05</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A <code>SYNCH_FIELD_ERROR</code> indicates an error communicated by LIN Sync Field mechanism.
-This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation is a direct reaction to a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation (<code>Frame Type</code> is set to <code>HEADER</code>) and shall be delivered to the Network FMUs that are configured as <a href="#table-lin-configuration-node-definition-kinds"><code>LIN_RESPONDER</code></a> within the specified LIN network.</p></td>
+This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation is a direct reaction to a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation (<code>Frame Part</code> is set to <code>HEADER</code>) and shall be delivered to the Network FMUs that are configured as <a href="#table-lin-configuration-node-definition-kinds"><code>LIN_RESPONDER</code></a> within the specified LIN network.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SYNCH_TOLERANCE_ERROR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x06</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The calculated baud rate deviates too much from the original baud rate after clock synchronization (tolerance exceeded).
-This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation is a direct reaction to a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation (<code>Frame Type</code> is set to <code>HEADER</code>) and shall be delivered to the Network FMUs that are configured as <a href="#table-lin-configuration-node-definition-kinds"><code>LIN_RESPONDER</code></a> within the specified LIN network.</p></td>
+This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation is a direct reaction to a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation (<code>Frame Part</code> is set to <code>HEADER</code>) and shall be delivered to the Network FMUs that are configured as <a href="#table-lin-configuration-node-definition-kinds"><code>LIN_RESPONDER</code></a> within the specified LIN network.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">HEADER_TIMEOUT_ERROR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x07</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A <code>HEADER_TIMEOUT_ERROR</code> means that a LIN Responder did not receive a complete Header from the LIN Commander within a specified time window.
-This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation is a direct reaction to a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation (<code>Frame Type</code> is set to <code>HEADER</code>) and shall be delivered to the Network FMUs that are configured as <a href="#table-lin-configuration-node-definition-kinds"><code>LIN_RESPONDER</code></a> within the specified LIN network.</p></td>
+This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation is a direct reaction to a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation (<code>Frame Part</code> is set to <code>HEADER</code>) and shall be delivered to the Network FMUs that are configured as <a href="#table-lin-configuration-node-definition-kinds"><code>LIN_RESPONDER</code></a> within the specified LIN network.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FRAME_ERROR</p></td>
@@ -4329,7 +4329,7 @@ Note that only one parameter can be set per <a href="#low-cut-lin-configuration-
 The required unit for the baud rate value is bit/s.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">NODE_DEFINITION</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NODE_TYPE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Node Definition</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Configures the required node type (LIN Commander or LIN Responder) within a Bus Simulation.
@@ -4341,7 +4341,7 @@ Possible values are: <code>LIN_COMMANDER</code> and <code>LIN_RESPONDER</code> (
 The operation shall not be routed to other Network FMUs by the Bus Simulation.
 A Network FMU shall ignore this operation on the consumer side.
 <a href="#low-cut-lin-configuration-operation"><code>Configuration</code></a> operations can be produced multiple times during the runtime of a Network FMU.
-The configuration of the <code>NODE_DEFINITION</code> parameter must be completed by all Network FMUs before any <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation is produced.
+The configuration of the <code>NODE_TYPE</code> parameter must be completed by all Network FMUs before any <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation is produced.
 If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.</p></td>
 </tr>
 </tbody>
@@ -4370,7 +4370,7 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 <td class="tableblock halign-left valign-top"><p class="tableblock">This code indicates that a LIN baud rate should be configured for the Bus Simulation.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">NODE_DEFINITION</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NODE_TYPE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x02</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This code configures the specified node type (LIN Commander or LIN Responder) within a Bus Simulation.</p></td>
 </tr>
@@ -4542,7 +4542,7 @@ Every communication begins with a so-called LIN Header, which the LIN Commander 
 After the LIN Header has been sent, the LIN Response phase follows.
 In this phase, either the addressed LIN Responder or the LIN Commander itself sends the actual data.
 The <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation is used to simulate both the transmission of a LIN Header and a LIN Response.
-Within the <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation, the different frame types are qualified via the <code>Frame Type</code> argument.</p>
+Within the <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation, the different frame parts are qualified via the <code>Frame Part</code> argument.</p>
 </div>
 <div class="paragraph">
 <p>A <a href="#low-cut-lin-confirm-operation"><code>Confirm-</code></a> and <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation represents feedback from a Bus Simulation for a previously carried out <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation.
@@ -4556,9 +4556,9 @@ Subsequently, FMU 1 self-confirms the transmission internally.
 After this, FMU 2 transmits a LIN Response back to FMU 1 via <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation.
 In this scenario FMU 2 does not require an internal self-confirmation and leaves this out.</p>
 </div>
-<div id="figure-lin-direct-communication" class="imageblock text-center">
+<div id="figure-lin-direct-communication" class="imageblock">
 <div class="content">
-<img src="images/lin_direct_confirmation.svg" alt="lin direct confirmation" width="40%">
+<img src="images/lin_direct_confirmation.svg" alt="lin direct confirmation" width="60%">
 </div>
 <div class="title">Figure 17. Direct Confirmation of transmitted network data.</div>
 </div>
@@ -4573,7 +4573,7 @@ After this the Bus Simulation confirms that transmission via <a href="#low-cut-l
 In the next step FMU 2 transmits a LIN Response to FMU 1 via a Bus Simulation by using a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation.
 Additionally a <a href="#low-cut-lin-confirm-operation"><code>Confirm</code></a> operation is given to FMU 2 from the Bus Simulation.</p>
 </div>
-<div id="figure-lin-confirmation-with-bus-simulation-fmu" class="imageblock text-center">
+<div id="figure-lin-confirmation-with-bus-simulation-fmu" class="imageblock">
 <div class="content">
 <img src="images/lin_confirmation_with_bus_simulation_fmu.svg" alt="lin confirmation with bus simulation fmu" width="70%">
 </div>
@@ -4606,7 +4606,7 @@ Each LIN Responder responds with its own <a href="#low-cut-lin-transmit-operatio
 Within the Bus Simulation the collision is detected.
 FMU 1 is then notified about this collision via a <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation.</p>
 </div>
-<div id="figure-lin-collision-with-bus-simulation-fmu" class="imageblock text-center">
+<div id="figure-lin-collision-with-bus-simulation-fmu" class="imageblock">
 <div class="content">
 <img src="images/lin_collision_with_bus_simulation_fmu.svg" alt="lin collision with bus simulation fmu" width="90%">
 </div>
@@ -4632,7 +4632,7 @@ If the baud rate information is not adjusted by a specified Network FMU, the Bus
 <div class="sect5">
 <h6 id="low-cut-lin-node-definition">5.5.2.6.2. Node Definition</h6>
 <div class="paragraph">
-<p>By using the <code>NODE_DEFINITION</code> configuration parameter of <a href="#low-cut-lin-configuration-operation"><code>Configuration</code></a> operation, the specified node type <code>LIN_COMMANDER</code> or <code>LIN_RESPONDER</code> needs to be adjusted.
+<p>By using the <code>NODE_TYPE</code> configuration parameter of <a href="#low-cut-lin-configuration-operation"><code>Configuration</code></a> operation, the specified node type <code>LIN_COMMANDER</code> or <code>LIN_RESPONDER</code> needs to be adjusted.
 This configuration must be done before the first exchange of <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operations.</p>
 </div>
 </div>
@@ -4645,7 +4645,7 @@ Overall, the respective bus errors affect the internal controller status within 
 To handle that kind of critical situations, <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operations shall be provided to all relevant Network FMUs by the Bus Simulation.
 Depending on the error type, the subset of Network FMUs to be notified may differ and is well defined by <a href="#table-lin-bus-error-codes">Table 29</a>.</p>
 </div>
-<div id="figure-lin-architectural-error-handling-overview" class="imageblock text-center">
+<div id="figure-lin-architectural-error-handling-overview" class="imageblock">
 <div class="content">
 <img src="images/lin_error_handling_overview.svg" alt="lin error handling overview" width="80%">
 </div>
@@ -4665,7 +4665,7 @@ Also, the virtual ECU local wake-up process is ignored as well.
 The LIN-specific wake-up pulse can be simulated by using the <a href="#low-cut-lin-wake-up-operation"><code>Wakeup</code></a> operation.
 A <a href="#low-cut-lin-wake-up-operation"><code>Wakeup</code></a> operation is initiated by one Network FMU and shall be distributed to all participants of the bus,except the wake-up initiator, by the Bus Simulation.</p>
 </div>
-<div id="figure-lin-wake-up" class="imageblock text-center">
+<div id="figure-lin-wake-up" class="imageblock">
 <div class="content">
 <img src="images/lin_wake_up.svg" alt="lin wake up" width="70%">
 </div>
