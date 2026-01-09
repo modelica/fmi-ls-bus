@@ -61,7 +61,7 @@ extern "C"
 /**
  * \brief FMI virtual bus operation of type 'Transmit'.
  *
- * Represents an operation for the transmission of a LIN message, aggregating a representation for a Frame Header and a Frame Response.
+ * Represents an operation for the transmission of a LIN message, aggregating a representation for a LIN Frame Header and a LIN Frame Response.
  */
 #define FMI3_LS_BUS_LIN_OP_TRANSMIT ((fmi3LsBusOperationCode)0x10)
 
@@ -109,18 +109,18 @@ extern "C"
 typedef fmi3UInt8 fmi3LsBusLinID;
 
 /**
- * \brief Indicates the type of the specified LIN frame.
+ * \brief Indicates the part of the specified LIN frame.
  */
-typedef fmi3UInt8 fmi3LsBusLinFrameType;
+typedef fmi3UInt8 fmi3LsBusLinFramePart;
 
 /**
- * \brief Indicates a LIN frame header. In this case the Data Length argument of a Transmit operation is always set to zero.
+ * \brief Indicates a LIN Frame Header. In this case the Data Length argument of a Transmit operation is always set to zero.
  */
-#define FMI3_LS_BUS_LIN_FRAME_TYPE_HEADER ((fmi3LsBusLinFrameType)0x1)
+#define FMI3_LS_BUS_LIN_FRAME_PART_HEADER ((fmi3LsBusLinFramePart)0x1)
 /**
- * \brief Indicates a LIN frame response. In this case the Data Length argument of a Transmit operation contains the length of the Data argument value.
+ * \brief Indicates a LIN Frame Response. In this case the Data Length argument of a Transmit operation contains the length of the Data argument value.
  */
-#define FMI3_LS_BUS_LIN_FRAME_TYPE_RESPONSE ((fmi3LsBusLinFrameType)0x2)
+#define FMI3_LS_BUS_LIN_FRAME_PART_RESPONSE ((fmi3LsBusLinFramePart)0x2)
 
 /**
  * \brief Indicates the checksum type of the specified LIN frame.
@@ -152,31 +152,31 @@ typedef fmi3UInt8 fmi3LsBusLinDataLength;
 typedef fmi3UInt8 fmi3LsBusLinBusErrorCode;
 
 /**
- * \brief A BIT_ERROR means that a received bit does not match the expected value. This Bus Error operation is a direct reaction to a Transmit operation (Frame Type is set to HEADER) and shall be delivered to the Network FMU that is configured as LIN_COMMANDER within the specified LIN network.
+ * \brief A BIT_ERROR means that a received bit does not match the expected value. This Bus Error operation is a direct reaction to a Transmit operation (Frame Part is set to HEADER) and shall be delivered to the Network FMU that is configured as LIN_COMMANDER within the specified LIN network.
  */
 #define FMI3_LS_BUS_LIN_BUS_ERROR_CODE_BIT_ERROR ((fmi3LsBusLinBusErrorCode)0x1)
 /**
- * \brief Represents a CRC error. The error can occur during a collision of multiple response frames when Event-Triggered-Frames are used. This Bus Error operation is a direct reaction to a Transmit operation (Frame Type is set to RESPONSE) and shall be delivered to the Network FMU that is configured as LIN_COMMANDER of the specified LIN network.
+ * \brief Represents a CRC error. The error can occur during a collision of multiple response frames when Event-Triggered-Frames are used. This Bus Error operation is a direct reaction to a Transmit operation (Frame Part is set to RESPONSE) and shall be delivered to the Network FMU that is configured as LIN_COMMANDER of the specified LIN network.
  */
 #define FMI3_LS_BUS_LIN_BUS_ERROR_CODE_CHECKSUM_ERROR ((fmi3LsBusLinBusErrorCode)0x2)
 /**
- * \brief Represents an Identifier Parity Error. The error can occur during a collision of multiple LIN headers. This Bus Error operation is a direct reaction to a Transmit operation (Frame Type is set to HEADER) and shall be delivered to all Network FMUs of the specified LIN network..
+ * \brief Represents an Identifier Parity Error. The error can occur during a collision of multiple LIN headers. This Bus Error operation is a direct reaction to a Transmit operation (Frame Part is set to HEADER) and shall be delivered to all Network FMUs of the specified LIN network..
  */
 #define FMI3_LS_BUS_LIN_BUS_ERROR_CODE_IDENTIFIER_PARITY_ERROR ((fmi3LsBusLinBusErrorCode)0x3)
 /**
- * \brief Represents a No Response Error. The error can occur if LIN Responders does not respond to a specified LIN header. This Bus Error operation is a direct reaction to a Transmit operation (Frame Type is set to HEADER) and shall be delivered to the Network FMU that is configured as LIN_COMMANDER within the specified LIN network.
+ * \brief Represents a No Response Error. The error can occur if LIN Responders does not respond to a specified LIN header. This Bus Error operation is a direct reaction to a Transmit operation (Frame Part is set to HEADER) and shall be delivered to the Network FMU that is configured as LIN_COMMANDER within the specified LIN network.
  */
 #define FMI3_LS_BUS_LIN_BUS_ERROR_CODE_NO_RESPONSE_ERROR ((fmi3LsBusLinBusErrorCode)0x4)
 /**
- * \brief Represents an Inconsistent-Synch Field Error. This Bus Error operation is a direct reaction to a Transmit operation (Frame Type is set to HEADER) and shall be delivered to the Network FMUs that are configured as LIN_RESPONDER within the specified LIN network.
+ * \brief Represents an Inconsistent-Synch Field Error. This Bus Error operation is a direct reaction to a Transmit operation (Frame Part is set to HEADER) and shall be delivered to the Network FMUs that are configured as LIN_RESPONDER within the specified LIN network.
  */
 #define FMI3_LS_BUS_LIN_BUS_ERROR_CODE_SYNCH_FIELD_ERROR ((fmi3LsBusLinBusErrorCode)0x5)
 /**
- * \brief The calculated baud rate deviates too much from the original baud rate after clock synchronization (tolerance exceeded). This Bus Error operation is a direct reaction to a Transmit operation (Frame Type is set to HEADER) and shall be delivered to the Network FMUs that are configured as LIN_RESPONDER within the specified LIN network.
+ * \brief The calculated baud rate deviates too much from the original baud rate after clock synchronization (tolerance exceeded). This Bus Error operation is a direct reaction to a Transmit operation (Frame Part is set to HEADER) and shall be delivered to the Network FMUs that are configured as LIN_RESPONDER within the specified LIN network.
  */
 #define FMI3_LS_BUS_LIN_BUS_ERROR_CODE_SYNCH_TOLERANCE_ERROR ((fmi3LsBusLinBusErrorCode)0x6)
 /**
- * \brief A header timeout error means that a LIN Responder node did not receive a complete header from the LIN Commander within the specified time frame. This Bus Error operation is a direct reaction to a Transmit operation (Frame Type is set to HEADER) and shall be delivered to the Network FMUs that are configured as LIN_RESPONDER within the specified LIN network.
+ * \brief A header timeout error means that a LIN Responder node did not receive a complete header from the LIN Commander within the specified time frame. This Bus Error operation is a direct reaction to a Transmit operation (Frame Part is set to HEADER) and shall be delivered to the Network FMUs that are configured as LIN_RESPONDER within the specified LIN network.
  */
 #define FMI3_LS_BUS_LIN_BUS_ERROR_CODE_HEADER_TIMEOUT_ERROR ((fmi3LsBusLinBusErrorCode)0x7)
 /**
@@ -196,16 +196,16 @@ typedef fmi3UInt32 fmi3LsBusLinBaudrate;
 /**
  * \brief Indicates the type of a LIN node (LIN Commander or LIN Responder).
  */
-typedef fmi3UInt8 fmi3LsBusLinNodeDefinition;
+typedef fmi3UInt8 fmi3LsBusLinNodeType;
 
 /**
  * \brief Represents a LIN Commander network node.
  */
-#define FMI3_LS_BUS_LIN_NODE_DEFINITION_LIN_COMMANDER ((fmi3LsBusLinNodeDefinition)0x1)
+#define FMI3_LS_BUS_LIN_NODE_TYPE_LIN_COMMANDER ((fmi3LsBusLinNodeType)0x1)
 /**
  * \brief Represents a LIN Responder network node.
  */
-#define FMI3_LS_BUS_LIN_NODE_DEFINITION_LIN_RESPONDER ((fmi3LsBusLinNodeDefinition)0x2)
+#define FMI3_LS_BUS_LIN_NODE_TYPE_LIN_RESPONDER ((fmi3LsBusLinNodeType)0x2)
 
 /**
  * \brief Data type representing the parameter configured with a configuration operation.
@@ -219,7 +219,7 @@ typedef fmi3UInt8 fmi3LsBusLinConfigParameterType;
 /**
  * \brief Configures the required node type (LIN COMMANDER or LIN RESPONDER) within a Bus Simulation.
  */
-#define FMI3_LS_BUS_LIN_CONFIG_PARAMETER_TYPE_NODE_DEFINITION ((fmi3LsBusLinConfigParameterType)0x2)
+#define FMI3_LS_BUS_LIN_CONFIG_PARAMETER_TYPE_NODE_TYPE ((fmi3LsBusLinConfigParameterType)0x2)
 
 /**
  * \brief Configuration data sent with 'Configuration' operation of type 'BAUDRATE'.
@@ -230,12 +230,12 @@ typedef struct
 } fmi3LsBusLinConfigurationNodeBaudrateConfig;
 
 /**
- * \brief Configuration data sent with 'Configuration' operation of type 'NODE_DEFINITION'.
+ * \brief Configuration data sent with 'Configuration' operation of type 'NODE_TYPE'.
  */
 typedef struct
 {
-    fmi3LsBusLinNodeDefinition nodeDefinition;  /**< Indicates the type of a LIN node (LIN Commander or LIN Responder) */
-} fmi3LsBusLinConfigurationNodeDefinitionConfig;
+    fmi3LsBusLinNodeType nodeType;  /**< Indicates the type of a LIN node (LIN Commander or LIN Responder) */
+} fmi3LsBusLinConfigurationNodeTypeConfig;
 
 /** \} */
 
@@ -246,12 +246,12 @@ typedef struct
  */
 
 /**
- * \brief Represents an operation for the transmission of a LIN message, aggregating a representation for a Frame Header and a Frame Response.
+ * \brief Represents an operation for the transmission of a LIN message, aggregating a representation for a LIN Frame Header and a LIN Frame Response.
  */
 typedef struct
 {
     fmi3LsBusOperationHeader header;  /**< Operation header */
-    fmi3LsBusLinFrameType frameType;  /**< Indicates the type of the specified LIN frame */
+    fmi3LsBusLinFramePart framePart;  /**< Indicates the part of the specified LIN frame */
     fmi3LsBusLinID id;  /**< The specified ID of the LIN message */
     fmi3LsBusLinChecksumType checksumType;  /**< Indicates the checksum type of the specified LIN frame */
     fmi3LsBusLinDataLength dataLength;  /**< The length of the data of this LIN frame */
@@ -287,7 +287,7 @@ typedef struct
     union
     {
         fmi3LsBusLinConfigurationNodeBaudrateConfig nodeBaudrate;  /**< Configuration data for parameter 'BAUDRATE'. */
-        fmi3LsBusLinConfigurationNodeDefinitionConfig nodeDefinition;  /**< Configuration data for parameter 'NODE_DEFINITION'. */
+        fmi3LsBusLinConfigurationNodeTypeConfig nodeType;  /**< Configuration data for parameter 'NODE_TYPE'. */
     };
 } fmi3LsBusLinOperationConfiguration;
 
