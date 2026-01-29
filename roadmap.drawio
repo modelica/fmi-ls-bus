@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0" version="29.3.2">
   <diagram id="yPxyJZ8AM_hMuL3Unpa9" name="complex gitflow">
-    <mxGraphModel dx="1053" dy="-258" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+    <mxGraphModel dx="298" dy="-682" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -68,10 +68,10 @@
           <mxGeometry height="30" width="30" x="527.04" y="1166" as="geometry" />
         </mxCell>
         <mxCell id="ekskCzZsQZzb6SujQjUG-2" parent="1" style="html=1;whiteSpace=wrap;shape=mxgraph.infographic.barCallout;dx=36.55;dy=13.39;fillColor=#23445D;strokeColor=none;align=center;verticalAlign=top;fontColor=#ffffff;fontSize=14;fontStyle=1;shadow=0;spacingTop=-6;horizontal=1;spacingBottom=-8;rotation=-180;" value="" vertex="1">
-          <mxGeometry height="34" width="74" x="912" y="1270" as="geometry" />
+          <mxGeometry height="34" width="76" x="910" y="1270" as="geometry" />
         </mxCell>
         <mxCell id="ekskCzZsQZzb6SujQjUG-3" parent="1" style="text;strokeColor=none;fillColor=none;html=1;fontSize=10;fontStyle=1;verticalAlign=middle;align=left;fontColor=#FFFFFF;whiteSpace=wrap;" value="&lt;b style=&quot;text-wrap-mode: wrap;&quot;&gt;1.3.0-alpha.1&lt;/b&gt;" vertex="1">
-          <mxGeometry height="31" width="100" x="913.0000000000001" y="1278" as="geometry" />
+          <mxGeometry height="31" width="100" x="912.0000000000001" y="1278" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
