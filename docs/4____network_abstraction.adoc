@@ -128,8 +128,7 @@ Since the FMI-LS-BUS describes the simulation of network communication above the
 The corresponding argument values ​​do not have to be analogous to those of the original frame representation.
 Argument values can be transformed, i.e., presented in a different form, for easier use.
 <<figure-bus-operation-can-frame-mapping-example>> illustrates the mapping between the FMI-LS-BUS CAN Transmit Bus Operation and a Standard CAN Data Frame. 
-The information that can be mapped directly is shown in green.
-The yellow representation describes transformed values and the information shown in red is not required/used.
+In detail <<figure-bus-operation-can-frame-mapping-example>> shows which information is directly mapped, which is used with transformed values and which information is not required/used.
 
 .Mapping between the FMI-LS-BUS CAN Transmit Bus Operation and a Standard CAN Data Frame.
 [#figure-bus-operation-can-frame-mapping-example]
