@@ -56,7 +56,7 @@ For arguments with a variable length, an argument pair composed of length and da
 
 The following table shows an example of an operation definition.
 The name is _OperationName_ and has the OP Code 0x01.
-The operation has three arguments _Arg1_ (2 bytes long), _Arg2_Length_ (1 byte long), _Arg2_Data_ (_<Arg2Length>_ bytes long), whereby argument 2 and argument 3 form a coherent variable length argument.
+The operation has three arguments _Arg1_ (1 byte long), _Arg2_Length_ (1 byte long), _Arg2_Data_ (_<Arg2Length>_ bytes long), whereby argument 2 and argument 3 form a coherent variable length argument.
 
 .Definition of an operation within the Layered Standard Bus Protocol.
 [#table-operation-definition]
