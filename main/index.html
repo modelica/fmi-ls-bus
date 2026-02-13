@@ -478,7 +478,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version eb446da,</span>
+<span id="revnumber">version 68d5efc,</span>
 <span id="revdate">2026-02-13</span>
 </div>
 <div id="toc" class="toc2">
@@ -1988,8 +1988,7 @@ Since the FMI-LS-BUS describes the simulation of network communication above the
 The corresponding argument values ​​do not have to be analogous to those of the original frame representation.
 Argument values can be transformed, i.e., presented in a different form, for easier use.
 <a href="#figure-bus-operation-can-frame-mapping-example">Figure 7</a> illustrates the mapping between the FMI-LS-BUS CAN Transmit Bus Operation and a Standard CAN Data Frame.
-The information that can be mapped directly is shown in green.
-The yellow representation describes transformed values and the information shown in red is not required/used.</p>
+In detail <a href="#figure-bus-operation-can-frame-mapping-example">Figure 7</a> shows which information is directly mapped, which is used with transformed values and which information is not required/used.</p>
 </div>
 <div id="figure-bus-operation-can-frame-mapping-example" class="imageblock">
 <div class="content">
@@ -2183,8 +2182,8 @@ Note: The Clock type of <code>Tx_Clock</code> can influence the bus simulation s
 The network topology is shown on the left part and the corresponding data flow on the right part of the figure.
 In this example FMU 1 and FMU 2 are communicating via a Bus Simulation.
 Each of them have a <a href="#low-cut-bus-terminal">Bus Terminal</a> where the specified Bus Operations are exchanged.
-Within the first communication point (first black dot), FMU 1 announces the time point when it wants to transmit data by setting the interval and the interval qualifier of the <code>countdown</code> <code>Tx_Clock</code>.
-The importer will then call the <code>fmi3DoStep</code> functions of the FMUs with a corresponding communication step size to hit the requested time point (first red dot).
+Within the first communication point, FMU 1 announces the time point when it wants to transmit data by setting the interval and the interval qualifier of the <code>countdown</code> <code>Tx_Clock</code>.
+The importer will then call the <code>fmi3DoStep</code> functions of the FMUs with a corresponding communication step size to hit the requested time point (second communication point).
 In the <code>Event Mode</code> the Bus Operation (the clocked binary variable) is then passed from FMU 1 to the Bus Simulation.
 The Bus Simulation itself also uses a <code>countdown</code> <code>Tx_Clock</code> and announces a point in the future at which the Bus Operation should be transmitted to FMU 2.
 The interval provided by the Bus Simulation might consider effects of the bus like the actual transmission time, but the interval could even be zero in case of an ideal bus abstraction.
