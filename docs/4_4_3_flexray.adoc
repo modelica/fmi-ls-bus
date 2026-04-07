@@ -753,16 +753,16 @@ This chapter defines parameters that Network FMU might provide to configure Flex
 ====== Bus Notification Parameter [[low-cut-flexray-bus-notification-parameter]]
 
 For a detailed simulation, a Network FMU needs information about whether the message sent has arrived or whether a bus error has occurred.
-A Bus Simulation can simulate these effects by sending bus notifications in terms of <<low-cut-flexray-confirm-operation, `Confirm-`>> and <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations to the Network FMUs.
+A Bus Simulation can simulate these effects by sending bus notifications in terms of <<low-cut-flexray-confirm-operation, `Confirm`>> and <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations to the Network FMUs.
 
 However, in scenarios where Network FMUs are connected directly to each other, or where the Bus Simulation does not simulate such effects, it must be possible to configure the Network FMU such that it does not wait for any response after a <<low-cut-flexray-transmit-operation, `Transmit`>> operation.
 Therefore, a parameter with `memberName = "BusNotifications"` can be added within the FlexRay-specific  <<low-cut-configuration-terminal,Configuration Terminal>>. +
 If a Network FMU supports bus notifications, the <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> parameter shall be exposed.
 The default value of this parameter shall be `false`.
 
-NOTE: The default value `false` allows a simple integration of Network FMUs to simulation scenarios where <<low-cut-flexray-confirm-operation, `Confirm-`>> or <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations are not used.
+NOTE: The default value `false` allows a simple integration of Network FMUs to simulation scenarios where <<low-cut-flexray-confirm-operation, `Confirm`>> or <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations are not used.
 
-Only Network FMUs with the corresponding optionally exposed <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for <<low-cut-flexray-confirm-operation, `Confirm-`>> and <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations and respond accordingly; otherwise Network FMUs must not wait ("fire-and-forget").
+Only Network FMUs with the corresponding optionally exposed <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for <<low-cut-flexray-confirm-operation, `Confirm`>> and <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations and respond accordingly; otherwise Network FMUs must not wait ("fire-and-forget").
 Even if the Network FMU does not expect bus notifications, i.e. <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> variable was not set to `fmi3True`, but receives them, it shall ignore them, i.e. it shall not report warnings or errors.
 
 NOTE: Note that the bus notification parameter just informs the Network FMU if it can expect to receive notification operations or not.
@@ -796,7 +796,7 @@ In order to minimize the number of Bus Communication Points of an entire simulat
 Under the condition that participating Network FMUs also provide their <<low-cut-flexray-transmit-operation, `Transmit`>> operations on a slot boundary, the behavior means that the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to be received, the next <<low-cut-flexray-transmit-operation, `Transmit`>> operation to be sent and a <<low-cut-flexray-confirm-operation, `Confirm`>> or <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation are provided and exchanged at exactly one Bus Communication Point.
 
 Therefore, a parameter with `memberName = "DeliveryOnBoundary"` can be added within the FlexRay-specific <<low-cut-configuration-terminal,Configuration Terminal>> to switch the behavior in the Bus Simulation.
-If the value of the parameter is set to `fmi3True`, the Bus Simulation provides <<low-cut-flexray-transmit-operation, `Transmit`>> operations and also resulting <<low-cut-flexray-confirm-operation, `Confirm-`>> and <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations at a concrete slot boundary.
+If the value of the parameter is set to `fmi3True`, the Bus Simulation provides <<low-cut-flexray-transmit-operation, `Transmit`>> operations and also resulting <<low-cut-flexray-confirm-operation, `Confirm`>> and <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations at a concrete slot boundary.
 If the value of the parameter is set to `fmi3False`, the Bus Simulation provides the respective operations after the calculated transfer time.
 See <<low-cut-flexray-static-segment>> and <<low-cut-flexray-dynamic-segment>> for details.
 The default value shall be `true`.
@@ -887,7 +887,7 @@ After this temporal aspects for data transmission are explained.
 The <<low-cut-flexray-transmit-operation, `Transmit`>> operation represents the core of a bus transmission.
 It contains all relevant frame data and is provided by a Network FMU in the role of a sender, potentially via a Bus Simulation, to one or more Network FMUs in the role of a receiver.
 
-A <<low-cut-flexray-confirm-operation, `Confirm-`>> and <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation represents feedback from a Bus Simulation for a previously carried out <<low-cut-flexray-transmit-operation, `Transmit`>> operation.
+A <<low-cut-flexray-confirm-operation, `Confirm`>> and <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation represents feedback from a Bus Simulation for a previously carried out <<low-cut-flexray-transmit-operation, `Transmit`>> operation.
 Depending on the <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> parameter, for a Network FMU a successful transmission of a <<low-cut-flexray-transmit-operation, `Transmit`>> operation results in a <<low-cut-flexray-confirm-operation, `Confirm`>> operation, an unsuccessful <<low-cut-flexray-transmit-operation, `Transmit`>> operation in a <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation.
 If <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> is `false` (default), then Network FMUs must not rely on receiving <<low-cut-flexray-confirm-operation, `Confirm`>> operations.
 If a specified Network FMU is depending on <<low-cut-flexray-confirm-operation, `Confirm`>> operations and <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> is `false`, the self confirmation shall be realized internally within the respective Network FMU.
@@ -978,7 +978,7 @@ The point in time for the start of FlexRay cycle of the current iteration with f
 
 For a static segment, a Network FMU shall provide the respective <<low-cut-flexray-transmit-operation, `Transmit`>> operation in an interval starting at the beginning of a slot and ending at the action point (see `ActionPoint Offset` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation) of a slot.
 Within this time window, the Network FMU must provide the respective <<low-cut-flexray-transmit-operation, `Transmit`>> operation for a specific slot.
-The point in time at which a Bus Simulation shall provide <<low-cut-flexray-transmit-operation, `Transmit`>> operations and also resulting <<low-cut-flexray-confirm-operation, `Confirm-`>> or <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations depends on the <<low-cut-flexray-delivery-on-boundary-parameter, `DeliveryOnBoundary`>> configuration parameter.
+The point in time at which a Bus Simulation shall provide <<low-cut-flexray-transmit-operation, `Transmit`>> operations and also resulting <<low-cut-flexray-confirm-operation, `Confirm`>> or <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations depends on the <<low-cut-flexray-delivery-on-boundary-parameter, `DeliveryOnBoundary`>> configuration parameter.
 If the parameter is set to `fmi3False`, the Bus Simulation provides the respective operations directly after the calculated transmission time (see orange arrow in <<figure-flexray-static-segment-bus-communication-points>>).
 If the parameter is `true` (default), the corresponding operations are only provided at the slot boundary (green arrow in <<figure-flexray-static-segment-bus-communication-points>>).
 
