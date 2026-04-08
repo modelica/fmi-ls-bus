@@ -947,7 +947,7 @@ That specifically means that the point in time for the start of the FlexRay cycl
         + L_{\mathrm{Cycle}} \cdot (N_{\mathrm{Cycle}} \cdot i_{\mathrm{Iteration}} + i_{\mathrm{Cycle}})
 ++++
 
-, where:
+where:
 
 * stem:[T_{\mathrm{Start}}] represents the start time of the first FlexRay cycle (see `Start Time` argument within the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation) in nanoseconds.
 * stem:[L_{\mathrm{Cycle}}] defines length of FlexRay cycle in nanoseconds (see `Macrotick Duration` and `Macroticks per Cycle` arguments within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
@@ -970,7 +970,7 @@ The point in time for the start of FlexRay cycle of the current iteration with f
             \right)
 ++++
 
-, where:
+where:
 
 * stem:[t] represents the current simulation time in nanoseconds with stem:[t \geq T_{\mathrm{Start}}.]
 
@@ -995,7 +995,7 @@ The starting point of the slot can be calculated at runtime based on the `FLEXRA
         + (i_{\mathrm{Slot}} - 1) \cdot L_{\mathrm{StaticSlot}}
 ++++
 
-, where:
+where:
 
 * stem:[i_{\mathrm{Slot}}] represents the index of the static slot for transmission (see `Slot ID` argument of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation).
 * stem:[L_{\mathrm{StaticSlot}}] defines the length of a static slot within the static segment in nanoseconds (see `Macrotick Duration` and `Static Slot Length` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
@@ -1013,7 +1013,7 @@ This results in an interval in which a Network FMU shall provide a specified <<l
         \right]
 ++++
 
-, where:
+where:
 
 * stem:[T_{\mathrm{ActionPoint}_{\mathrm{Static}}}] represents the action point offset of a static and symbol slot in nanoseconds (see `Macrotick Duration` and `ActionPoint Offset` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
 
@@ -1069,7 +1069,7 @@ Within a Network FMU the first valid point in time when a specified <<low-cut-fl
         + (i_{\mathrm{Slot}} - N_{\mathrm{StaticSlot}} - 1) \cdot L_{\mathrm{Minislot}}
 ++++
 
-, where:
+where:
 
 * stem:[N_{\mathrm{StaticSlot}}] represents the number of static slots within one FlexRay cycle (see `Number of Static Slots` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
 * stem:[i_{\mathrm{Slot}}] represents the specified Slot ID for transmission within the dynamic segment (see `Slot ID` argument of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation).
@@ -1085,7 +1085,7 @@ Within a Network FMU the latest valid point in time when a specified <<low-cut-f
             L_{\mathrm{DynamicSlot}_j} \cdot L_{\mathrm{Minislot}}
 ++++
 
-, where:
+where:
 
 * stem:[N_{\mathrm{StaticSlot}}] represents the number of static slots within one FlexRay cycle (see `Number of Static Slots` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
 * stem:[i_{\mathrm{Slot}}] represents the specified Slot ID for transmission within the dynamic segment (see `Slot ID` argument of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation).
@@ -1105,9 +1105,9 @@ This results in an interval in which a Network FMU shall provide a specified <<l
             T_{\mathrm{Tx}_{\mathrm{DynamicLast}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
                 + T_{\mathrm{ActionPoint}_{\mathrm{Dynamic}}}
         \right]
-++++
+++++ 
 
-, where:
+where:
 
 * stem:[T_{\mathrm{ActionPoint}_{\mathrm{Dynamic}}}] represents the minislot action point offset of a dynamic slot in macroticks (see `Minislot ActionPoint Offset` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
 
