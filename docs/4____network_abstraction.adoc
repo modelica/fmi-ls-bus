@@ -60,22 +60,33 @@ The operation has three arguments _Arg1_ (1 byte long), _Arg2_Length_ (1 byte lo
 
 .Definition of an operation within the Layered Standard Bus Protocol.
 [#table-operation-definition]
-[cols="1,1,1,1,1,1"]
+[cols="5a,4a,3a,20a"]
 |====
-.2+h|Operation Type
-5+h|Operation Content
-
-h|OP Code
-h|Length
-3+h|Specific Content
-
-|OperationName
+h|Name
+3+|OperationName
+.6+h|Content h|Argument h|Size h|Value
+|OP Code
+|4 bytes
 |0x01
-|10 + <Arg2_Length>
-|1 byte Arg1
-|1 byte Arg2_Length
-|<Arg2_Length> byte Arg2_Data
+
+|Length
+|4 bytes
+|4 + 4 + 1 + 1 + <Arg2_Length> = 10 + <Arg2_Length>
+
+|Arg1
+|1 byte
+|<value of the first operation specific argument>
+
+|Arg2_Length
+|1 byte
+|<actual length of the value of the second argument>
+
+|Arg2_Data
+|<Arg2_Length> bytes
+|<value of the second operation specific argument>
+
 |====
+
 
 Additionally, all operations are described separately in detail in the following structure:
 
