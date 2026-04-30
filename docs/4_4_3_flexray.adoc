@@ -423,7 +423,7 @@ This type of <<low-cut-flexray-bus-error-operation, `Bus Error`>> is possible fo
 This type of <<low-cut-flexray-bus-error-operation, `Bus Error`>> is possible for both <<low-cut-flexray-transmit-operation, `Transmit`>> producing and <<low-cut-flexray-transmit-operation, `Transmit`>> consuming Network FMUs.
 
 |TX_CONFLICT
-|0x16
+|0x10
 |Indicates that a reception from another Network FMU is already ongoing while the specified Network FMU starts a transmission via a <<low-cut-flexray-transmit-operation, `Transmit`>> operation.
 This type of <<low-cut-flexray-bus-error-operation, `Bus Error`>> is possible for <<low-cut-flexray-transmit-operation, `Transmit`>> producing Network FMUs only.
 |====
