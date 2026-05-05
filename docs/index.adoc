@@ -1,21 +1,22 @@
-= Layered Standard for Network Communication
-:doctype: book
-:imagesdir: images
+= FMI Layered Standard for Network Communication (FMI-LS-BUS)
 :sectnums:
 :sectnumlevels: 5
 :toc: left
 :toc-title: Contents
 :toclevels: 5
+:idprefix:
+:idseparator: -
 :xrefstyle: short
 :docinfo: shared
-:stylesheet: fmi-spec.css
+:docinfodir: theme/docinfo
 :stem: latexmath
 :source-highlighter: highlightjs
+:highlightjs-theme: github
 :nofooter:
-:favicon: images/favicon.ico
 :icons: font
-:revdate: unreleased
-:revnumber: 1.1.0-beta.1
+:website-url: https://fmi-standard.org/
+:repo-url: https://github.com/modelica/fmi-ls-bus
+:logo: FMI
 
 include::0____preamble.adoc[]
 

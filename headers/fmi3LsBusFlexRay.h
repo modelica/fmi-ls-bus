@@ -7,7 +7,7 @@ FMI-LS-BUS layered standard specification (https://github.com/modelica/fmi-ls-bu
 
 It should be used when creating FlexRay Network FMUs according to the FMI-LS-BUS layered standard.
 
-Copyright (C) 2023-2025 Modelica Association Project "FMI"
+Copyright (C) 2023-2026 Modelica Association Project "FMI"
               All rights reserved.
 
 This file is licensed by the copyright holders under the 2-Clause BSD License
@@ -235,7 +235,7 @@ typedef fmi3UInt8 fmi3LsBusFlexRayError;
  *      Network FMU starts a transmission using a 'Transmit' operation.
  */
 #define FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_TX_CONFLICT \
-    ((fmi3LsBusFlexRayError)0x16)
+    ((fmi3LsBusFlexRayError)0x10)
 
 /** \} */
 

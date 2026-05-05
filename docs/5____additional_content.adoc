@@ -2,10 +2,12 @@
 
 - Christian Bertsch, Robert Bosch GmbH, Germany
 - Clemens Boos, dSPACE GmbH, Germany
+- Leon Deman, dSPACE GmbH, Germany
 - Martin Engel, dSPACE GmbH, Germany
 - Nikolai Fast, Beckhoff Automation GmbH & Co. KG, Germany
 - Andreas Junghanns, Synopsys, Germany
 - Kahramon Jumayev, Akkodis, Germany
+- Marcel Nachtigall, dSPACE GmbH, Germany
 - Masoud Najafi, Altair, France
 - Pierre R. Mai, PMSF IT Consulting, Germany
 - Benedikt Menne, dSPACE GmbH, Germany
@@ -26,6 +28,8 @@ Contributions to this layered standard to the FMI standard are covered by the ht
 - [[[RFC2119]]] RFC 2119: **Key words for use in RFCs to Indicate Requirement Levels**. https://tools.ietf.org/html/rfc2119
 - [[[ISO-17458-2]]] ISO 17458-2:2013(en):
 **Road vehicles - FlexRay communications system - Part 2: Data link layer specification**. https://www.iso.org/standard/59806.html
+- [[[ISO-17987-3]]] ISO 17987-3:2025(en):
+**Road vehicles — Local Interconnect Network (LIN) - Part 3: Protocol specification**. https://www.iso.org/standard/85127.html
 - [[[IEEE-802.3-2022]]] 802.3-2022: **IEEE Standard for Ethernet**. https://standards.ieee.org/ieee/802.3/10422/
 - [[[OpenAlliance-TC10-100BASE-T1]]] Open Alliance TC10: **OPEN Sleep/Wake-up Specification**. https://opensig.org/wp-content/uploads/2024/01/TC10-Wake-up-and-Sleep-Specification-for-Automotive-Ethernet_11-2017.pdf
 - [[[OpenAlliance-TC10-1000BASE-T1]]] Open Alliance TC10: **802.3bp Sleep/Wake-up Specification**. https://opensig.org/wp-content/uploads/2024/01/TC10_1000BASE-T1_sleepwakeup_spec_1.0.pdf

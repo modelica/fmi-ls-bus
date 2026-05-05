@@ -13,9 +13,9 @@
         causality="input" variability="discrete" intervalVariability="triggered"/>
     <Float64 name="Powertrain.tcuState.tcuState.state" valueReference="1008"
         causality="input" variability="discrete" start="0" clocks="1011"/>
-    <Float64 name="Powertrain.tcuState.tcuState.gear" valueReference="1009"
+    <Int8 name="Powertrain.tcuState.tcuState.gear" valueReference="1009"
         causality="input" variability="discrete" start="0" clocks="1011"/>
-    <Float64 name="Powertrain.tcuState.tcuState.targetGear" valueReference="1010"
+    <Int8 name="Powertrain.tcuState.tcuState.targetGear" valueReference="1010"
         causality="input" variability="discrete" start="0" clocks="1011"/>
 
     <Clock name="Powertrain.ecuState_Clock" valueReference="1016"
