@@ -637,7 +637,8 @@ If a FlexRay cycle is not yet running (for example when initiating a startup thr
 
 |Slot ID
 |2 byte
-|The Slot ID of the startup frame. In case of `COLLISION_AVOIDANCE_SYMBOL`, the slot ID of the startup frame to be sent must be specified.
+|The Slot ID of the startup frame.
+In case of `COLLISION_AVOIDANCE_SYMBOL`, the slot ID of the startup frame to be sent must be specified.
 
 h|Behavior
 3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the <<low-cut-flexray-symbol-operation, `Symbol`>> operation initiator, of the bus using the Bus Simulation.
