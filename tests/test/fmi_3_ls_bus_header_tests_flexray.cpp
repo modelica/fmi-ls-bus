@@ -780,7 +780,7 @@ TEST(Fmi3LsBusFlexRayConfigurationConfig, formatError)
  */
 TEST(Fmi3LsBusFlexRaySymbol, minValues1)
 {
-	CheckFlexRaySymbolOperation(0, 0, FMI3_LS_BUS_FLEXRAY_SYMBOL_COLLISION_AVOIDANCE_SYMBOL, true);
+	CheckFlexRaySymbolOperation(0, 0, 0, FMI3_LS_BUS_FLEXRAY_SYMBOL_COLLISION_AVOIDANCE_SYMBOL, true);
 }
 
 /**
@@ -788,7 +788,7 @@ TEST(Fmi3LsBusFlexRaySymbol, minValues1)
  */
 TEST(Fmi3LsBusFlexRaySymbol, minValues2)
 {
-	CheckFlexRaySymbolOperation(0, 0, FMI3_LS_BUS_FLEXRAY_SYMBOL_MEDIA_TEST_SYMBOL, true);
+	CheckFlexRaySymbolOperation(0, 0, 0, FMI3_LS_BUS_FLEXRAY_SYMBOL_MEDIA_TEST_SYMBOL, true);
 }
 
 /**
@@ -796,7 +796,7 @@ TEST(Fmi3LsBusFlexRaySymbol, minValues2)
  */
 TEST(Fmi3LsBusFlexRaySymbol, minValues3)
 {
-	CheckFlexRaySymbolOperation(0, 0, FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL, true);
+	CheckFlexRaySymbolOperation(0, 0, 0, FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL, true);
 }
 
 /**
@@ -804,7 +804,7 @@ TEST(Fmi3LsBusFlexRaySymbol, minValues3)
  */
 TEST(Fmi3LsBusFlexRaySymbol, maxValues1)
 {
-	CheckFlexRaySymbolOperation(UINT8_MAX, UINT8_MAX, FMI3_LS_BUS_FLEXRAY_SYMBOL_COLLISION_AVOIDANCE_SYMBOL, true);
+	CheckFlexRaySymbolOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, FMI3_LS_BUS_FLEXRAY_SYMBOL_COLLISION_AVOIDANCE_SYMBOL, true);
 }
 
 /**
@@ -812,7 +812,7 @@ TEST(Fmi3LsBusFlexRaySymbol, maxValues1)
  */
 TEST(Fmi3LsBusFlexRaySymbol, maxValues2)
 {
-	CheckFlexRaySymbolOperation(UINT8_MAX, UINT8_MAX, FMI3_LS_BUS_FLEXRAY_SYMBOL_MEDIA_TEST_SYMBOL, true);
+	CheckFlexRaySymbolOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, FMI3_LS_BUS_FLEXRAY_SYMBOL_MEDIA_TEST_SYMBOL, true);
 }
 
 /**
@@ -820,7 +820,7 @@ TEST(Fmi3LsBusFlexRaySymbol, maxValues2)
  */
 TEST(Fmi3LsBusFlexRaySymbol, maxValues3)
 {
-	CheckFlexRaySymbolOperation(UINT8_MAX, UINT8_MAX, FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL, true);
+	CheckFlexRaySymbolOperation(UINT8_MAX, UINT16_MAX, UINT8_MAX, FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL, true);
 }
 
 /**
@@ -828,7 +828,7 @@ TEST(Fmi3LsBusFlexRaySymbol, maxValues3)
  */
 TEST(Fmi3LsBusFlexRaySymbol, wrongValues1)
 {
-	CheckFlexRaySymbolOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FMI3_LS_BUS_FLEXRAY_SYMBOL_COLLISION_AVOIDANCE_SYMBOL, false);
+	CheckFlexRaySymbolOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FMI3_LS_BUS_FLEXRAY_SYMBOL_COLLISION_AVOIDANCE_SYMBOL, false);
 }
 
 /**
@@ -836,7 +836,7 @@ TEST(Fmi3LsBusFlexRaySymbol, wrongValues1)
  */
 TEST(Fmi3LsBusFlexRaySymbol, wrongValues2)
 {
-	CheckFlexRaySymbolOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FMI3_LS_BUS_FLEXRAY_SYMBOL_MEDIA_TEST_SYMBOL, false);
+	CheckFlexRaySymbolOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT16, FLEXRAY_WRONG_U_INT8, FMI3_LS_BUS_FLEXRAY_SYMBOL_MEDIA_TEST_SYMBOL, false);
 }
 
 /**
@@ -844,7 +844,7 @@ TEST(Fmi3LsBusFlexRaySymbol, wrongValues2)
  */
 TEST(Fmi3LsBusFlexRaySymbol, wrongValues3)
 {
-	CheckFlexRaySymbolOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL, false);
+	CheckFlexRaySymbolOperation(FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FLEXRAY_WRONG_U_INT8, FMI3_LS_BUS_FLEXRAY_SYMBOL_WAKEUP_SYMBOL, false);
 }
 
 /**
