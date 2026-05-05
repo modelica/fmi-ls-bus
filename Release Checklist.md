@@ -13,7 +13,6 @@ Maintenance also takes place on the created release branch.
 ## Checklist
 The following checklist indicates which points must be taken into account when creating a release:
 
-* [ ] **Document Version:** The `revnumber` and `revdate` fields of the `index.adoc` (see https://github.com/modelica/fmi-ls-bus/blob/main/docs/index.adoc) file needs to be updated accordingly to the specified release version.
 * [ ] **Manifest File Example:** The FMI-LS-BUS manifest file example version shall be updated to the specified release version (see https://github.com/modelica/fmi-ls-bus/blob/main/docs/examples/fmi_ls_bus_manifest_example.xml)
 * [ ] **Manifest Version:** Update fmi-ls-version of the chapter Layered Standard Manifest File to the respective release version.
 * [ ] **MIME Types** Adaptation of the MIME Types (version part), if relevant changes have occurred (see https://modelica.github.io/fmi-ls-bus/main/#low-cut-mime-types).

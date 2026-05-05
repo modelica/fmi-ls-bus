@@ -8,7 +8,7 @@ bus operations from\to dedicated buffer variables.
 
 This header can be used when creating Network FMUs.
 
-Copyright (C) 2023-2025 Modelica Association Project "FMI"
+Copyright (C) 2023-2026 Modelica Association Project "FMI"
               All rights reserved.
 
 This file is licensed by the copyright holders under the 2-Clause BSD License
