@@ -278,8 +278,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.header.length = sizeof(_op);                                  \
         _op.cycleId = (CycleId);                                          \
         _op.channel = (Channel);                                          \
-        _op.type = (Type);
-        _op.slotId = (SlotId);                                              \
+        _op.type = (Type);                                                \
+        _op.slotId = (SlotId);                                            \
                                                                           \
         FMI_LS_BUS_SUBMIT_OPERATION_NO_DATA_INTERNAL((BufferInfo), _op);  \
     }                                                                     \
