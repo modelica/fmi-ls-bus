@@ -235,7 +235,7 @@ typedef fmi3UInt8 fmi3LsBusFlexRayError;
  *      Network FMU starts a transmission using a 'Transmit' operation.
  */
 #define FMI3_LS_BUS_FLEXRAY_BUSERROR_PARAM_TX_CONFLICT \
-    ((fmi3LsBusFlexRayError)0x16)
+    ((fmi3LsBusFlexRayError)0x10)
 
 /** \} */
 
