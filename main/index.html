@@ -478,8 +478,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version 4524a5a,</span>
-<span id="revdate">2026-05-05</span>
+<span id="revnumber">version f5a397d,</span>
+<span id="revdate">2026-05-06</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -4821,14 +4821,16 @@ It shows all operations and the arguments they contain.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Symbol</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x50</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">:= 11<br>
+<td class="tableblock halign-left valign-top"><p class="tableblock">:= 13<br>
 (4 bytes)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cycle ID<br>
 (1 byte)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Channel<br>
 (1 byte)</p></td>
-<td class="tableblock halign-left valign-top" colspan="6"><p class="tableblock">Type<br>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type<br>
 (1 byte)</p></td>
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Slot ID<br>
+(2 byte)</p></td>
 </tr>
 </tbody>
 </table>
@@ -5596,7 +5598,7 @@ Network FMUs must synchronize their internal FlexRay clock when receiving a <a h
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">0x50</p></td>
 </tr>
 <tr>
-<th class="tableblock halign-left valign-top" rowspan="6"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top" rowspan="7"><p class="tableblock">Content</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Argument</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
@@ -5610,7 +5612,7 @@ Network FMUs must synchronize their internal FlexRay clock when receiving a <a h
 <td class="tableblock halign-left valign-top"><p class="tableblock">Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 bytes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: <code>Length = 11</code>.</p></td>
+The following applies for this operation: <code>Length = 13</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cycle ID</p></td>
@@ -5627,6 +5629,12 @@ If a FlexRay cycle is not yet running (for example when initiating a startup thr
 <td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The specified symbol type, based on <a href="#table-flexray-symbol-type-values">the table below</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Slot ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Slot ID of the startup frame.
+In case of <code>COLLISION_AVOIDANCE_SYMBOL</code>, the Slot ID of the startup frame to be sent must be specified.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
@@ -5822,6 +5830,7 @@ For starting the FlexRay communication, a coldstart Network FMU shall send a <a 
 A Bus Simulation must forward the <a href="#low-cut-flexray-symbol-operation"><code>Symbol</code></a> operation immediately to the other Network FMUs.
 Network FMUs receiving a <code>COLLISION_AVOIDANCE_SYMBOL</code> are not allowed to send the <a href="#low-cut-flexray-symbol-operation"><code>Symbol</code></a> operation likewise from this point onwards.
 The first communication cycle is then started by sending the <a href="#low-cut-flexray-start-communication-operation"><code>Start Communication</code></a> operation.
+If more than one Network FMU receives a <code>COLLISION_AVOIDANCE_SYMBOL</code> at the same time, only the Network FMU with the lowest startup frame <code>Slot ID</code> is allowed to send the <code>Start Communication</code> operation afterwards.
 Network FMUs must synchronize their internal FlexRay clock based on the received <a href="#table-flexray-bus-start-start-time-parameter"><code>Start Time</code></a>.</p>
 </div>
 <div id="figure-flexray-startup" class="imageblock">

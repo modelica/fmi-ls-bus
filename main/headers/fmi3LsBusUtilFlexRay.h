@@ -268,8 +268,9 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param[in] CycleId      The cycle the symbol is transmitted in (\ref fmi3LsBusFlexRayCycleId).
  * \param[in] Channel      The channel(s) on which the symbol is transmitted (\ref fmi3LsBusFlexRayChannel).
  * \param[in] Type         The type of symbol (\ref fmi3LsBusFlexRaySymbolType).
+ * \param[in] SlotId       The slot the symbol is transmitted in (\ref fmi3LsBusFlexRaySlotId).
  */
-#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(BufferInfo, CycleId, Channel, Type) \
+#define FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(BufferInfo, CycleId, Channel, Type, SlotId) \
     do                                                                    \
     {                                                                     \
         fmi3LsBusFlexRayOperationSymbol _op;                              \
@@ -278,6 +279,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         _op.cycleId = (CycleId);                                          \
         _op.channel = (Channel);                                          \
         _op.type = (Type);                                                \
+        _op.slotId = (SlotId);                                            \
                                                                           \
         FMI_LS_BUS_SUBMIT_OPERATION_NO_DATA_INTERNAL((BufferInfo), _op);  \
     }                                                                     \
