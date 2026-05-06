@@ -108,14 +108,17 @@ h|Length
 
 |Symbol
 |0x50
-|:= 11 +
+|:= 13 +
 (4 bytes)
 |Cycle ID +
 (1 byte)
 |Channel +
 (1 byte)
-6+|Type +
+1+|Type +
 (1 byte)
+5+|Slot ID +
+(2 byte)
+
 |====
 
 ===== Basic Type Definitions [[low-cut-flexray-basic-type-definitions]]
@@ -130,8 +133,8 @@ The following values for the channel type are defined:
 [#table-flexray-channel-kinds]
 [cols="2,1,5"]
 |====
-h|[Flag] Channel 
-h|Value 
+h|[Flag] Channel
+h|Value
 h|Description
 
 |CHANNEL_A
@@ -157,18 +160,18 @@ The <<low-cut-flexray-transmit-operation, `Transmit`>> operation is used to simu
 [#table-flexray-transmit-operation]
 [cols="5,4,3,20"]
 |====
-h|Name 
+h|Name
 3+|Transmit
 
-h|Description 
+h|Description
 3+|Initiates the transmission of FlexRay frames.
 
-h|OP Code [hex] 
+h|OP Code [hex]
 3+|0x10
 
-.12+h|Content 
-h|Argument 
-h|Length 
+.12+h|Content
+h|Argument
+h|Length
 h|Description
 
 |OP Code
@@ -239,18 +242,18 @@ The <<low-cut-flexray-cancel-operation, `Cancel`>> operation is used for cancell
 [#table-flexray-cancel-operation]
 [cols="5,4,3,20"]
 |====
-h|Name 
+h|Name
 3+|Cancel
 
-h|Description 
+h|Description
 3+|Initiates the cancellation transmission of FlexRay frames within a Bus Simulation.
 
-h|OP Code [hex] 
+h|OP Code [hex]
 3+|0x11
 
-.6+h|Content 
-h|Argument 
-h|Length 
+.6+h|Content
+h|Argument
+h|Length
 h|Description
 
 |OP Code
@@ -298,9 +301,9 @@ h|Description
 h|OP Code [hex]
 3+|0x12
 
-.6+h|Content 
-h|Argument 
-h|Length 
+.6+h|Content
+h|Argument
+h|Length
 h|Description
 
 |OP Code
@@ -352,9 +355,9 @@ h|Description
 h|OP Code [hex]
 3+|0x20
 
-.7+h|Content 
-h|Argument 
-h|Length 
+.7+h|Content
+h|Argument
+h|Length
 h|Description
 
 |OP Code
@@ -398,8 +401,8 @@ The following values for `Error Flags` argument are specified:
 [#table-flexray-error-code-values]
 [cols="1,1,5"]
 |====
-h|[Flag] Error Flag 
-h|Value 
+h|[Flag] Error Flag
+h|Value
 h|Description
 
 |VALID_FRAME
@@ -434,8 +437,8 @@ The following values for `Segment Indicator` argument are specified:
 [#table-flexray-segment-types-values]
 [cols="2,1,5"]
 |====
-h|Segment Indicator 
-h|Value 
+h|Segment Indicator
+h|Value
 h|Description
 
 |SYMBOL_WINDOW
@@ -467,9 +470,9 @@ Also the configuration of further options is supported by this operation.
 h|OP Code [hex]
 5+|0x30
 
-.22+h|Content 
-3+h|Argument 
-h|Length 
+.22+h|Content
+3+h|Argument
+h|Length
 h|Description
 
 3+|OP Code
@@ -595,8 +598,8 @@ The following configuration parameters are defined:
 [#table-flexray-configuration-kinds]
 [cols="1,1,5"]
 |====
-h|Parameter 
-h|Value 
+h|Parameter
+h|Value
 h|Description
 
 |FLEXRAY_CONFIG
@@ -610,8 +613,8 @@ The following values for `Coldstart Node` argument are specified:
 [#table-flexray-coldstart-node-types]
 [cols="2,1,5"]
 |====
-h|Coldstart Node 
-h|Value 
+h|Coldstart Node
+h|Value
 h|Description
 
 |None
@@ -649,9 +652,9 @@ h|Description
 h|OP Code [hex]
 3+|0x40
 
-.4+h|Content 
-h|Argument 
-h|Length 
+.4+h|Content
+h|Argument
+h|Length
 h|Description
 
 |OP Code
@@ -664,7 +667,7 @@ h|Description
 The following applies for this operation: `Length = 16`.
 
 |[[table-flexray-bus-start-start-time-parameter]]
-Start Time 
+Start Time
 |8 bytes
 |Defines the absolute simulation time in nanoseconds when the first FlexRay cycle has started.
 
@@ -689,12 +692,7 @@ h|Description
 
 h|OP Code [hex]
 3+|0x50
-
-.6+h|Content 
-h|Argument 
-h|Length 
-h|Description
-
+.7+h|Content h|Argument h|Length h|Description
 |OP Code
 |4 bytes
 |Contains the OP Code (0x50) of the operation.
@@ -702,7 +700,7 @@ h|Description
 |Length
 |4 bytes
 |Defines the cumulative length of all arguments in bytes.
-The following applies for this operation: `Length = 11`.
+The following applies for this operation: `Length = 13`.
 
 |Cycle ID
 |1 byte
@@ -717,6 +715,11 @@ If a FlexRay cycle is not yet running (for example when initiating a startup thr
 |1 byte
 |The specified symbol type, based on <<table-flexray-symbol-type-values, the table below>>.
 
+|Slot ID
+|2 byte
+|The Slot ID of the startup frame.
+In case of `COLLISION_AVOIDANCE_SYMBOL`, the Slot ID of the startup frame to be sent must be specified.
+
 h|Behavior
 3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the <<low-cut-flexray-symbol-operation, `Symbol`>> operation initiator, of the bus using the Bus Simulation.
 Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation.
@@ -729,8 +732,8 @@ The following values for `Type` argument are specified:
 [#table-flexray-symbol-type-values]
 [cols="1,1,5"]
 |====
-h|Symbol Type 
-h|Value 
+h|Symbol Type
+h|Value
 h|Description
 
 |COLLISION_AVOIDANCE_SYMBOL
@@ -858,6 +861,7 @@ For starting the FlexRay communication, a coldstart Network FMU shall send a <<l
 A Bus Simulation must forward the <<low-cut-flexray-symbol-operation, `Symbol`>> operation immediately to the other Network FMUs.
 Network FMUs receiving a `COLLISION_AVOIDANCE_SYMBOL` are not allowed to send the <<low-cut-flexray-symbol-operation, `Symbol`>> operation likewise from this point onwards.
 The first communication cycle is then started by sending the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation.
+If more than one Network FMU receives a `COLLISION_AVOIDANCE_SYMBOL` at the same time, only the Network FMU with the lowest startup frame `Slot ID` is allowed to send the `Start Communication` operation afterwards.
 Network FMUs must synchronize their internal FlexRay clock based on the received <<table-flexray-bus-start-start-time-parameter,`Start Time`>>.
 
 .Startup initiated by a coldstart Network FMU.
@@ -1105,7 +1109,7 @@ This results in an interval in which a Network FMU shall provide a specified <<l
             T_{\mathrm{Tx}_{\mathrm{DynamicLast}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
                 + T_{\mathrm{ActionPoint}_{\mathrm{Dynamic}}}
         \right]
-++++ 
+++++
 
 where:
 

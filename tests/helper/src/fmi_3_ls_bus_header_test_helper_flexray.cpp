@@ -260,7 +260,7 @@ void CheckFlexRayStartCommunicationOperation(unsigned long long int startTime, b
 	EXPECT_EQ(operation->startTime, startTime * multiplier);
 }
 
-void CheckFlexRaySymbolOperation(int cycleId, int channel, fmi3LsBusFlexRaySymbolType type, bool correctData)
+void CheckFlexRaySymbolOperation(int cycleId, int slotId, int channel, fmi3LsBusFlexRaySymbolType type, bool correctData)
 {
 	// Create data needed for creation.
 	fmi3LsBusUtilBufferInfo firstBufferInfo;
@@ -275,7 +275,7 @@ void CheckFlexRaySymbolOperation(int cycleId, int channel, fmi3LsBusFlexRaySymbo
 	FMI3_LS_BUS_BUFFER_INFO_INIT(&secondBufferInfo, rxData, sizeof(rxData));
 
 	// Create operation.
-	FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&firstBufferInfo, cycleId, channel, type);
+	FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&firstBufferInfo, cycleId, channel, type, slotId);
 
 	// Write operation to a second buffer.
 	FMI3_LS_BUS_BUFFER_WRITE(&secondBufferInfo, txData, sizeof(txData));
@@ -322,7 +322,7 @@ void CheckDataSizeError(FlexRayOperation operation)
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&bufferInfo, 0);
 		break;
 	case Symbol:
-		FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&bufferInfo, 0, 0, FMI3_LS_BUS_FLEXRAY_SYMBOL_COLLISION_AVOIDANCE_SYMBOL);
+		FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&bufferInfo, 0, 0, FMI3_LS_BUS_FLEXRAY_SYMBOL_COLLISION_AVOIDANCE_SYMBOL, 0);
 		break;
 	case Cancel:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CANCEL(&bufferInfo, 0, 0, 0);
@@ -373,7 +373,7 @@ void CheckFormatErrorOperation(FlexRayOperation operationType)
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_START_COMMUNICATION(&thirdBufferInfo, 0);
 		break;
 	case Symbol:
-		FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&thirdBufferInfo, 0, 0, FMI3_LS_BUS_FLEXRAY_SYMBOL_COLLISION_AVOIDANCE_SYMBOL);
+		FMI3_LS_BUS_FLEXRAY_CREATE_OP_SYMBOL(&thirdBufferInfo, 0, 0, FMI3_LS_BUS_FLEXRAY_SYMBOL_COLLISION_AVOIDANCE_SYMBOL, 0);
 		break;
 	case Cancel:
 		FMI3_LS_BUS_FLEXRAY_CREATE_OP_CANCEL(&thirdBufferInfo, 0, 0, 0);

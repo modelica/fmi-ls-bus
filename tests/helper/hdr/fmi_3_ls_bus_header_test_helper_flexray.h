@@ -55,7 +55,7 @@ void CheckFlexRayStartCommunicationOperation(unsigned long long int startTime, b
 /**
  * \brief Checks if the FlexRay Symbol operation is created correctly by the corresponding macro.
  */
-void CheckFlexRaySymbolOperation(int cycleId, int channel, fmi3LsBusFlexRaySymbolType type, bool correctData);
+void CheckFlexRaySymbolOperation(int cycleId, int slotId, int channel, fmi3LsBusFlexRaySymbolType type, bool correctData);
 
 /**
  * \brief Checks if the corresponding macro returns fmi3False if the data for creation is too big.
