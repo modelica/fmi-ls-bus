@@ -153,6 +153,14 @@ _* New tools within the list can be added via PullRequest from every tool vendor
 
 _** This support is for a Pre-Release version._
 
+## Cross-Check Models
+
+The FMI Cross-Check is an official Modelica Association initiative that ensures interoperability and compliance between simulation tools supporting the Functional Mock-up Interface (FMI) standard. The Cross-Check allows vendors to test their exported or imported Functional Mock-up Units (FMUs) against other tools to verify consistent simulation results.
+
+The following is an incomplete list of Cross-Check models on which FMI-LS-BUS models from various vendor are published. Please feel free to test the provided models and contact the model providing vendor if you have any questions:
+
+- [FMUs exported by dSPACE SystemDesk](https://www.dspace.com/de/gmb/home/support/supvers/supverscompm/fmicompatibility/fmi-cross-check-systemdesk.cfm) (see also [FMI Compatibility of all dSPACE products](https://www.dspace.com/de/gmb/home/support/supvers/supverscompm/fmicompatibility.cfm))
+
 ## Copyright and License
 
 Code and documentation copyright (C) 2023-2026 The Modelica Association Project FMI.
