@@ -939,7 +939,9 @@ This minimizes the Bus Communication Points of the overall simulation system and
 This behavior is defined differently depending on whether it is a static or dynamic segment.
 
 What both segments have in common is that the Network FMU itself must know the appropriate time of a <<low-cut-flexray-transmit-operation, `Transmit`>> operation basing on the FlexRay cycle and slot principle.
-In concrete terms, this means that a Network FMU itself must provide the expected <<low-cut-flexray-transmit-operation, `Transmit`>> operation at the appropriate time via <<low-cut-tx-clocks, Tx Clocks>>.
+
+In concrete terms, this means that a Network FMU must provide the intended <<low-cut-flexray-transmit-operation, `Transmit`>> operation before the simulation reach the slot’s action point (see ActionPoint Offset argument within the Configuration operation) via <<low-cut-tx-clocks, Tx Clocks>>.
+
 The start time of the first FlexRay cycle is defined by the `Start Time` argument value of the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation.
 
 That specifically means that the point in time for the start of the FlexRay cycle in nanoseconds can be computed within a Network FMU as
@@ -979,9 +981,8 @@ where:
 * stem:[t] represents the current simulation time in nanoseconds with stem:[t \geq T_{\mathrm{Start}}.]
 
 ====== Static Segment [[low-cut-flexray-static-segment]]
-
-For a static segment, a Network FMU shall provide the respective <<low-cut-flexray-transmit-operation, `Transmit`>> operation in an interval starting at the beginning of a slot and ending at the action point (see `ActionPoint Offset` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation) of a slot.
-Within this time window, the Network FMU must provide the respective <<low-cut-flexray-transmit-operation, `Transmit`>> operation for a specific slot.
+For a static segment, a Network FMU may provide multiple Transmit operations for the same slot/cycle during the simulation.
+The Bus Simulation shall apply the Last-Is-Best principle: the operation provided closest to the slot’s action point (see ActionPoint Offset argument within the Configuration operation) shall be used for transmission. Earlier operations for the same slot/cycle may be overridden by later ones.
 The point in time at which a Bus Simulation shall provide <<low-cut-flexray-transmit-operation, `Transmit`>> operations and also resulting <<low-cut-flexray-confirm-operation, `Confirm`>> or <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations depends on the <<low-cut-flexray-delivery-on-boundary-parameter, `DeliveryOnBoundary`>> configuration parameter.
 If the parameter is set to `fmi3False`, the Bus Simulation provides the respective operations directly after the calculated transmission time (see orange arrow in <<figure-flexray-static-segment-bus-communication-points>>).
 If the parameter is `true` (default), the corresponding operations are only provided at the slot boundary (green arrow in <<figure-flexray-static-segment-bus-communication-points>>).
@@ -1009,17 +1010,21 @@ This results in an interval in which a Network FMU shall provide a specified <<l
 [stem]
 ++++
     T_{\mathrm{Valid}}
-        = \left[
-            T_{\mathrm{Tx}_{\mathrm{Static}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}),
+        = \left(
+            T_{\mathrm{AP}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}),
             \;
-            T_{\mathrm{Tx}_{\mathrm{Static}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
-                + T_{\mathrm{ActionPoint}_{\mathrm{Static}}}
+            T_{\mathrm{AP}}(i_{\mathrm{iteration}} + 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
         \right]
 ++++
 
 where:
 
+* stem:[T_{\mathrm{AP}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+  = T_{\mathrm{Tx}_{\mathrm{Static}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}) + T_{\mathrm{ActionPoint}_{\mathrm{Static}}}].
+* stem:[i_{\mathrm{iteration}}] represents the iteration of complete FlexRay cycles.
 * stem:[T_{\mathrm{ActionPoint}_{\mathrm{Static}}}] represents the action point offset of a static and symbol slot in nanoseconds (see `Macrotick Duration` and `ActionPoint Offset` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
+
+The interval spans from the action point of slot stem:[i_{\mathrm{Slot}}] in cycle stem:[i_{\mathrm{Cycle}}] of iteration stem:[i_{\mathrm{iteration}}] to the action point of the same slot and cycle in the subsequent iteration stem:[i_{\mathrm{iteration}} + 1].
 
 In a sequence of operations to the respective actors and focus to the FlexRay slot counter, communication is presented as shown in <<figure-flexray-transmission-static-segment>>.
 At the beginning of slot 6, FMU 1 provides a frame to be sent in the form of a <<low-cut-flexray-transmit-operation, `Transmit`>> operation for the Bus Simulation.
