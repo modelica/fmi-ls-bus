@@ -995,8 +995,8 @@ The starting point of the slot can be calculated at runtime based on the `FLEXRA
 
 [stem]
 ++++
-    T_{\mathrm{Tx}_{\mathrm{Static}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
-        = T_{\mathrm{CycleStart}}(t, i_{\mathrm{Cycle}})
+    T_{\mathrm{Tx}_{\mathrm{Static}}}(i_{\mathrm{Iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+        = T_{\mathrm{CycleStart}}(i_{\mathrm{Iteration}}, i_{\mathrm{Cycle}})
         + (i_{\mathrm{Slot}} - 1) \cdot L_{\mathrm{StaticSlot}}
 ++++
 
@@ -1005,26 +1005,39 @@ where:
 * stem:[i_{\mathrm{Slot}}] represents the index of the static slot for transmission (see `Slot ID` argument of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation).
 * stem:[L_{\mathrm{StaticSlot}}] defines the length of a static slot within the static segment in nanoseconds (see `Macrotick Duration` and `Static Slot Length` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
 
+The slot’s action point can be derived from this as follows:
+
+[stem]
+++++
+    T_{\mathrm{AP}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+  = T_{\mathrm{Tx}_{\mathrm{Static}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}) + T_{\mathrm{ActionPoint}_{\mathrm{Static}}}
+++++
+
+where:
+
+* stem:[T_{\mathrm{ActionPoint}_{\mathrm{Static}}}] represents the action point offset of a static and symbol slot in nanoseconds (see `Macrotick Duration` and `ActionPoint Offset` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
+
 This results in an interval in which a Network FMU shall provide a specified <<low-cut-flexray-transmit-operation, `Transmit`>> of
 
 [stem]
 ++++
     T_{\mathrm{Valid}}
         = \left(
-            T_{\mathrm{AP}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}),
+            T_{\mathrm{AP}}(i_{\mathrm{iteration}} - 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}),
             \;
-            T_{\mathrm{AP}}(i_{\mathrm{iteration}} + 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+            T_{\mathrm{AP}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
         \right]
 ++++
 
 where:
 
-* stem:[T_{\mathrm{AP}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
-  = T_{\mathrm{Tx}_{\mathrm{Static}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}) + T_{\mathrm{ActionPoint}_{\mathrm{Static}}}].
-* stem:[i_{\mathrm{iteration}}] represents the iteration of complete FlexRay cycles.
-* stem:[T_{\mathrm{ActionPoint}_{\mathrm{Static}}}] represents the action point offset of a static and symbol slot in nanoseconds (see `Macrotick Duration` and `ActionPoint Offset` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
+* stem:[t \in T_{\mathrm{Valid}}
+    \iff
+    T_{\mathrm{AP}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+    < t \le
+    T_{\mathrm{AP}}(i_{\mathrm{iteration}} + 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})]
 
-The interval spans from the action point of slot stem:[i_{\mathrm{Slot}}] in cycle stem:[i_{\mathrm{Cycle}}] of iteration stem:[i_{\mathrm{iteration}}] to the action point of the same slot and cycle in the subsequent iteration stem:[i_{\mathrm{iteration}} + 1].
+A Transmit operation is valid if it is provided at a time stem:[t] within the interval spanning from immediately after the action point of slot stem:[i_{\mathrm{Slot}}] in stem:[i_{\mathrm{Cycle}}] of iteration stem:[i_{\mathrm{iteration}} - 1] to the action point of the same slot and cycle in iteration stem:[i_{\mathrm{iteration}}].
 
 In a sequence of operations to the respective actors and focus to the FlexRay slot counter, communication is presented as shown in <<figure-flexray-transmission-static-segment>>.
 At the beginning of slot 6, FMU 1 provides a frame to be sent in the form of a <<low-cut-flexray-transmit-operation, `Transmit`>> operation for the Bus Simulation.
