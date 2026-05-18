@@ -858,7 +858,7 @@ The startup process follows a defined sequence in which FlexRay nodes synchroniz
 FlexRay nodes, that are allowed to start the FlexRay communication, are referred to as coldstart nodes.
 The coldstart ability of a Network FMU must be communicated by the `Coldstart Node` parameter of the <<low-cut-flexray-configuration-operation, `Configuration`>> operation.
 For starting the FlexRay communication, a coldstart Network FMU shall send a <<low-cut-flexray-symbol-operation, `Symbol`>> operation whereby the `Type` argument is set to `COLLISION_AVOIDANCE_SYMBOL` to announce the start of the first FlexRay communication cycle.
-A Bus Simulation must forward the <<low-cut-flexray-symbol-operation, `Symbol`>> operation immediately to the other Network FMUs.
+A Bus Simulation must forward the <<low-cut-flexray-symbol-operation, `Symbol`>> operation to the other Network FMUs.
 Network FMUs receiving a `COLLISION_AVOIDANCE_SYMBOL` are not allowed to send the <<low-cut-flexray-symbol-operation, `Symbol`>> operation likewise from this point onwards.
 The first communication cycle is then started by sending the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation.
 If more than one Network FMU receives a `COLLISION_AVOIDANCE_SYMBOL` at the same time, only the Network FMU with the lowest startup frame `Slot ID` is allowed to send the `Start Communication` operation afterwards.
