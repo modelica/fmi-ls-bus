@@ -478,8 +478,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version ce256f9,</span>
-<span id="revdate">2026-05-11</span>
+<span id="revnumber">version d66adac,</span>
+<span id="revdate">2026-05-18</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -5827,7 +5827,7 @@ The startup process follows a defined sequence in which FlexRay nodes synchroniz
 FlexRay nodes, that are allowed to start the FlexRay communication, are referred to as coldstart nodes.
 The coldstart ability of a Network FMU must be communicated by the <code>Coldstart Node</code> parameter of the <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operation.
 For starting the FlexRay communication, a coldstart Network FMU shall send a <a href="#low-cut-flexray-symbol-operation"><code>Symbol</code></a> operation whereby the <code>Type</code> argument is set to <code>COLLISION_AVOIDANCE_SYMBOL</code> to announce the start of the first FlexRay communication cycle.
-A Bus Simulation must forward the <a href="#low-cut-flexray-symbol-operation"><code>Symbol</code></a> operation immediately to the other Network FMUs.
+A Bus Simulation must forward the <a href="#low-cut-flexray-symbol-operation"><code>Symbol</code></a> operation to the other Network FMUs.
 Network FMUs receiving a <code>COLLISION_AVOIDANCE_SYMBOL</code> are not allowed to send the <a href="#low-cut-flexray-symbol-operation"><code>Symbol</code></a> operation likewise from this point onwards.
 The first communication cycle is then started by sending the <a href="#low-cut-flexray-start-communication-operation"><code>Start Communication</code></a> operation.
 If more than one Network FMU receives a <code>COLLISION_AVOIDANCE_SYMBOL</code> at the same time, only the Network FMU with the lowest startup frame <code>Slot ID</code> is allowed to send the <code>Start Communication</code> operation afterwards.
