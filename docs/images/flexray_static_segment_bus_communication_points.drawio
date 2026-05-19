@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Page-1" id="FQamRQtbCovPPlWkLl-8">
-        <mxGraphModel dx="1175" dy="371" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1412" dy="537" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -128,8 +128,8 @@
                 <mxCell id="72" value="*) Depending on&amp;nbsp;&lt;i style=&quot;font-size: 6px;&quot;&gt;org.fmi_standard.fmi_ls_bus.FlexRay_DeliveryOnBoundary&lt;/i&gt; parameter" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=6;" parent="1" vertex="1">
                     <mxGeometry x="-430" y="813" width="321" height="10" as="geometry"/>
                 </mxCell>
-                <mxCell id="73" value="&lt;span&gt;Valid interval for providing multiple Transmit operations for slot n in cycle c,&lt;/span&gt;&lt;div class=&quot;scriptor-paragraph&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;scriptor-paragraph&quot;&gt;&lt;span&gt;where the operation closest to the action point&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;in iteration i&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;is used.&lt;/span&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=8;" parent="1" vertex="1">
-                    <mxGeometry x="-263" y="719.75" width="153" height="76.5" as="geometry"/>
+                <mxCell id="73" value="&lt;span style=&quot;color: rgb(0, 0, 0); background-color: rgb(236, 236, 236);&quot;&gt;Valid interval for providing Transmit operations for slot n in cycle c, for&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;iteration i.&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=8;" parent="1" vertex="1">
+                    <mxGeometry x="-250" y="719.75" width="120" height="76.5" as="geometry"/>
                 </mxCell>
                 <mxCell id="74" value="Cycle iteration i - 1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#C8BDCD;strokeColor=#9673a6;" parent="1" vertex="1">
                     <mxGeometry x="-426" y="620" width="340" height="20" as="geometry"/>

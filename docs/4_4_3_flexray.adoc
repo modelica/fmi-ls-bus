@@ -1009,7 +1009,7 @@ The slot’s action point can be derived from this as follows:
 
 [stem]
 ++++
-    T_{\mathrm{AP}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+    T_{\mathrm{AP}_{\mathrm{Static}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
   = T_{\mathrm{Tx}_{\mathrm{Static}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}) + T_{\mathrm{ActionPoint}_{\mathrm{Static}}}
 ++++
 
@@ -1021,21 +1021,21 @@ This results in an interval in which a Network FMU shall provide a specified <<l
 
 [stem]
 ++++
-    T_{\mathrm{Valid}}
+    T_{\mathrm{Valid}_{\mathrm{Static}}}
         = \left(
-            T_{\mathrm{AP}}(i_{\mathrm{iteration}} - 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}),
+            T_{\mathrm{AP}_{\mathrm{Static}}}(i_{\mathrm{iteration}} - 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}),
             \;
-            T_{\mathrm{AP}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+            T_{\mathrm{AP}_{\mathrm{Static}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
         \right]
 ++++
 
 where:
 
-* stem:[t \in T_{\mathrm{Valid}}
+* stem:[t \in T_{\mathrm{Valid}_{\mathrm{Static}}}
     \iff
-    T_{\mathrm{AP}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+    T_{\mathrm{AP}}(i_{\mathrm{iteration}} - 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
     < t \le
-    T_{\mathrm{AP}}(i_{\mathrm{iteration}} + 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})]
+    T_{\mathrm{AP}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})].
 
 A Transmit operation is valid if it is provided at a time stem:[t] within the interval spanning from immediately after the action point of slot stem:[i_{\mathrm{Slot}}] in stem:[i_{\mathrm{Cycle}}] of iteration stem:[i_{\mathrm{iteration}} - 1] to the action point of the same slot and cycle in iteration stem:[i_{\mathrm{iteration}}].
 
@@ -1050,12 +1050,11 @@ image::images/flexray_transmission_static_segment.svg[width=900]
 ====== Dynamic Segment [[low-cut-flexray-dynamic-segment]]
 
 When using the dynamic segment, the use is analogous to the use of <<low-cut-flexray-transmit-operation, `Transmit`>> operations in the static segment.
-Network FMUs need to provide a <<low-cut-flexray-transmit-operation, `Transmit`>> operation within a well-defined time window and with respect to the designated minislot.
+Network FMUs need to provide <<low-cut-flexray-transmit-operation, `Transmit`>> operations within a well-defined time window and with respect to the designated minislot.
 Since the dynamic FlexRay segment works more event-based, it can happen that a transmission is already ongoing at the current time.
 For this reason, the slot counter within Network FMUs are important, especially in the dynamic segment.
 
-Within the dynamic segment, _Slot ID = n + m_ represents the first valid point in time when a Network FMU is allowed to provide the respective <<low-cut-flexray-transmit-operation, `Transmit`>> operation, whereby _n_ indicates the number of <<low-cut-flexray-transmit-operation, `Transmit`>> operations provided within the ahead static segment and _m_ the number of past minislots within the current dynamic segment.
-As in the static segment, a permitted interval is defined between the concrete start of the minislot and the `Minislot ActionPoint Offset` (see <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
+As in the static segment, the Last-Is-Best principle is applied and the permitted interval to provide <<low-cut-flexray-transmit-operation, `Transmit`>> operations is defined between the `Minislot ActionPoint Offset` (see <<low-cut-flexray-configuration-operation, `Configuration`>> operation) and the `Minislot ActionPoint Offset` (see <<low-cut-flexray-configuration-operation, `Configuration`>> operation) of the same minislot/cycle of the next cycle iteration.
 The point in time at which a Bus Simulation shall provide operations, analogous to the static segment, depends on the <<low-cut-flexray-delivery-on-boundary-parameter, `DeliveryOnBoundary`>> configuration parameter.
 If the configuration parameter is set to `fmi3False`, the Bus Simulation provides the respective operation directly after the calculated transmission time (see orange arrow in <<figure-flexray-dynamic-segment-bus-communication-points>>).
 If the parameter is set to `fmi3True`, the corresponding operations are only provided at the slot boundary (green arrow in <<figure-flexray-dynamic-segment-bus-communication-points>>).
@@ -1082,29 +1081,15 @@ image::images/flexray_transmission_dynamic_segment.svg[width=900]
 
 If no Bus Simulation is involved, the transmission always applies: The length of a dynamic slot is exactly one minislot, since the transmission duration is not taken into account.
 
-Within a Network FMU the first valid point in time when a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation, with respect to the specified `Slot ID` shall be provided can be computed as
+Within a Network FMU the start time of the last valid minislot for providing a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation, with respect to the specified `Slot ID`, can be computed as
 
 [stem]
 ++++
-    T_{\mathrm{Tx}_{\mathrm{DynamicFirst}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
-        = T_{\mathrm{Tx}_{\mathrm{Static}}}(t, i_{\mathrm{Cycle}}, N_{\mathrm{StaticSlot}} + 1)
-        + (i_{\mathrm{Slot}} - N_{\mathrm{StaticSlot}} - 1) \cdot L_{\mathrm{Minislot}}
-++++
-
-where:
-
-* stem:[N_{\mathrm{StaticSlot}}] represents the number of static slots within one FlexRay cycle (see `Number of Static Slots` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
-* stem:[i_{\mathrm{Slot}}] represents the specified Slot ID for transmission within the dynamic segment (see `Slot ID` argument of the <<low-cut-flexray-transmit-operation, `Transmit`>> operation).
-* stem:[L_{\mathrm{Minislot}}] represents the length of a minislot within a dynamic segment in macrotick (see `Minislot Length` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
-
-Within a Network FMU the latest valid point in time when a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation, with respect to the specified `Slot ID` shall be provided can be computed as
-
-[stem]
-++++
-    T_{\mathrm{Tx}_{\mathrm{DynamicLast}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
-        = T_{\mathrm{Tx}_{\mathrm{Static}}}(t, i_{\mathrm{Cycle}}, N_{\mathrm{StaticSlot}} + 1)
-        + \sum_{j=N_{\mathrm{StaticSlot}} + 1}^{i_{\mathrm{Slot}} - 1}
-            L_{\mathrm{DynamicSlot}_j} \cdot L_{\mathrm{Minislot}}
+T_{\mathrm{Tx}_{\mathrm{Dynamic}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+    =
+    T_{\mathrm{Tx}_{\mathrm{Static}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, N_{\mathrm{StaticSlot}} + 1)
+    + \sum_{j = N_{\mathrm{StaticSlot}} + 1}^{i_{\mathrm{Slot}} - 1}
+        L_{\mathrm{DynamicSlot}_j} \cdot L_{\mathrm{Minislot}}
 ++++
 
 where:
@@ -1116,22 +1101,38 @@ where:
 
 NOTE: It should be noted that stem:[T_{\mathrm{Start}}] is already taken into account in stem:[T_{\mathrm{Tx}_{\mathrm{Static}}}(...)] and doesn't need to be considered a second time.
 
-This results in an interval in which a Network FMU shall provide a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation of
+The minislot’s action point can be derived from this as follows:
 
 [stem]
 ++++
-    T_{\mathrm{Valid}}
-        = \left[
-            T_{\mathrm{Tx}_{\mathrm{DynamicFirst}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}),
-            \;
-            T_{\mathrm{Tx}_{\mathrm{DynamicLast}}}(t, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
-                + T_{\mathrm{ActionPoint}_{\mathrm{Dynamic}}}
-        \right]
+T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+    = T_{\mathrm{Tx}_{\mathrm{Dynamic}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+    + T_{\mathrm{ActionPoint}_{\mathrm{Dynamic}}}
 ++++
 
 where:
 
 * stem:[T_{\mathrm{ActionPoint}_{\mathrm{Dynamic}}}] represents the minislot action point offset of a dynamic slot in macroticks (see `Minislot ActionPoint Offset` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation).
+
+This results in an interval in which a Network FMU shall provide a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation of
+
+[stem]
+++++
+T_{\mathrm{Valid}_{\mathrm{Dynamic}}}
+    = \left(
+        T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{iteration}} - 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}),
+        \;
+       T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+    \right]
+++++
+
+where:
+
+* stem:[t \in T_{\mathrm{Valid}_{\mathrm{Dynamic}}}
+\iff
+T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{iteration}} - 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+< t \le
+T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})].
 
 ===== Error Handling [[low-cut-flexray-error-handling]]
 
