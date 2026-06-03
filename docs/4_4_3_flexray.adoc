@@ -944,7 +944,7 @@ This behavior is defined differently depending on whether it is a static or dyna
 
 What both segments have in common is that the Network FMU itself must know the appropriate time of a <<low-cut-flexray-transmit-operation, `Transmit`>> operation based on the FlexRay cycle and slot principle.
 
-In concrete terms, this means that a Network FMU must provide the intended <<low-cut-flexray-transmit-operation, `Transmit`>> operation before the simulation reaches the slot’s action point (see `ActionPoint Offset` argument within the Configuration operation) via <<low-cut-tx-clocks, Tx Clocks>>.
+In concrete terms, this means that a Network FMU must provide a specified <<low-cut-flexray-transmit-operation, `Transmit`>> operation before the simulation reaches the associated slot’s action point (see `ActionPoint Offset` argument within the Configuration operation) and announce it via <<low-cut-tx-clocks, Tx Clocks>> mechanism.
 
 The start time of the first FlexRay cycle is defined by the `Start Time` argument value of the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation.
 
@@ -986,16 +986,15 @@ where:
 
 ====== Static Segment [[low-cut-flexray-static-segment]]
 For a static segment, a Network FMU may provide multiple <<low-cut-flexray-transmit-operation, `Transmit`>> operations for the same slot/cycle during the simulation.
-The time window where the Last-Is-Best principle applies is defined in this section.
 The operation provided closest to the slot’s action point (see `ActionPoint Offset` argument within the <<low-cut-flexray-configuration-operation, `Configuration`>> operation) shall be used.
-Earlier operations for the same slot/cycle may be overridden by later ones.
+Earlier operations for the same slot/cycle shall be overridden by later ones.
 <<low-cut-flexray-transmit-operation, `Transmit`>> operations that are provided after the slot’s action point shall not be considered for the current time window and shall instead be used for the same slot and cycle in the next cycle iteration.
 
 The point in time at which a Bus Simulation shall provide <<low-cut-flexray-transmit-operation, `Transmit`>> operations and also resulting <<low-cut-flexray-confirm-operation, `Confirm`>> or <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations depends on the <<low-cut-flexray-delivery-on-boundary-parameter, `DeliveryOnBoundary`>> configuration parameter.
 If the parameter is set to `fmi3False`, the Bus Simulation provides the respective operations directly after the calculated transmission time (see orange arrow in <<figure-flexray-static-segment-bus-communication-points>>).
 If the parameter is `true` (default), the corresponding operations are only provided at the slot boundary (green arrow in <<figure-flexray-static-segment-bus-communication-points>>).
 
-In the case of directly connected Network FMUs, the receiving FMU is responsible for processing the <<low-cut-flexray-transmit-operation, `Transmit`>> operation closest to the slot’s action point at the time defined by the <<low-cut-flexray-delivery-on-boundary-parameter, `DeliveryOnBoundary`>> configuration parameter.
+In the case of directly connected Network FMUs, the receiving FMU is responsible for processing the <<low-cut-flexray-transmit-operation, `Transmit`>> operation closest to the slot’s action point under consideration of the behavior defined by the <<low-cut-flexray-delivery-on-boundary-parameter, `DeliveryOnBoundary`>> configuration parameter.
 
 .Bus Communication Points within static segment.
 [#figure-flexray-static-segment-bus-communication-points]
@@ -1043,13 +1042,13 @@ where:
 
 * stem:[t \in T_{\mathrm{Valid}_{\mathrm{Static}}}
     \iff
-    T_{\mathrm{AP}}(i_{\mathrm{iteration}} - 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+    T_{\mathrm{AP}_{\mathrm{Static}}}(i_{\mathrm{iteration}} - 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
     < t \le
-    T_{\mathrm{AP}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})].
+    T_{\mathrm{AP}_{\mathrm{Static}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})].
 
 A <<low-cut-flexray-transmit-operation, `Transmit`>> operation is valid if it is provided at a time stem:[t] within the interval spanning from immediately after the action point of slot stem:[i_{\mathrm{Slot}}] in stem:[i_{\mathrm{Cycle}}] of iteration stem:[i_{\mathrm{iteration}} - 1] to the action point of the same slot and cycle in iteration stem:[i_{\mathrm{iteration}}].
 
-In a sequence of operations to the respective actors and focus to the FlexRay slot counter, communication is presented as shown in <<figure-flexray-transmission-static-segment>>.
+<<figure-flexray-transmission-static-segment>> illustrates a sequence of operations focusing on the respective actors and corresponding FlexRay slots.
 At the beginning of slot 6, FMU 1 provides a frame to be sent in the form of a <<low-cut-flexray-transmit-operation, `Transmit`>> operation for the Bus Simulation.
 After simulation of the specified transmission time, the Bus Simulation provisions the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to FMU 2 and a <<low-cut-flexray-confirm-operation, `Confirm`>> operation to FMU 1.
 
@@ -1059,7 +1058,7 @@ image::images/flexray_transmission_static_segment.svg[width=900]
 
 ====== Dynamic Segment [[low-cut-flexray-dynamic-segment]]
 
-When using the dynamic segment, the use is analogous to the use of <<low-cut-flexray-transmit-operation, `Transmit`>> operations in the static segment.
+Within the dynamic segment, the usage of <<low-cut-flexray-transmit-operation, `Transmit`>> operations is analogous to the static segment.
 Network FMUs need to provide <<low-cut-flexray-transmit-operation, `Transmit`>> operations within a well-defined time window and with respect to the designated minislot.
 As in the static segment, the Last-Is-Best principle applies and <<low-cut-flexray-transmit-operation, `Transmit`>> operations are allowed from a `Minislot ActionPoint` (see <<low-cut-flexray-configuration-operation, `Configuration`>> operation) to the same point in the next cycle iteration.
 The <<low-cut-flexray-transmit-operation, `Transmit`>> operation closest to the slot’s minislot action point is used.
