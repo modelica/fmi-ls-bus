@@ -478,8 +478,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version af981f0,</span>
-<span id="revdate">2026-06-08</span>
+<span id="revnumber">version 5d2003b,</span>
+<span id="revdate">2026-06-10</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -1824,35 +1824,83 @@ For arguments with a variable length, an argument pair composed of length and da
 <div class="paragraph">
 <p>The following table shows an example of an operation definition.
 The name is <em>OperationName</em> and has the OP Code 0x01.
-The operation has three arguments <em>Arg1</em> (2 bytes long), <em>Arg2_Length</em> (1 byte long), <em>Arg2_Data</em> (<em>&lt;Arg2Length&gt;</em> bytes long), whereby argument 2 and argument 3 form a coherent variable length argument.</p>
+The operation has three arguments <em>Arg1</em> (1 byte long), <em>Arg2_Length</em> (1 byte long), <em>Arg2_Data</em> (<em>&lt;Arg2Length&gt;</em> bytes long), whereby argument 2 and argument 3 form a coherent variable length argument.</p>
 </div>
 <table id="table-operation-definition" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 3. Definition of an operation within the Layered Standard Bus Protocol.</caption>
 <colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.667%;">
+<col style="width: 15.625%;">
+<col style="width: 12.5%;">
+<col style="width: 9.375%;">
+<col style="width: 62.5%;">
 </colgroup>
 <tbody>
 <tr>
-<th class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Operation Type</p></th>
-<th class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">Operation Content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Name</p></th>
+<td class="tableblock halign-left valign-top" colspan="3"><div class="content"><div class="paragraph">
+<p>OperationName</p>
+</div></div></td>
 </tr>
 <tr>
-<th class="tableblock halign-left valign-top"><p class="tableblock">OP Code</p></th>
-<th class="tableblock halign-left valign-top"><p class="tableblock">Length</p></th>
-<th class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Specific Content</p></th>
+<th class="tableblock halign-left valign-top" rowspan="6"><p class="tableblock">Content</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Argument</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Size</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Value</p></th>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OperationName</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0x01</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">10 + &lt;Arg2_Length&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte Arg1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte Arg2_Length</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;Arg2_Length&gt; byte Arg2_Data</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>OP Code</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>4 bytes</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>0x01</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Length</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>4 bytes</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>4 + 4 + 1 + 1 + &lt;Arg2_Length&gt; = 10 + &lt;Arg2_Length&gt;</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Arg1</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>1 byte</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>&lt;value of the first operation specific argument&gt;</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Arg2_Length</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>1 byte</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>&lt;actual length of the value of the second argument&gt;</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Arg2_Data</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>&lt;Arg2_Length&gt; bytes</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>&lt;value of the second operation specific argument&gt;</p>
+</div></div></td>
 </tr>
 </tbody>
 </table>
