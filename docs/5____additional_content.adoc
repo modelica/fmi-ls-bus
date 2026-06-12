@@ -5,6 +5,7 @@
 - Leon Deman, dSPACE GmbH, Germany
 - Martin Engel, dSPACE GmbH, Germany
 - Nikolai Fast, Beckhoff Automation GmbH & Co. KG, Germany
+- Mario Harter, Vector Informatik GmbH, Germany
 - Andreas Junghanns, Synopsys, Germany
 - Kahramon Jumayev, Akkodis, Germany
 - Marcel Nachtigall, dSPACE GmbH, Germany
@@ -19,6 +20,7 @@
 - Patrick T&#228;uber, dSPACE GmbH, Germany
 - Christine Thiessen, dSPACE GmbH, Germany
 - Ella Vahle, dSPACE GmbH, Germany
+- Markus Wedler, Synopsys, Germany
 
 Contributions to this layered standard to the FMI standard are covered by the https://github.com/modelica/fmi-standard.org/blob/main/static/assets/FMI_CCLA_v1.0_2016_06_21.pdf[Corporate Contributors License Agreement (CCLA)] of the Modelica Association Project FMI.
 
