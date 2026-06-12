@@ -33,7 +33,7 @@ It shows all operations and the arguments they contain.
 
 .Overview of the available operations for Ethernet.
 [#table-operation-content-ethernet]
-[cols="17,1,6,1,5,15,13,1,2,5,5,2"]
+[cols="17,1,8,1,5,13,13,1,2,5,5,2"]
 |====
 .2+h|Operation Name
 11+h|Operation Content
