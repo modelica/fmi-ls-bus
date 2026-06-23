@@ -92,8 +92,8 @@ Additionally, any FMU importer that supports the necessary FMI 3.0 features, suc
 [MachineWare VCML Virtual Platform](https://www.machineware.de/products/vcml-virtual-platform)|Exporter| ![Low-Cut: CAN](landingpage/LC_CAN.svg) | -
 [Synopsys Silver](https://www.synopsys.com/verification/virtual-prototyping/silver.html)|Importer| ![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg) | -
 [tracetronic ecu.test](https://www.tracetronic.com/products/ecu-test/)|Importer| ![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg)| Available since ecu.test 2025.3
-[Vector SIL Kit FMU Importer](https://github.com/vectorgrp/sil-kit-fmu-importer)|Importer| ![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg)| Open-source software. <br>Available since version 1.5
-[Vector vVIRTUALtarget](https://www.vector.com/at/en/products/products-a-z/software/vvirtualtarget/)|Exporter| ![Low-Cut: CAN](landingpage/LC_CAN.svg)| Available since version 9
+[Vector SIL Kit FMU Importer](https://github.com/vectorgrp/sil-kit-fmu-importer)|Importer| ![Integrated Bus Simulation](landingpage/IBS.svg) <br> ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: Ethernet](landingpage/LC_Ethernet_Prerelease.svg)| Open-source software
+[Vector vVIRTUALtarget](https://www.vector.com/at/en/products/products-a-z/software/vvirtualtarget/)|Exporter| ![Low-Cut: CAN](landingpage/LC_CAN.svg) ![Low-Cut: Ethernet](landingpage/LC_Ethernet_Prerelease.svg)| 
 
 <table>
   <tr>
