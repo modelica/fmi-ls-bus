@@ -74,7 +74,7 @@ extern "C"
                                                                                                         \
         if (FMI3_LS_BUS_FALSE == Rtr)                                                                   \
         {                                                                                               \
-            _op.header.length = _op.header.length + (DataLength)                                        \
+            _op.header.length = _op.header.length + (DataLength);                                       \
         }                                                                                               \
                                                                                                         \
         _op.id = (ID);                                                                                  \
