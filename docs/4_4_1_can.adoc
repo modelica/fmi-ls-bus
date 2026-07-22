@@ -199,6 +199,7 @@ For specification, the boolean values `TRUE` and `FALSE` (see <<table-boolean-va
 |1 byte 
 |Specifies whether the given frame represents a Remote Transmission Request frame.
 For specification, the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
+Note: If Rtr = `TRUE`, the Data argument of the <<low-cut-can-transmit-operation, `CAN Transmit`>> operation does not contain any data. In this case the Data Length argument may be set to any value within the admissible range and describes the number of data bytes that the requesting node expects. 
 
 |Data Length 
 |2 bytes 
