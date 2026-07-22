@@ -79,10 +79,19 @@ extern "C"
         _op.dataLength = (DataLength);                                                                  \
         if (_op.header.length <= (fmi3UInt32)((BufferInfo)->end - (BufferInfo)->writePos))              \
         {                                                                                               \
-            memcpy((BufferInfo)->writePos, &_op, _op.header.length - (DataLength));                     \
-            (BufferInfo)->writePos += _op.header.length - (DataLength);                                 \
-            memcpy((BufferInfo)->writePos, (Data), (DataLength));                                       \
-            (BufferInfo)->writePos += (DataLength);                                                     \
+            if (FMI3_LS_BUS_FALSE == Rtr)                                                               \
+            {                                                                                           \
+                memcpy((BufferInfo)->writePos, &_op, _op.header.length - (DataLength));                 \
+                (BufferInfo)->writePos += _op.header.length - (DataLength);                             \
+                memcpy((BufferInfo)->writePos, (Data), (DataLength));                                   \
+                (BufferInfo)->writePos += (DataLength);                                                 \
+            }                                                                                           \
+            else                                                                                        \
+            {                                                                                           \
+                memcpy((BufferInfo)->writePos, &_op, _op.header.length);                                \
+                (BufferInfo)->writePos += _op.header.length;                                            \
+            }                                                                                           \
+                                                                                                        \
             (BufferInfo)->status = fmi3True;                                                            \
         }                                                                                               \
         else                                                                                            \
