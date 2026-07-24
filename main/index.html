@@ -478,8 +478,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version 0064934,</span>
-<span id="revdate">2026-07-22</span>
+<span id="revnumber">version 5c18ef6,</span>
+<span id="revdate">2026-07-24</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -2816,12 +2816,13 @@ For specification, the boolean values <code>TRUE</code> and <code>FALSE</code> (
 <td class="tableblock halign-left valign-top"><p class="tableblock">Rtr</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Specifies whether the given frame represents a Remote Transmission Request frame.
-For specification, the boolean values <code>TRUE</code> and <code>FALSE</code> (see <a href="#table-boolean-value-kinds">Table 6</a>) shall be used.</p></td>
+For specification, the boolean values <code>TRUE</code> and <code>FALSE</code> (see <a href="#table-boolean-value-kinds">Table 6</a>) shall be used.
+Note: If <code>Rtr</code> = <code>TRUE</code>, the <code>Data</code> argument of the <a href="#low-cut-can-transmit-operation"><code>CAN Transmit</code></a> operation does not contain any data. In this case the <code>Data Length</code> argument may be set to any value within the admissible range and describes the number of data bytes that the requesting node expects.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Data Length</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2 bytes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the length of the Data argument in bytes.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the length of the <code>Data</code> argument in bytes.
 Note: The argument value describes the actual data length and not the CAN Data Length Code (DLC).</p></td>
 </tr>
 <tr>

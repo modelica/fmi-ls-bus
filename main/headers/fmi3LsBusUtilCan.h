@@ -65,13 +65,18 @@ extern "C"
     do                                                                                                  \
     {                                                                                                   \
         fmi3LsBusCanOperationCanTransmit _op;                                                           \
-        _op.header.opCode = FMI3_LS_BUS_CAN_OP_CAN_TRANSMIT;                                              \
+        _op.header.opCode = FMI3_LS_BUS_CAN_OP_CAN_TRANSMIT;                                            \
         _op.header.length = sizeof(fmi3LsBusOperationHeader) +                                          \
                             sizeof(fmi3LsBusCanId) +                                                    \
                             sizeof(fmi3LsBusCanIde) +                                                   \
                             sizeof(fmi3LsBusCanRtr) +                                                   \
-                            sizeof(fmi3LsBusCanDataLength) +                                            \
-                            (DataLength);                                                               \
+                            sizeof(fmi3LsBusCanDataLength);                                             \
+                                                                                                        \
+        if (FMI3_LS_BUS_FALSE == Rtr)                                                                   \
+        {                                                                                               \
+            _op.header.length = _op.header.length + (DataLength);                                       \
+        }                                                                                               \
+                                                                                                        \
         _op.id = (ID);                                                                                  \
         _op.ide = (Ide);                                                                                \
         _op.rtr = (Rtr);                                                                                \
@@ -79,10 +84,19 @@ extern "C"
         _op.dataLength = (DataLength);                                                                  \
         if (_op.header.length <= (fmi3UInt32)((BufferInfo)->end - (BufferInfo)->writePos))              \
         {                                                                                               \
-            memcpy((BufferInfo)->writePos, &_op, _op.header.length - (DataLength));                     \
-            (BufferInfo)->writePos += _op.header.length - (DataLength);                                 \
-            memcpy((BufferInfo)->writePos, (Data), (DataLength));                                       \
-            (BufferInfo)->writePos += (DataLength);                                                     \
+            if (FMI3_LS_BUS_FALSE == Rtr)                                                               \
+            {                                                                                           \
+                memcpy((BufferInfo)->writePos, &_op, _op.header.length - (DataLength));                 \
+                (BufferInfo)->writePos += _op.header.length - (DataLength);                             \
+                memcpy((BufferInfo)->writePos, (Data), (DataLength));                                   \
+                (BufferInfo)->writePos += (DataLength);                                                 \
+            }                                                                                           \
+            else                                                                                        \
+            {                                                                                           \
+                memcpy((BufferInfo)->writePos, &_op, _op.header.length);                                \
+                (BufferInfo)->writePos += _op.header.length;                                            \
+            }                                                                                           \
+                                                                                                        \
             (BufferInfo)->status = fmi3True;                                                            \
         }                                                                                               \
         else                                                                                            \
