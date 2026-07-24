@@ -722,8 +722,13 @@ In case of `COLLISION_AVOIDANCE_SYMBOL`, the Slot ID of the startup frame to be 
 
 h|Behavior
 3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the <<low-cut-flexray-symbol-operation, `Symbol`>> operation initiator, of the bus using the Bus Simulation.
+In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation.
+If multiple <<low-cut-flexray-symbol-operation, `Symbol`>> operations with `Type` = `COLLISION_AVOIDANCE_SYMBOL` are received at the same time, the Bus Simulation shall solve this conflict based on the smallest Slot ID.
+If no Bus Simulation is involved, the Network FMUs shall solve this conflict based on the smallest Slot ID.
 Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation.
 If a Network FMU does not support a specified `Type` of a <<low-cut-flexray-symbol-operation, `Symbol`>> operation, this operation can be ignored on the consumer side.
+
 |====
 
 The following values for `Type` argument are specified:
