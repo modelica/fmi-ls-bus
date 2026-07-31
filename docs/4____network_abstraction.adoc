@@ -60,7 +60,7 @@ The operation has three arguments _Arg1_ (1 byte long), _Arg2_Length_ (1 byte lo
 
 .Definition of an operation within the Layered Standard Bus Protocol.
 [#table-operation-definition]
-[cols="5a,4a,6a,20a"]
+[cols="5a,5a,5a,20a"]
 |====
 h|Name
 3+|OperationName
