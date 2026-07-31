@@ -290,7 +290,9 @@ image::images/low_cut_communication_with_triggered_tx_clock.svg[width=1000]
 ==== Rx Clocks [[low-cut-rx-clocks]]
 
 The input Clocks (`Rx_Clock`) shall be `triggered` Clocks if they are to be driven by the respective Clock of the sending FMU or Bus Simulation.
-Alternatively, the input Clocks (`Rx_Clock`) can be `periodic` Clocks matching the relevant Clock of the sending FMU, which causes them to be scheduled for the same time instances.
+
+Alternatively, the input Clocks (`Rx_Clock`) can be `periodic` Clocks.
+In this case the `Rx_Clock` of the receiving FMU needs to match the relevant Clock of the sending FMU, which causes them to be scheduled for the same time instances or the Bus Simulation shall buffer the accumulated Bus Operations for the receiving FMUs and deliver them in aggregated form so that no Bus Operation is lost.
 
 NOTE: This may allow for more efficient simulation in the case that there exists a more or less static communications schedule and more detailed simulation of timing variation is not needed.
 
