@@ -478,8 +478,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version 8841439,</span>
-<span id="revdate">2026-07-31</span>
+<span id="revnumber">version fa3c873,</span>
+<span id="revdate">2026-08-06</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -2308,7 +2308,23 @@ Pending Tx data shall be signaled by returning from <code>fmi3DoStep</code> with
 <div class="sect3">
 <h4 id="low-cut-rx-clocks">5.3.2. Rx Clocks</h4>
 <div class="paragraph">
-<p>The input Clocks (<code>Rx_Clock</code>) shall be <code>triggered</code> Clocks.</p>
+<p>The input Clocks (<code>Rx_Clock</code>) shall be <code>triggered</code> Clocks if they are to be driven by the respective Clock of the sending FMU or Bus Simulation.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, the input Clocks (<code>Rx_Clock</code>) can be <code>periodic</code> Clocks.
+In this case the <code>Rx_Clock</code> of the receiving FMU needs to match the relevant Clock of the sending FMU, which causes them to be scheduled for the same time instances or the Bus Simulation shall buffer the accumulated Bus Operations for the receiving FMUs and deliver them in aggregated form so that no Bus Operation is lost.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This may allow for more efficient simulation in the case that there exists a more or less static communications schedule and more detailed simulation of timing variation is not needed.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
