@@ -724,8 +724,8 @@ h|Behavior
 3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the <<low-cut-flexray-symbol-operation, `Symbol`>> operation initiator, of the bus using the Bus Simulation.
 In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), the FMU importer forwards the operation directly to the receiving Network FMUs.
 If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the FMU importer forwards the operation initially to the Bus Simulation.
-If multiple <<low-cut-flexray-symbol-operation, `Symbol`>> operations of type `COLLISION_AVOIDANCE_SYMBOL` are received at the same time, the Bus Simulation shall solve this conflict based on the smallest `Slot ID` argument value.
-If no Bus Simulation is involved, the Network FMUs shall solve this conflict based on the smallest `Slot ID` argument value.
+If multiple <<low-cut-flexray-symbol-operation, `Symbol`>> operations of type `COLLISION_AVOIDANCE_SYMBOL` are received at the same time, the Bus Simulation shall solve this conflict by redirecting the <<low-cut-flexray-symbol-operation, `Symbol`>> operation with the smallest `Slot ID` argument value and discard all other <<low-cut-flexray-symbol-operation, `Symbol`>> operations.
+If no Bus Simulation is involved, the Network FMUs shall solve this conflict by using the <<low-cut-flexray-symbol-operation, `Symbol`>> operation with the smallest `Slot ID` argument value and ignore all other <<low-cut-flexray-symbol-operation, `Symbol`>> operations.
 Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-flexray-bus-error-operation, `Bus Error`>> operation.
 If a Network FMU does not support a specified type of a <<low-cut-flexray-symbol-operation, `Symbol`>> operation, this operation can be ignored on the consumer side.
 
