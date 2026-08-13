@@ -478,8 +478,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version fa3c873,</span>
-<span id="revdate">2026-08-06</span>
+<span id="revnumber">version c89d551,</span>
+<span id="revdate">2026-08-13</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -5704,8 +5704,12 @@ In case of <code>COLLISION_AVOIDANCE_SYMBOL</code>, the Slot ID of the startup f
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The specified operation shall be produced by a Network FMU and distributed to all participants, except the <a href="#low-cut-flexray-symbol-operation"><code>Symbol</code></a> operation initiator, of the bus using the Bus Simulation.
+In case of directly connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.2.1</a>), the FMU importer forwards the operation directly to the receiving Network FMUs.
+If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.2.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.2.3</a>), the FMU importer forwards the operation initially to the Bus Simulation.
+If multiple <a href="#low-cut-flexray-symbol-operation"><code>Symbol</code></a> operations of type <code>COLLISION_AVOIDANCE_SYMBOL</code> are received at the same time, the Bus Simulation may solve this conflict by redirecting the <a href="#low-cut-flexray-symbol-operation"><code>Symbol</code></a> operation with the smallest <code>Slot ID</code> argument value and discard all other <a href="#low-cut-flexray-symbol-operation"><code>Symbol</code></a> operations.
+In any case and in the final instance, the Network FMUs shall solve this conflict by using the <a href="#low-cut-flexray-symbol-operation"><code>Symbol</code></a> operation with the smallest <code>Slot ID</code> argument value and ignore all other <a href="#low-cut-flexray-symbol-operation"><code>Symbol</code></a> operations.
 Depending on the simulation details, the Bus Simulation might respond with a <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a> operation.
-If a Network FMU does not support a specified <code>Type</code> of a <a href="#low-cut-flexray-symbol-operation"><code>Symbol</code></a> operation, this operation can be ignored on the consumer side.</p></td>
+If a Network FMU does not support a specified type of a <a href="#low-cut-flexray-symbol-operation"><code>Symbol</code></a> operation, this operation can be ignored on the consumer side.</p></td>
 </tr>
 </tbody>
 </table>
