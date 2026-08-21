@@ -153,6 +153,12 @@ _* New tools within the list can be added via PullRequest from every tool vendor
 
 _** This support is for a Pre-Release version._
 
+## Wireshark PlugIn
+
+The [FMI-LS-BUS Wireshark PlugIn] adds protocol support for FMI-LS-BUS to Wireshark. The plugin decodes captured FMI-LS-BUS operations and presents message contents, arguments, and status information in a structured, human-readable form instead of raw binary or hexadecimal data. This enables users to efficiently analyze and troubleshoot FMI-LS-BUS operation exchange between models.
+
+The plugin only analyzes existing captures. The FMU or importer, such as [dSPACE VEOS](https://www.dspace.com/en/pub/home/products/sw/simulation_software/veos.cfm), must log the FMI-LS-BUS operations to a `.pcapng` file in the format expected by the plugin. Operations written to or received by an FMI-LS-BUS terminal are recorded, with the packet direction indicating the direction of each operation.
+
 ## Cross-Check Models
 
 The FMI Cross-Check is an official Modelica Association initiative that ensures interoperability and compliance between simulation tools supporting the Functional Mock-up Interface (FMI) standard. The Cross-Check allows vendors to test their exported or imported Functional Mock-up Units (FMUs) against other tools to verify consistent simulation results.
@@ -188,3 +194,4 @@ The [FMI-LS-XCP] specifies an FMI extension for using the XCP protocol and A2L v
 [CAN, CAN FD and CAN XL Demo Overview]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-can-examples
 [FlexRay Demo Overview]: https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-flexray-examples
 [Beyond FMI - Towards New Applications with Layered Standards]: https://ecp.ep.liu.se/index.php/modelica/article/view/947
+[FMI-LS-BUS Wireshark PlugIn]: https://github.com/modelica/fmi-ls-bus/tree/main/wireshark-plugin
