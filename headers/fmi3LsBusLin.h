@@ -91,7 +91,7 @@ extern "C"
  *
  * Indicates a wakeup.
  */
-#define FMI3_LS_BUS_LIN_OP_WAKEUP ((fmi3LsBusOperationCode)0x50)
+#define FMI3_LS_BUS_LIN_OP_WAKEUP ((fmi3LsBusOperationCode)0x41)
 
 /** \} */
 
