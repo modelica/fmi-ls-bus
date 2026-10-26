@@ -50,6 +50,24 @@ TEST(Fmi3LsBusLinTransmit, maxValues) {
 	CheckLinTransmitOperation(UINT8_MAX, UINT8_MAX, UINT8_MAX, sizeof(data), data, true);
 }
 
+TEST(Fmi3LsBusLinTransmit, headerHasNoPayload) {
+	fmi3UInt8 data[] = { 'L' };
+	CheckLinTransmitOperation(FMI3_LS_BUS_LIN_FRAME_PART_HEADER, 0x3f, FMI3_LS_BUS_LIN_CHECKSUM_TYPE_CLASSIC_CHECKSUM, 0, data, true);
+}
+
+TEST(Fmi3LsBusLinTransmit, responseWithEnhancedChecksum) {
+	fmi3UInt8 data[] = { 0x10, 0x20, 0x30, 0x40 };
+	CheckLinTransmitOperation(FMI3_LS_BUS_LIN_FRAME_PART_RESPONSE, 0x12, FMI3_LS_BUS_LIN_CHECKSUM_TYPE_ENHANCED_CHECKSUM, sizeof(data), data, true);
+}
+
+TEST(Fmi3LsBusLinTransmit, maxPayloadLength) {
+	fmi3UInt8 data[UINT8_MAX];
+	for (size_t i = 0; i < sizeof(data); i++) {
+		data[i] = static_cast<fmi3UInt8>(i);
+	}
+	CheckLinTransmitOperation(FMI3_LS_BUS_LIN_FRAME_PART_RESPONSE, UINT8_MAX, FMI3_LS_BUS_LIN_CHECKSUM_TYPE_ENHANCED_CHECKSUM, sizeof(data), data, true);
+}
+
 TEST(Fmi3LsBusLinTransmit, wrongValues) {
 	fmi3UInt8 data[] = { 'L', 'I', 'N' };
 	CheckLinTransmitOperation(256, 256, 256, sizeof(data), data, false);
@@ -77,6 +95,38 @@ TEST(Fmi3LsBusLinConfirm, sizeError) {
 
 TEST(Fmi3LsBusLinBusError, minValues) {
 	CheckLinBusErrorOperation(0, FMI3_LS_BUS_LIN_BUS_ERROR_CODE_BIT_ERROR, true);
+}
+
+TEST(Fmi3LsBusLinBusError, checksumError) {
+	CheckLinBusErrorOperation(0x12, FMI3_LS_BUS_LIN_BUS_ERROR_CODE_CHECKSUM_ERROR, true);
+}
+
+TEST(Fmi3LsBusLinBusError, identifierParityError) {
+	CheckLinBusErrorOperation(0x12, FMI3_LS_BUS_LIN_BUS_ERROR_CODE_IDENTIFIER_PARITY_ERROR, true);
+}
+
+TEST(Fmi3LsBusLinBusError, noResponseError) {
+	CheckLinBusErrorOperation(0x12, FMI3_LS_BUS_LIN_BUS_ERROR_CODE_NO_RESPONSE_ERROR, true);
+}
+
+TEST(Fmi3LsBusLinBusError, synchFieldError) {
+	CheckLinBusErrorOperation(0x12, FMI3_LS_BUS_LIN_BUS_ERROR_CODE_SYNCH_FIELD_ERROR, true);
+}
+
+TEST(Fmi3LsBusLinBusError, synchToleranceError) {
+	CheckLinBusErrorOperation(0x12, FMI3_LS_BUS_LIN_BUS_ERROR_CODE_SYNCH_TOLERANCE_ERROR, true);
+}
+
+TEST(Fmi3LsBusLinBusError, headerTimeoutError) {
+	CheckLinBusErrorOperation(0x12, FMI3_LS_BUS_LIN_BUS_ERROR_CODE_HEADER_TIMEOUT_ERROR, true);
+}
+
+TEST(Fmi3LsBusLinBusError, frameError) {
+	CheckLinBusErrorOperation(0x12, FMI3_LS_BUS_LIN_BUS_ERROR_CODE_FRAME_ERROR, true);
+}
+
+TEST(Fmi3LsBusLinBusError, physicalBusError) {
+	CheckLinBusErrorOperation(0x12, FMI3_LS_BUS_LIN_BUS_ERROR_CODE_PHYSICAL_BUS_ERROR, true);
 }
 
 TEST(Fmi3LsBusLinBusError, maxValues) {

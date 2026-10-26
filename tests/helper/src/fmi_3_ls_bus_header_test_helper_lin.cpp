@@ -4,8 +4,8 @@
 void CheckLinTransmitOperation(int framePart, int id, int checksumType, size_t dataSize, fmi3UInt8 data[], bool correctData) {
 	fmi3LsBusUtilBufferInfo txBufferInfo;
 	fmi3LsBusUtilBufferInfo rxBufferInfo;
-	fmi3UInt8 txData[256];
-	fmi3UInt8 rxData[256];
+	fmi3UInt8 txData[512];
+	fmi3UInt8 rxData[512];
 	fmi3LsBusOperationHeader* operationHeader;
 	fmi3LsBusLinOperationTransmit* operation;
 
