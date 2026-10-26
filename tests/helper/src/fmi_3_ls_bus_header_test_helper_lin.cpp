@@ -154,10 +154,45 @@ void CheckLinDataSizeError(LinOperation operation) {
 	case LinConfiguration:
 		FMI3_LS_BUS_LIN_CREATE_OP_CONFIGURATION_BAUDRATE(&bufferInfo, 19200);
 		break;
+	case LinConfigurationNodeType:
+		FMI3_LS_BUS_LIN_CREATE_OP_CONFIGURATION_NODE_TYPE(&bufferInfo, FMI3_LS_BUS_LIN_NODE_TYPE_LIN_RESPONDER);
+		break;
 	case LinWakeup:
 		FMI3_LS_BUS_LIN_CREATE_OP_WAKEUP(&bufferInfo);
 		break;
 	}
 
 	EXPECT_EQ(bufferInfo.status, fmi3False);
+}
+
+void CheckLinBufferCapacity(LinOperation operation, size_t bufferSize, size_t requiredSize) {
+	fmi3LsBusUtilBufferInfo bufferInfo;
+	fmi3UInt8 buffer[64];
+	fmi3UInt8 data[] = { 0x5a, 0xa5 };
+
+	FMI3_LS_BUS_BUFFER_INFO_INIT(&bufferInfo, buffer, bufferSize);
+	switch (operation) {
+	case LinTransmit:
+		FMI3_LS_BUS_LIN_CREATE_OP_TRANSMIT(&bufferInfo, FMI3_LS_BUS_LIN_FRAME_PART_RESPONSE, 0x12, FMI3_LS_BUS_LIN_CHECKSUM_TYPE_ENHANCED_CHECKSUM, sizeof(data), data);
+		break;
+	case LinConfirm:
+		FMI3_LS_BUS_LIN_CREATE_OP_CONFIRM(&bufferInfo, 0x12);
+		break;
+	case LinBusError:
+		FMI3_LS_BUS_LIN_CREATE_OP_BUS_ERROR(&bufferInfo, 0x12, FMI3_LS_BUS_LIN_BUS_ERROR_CODE_CHECKSUM_ERROR);
+		break;
+	case LinConfiguration:
+		FMI3_LS_BUS_LIN_CREATE_OP_CONFIGURATION_BAUDRATE(&bufferInfo, 19200);
+		break;
+	case LinConfigurationNodeType:
+		FMI3_LS_BUS_LIN_CREATE_OP_CONFIGURATION_NODE_TYPE(&bufferInfo, FMI3_LS_BUS_LIN_NODE_TYPE_LIN_RESPONDER);
+		break;
+	case LinWakeup:
+		FMI3_LS_BUS_LIN_CREATE_OP_WAKEUP(&bufferInfo);
+		break;
+	}
+
+	const fmi3Boolean expectedStatus = bufferSize >= requiredSize ? fmi3True : fmi3False;
+	EXPECT_EQ(bufferInfo.status, expectedStatus);
+	EXPECT_EQ(FMI3_LS_BUS_BUFFER_LENGTH(&bufferInfo), expectedStatus == fmi3True ? requiredSize : 0u);
 }
