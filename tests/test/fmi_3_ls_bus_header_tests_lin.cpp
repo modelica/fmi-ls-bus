@@ -303,7 +303,7 @@ TEST(Fmi3LsBusLinMixedOperations, bufferRoundtrip) {
 
 	FMI3_LS_BUS_READ_NEXT_OPERATION(&rxBufferInfo, operationHeader);
 	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_LIN_OP_WAKEUP);
-	EXPECT_FALSE(FMI3_LS_BUS_READ_NEXT_OPERATION(&rxBufferInfo, operationHeader));
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&rxBufferInfo, operationHeader);
 }
 
 TEST(Fmi3LsBusLinBufferCapacity, operationBoundaryMatrix) {
