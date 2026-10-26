@@ -13,7 +13,7 @@ void CheckLinTransmitOperation(int framePart, int id, int checksumType, size_t d
 	FMI3_LS_BUS_BUFFER_INFO_INIT(&rxBufferInfo, rxData, sizeof(rxData));
 	FMI3_LS_BUS_LIN_CREATE_OP_TRANSMIT(&txBufferInfo, framePart, id, checksumType, dataSize, data);
 	FMI3_LS_BUS_BUFFER_WRITE(&rxBufferInfo, txData, FMI3_LS_BUS_BUFFER_LENGTH(&txBufferInfo));
-	ASSERT_TRUE(FMI3_LS_BUS_READ_NEXT_OPERATION(&rxBufferInfo, operationHeader));
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&rxBufferInfo, operationHeader);
 
 	operation = (fmi3LsBusLinOperationTransmit*)operationHeader;
 	int multiplier = correctData ? 1 : 0;
@@ -41,7 +41,7 @@ void CheckLinConfirmOperation(int id, bool correctData) {
 	FMI3_LS_BUS_BUFFER_INFO_INIT(&rxBufferInfo, rxData, sizeof(rxData));
 	FMI3_LS_BUS_LIN_CREATE_OP_CONFIRM(&txBufferInfo, id);
 	FMI3_LS_BUS_BUFFER_WRITE(&rxBufferInfo, txData, FMI3_LS_BUS_BUFFER_LENGTH(&txBufferInfo));
-	ASSERT_TRUE(FMI3_LS_BUS_READ_NEXT_OPERATION(&rxBufferInfo, operationHeader));
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&rxBufferInfo, operationHeader);
 
 	operation = (fmi3LsBusLinOperationConfirm*)operationHeader;
 	EXPECT_EQ(txBufferInfo.status, fmi3True);
@@ -62,7 +62,7 @@ void CheckLinBusErrorOperation(int id, int errorCode, bool correctData) {
 	FMI3_LS_BUS_BUFFER_INFO_INIT(&rxBufferInfo, rxData, sizeof(rxData));
 	FMI3_LS_BUS_LIN_CREATE_OP_BUS_ERROR(&txBufferInfo, id, errorCode);
 	FMI3_LS_BUS_BUFFER_WRITE(&rxBufferInfo, txData, FMI3_LS_BUS_BUFFER_LENGTH(&txBufferInfo));
-	ASSERT_TRUE(FMI3_LS_BUS_READ_NEXT_OPERATION(&rxBufferInfo, operationHeader));
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&rxBufferInfo, operationHeader);
 
 	operation = (fmi3LsBusLinOperationBusError*)operationHeader;
 	int multiplier = correctData ? 1 : 0;
@@ -85,7 +85,7 @@ void CheckLinConfigurationBaudrateOperation(unsigned long long int baudrate, boo
 	FMI3_LS_BUS_BUFFER_INFO_INIT(&rxBufferInfo, rxData, sizeof(rxData));
 	FMI3_LS_BUS_LIN_CREATE_OP_CONFIGURATION_BAUDRATE(&txBufferInfo, baudrate);
 	FMI3_LS_BUS_BUFFER_WRITE(&rxBufferInfo, txData, FMI3_LS_BUS_BUFFER_LENGTH(&txBufferInfo));
-	ASSERT_TRUE(FMI3_LS_BUS_READ_NEXT_OPERATION(&rxBufferInfo, operationHeader));
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&rxBufferInfo, operationHeader);
 
 	operation = (fmi3LsBusLinOperationConfiguration*)operationHeader;
 	EXPECT_EQ(txBufferInfo.status, fmi3True);
@@ -107,7 +107,7 @@ void CheckLinConfigurationNodeTypeOperation(int nodeType) {
 	FMI3_LS_BUS_BUFFER_INFO_INIT(&rxBufferInfo, rxData, sizeof(rxData));
 	FMI3_LS_BUS_LIN_CREATE_OP_CONFIGURATION_NODE_TYPE(&txBufferInfo, nodeType);
 	FMI3_LS_BUS_BUFFER_WRITE(&rxBufferInfo, txData, FMI3_LS_BUS_BUFFER_LENGTH(&txBufferInfo));
-	ASSERT_TRUE(FMI3_LS_BUS_READ_NEXT_OPERATION(&rxBufferInfo, operationHeader));
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&rxBufferInfo, operationHeader);
 
 	operation = (fmi3LsBusLinOperationConfiguration*)operationHeader;
 	EXPECT_EQ(txBufferInfo.status, fmi3True);
@@ -128,7 +128,7 @@ void CheckLinWakeupOperation() {
 	FMI3_LS_BUS_BUFFER_INFO_INIT(&rxBufferInfo, rxData, sizeof(rxData));
 	FMI3_LS_BUS_LIN_CREATE_OP_WAKEUP(&txBufferInfo);
 	FMI3_LS_BUS_BUFFER_WRITE(&rxBufferInfo, txData, FMI3_LS_BUS_BUFFER_LENGTH(&txBufferInfo));
-	ASSERT_TRUE(FMI3_LS_BUS_READ_NEXT_OPERATION(&rxBufferInfo, operationHeader));
+	FMI3_LS_BUS_READ_NEXT_OPERATION(&rxBufferInfo, operationHeader);
 
 	EXPECT_EQ(txBufferInfo.status, fmi3True);
 	EXPECT_EQ(operationHeader->opCode, FMI3_LS_BUS_LIN_OP_WAKEUP);
