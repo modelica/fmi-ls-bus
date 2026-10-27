@@ -295,7 +295,6 @@ image::images/ethernet_transmit_fragmented.svg[width=800]
 ===== Configuration [[low-cut-ethernet-configuration]]
 
 Before an Ethernet Network FMU may communicate, it must send a <<table-fmi3-ls-bus-ethernet-configuration-operation, `Configuration`>> operation.
-Only after also receiving a <<low-cut-ethernet-configuration-operation, `Configuration`>> operation and evaluating it against its own configuration for compatibility, it may start transmitting frames.
 
 In a direct connection scenario, <<low-cut-ethernet-configuration-operation, `Configuration`>> operations are exchanged as-is.
 With a Bus Simulation, <<low-cut-ethernet-configuration-operation, `Configuration`>> operations may either be forwarded by a Bus Simulation or the Bus Simulation may supply its own <<low-cut-ethernet-configuration-operation, `Configuration`>> operation to each node.
