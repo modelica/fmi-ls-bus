@@ -14,7 +14,7 @@ Overall, the following operations and groups of operations exist:
 * Bus- and Format Error: This group of operations is used for protocol format errors and to simulate bus failures.
 * Configuration: This operation enables the controller to publish bus-specific parameters and options that are required to simulate the bus behavior properly.
 For example, it allows the specification of a macrotick duration or the length of static/dynamic slots.
-* Start Communication: This operation is used by Networked FMUs or Bus Simulations to start the FlexRay communication.
+* Start Communication: This operation is used by coldstart Network FMUs or by Bus Simulations emulating coldstart nodes to start the FlexRay communication.
 * Symbol: Represents a set of operations that are used for transmission of FlexRay-specific symbols, like for wake-up, startup or media testing.
 
 The following table gives a detailed overview of the available operations.
@@ -672,7 +672,8 @@ Start Time
 |Defines the absolute simulation time in nanoseconds when the first FlexRay cycle has started.
 
 h|Behavior
-3+|The specified operation shall be produced by a Network FMU and distributed to all participants, except the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation initiator, by using the Bus Simulation to distribute the start time of the first communication cycle.
+3+|The specified operation shall be produced by a coldstart Network FMU and distributed to all participants, except the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation initiator, by using the Bus Simulation to distribute the start time of the first communication cycle.
+If a Bus Simulation emulates missing coldstart nodes (see <<low-cut-flexray-emulating-coldstart-nodes>>), the operation may also be produced by the Bus Simulation itself; in this case it shall be provided to all Network FMUs.
 Network FMUs must synchronize their internal FlexRay clock when receiving a <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation.
 |====
 
@@ -881,6 +882,7 @@ After the <<low-cut-flexray-start-communication-operation, `Start Communication`
 
 Normally, the startup process requires at least two coldstart nodes.
 For simulation systems coldstart Network FMUs are missing (because only a subset of nodes is to be simulated), a Bus Simulation is allowed to start the FlexRay communication by emulating the behavior of missing coldstart nodes.
+In this case, the Bus Simulation itself provides the <<low-cut-flexray-start-communication-operation, `Start Communication`>> operation to all Network FMUs.
 For this purpose, structural parameters e.g. for defining the startup time (stem:[T_{Start}]) or the `Slot ID` for startup frames can be provided by the Bus Simulation.
 Because those parameters are Bus Simulation specific, they are not further defined in the specification.
 
