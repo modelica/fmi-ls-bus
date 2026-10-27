@@ -13,7 +13,7 @@
         variableName="Powertrain.Tx_Data" memberName="Tx_Data" />
       <Terminal terminalKind="org.fmi-ls-bus.network-terminal.configuration" name="Configuration" matchingRule="bus">
         <TerminalMemberVariable variableKind="signal"
-          variableName="BusNotification" memberName="BusNotification" />
+          variableName="BusNotifications" memberName="BusNotifications" />
       </Terminal>
     </Terminal>
   </Terminals>
