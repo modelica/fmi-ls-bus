@@ -4,17 +4,17 @@ This chapter describes the <<low-cut-layered-standard-bus-protocol, Layered Stan
 
 ===== Overview [[low-cut-flexray-overview]]
 
-This specification refers primary to the data link layer specification of FlexRay communications systems defined by <<ISO-17458-2, ISO 17458-2:2013(en)>>.
+This specification refers primarily to the data link layer specification of FlexRay communications systems defined by <<ISO-17458-2, ISO 17458-2:2013(en)>>.
 Furthermore, essential elements from previous FlexRay specifications are covered so that they can also be realized using this layered standard.
 
-To simulate FlexRay communication between Networked FMUs, FlexRay-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
+To simulate FlexRay communication between Network FMUs, FlexRay-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
 Overall, the following operations and groups of operations exist:
 
 * Transmit, Cancel and Confirm: These operations are used to simulate a FlexRay frame transmission.
 * Bus- and Format Error: This group of operations is used for protocol format errors and to simulate bus failures.
 * Configuration: This operation enables the controller to publish bus-specific parameters and options that are required to simulate the bus behavior properly.
 For example, it allows the specification of a macrotick duration or the length of static/dynamic slots.
-* Start Communication: This operation is used by Networked FMUs or Bus Simulations to start the FlexRay communication.
+* Start Communication: This operation is used by Network FMUs or Bus Simulations to start the FlexRay communication.
 * Symbol: Represents a set of operations that are used for transmission of FlexRay-specific symbols, like for wake-up, startup or media testing.
 
 The following table gives a detailed overview of the available operations.
@@ -230,7 +230,7 @@ If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicate
 Depending on the simulation details, the Bus Simulation might respond with a <<low-cut-flexray-confirm-operation, `Confirm`>>, <<low-cut-flexray-bus-error-operation, `Bus Error`>> or <<low-cut-flexray-format-error-operation, `Format Error`>> operation.
 If the specific <<low-cut-flexray-transmit-operation, `Transmit`>> operation is to be set across multiple channels, the channel argument can combine both channels.
 The point in time at which a Network FMU provides a <<low-cut-flexray-transmit-operation, `Transmit`>> operation must be within a valid provision time window.
-For the static segment, this circumstance is dealt within <<low-cut-flexray-static-segment>>, for the dynamic segment in <<low-cut-flexray-dynamic-segment>>.
+For the static segment, this circumstance is dealt with in <<low-cut-flexray-static-segment>>, for the dynamic segment in <<low-cut-flexray-dynamic-segment>>.
 The point in time at which a Bus Simulation shall provide <<low-cut-flexray-transmit-operation, `Transmit`>> operations depends on the <<low-cut-flexray-delivery-on-boundary-parameter, `DeliveryOnBoundary`>> configuration parameter.
 |====
 
@@ -246,7 +246,7 @@ h|Name
 3+|Cancel
 
 h|Description
-3+|Initiates the cancellation transmission of FlexRay frames within a Bus Simulation.
+3+|Initiates the cancellation of the transmission of FlexRay frames within a Bus Simulation.
 
 h|OP Code [hex]
 3+|0x11
@@ -453,7 +453,7 @@ h|Description
 ====== Configuration [[low-cut-flexray-configuration-operation]]
 
 The <<low-cut-flexray-configuration-operation, `Configuration`>> operation allows Network FMUs the configuration of the Bus Simulation with parameters like the length of a slot or the duration of a macrotick and further options.
-The following information are included within this operation:
+The following information is included within this operation:
 
 .Detailed description of the Configuration operation.
 [#table-flexray-configuration-operation]
@@ -716,7 +716,7 @@ If a FlexRay cycle is not yet running (for example when initiating a startup thr
 |The specified symbol type, based on <<table-flexray-symbol-type-values, the table below>>.
 
 |Slot ID
-|2 byte
+|2 bytes
 |The Slot ID of the startup frame.
 In case of `COLLISION_AVOIDANCE_SYMBOL`, the Slot ID of the startup frame to be sent must be specified.
 
@@ -764,7 +764,7 @@ For a detailed simulation, a Network FMU needs information about whether the mes
 A Bus Simulation can simulate these effects by sending bus notifications in terms of <<low-cut-flexray-confirm-operation, `Confirm`>> and <<low-cut-flexray-bus-error-operation, `Bus Error`>> operations to the Network FMUs.
 
 However, in scenarios where Network FMUs are connected directly to each other, or where the Bus Simulation does not simulate such effects, it must be possible to configure the Network FMU such that it does not wait for any response after a <<low-cut-flexray-transmit-operation, `Transmit`>> operation.
-Therefore, a parameter with `memberName = "BusNotifications"` can be added within the FlexRay-specific  <<low-cut-configuration-terminal,Configuration Terminal>>. +
+Therefore, a parameter with `memberName = "BusNotifications"` can be added within the FlexRay-specific <<low-cut-configuration-terminal,Configuration Terminal>>. +
 If a Network FMU supports bus notifications, the <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> parameter shall be exposed.
 The default value of this parameter shall be `false`.
 
@@ -774,7 +774,7 @@ Only Network FMUs with the corresponding optionally exposed <<low-cut-flexray-bu
 Even if the Network FMU does not expect bus notifications, i.e. <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> variable was not set to `fmi3True`, but receives them, it shall ignore them, i.e. it shall not report warnings or errors.
 
 NOTE: Note that the bus notification parameter just informs the Network FMU if it can expect to receive notification operations or not.
-The parameter doesn't define in any way on how to react upon receiving notification operations.
+The parameter doesn't define in any way how to react upon receiving notification operations.
 
 .Parameter to configure bus notifications within a FlexRay Bus Terminal of Network FMUs.
 [[figure-fmu-flexray-bus-notifications-parameter]]
@@ -786,7 +786,7 @@ The parameter doesn't define in any way on how to react upon receiving notificat
  start:         false
 ----
 
-A Bus Simulation FMU shall indicate via a variable with `memberName = "BusNotifications"` within the FlexRay-specific  <<low-cut-configuration-terminal,Configuration Terminal>> whether it provides bus notifications or not.
+A Bus Simulation FMU shall indicate via a variable with `memberName = "BusNotifications"` within the FlexRay-specific <<low-cut-configuration-terminal,Configuration Terminal>> whether it provides bus notifications or not.
 If the provision of bus notifications can be configured (e.g., via a structural parameter), the attributes of the <<low-cut-flexray-bus-notification-parameter, `BusNotifications`>> variable shall contain `causality = "calculatedParameter"` and `variability = "fixed"`; or `causality = "output"` and `variability = "constant"` otherwise.
 
 .Parameter to configure bus notifications within a FlexRay Bus Terminal of the Bus Simulation.
@@ -820,7 +820,7 @@ If a Network FMU is supporting the delivery on slot boundaries only, the paramet
  start:         true
 ----
 
-A Bus Simulation FMU shall indicate via a variable with `memberName = "DeliveryOnBoundary"` within the FlexRay-specific  <<low-cut-configuration-terminal,Configuration Terminal>> whether it provides operations on a concrete slot boundary or not.
+A Bus Simulation FMU shall indicate via a variable with `memberName = "DeliveryOnBoundary"` within the FlexRay-specific <<low-cut-configuration-terminal,Configuration Terminal>> whether it provides operations on a concrete slot boundary or not.
 If the delivery on slot boundaries can be configured (e.g., via a structural parameter), the attributes of the <<low-cut-flexray-delivery-on-boundary-parameter, `DeliveryOnBoundary`>> variable shall contain `causality = "calculatedParameter"` and `variability = "fixed"`; or `causality = "output"` and `variability = "constant"` otherwise.
 
 .Parameter to configure the delivery point of reception within a FlexRay slot by the Bus Simulation.
@@ -840,7 +840,7 @@ To ensure that all Network FMUs use compatible parameters and to tell Bus Simula
 Configuration parameters which are mandatory to provide when first entering the `Event Mode` immediately after leaving the `Initialization Mode` are of type `FLEXRAY_CONFIG`.
 Network FMUs receiving <<low-cut-flexray-configuration-operation, `Configuration`>> operations of type `FLEXRAY_CONFIG` shall check its compatibility.
 Bus Simulations shall also perform compatibility checks of `FLEXRAY_CONFIG` parameters.
-In this case, a Bus Simulations must not forward <<low-cut-flexray-configuration-operation, `Configuration`>> operations to Network FMUs.
+In this case, a Bus Simulation must not forward <<low-cut-flexray-configuration-operation, `Configuration`>> operations to Network FMUs.
 In cases of detected incompatibilities, the simulation shall be refused accordingly.
 
 ===== Wake Up/Sleep [[low-cut-flexray-wakeup-sleep]]
@@ -859,7 +859,7 @@ image::images/flexray_wake_up.svg[width=700]
 ===== Startup [[low-cut-flexray-startup]]
 
 Before frames can be transferred, the communication must be started.
-The startup process follows a defined sequence in which FlexRay nodes synchronizes step by step (for a detailed description refer to <<ISO-17458-2>>).
+The startup process follows a defined sequence in which FlexRay nodes synchronize step by step (for a detailed description refer to <<ISO-17458-2>>).
 FlexRay nodes, that are allowed to start the FlexRay communication, are referred to as coldstart nodes.
 The coldstart ability of a Network FMU must be communicated by the `Coldstart Node` parameter of the <<low-cut-flexray-configuration-operation, `Configuration`>> operation.
 For starting the FlexRay communication, a coldstart Network FMU shall send a <<low-cut-flexray-symbol-operation, `Symbol`>> operation whereby the `Type` argument is set to `COLLISION_AVOIDANCE_SYMBOL` to announce the start of the first FlexRay communication cycle.
@@ -880,7 +880,7 @@ After the <<low-cut-flexray-start-communication-operation, `Start Communication`
 ====== Emulating Coldstart Nodes [[low-cut-flexray-emulating-coldstart-nodes]]
 
 Normally, the startup process requires at least two coldstart nodes.
-For simulation systems coldstart Network FMUs are missing (because only a subset of nodes is to be simulated), a Bus Simulation is allowed to start the FlexRay communication by emulating the behavior of missing coldstart nodes.
+For simulation systems in which coldstart Network FMUs are missing (because only a subset of nodes is to be simulated), a Bus Simulation is allowed to start the FlexRay communication by emulating the behavior of missing coldstart nodes.
 For this purpose, structural parameters e.g. for defining the startup time (stem:[T_{Start}]) or the `Slot ID` for startup frames can be provided by the Bus Simulation.
 Because those parameters are Bus Simulation specific, they are not further defined in the specification.
 
@@ -904,7 +904,7 @@ If a specified Network FMU is depending on <<low-cut-flexray-confirm-operation, 
 Within a defined time window, multiple <<low-cut-flexray-transmit-operation, `Transmit`>> operations for the same logical signal (same slot/cycle) may be transmitted.
 In such cases, the Last-Is-Best principle applies: A Network FMU may update a <<low-cut-flexray-transmit-operation, `Transmit`>> operation as long as the same value is used for the `Slot ID` argument within the defined time window.
 On the receiver side, only the last <<low-cut-flexray-transmit-operation, `Transmit`>> operation within the time window shall be considered valid.
-All preceding <<low-cut-flexray-transmit-operation, `Transmit`>> operations shall be treated overwritten and must not be processed.
+All preceding <<low-cut-flexray-transmit-operation, `Transmit`>> operations shall be treated as overwritten and must not be processed.
 This principle applies consistently to all three communication architectures (see <<common-concepts-system-compositions>>).
 
 * If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the Bus Simulation shall ensure that only the last <<low-cut-flexray-transmit-operation, `Transmit`>> operation within the time window is forwarded to the receiving FMU.
@@ -1133,12 +1133,12 @@ T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i
 
 
 Since the dynamic FlexRay segment works more event-based, it can happen that a transmission is already ongoing at the current time.
-For this reason, the slot counter within Network FMUs are important, especially in the dynamic segment.
+For this reason, the slot counters within Network FMUs are important, especially in the dynamic segment.
 In sequence <<figure-flexray-transmission-dynamic-segment>> multiple transmissions of FlexRay frames within the dynamic segment are shown.
 At the beginning the internal slot counters of FMU 1 and FMU 2 are equal to 8.
 Within the first and the second minislot, neither FMU 1 nor FMU 2 wants to transmit a frame.
 After the second elapsed minislot the internal slot counter values of FMU 1 and FMU 2 are equal to 10.
-Subsequently this FMU 1 provides a <<low-cut-flexray-transmit-operation, `Transmit`>> operation to the Bus Simulation for a transmission that uses the dynamic segment and `Slot ID = 10`.
+Subsequently, FMU 1 provides a <<low-cut-flexray-transmit-operation, `Transmit`>> operation to the Bus Simulation for a transmission that uses the dynamic segment and `Slot ID = 10`.
 After this the Bus Simulation provides the <<low-cut-flexray-transmit-operation, `Transmit`>> operation to FMU 2 and in the same step a <<low-cut-flexray-confirm-operation, `Confirm`>> operation for FMU 1.
 All in all the transmission will take two minislots.
 Minislot 5 expires without a Network FMU wanting to make a transmission again and the internal slot counters are set to 11.
