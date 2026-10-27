@@ -478,7 +478,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version 9a7ea0b,</span>
+<span id="revnumber">version d2f0f4d,</span>
 <span id="revdate">2026-10-27</span>
 </div>
 <div id="toc" class="toc2">
@@ -6759,7 +6759,7 @@ Only Network FMUs with the corresponding optionally exposed <a href="#low-cut-et
 <h6 id="low-cut-ethernet-bus-error-operation">5.5.4.4.4. Bus Error</h6>
 <div class="paragraph">
 <p>The <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation is used to indicate a bus communication error.
-Bus errors are delivered to every participant in the network.</p>
+Depending on the <code>Error Code</code>, bus errors are delivered to a different subset of Network FMUs (see <a href="#table-fmi3-ls-bus-ethernet-bus-error-code-values">Table 52</a>).</p>
 </div>
 <table id="table-fmi3-ls-bus-ethernet-bus-error-operation" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 51. Detailed description of the Bus Error operation.</caption>
@@ -6815,8 +6815,9 @@ See <a href="#table-fmi3-ls-bus-ethernet-bus-error-code-values">Table 52</a> for
 <td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">When transmitting Ethernet frames, various kinds of bus error may happen.
 A Bus Simulation can simulate such errors by providing <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operations to the Network FMUs.
 Based on consumed <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operations, Network FMUs can react on.
-For a Network FMU that initiated the <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation, the argument <code>Is Sender</code> shall be set to <code>TRUE</code> in the corresponding <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation.
-The arguments <code>Is Sender = TRUE</code> must only be set once per simulated error.<br>
+Depending on the type (qualified via <code>Error Code</code> argument value) of <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a>, a different subset of Network FMUs must be notified via <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation (see description column of <a href="#table-fmi3-ls-bus-ethernet-bus-error-code-values">Table 52</a>).
+For a Network FMU that initiated an affected <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation, the argument <code>Is Sender</code> shall be set to <code>TRUE</code> in the corresponding <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation.
+For all other notified Network FMUs, the argument <code>Is Sender</code> shall be set to <code>FALSE</code>.<br>
 Only Network FMUs with the corresponding optionally exposed <a href="#low-cut-ethernet-bus-notification-parameter"><code>BusNotifications</code></a> parameter set to <code>fmi3True</code> might wait for this operation and respond accordingly.</p></td>
 </tr>
 </tbody>
@@ -6840,17 +6841,21 @@ Only Network FMUs with the corresponding optionally exposed <a href="#low-cut-et
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="table-fmi3-ls-bus-ethernet-bus-error-code-values-unknown"></a>UNKNOWN</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x00</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Unknown error.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unknown error.
+This <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation shall be delivered to all Network FMUs of the affected Ethernet segment which may detect the error.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy"></a>MEDIUM_BUSY</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x01</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The medium is currently busy.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The medium is currently busy.
+This <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation is a direct reaction to a <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation that could not be started and shall be delivered to the initiating Network FMU only (see <a href="#low-cut-ethernet-transmission-with-avoided-collision">Section 5.5.4.6.2</a>).
+The ongoing transmission is not affected.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="table-fmi3-ls-bus-ethernet-bus-error-code-values-collision"></a>COLLISION</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x02</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A frame collided during transmission.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A frame collided during transmission.
+This <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation shall be delivered to all Network FMUs of the affected Ethernet segment, including the initiators of all colliding <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operations (see <a href="#low-cut-ethernet-transmission-with-collision">Section 5.5.4.6.3</a>).</p></td>
 </tr>
 </tbody>
 </table>
@@ -7275,7 +7280,7 @@ In a multidrop configuration, the Bus Simulation shall not forward <a href="#low
 <h5 id="low-cut-ethernet-error-handling">5.5.4.8. Error Handling</h5>
 <div class="paragraph">
 <p>To model errors on the Ethernet bus, <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operations are used.
-These operations may be sent by a Bus Simulation to all Network FMUs which may detect that errors.</p>
+Depending on the <code>Error Code</code>, these operations shall be sent by a Bus Simulation to the subset of Network FMUs defined in <a href="#table-fmi3-ls-bus-ethernet-bus-error-code-values">Table 52</a>.</p>
 </div>
 <div class="paragraph">
 <p>A Bus Simulation may also inject errors into the simulation, by sending a <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation.</p>
