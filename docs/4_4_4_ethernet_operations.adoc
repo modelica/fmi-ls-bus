@@ -124,7 +124,7 @@ See <<low-cut-format-error-operation, `Format Error`>> for definition.
 ====== Bus Error [[low-cut-ethernet-bus-error-operation]]
 
 The <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation is used to indicate a bus communication error.
-Bus errors are delivered to every participant in the network.
+Depending on the `Error Code`, bus errors are delivered to a different subset of Network FMUs (see <<table-fmi3-ls-bus-ethernet-bus-error-code-values>>).
 
 .Detailed description of the Bus Error operation.
 [#table-fmi3-ls-bus-ethernet-bus-error-operation]
@@ -166,8 +166,9 @@ h|Behavior
 3+|When transmitting Ethernet frames, various kinds of bus error may happen.
 A Bus Simulation can simulate such errors by providing <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operations to the Network FMUs.
 Based on consumed <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operations, Network FMUs can react on.
-For a Network FMU that initiated the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation, the argument `Is Sender` shall be set to `TRUE` in the corresponding <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation.
-The arguments `Is Sender = TRUE` must only be set once per simulated error. +
+Depending on the type (qualified via `Error Code` argument value) of <<low-cut-ethernet-bus-error-operation, `Bus Error`>>, a different subset of Network FMUs must be notified via <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation (see description column of <<table-fmi3-ls-bus-ethernet-bus-error-code-values>>).
+For a Network FMU that initiated an affected <<low-cut-ethernet-transmit-operation, `Transmit`>> operation, the argument `Is Sender` shall be set to `TRUE` in the corresponding <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation.
+For all other notified Network FMUs, the argument `Is Sender` shall be set to `FALSE`. +
 Only Network FMUs with the corresponding optionally exposed <<low-cut-ethernet-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for this operation and respond accordingly.
 |====
 
@@ -184,14 +185,18 @@ h|Description
 |[[table-fmi3-ls-bus-ethernet-bus-error-code-values-unknown]]UNKNOWN
 |0x00
 |Unknown error.
+This <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation shall be delivered to all Network FMUs of the affected Ethernet segment which may detect the error.
 
 |[[table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy]]MEDIUM_BUSY
 |0x01
 |The medium is currently busy.
+This <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-ethernet-transmit-operation, `Transmit`>> operation that could not be started and shall be delivered to the initiating Network FMU only (see <<low-cut-ethernet-transmission-with-avoided-collision>>).
+The ongoing transmission is not affected.
 
 |[[table-fmi3-ls-bus-ethernet-bus-error-code-values-collision]]COLLISION
 |0x02
 |A frame collided during transmission.
+This <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation shall be delivered to all Network FMUs of the affected Ethernet segment, including the initiators of all colliding <<low-cut-ethernet-transmit-operation, `Transmit`>> operations (see <<low-cut-ethernet-transmission-with-collision>>).
 |====
 
 ====== Configuration [[low-cut-ethernet-configuration-operation]]

@@ -304,7 +304,7 @@ In a multidrop configuration, the Bus Simulation shall not forward <<low-cut-eth
 ===== Error Handling [[low-cut-ethernet-error-handling]]
 
 To model errors on the Ethernet bus, <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operations are used.
-These operations may be sent by a Bus Simulation to all Network FMUs which may detect that errors.
+Depending on the `Error Code`, these operations shall be sent by a Bus Simulation to the subset of Network FMUs defined in <<table-fmi3-ls-bus-ethernet-bus-error-code-values>>.
 
 A Bus Simulation may also inject errors into the simulation, by sending a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation.
 
