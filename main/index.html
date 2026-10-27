@@ -478,7 +478,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version 178b956,</span>
+<span id="revnumber">version 872cf62,</span>
 <span id="revdate">2026-10-27</span>
 </div>
 <div id="toc" class="toc2">
@@ -806,7 +806,7 @@ To profit from such accuracy on a system level to predict system behavior, all s
 When focusing on single virtual ECU use cases, such as protocol validation, the accuracy requirements for the rest of the system can be relaxed.</p>
 </div>
 <div class="paragraph">
-<p>Contrary, on system level, the accuracy of the simulation depends on the accuracy of all its components.
+<p>In contrast, on system level, the accuracy of the simulation depends on the accuracy of all its components.
 These components can be virtual ECUs, plant models, residual bus simulators, data replay components and, of course, the bus simulation.
 A single low-accuracy component limits the overall system simulation accuracy.
 The level of detail of these runtime models determine the size of the window for data transmission events.
@@ -863,7 +863,7 @@ All explanations in this document are therefore to be understood in the context 
 <h2 id="layered-standard-manifest-file">2. Layered Standard Manifest File</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This layered standard defines requires the use of a layered standard manifest file and <a href="#table-schema-fmi-ls-bus-attributes">Table 1</a> shows the content of <code>fmi-ls-manifest.xml</code>.</p>
+<p>This layered standard requires the use of a layered standard manifest file and <a href="#table-schema-fmi-ls-bus-attributes">Table 1</a> shows the content of <code>fmi-ls-manifest.xml</code>.</p>
 </div>
 <table id="table-schema-fmi-ls-bus-attributes" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Attribute Details.</caption>
@@ -1044,7 +1044,7 @@ For a detailed specification of <code>time-based</code> Clocks please refer to t
 <p>While <code>aperiodic</code> Clocks allow very accurate network simulations, frequently entering <code>Event Mode</code> might reduce the network simulation speed.</p>
 </li>
 <li>
-<p>Using <code>periodic</code> Clocks and queueing (or even dropping of intermediate) data to be transmitted reduces the number of <code>Event Mode</code> entries and might speeds up the simulation at the cost of simulation accuracy.</p>
+<p>Using <code>periodic</code> Clocks and queueing (or even dropping of intermediate) data to be transmitted reduces the number of <code>Event Mode</code> entries and might speed up the simulation at the cost of simulation accuracy.</p>
 </li>
 <li>
 <p>One could use (structural) parameters to define the accuracy of <code>aperiodic</code> Clocks, allowing control of the simulation accuracy and performance with the same FMU.</p>
@@ -1186,7 +1186,7 @@ To allow importers an easy distinction between these FMU roles, for Bus Simulati
 The signals (<em>Signal 1&#8230;&#8203;8</em>) are modeled as clocked variables of a specific type.
 The corresponding signals are structurally combined using Protocol Data Units (PDUs), which in turn are assigned to frames.
 The PDU and frame structuring is done via terminals (<em>PDU A, B, C</em> and <em>Frame X, Y</em>).
-The respective variables are connected to a Bus Simulation, which emulates them according to their own needs for e.g. according to accuracy.</p>
+The respective variables are connected to a Bus Simulation, which emulates them according to their own needs, e.g., regarding accuracy.</p>
 </div>
 <div id="figure-transmission-high-cut-overview" class="imageblock">
 <div class="content">
@@ -1812,7 +1812,7 @@ It consists of four bytes in length.</p>
 <ul>
 <li>
 <p>Length: A four byte total data length (OP Code + Length + Arguments) field following the OP Code.
-For operation with variable size arguments, the total length can vary in value at runtime.</p>
+For operations with variable size arguments, the total length can vary in value at runtime.</p>
 </li>
 <li>
 <p>Arguments: The arguments of the respective operation.
@@ -2272,7 +2272,7 @@ Note: During simulation it can happen that no <code>Tx_Data</code> has to be tra
 <div class="content">
 <img src="images/low_cut_time_based_port_connection.svg" alt="low cut time based port connection" width="500">
 </div>
-<div class="title">Figure 9. Consideration of time-base Tx_Clock connections.</div>
+<div class="title">Figure 9. Consideration of time-based Tx_Clock connections.</div>
 </div>
 <div class="paragraph">
 <p>However, because of the common Clock source, both Clocks (<code>Rx_Clock</code> and <code>Tx_Clock</code>) might get active at the same time.
@@ -2301,7 +2301,7 @@ Note: For clarity, a connecting line between <code>Tx_Clock</code> and <code>Rx_
 Since signaling <code>Tx_Clock</code> events with an early return at \(t &lt; t_{i+1}\) would require to set connected networked FMUs back in time to reach Bus Communication Points synchronously, a <code>triggered</code> <code>Tx_Clock</code> must only be set when returning from <code>fmi3DoStep</code> with the <code>earlyReturn</code> argument set to <code>fmi3False</code>.
 In consequence, Bus Communication Points and regular communication points coincide and take place at the same time.
 The time of a Bus Communication Point can therefore not be defined independently, but is given by the importer.
-Pending Tx data shall be signaled by returning from <code>fmi3DoStep</code> with the <code>eventHandlingNeeded</code> arguments set to <code>fmi3True</code>.</p>
+Pending Tx data shall be signaled by returning from <code>fmi3DoStep</code> with the <code>eventHandlingNeeded</code> argument set to <code>fmi3True</code>.</p>
 </div>
 <div id="low-cut-triggered-port-connection" class="imageblock">
 <div class="content">
@@ -2586,7 +2586,7 @@ The various CAN standards CAN, CAN FD and CAN XL are considered together, becaus
 <h5 id="low-cut-can-overview">5.5.1.1. Overview</h5>
 <div class="paragraph">
 <p>To simulate CAN, CAN FD and CAN XL buses, CAN-specific operations are specified based on the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a>.
-Overall, the following groups of operations exists:</p>
+Overall, the following groups of operations exist:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2610,7 +2610,7 @@ For example, the failure of a transmission can be indicated.</p>
 For example, it allows the specification of the baud rate or influencing the buffer behavior.</p>
 </li>
 <li>
-<p>Status: This operation is used by Networked FMUs to inform Bus Simulations about the internal state (Active/Passive/Bus-Off) which concerns the reaction on bus errors.</p>
+<p>Status: This operation is used by Network FMUs to inform Bus Simulations about the internal state (Active/Passive/Bus-Off) which concerns the reaction on bus errors.</p>
 </li>
 <li>
 <p>Wake up: CAN supports wake up and sleep scenarios.
@@ -2775,7 +2775,7 @@ It shows all operations and the arguments they contain.</p>
 <h5 id="low-cut-can-operations">5.5.1.2. Operations</h5>
 <div class="paragraph">
 <p>This section defines the specified operations for CAN, CAN FD and CAN XL.
-The following tables provide an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.</p>
+The following tables provide an overview of all operations and specify the position and length of the corresponding arguments, as well as the respective flow direction.</p>
 </div>
 <div class="sect5">
 <h6 id="low-cut-can-transmit-operation">5.5.1.2.1. Transmit</h6>
@@ -2831,7 +2831,7 @@ Additional information such as Ide is also not part of the ID, but is treated se
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ide</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
 For specification, the boolean values <code>TRUE</code> and <code>FALSE</code> (see <a href="#table-boolean-value-kinds">Table 6</a>) shall be used.</p></td>
 </tr>
 <tr>
@@ -2912,7 +2912,7 @@ Additional information such as Ide is also not part of the ID, but is treated se
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ide</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
 For specification, the boolean values <code>TRUE</code> and <code>FALSE</code> (see <a href="#table-boolean-value-kinds">Table 6</a>) shall be used.</p></td>
 </tr>
 <tr>
@@ -2994,19 +2994,19 @@ Additional information such as Ide is also not part of the ID, but is treated se
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ide</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
 For specification, the boolean values <code>TRUE</code> and <code>FALSE</code> (see <a href="#table-boolean-value-kinds">Table 6</a>) shall be used.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Sec</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Simple Extended Content
+<td class="tableblock halign-left valign-top"><p class="tableblock">Simple Extended Content.
 For specification, the boolean values <code>TRUE</code> and <code>FALSE</code> (see <a href="#table-boolean-value-kinds">Table 6</a>) shall be used.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SDT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Describes the structure of the frames Data Field content (SDU type).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Describes the structure of the frame&#8217;s Data Field content (SDU type).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">VCID</p></td>
@@ -3560,20 +3560,20 @@ A Network FMU shall report its status to the Bus Simulation after it changes.</p
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ERROR_ACTIVE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x01</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: ERROR ACTIVE.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that a simulated CAN controller within the Network FMU currently has the CAN node state: ERROR ACTIVE.
 If the status is not adjusted by a Network FMU, the Bus Simulation shall choose <code>ERROR_ACTIVE</code> by itself for a specified Network FMU.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ERROR_PASSIVE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x02</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: ERROR PASSIVE.
-This node state is relevant for arbitration, because <code>ERROR_ACTIVE</code> and <code>ERROR_PASSIVE</code> nodes requires different prioritization.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that a simulated CAN controller within the Network FMU currently has the CAN node state: ERROR PASSIVE.
+This node state is relevant for arbitration, because <code>ERROR_ACTIVE</code> and <code>ERROR_PASSIVE</code> nodes require different prioritization.
 See <a href="#low-cut-can-arbitration">Section 5.5.1.7</a> for further details.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BUS_OFF</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x03</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: Bus-Off.
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates that a simulated CAN controller within the Network FMU currently has the CAN node state: Bus-Off.
 If a Network FMU communicates the status <code>BUS_OFF</code> to the Bus Simulation, the specified Network FMU shall not provide any new <a href="#low-cut-can-transmit-operation">Transmission operations</a> to the Bus Simulation.
 If all Network FMUs, except the <a href="#low-cut-can-transmit-operation"><code>Transmit</code></a> operation initiating Network FMU, communicate the status <code>BUS_OFF</code>, the Bus Simulation shall not provide a <a href="#low-cut-can-confirm-operation">confirmation</a>.</p></td>
 </tr>
@@ -3645,7 +3645,7 @@ A Bus Simulation can simulate these effects by sending bus notifications in term
 </div>
 <div class="paragraph">
 <p>However, in scenarios where Network FMUs are connected directly to each other, or where the Bus Simulation does not simulate such effects, it must be possible to configure the Network FMU such that it does not wait for any response after a <a href="#low-cut-can-transmit-operation"><code>Transmit</code></a> operation.
-Therefore, a parameter with <code>memberName = "BusNotifications"</code> can be added within the CAN-specific  <a href="#low-cut-configuration-terminal">Configuration Terminal</a>.<br>
+Therefore, a parameter with <code>memberName = "BusNotifications"</code> can be added within the CAN-specific <a href="#low-cut-configuration-terminal">Configuration Terminal</a>.<br>
 If a Network FMU supports bus notifications, the <a href="#low-cut-can-bus-notification-parameter"><code>BusNotifications</code></a> parameter shall be exposed.
 The default value of this parameter shall be <code>false</code>.<br></p>
 </div>
@@ -3673,7 +3673,7 @@ Even if the Network FMU does not expect bus notifications, i.e. <a href="#low-cu
 </td>
 <td class="content">
 Note that the bus notification parameter just informs the Network FMU if it can expect to receive notification operations or not.
-The parameter doesn&#8217;t define in any way on how to react upon receiving notification operations.
+The parameter doesn&#8217;t define in any way how to react upon receiving notification operations.
 </td>
 </tr>
 </table>
@@ -3689,7 +3689,7 @@ The parameter doesn&#8217;t define in any way on how to react upon receiving not
 </div>
 </div>
 <div class="paragraph">
-<p>A Bus Simulation FMU shall indicate via a variable with <code>memberName = "BusNotifications"</code> within the CAN-specific  <a href="#low-cut-configuration-terminal">Configuration Terminal</a> whether it provides bus notifications or not.
+<p>A Bus Simulation FMU shall indicate via a variable with <code>memberName = "BusNotifications"</code> within the CAN-specific <a href="#low-cut-configuration-terminal">Configuration Terminal</a> whether it provides bus notifications or not.
 If the provision of bus notifications can be configured (e.g., via a structural parameter), the attributes of the <a href="#low-cut-can-bus-notification-parameter"><code>BusNotifications</code></a> variable shall contain <code>causality = "calculatedParameter"</code> and <code>variability = "fixed"</code>; or <code>causality = "output"</code> and <code>variability = "constant"</code> otherwise.</p>
 </div>
 <div id="figure-fmu-can-bus-notifications-parameter-in-bus-simulation" class="listingblock">
@@ -4034,7 +4034,7 @@ For this operation always applies: <code>Length = 12 + Data Length</code>.</p></
 The ID must be considered here as a purely numerical value.
 This means that there is no need for separate segmentation.
 LIN parity bits shall not be part of this ID.
-The valid value range for this argument is 0&#8230;&#8203;.63.</p></td>
+The valid value range for this argument is 0&#8230;&#8203;63.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Checksum Type</p></td>
@@ -4171,9 +4171,9 @@ The following applies for this operation: <code>Length = 9</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1 bytes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The ID of the confirmed <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation.
-The valid value range for this argument is 0&#8230;&#8203;.63.</p></td>
+The valid value range for this argument is 0&#8230;&#8203;63.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
@@ -4240,12 +4240,12 @@ For this operation always applies: <code>Length = 10</code>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The ID of the LIN message that was transmitted while the error happened.
-The valid value range for this argument is 0&#8230;&#8203;.63.</p></td>
+The valid value range for this argument is 0&#8230;&#8203;63.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Error Code</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The specified error code, basing on the table below.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The specified error code, based on the table below.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
@@ -4289,7 +4289,7 @@ This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> opera
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">IDENTIFIER_PARITY_ERROR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0x03</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>IDENTIFIER_PARITY_ERROR</code> error can occur during a collision of LIN Headers.
+<td class="tableblock halign-left valign-top"><p class="tableblock">An <code>IDENTIFIER_PARITY_ERROR</code> error can occur during a collision of LIN Headers.
 This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation is a direct reaction to a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation (<code>Frame Part</code> is set to <code>HEADER</code>) and shall be delivered to all Network FMUs of the specified LIN network.
 Within this situation, no valid <code>ID</code> can be used as an argument value for the respective <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> operation and shall be set to zero.</p></td>
 </tr>
@@ -4336,7 +4336,7 @@ This <a href="#low-cut-lin-bus-error-operation"><code>Bus Error</code></a> opera
 <h6 id="low-cut-lin-configuration-operation">5.5.2.2.5. Configuration</h6>
 <div class="paragraph">
 <p>The <a href="#low-cut-lin-configuration-operation"><code>Configuration</code></a> operation allows Network FMUs the configuration of the Bus Simulation with parameters like baud rate information and further options.
-The following information are included within this operation:</p>
+The following information is included within this operation:</p>
 </div>
 <table id="table-lin-configuration-operation" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 30. Detailed description of the Configuration operation.</caption>
@@ -4418,7 +4418,7 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 </tbody>
 </table>
 <div class="paragraph">
-<p>The following configuration parameters values are allowed to be used:</p>
+<p>The following configuration parameter values are allowed to be used:</p>
 </div>
 <table id="table-lin-configuration-kinds" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 31. Overview of the available configuration parameters and values.</caption>
@@ -4546,7 +4546,7 @@ A Bus Simulation can simulate these effects by sending bus notifications in term
 </div>
 <div class="paragraph">
 <p>However, in scenarios where Network FMUs are connected directly to each other, or where the Bus Simulation does not simulate such effects, it must be possible to configure the Network FMU such that it does not wait for any response after a <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation.
-Therefore, a parameter with <code>memberName = "BusNotifications"</code> can be added within the LIN-specific  <a href="#low-cut-configuration-terminal">Configuration Terminal</a>.<br>
+Therefore, a parameter with <code>memberName = "BusNotifications"</code> can be added within the LIN-specific <a href="#low-cut-configuration-terminal">Configuration Terminal</a>.<br>
 If a Network FMU supports bus notifications, the <a href="#low-cut-lin-bus-notification-parameter"><code>BusNotifications</code></a> parameter shall be exposed.
 The default value of this parameter shall be <code>false</code>.</p>
 </div>
@@ -4574,7 +4574,7 @@ Even if the Network FMU does not expect bus notifications, i.e. <a href="#low-cu
 </td>
 <td class="content">
 Note that the bus notification parameter just informs the Network FMU if it can expect to receive notification operations or not.
-The parameter doesn&#8217;t define in any way on how to react upon receiving notification operations.
+The parameter doesn&#8217;t define in any way how to react upon receiving notification operations.
 </td>
 </tr>
 </table>
@@ -4590,7 +4590,7 @@ The parameter doesn&#8217;t define in any way on how to react upon receiving not
 </div>
 </div>
 <div class="paragraph">
-<p>A Bus Simulation FMU shall indicate via a variable with <code>memberName = "BusNotifications"</code> within the LIN-specific  <a href="#low-cut-configuration-terminal">Configuration Terminal</a> whether it provides bus notifications or not.
+<p>A Bus Simulation FMU shall indicate via a variable with <code>memberName = "BusNotifications"</code> within the LIN-specific <a href="#low-cut-configuration-terminal">Configuration Terminal</a> whether it provides bus notifications or not.
 If the provision of bus notifications can be configured (e.g., via a structural parameter), the attributes of the <a href="#low-cut-lin-bus-notification-parameter"><code>BusNotifications</code></a> variable shall contain <code>causality = "calculatedParameter"</code> and <code>variability = "fixed"</code>; or <code>causality = "output"</code> and <code>variability = "constant"</code> otherwise.</p>
 </div>
 <div id="figure-fmu-lin-bus-notifications-parameter-in-bus-simulation" class="listingblock">
@@ -4734,7 +4734,7 @@ This means that the realization of local virtual ECU wake-up and sleeping proces
 Because entering sleep state is a virtual ECU internal process always within LIN bus, this can be ignored.
 Also, the virtual ECU local wake-up process is ignored as well.
 The LIN-specific wake-up pulse can be simulated by using the <a href="#low-cut-lin-wake-up-operation"><code>Wakeup</code></a> operation.
-A <a href="#low-cut-lin-wake-up-operation"><code>Wakeup</code></a> operation is initiated by one Network FMU and shall be distributed to all participants of the bus,except the wake-up initiator, by the Bus Simulation.</p>
+A <a href="#low-cut-lin-wake-up-operation"><code>Wakeup</code></a> operation is initiated by one Network FMU and shall be distributed to all participants of the bus, except the wake-up initiator, by the Bus Simulation.</p>
 </div>
 <div id="figure-lin-wake-up" class="imageblock">
 <div class="content">
@@ -4752,11 +4752,11 @@ A <a href="#low-cut-lin-wake-up-operation"><code>Wakeup</code></a> operation is 
 <div class="sect4">
 <h5 id="low-cut-flexray-overview">5.5.3.1. Overview</h5>
 <div class="paragraph">
-<p>This specification refers primary to the data link layer specification of FlexRay communications systems defined by <a href="#ISO-17458-2">ISO 17458-2:2013(en)</a>.
+<p>This specification refers primarily to the data link layer specification of FlexRay communications systems defined by <a href="#ISO-17458-2">ISO 17458-2:2013(en)</a>.
 Furthermore, essential elements from previous FlexRay specifications are covered so that they can also be realized using this layered standard.</p>
 </div>
 <div class="paragraph">
-<p>To simulate FlexRay communication between Networked FMUs, FlexRay-specific operations are specified based on the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a>.
+<p>To simulate FlexRay communication between Network FMUs, FlexRay-specific operations are specified based on the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a>.
 Overall, the following operations and groups of operations exist:</p>
 </div>
 <div class="ulist">
@@ -4772,7 +4772,7 @@ Overall, the following operations and groups of operations exist:</p>
 For example, it allows the specification of a macrotick duration or the length of static/dynamic slots.</p>
 </li>
 <li>
-<p>Start Communication: This operation is used by Networked FMUs or Bus Simulations to start the FlexRay communication.</p>
+<p>Start Communication: This operation is used by Network FMUs or Bus Simulations to start the FlexRay communication.</p>
 </li>
 <li>
 <p>Symbol: Represents a set of operations that are used for transmission of FlexRay-specific symbols, like for wake-up, startup or media testing.</p>
@@ -5051,7 +5051,7 @@ If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-
 Depending on the simulation details, the Bus Simulation might respond with a <a href="#low-cut-flexray-confirm-operation"><code>Confirm</code></a>, <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</code></a> or <a href="#low-cut-flexray-format-error-operation"><code>Format Error</code></a> operation.
 If the specific <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation is to be set across multiple channels, the channel argument can combine both channels.
 The point in time at which a Network FMU provides a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation must be within a valid provision time window.
-For the static segment, this circumstance is dealt within <a href="#low-cut-flexray-static-segment">Section 5.5.3.8.1</a>, for the dynamic segment in <a href="#low-cut-flexray-dynamic-segment">Section 5.5.3.8.2</a>.
+For the static segment, this circumstance is dealt with in <a href="#low-cut-flexray-static-segment">Section 5.5.3.8.1</a>, for the dynamic segment in <a href="#low-cut-flexray-dynamic-segment">Section 5.5.3.8.2</a>.
 The point in time at which a Bus Simulation shall provide <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operations depends on the <a href="#low-cut-flexray-delivery-on-boundary-parameter"><code>DeliveryOnBoundary</code></a> configuration parameter.</p></td>
 </tr>
 </tbody>
@@ -5077,7 +5077,7 @@ The point in time at which a Bus Simulation shall provide <a href="#low-cut-flex
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Description</p></th>
-<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Initiates the cancellation transmission of FlexRay frames within a Bus Simulation.</p></td>
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">Initiates the cancellation of the transmission of FlexRay frames within a Bus Simulation.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">OP Code [hex]</p></th>
@@ -5355,7 +5355,7 @@ This type of <a href="#low-cut-flexray-bus-error-operation"><code>Bus Error</cod
 <h6 id="low-cut-flexray-configuration-operation">5.5.3.3.6. Configuration</h6>
 <div class="paragraph">
 <p>The <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operation allows Network FMUs the configuration of the Bus Simulation with parameters like the length of a slot or the duration of a macrotick and further options.
-The following information are included within this operation:</p>
+The following information is included within this operation:</p>
 </div>
 <table id="table-flexray-configuration-operation" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 42. Detailed description of the Configuration operation.</caption>
@@ -5704,7 +5704,7 @@ If a FlexRay cycle is not yet running (for example when initiating a startup thr
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Slot ID</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 bytes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The Slot ID of the startup frame.
 In case of <code>COLLISION_AVOIDANCE_SYMBOL</code>, the Slot ID of the startup frame to be sent must be specified.</p></td>
 </tr>
@@ -5768,7 +5768,7 @@ A Bus Simulation can simulate these effects by sending bus notifications in term
 </div>
 <div class="paragraph">
 <p>However, in scenarios where Network FMUs are connected directly to each other, or where the Bus Simulation does not simulate such effects, it must be possible to configure the Network FMU such that it does not wait for any response after a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation.
-Therefore, a parameter with <code>memberName = "BusNotifications"</code> can be added within the FlexRay-specific  <a href="#low-cut-configuration-terminal">Configuration Terminal</a>.<br>
+Therefore, a parameter with <code>memberName = "BusNotifications"</code> can be added within the FlexRay-specific <a href="#low-cut-configuration-terminal">Configuration Terminal</a>.<br>
 If a Network FMU supports bus notifications, the <a href="#low-cut-flexray-bus-notification-parameter"><code>BusNotifications</code></a> parameter shall be exposed.
 The default value of this parameter shall be <code>false</code>.</p>
 </div>
@@ -5796,7 +5796,7 @@ Even if the Network FMU does not expect bus notifications, i.e. <a href="#low-cu
 </td>
 <td class="content">
 Note that the bus notification parameter just informs the Network FMU if it can expect to receive notification operations or not.
-The parameter doesn&#8217;t define in any way on how to react upon receiving notification operations.
+The parameter doesn&#8217;t define in any way how to react upon receiving notification operations.
 </td>
 </tr>
 </table>
@@ -5812,7 +5812,7 @@ The parameter doesn&#8217;t define in any way on how to react upon receiving not
 </div>
 </div>
 <div class="paragraph">
-<p>A Bus Simulation FMU shall indicate via a variable with <code>memberName = "BusNotifications"</code> within the FlexRay-specific  <a href="#low-cut-configuration-terminal">Configuration Terminal</a> whether it provides bus notifications or not.
+<p>A Bus Simulation FMU shall indicate via a variable with <code>memberName = "BusNotifications"</code> within the FlexRay-specific <a href="#low-cut-configuration-terminal">Configuration Terminal</a> whether it provides bus notifications or not.
 If the provision of bus notifications can be configured (e.g., via a structural parameter), the attributes of the <a href="#low-cut-flexray-bus-notification-parameter"><code>BusNotifications</code></a> variable shall contain <code>causality = "calculatedParameter"</code> and <code>variability = "fixed"</code>; or <code>causality = "output"</code> and <code>variability = "constant"</code> otherwise.</p>
 </div>
 <div id="figure-fmu-flexray-bus-notifications-parameter-in-bus-simulation" class="listingblock">
@@ -5850,7 +5850,7 @@ If a Network FMU is supporting the delivery on slot boundaries only, the paramet
 </div>
 </div>
 <div class="paragraph">
-<p>A Bus Simulation FMU shall indicate via a variable with <code>memberName = "DeliveryOnBoundary"</code> within the FlexRay-specific  <a href="#low-cut-configuration-terminal">Configuration Terminal</a> whether it provides operations on a concrete slot boundary or not.
+<p>A Bus Simulation FMU shall indicate via a variable with <code>memberName = "DeliveryOnBoundary"</code> within the FlexRay-specific <a href="#low-cut-configuration-terminal">Configuration Terminal</a> whether it provides operations on a concrete slot boundary or not.
 If the delivery on slot boundaries can be configured (e.g., via a structural parameter), the attributes of the <a href="#low-cut-flexray-delivery-on-boundary-parameter"><code>DeliveryOnBoundary</code></a> variable shall contain <code>causality = "calculatedParameter"</code> and <code>variability = "fixed"</code>; or <code>causality = "output"</code> and <code>variability = "constant"</code> otherwise.</p>
 </div>
 <div id="figure-fmu-flexray-delivery-on-boundary-parameter-in-bus-simulation" class="listingblock">
@@ -5873,7 +5873,7 @@ To ensure that all Network FMUs use compatible parameters and to tell Bus Simula
 Configuration parameters which are mandatory to provide when first entering the <code>Event Mode</code> immediately after leaving the <code>Initialization Mode</code> are of type <code>FLEXRAY_CONFIG</code>.
 Network FMUs receiving <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operations of type <code>FLEXRAY_CONFIG</code> shall check its compatibility.
 Bus Simulations shall also perform compatibility checks of <code>FLEXRAY_CONFIG</code> parameters.
-In this case, a Bus Simulations must not forward <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operations to Network FMUs.
+In this case, a Bus Simulation must not forward <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operations to Network FMUs.
 In cases of detected incompatibilities, the simulation shall be refused accordingly.</p>
 </div>
 </div>
@@ -5899,7 +5899,7 @@ The Bus Simulation shall distribute this operation to all participants on the bu
 <h5 id="low-cut-flexray-startup">5.5.3.7. Startup</h5>
 <div class="paragraph">
 <p>Before frames can be transferred, the communication must be started.
-The startup process follows a defined sequence in which FlexRay nodes synchronizes step by step (for a detailed description refer to <a href="#ISO-17458-2">[ISO-17458-2]</a>).
+The startup process follows a defined sequence in which FlexRay nodes synchronize step by step (for a detailed description refer to <a href="#ISO-17458-2">[ISO-17458-2]</a>).
 FlexRay nodes, that are allowed to start the FlexRay communication, are referred to as coldstart nodes.
 The coldstart ability of a Network FMU must be communicated by the <code>Coldstart Node</code> parameter of the <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operation.
 For starting the FlexRay communication, a coldstart Network FMU shall send a <a href="#low-cut-flexray-symbol-operation"><code>Symbol</code></a> operation whereby the <code>Type</code> argument is set to <code>COLLISION_AVOIDANCE_SYMBOL</code> to announce the start of the first FlexRay communication cycle.
@@ -5925,7 +5925,7 @@ Network FMUs must synchronize their internal FlexRay clock based on the received
 <h6 id="low-cut-flexray-emulating-coldstart-nodes">5.5.3.7.1. Emulating Coldstart Nodes</h6>
 <div class="paragraph">
 <p>Normally, the startup process requires at least two coldstart nodes.
-For simulation systems coldstart Network FMUs are missing (because only a subset of nodes is to be simulated), a Bus Simulation is allowed to start the FlexRay communication by emulating the behavior of missing coldstart nodes.
+For simulation systems in which coldstart Network FMUs are missing (because only a subset of nodes is to be simulated), a Bus Simulation is allowed to start the FlexRay communication by emulating the behavior of missing coldstart nodes.
 For this purpose, structural parameters e.g. for defining the startup time (\(T_{Start}\)) or the <code>Slot ID</code> for startup frames can be provided by the Bus Simulation.
 Because those parameters are Bus Simulation specific, they are not further defined in the specification.</p>
 </div>
@@ -5958,7 +5958,7 @@ If a specified Network FMU is depending on <a href="#low-cut-flexray-confirm-ope
 <p>Within a defined time window, multiple <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operations for the same logical signal (same slot/cycle) may be transmitted.
 In such cases, the Last-Is-Best principle applies: A Network FMU may update a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation as long as the same value is used for the <code>Slot ID</code> argument within the defined time window.
 On the receiver side, only the last <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation within the time window shall be considered valid.
-All preceding <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operations shall be treated overwritten and must not be processed.
+All preceding <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operations shall be treated as overwritten and must not be processed.
 This principle applies consistently to all three communication architectures (see <a href="#common-concepts-system-compositions">Section 3.2</a>).</p>
 </div>
 <div class="ulist">
@@ -6305,12 +6305,12 @@ T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{Iteration}}, i_{\mathrm{Cycle}}, i
 </div>
 <div class="paragraph">
 <p>Since the dynamic FlexRay segment works more event-based, it can happen that a transmission is already ongoing at the current time.
-For this reason, the slot counter within Network FMUs are important, especially in the dynamic segment.
+For this reason, the slot counters within Network FMUs are important, especially in the dynamic segment.
 In sequence <a href="#figure-flexray-transmission-dynamic-segment">Figure 31</a> multiple transmissions of FlexRay frames within the dynamic segment are shown.
 At the beginning the internal slot counters of FMU 1 and FMU 2 are equal to 8.
 Within the first and the second minislot, neither FMU 1 nor FMU 2 wants to transmit a frame.
 After the second elapsed minislot the internal slot counter values of FMU 1 and FMU 2 are equal to 10.
-Subsequently this FMU 1 provides a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation to the Bus Simulation for a transmission that uses the dynamic segment and <code>Slot ID = 10</code>.
+Subsequently, FMU 1 provides a <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation to the Bus Simulation for a transmission that uses the dynamic segment and <code>Slot ID = 10</code>.
 After this the Bus Simulation provides the <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation to FMU 2 and in the same step a <a href="#low-cut-flexray-confirm-operation"><code>Confirm</code></a> operation for FMU 1.
 All in all the transmission will take two minislots.
 Minislot 5 expires without a Network FMU wanting to make a transmission again and the internal slot counters are set to 11.
@@ -6352,7 +6352,7 @@ Depending on the type of <a href="#low-cut-flexray-bus-error-operation"><code>Bu
 <p>This standard should allow simulation of Ethernet bus systems and shall cover commercial, industrial and automotive use cases based on the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a>.</p>
 </div>
 <div class="paragraph">
-<p>Due to the chosen level of abstraction, this standard covers a wide range of Ethernet variants (e.g. 10BASE-T, 100BASE-TX, 1000BASE-T, 10GBASE-T, 100BASE-T1, 1000BASE-T1, 10BASE-T1S, etc.) described in <a href="#IEEE-802.3-2022">IEEE 802.3</a> and is also be designed flexible enough to support future versions without adaption due to the high cadence of the Ethernet standardization process.
+<p>Due to the chosen level of abstraction, this standard covers a wide range of Ethernet variants (e.g. 10BASE-T, 100BASE-TX, 1000BASE-T, 10GBASE-T, 100BASE-T1, 1000BASE-T1, 10BASE-T1S, etc.) described in <a href="#IEEE-802.3-2022">IEEE 802.3</a> and is also designed flexibly enough to support future versions without adaption due to the high cadence of the Ethernet standardization process.
 In addition, common supplementary standards are considered, including the following:</p>
 </div>
 <div class="ulist">
@@ -6374,7 +6374,7 @@ Effects on lower layers are modeled on a simplified level.</p>
 <h5 id="low-cut-ethernet-overview">5.5.4.1. Overview</h5>
 <div class="paragraph">
 <p>To simulate the Ethernet bus type, Ethernet-specific operations are specified based on the <a href="#low-cut-layered-standard-bus-protocol">Layered Standard Bus Protocol</a>.
-Overall, the following groups of operations exists:</p>
+Overall, the following groups of operations exist:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -6383,7 +6383,7 @@ Overall, the following groups of operations exists:</p>
 Different types of Ethernet frames (e.g. Express frames) are taken into account here.</p>
 </li>
 <li>
-<p>Confirm: Represents an confirmation of transmitted Ethernet frames.</p>
+<p>Confirm: Represents a confirmation of transmitted Ethernet frames.</p>
 </li>
 <li>
 <p>Error: This group of operations is used for protocol format errors and to simulate bus failures.
@@ -6394,7 +6394,7 @@ For example, the failure of a transmission can be indicated.</p>
 </li>
 <li>
 <p>Wake up: Ethernet supports wake up and sleep scenarios.
-Normally there are two ways to wake up from sleep mode: a local wake up on a specified wake-up pin, or a wake-up on the Ethernet bus via a Ethernet specific wake-up pulse.
+Normally there are two ways to wake up from sleep mode: a local wake up on a specified wake-up pin, or a wake-up on the Ethernet bus via an Ethernet-specific wake-up pulse.
 This operation is used to simulate triggering a wake-up from bus side.</p>
 </li>
 </ul>
@@ -6494,7 +6494,7 @@ It shows all operations and the arguments they contain.</p>
 <div class="sect4">
 <h5 id="low-cut-ethernet-ethernet-topologies">5.5.4.2. Ethernet Topologies</h5>
 <div class="paragraph">
-<p>Ethernet support both point-to-point and multidrop topologies.
+<p>Ethernet supports both point-to-point and multidrop topologies.
 In a point-to-point topology, Ethernet devices are either connected directly or more than two devices are connected using an Ethernet switch.
 This topology is used for all modern Ethernet variants except 10BASE-T1S.
 In a multidrop topology, multiple devices are connected to the same segment either directly, daisy-chained or interconnected via hubs.
@@ -6506,7 +6506,7 @@ Since an Ethernet switch can be implemented both in the Network FMU and in the B
 However, a Segment Terminal should only be used to group Bus Terminals of a Bus Simulation.</p>
 </div>
 <div class="paragraph">
-<p><a href="#figure-ethernet-topology-switch-inside-bus-simulation">Figure 33</a> illustrates an Ethernet topology in which for Network FMUs are integrated via a Bus Simulation.
+<p><a href="#figure-ethernet-topology-switch-inside-bus-simulation">Figure 33</a> illustrates an Ethernet topology in which four Network FMUs are integrated via a Bus Simulation.
 The Network FMUs are partly connected directly via Ethernet segments and partly via a switch.
 In this scenario the switch is integrated within the Bus Simulation.
 In addition, there are a total of three segments within the topology.
@@ -6519,7 +6519,7 @@ Two segments with two connections each (point-to-point) and one segment with thr
 <div class="title">Figure 33. Ethernet topologies: Switch inside Bus Simulation.</div>
 </div>
 <div class="paragraph">
-<p><a href="#figure-ethernet-topology-switch-inside-network-fmu">Figure 34</a> illustrates an Ethernet topology in which for Network FMUs are integrated via a Bus Simulation.
+<p><a href="#figure-ethernet-topology-switch-inside-network-fmu">Figure 34</a> illustrates an Ethernet topology in which four Network FMUs are integrated via a Bus Simulation.
 The Network FMUs are partly connected directly via Ethernet segments and partly via a switch.
 In this scenario the switch is integrated within a Network FMU.
 Although the switch is contained within the Network FMU, the communication here is also realized via the Bus Simulation.
@@ -6547,14 +6547,14 @@ The usage is optional but recommended.</p>
 <h6 id="low-cut-ethernet-segment-terminal">5.5.4.3.1. Ethernet Segment Terminal</h6>
 <div class="paragraph">
 <p>The Bus Terminals of a Bus Simulation should be grouped by the Segment Terminal in order to facilitate the creation of Ethernet topologies.
-A Segment Terminal that comprises two Bus Terminals shall behave point-to-point, with more than two multidroped.</p>
+A Segment Terminal that comprises two Bus Terminals shall behave point-to-point, with more than two as multidrop.</p>
 </div>
 <div class="paragraph">
 <p>The Segment Terminal additionally defines the following properties, based on the ruleset of <a href="#low-cut-grouping-of-bus-terminals">Section 5.4.2</a>:</p>
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">Attributes of a Ethernet Segment Terminal</dt>
+<dt class="hdlist1">Attributes of an Ethernet Segment Terminal</dt>
 <dd>
 <div class="ulist">
 <ul>
@@ -6593,7 +6593,7 @@ The Ethernet Switch Terminal additionally defines the following properties, base
 <h5 id="low-cut-ethernet-operations">5.5.4.4. Operations</h5>
 <div class="paragraph">
 <p>This section defines the specified operations for Ethernet.
-The following tables provide an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.</p>
+The following tables provide an overview of all operations and specify the position and length of the corresponding arguments, as well as the respective flow direction.</p>
 </div>
 <div class="sect5">
 <h6 id="low-cut-ethernet-transmit-operation">5.5.4.4.1. Transmit</h6>
@@ -6674,7 +6674,7 @@ Only applicable if this is a full Ethernet frame or the first fragment of an Eth
 <td class="tableblock halign-left valign-top"><p class="tableblock">2 bytes</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>Indicates the type of Ethernet frame (Ethernet II), the TPID (802.1Q) or frame length (802.3).
-Note: Regarding to <a href="#low-cut-layered-standard-bus-protocol">Section 5.2</a>, the argument value shall be also stored in <code>little-endian</code> byte order.</p>
+Note: According to <a href="#low-cut-layered-standard-bus-protocol">Section 5.2</a>, the argument value shall also be stored in <code>little-endian</code> byte order.</p>
 </div></div></td>
 </tr>
 <tr>
@@ -6924,7 +6924,7 @@ See <a href="#table-fmi3-ls-bus-ethernet-mdi-mode-values">Table 55</a> for possi
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Supported PHY Types Length</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 bytes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The number of characters of the <code>Supported PHY Types</code> argument.</p></td>
 </tr>
 <tr>
@@ -7074,7 +7074,7 @@ A Bus Simulation can simulate these effects by sending bus notifications in term
 </div>
 <div class="paragraph">
 <p>However, in scenarios where Network FMUs are connected directly to each other, or where the Bus Simulation does not simulate such effects, it must be possible to configure the Network FMU such that it does not wait for any response after a <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation.
-Therefore, a parameter with <code>memberName = "BusNotifications"</code> can be added within the Ethernet-specific  <a href="#low-cut-configuration-terminal">Configuration Terminal</a>.<br>
+Therefore, a parameter with <code>memberName = "BusNotifications"</code> can be added within the Ethernet-specific <a href="#low-cut-configuration-terminal">Configuration Terminal</a>.<br>
 If a Network FMU supports bus notifications, the <a href="#low-cut-ethernet-bus-notification-parameter"><code>BusNotifications</code></a> parameter shall be exposed.
 The default value of this parameter shall be <code>false</code>.</p>
 </div>
@@ -7105,7 +7105,7 @@ Even if the Network FMU does not expect bus notifications, i.e. <a href="#low-cu
 </div>
 </div>
 <div class="paragraph">
-<p>A Bus Simulation FMU shall indicate via a variable with <code>memberName = "BusNotifications"</code> within the Ethernet-specific  <a href="#low-cut-configuration-terminal">Configuration Terminal</a> whether it provides bus notifications or not.
+<p>A Bus Simulation FMU shall indicate via a variable with <code>memberName = "BusNotifications"</code> within the Ethernet-specific <a href="#low-cut-configuration-terminal">Configuration Terminal</a> whether it provides bus notifications or not.
 If the provision of bus notifications can be configured (e.g., via a structural parameter), the attributes of the <a href="#low-cut-ethernet-bus-notification-parameter"><code>BusNotifications</code></a> variable shall contain <code>causality = "calculatedParameter"</code> and <code>variability = "fixed"</code>; or <code>causality = "output"</code> and <code>variability = "constant"</code> otherwise.</p>
 </div>
 <div id="figure-fmu-ethernet-bus-notifications-parameter-in-bus-simulation" class="listingblock">
@@ -7166,8 +7166,8 @@ After the transmission has been successfully completed, the Bus Simulation ackno
 In the FMI-LS-BUS specification, this is not possible, thus a special bus error is introduced to indicate when the medium is busy.</p>
 </div>
 <div class="paragraph">
-<p>When a Network FMU starts a transmission in this case, the Bus Simulation returns a <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation with value of argument argument <code>Error Code</code> set to <a href="#table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy"><code>MEDIUM_BUSY</code></a>.
-The Network FMU should the re-attempt the transmission at a later point in time.</p>
+<p>When a Network FMU starts a transmission in this case, the Bus Simulation returns a <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation with value of argument <code>Error Code</code> set to <a href="#table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy"><code>MEDIUM_BUSY</code></a>.
+The Network FMU should then re-attempt the transmission at a later point in time.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -7260,7 +7260,7 @@ In the third step, the second fragment of the Ethernet frame is provided from FM
 <div class="content">
 <img src="images/ethernet_transmit_fragmented.svg" alt="ethernet transmit fragmented" width="800">
 </div>
-<div class="title">Figure 39. Illustration of a  fragmented Ethernet transmission, by using Ethernet Express frames.</div>
+<div class="title">Figure 39. Illustration of a fragmented Ethernet transmission, by using Ethernet Express frames.</div>
 </div>
 </div>
 </div>
@@ -7396,7 +7396,7 @@ The Bus Simulation shall distribute this operation to all participants on the bu
 <div class="ulist bibliography">
 <ul class="bibliography">
 <li>
-<p><a id="PW13"></a>[PW13] Preston-Werner, T. (2013): <strong>Semantic Versioning 2.0.0</strong>.  <a href="https://semver.org/spec/v2.0.0.html" class="bare">https://semver.org/spec/v2.0.0.html</a></p>
+<p><a id="PW13"></a>[PW13] Preston-Werner, T. (2013): <strong>Semantic Versioning 2.0.0</strong>. <a href="https://semver.org/spec/v2.0.0.html" class="bare">https://semver.org/spec/v2.0.0.html</a></p>
 </li>
 <li>
 <p><a id="RFC2119"></a>[RFC2119] RFC 2119: <strong>Key words for use in RFCs to Indicate Requirement Levels</strong>. <a href="https://tools.ietf.org/html/rfc2119" class="bare">https://tools.ietf.org/html/rfc2119</a></p>
