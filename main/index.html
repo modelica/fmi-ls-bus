@@ -478,7 +478,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version d2f0f4d,</span>
+<span id="revnumber">version 178b956,</span>
 <span id="revdate">2026-10-27</span>
 </div>
 <div id="toc" class="toc2">
@@ -6135,8 +6135,8 @@ If the parameter is <code>true</code> (default), the corresponding operations ar
 </div>
 <div class="stemblock">
 <div class="content">
-\[    T_{\mathrm{AP}_{\mathrm{Static}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
-  = T_{\mathrm{Tx}_{\mathrm{Static}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}) + T_{\mathrm{ActionPoint}_{\mathrm{Static}}}\]
+\[    T_{\mathrm{AP}_{\mathrm{Static}}}(i_{\mathrm{Iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+  = T_{\mathrm{Tx}_{\mathrm{Static}}}(i_{\mathrm{Iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}) + T_{\mathrm{ActionPoint}_{\mathrm{Static}}}\]
 </div>
 </div>
 <div class="paragraph">
@@ -6156,9 +6156,9 @@ If the parameter is <code>true</code> (default), the corresponding operations ar
 <div class="content">
 \[    T_{\mathrm{Valid}_{\mathrm{Static}}}
         = \left(
-            T_{\mathrm{AP}_{\mathrm{Static}}}(i_{\mathrm{iteration}} - 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}),
+            T_{\mathrm{AP}_{\mathrm{Static}}}(i_{\mathrm{Iteration}} - 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}),
             \;
-            T_{\mathrm{AP}_{\mathrm{Static}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+            T_{\mathrm{AP}_{\mathrm{Static}}}(i_{\mathrm{Iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
         \right]\]
 </div>
 </div>
@@ -6170,14 +6170,14 @@ If the parameter is <code>true</code> (default), the corresponding operations ar
 <li>
 <p>\(t \in T_{\mathrm{Valid}_{\mathrm{Static}}}
 \iff
-T_{\mathrm{AP}_{\mathrm{Static}}}(i_{\mathrm{iteration}} - 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+T_{\mathrm{AP}_{\mathrm{Static}}}(i_{\mathrm{Iteration}} - 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
 &lt; t \le
-T_{\mathrm{AP}_{\mathrm{Static}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})\).</p>
+T_{\mathrm{AP}_{\mathrm{Static}}}(i_{\mathrm{Iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})\).</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>A <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation is valid if it is provided at a time \(t\) within the interval spanning from immediately after the action point of slot \(i_{\mathrm{Slot}}\) in \(i_{\mathrm{Cycle}}\) of iteration \(i_{\mathrm{iteration}} - 1\) to the action point of the same slot and cycle in iteration \(i_{\mathrm{iteration}}\).</p>
+<p>A <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation is valid if it is provided at a time \(t\) within the interval spanning from immediately after the action point of slot \(i_{\mathrm{Slot}}\) in \(i_{\mathrm{Cycle}}\) of iteration \(i_{\mathrm{Iteration}} - 1\) to the action point of the same slot and cycle in iteration \(i_{\mathrm{Iteration}}\).</p>
 </div>
 <div class="paragraph">
 <p><a href="#figure-flexray-transmission-static-segment">Figure 29</a> illustrates a sequence of operations focusing on the respective actors and corresponding FlexRay slots.
@@ -6218,9 +6218,9 @@ If the parameter is set to <code>fmi3True</code>, the corresponding operations a
 </div>
 <div class="stemblock">
 <div class="content">
-\[T_{\mathrm{Tx}_{\mathrm{Dynamic}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+\[T_{\mathrm{Tx}_{\mathrm{Dynamic}}}(i_{\mathrm{Iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
     =
-    T_{\mathrm{Tx}_{\mathrm{Static}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, N_{\mathrm{StaticSlot}} + 1)
+    T_{\mathrm{Tx}_{\mathrm{Static}}}(i_{\mathrm{Iteration}}, i_{\mathrm{Cycle}}, N_{\mathrm{StaticSlot}} + 1)
     + \sum_{j = N_{\mathrm{StaticSlot}} + 1}^{i_{\mathrm{Slot}} - 1}
         L_{\mathrm{DynamicSlot}_j} \cdot L_{\mathrm{Minislot}}\]
 </div>
@@ -6261,8 +6261,8 @@ It should be noted that \(T_{\mathrm{Start}}\) is already taken into account in 
 </div>
 <div class="stemblock">
 <div class="content">
-\[T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
-    = T_{\mathrm{Tx}_{\mathrm{Dynamic}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+\[T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{Iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+    = T_{\mathrm{Tx}_{\mathrm{Dynamic}}}(i_{\mathrm{Iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
     + T_{\mathrm{ActionPoint}_{\mathrm{Dynamic}}}\]
 </div>
 </div>
@@ -6283,9 +6283,9 @@ It should be noted that \(T_{\mathrm{Start}}\) is already taken into account in 
 <div class="content">
 \[T_{\mathrm{Valid}_{\mathrm{Dynamic}}}
     = \left(
-        T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{iteration}} - 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}),
+        T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{Iteration}} - 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}}),
         \;
-       T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+       T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{Iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
     \right]\]
 </div>
 </div>
@@ -6297,9 +6297,9 @@ It should be noted that \(T_{\mathrm{Start}}\) is already taken into account in 
 <li>
 <p>\(t \in T_{\mathrm{Valid}_{\mathrm{Dynamic}}}
 \iff
-T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{iteration}} - 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
+T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{Iteration}} - 1, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})
 &lt; t \le
-T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})\).</p>
+T_{\mathrm{AP}_{\mathrm{Dynamic}}}(i_{\mathrm{Iteration}}, i_{\mathrm{Cycle}}, i_{\mathrm{Slot}})\).</p>
 </li>
 </ul>
 </div>
