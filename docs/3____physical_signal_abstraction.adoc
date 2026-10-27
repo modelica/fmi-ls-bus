@@ -177,8 +177,8 @@ include::examples/X_network4FMI_modelDescription_highCut_dbc.xml[]
 ----
 
 The following file shows the <<high-cut-bus-terminal,Bus Terminal>> definition representing the network and frame structure defined with `Powertrain.dbc` above.
-The `name` of the <<high-cut-frame-terminal,frame terminal>> and the <<high-cut-pdu-terminal,PDU terminal>> are derived from the DBC attribute `_BO`.
-The `SignalName`, and so the resulting `memberName`, is derived from the DBC attribute `_SG`.
+The `name` of the <<high-cut-frame-terminal,frame terminal>> and the <<high-cut-pdu-terminal,PDU terminal>> are derived from the DBC attribute `BO_`.
+The `SignalName`, and so the resulting `memberName`, is derived from the DBC attribute `SG_`.
 
 .Example terminalsAndIcons.xml file.
 [[example-terminalsAndIconHighCut-dbc-xml]]

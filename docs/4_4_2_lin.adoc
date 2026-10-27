@@ -428,7 +428,7 @@ h|Node Definition h|Value h|Description
 |====
 
 ====== Wake Up [[low-cut-lin-wake-up-operation]]
-By using the <<low-cut-lin-wake-up-operation, `Wakeup`>> operation the underlying Bus Simulation can trigger a bus-specific wake-up.
+By using the <<low-cut-lin-wake-up-operation, `Wakeup`>> operation the underlying Bus Simulation can trigger a bus-specific wake-up, initiated by a Network FMU.
 
 .Detailed description of the Wakeup operation.
 [#table-lin-wakeup-operation]

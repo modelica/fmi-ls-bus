@@ -5,7 +5,7 @@ The following tables provide an overview of all operations and specifies the pos
 
 ====== Transmit [[low-cut-ethernet-transmit-operation]]
 
-Represents the transmission of an Ethernet frame or MAC Merge Packet (mPacket).
+The <<low-cut-ethernet-transmit-operation, `Transmit`>> operation is used to simulate the transmission of an Ethernet frame or MAC Merge Packet (mPacket).
 
 .Detailed description of the Transmit operation.
 [#table-fmi3-ls-bus-ethernet-transmit-operation]
@@ -57,7 +57,7 @@ Only applicable if this is a full Ethernet frame or the first fragment of an Eth
 
 |Source Address
 |6 bytes
-|The destination address of the frame.
+|The source address of the frame.
 Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.
 
 |Type or Length
@@ -196,7 +196,8 @@ h|Description
 
 ====== Configuration [[low-cut-ethernet-configuration-operation]]
 
-Represents the transmission of a continuation mPacket.
+The <<low-cut-ethernet-configuration-operation, `Configuration`>> operation is used by Network FMUs to send simulation specific options to Bus Simulations.
+The following information is included within this operation:
 
 .Detailed description of the Configuration operation.
 [#table-fmi3-ls-bus-ethernet-configuration-operation]
@@ -302,7 +303,7 @@ h|Description
 
 ====== Wake Up [[low-cut-ethernet-wakeup-operation]]
 
-Indicates wake up pulse according to <<OpenAlliance-TC10-100BASE-T1, Open Alliance TC10 sleep/wake-up>>.
+By using the <<low-cut-ethernet-wakeup-operation, `Wakeup`>> operation, the underlying Bus Simulation can trigger a bus-specific wake-up, initiated by a Network FMU, according to <<OpenAlliance-TC10-100BASE-T1, Open Alliance TC10 sleep/wake-up>>.
 
 .Detailed description of the Wakeup operation.
 [#table-fmi3-ls-bus-ethernet-wakeup-operation]

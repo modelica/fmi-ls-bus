@@ -483,7 +483,7 @@ The following applies for this operation: `Length = 15`.
 |Error Flag
 |1 byte
 |Defines whether the Error was detected by a specified Network FMU.
-For specification the boolean values `PRIMARY_ERROR_FLAG` and `SECONDARY_ERROR_FLAG` (see <<table-can-bus-error-error-flag-kinds>>) shall be used.
+For specification `PRIMARY_ERROR_FLAG` and `SECONDARY_ERROR_FLAG` (see <<table-can-bus-error-error-flag-kinds>>) shall be used.
 
 |Is Sender
 |1 byte
@@ -628,7 +628,7 @@ h|Behavior
 The operation shall not be routed to other Network FMUs by the Bus Simulation.
 A Network FMU shall ignore this operation on the consumer side.
 <<low-cut-can-configuration-operation, `Configuration`>> operations can be produced multiple times during the runtime of a Network FMU.
-In context of CAN FD, also a CAN baud rate should be configured by using `Parameter Type = CAN_BAUDRATE`.
+In context of CAN FD, also a CAN baud rate shall be configured by using `Parameter Type = CAN_BAUDRATE`.
 If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.
 |====
 
@@ -752,7 +752,7 @@ If all Network FMUs, except the <<low-cut-can-transmit-operation, `Transmit`>> o
 
 ====== Wake Up [[low-cut-can-wake-up-operation]]
 
-By using the <<low-cut-can-wake-up-operation, `Wakeup`>> operation, the underlying Bus Simulation can trigger a bus-specific wake-up.
+By using the <<low-cut-can-wake-up-operation, `Wakeup`>> operation, the underlying Bus Simulation can trigger a bus-specific wake-up, initiated by a Network FMU.
 
 .Detailed description of the Wakeup operation.
 [#table-can-wakeup-operation]

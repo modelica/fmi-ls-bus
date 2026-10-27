@@ -586,7 +586,7 @@ h|Behavior
 5+|The specified operation shall be produced by a Network FMU.
 In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), Network FMUs also receive <<low-cut-flexray-configuration-operation, `Configuration`>> operations from other nodes.
 Therefore, Network FMUs shall check receiving <<low-cut-flexray-configuration-operation, `Configuration`>> operation of type `FLEXRAY_CONFIG` for compatibility.
-If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the compatibility check should be done by the Bus Simulation.
+If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the compatibility check shall be done by the Bus Simulation.
 In this case, the Bus Simulation must not forward the <<low-cut-flexray-configuration-operation, `Configuration`>> to Network FMUs.
 The configuration of the `FLEXRAY_CONFIG` parameters must be completed by all Network FMUs before any <<low-cut-flexray-transmit-operation, `Transmit`>> operation is produced.
 The reconfiguration of `FLEXRAY_CONFIG` parameters during the runtime of a Network FMU is not allowed.
@@ -839,7 +839,7 @@ At runtime, the globally defined communication parameters must be used by all ne
 To ensure that all Network FMUs use compatible parameters and to tell Bus Simulations how to simulate the FlexRay communication, Network FMUs shall send the <<low-cut-flexray-configuration-operation, `Configuration`>> operation.
 Configuration parameters which are mandatory to provide when first entering the `Event Mode` immediately after leaving the `Initialization Mode` are of type `FLEXRAY_CONFIG`.
 Network FMUs receiving <<low-cut-flexray-configuration-operation, `Configuration`>> operations of type `FLEXRAY_CONFIG` shall check its compatibility.
-Bus Simulations are also allowed to perform compatibility checks of `FLEXRAY_CONFIG` parameters.
+Bus Simulations shall also perform compatibility checks of `FLEXRAY_CONFIG` parameters.
 In this case, a Bus Simulations must not forward <<low-cut-flexray-configuration-operation, `Configuration`>> operations to Network FMUs.
 In cases of detected incompatibilities, the simulation shall be refused accordingly.
 

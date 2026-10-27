@@ -227,7 +227,7 @@ typedef struct
     fmi3LsBusEthernetMPacketFragmentCounter fragmentCounter;  /**< Fragment counter of the continuation mPacket  Must be set to 0, if this is not a continuation mPacket */
     fmi3LsBusBoolean lastFragment;                            /**< Indicates whether this is the last fragment of a fragmented Ethernet frame  Must be set to `TRUE` if this is a full Ethernet frame */
     fmi3LsBusEthernetMacAddressOctet destinationAddress[6];   /**< The destination address of the frame  Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame */
-    fmi3LsBusEthernetMacAddressOctet sourceAddress[6];        /**< The destination address of the frame  Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame */
+    fmi3LsBusEthernetMacAddressOctet sourceAddress[6];        /**< The source address of the frame  Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame */
     fmi3LsBusEthernetTypeOrLength typeOrLength;               /**< Indicates the type of Ethernet frame (Ethernet II), the TPID (802.1Q) or frame length (802.3) */
     fmi3LsBusEthernetDataLength dataLength;                   /**< The length of the data of this Ethernet frame or mPacket  Note that this does not correspond to a field in the Ethernet frame */
     fmi3LsBusEthernetData data[];                             /**< The payload data of the Ethernet frame or mPacket */

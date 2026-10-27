@@ -201,6 +201,8 @@ These header files apply to all supported bus types of the layered standard.
 * link:headers/fmi3LsBusUtilFlexRay.h[fmi3LsBusUtilFlexRay.h] provides FlexRay explicit utility macros.
 * link:headers/fmi3LsBusEthernet.h[fmi3LsBusEthernet.h] provides macros, types and structures of Bus Operations for Ethernet.
 * link:headers/fmi3LsBusUtilEthernet.h[fmi3LsBusUtilEthernet.h] provides Ethernet explicit utility macros.
+* link:headers/fmi3LsBusLin.h[fmi3LsBusLin.h] provides macros, types and structures of Bus Operations for LIN.
+* link:headers/fmi3LsBusUtilLin.h[fmi3LsBusUtilLin.h] provides LIN explicit utility macros.
 
 ==== Basic Type Definitions [[low-cut-basic-type-definitions]]
 

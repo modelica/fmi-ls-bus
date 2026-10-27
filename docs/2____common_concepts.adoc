@@ -27,8 +27,8 @@ The internal structure of these binary variables representing Bus Operations to 
 These Bus Operations do not just transport the network-specific payload but also carry protocol-specific status information.
 This status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack if a send request was successful or not.
 
-When executing an FMU with a fixed step size, multiple message sends may fall into the time-interval of one `fmiDoStep` call.
-In such a setup, the High-Cut signal variables will miss all but the last value sent, while Low-Cut FMUs will buffer all Bus Operations and exchange them after the `fmiDoStep`.
+When executing an FMU with a fixed step size, multiple message sends may fall into the time-interval of one `fmi3DoStep` call.
+In such a setup, the High-Cut signal variables will miss all but the last value sent, while Low-Cut FMUs will buffer all Bus Operations and exchange them after the `fmi3DoStep`.
 
 === General Recommendations regarding Clocks [[common-concepts-general-recommendations]]
 

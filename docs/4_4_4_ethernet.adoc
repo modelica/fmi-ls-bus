@@ -244,7 +244,7 @@ While the transmission is still running, FMU 2 tries to provide another <<low-cu
 This leads to a conflict because the simulated bus is already occupied by the transmission from FMU 1.
 FMU 2 is notified of this situation by receiving a <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation with argument `Error Code` set to <<table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy, `MEDIUM_BUSY`>> by the Bus Simulation.
 The <<low-cut-ethernet-transmit-operation, `Transmit`>> operation, originally provided by FMU 1, is then provided to FMU 2 and FMU 3.
-FMU 1 acknowledges a successful transmission using a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation.
+The Bus Simulation acknowledges a successful transmission to FMU 1 by using a <<low-cut-ethernet-confirm-operation, `Confirm`>> operation.
 
 .Transmission with avoided collision with Bus Simulation.
 [#figure-ethernet-transmit-collision-avoided]
