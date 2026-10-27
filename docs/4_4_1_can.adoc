@@ -903,10 +903,11 @@ The https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-can-
 
 Arbitration is an instrument of the CAN standard to resolve the conflict of the simultaneous sending of messages from several CAN nodes without a collision.
 The arbitration is handled in the Bus Simulation and can be recognized by the fact that the Bus Simulation receives a <<low-cut-can-transmit-operation, `Transmit`>> operation from several FMUs at the same time.
-As soon as an arbitration is lost, an <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operation shall be returned to the respective sender.
+How the Bus Simulation reacts on a lost arbitration depends on the configured `Arbitration Lost Behavior` (see below).
+If `DISCARD_AND_NOTIFY` is configured, an <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operation shall be returned to the respective sender as soon as an arbitration is lost.
 As soon as an FMU receives an <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operation, it can independently repeat the corresponding <<low-cut-can-transmit-operation, `Transmit`>> operation.
 
-.Arbitration of two transmissions at the same time.
+.Arbitration of two transmissions at the same time (`Arbitration Lost Behavior` = `DISCARD_AND_NOTIFY`).
 [#figure-can-arbitration]
 image::images/can_arbitration.svg[width=700]
 
