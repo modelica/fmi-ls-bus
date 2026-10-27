@@ -478,7 +478,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version 5cc55d1,</span>
+<span id="revnumber">version 5688e56,</span>
 <span id="revdate">2026-10-27</span>
 </div>
 <div id="toc" class="toc2">
@@ -2527,7 +2527,7 @@ Depending on the bus-specific definition, buses can introduce special terminal k
         causality="input" variability="discrete" intervalVariability="changing"/&gt;
     &lt;Binary name="Powertrain.Tx_Data" valueReference="1003" causality="output"
         mimeType="application/org.fmi-standard.fmi-ls-bus.can; version=&amp;quot;1.0.0&amp;quot;" variability="discrete" clocks="1004"/&gt;
-    &lt;Boolean name="BusNotification" valueReference="1005" causality="parameter" variability="fixed" start="false"/&gt;
+    &lt;Boolean name="BusNotifications" valueReference="1005" causality="parameter" variability="fixed" start="false"/&gt;
   &lt;/ModelVariables&gt;
   &lt;ModelStructure&gt;
   &lt;/ModelStructure&gt;
@@ -2555,7 +2555,7 @@ Depending on the bus-specific definition, buses can introduce special terminal k
         variableName="Powertrain.Tx_Data" memberName="Tx_Data" /&gt;
       &lt;Terminal terminalKind="org.fmi-ls-bus.network-terminal.configuration" name="Configuration" matchingRule="bus"&gt;
         &lt;TerminalMemberVariable variableKind="signal"
-          variableName="BusNotification" memberName="BusNotification" /&gt;
+          variableName="BusNotifications" memberName="BusNotifications" /&gt;
       &lt;/Terminal&gt;
     &lt;/Terminal&gt;
   &lt;/Terminals&gt;
