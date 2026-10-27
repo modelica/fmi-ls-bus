@@ -478,7 +478,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version 5688e56,</span>
+<span id="revnumber">version 9a7ea0b,</span>
 <span id="revdate">2026-10-27</span>
 </div>
 <div id="toc" class="toc2">
@@ -970,8 +970,8 @@ These Bus Operations do not just transport the network-specific payload but also
 This status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack if a send request was successful or not.</p>
 </div>
 <div class="paragraph">
-<p>When executing an FMU with a fixed step size, multiple message sends may fall into the time-interval of one <code>fmiDoStep</code> call.
-In such a setup, the High-Cut signal variables will miss all but the last value sent, while Low-Cut FMUs will buffer all Bus Operations and exchange them after the <code>fmiDoStep</code>.</p>
+<p>When executing an FMU with a fixed step size, multiple message sends may fall into the time-interval of one <code>fmi3DoStep</code> call.
+In such a setup, the High-Cut signal variables will miss all but the last value sent, while Low-Cut FMUs will buffer all Bus Operations and exchange them after the <code>fmi3DoStep</code>.</p>
 </div>
 <div class="sect2">
 <h3 id="common-concepts-general-recommendations">3.1. General Recommendations regarding Clocks</h3>
@@ -1534,8 +1534,8 @@ BO_ 512 ecuState: 4 ECU
 </div>
 <div class="paragraph">
 <p>The following file shows the <a href="#high-cut-bus-terminal">Bus Terminal</a> definition representing the network and frame structure defined with <code>Powertrain.dbc</code> above.
-The <code>name</code> of the <a href="#high-cut-frame-terminal">frame terminal</a> and the <a href="#high-cut-pdu-terminal">PDU terminal</a> are derived from the DBC attribute <code>_BO</code>.
-The <code>SignalName</code>, and so the resulting <code>memberName</code>, is derived from the DBC attribute <code>_SG</code>.</p>
+The <code>name</code> of the <a href="#high-cut-frame-terminal">frame terminal</a> and the <a href="#high-cut-pdu-terminal">PDU terminal</a> are derived from the DBC attribute <code>BO_</code>.
+The <code>SignalName</code>, and so the resulting <code>memberName</code>, is derived from the DBC attribute <code>SG_</code>.</p>
 </div>
 <div id="example-terminalsAndIconHighCut-dbc-xml" class="listingblock">
 <div class="title">Example terminalsAndIcons.xml file.</div>
@@ -2138,6 +2138,12 @@ These header files apply to all supported bus types of the layered standard.</p>
 </li>
 <li>
 <p><a href="headers/fmi3LsBusUtilEthernet.h">fmi3LsBusUtilEthernet.h</a> provides Ethernet explicit utility macros.</p>
+</li>
+<li>
+<p><a href="headers/fmi3LsBusLin.h">fmi3LsBusLin.h</a> provides macros, types and structures of Bus Operations for LIN.</p>
+</li>
+<li>
+<p><a href="headers/fmi3LsBusUtilLin.h">fmi3LsBusUtilLin.h</a> provides LIN explicit utility macros.</p>
 </li>
 </ul>
 </div>
@@ -3211,7 +3217,7 @@ The following applies for this operation: <code>Length = 15</code>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Error Flag</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1 byte</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Defines whether the Error was detected by a specified Network FMU.
-For specification the boolean values <code>PRIMARY_ERROR_FLAG</code> and <code>SECONDARY_ERROR_FLAG</code> (see <a href="#table-can-bus-error-error-flag-kinds">Table 16</a>) shall be used.</p></td>
+For specification <code>PRIMARY_ERROR_FLAG</code> and <code>SECONDARY_ERROR_FLAG</code> (see <a href="#table-can-bus-error-error-flag-kinds">Table 16</a>) shall be used.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Is Sender</p></td>
@@ -3404,7 +3410,7 @@ If the option is set to <code>DISCARD_AND_NOTIFY</code>, the <a href="#low-cut-c
 The operation shall not be routed to other Network FMUs by the Bus Simulation.
 A Network FMU shall ignore this operation on the consumer side.
 <a href="#low-cut-can-configuration-operation"><code>Configuration</code></a> operations can be produced multiple times during the runtime of a Network FMU.
-In context of CAN FD, also a CAN baud rate should be configured by using <code>Parameter Type = CAN_BAUDRATE</code>.
+In context of CAN FD, also a CAN baud rate shall be configured by using <code>Parameter Type = CAN_BAUDRATE</code>.
 If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.</p></td>
 </tr>
 </tbody>
@@ -3577,7 +3583,7 @@ If all Network FMUs, except the <a href="#low-cut-can-transmit-operation"><code>
 <div class="sect5">
 <h6 id="low-cut-can-wake-up-operation">5.5.1.2.8. Wake Up</h6>
 <div class="paragraph">
-<p>By using the <a href="#low-cut-can-wake-up-operation"><code>Wakeup</code></a> operation, the underlying Bus Simulation can trigger a bus-specific wake-up.</p>
+<p>By using the <a href="#low-cut-can-wake-up-operation"><code>Wakeup</code></a> operation, the underlying Bus Simulation can trigger a bus-specific wake-up, initiated by a Network FMU.</p>
 </div>
 <table id="table-can-wakeup-operation" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 22. Detailed description of the Wakeup operation.</caption>
@@ -3794,14 +3800,15 @@ When a Network FMU signals the <code>BUS_OFF</code> state to the Bus Simulation,
 <div class="paragraph">
 <p>Arbitration is an instrument of the CAN standard to resolve the conflict of the simultaneous sending of messages from several CAN nodes without a collision.
 The arbitration is handled in the Bus Simulation and can be recognized by the fact that the Bus Simulation receives a <a href="#low-cut-can-transmit-operation"><code>Transmit</code></a> operation from several FMUs at the same time.
-As soon as an arbitration is lost, an <a href="#low-cut-can-arbitration-lost-operation"><code>Arbitration Lost</code></a> operation shall be returned to the respective sender.
+How the Bus Simulation reacts on a lost arbitration depends on the configured <code>Arbitration Lost Behavior</code> (see below).
+If <code>DISCARD_AND_NOTIFY</code> is configured, an <a href="#low-cut-can-arbitration-lost-operation"><code>Arbitration Lost</code></a> operation shall be returned to the respective sender as soon as an arbitration is lost.
 As soon as an FMU receives an <a href="#low-cut-can-arbitration-lost-operation"><code>Arbitration Lost</code></a> operation, it can independently repeat the corresponding <a href="#low-cut-can-transmit-operation"><code>Transmit</code></a> operation.</p>
 </div>
 <div id="figure-can-arbitration" class="imageblock">
 <div class="content">
 <img src="images/can_arbitration.svg" alt="can arbitration" width="700">
 </div>
-<div class="title">Figure 15. Arbitration of two transmissions at the same time.</div>
+<div class="title">Figure 15. Arbitration of two transmissions at the same time (<code>Arbitration Lost Behavior</code> = <code>DISCARD_AND_NOTIFY</code>).</div>
 </div>
 <div class="paragraph">
 <p>Within a <a href="#low-cut-can-configuration-operation"><code>Configuration</code></a> operation, the <code>Arbitration Lost Behavior</code> argument can be specified.
@@ -4474,7 +4481,7 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 <div class="sect5">
 <h6 id="low-cut-lin-wake-up-operation">5.5.2.2.6. Wake Up</h6>
 <div class="paragraph">
-<p>By using the <a href="#low-cut-lin-wake-up-operation"><code>Wakeup</code></a> operation the underlying Bus Simulation can trigger a bus-specific wake-up.</p>
+<p>By using the <a href="#low-cut-lin-wake-up-operation"><code>Wakeup</code></a> operation the underlying Bus Simulation can trigger a bus-specific wake-up, initiated by a Network FMU.</p>
 </div>
 <table id="table-lin-wakeup-operation" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 33. Detailed description of the Wakeup operation.</caption>
@@ -5509,7 +5516,7 @@ If a specified node has coldstart capabilities, additionally the type of coldsta
 <td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">The specified operation shall be produced by a Network FMU.
 In case of directly connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.2.1</a>), Network FMUs also receive <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operations from other nodes.
 Therefore, Network FMUs shall check receiving <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operation of type <code>FLEXRAY_CONFIG</code> for compatibility.
-If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.2.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.2.3</a>), the compatibility check should be done by the Bus Simulation.
+If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.2.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.2.3</a>), the compatibility check shall be done by the Bus Simulation.
 In this case, the Bus Simulation must not forward the <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> to Network FMUs.
 The configuration of the <code>FLEXRAY_CONFIG</code> parameters must be completed by all Network FMUs before any <a href="#low-cut-flexray-transmit-operation"><code>Transmit</code></a> operation is produced.
 The reconfiguration of <code>FLEXRAY_CONFIG</code> parameters during the runtime of a Network FMU is not allowed.</p></td>
@@ -5865,7 +5872,7 @@ At runtime, the globally defined communication parameters must be used by all ne
 To ensure that all Network FMUs use compatible parameters and to tell Bus Simulations how to simulate the FlexRay communication, Network FMUs shall send the <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operation.
 Configuration parameters which are mandatory to provide when first entering the <code>Event Mode</code> immediately after leaving the <code>Initialization Mode</code> are of type <code>FLEXRAY_CONFIG</code>.
 Network FMUs receiving <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operations of type <code>FLEXRAY_CONFIG</code> shall check its compatibility.
-Bus Simulations are also allowed to perform compatibility checks of <code>FLEXRAY_CONFIG</code> parameters.
+Bus Simulations shall also perform compatibility checks of <code>FLEXRAY_CONFIG</code> parameters.
 In this case, a Bus Simulations must not forward <a href="#low-cut-flexray-configuration-operation"><code>Configuration</code></a> operations to Network FMUs.
 In cases of detected incompatibilities, the simulation shall be refused accordingly.</p>
 </div>
@@ -6591,7 +6598,7 @@ The following tables provide an overview of all operations and specifies the pos
 <div class="sect5">
 <h6 id="low-cut-ethernet-transmit-operation">5.5.4.4.1. Transmit</h6>
 <div class="paragraph">
-<p>Represents the transmission of an Ethernet frame or MAC Merge Packet (mPacket).</p>
+<p>The <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation is used to simulate the transmission of an Ethernet frame or MAC Merge Packet (mPacket).</p>
 </div>
 <table id="table-fmi3-ls-bus-ethernet-transmit-operation" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 49. Detailed description of the Transmit operation.</caption>
@@ -6659,7 +6666,7 @@ Only applicable if this is a full Ethernet frame or the first fragment of an Eth
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Source Address</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">6 bytes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The destination address of the frame.
+<td class="tableblock halign-left valign-top"><p class="tableblock">The source address of the frame.
 Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.</p></td>
 </tr>
 <tr>
@@ -6851,7 +6858,8 @@ Only Network FMUs with the corresponding optionally exposed <a href="#low-cut-et
 <div class="sect5">
 <h6 id="low-cut-ethernet-configuration-operation">5.5.4.4.5. Configuration</h6>
 <div class="paragraph">
-<p>Represents the transmission of a continuation mPacket.</p>
+<p>The <a href="#low-cut-ethernet-configuration-operation"><code>Configuration</code></a> operation is used by Network FMUs to send simulation specific options to Bus Simulations.
+The following information is included within this operation:</p>
 </div>
 <table id="table-fmi3-ls-bus-ethernet-configuration-operation" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 53. Detailed description of the Configuration operation.</caption>
@@ -6998,7 +7006,7 @@ If configuration parameters are not adjusted by a Network FMU, the Bus Simulatio
 <div class="sect5">
 <h6 id="low-cut-ethernet-wakeup-operation">5.5.4.4.6. Wake Up</h6>
 <div class="paragraph">
-<p>Indicates wake up pulse according to <a href="#OpenAlliance-TC10-100BASE-T1">Open Alliance TC10 sleep/wake-up</a>.</p>
+<p>By using the <a href="#low-cut-ethernet-wakeup-operation"><code>Wakeup</code></a> operation, the underlying Bus Simulation can trigger a bus-specific wake-up, initiated by a Network FMU, according to <a href="#OpenAlliance-TC10-100BASE-T1">Open Alliance TC10 sleep/wake-up</a>.</p>
 </div>
 <table id="table-fmi3-ls-bus-ethernet-wakeup-operation" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 56. Detailed description of the Wakeup operation.</caption>
@@ -7174,7 +7182,7 @@ While the transmission is still running, FMU 2 tries to provide another <a href=
 This leads to a conflict because the simulated bus is already occupied by the transmission from FMU 1.
 FMU 2 is notified of this situation by receiving a <a href="#low-cut-ethernet-bus-error-operation"><code>Bus Error</code></a> operation with argument <code>Error Code</code> set to <a href="#table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy"><code>MEDIUM_BUSY</code></a> by the Bus Simulation.
 The <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation, originally provided by FMU 1, is then provided to FMU 2 and FMU 3.
-FMU 1 acknowledges a successful transmission using a <a href="#low-cut-ethernet-confirm-operation"><code>Confirm</code></a> operation.</p>
+The Bus Simulation acknowledges a successful transmission to FMU 1 by using a <a href="#low-cut-ethernet-confirm-operation"><code>Confirm</code></a> operation.</p>
 </div>
 <div id="figure-ethernet-transmit-collision-avoided" class="imageblock">
 <div class="content">
