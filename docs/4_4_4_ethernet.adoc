@@ -281,7 +281,7 @@ When using the MAC Merge sublayer (see <<IEEE-802.3-2022,IEEE 802.3>>, section 9
 the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation can also indicate the transmission of Express frames and the initial fragment of preempted frames.
 Continuation packets of a preempted frame are also transmitted using the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation with a start delimiter indicating a continuation.
 
-Before the MAC Merge sublayer is used, _Verify_ and _Respond_ frames are used to verify that the link partner supports this functionality, these are indicated by an <<low-cut-ethernet-transmit-operation, `Transmit`>> operation with a special start delimiter.
+Before the MAC Merge sublayer is used, _Verify_ and _Respond_ frames are used to verify that the link partner supports this functionality, these are indicated by a <<low-cut-ethernet-transmit-operation, `Transmit`>> operation with a special start delimiter.
 
 <<figure-ethernet-transmit-fragmented>> illustrates how the two Network FMUs FMU 1 and FMU 2 first agree on the exchange of Express frames with the help of a Bus Simulation by performing a handshake via the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation with `Verify` or `Respond` start delimiter.
 Afterwards, the first fragment of the first Ethernet frame is sent from FMU 1 to FMU 2 via the Bus Simulation by using a <<low-cut-ethernet-transmit-operation, `Transmit`>> operation.
@@ -295,7 +295,7 @@ image::images/ethernet_transmit_fragmented.svg[width=800]
 ===== Configuration [[low-cut-ethernet-configuration]]
 
 Before an Ethernet Network FMU may communicate, it must send a <<table-fmi3-ls-bus-ethernet-configuration-operation, `Configuration`>> operation.
-Only after also receiving a <<low-cut-ethernet-configuration-operation, `Configuration`>> operation and evaluating it against its own configuration for compatibility, it may start transmitting frames.
+In the case of <<common-concepts-direct-communication, directly connected Network FMUs>>: Only after also receiving a <<low-cut-ethernet-configuration-operation, `Configuration`>> operation and evaluating it against its own configuration for compatibility, it may start transmitting frames.
 
 In a direct connection scenario, <<low-cut-ethernet-configuration-operation, `Configuration`>> operations are exchanged as-is.
 With a Bus Simulation, <<low-cut-ethernet-configuration-operation, `Configuration`>> operations may either be forwarded by a Bus Simulation or the Bus Simulation may supply its own <<low-cut-ethernet-configuration-operation, `Configuration`>> operation to each node.
