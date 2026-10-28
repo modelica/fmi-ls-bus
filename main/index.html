@@ -478,7 +478,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version 79bb0c0,</span>
+<span id="revnumber">version eea4e02,</span>
 <span id="revdate">2026-10-28</span>
 </div>
 <div id="toc" class="toc2">
@@ -6503,7 +6503,7 @@ This topology is used in legacy Ethernet systems as well as 10BASE-T1S networks.
 <div class="paragraph">
 <p>For creating simulation systems with the different kind of Ethernet connections, Bus Terminals can either be grouped by an <a href="#low-cut-ethernet-segment-terminal">Ethernet Segment Terminal</a> or an <a href="#low-cut-ethernet-switch-terminal">Ethernet Switch Terminal</a>.
 Since an Ethernet switch can be implemented both in the Network FMU and in the Bus Simulation, an Ethernet Switch Terminal can be used for both.
-However, a Segment Terminal should only be used to group Bus Terminals of a Bus Simulation.</p>
+However, an Ethernet Segment Terminal should only be used to group Bus Terminals of a Bus Simulation.</p>
 </div>
 <div class="paragraph">
 <p><a href="#figure-ethernet-topology-switch-inside-bus-simulation">Figure 33</a> illustrates an Ethernet topology in which four Network FMUs are integrated via a Bus Simulation.
@@ -6546,11 +6546,11 @@ The usage is optional but recommended.</p>
 <div class="sect5">
 <h6 id="low-cut-ethernet-segment-terminal">5.5.4.3.1. Ethernet Segment Terminal</h6>
 <div class="paragraph">
-<p>The Bus Terminals of a Bus Simulation should be grouped by the Segment Terminal in order to facilitate the creation of Ethernet topologies.
-A Segment Terminal that comprises two Bus Terminals shall behave point-to-point, with more than two as multidrop.</p>
+<p>The Bus Terminals of a Bus Simulation should be grouped by the Ethernet Segment Terminal in order to facilitate the creation of Ethernet topologies.
+An Ethernet Segment Terminal that comprises two Bus Terminals shall behave point-to-point, with more than two as multidrop.</p>
 </div>
 <div class="paragraph">
-<p>The Segment Terminal additionally defines the following properties, based on the ruleset of <a href="#low-cut-grouping-of-bus-terminals">Section 5.4.2</a>:</p>
+<p>The Ethernet Segment Terminal additionally defines the following properties, based on the ruleset of <a href="#low-cut-grouping-of-bus-terminals">Section 5.4.2</a>:</p>
 </div>
 <div class="dlist">
 <dl>
@@ -6575,7 +6575,7 @@ The Ethernet Switch Terminal additionally defines the following properties, base
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">Attributes of a Switch Terminal</dt>
+<dt class="hdlist1">Attributes of an Ethernet Switch Terminal</dt>
 <dd>
 <div class="ulist">
 <ul>
@@ -6938,9 +6938,11 @@ Otherwise, a vendor-defined value may be used.</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
-<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
-The operation shall not be routed to other Network FMUs by the Bus Simulation.
-A Network FMU shall ignore this operation on the consumer side.
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">The specified operation shall be produced by a Network FMU.
+In case of directly connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.2.1</a>), Network FMUs also receive <a href="#low-cut-ethernet-configuration-operation"><code>Configuration</code></a> operations from other nodes.
+Therefore, Network FMUs shall check receiving <a href="#low-cut-ethernet-configuration-operation"><code>Configuration</code></a> operation of type <code>SUPPORTED_PHY_TYPES</code> for compatibility.
+If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.2.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.2.3</a>), the compatibility check shall be done by the Bus Simulation.
+In this case, the Bus Simulation must not forward the <a href="#low-cut-ethernet-configuration-operation"><code>Configuration</code></a> to Network FMUs.
 <a href="#low-cut-ethernet-configuration-operation"><code>Configuration</code></a> operations can be produced multiple times during the runtime of a Network FMU.
 If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.</p></td>
 </tr>
@@ -7248,7 +7250,7 @@ the <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> ope
 Continuation packets of a preempted frame are also transmitted using the <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation with a start delimiter indicating a continuation.</p>
 </div>
 <div class="paragraph">
-<p>Before the MAC Merge sublayer is used, <em>Verify</em> and <em>Respond</em> frames are used to verify that the link partner supports this functionality, these are indicated by an <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation with a special start delimiter.</p>
+<p>Before the MAC Merge sublayer is used, <em>Verify</em> and <em>Respond</em> frames are used to verify that the link partner supports this functionality, these are indicated by a <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation with a special start delimiter.</p>
 </div>
 <div class="paragraph">
 <p><a href="#figure-ethernet-transmit-fragmented">Figure 39</a> illustrates how the two Network FMUs FMU 1 and FMU 2 first agree on the exchange of Express frames with the help of a Bus Simulation by performing a handshake via the <a href="#low-cut-ethernet-transmit-operation"><code>Transmit</code></a> operation with <code>Verify</code> or <code>Respond</code> start delimiter.
@@ -7268,7 +7270,7 @@ In the third step, the second fragment of the Ethernet frame is provided from FM
 <h5 id="low-cut-ethernet-configuration">5.5.4.7. Configuration</h5>
 <div class="paragraph">
 <p>Before an Ethernet Network FMU may communicate, it must send a <a href="#table-fmi3-ls-bus-ethernet-configuration-operation"><code>Configuration</code></a> operation.
-Only after also receiving a <a href="#low-cut-ethernet-configuration-operation"><code>Configuration</code></a> operation and evaluating it against its own configuration for compatibility, it may start transmitting frames.</p>
+In the case of <a href="#common-concepts-direct-communication">directly connected Network FMUs</a>: Only after also receiving a <a href="#low-cut-ethernet-configuration-operation"><code>Configuration</code></a> operation and evaluating it against its own configuration for compatibility, it may start transmitting frames.</p>
 </div>
 <div class="paragraph">
 <p>In a direct connection scenario, <a href="#low-cut-ethernet-configuration-operation"><code>Configuration</code></a> operations are exchanged as-is.
