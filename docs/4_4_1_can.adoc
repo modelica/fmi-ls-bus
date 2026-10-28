@@ -624,9 +624,11 @@ If the option is set to `BUFFER_AND_RETRANSMIT`, <<low-cut-can-transmit-operatio
 If the option is set to `DISCARD_AND_NOTIFY`, the <<low-cut-can-transmit-operation, `Transmit`>> operation shall be discarded and an <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operation shall be sent to the Network FMU (see <<low-cut-can-arbitration>>).
 
 h|Behavior
-5+|The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
-The operation shall not be routed to other Network FMUs by the Bus Simulation.
-A Network FMU shall ignore this operation on the consumer side.
+5+|The specified operation shall be produced by a Network FMU.
+In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), Network FMUs also receive <<low-cut-can-configuration-operation, `Configuration`>> operations from other nodes.
+Therefore, Network FMUs shall check receiving <<low-cut-can-configuration-operation, `Configuration`>> operation for compatibility.
+If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the compatibility check shall be done by the Bus Simulation.
+In this case, the Bus Simulation must not forward the <<low-cut-can-configuration-operation, `Configuration`>> to Network FMUs.
 <<low-cut-can-configuration-operation, `Configuration`>> operations can be produced multiple times during the runtime of a Network FMU.
 In context of CAN FD, also a CAN baud rate shall be configured by using `Parameter Type = CAN_BAUDRATE`.
 If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.
