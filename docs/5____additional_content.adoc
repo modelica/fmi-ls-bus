@@ -6,17 +6,17 @@
 - Martin Engel, dSPACE GmbH, Germany
 - Nikolai Fast, Beckhoff Automation GmbH & Co. KG, Germany
 - Mario Harter, Vector Informatik GmbH, Germany
-- Andreas Junghanns, Synopsys, Germany
 - Kahramon Jumayev, Akkodis, Germany
-- Marcel Nachtigall, dSPACE GmbH, Germany
-- Masoud Najafi, Altair, France
+- Andreas Junghanns, Synopsys, Germany
 - Pierre R. Mai, PMSF IT Consulting, Germany
 - Benedikt Menne, dSPACE GmbH, Germany
+- Marcel Nachtigall, dSPACE GmbH, Germany
+- Masoud Najafi, Altair, France
+- Tim Pfitzer, Robert Bosch GmbH, Germany
+- Sonja Pusch, dSPACE GmbH, Germany
 - Jan Ribbe, Synopsys, Germany
 - Klaus Schuch, AVL List GmbH, Austria
 - Markus S&#252;vern, dSPACE GmbH, Germany
-- Tim Pfitzer, Robert Bosch GmbH, Germany
-- Sonja Pusch, dSPACE GmbH, Germany
 - Patrick T&#228;uber, dSPACE GmbH, Germany
 - Christine Thiessen, dSPACE GmbH, Germany
 - Ella Vahle, dSPACE GmbH, Germany
