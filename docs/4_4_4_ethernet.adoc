@@ -106,7 +106,7 @@ This topology is used in legacy Ethernet systems as well as 10BASE-T1S networks.
 
 For creating simulation systems with the different kind of Ethernet connections, Bus Terminals can either be grouped by an <<low-cut-ethernet-segment-terminal, Ethernet Segment Terminal>> or an <<low-cut-ethernet-switch-terminal, Ethernet Switch Terminal>>. 
 Since an Ethernet switch can be implemented both in the Network FMU and in the Bus Simulation, an Ethernet Switch Terminal can be used for both.
-However, a Segment Terminal should only be used to group Bus Terminals of a Bus Simulation. 
+However, an Ethernet Segment Terminal should only be used to group Bus Terminals of a Bus Simulation. 
 
 <<figure-ethernet-topology-switch-inside-bus-simulation>> illustrates an Ethernet topology in which four Network FMUs are integrated via a Bus Simulation.
 The Network FMUs are partly connected directly via Ethernet segments and partly via a switch.
@@ -139,10 +139,10 @@ The usage is optional but recommended.
 
 ====== Ethernet Segment Terminal [[low-cut-ethernet-segment-terminal]]
 
-The Bus Terminals of a Bus Simulation should be grouped by the Segment Terminal in order to facilitate the creation of Ethernet topologies.
-A Segment Terminal that comprises two Bus Terminals shall behave point-to-point, with more than two as multidrop.
+The Bus Terminals of a Bus Simulation should be grouped by the Ethernet Segment Terminal in order to facilitate the creation of Ethernet topologies.
+An Ethernet Segment Terminal that comprises two Bus Terminals shall behave point-to-point, with more than two as multidrop.
 
-The Segment Terminal additionally defines the following properties, based on the ruleset of <<low-cut-grouping-of-bus-terminals>>:
+The Ethernet Segment Terminal additionally defines the following properties, based on the ruleset of <<low-cut-grouping-of-bus-terminals>>:
 
 Attributes of an Ethernet Segment Terminal::
 * `terminalKind` must be `org.fmi-ls-bus.ethernet-segment-terminal`.
@@ -152,7 +152,7 @@ Attributes of an Ethernet Segment Terminal::
 Bus Terminals which are used only for routing Ethernet frames, may be grouped by this terminal.
 The Ethernet Switch Terminal additionally defines the following properties, based on the ruleset of <<low-cut-grouping-of-bus-terminals>>:
 
-Attributes of a Switch Terminal::
+Attributes of an Ethernet Switch Terminal::
 * `terminalKind` must be `org.fmi-ls-bus.ethernet-switch-terminal`.
 
 include::4_4_4_ethernet_operations.adoc[]
@@ -281,7 +281,7 @@ When using the MAC Merge sublayer (see <<IEEE-802.3-2022,IEEE 802.3>>, section 9
 the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation can also indicate the transmission of Express frames and the initial fragment of preempted frames.
 Continuation packets of a preempted frame are also transmitted using the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation with a start delimiter indicating a continuation.
 
-Before the MAC Merge sublayer is used, _Verify_ and _Respond_ frames are used to verify that the link partner supports this functionality, these are indicated by an <<low-cut-ethernet-transmit-operation, `Transmit`>> operation with a special start delimiter.
+Before the MAC Merge sublayer is used, _Verify_ and _Respond_ frames are used to verify that the link partner supports this functionality, these are indicated by a <<low-cut-ethernet-transmit-operation, `Transmit`>> operation with a special start delimiter.
 
 <<figure-ethernet-transmit-fragmented>> illustrates how the two Network FMUs FMU 1 and FMU 2 first agree on the exchange of Express frames with the help of a Bus Simulation by performing a handshake via the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation with `Verify` or `Respond` start delimiter.
 Afterwards, the first fragment of the first Ethernet frame is sent from FMU 1 to FMU 2 via the Bus Simulation by using a <<low-cut-ethernet-transmit-operation, `Transmit`>> operation.
@@ -295,7 +295,7 @@ image::images/ethernet_transmit_fragmented.svg[width=800]
 ===== Configuration [[low-cut-ethernet-configuration]]
 
 Before an Ethernet Network FMU may communicate, it must send a <<table-fmi3-ls-bus-ethernet-configuration-operation, `Configuration`>> operation.
-Only after also receiving a <<low-cut-ethernet-configuration-operation, `Configuration`>> operation and evaluating it against its own configuration for compatibility, it may start transmitting frames.
+In the case of <<common-concepts-direct-communication, directly connected Network FMUs>>: Only after also receiving a <<low-cut-ethernet-configuration-operation, `Configuration`>> operation and evaluating it against its own configuration for compatibility, it may start transmitting frames.
 
 In a direct connection scenario, <<low-cut-ethernet-configuration-operation, `Configuration`>> operations are exchanged as-is.
 With a Bus Simulation, <<low-cut-ethernet-configuration-operation, `Configuration`>> operations may either be forwarded by a Bus Simulation or the Bus Simulation may supply its own <<low-cut-ethernet-configuration-operation, `Configuration`>> operation to each node.

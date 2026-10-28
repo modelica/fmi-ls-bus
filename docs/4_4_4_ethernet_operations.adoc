@@ -257,9 +257,11 @@ Elements describing a PHY standardized by 802.3 or an amendment must use the val
 Otherwise, a vendor-defined value may be used.
 
 h|Behavior
-5+|The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
-The operation shall not be routed to other Network FMUs by the Bus Simulation.
-A Network FMU shall ignore this operation on the consumer side.
+5+|The specified operation shall be produced by a Network FMU.
+In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), Network FMUs also receive <<low-cut-ethernet-configuration-operation, `Configuration`>> operations from other nodes.
+Therefore, Network FMUs shall check receiving <<low-cut-ethernet-configuration-operation, `Configuration`>> operation of type `SUPPORTED_PHY_TYPES` for compatibility.
+If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the compatibility check shall be done by the Bus Simulation.
+In this case, the Bus Simulation must not forward the <<low-cut-ethernet-configuration-operation, `Configuration`>> to Network FMUs.
 <<low-cut-ethernet-configuration-operation, `Configuration`>> operations can be produced multiple times during the runtime of a Network FMU.
 If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.
 |====
