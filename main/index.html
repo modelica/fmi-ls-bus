@@ -478,7 +478,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version eca927b,</span>
+<span id="revnumber">version f592239,</span>
 <span id="revdate">2026-10-28</span>
 </div>
 <div id="toc" class="toc2">
@@ -3406,9 +3406,11 @@ If the option is set to <code>DISCARD_AND_NOTIFY</code>, the <a href="#low-cut-c
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
-<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
-The operation shall not be routed to other Network FMUs by the Bus Simulation.
-A Network FMU shall ignore this operation on the consumer side.
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">The specified operation shall be produced by a Network FMU.
+In case of directly connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.2.1</a>), Network FMUs also receive <a href="#low-cut-can-configuration-operation"><code>Configuration</code></a> operations from other nodes.
+Therefore, Network FMUs shall check receiving <a href="#low-cut-can-configuration-operation"><code>Configuration</code></a> operation for compatibility.
+If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.2.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.2.3</a>), the compatibility check shall be done by the Bus Simulation.
+In this case, the Bus Simulation must not forward the <a href="#low-cut-can-configuration-operation"><code>Configuration</code></a> to Network FMUs.
 <a href="#low-cut-can-configuration-operation"><code>Configuration</code></a> operations can be produced multiple times during the runtime of a Network FMU.
 In context of CAN FD, also a CAN baud rate shall be configured by using <code>Parameter Type = CAN_BAUDRATE</code>.
 If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.</p></td>
@@ -4408,9 +4410,11 @@ Possible values are: <code>LIN_COMMANDER</code> and <code>LIN_RESPONDER</code> (
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
-<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
-The operation shall not be routed to other Network FMUs by the Bus Simulation.
-A Network FMU shall ignore this operation on the consumer side.
+<td class="tableblock halign-left valign-top" colspan="5"><p class="tableblock">The specified operation shall be produced by a Network FMU.
+In case of directly connected Network FMUs (see <a href="#common-concepts-direct-communication">Section 3.2.1</a>), Network FMUs also receive <a href="#low-cut-lin-configuration-operation"><code>Configuration</code></a> operations from other nodes.
+Therefore, Network FMUs shall check receiving <a href="#low-cut-lin-configuration-operation"><code>Configuration</code></a> operation for compatibility.
+If a Bus Simulation is involved (see <a href="#common-concepts-composition-with-dedicated-bus-simulation-fmu">Section 3.2.2</a> and <a href="#common-concepts-importer-with-integrated-bus-simulation">Section 3.2.3</a>), the compatibility check shall be done by the Bus Simulation.
+In this case, the Bus Simulation must not forward the <a href="#low-cut-lin-configuration-operation"><code>Configuration</code></a> to Network FMUs.
 <a href="#low-cut-lin-configuration-operation"><code>Configuration</code></a> operations can be produced multiple times during the runtime of a Network FMU.
 The configuration of the <code>NODE_TYPE</code> parameter must be completed by all Network FMUs before any <a href="#low-cut-lin-transmit-operation"><code>Transmit</code></a> operation is produced.
 If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.</p></td>
