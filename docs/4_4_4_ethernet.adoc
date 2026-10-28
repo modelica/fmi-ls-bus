@@ -106,7 +106,7 @@ This topology is used in legacy Ethernet systems as well as 10BASE-T1S networks.
 
 For creating simulation systems with the different kind of Ethernet connections, Bus Terminals can either be grouped by an <<low-cut-ethernet-segment-terminal, Ethernet Segment Terminal>> or an <<low-cut-ethernet-switch-terminal, Ethernet Switch Terminal>>. 
 Since an Ethernet switch can be implemented both in the Network FMU and in the Bus Simulation, an Ethernet Switch Terminal can be used for both.
-However, a Segment Terminal should only be used to group Bus Terminals of a Bus Simulation. 
+However, an Ethernet Segment Terminal should only be used to group Bus Terminals of a Bus Simulation. 
 
 <<figure-ethernet-topology-switch-inside-bus-simulation>> illustrates an Ethernet topology in which four Network FMUs are integrated via a Bus Simulation.
 The Network FMUs are partly connected directly via Ethernet segments and partly via a switch.
@@ -139,10 +139,10 @@ The usage is optional but recommended.
 
 ====== Ethernet Segment Terminal [[low-cut-ethernet-segment-terminal]]
 
-The Bus Terminals of a Bus Simulation should be grouped by the Segment Terminal in order to facilitate the creation of Ethernet topologies.
-A Segment Terminal that comprises two Bus Terminals shall behave point-to-point, with more than two as multidrop.
+The Bus Terminals of a Bus Simulation should be grouped by the Ethernet Segment Terminal in order to facilitate the creation of Ethernet topologies.
+An Ethernet Segment Terminal that comprises two Bus Terminals shall behave point-to-point, with more than two as multidrop.
 
-The Segment Terminal additionally defines the following properties, based on the ruleset of <<low-cut-grouping-of-bus-terminals>>:
+The Ethernet Segment Terminal additionally defines the following properties, based on the ruleset of <<low-cut-grouping-of-bus-terminals>>:
 
 Attributes of an Ethernet Segment Terminal::
 * `terminalKind` must be `org.fmi-ls-bus.ethernet-segment-terminal`.
@@ -152,7 +152,7 @@ Attributes of an Ethernet Segment Terminal::
 Bus Terminals which are used only for routing Ethernet frames, may be grouped by this terminal.
 The Ethernet Switch Terminal additionally defines the following properties, based on the ruleset of <<low-cut-grouping-of-bus-terminals>>:
 
-Attributes of a Switch Terminal::
+Attributes of an Ethernet Switch Terminal::
 * `terminalKind` must be `org.fmi-ls-bus.ethernet-switch-terminal`.
 
 include::4_4_4_ethernet_operations.adoc[]
