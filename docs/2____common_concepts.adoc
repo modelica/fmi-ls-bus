@@ -27,8 +27,8 @@ The internal structure of these binary variables representing Bus Operations to 
 These Bus Operations do not just transport the network-specific payload but also carry protocol-specific status information.
 This status information allows, for example, the MCAL emulation of a virtual ECU to report back to the COM-stack if a send request was successful or not.
 
-When executing an FMU with a fixed step size, multiple message sends may fall into the time-interval of one `fmiDoStep` call.
-In such a setup, the High-Cut signal variables will miss all but the last value sent, while Low-Cut FMUs will buffer all Bus Operations and exchange them after the `fmiDoStep`.
+When executing an FMU with a fixed step size, multiple message sends may fall into the time-interval of one `fmi3DoStep` call.
+In such a setup, the High-Cut signal variables will miss all but the last value sent, while Low-Cut FMUs will buffer all Bus Operations and exchange them after the `fmi3DoStep`.
 
 === General Recommendations regarding Clocks [[common-concepts-general-recommendations]]
 
@@ -74,7 +74,7 @@ Selecting a suitable `intervalVariability` for sending Clocks allows the FMU (or
 
 * While `aperiodic` Clocks allow very accurate network simulations, frequently entering `Event Mode` might reduce the network simulation speed.
 
-* Using `periodic` Clocks and queueing (or even dropping of intermediate) data to be transmitted reduces the number of `Event Mode` entries and might speeds up the simulation at the cost of simulation accuracy.
+* Using `periodic` Clocks and queueing (or even dropping of intermediate) data to be transmitted reduces the number of `Event Mode` entries and might speed up the simulation at the cost of simulation accuracy.
 
 * One could use (structural) parameters to define the accuracy of `aperiodic` Clocks, allowing control of the simulation accuracy and performance with the same FMU.
 

@@ -48,7 +48,7 @@ It consists of four bytes in length.
 
 [[TotalLengthField]]
 * Length: A four byte total data length (OP Code + Length + Arguments) field following the OP Code.
-For operation with variable size arguments, the total length can vary in value at runtime.
+For operations with variable size arguments, the total length can vary in value at runtime.
 
 * Arguments: The arguments of the respective operation.
 The number of arguments is defined for each operation within this standard.
@@ -188,7 +188,7 @@ h|Behavior
 3+|The specified operation shall be produced and consumed by Network FMUs and the Bus Simulation.
 |====
 
-====  Provided C Implementation [[low-cut-provided-c-implementation]]
+==== Provided C Implementation [[low-cut-provided-c-implementation]]
 
 To facilitate the implementation of Low Cut FMUs, C header files with implementations for Bus Operations are provided:
 
@@ -201,6 +201,8 @@ These header files apply to all supported bus types of the layered standard.
 * link:headers/fmi3LsBusUtilFlexRay.h[fmi3LsBusUtilFlexRay.h] provides FlexRay explicit utility macros.
 * link:headers/fmi3LsBusEthernet.h[fmi3LsBusEthernet.h] provides macros, types and structures of Bus Operations for Ethernet.
 * link:headers/fmi3LsBusUtilEthernet.h[fmi3LsBusUtilEthernet.h] provides Ethernet explicit utility macros.
+* link:headers/fmi3LsBusLin.h[fmi3LsBusLin.h] provides macros, types and structures of Bus Operations for LIN.
+* link:headers/fmi3LsBusUtilLin.h[fmi3LsBusUtilLin.h] provides LIN explicit utility macros.
 
 ==== Basic Type Definitions [[low-cut-basic-type-definitions]]
 
@@ -263,7 +265,7 @@ NOTE: Note: During simulation it can happen that no `Tx_Data` has to be transfer
 
 Although the `causality` of a `time-based` `Tx_Clock` and a `triggered` `Rx_Clock` are each `input`, it is allowed to connect both, since a `time-based` Clock of an FMU is considered only to be a request to the importer to provide a corresponding Clock source.
 
-.Consideration of time-base Tx_Clock connections.
+.Consideration of time-based Tx_Clock connections.
 [#low-cut-time-based-port-connection]
 image::images/low_cut_time_based_port_connection.svg[width=500]
 
@@ -280,7 +282,7 @@ A `triggered` Clock basically allows signalling events when returning from `fmi3
 Since signaling `Tx_Clock` events with an early return at latexmath:[t < t_{i+1}] would require to set connected networked FMUs back in time to reach Bus Communication Points synchronously, a `triggered` `Tx_Clock` must only be set when returning from `fmi3DoStep` with the `earlyReturn` argument set to `fmi3False`.
 In consequence, Bus Communication Points and regular communication points coincide and take place at the same time.
 The time of a Bus Communication Point can therefore not be defined independently, but is given by the importer.
-Pending Tx data shall be signaled by returning from `fmi3DoStep` with the `eventHandlingNeeded` arguments set to `fmi3True`.
+Pending Tx data shall be signaled by returning from `fmi3DoStep` with the `eventHandlingNeeded` argument set to `fmi3True`.
 
 .Triggered Tx_Clock/Rx_Clock connection.
 [#low-cut-triggered-port-connection]

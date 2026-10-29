@@ -15,7 +15,7 @@ The figure below shows an example architecture of a Physical Signal Abstraction.
 The signals (_Signal 1...8_) are modeled as clocked variables of a specific type.
 The corresponding signals are structurally combined using Protocol Data Units (PDUs), which in turn are assigned to frames.
 The PDU and frame structuring is done via terminals (_PDU A, B, C_ and _Frame X, Y_).
-The respective variables are connected to a Bus Simulation, which emulates them according to their own needs for e.g. according to accuracy.
+The respective variables are connected to a Bus Simulation, which emulates them according to their own needs, e.g., regarding accuracy.
 
 .Physical Signal Abstraction example architecture.
 [#figure-transmission-high-cut-overview]
@@ -177,8 +177,8 @@ include::examples/X_network4FMI_modelDescription_highCut_dbc.xml[]
 ----
 
 The following file shows the <<high-cut-bus-terminal,Bus Terminal>> definition representing the network and frame structure defined with `Powertrain.dbc` above.
-The `name` of the <<high-cut-frame-terminal,frame terminal>> and the <<high-cut-pdu-terminal,PDU terminal>> are derived from the DBC attribute `_BO`.
-The `SignalName`, and so the resulting `memberName`, is derived from the DBC attribute `_SG`.
+The `name` of the <<high-cut-frame-terminal,frame terminal>> and the <<high-cut-pdu-terminal,PDU terminal>> are derived from the DBC attribute `BO_`.
+The `SignalName`, and so the resulting `memberName`, is derived from the DBC attribute `SG_`.
 
 .Example terminalsAndIcons.xml file.
 [[example-terminalsAndIconHighCut-dbc-xml]]

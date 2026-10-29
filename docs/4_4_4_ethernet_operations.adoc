@@ -1,11 +1,11 @@
 ===== Operations [[low-cut-ethernet-operations]]
 
 This section defines the specified operations for Ethernet.
-The following tables provide an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
+The following tables provide an overview of all operations and specify the position and length of the corresponding arguments, as well as the respective flow direction.
 
 ====== Transmit [[low-cut-ethernet-transmit-operation]]
 
-Represents the transmission of an Ethernet frame or MAC Merge Packet (mPacket).
+The <<low-cut-ethernet-transmit-operation, `Transmit`>> operation is used to simulate the transmission of an Ethernet frame or MAC Merge Packet (mPacket).
 
 .Detailed description of the Transmit operation.
 [#table-fmi3-ls-bus-ethernet-transmit-operation]
@@ -57,13 +57,13 @@ Only applicable if this is a full Ethernet frame or the first fragment of an Eth
 
 |Source Address
 |6 bytes
-|The destination address of the frame.
+|The source address of the frame.
 Only applicable if this is a full Ethernet frame or the first fragment of an Ethernet frame.
 
 |Type or Length
 |2 bytes
 a|Indicates the type of Ethernet frame (Ethernet II), the TPID (802.1Q) or frame length (802.3).
-Note: Regarding to <<low-cut-layered-standard-bus-protocol>>, the argument value shall be also stored in `little-endian` byte order.
+Note: According to <<low-cut-layered-standard-bus-protocol>>, the argument value shall also be stored in `little-endian` byte order.
 
 |Data Length
 |4 bytes
@@ -124,7 +124,7 @@ See <<low-cut-format-error-operation, `Format Error`>> for definition.
 ====== Bus Error [[low-cut-ethernet-bus-error-operation]]
 
 The <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation is used to indicate a bus communication error.
-Bus errors are delivered to every participant in the network.
+Depending on the `Error Code`, bus errors are delivered to a different subset of Network FMUs (see <<table-fmi3-ls-bus-ethernet-bus-error-code-values>>).
 
 .Detailed description of the Bus Error operation.
 [#table-fmi3-ls-bus-ethernet-bus-error-operation]
@@ -166,8 +166,9 @@ h|Behavior
 3+|When transmitting Ethernet frames, various kinds of bus error may happen.
 A Bus Simulation can simulate such errors by providing <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operations to the Network FMUs.
 Based on consumed <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operations, Network FMUs can react on.
-For a Network FMU that initiated the <<low-cut-ethernet-transmit-operation, `Transmit`>> operation, the argument `Is Sender` shall be set to `TRUE` in the corresponding <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation.
-The arguments `Is Sender = TRUE` must only be set once per simulated error. +
+Depending on the type (qualified via `Error Code` argument value) of <<low-cut-ethernet-bus-error-operation, `Bus Error`>>, a different subset of Network FMUs must be notified via <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation (see description column of <<table-fmi3-ls-bus-ethernet-bus-error-code-values>>).
+For a Network FMU that initiated an affected <<low-cut-ethernet-transmit-operation, `Transmit`>> operation, the argument `Is Sender` shall be set to `TRUE` in the corresponding <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation.
+For all other notified Network FMUs, the argument `Is Sender` shall be set to `FALSE`. +
 Only Network FMUs with the corresponding optionally exposed <<low-cut-ethernet-bus-notification-parameter, `BusNotifications`>> parameter set to `fmi3True` might wait for this operation and respond accordingly.
 |====
 
@@ -184,19 +185,24 @@ h|Description
 |[[table-fmi3-ls-bus-ethernet-bus-error-code-values-unknown]]UNKNOWN
 |0x00
 |Unknown error.
+This <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation shall be delivered to all Network FMUs of the affected Ethernet segment which may detect the error.
 
 |[[table-fmi3-ls-bus-ethernet-bus-error-code-values-medium-busy]]MEDIUM_BUSY
 |0x01
 |The medium is currently busy.
+This <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation is a direct reaction to a <<low-cut-ethernet-transmit-operation, `Transmit`>> operation that could not be started and shall be delivered to the initiating Network FMU only (see <<low-cut-ethernet-transmission-with-avoided-collision>>).
+The ongoing transmission is not affected.
 
 |[[table-fmi3-ls-bus-ethernet-bus-error-code-values-collision]]COLLISION
 |0x02
 |A frame collided during transmission.
+This <<low-cut-ethernet-bus-error-operation, `Bus Error`>> operation shall be delivered to all Network FMUs of the affected Ethernet segment, including the initiators of all colliding <<low-cut-ethernet-transmit-operation, `Transmit`>> operations (see <<low-cut-ethernet-transmission-with-collision>>).
 |====
 
 ====== Configuration [[low-cut-ethernet-configuration-operation]]
 
-Represents the transmission of a continuation mPacket.
+The <<low-cut-ethernet-configuration-operation, `Configuration`>> operation is used by Network FMUs to send simulation specific options to Bus Simulations.
+The following information is included within this operation:
 
 .Detailed description of the Configuration operation.
 [#table-fmi3-ls-bus-ethernet-configuration-operation]
@@ -239,7 +245,7 @@ The following applies for this operation: `Length = 9 + Length of parameter argu
 See <<table-fmi3-ls-bus-ethernet-mdi-mode-values>> for possible values.
 
 |Supported PHY Types Length
-|2 byte
+|2 bytes
 |The number of characters of the `Supported PHY Types` argument.
 
 |Supported PHY Types
@@ -251,9 +257,11 @@ Elements describing a PHY standardized by 802.3 or an amendment must use the val
 Otherwise, a vendor-defined value may be used.
 
 h|Behavior
-5+|The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
-The operation shall not be routed to other Network FMUs by the Bus Simulation.
-A Network FMU shall ignore this operation on the consumer side.
+5+|The specified operation shall be produced by a Network FMU.
+In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), Network FMUs also receive <<low-cut-ethernet-configuration-operation, `Configuration`>> operations from other nodes.
+Therefore, Network FMUs shall check receiving <<low-cut-ethernet-configuration-operation, `Configuration`>> operation of type `SUPPORTED_PHY_TYPES` for compatibility.
+If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the compatibility check shall be done by the Bus Simulation.
+In this case, the Bus Simulation must not forward the <<low-cut-ethernet-configuration-operation, `Configuration`>> to Network FMUs.
 <<low-cut-ethernet-configuration-operation, `Configuration`>> operations can be produced multiple times during the runtime of a Network FMU.
 If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.
 |====
@@ -302,7 +310,7 @@ h|Description
 
 ====== Wake Up [[low-cut-ethernet-wakeup-operation]]
 
-Indicates wake up pulse according to <<OpenAlliance-TC10-100BASE-T1, Open Alliance TC10 sleep/wake-up>>.
+By using the <<low-cut-ethernet-wakeup-operation, `Wakeup`>> operation, the underlying Bus Simulation can trigger a bus-specific wake-up, initiated by a Network FMU, according to <<OpenAlliance-TC10-100BASE-T1, Open Alliance TC10 sleep/wake-up>>.
 
 .Detailed description of the Wakeup operation.
 [#table-fmi3-ls-bus-ethernet-wakeup-operation]

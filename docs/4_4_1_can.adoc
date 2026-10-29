@@ -6,7 +6,7 @@ The various CAN standards CAN, CAN FD and CAN XL are considered together, becaus
 ===== Overview [[low-cut-can-overview]]
 
 To simulate CAN, CAN FD and CAN XL buses, CAN-specific operations are specified based on the <<low-cut-layered-standard-bus-protocol, Layered Standard Bus Protocol>>.
-Overall, the following groups of operations exists:
+Overall, the following groups of operations exist:
 
 * Transmit: This group of operations is used to simulate a frame transmission.
 There are three specializations of this operation, one each for CAN, CAN FD and CAN XL frames.
@@ -17,7 +17,7 @@ For example, the failure of a transmission can be indicated.
 * Arbitration Lost: The operation is used by Bus Simulations to inform Network FMUs that a frame could not be transmitted immediately.
 * Configuration: This operation enables the configuration of bus-specific parameters and options that are required to simulate the bus behavior properly.
 For example, it allows the specification of the baud rate or influencing the buffer behavior.
-* Status: This operation is used by Networked FMUs to inform Bus Simulations about the internal state (Active/Passive/Bus-Off) which concerns the reaction on bus errors.
+* Status: This operation is used by Network FMUs to inform Bus Simulations about the internal state (Active/Passive/Bus-Off) which concerns the reaction on bus errors.
 * Wake up: CAN supports wake up and sleep scenarios.
 Normally there are two ways to wake up from sleep mode: A local wake up on a specified wake-up pin, or a wake-up on the CAN bus via a CAN specific wake-up pulse.
 This operation is used to simulate triggering a wake-up from bus side.
@@ -150,7 +150,7 @@ h|Length
 ===== Operations [[low-cut-can-operations]]
 
 This section defines the specified operations for CAN, CAN FD and CAN XL.
-The following tables provide an overview of all operations and specifies the position and length of the corresponding arguments, as well as the respective flow direction.
+The following tables provide an overview of all operations and specify the position and length of the corresponding arguments, as well as the respective flow direction.
 
 ====== Transmit [[low-cut-can-transmit-operation]]
 
@@ -192,7 +192,7 @@ Additional information such as Ide is also not part of the ID, but is treated se
 
 |Ide 
 |1 byte 
-|Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
+|Specifies whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
 For specification, the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
 |Rtr 
@@ -255,7 +255,7 @@ Additional information such as Ide is also not part of the ID, but is treated se
 
 |Ide 
 |1 byte 
-|Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
+|Specifies whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
 For specification, the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
 |Brs 
@@ -318,17 +318,17 @@ Additional information such as Ide is also not part of the ID, but is treated se
 
 |Ide 
 |1 byte 
-|Specified whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
+|Specifies whether the ID should be transmitted as standard (11-bit) or extended (29-bit) message identifier.
 For specification, the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
 |Sec 
 |1 byte 
-|Simple Extended Content
+|Simple Extended Content.
 For specification, the boolean values `TRUE` and `FALSE` (see <<table-boolean-value-kinds>>) shall be used.
 
 |SDT 
 |1 byte 
-|Describes the structure of the frames Data Field content (SDU type).
+|Describes the structure of the frame's Data Field content (SDU type).
 
 |VCID 
 |1 byte 
@@ -483,7 +483,7 @@ The following applies for this operation: `Length = 15`.
 |Error Flag
 |1 byte
 |Defines whether the Error was detected by a specified Network FMU.
-For specification the boolean values `PRIMARY_ERROR_FLAG` and `SECONDARY_ERROR_FLAG` (see <<table-can-bus-error-error-flag-kinds>>) shall be used.
+For specification `PRIMARY_ERROR_FLAG` and `SECONDARY_ERROR_FLAG` (see <<table-can-bus-error-error-flag-kinds>>) shall be used.
 
 |Is Sender
 |1 byte
@@ -624,11 +624,13 @@ If the option is set to `BUFFER_AND_RETRANSMIT`, <<low-cut-can-transmit-operatio
 If the option is set to `DISCARD_AND_NOTIFY`, the <<low-cut-can-transmit-operation, `Transmit`>> operation shall be discarded and an <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operation shall be sent to the Network FMU (see <<low-cut-can-arbitration>>).
 
 h|Behavior
-5+|The specified operation shall be produced by a Network FMU and consumed by the Bus Simulation.
-The operation shall not be routed to other Network FMUs by the Bus Simulation.
-A Network FMU shall ignore this operation on the consumer side.
+5+|The specified operation shall be produced by a Network FMU.
+In case of directly connected Network FMUs (see <<common-concepts-direct-communication>>), Network FMUs also receive <<low-cut-can-configuration-operation, `Configuration`>> operations from other nodes.
+Therefore, Network FMUs shall check receiving <<low-cut-can-configuration-operation, `Configuration`>> operation for compatibility.
+If a Bus Simulation is involved (see <<common-concepts-composition-with-dedicated-bus-simulation-fmu>> and <<common-concepts-importer-with-integrated-bus-simulation>>), the compatibility check shall be done by the Bus Simulation.
+In this case, the Bus Simulation must not forward the <<low-cut-can-configuration-operation, `Configuration`>> to Network FMUs.
 <<low-cut-can-configuration-operation, `Configuration`>> operations can be produced multiple times during the runtime of a Network FMU.
-In context of CAN FD, also a CAN baud rate should be configured by using `Parameter Type = CAN_BAUDRATE`.
+In context of CAN FD, also a CAN baud rate shall be configured by using `Parameter Type = CAN_BAUDRATE`.
 If configuration parameters are not adjusted by a Network FMU, the Bus Simulation shall choose a default behavior by itself.
 |====
 
@@ -734,25 +736,25 @@ h|Description
 
 |ERROR_ACTIVE
 |0x01
-|Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: ERROR ACTIVE.
+|Indicates that a simulated CAN controller within the Network FMU currently has the CAN node state: ERROR ACTIVE.
 If the status is not adjusted by a Network FMU, the Bus Simulation shall choose `ERROR_ACTIVE` by itself for a specified Network FMU.
 
 |ERROR_PASSIVE
 |0x02
-|Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: ERROR PASSIVE.
-This node state is relevant for arbitration, because `ERROR_ACTIVE` and `ERROR_PASSIVE` nodes requires different prioritization.
+|Indicates that a simulated CAN controller within the Network FMU currently has the CAN node state: ERROR PASSIVE.
+This node state is relevant for arbitration, because `ERROR_ACTIVE` and `ERROR_PASSIVE` nodes require different prioritization.
 See <<low-cut-can-arbitration>> for further details.
 
 |BUS_OFF
 |0x03
-|Indicates that a simulated CAN controller within the Network FMU has currently the CAN node state: Bus-Off.
+|Indicates that a simulated CAN controller within the Network FMU currently has the CAN node state: Bus-Off.
 If a Network FMU communicates the status `BUS_OFF` to the Bus Simulation, the specified Network FMU shall not provide any new <<low-cut-can-transmit-operation, Transmission operations>> to the Bus Simulation.
 If all Network FMUs, except the <<low-cut-can-transmit-operation, `Transmit`>> operation initiating Network FMU, communicate the status `BUS_OFF`, the Bus Simulation shall not provide a <<low-cut-can-confirm-operation, confirmation>>.
 |====
 
 ====== Wake Up [[low-cut-can-wake-up-operation]]
 
-By using the <<low-cut-can-wake-up-operation, `Wakeup`>> operation, the underlying Bus Simulation can trigger a bus-specific wake-up.
+By using the <<low-cut-can-wake-up-operation, `Wakeup`>> operation, the underlying Bus Simulation can trigger a bus-specific wake-up, initiated by a Network FMU.
 
 .Detailed description of the Wakeup operation.
 [#table-can-wakeup-operation]
@@ -796,7 +798,7 @@ For a detailed simulation, the CAN bus behavior regarding acknowledgment, bus er
 A Bus Simulation can simulate these effects by sending bus notifications in terms of <<low-cut-can-confirm-operation, `Confirm`>>, <<low-cut-can-bus-error-operation, `Bus Error`>> and <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operations to the Network FMUs.
 
 However, in scenarios where Network FMUs are connected directly to each other, or where the Bus Simulation does not simulate such effects, it must be possible to configure the Network FMU such that it does not wait for any response after a <<low-cut-can-transmit-operation, `Transmit`>> operation.
-Therefore, a parameter with `memberName = "BusNotifications"` can be added within the CAN-specific  <<low-cut-configuration-terminal,Configuration Terminal>>. +
+Therefore, a parameter with `memberName = "BusNotifications"` can be added within the CAN-specific <<low-cut-configuration-terminal,Configuration Terminal>>. +
 If a Network FMU supports bus notifications, the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> parameter shall be exposed.
 The default value of this parameter shall be `false`. +
 
@@ -806,7 +808,7 @@ Only Network FMUs with the corresponding optionally exposed <<low-cut-can-bus-no
 Even if the Network FMU does not expect bus notifications, i.e. <<low-cut-can-bus-notification-parameter, `BusNotifications`>> variable was not set to `fmi3True`, but receives them, it shall ignore them, i.e. it shall not report warnings or errors.
 
 NOTE: Note that the bus notification parameter just informs the Network FMU if it can expect to receive notification operations or not.
-The parameter doesn't define in any way on how to react upon receiving notification operations.
+The parameter doesn't define in any way how to react upon receiving notification operations.
 
 .Parameter to configure bus notifications within a CAN Bus Terminal of Network FMUs.
 [[figure-fmu--can-bus-notifications-parameter]]
@@ -818,7 +820,7 @@ The parameter doesn't define in any way on how to react upon receiving notificat
  start:         false
 ----
 
-A Bus Simulation FMU shall indicate via a variable with `memberName = "BusNotifications"` within the CAN-specific  <<low-cut-configuration-terminal,Configuration Terminal>> whether it provides bus notifications or not.
+A Bus Simulation FMU shall indicate via a variable with `memberName = "BusNotifications"` within the CAN-specific <<low-cut-configuration-terminal,Configuration Terminal>> whether it provides bus notifications or not.
 If the provision of bus notifications can be configured (e.g., via a structural parameter), the attributes of the <<low-cut-can-bus-notification-parameter, `BusNotifications`>> variable shall contain `causality = "calculatedParameter"` and `variability = "fixed"`; or `causality = "output"` and `variability = "constant"` otherwise.
 
 .Parameter to configure bus notifications within a CAN Bus Terminal of the Bus Simulation.
@@ -903,10 +905,11 @@ The https://modelica.github.io/fmi-ls-bus-guides/main/ls-bus-guide/#low-cut-can-
 
 Arbitration is an instrument of the CAN standard to resolve the conflict of the simultaneous sending of messages from several CAN nodes without a collision.
 The arbitration is handled in the Bus Simulation and can be recognized by the fact that the Bus Simulation receives a <<low-cut-can-transmit-operation, `Transmit`>> operation from several FMUs at the same time.
-As soon as an arbitration is lost, an <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operation shall be returned to the respective sender.
+How the Bus Simulation reacts on a lost arbitration depends on the configured `Arbitration Lost Behavior` (see below).
+If `DISCARD_AND_NOTIFY` is configured, an <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operation shall be returned to the respective sender as soon as an arbitration is lost.
 As soon as an FMU receives an <<low-cut-can-arbitration-lost-operation, `Arbitration Lost`>> operation, it can independently repeat the corresponding <<low-cut-can-transmit-operation, `Transmit`>> operation.
 
-.Arbitration of two transmissions at the same time.
+.Arbitration of two transmissions at the same time (`Arbitration Lost Behavior` = `DISCARD_AND_NOTIFY`).
 [#figure-can-arbitration]
 image::images/can_arbitration.svg[width=700]
 
