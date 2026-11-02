@@ -478,8 +478,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>FMI Layered Standard for Network Communication (FMI-LS-BUS)</h1>
 <div class="details">
-<span id="revnumber">version 123a8a1,</span>
-<span id="revdate">2026-10-29</span>
+<span id="revnumber">version 876ed34,</span>
+<span id="revdate">2026-11-02</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Contents</div>
@@ -4776,7 +4776,7 @@ Overall, the following operations and groups of operations exist:</p>
 For example, it allows the specification of a macrotick duration or the length of static/dynamic slots.</p>
 </li>
 <li>
-<p>Start Communication: This operation is used by Network FMUs or Bus Simulations to start the FlexRay communication.</p>
+<p>Start Communication: This operation is used by coldstart Network FMUs or by Bus Simulations emulating coldstart nodes to start the FlexRay communication.</p>
 </li>
 <li>
 <p>Symbol: Represents a set of operations that are used for transmission of FlexRay-specific symbols, like for wake-up, startup or media testing.</p>
@@ -5641,7 +5641,8 @@ Start Time</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Behavior</p></th>
-<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The specified operation shall be produced by a Network FMU and distributed to all participants, except the <a href="#low-cut-flexray-start-communication-operation"><code>Start Communication</code></a> operation initiator, by using the Bus Simulation to distribute the start time of the first communication cycle.
+<td class="tableblock halign-left valign-top" colspan="3"><p class="tableblock">The specified operation shall be produced by a coldstart Network FMU and distributed to all participants, except the <a href="#low-cut-flexray-start-communication-operation"><code>Start Communication</code></a> operation initiator, by using the Bus Simulation to distribute the start time of the first communication cycle.
+If a Bus Simulation emulates missing coldstart nodes (see <a href="#low-cut-flexray-emulating-coldstart-nodes">Section 5.5.3.7.1</a>), the operation may also be produced by the Bus Simulation itself; in this case it shall be provided to all Network FMUs.
 Network FMUs must synchronize their internal FlexRay clock when receiving a <a href="#low-cut-flexray-start-communication-operation"><code>Start Communication</code></a> operation.</p></td>
 </tr>
 </tbody>
@@ -5929,7 +5930,8 @@ Network FMUs must synchronize their internal FlexRay clock based on the received
 <h6 id="low-cut-flexray-emulating-coldstart-nodes">5.5.3.7.1. Emulating Coldstart Nodes</h6>
 <div class="paragraph">
 <p>Normally, the startup process requires at least two coldstart nodes.
-For simulation systems in which coldstart Network FMUs are missing (because only a subset of nodes is to be simulated), a Bus Simulation is allowed to start the FlexRay communication by emulating the behavior of missing coldstart nodes.
+For simulation systems coldstart Network FMUs are missing (because only a subset of nodes is to be simulated), a Bus Simulation is allowed to start the FlexRay communication by emulating the behavior of missing coldstart nodes.
+In this case, the Bus Simulation itself provides the <a href="#low-cut-flexray-start-communication-operation"><code>Start Communication</code></a> operation to all Network FMUs.
 For this purpose, structural parameters e.g. for defining the startup time (\(T_{Start}\)) or the <code>Slot ID</code> for startup frames can be provided by the Bus Simulation.
 Because those parameters are Bus Simulation specific, they are not further defined in the specification.</p>
 </div>
