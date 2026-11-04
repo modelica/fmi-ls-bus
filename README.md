@@ -12,12 +12,15 @@ This is currently not normative, nor is this document to be considered
 officially endorsed by the Modelica Association or other involved
 organisations prior to official adoption.
 
+## Latest Release
+
 The [FMI 3.0 Layered Standard for Network Communication][spec] is currently
 maintained on [GitHub][githubspec] and is based on the [FMI][] standard.
 The current state of development is published [here][spec] and
 contains all bus types that are currently in development or are already final.
 [Official releases][releases] are directly published via GitHub.
-The specification text of the latest release v1.0.0. can be accessed [here](https://fmi-standard.org/fmi-ls-bus/1.0.0/).
+The specification text of the latest release v1.0.0 can be accessed [here](https://fmi-standard.org/fmi-ls-bus/1.0.0/).
+The specification text of the latest release v1.3.0-rc.1 can be accessed [here](https://modelica.github.io/fmi-ls-bus/v1.3.0-rc.1/).
 
 ## Roadmap
 
