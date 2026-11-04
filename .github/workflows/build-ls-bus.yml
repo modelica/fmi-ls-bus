@@ -12,6 +12,8 @@ jobs:
   build-ls-bus:
     name: Build Layered Standard Network Communication 
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
 
     - name: Checkout
@@ -72,10 +74,13 @@ jobs:
       shell: bash
       run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
     - name: deploy
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      if: >-
+        github.event_name == 'push' &&
+        (github.ref == 'refs/heads/main' ||
+         (github.ref_type == 'tag' && startsWith(github.ref_name, 'v')))
       uses: peaceiris/actions-gh-pages@v3.9.3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: build
-        destination_dir: ${{ steps.extract_branch.outputs.branch }}
+        destination_dir: ${{ github.ref_name }}
         enable_jekyll: true
