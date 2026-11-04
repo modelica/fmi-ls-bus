@@ -17,7 +17,7 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v4.1.7
+      uses: actions/checkout@v4
       with:
         submodules: recursive
     
@@ -63,7 +63,7 @@ jobs:
         cp docs/theme/js/*.js build/theme/js
 
     - name: Create ZIP archive
-      uses: actions/upload-artifact@v4.4.0
+      uses: actions/upload-artifact@v5
       with:
         name: FMI-LS-BUS
         path: build/*
@@ -78,7 +78,7 @@ jobs:
         github.event_name == 'push' &&
         (github.ref == 'refs/heads/main' ||
          (github.ref_type == 'tag' && startsWith(github.ref_name, 'v')))
-      uses: peaceiris/actions-gh-pages@v3.9.3
+      uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: build
