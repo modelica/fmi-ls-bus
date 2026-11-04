@@ -63,7 +63,7 @@ jobs:
         cp docs/theme/js/*.js build/theme/js
 
     - name: Create ZIP archive
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v7
       with:
         name: FMI-LS-BUS
         path: build/*
